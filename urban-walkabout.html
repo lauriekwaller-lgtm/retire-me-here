@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Urban Walkabout — RetireMeHere</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --plum-dark: #3a2456;
+  --plum: #5c3d7a;
+  --plum-mid: #7b5499;
+  --plum-lt: #f2eef8;
+  --teal: #2e7d6e;
+  --teal-lt: #e8f5f3;
+  --terra: #c4724a;
+  --terra-lt: #fdf0ea;
+  --sand: #f7f3ed;
+  --dark: #1c1a18;
+  --mid: #5c5852;
+  --light: #9a9490;
+  --white: #ffffff;
+  --green: #2e7d52;
+  --green-lt: #eaf5ef;
+  --amber: #c47a2a;
+  --amber-lt: #fdf3e8;
+  --red: #c0392b;
+  --red-lt: #fde8e8;
+  --sky: #2a7fc1;
+  --sky-lt: #e8f4fd;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--dark); max-width: 600px; margin: 0 auto; }
+
+/* HEADER */
+.header { background: var(–plum-dark); padding: 0; position: relative; overflow: hidden; }
+.header-bg {
+position: absolute; inset: 0;
+background: radial-gradient(ellipse at 75% 25%, rgba(92,61,122,0.5) 0%, transparent 55%),
+radial-gradient(ellipse at 20% 80%, rgba(46,125,110,0.2) 0%, transparent 50%);
+}
+.header-content { position: relative; padding: 40px 24px 36px; }
+.report-series {
+font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+color: var(–plum-mid); margin-bottom: 6px;
+display: flex; align-items: center; gap: 8px;
+}
+.report-series::before { content: ‘🚶’; font-size: 12px; }
+.header h1 {
+font-family: ‘Libre Franklin’, sans-serif;
+font-size: clamp(28px, 6vw, 38px); font-weight: 800;
+color: var(–white); line-height: 1.1; margin-bottom: 14px;
+}
+.header h1 em { font-style: italic; color: #c9b8e0; font-weight: 300; }
+.header-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
+.header-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.meta-pill {
+background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+border-radius: 100px; padding: 5px 14px;
+font-size: 12px; color: rgba(255,255,255,0.75);
+display: flex; align-items: center; gap: 6px;
+}
+.meta-pill span { color: #c9b8e0; font-weight: 600; }
+
+/* INTRO */
+.intro { padding: 24px 16px 0; }
+.intro-card {
+background: var(–white); border-radius: 14px; padding: 20px;
+border-left: 4px solid var(–plum);
+}
+.intro-card h2 { font-family: ‘Libre Franklin’, sans-serif; font-size: 15px; font-weight: 700; color: var(–plum-dark); margin-bottom: 8px; }
+.intro-card p { font-size: 13px; color: var(–mid); line-height: 1.7; }
+.intro-card p + p { margin-top: 8px; }
+
+/* WHAT WE MEASURE */
+.measures { padding: 20px 16px 0; }
+.measures-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(–light); margin-bottom: 10px; }
+.measures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.measure-item { background: var(–white); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.measure-icon { font-size: 18px; flex-shrink: 0; }
+.measure-text strong { font-size: 12px; font-weight: 700; color: var(–dark); display: block; margin-bottom: 2px; }
+.measure-text span { font-size: 11px; color: var(–mid); line-height: 1.4; }
+
+/* LEGEND */
+.legend { padding: 20px 16px 0; }
+.legend-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(–light); margin-bottom: 10px; }
+.legend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.legend-item { display: flex; align-items: center; gap: 10px; background: var(–white); border-radius: 10px; padding: 10px 12px; }
+.tier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.tier-dot.walker { background: var(–green); }
+.tier-dot.stroller { background: var(–plum); }
+.tier-dot.mixed { background: var(–amber); }
+.tier-dot.driver { background: var(–red); }
+.legend-text { font-size: 11px; color: var(–mid); line-height: 1.4; }
+.legend-text strong { color: var(–dark); font-size: 12px; display: block; margin-bottom: 1px; }
+
+/* INSIGHTS */
+.insights { padding: 24px 16px 0; }
+.insight-title { font-family: ‘Libre Franklin’, sans-serif; font-size: 17px; font-weight: 700; color: var(–dark); margin-bottom: 12px; }
+.insight-card { background: var(–white); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+.insight-card h3 { font-size: 13px; font-weight: 700; color: var(–plum-dark); margin-bottom: 6px; }
+.insight-card p { font-size: 13px; color: var(–mid); line-height: 1.65; }
+
+/* SECTION */
+.section { padding: 24px 16px 0; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.section-icon.walker { background: var(–green-lt); }
+.section-icon.stroller { background: var(–plum-lt); }
+.section-icon.mixed { background: var(–amber-lt); }
+.section-icon.driver { background: var(–red-lt); }
+.section-title h2 { font-family: ‘Libre Franklin’, sans-serif; font-size: 17px; font-weight: 700; color: var(–dark); margin-bottom: 2px; }
+.section-title p { font-size: 12px; color: var(–light); }
+
+/* CITY ROW */
+.city-list { display: flex; flex-direction: column; gap: 10px; }
+.city-row {
+background: var(–white); border-radius: 12px; padding: 16px;
+border-left: 3px solid transparent;
+}
+.city-row.walker { border-left-color: var(–green); }
+.city-row.stroller { border-left-color: var(–plum); }
+.city-row.mixed { border-left-color: var(–amber); }
+.city-row.driver { border-left-color: var(–red); }
+.city-row-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
+.city-name-wrap { flex: 1; }
+.city-name { font-family: ‘Libre Franklin’, sans-serif; font-size: 16px; font-weight: 700; color: var(–dark); }
+.city-state { font-size: 12px; color: var(–light); margin-top: 1px; }
+.score-badge { display: flex; flex-direction: column; align-items: center; background: var(–sand); border-radius: 8px; padding: 6px 10px; flex-shrink: 0; }
+.score-num { font-family: ‘Libre Franklin’, sans-serif; font-size: 18px; font-weight: 800; line-height: 1; }
+.score-num.walker { color: var(–green); }
+.score-num.stroller { color: var(–plum); }
+.score-num.mixed { color: var(–amber); }
+.score-num.driver { color: var(–red); }
+.score-lbl { font-size: 9px; color: var(–light); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
+.walk-note { font-size: 12px; color: var(–mid); line-height: 1.55; }
+.walk-note strong { color: var(–dark); }
+.star-tag { display: inline-block; background: var(–green-lt); color: var(–green); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
+.note-tag { display: inline-block; background: var(–amber-lt); color: var(–amber); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
+
+/* CTA */
+.cta { margin: 24px 16px 0; background: var(–plum-dark); border-radius: 16px; padding: 28px 20px; text-align: center; }
+.cta h2 { font-family: ‘Libre Franklin’, sans-serif; font-size: 20px; font-weight: 700; color: var(–white); margin-bottom: 10px; }
+.cta p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
+.cta-btn { display: inline-block; background: #c9b8e0; color: var(–plum-dark); font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 700; padding: 14px 30px; border-radius: 100px; text-decoration: none; }
+.cta-fine { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 12px; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 24px 16px 40px; }
+.footer p { font-size: 11px; color: var(–light); line-height: 1.8; }
+.footer a { color: var(–plum); text-decoration: none; }
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+  <div class="header-bg"></div>
+  <div class="header-content">
+    <div class="report-series">RetireMeHere Intelligence Series</div>
+    <h1>The Urban<br><em>Walkabout</em></h1>
+    <p class="header-desc">Can you leave the car keys at home? We've ranked all 55 cities by walkability — how much of daily life you can accomplish on foot, the quality of pedestrian infrastructure, and whether the neighborhood design actually supports an active, car-optional retirement.</p>
+    <div class="header-meta">
+      <div class="meta-pill">🚶 <span>55</span> Cities Ranked</div>
+      <div class="meta-pill">📍 <span>Walk Score</span> + Context</div>
+      <div class="meta-pill">🗓 <span>March 2026</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+
+<div class="intro">
+  <div class="intro-card">
+    <h2>Why walkability matters more in retirement</h2>
+    <p>When you stop commuting, your neighborhood becomes your world. Walkability affects your daily activity level, your social connections, your dependence on a car as you age, and your overall quality of life in ways that don't show up in climate or tax rankings.</p>
+    <p>We go beyond the Walk Score number to evaluate what actually matters: is there a real downtown you can navigate on foot? Are there restaurants, shops, and cultural venues within walking distance? And critically — what happens when driving becomes harder or impossible? A city with a Walk Score of 40 can be very livable if it has a free transit system and compact neighborhoods. A city with a Walk Score of 70 can still feel car-dependent if the walkable zone is tiny.</p>
+  </div>
+</div>
+
+<!-- WHAT WE MEASURE -->
+
+<div class="measures">
+  <div class="measures-title">What we evaluated</div>
+  <div class="measures-grid">
+    <div class="measure-item">
+      <div class="measure-icon">👟</div>
+      <div class="measure-text"><strong>Walk Score</strong><span>Official Walk Score for the city and its most walkable neighborhoods</span></div>
+    </div>
+    <div class="measure-item">
+      <div class="measure-icon">🏪</div>
+      <div class="measure-text"><strong>Daily Errands</strong><span>Can you reach groceries, pharmacy, dining, and services on foot?</span></div>
+    </div>
+    <div class="measure-item">
+      <div class="measure-icon">🚌</div>
+      <div class="measure-text"><strong>Transit Options</strong><span>Bus, trolley, or rail that reduces car dependency</span></div>
+    </div>
+    <div class="measure-item">
+      <div class="measure-icon">🌳</div>
+      <div class="measure-text"><strong>Trail & Path Quality</strong><span>Greenways, riverwalk, and pedestrian infrastructure for leisure</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+
+<div class="legend">
+  <div class="legend-title">Score tiers</div>
+  <div class="legend-grid">
+    <div class="legend-item"><div class="tier-dot walker"></div><div class="legend-text"><strong>Walker's Paradise (8–9)</strong>Daily errands possible on foot · Genuine urban walkability</div></div>
+    <div class="legend-item"><div class="tier-dot stroller"></div><div class="legend-text"><strong>Very Walkable (7)</strong>Most errands walkable in key neighborhoods · Good pedestrian culture</div></div>
+    <div class="legend-item"><div class="tier-dot mixed"></div><div class="legend-text"><strong>Somewhat Walkable (5–6)</strong>Walkable core with car-dependent surroundings · Plan accordingly</div></div>
+    <div class="legend-item"><div class="tier-dot driver"></div><div class="legend-text"><strong>Car-Dependent (3–4)</strong>Car required for most errands · Limited walkable zones</div></div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+
+<div class="insights">
+  <div class="insight-title">Key Takeaways — Before You Scroll</div>
+
+  <div class="insight-card">
+    <h3>🏆 Portland ME Stands Alone</h3>
+    <p>Portland, Maine is the most walkable city in the database by a meaningful margin — and the most underappreciated in terms of walkability for retirees. The Old Port, Munjoy Hill, and the West End are all genuinely walkable neighborhoods where daily life happens on foot. The city's compact scale means almost everywhere is reachable without a car. The tradeoff is Maine's higher cost of living and challenging tax picture.</p>
+  </div>
+
+  <div class="insight-card">
+    <h3>🚇 The Transit-Walkability Combination: Alexandria</h3>
+    <p>Alexandria scores 9/10 on walkability — tied with Portland ME for the highest in the database — but what makes it truly unique is the combination with transit. Five Metro stations on the Blue and Yellow lines run throughout the city, with Reagan National Airport reachable in 15 minutes without a car. No other city in the database offers this level of car-optional daily living combined with direct airport access. If aging-in-place and travel flexibility are priorities, Alexandria stands alone.</p>
+  </div>
+
+  <div class="insight-card">
+    <h3>🎭 The Historic Downtown Advantage</h3>
+    <p>The most walkable cities in the database share one thing: a dense, intact historic downtown built before cars dominated planning. Annapolis, Savannah, Charleston, Charlottesville, St. Augustine, and Saratoga Springs all score well precisely because their street grids and mixed-use cores were designed for pedestrians. When you're evaluating walkability, "does this city have a real historic downtown?" is the single most predictive question.</p>
+  </div>
+
+  <div class="insight-card">
+    <h3>⚠️ The Walk Score Trap</h3>
+    <p>Walk Score measures proximity to amenities — but it doesn't measure whether you'd actually want to walk there. Several cities have surprisingly decent Walk Scores for small pockets while being thoroughly car-dependent everywhere else. Scottsdale scores 4/10 despite having upscale walkable areas in Old Town because the vast majority of the city requires a car for everything. Always look at neighborhood-level scores, not city averages.</p>
+  </div>
+
+  <div class="insight-card">
+    <h3>🚌 The Free Transit Surprise</h3>
+    <p>Several mountain and mid-sized cities offset limited walkability with excellent free or low-cost transit. Park City's free citywide bus system is exceptional for a resort town. Missoula's Mountain Line is fare-free. Durango Transit serves the downtown corridor. These aren't replacements for walkability — but they meaningfully extend independence for retirees who prefer not to drive.</p>
+  </div>
+
+  <div class="insight-card">
+    <h3>🌴 Florida's Walkability Gap</h3>
+    <p>Florida dominates retirement lists but most Florida cities score poorly on walkability. The state was built for cars — wide roads, strip malls, gated communities, and no historic downtown grid. The exceptions are Delray Beach (Atlantic Avenue is genuinely walkable), St. Augustine (historic district), and to a lesser extent Sarasota and Naples. If walkability matters to you, most of Florida is a significant compromise.</p>
+  </div>
+</div>
+
+<!-- TIER 1: WALKER'S PARADISE -->
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon walker">🚶</div>
+    <div class="section-title">
+      <h2>Walker's Paradise — Scores 8–9</h2>
+      <p>Daily errands possible on foot · Genuine urban walkability · Car optional</p>
+    </div>
+  </div>
+  <div class="city-list">
+
+```
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Portland</div><div class="city-state">Maine</div></div>
+    <div class="score-badge"><span class="score-num walker">9</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="star-tag">★ Most Walkable City in Database</div>
+  <div class="walk-note"><strong>Old Port and downtown Portland exceptionally walkable</strong> — among the best in New England. The compact city grid means restaurants, shops, galleries, and the waterfront are all on foot. Congress Street arts district, Munjoy Hill neighborhood, and the Eastern Promenade are all walkable and beautiful. Maine Medical Center is accessible. The city's small scale — 68,000 people — is its walkability superpower.</div>
+</div>
+
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Delray Beach</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num walker">8</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Atlantic Avenue is genuinely walkable</strong> — one of the best main streets in Florida. 90+ dining and shopping options within walking distance of downtown. Beach access on foot. The walkable zone is compact but excellent. Beyond Atlantic Avenue the city is car-dependent — but the walkable core is dense enough that downtown residents can live car-optionally day-to-day.</div>
+</div>
+
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Saratoga Springs</div><div class="city-state">New York</div></div>
+    <div class="score-badge"><span class="score-num walker">8</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Broadway Street and the historic downtown are genuinely walkable.</strong> Congress Park area, Spa State Park, and the racetrack district all accessible on foot. The city's compact Victorian layout makes walking natural and pleasurable. Beyond the downtown core, neighborhoods become more car-dependent — but for retirees living downtown, car-optional living is very achievable.</div>
+</div>
+
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Ann Arbor</div><div class="city-state">Michigan</div></div>
+    <div class="score-badge"><span class="score-num walker">8</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>State Street and downtown exceptionally walkable.</strong> University of Michigan campus is beautiful for walking year-round. The Kerrytown neighborhood, Main Street corridor, and Zingerman's deli district are all on foot. AATA bus system provides solid transit coverage. One of the most walkable mid-sized college towns in the Midwest — significant asset for retirees who value an active pedestrian lifestyle.</div>
+</div>
+
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Annapolis</div><div class="city-state">Maryland</div></div>
+    <div class="score-badge"><span class="score-num walker">8</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Historic downtown walkable — exceptional.</strong> Main Street, City Dock, the Naval Academy grounds, and the Maryland State House are all on foot. The compact colonial street grid was designed for walking and it shows. Beyond the historic district it becomes car-dependent — but the downtown core is dense enough that waterfront living and daily errands require no car at all.</div>
+</div>
+
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Santa Barbara</div><div class="city-state">California</div></div>
+    <div class="score-badge"><span class="score-num walker">8</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>State Street downtown walkable.</strong> Waterfront Stearns Wharf area walkable. The Mission and surrounding neighborhood accessible on foot. Downtown Santa Barbara has a genuine Mediterranean pedestrian culture — outdoor dining, boutiques, galleries. Electric bike culture supplements walking. Beyond downtown, the city extends into car-dependent hills and suburbs.</div>
+</div>
+```
+
+  </div>
+</div>
+
+```
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Alexandria</div><div class="city-state">Virginia</div></div>
+    <div class="score-badge"><span class="score-num walker">9</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="star-tag">★ Best Transit Infrastructure in the Database</div>
+  <div class="walk-note"><strong>Five Metro stations throughout the city — Blue and Yellow lines.</strong> Old Town and Braddock Road neighborhoods score 84–90 Walk Score. Free DASH bus and King Street Trolley. Water taxi to DC. Amtrak at King Street station. Reagan National Airport reachable by Metro in 15 min. The transit infrastructure here is genuinely unique in the database — car-optional living is achievable for most daily needs.</div>
+</div>
+
+<div class="city-row walker">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Philadelphia</div><div class="city-state">Pennsylvania</div></div>
+    <div class="score-badge"><span class="score-num walker">8</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Walk Score 74 — 8th most walkable large city in the US.</strong> Center City, Rittenhouse Square, Old City, Fairmount, and South Street all genuinely walkable. SEPTA Market-Frankford Line (El) and Broad Street Line subway provide real transit. Regional Rail to suburbs. Reading Terminal Market, the Art Museum, and countless restaurants all accessible on foot or transit. Car-optional living very achievable in the right neighborhoods.</div>
+</div>
+```
+
+<!-- TIER 2: VERY WALKABLE -->
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon stroller">🏘️</div>
+    <div class="section-title">
+      <h2>Very Walkable — Score 7</h2>
+      <p>Most errands walkable in key neighborhoods · Strong pedestrian culture in the core</p>
+    </div>
+  </div>
+  <div class="city-list">
+
+```
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Savannah</div><div class="city-state">Georgia</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="star-tag">★ Best Walkable Design in the South</div>
+  <div class="walk-note"><strong>Historic District walkable — 22 squares designed for pedestrians.</strong> Broughton Street retail and dining, River Street waterfront, and Forsyth Park all on foot. The Oglethorpe grid is one of the great pedestrian-first city plans in America — wide sidewalks, shaded squares, mixed-use blocks. Beyond the historic district becomes more car-dependent. CAT bus system provides citywide coverage.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Charleston</div><div class="city-state">South Carolina</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Historic peninsula very walkable</strong> — cobblestone streets, Rainbow Row, King Street shopping, and the Battery all on foot. The walkable zone is genuinely one of the most beautiful in the American South. Beyond the peninsula, islands and suburbs require a car. CARTA bus serves the wider region. Best for retirees who live on or near the peninsula.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Greenville</div><div class="city-state">South Carolina</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Main Street and West End genuinely walkable</strong> — one of the best small-city downtown experiences in the Southeast. Falls Park on the Reedy River is exceptional. The Swamp Rabbit Trail is a paved greenway extending 22 miles for walking and cycling. Downtown Greenville's pedestrian infrastructure is among the most thoughtfully designed of any mid-sized Southern city.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Asheville</div><div class="city-state">North Carolina</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Asheville genuinely walkable</strong> — River Arts District, Pack Square, Lexington Avenue, and Wall Street galleries all on foot. The city's compact downtown grid is surprisingly walkable for a mountain city. Beyond downtown it becomes hilly and car-dependent. ART bus system. The walkable zone is smaller than Savannah or Charleston but very dense with dining, arts, and culture.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">St. Paul</div><div class="city-state">Minnesota</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Grand Avenue and Selby Avenue walkable.</strong> Mississippi River walking and biking trails. Summit Avenue historic district beautiful on foot. Metro Transit light rail connects St. Paul to Minneapolis — genuinely useful transit system. Skyway system connects downtown buildings in winter. The walkability picture is strong but winter conditions limit outdoor walking 4–5 months per year.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Fairhope</div><div class="city-state">Alabama</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Fairhope walkable</strong> — one of the best small-town pedestrian experiences in the South. The bluff-top downtown, artisan shops, galleries, and Eastern Shore waterfront bluff are all on foot. Fairhope's compact, tree-lined streets were intentionally designed for community and walking. Limited transit beyond downtown but the walkable core is dense and genuinely pleasant year-round.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Eugene</div><div class="city-state">Oregon</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Eugene walkable.</strong> Whiteaker neighborhood walkable. Alton Baker Park trail system — connected to the Ruth Bascom Riverbank Trail — is one of the finest urban trail networks in the Pacific Northwest. LTD bus system provides solid transit coverage. The combination of walkable downtown and exceptional trail infrastructure makes Eugene one of the best cycling and walking cities in the database.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Charlottesville</div><div class="city-state">Virginia</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Mall</strong> — one of the longest pedestrian malls in the US at eight blocks — is genuinely exceptional. UVA Corner neighborhood walkable. Rivanna Trail for hiking. JAUNT and CTS transit systems. The Downtown Mall's concentration of restaurants, bookstores, galleries, and the Paramount Theater creates a walkable urban core that rivals much larger cities.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">St. Augustine</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Historic District genuinely walkable</strong> — St. George Street, Castillo de San Marcos, and the bayfront all on foot. America's oldest city has a colonial street grid that predates cars entirely. The Florida Cracker architecture, narrow streets, and dense historic core create a pedestrian experience unlike any other Florida city. Beyond the historic district becomes car-dependent.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Jackson Hole</div><div class="city-state">Wyoming</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="note-tag">⚡ Walkable Core Only</div>
+  <div class="walk-note"><strong>Downtown Jackson walkable</strong> — Town Square, galleries, restaurants, and boutiques all on foot. START Bus provides free and low-cost transit including ski area shuttles. Beyond the compact downtown, the valley is entirely car-dependent and distances are large. The walkable experience is genuine but limited to the town center — the surrounding landscape is for driving and recreation.</div>
+</div>
+
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Bend</div><div class="city-state">Oregon</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Bend walkable.</strong> Colorado Avenue, Old Mill District, and Drake Park along the Deschutes River all on foot. The Deschutes River Trail is exceptional for walking and cycling. Cascades East Transit provides bus service. Beyond the walkable core, Bend is a car-dependent sprawling city — but the compact downtown and river trail system are genuinely excellent for active retirees.</div>
+</div>
+```
+
+  </div>
+</div>
+
+```
+<div class="city-row stroller">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Silver Spring</div><div class="city-state">Maryland</div></div>
+    <div class="score-badge"><span class="score-num stroller">7</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Silver Spring genuinely walkable</strong> — Metro Red Line station, Ellsworth Drive dining and retail, AFI Silver Theatre, Fillmore music venue all on foot. MARC commuter train adds BWI airport access. Purple Line arriving 2027 adds a second transit corridor. Beyond downtown, most neighborhoods are suburban and car-dependent. Best walkability experience is concentrated around the Metro station area.</div>
+</div>
+```
+
+<!-- TIER 3: SOMEWHAT WALKABLE -->
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon mixed">🚗</div>
+    <div class="section-title">
+      <h2>Somewhat Walkable — Scores 5–6</h2>
+      <p>Walkable core with car-dependent surroundings · Plan where you live carefully</p>
+    </div>
+  </div>
+  <div class="city-list">
+
+```
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Chattanooga</div><div class="city-state">Tennessee</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Chattanooga Riverfront and Tennessee Riverwalk walkable and beautiful.</strong> Northshore district and South Broad walkable. CARTA Zero bus system is free downtown. The 13-mile Tennessee Riverwalk is exceptional for walking and cycling. Improving pedestrian infrastructure. Beyond the core corridors the city is car-dependent — but the walkable zones are high-quality and growing.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Sarasota</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Sarasota walkable. St. Armands Circle walkable and charming.</strong> Most residential areas car-dependent. Sarasota County Area Transit (SCAT) bus system. The Ringling area and Main Street dining and arts district are genuine walkable assets. For Florida, Sarasota's walkability is above average — though the bar is low. Living near downtown or St. Armands makes a car-optional lifestyle achievable.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Santa Fe</div><div class="city-state">New Mexico</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Historic Plaza area and Canyon Road genuinely walkable.</strong> Parking near Plaza difficult — which actually encourages walking. Santa Fe Trails bus system. Beyond the historic core the city spreads into car-dependent adobe neighborhoods. The walkable zone — Plaza, galleries, Canyon Road, and the Railyard Arts District — is culturally extraordinary even if compact.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Bloomington</div><div class="city-state">Indiana</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>IU campus and Kirkwood Avenue area walkable.</strong> B-Line Trail good for cycling and walking. Beyond the campus corridor and downtown square, Bloomington is car-dependent. Bloomington Transit provides bus service. The walkable zone — downtown square, Kirkwood, and campus — is lively with restaurants, shops, and cultural venues. Best for retirees who live near the core.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Nashua</div><div class="city-state">New Hampshire</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Main Street downtown walkable. Mine Falls Park trail system.</strong> Beyond downtown, Nashua is largely car-dependent. Transit Limited bus service. Not a walkable city by national standards — but the downtown core has genuine character and the park trail system provides excellent walking infrastructure. Boston access (45 min) supplements local limitations for cultural and specialty needs.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Lexington</div><div class="city-state">Kentucky</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Chevy Chase and Woodland Park areas walkable. Town Branch Trail and Legacy Trail for cycling.</strong> LexTran bus system. Beyond the walkable neighborhoods, Lexington is car-dependent. The horse farm landscape surrounding the city creates beautiful riding and walking trails — an unusual asset. For a mid-sized Kentucky city the pedestrian infrastructure is above average.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Flagstaff</div><div class="city-state">Arizona</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Historic downtown Route 66 corridor walkable. NAU campus area walkable.</strong> Mountain Line bus system fare-free within city. The Flagstaff Urban Trail System (FUTS) is extensive — 50+ miles of paved and natural surface trails connecting neighborhoods. One of the best trail systems of any city in the database. Mountain biking and hiking supplement pedestrian infrastructure significantly.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Spokane</div><div class="city-state">Washington</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Kendall Yards walkable urban neighborhood. Riverfront Park area walkable.</strong> Spokane River Centennial Trail for walking and cycling. STA bus system. Beyond the walkable zones, Spokane is car-dependent. The Centennial Trail extending 37 miles along the river is exceptional. A city with improving pedestrian infrastructure — Kendall Yards in particular is a model new urban development.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Tampa</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Ybor City walkable. Hyde Park area walkable. Riverwalk along Hillsborough River.</strong> The Riverwalk is a 2.5-mile waterfront trail connecting neighborhoods. HART bus and Streetcar line. For a major Florida city, Tampa's walkable zones are meaningfully better than most — but the metro is fundamentally car-oriented. Living in Ybor, Hyde Park, or Channel District makes car-optional living achievable.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Fayetteville</div><div class="city-state">Arkansas</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Dickson Street and downtown area walkable. Razorback Greenway excellent</strong> — 37-mile cycling and walking trail connecting Fayetteville to Bentonville. Ozark Regional Transit bus service. The Greenway is a genuine regional asset. For a small Arkansas city, Fayetteville's trail infrastructure significantly exceeds expectations and substantially supplements limited downtown walkability.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Prescott</div><div class="city-state">Arizona</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Courthouse Plaza area genuinely walkable and charming. Whiskey Row.</strong> Prescott Transit Authority bus service. Granite Creek Greenway and Peavine Trail for walking and cycling. The Plaza district is authentic and walkable — a rarity in Arizona. Beyond the Plaza, Prescott is car-dependent. The trail system through the Prescott National Forest is extraordinary for hiking.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Park City</div><div class="city-state">Utah</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Walk Score 72 (Old Town 73). Free citywide bus system and Main Street Trolley.</strong> Steep terrain limits walking but the free Park City Transit is exceptional for a resort town — connects Old Town, Deer Valley, Park City Mountain, and residential areas. Historic Main Street walkable and charming. For a mountain resort, the transit system meaningfully offsets terrain and weather limitations.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Naples</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Fifth Avenue South and Third Street South walkable and beautiful.</strong> Beach access on foot from downtown. Bayfront area walkable. Beyond the small downtown, Naples is thoroughly car-dependent — wide boulevards, gated communities, no real transit to speak of. The walkable core is genuinely lovely but compact. For retirees in Naples proper (not outlying communities), car-optional daily life is achievable.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Carlsbad</div><div class="city-state">California</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Carlsbad Village walkable</strong> — State Street, Grand Avenue, and beach access. NCTD Coaster train to San Diego and Oceanside. Beyond the village area, Carlsbad is suburban and car-dependent. The Coaster rail connection to San Diego supplements local limitations meaningfully — you can reach downtown San Diego in under an hour without a car. Electric bikes are popular for coastal cruising.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Palm Springs</div><div class="city-state">California</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Palm Canyon Drive downtown walkable</strong> — shops, restaurants, galleries, and VillageFest Thursdays all on foot. SunLine Transit bus service. Beyond the downtown strip, Palm Springs is car-dependent. Notable: summer heat (110°F+) makes outdoor walking genuinely dangerous June–September — the walkable season is essentially October through May.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Knoxville</div><div class="city-state">Tennessee</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Market Square area walkable. Old City and downtown have urban energy.</strong> Tennessee Riverwalk for walking and cycling. KAT bus system. Beyond downtown, Knoxville is car-dependent. The Urban Wilderness — 1,000 acres of trails within city limits — is an extraordinary asset for active retirees. For a mid-sized Tennessee city, the trail infrastructure significantly exceeds the walkability score alone.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Wilmington</div><div class="city-state">North Carolina</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Historic downtown walkable. Riverwalk along Cape Fear River.</strong> Wave Transit bus system. Beyond the walkable historic core, Wilmington and the beach communities are car-dependent. The riverfront Riverwalk is a pleasant asset. For a coastal NC city the downtown walkability is decent — but beach access requires driving in most cases.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">San Antonio</div><div class="city-state">Texas</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>River Walk genuinely walkable. Pearl District walkable. King William Historic District.</strong> VIA Metropolitan Transit bus system. Beyond the tourist and arts districts, San Antonio is car-dependent. The River Walk is one of America's great urban pedestrian experiences — but it's a tourist amenity more than a practical daily-life walkability asset. Living near Pearl or downtown makes the walkable zone genuinely useful.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Madison</div><div class="city-state">Wisconsin</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>State Street pedestrian mall exceptional. Capitol Square walkable.</strong> Madison Metro Transit solid bus system. The Isthmus between Mendota and Monona lakes creates a compact, walkable core that is genuinely livable without a car. Beyond the Isthmus, Madison spreads into car-dependent suburbs. State Street — connecting the Capitol to the UW campus — is one of the best pedestrian streets in the Midwest.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Fort Worth</div><div class="city-state">Texas</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Sundance Square walkable. Near Southside and West 7th area walkable.</strong> Trinity Trails for cycling — 100+ miles. TEXRail commuter rail to DFW Airport. The Museum District and Cultural District are accessible. Beyond the walkable nodes, Fort Worth is thoroughly car-dependent. Trinity Trails is one of the finest urban trail systems in Texas.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Bozeman</div><div class="city-state">Montana</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>City-wide Walk Score 47. Downtown Walk Score 89–94.</strong> Growing trail connections. Minimal public transit. The downtown core is surprisingly walkable — Main Street, restaurants, boutiques — but the city beyond is entirely car-dependent. Bozeman's rapid growth has not kept pace with pedestrian or transit infrastructure. The contrast between walkable downtown and car-dependent surroundings is sharp.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Missoula</div><div class="city-state">Montana</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>City-wide Walk Score 45. Downtown 74. Mountain Line bus system is fare-free</strong> — a major asset for a city of this size. Clark Fork River Trail for walking and cycling. The university district and downtown are walkable. Mountain Line's free transit meaningfully extends mobility options. Missoula's cycling culture is strong — Bike Walk Montana is based here.</div>
+</div>
+
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Georgetown</div><div class="city-state">Texas</div></div>
+    <div class="score-badge"><span class="score-num mixed">5</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Georgetown Square area walkable and charming.</strong> San Gabriel Park trails. Otherwise car-dependent throughout. Capital Metro bus connects to Austin. The historic Square is genuinely pleasant — one of the best-preserved courthouse squares in Texas — but it's a small walkable zone in an otherwise sprawling suburban context. Practical daily life requires a car.</div>
+</div>
+```
+
+  </div>
+</div>
+
+```
+<div class="city-row mixed">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Pittsburgh</div><div class="city-state">Pennsylvania</div></div>
+    <div class="score-badge"><span class="score-num mixed">6</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Walkable neighborhoods: Shadyside, Squirrel Hill, Lawrenceville, South Side.</strong> Pittsburgh Light Rail (T) free downtown and North Shore. Port Authority buses citywide. Hilly terrain limits walking in many areas — Pittsburgh's geography is not pedestrian-friendly outside the flat neighborhoods. The Jail Trail and Three Rivers Heritage Trail provide excellent waterfront walking and cycling. Car dependency increases significantly beyond the walkable East End neighborhoods.</div>
+</div>
+```
+
+<!-- TIER 4: CAR-DEPENDENT -->
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon driver">🚘</div>
+    <div class="section-title">
+      <h2>Car-Dependent — Scores 3–4</h2>
+      <p>Car required for most errands · Limited walkable zones · Know before you commit</p>
+    </div>
+  </div>
+  <div class="city-list">
+
+```
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Scottsdale</div><div class="city-state">Arizona</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Old Town Scottsdale has limited walkability.</strong> Everything else car-dependent. The city is built entirely around driving — wide arterials, strip malls, and gated communities with no sidewalks. Valley Metro light rail barely reaches Scottsdale. The irony: Scottsdale is one of the most expensive retirement destinations in the database with among the worst walkability. The trade is Mayo Clinic and luxury lifestyle — not pedestrian living.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Virginia Beach</div><div class="city-state">Virginia</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Virginia Beach Boardwalk has seasonal walkability. Town Center area walkable.</strong> Otherwise fully car-dependent — the largest US city by land area is inherently spread out. HRT bus system covers the region. The Boardwalk is excellent for leisure walking May–October but is not a practical daily-life asset. Living near Town Center or the Boardwalk district gives the best walkable experience.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Hilton Head</div><div class="city-state">South Carolina</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Plantation communities have internal cycling paths. Coligny Beach Park area has some walkability.</strong> The island has 60+ miles of bike paths — a genuine asset for cycling retirees. But practical daily life requires a car. No meaningful transit. The resort lifestyle is designed around driving between golf, beach, and dining — not walking between them.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Tucson</div><div class="city-state">Arizona</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>4th Avenue and University area walkable. Downtown Tucson walkable.</strong> Sun Link modern streetcar connects key areas — a genuine asset. Sun Tran bus system. Beyond the urban core, Tucson is car-dependent desert sprawl. The streetcar and university district make downtown Tucson more livable than the score suggests — but the majority of the metro requires a car.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Colorado Springs</div><div class="city-state">Colorado</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Old Colorado City walkable. Downtown limited.</strong> Pikes Peak Greenway trail for cycling. Mountain Metro Transit bus. The city's sprawling military-influenced layout is fundamentally car-dependent. The Pikes Peak area trail system is exceptional for hiking and outdoor recreation — but that's recreation, not daily life walkability. Plan on driving for essentially all daily errands.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Boise</div><div class="city-state">Idaho</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Boise walkable. Greenbelt along the Boise River excellent</strong> — 25 miles of paved path. Hyde Park area. BRT bus system improving. Beyond downtown, Boise is suburban and car-dependent. The Greenbelt is one of the finest urban greenway systems in the Mountain West. For active retirees, the combination of walkable downtown and river trail infrastructure is a genuine lifestyle asset despite overall car dependency.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Raleigh</div><div class="city-state">North Carolina</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Raleigh improving. Fayetteville Street walkable.</strong> Capital Area Greenway — 100+ miles of trails. GoRaleigh bus system. Raleigh's rapid growth has been largely car-oriented. The Greenway is exceptional but it's a recreational asset, not a practical walkability tool. For a rapidly growing Southern state capital, pedestrian and transit infrastructure significantly lags population growth.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Pensacola</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Car-dependent throughout. No meaningful walkable urban core.</strong> Downtown Pensacola has limited dining and retail walkability. Escambia County Area Transit bus service. The beach communities (Pensacola Beach, Perdido Key) are entirely car-dependent. For retirees who value walkability, Pensacola is a significant compromise despite its excellent beach access and low cost.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Johnson City</div><div class="city-state">Tennessee</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Car-dependent throughout.</strong> Linear Trail for walking and cycling — 2.5 miles. JCAT bus service minimal. Johnson City's exceptional cost-of-living value comes with essentially no walkability. The city was built entirely around driving. For retirees who prioritize budget above walkability, Johnson City remains one of the strongest value propositions in the database.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Sedona</div><div class="city-state">Arizona</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Uptown Sedona walkable for galleries and dining.</strong> The town stretches miles along Route 89A — driving between areas is unavoidable. Sedona Roadrunner bus. The spectacular red rock trail system extends walking into the wilderness — truly world-class for hiking. But daily life errands require driving, and the main commercial corridor is one continuous traffic-heavy road.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Durango</div><div class="city-state">Colorado</div></div>
+    <div class="score-badge"><span class="score-num driver">4</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Downtown Walk Score 86. City-wide Walk Score 37.</strong> Durango Transit offers 3 bus/trolley routes serving downtown and key corridors. The Animas River Trail for walking and cycling. Downtown Durango is genuinely walkable — compact Victorian streetscape with dining, boutiques, and the Durango & Silverton Narrow Gauge Railroad. But beyond downtown, everything requires a car.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">St. George</div><div class="city-state">Utah</div></div>
+    <div class="score-badge"><span class="score-num driver">3</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Lowest walkability in the database.</strong> Everything car-dependent — even downtown has limited pedestrian infrastructure. SunTran bus service minimal. The extraordinary trade: Zion National Park, Snow Canyon, and the Red Cliffs National Conservation Area are all within 30 minutes by car. St. George retirees get world-class outdoor recreation at the cost of zero walkable daily life.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Fort Myers</div><div class="city-state">Florida</div></div>
+    <div class="score-badge"><span class="score-num driver">3</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>River District downtown area walkable.</strong> Cape Coral has no walkable core. LeeTran bus system. Otherwise car-dependent throughout. The River District has charm and dining but is a small oasis in a very car-dependent metro. For the value and healthcare (Lee Health system) Fort Myers offers, the lack of walkability is one of the key lifestyle tradeoffs to accept.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Corpus Christi</div><div class="city-state">Texas</div></div>
+    <div class="score-badge"><span class="score-num driver">3</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Car-dependent throughout. No meaningful walkable urban core.</strong> B-Line bus service minimal. One of the least walkable cities in the database. The Gulf Coast location and very low cost of living are the value proposition — pedestrian lifestyle is simply not part of the Corpus Christi experience. A car is required for every aspect of daily life.</div>
+</div>
+
+<div class="city-row driver">
+  <div class="city-row-top">
+    <div class="city-name-wrap"><div class="city-name">Henderson</div><div class="city-state">Nevada</div></div>
+    <div class="score-badge"><span class="score-num driver">3</span><span class="score-lbl">/ 10</span></div>
+  </div>
+  <div class="walk-note"><strong>Car-dependent throughout.</strong> Green Valley Ranch area has some walkable mixed-use. RTC Transit bus system. Everything in the Las Vegas metro is designed around driving. Henderson's extremely favorable tax picture (no Nevada income tax) and LAS airport access (20 min) are the retirement value drivers — not walkability. A car is essential for all daily activities.</div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- CTA -->
+
+<div class="cta">
+  <h2>Ready to find your best match?</h2>
+  <p>Take our free quiz and get matched to your top retirement cities — scored across 10 dimensions with real data and honest tradeoffs.</p>
+  <a href="https://retiremehere.com" class="cta-btn">Take the Quiz →</a>
+  <div class="cta-fine">retiremehere.com · Free · No account required<br>Questions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="106275647962757d757875627550777d71797c3e737f7d">[email&#160;protected]</a></div>
+</div>
+
+<div class="footer">
+  <p>
+    A RetireMeHere Intelligence Report · March 2026<br>
+    Data: Walk Score · Google Maps · City transit authority websites · OpenStreetMap<br>
+    Walk scores reflect conditions as of early 2026 — urban development is ongoing in many cities.<br>
+    <a href="https://retiremehere.co
