@@ -70,8 +70,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 /* HERO */
 .hero { max-width: 600px; margin: 0 auto; padding: 40px 24px 60px; text-align: center; }
 
-.hero-logo-wrap { margin-bottom: -20px; }
-.hero-logo-wrap img { height: 80px; width: auto; }
+.hero-logo-wrap { margin-bottom: 20px; }
+.hero-logo-wrap img { height: 52px; width: auto; }
 
 .hero-subline {
   font-family: 'DM Sans', sans-serif;
@@ -187,6 +187,30 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .card-tag { font-size: 12px; padding: 4px 10px; border-radius: 100px; background: var(--teal-lt); color: var(--teal); font-weight: 500; }
 .card-highlight { background: var(--sand); border-radius: 10px; padding: 12px 14px; font-size: 13px; color: var(--mid); line-height: 1.5; }
 .card-footer { padding: 0 24px 20px; display: flex; justify-content: space-between; align-items: center; }
+
+/* WHY THIS MATCHES + TRADEOFFS */
+.card-why { padding: 0 20px 14px; }
+.card-why-section { margin-bottom: 10px; }
+.card-why-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+}
+.card-why-label.match-label { color: var(--teal); }
+.card-why-label.tradeoff-label { color: var(--terra); }
+.card-why-text { font-size: 12px; color: var(--mid); line-height: 1.6; }
+.card-why-tradeoffs { display: flex; flex-direction: column; gap: 5px; }
+.tradeoff-item { font-size: 12px; color: var(--mid); line-height: 1.55; padding-left: 4px; }
+.card-best-for { margin-top: 2px; padding-top: 10px; border-top: 1px solid #f0ede8; }
+.best-for-label { color: var(--gold) !important; }
+.card-best-for-text { font-size: 12px; color: var(--dark); line-height: 1.6; font-style: italic; }
+.card-why-divider { height: 1px; background: #f0ede8; margin: 0 20px 14px; }
+
+/* REPORT RECOMMENDED BADGE */
+.ri-badge.recommended { background: var(--terra-lt); color: var(--terra); }
+.report-icon-btn.rec-report { background: var(--terra-lt); border-color: var(--terra); }
+.ri-desc { font-size: 9px; color: var(--light); text-align: center; line-height: 1.3; margin-top: 1px; display: block; }
+.ri-desc { font-size: 9px; color: var(--light); text-align: center; line-height: 1.3; margin-top: 1px; display: none; }
+.reports-row-label { font-size: 13px; color: var(--mid); font-weight: 500; text-align: center; margin-bottom: 14px; }
 .match-score-display { font-size: 13px; color: var(--light); }
 .match-score-display strong { font-size: 20px; color: var(--teal); font-family: 'Libre Franklin', sans-serif; }
 .btn-view-city { background: var(--teal-lt); color: var(--teal); border: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 100px; cursor: pointer; transition: all 0.2s; }
@@ -471,7 +495,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
   <div class="results-reports-section">
     <div class="results-reports-label">Go deeper on what matters to your matched cities — free:</div>
-    <div class="reports-icons-row">
+    <div class="reports-icons-row" id="results-reports-icons">
       <div class="report-icon-btn" onclick="showReportSignupResults(event, 'globetrotter', 'The Globetrotter Guide', true)">
         <span class="ri-icon">✈️</span><span class="ri-label">Globetrotter<br>Guide</span>
         <span class="ri-badge available">Free</span>
@@ -2712,6 +2736,34 @@ function renderPriorities(container) {
 
 
 
+function renderReportIcons(containerId, panelSuffix) {
+  const recommended = getRecommendedReports();
+  const reports = [
+    { key: 'globetrotter', icon: '✈️', name: 'The Globetrotter Guide', label: 'Globetrotter<br>Guide', desc: 'Airport access & travel' },
+    { key: 'wellness', icon: '🏥', name: 'The Wellness Blueprint', label: 'Wellness<br>Blueprint', desc: 'Healthcare quality ranked' },
+    { key: 'value', icon: '💰', name: 'The Value Navigator', label: 'Value<br>Navigator', desc: 'Budget, taxes & costs' },
+    { key: 'walkabout', icon: '🚶', name: 'The Urban Walkabout', label: 'Urban<br>Walkabout', desc: 'Walkability & transit' },
+    { key: 'frontier', icon: '🏔️', name: 'The Active Frontier', label: 'Active<br>Frontier', desc: 'Outdoors & wellness' },
+  ];
+
+  const fn = panelSuffix ? 'showReportSignupResults' : 'showReportSignup';
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = reports.map(r => {
+    const isRec = recommended.includes(r.key);
+    const badge = isRec
+      ? `<span class="ri-badge recommended">⭐ For You</span>`
+      : `<span class="ri-badge available">Free</span>`;
+    return `<div class="report-icon-btn ${isRec ? 'rec-report' : ''}" onclick="${fn}(event, '${r.key}', '${r.name}', true)">
+      <span class="ri-icon">${r.icon}</span>
+      <span class="ri-label">${r.label}</span>
+      <span class="ri-desc">${r.desc}</span>
+      ${badge}
+    </div>`;
+  }).join('');
+}
+
 function showReportSignup(e, key, name, available) {
   document.querySelectorAll('.report-icon-btn').forEach(function(b) { b.classList.remove('selected'); });
   e.currentTarget.classList.add('selected');
@@ -3024,6 +3076,9 @@ function calculateResults() {
     const results = runMatchingEngine();
     renderResults(results);
     showScreen('screen-results');
+    // Render report icons with personalized recommendations
+    renderReportIcons('results-reports-icons', 'results');
+    renderReportIcons('hero-reports-icons', '');
     window.scrollTo(0, 0);
   }, 1800);
 }
@@ -3152,6 +3207,226 @@ function runMatchingEngine() {
 // ══════════════════════════════════════════════
 // RENDER RESULTS
 // ══════════════════════════════════════════════
+function generateWhyMatch(city) {
+  const parts = [];
+  const topPrios = DIMENSIONS.filter(d =>
+    quizState.priorities[d.key] === 'Must Have' ||
+    quizState.priorities[d.key] === 'Very Important'
+  );
+
+  // Climate opening — most emotional connection
+  if (quizState.climateChoice) {
+    const climateMsg = {
+      'warm': `You said warm winters matter — ${city.name} delivers exactly that, with mild temperatures that make outdoor life comfortable year-round.`,
+      'mild': `You're looking for mild weather all year, and ${city.name} is one of the few cities that genuinely delivers comfortable temperatures in every season.`,
+      'seasons': `You want four real seasons, and ${city.name} has them — including the kind of fall and spring that make you glad you chose somewhere with actual weather.`,
+    };
+    if (climateMsg[quizState.climateChoice]) parts.push(climateMsg[quizState.climateChoice]);
+  }
+
+  // Top priority match
+  const strongMatches = topPrios.filter(d => getCityScore(city, d.key) >= 8);
+  if (strongMatches.length > 0) {
+    const d = strongMatches[0];
+    const score = getCityScore(city, d.key);
+    const msgs = {
+      'D1': `Travel is clearly important to you — ${city.name} scores ${score}/10 on airport access, putting major hubs within easy reach.`,
+      'D3': `Healthcare was a top priority for you, and ${city.name} scores ${score}/10 — meaning you'll have access to strong medical care when it matters most.`,
+      'D5': `You care about keeping more of your retirement income, and ${city.name}'s tax score of ${score}/10 means your Social Security and savings go further here.`,
+      'D6': `You want to be able to walk and live without relying on a car — ${city.name} scores ${score}/10 on walkability, making that lifestyle genuinely achievable.`,
+      'D7': `Outdoor access was high on your list, and ${city.name} delivers with a ${score}/10 score — trails, parks, and nature are a real part of daily life here.`,
+      'D8': `Staying active matters to you — ${city.name} scores ${score}/10 on active wellness, with solid fitness infrastructure built for retirees like you.`,
+      'D9': `Safety was a priority for you, and ${city.name} scores ${score}/10 — above average and the kind of place where most residents feel comfortable.`,
+      'D10': `You value community and connection — ${city.name} scores ${score}/10, with a social scene and civic life that makes it easy to put down roots.`,
+    };
+    if (msgs[d.key]) parts.push(msgs[d.key]);
+  }
+
+  // Budget fit
+  if (quizState.budget && city.budgetRange <= quizState.budget) {
+    const budgetLabels = ['under $3,500','$3,500–5,000','$5,000–6,500','$6,500–8,000','$8,000+'];
+    parts.push(`Your budget of ${budgetLabels[quizState.budget-1]}/mo fits here — ${city.name} is comfortably within reach.`);
+  }
+
+  // Setting match
+  if (quizState.settingTags.length > 0) {
+    const match = city.setting.find(s => quizState.settingTags.includes(s));
+    if (match) {
+      const settingMsg = {
+        'Beach / Coastal': `You said coastal living appeals to you, and ${city.name} delivers that waterfront character.`,
+        'Mountain': `You're drawn to mountain settings — ${city.name} has that elevation and natural backdrop you're looking for.`,
+        'City Energy': `You want urban energy and walkable city life — ${city.name} has the density and character to deliver that.`,
+        'Inland / Green': `You prefer green, inland settings — ${city.name} fits that quieter, nature-connected character.`,
+        'Desert': `You're drawn to desert living — ${city.name} has that distinctive arid landscape and culture.`,
+        'Lakeside': `You want water nearby — ${city.name} has that lakeside quality that brings a sense of calm and recreation.`,
+      };
+      if (settingMsg[match]) parts.push(settingMsg[match]);
+    }
+  }
+
+  return parts.slice(0, 2).join(' ') || `${city.name} scored well across your priorities and is a strong fit for the retirement lifestyle you described.`;
+}
+
+function generateTradeoffs(city) {
+  const tradeoffs = [];
+  const topPrios = DIMENSIONS.filter(d =>
+    quizState.priorities[d.key] === 'Must Have' ||
+    quizState.priorities[d.key] === 'Very Important'
+  );
+
+  // Weak scores on priorities the user actually cares about — written naturally
+  topPrios.forEach(d => {
+    const score = getCityScore(city, d.key);
+    if (score <= 5) {
+      const msgs = {
+        'D1': `Getting in and out isn't as easy as you'd like — airport access scores ${score}/10, which may mean more connections or longer drives to a hub.`,
+        'D3': `Healthcare scores ${score}/10 here, which matters given your priority — you may need to travel for specialty care or serious procedures.`,
+        'D5': `Tax friendliness scores ${score}/10 — your retirement income will face more state taxation than in some competing cities.`,
+        'D6': `A car will still be part of daily life here — walkability scores ${score}/10, meaning most errands and activities require driving.`,
+        'D7': `Outdoor recreation is more limited than your priorities suggest — the score of ${score}/10 means fewer trails, parks, and natural spaces nearby.`,
+        'D8': `Active wellness infrastructure is more limited here at ${score}/10 — fitness options, rec centers, and senior programs are less developed than ideal.`,
+        'D9': `Safety levels can vary significantly by neighborhood — a score of ${score}/10 means doing careful research on where specifically you'd want to live.`,
+        'D10': `Community and social life scores ${score}/10 — building a social network here may take more intention than in cities with stronger senior cultures.`,
+      };
+      if (msgs[d.key]) tradeoffs.push(msgs[d.key]);
+    }
+  });
+
+  // Budget tradeoff — personal
+  if (quizState.budget && city.budgetRange > quizState.budget) {
+    tradeoffs.push(`${city.name} runs higher than your stated budget — monthly costs average ${city.monthlyEst}, which may require adjusting expectations or spending.`);
+  }
+
+  // If no priority-based tradeoffs, find the two lowest scores overall
+  // Always pad to exactly 2 tradeoffs using lowest-scoring dimensions
+  if (tradeoffs.length < 2) {
+    const used = new Set();
+    // Find dimensions not already mentioned, sorted by score ascending
+    const sorted = [...DIMENSIONS]
+      .filter(d => !topPrios.find(p => p.key === d.key)) // not already a top priority
+      .sort((a, b) => getCityScore(city, a.key) - getCityScore(city, b.key));
+
+    const genericMsgs = {
+      'D1': (s) => `Airport connectivity scores ${s}/10 — getting to major hubs may require a connecting flight or longer drive.`,
+      'D3': (s) => `Healthcare scores ${s}/10 — worth confirming that local hospitals meet your standards before committing.`,
+      'D5': (s) => `Tax friendliness scores ${s}/10 — review how your specific income sources would be taxed here.`,
+      'D6': (s) => `A car is still part of daily life here — walkability scores ${s}/10, so most errands require driving.`,
+      'D7': (s) => `Outdoor recreation scores ${s}/10 — nature access is more limited than in some comparable retirement markets.`,
+      'D8': (s) => `Active wellness infrastructure scores ${s}/10 — fitness and senior programming options are more modest here.`,
+      'D9': (s) => `Safety levels vary by neighborhood — scores of ${s}/10 mean location research within the city matters.`,
+      'D10': (s) => `Community life scores ${s}/10 — building a social network here may take more time and intention.`,
+      'DC': (s) => `Climate may not suit everyone year-round — worth visiting in different seasons before deciding.`,
+    };
+
+    for (const d of sorted) {
+      if (tradeoffs.length >= 2) break;
+      const score = getCityScore(city, d.key);
+      if (genericMsgs[d.key] && !used.has(d.key)) {
+        tradeoffs.push(genericMsgs[d.key](score));
+        used.add(d.key);
+      }
+    }
+  }
+
+  // Final fallback if still under 2
+  if (tradeoffs.length < 2) {
+    tradeoffs.push('Worth reviewing the full city profile to confirm the neighborhood and lifestyle character matches your expectations.');
+  }
+
+  return tradeoffs.slice(0, 2);
+}
+
+function generateBestFor(city) {
+  const topPrios = DIMENSIONS.filter(d =>
+    quizState.priorities[d.key] === 'Must Have' ||
+    quizState.priorities[d.key] === 'Very Important'
+  ).map(d => d.label);
+
+  const setting = quizState.settingTags[0] || '';
+  const climate = quizState.climateChoice;
+  const budget = quizState.budget;
+
+  const settingDesc = {
+    'Beach / Coastal': 'a coastal lifestyle',
+    'Mountain': 'mountain scenery and outdoor access',
+    'City Energy': 'urban energy and walkable neighborhoods',
+    'Inland / Green': 'a quieter, greener setting',
+    'Desert': 'desert living and wide-open spaces',
+    'Lakeside': 'lakeside living and water access',
+  };
+
+  const climateDesc = {
+    'warm': "prioritize warm winters and don\'t mind summer heat",
+    'mild': 'want comfortable weather year-round without extremes',
+    'seasons': "love four real seasons and don\'t shy away from winter",
+  };
+
+  const prioDesc = {
+    'Healthcare Quality': 'peace of mind about medical access',
+    'Airport Access': 'staying connected to family and travel',
+    'Tax Friendliness': 'making their retirement income go further',
+    'Walkability': 'living without relying on a car',
+    'Outdoor Recreation': 'an active, nature-connected lifestyle',
+    'Active Wellness': 'staying fit and engaged',
+    'Safety': 'a safe, settled community',
+    'Community & Social Life': 'building real community connections',
+  };
+
+  let desc = 'Retirees who ';
+
+  if (climate && climateDesc[climate]) {
+    desc += climateDesc[climate];
+  } else {
+    desc += 'value a comfortable retirement environment';
+  }
+
+  if (setting && settingDesc[setting]) {
+    desc += `, drawn to ${settingDesc[setting]}`;
+  }
+
+  const prioDescs = topPrios.map(p => prioDesc[p]).filter(Boolean);
+  if (prioDescs.length > 0) {
+    desc += `, and who value ${prioDescs.slice(0,2).join(' and ')}`;
+  }
+
+  // Add honest qualifier based on what they de-prioritized
+  const lowPrios = DIMENSIONS.filter(d =>
+    quizState.priorities[d.key] === 'Not Important'
+  ).map(d => d.label);
+
+  if (lowPrios.includes('Walkability') && lowPrios.includes('Tax Friendliness')) {
+    desc += ' — more than maximizing affordability or urban walkability.';
+  } else if (lowPrios.includes('Walkability')) {
+    desc += ' — and are comfortable relying on a car for daily life.';
+  } else if (lowPrios.includes('Tax Friendliness')) {
+    desc += ' — and are less focused on squeezing every dollar from their retirement income.';
+  } else {
+    desc += '.';
+  }
+
+  return desc;
+}
+
+function getRecommendedReports() {
+  // Returns array of report keys recommended based on quiz priorities
+  const recommended = [];
+  const topPrios = DIMENSIONS.filter(d =>
+    quizState.priorities[d.key] === 'Must Have' ||
+    quizState.priorities[d.key] === 'Very Important'
+  ).map(d => d.key);
+
+  if (topPrios.includes('D1')) recommended.push('globetrotter');
+  if (topPrios.includes('D3')) recommended.push('wellness');
+  if (topPrios.includes('D5') || topPrios.includes('D2')) recommended.push('value');
+  if (topPrios.includes('D6')) recommended.push('walkabout');
+  if (topPrios.includes('D7') || topPrios.includes('D8')) recommended.push('frontier');
+
+  // If nothing specific, recommend value and wellness as defaults
+  if (recommended.length === 0) recommended.push('value', 'wellness');
+
+  return recommended.slice(0, 2);
+}
+
 function renderResults(results) {
   const grid = document.getElementById('resultsGrid');
   const subtitle = document.getElementById('resultsSubtitle');
@@ -3194,6 +3469,23 @@ function renderResults(results) {
           ${[...city.setting, ...city.character].slice(0,3).map(t => `<span class="card-tag">${t}</span>`).join('')}
         </div>
         <div class="card-highlight">${city.highlight}</div>
+      </div>
+      <div class="card-why-divider"></div>
+      <div class="card-why">
+        <div class="card-why-section">
+          <div class="card-why-label match-label">✓ Why this matches you</div>
+          <div class="card-why-text">${generateWhyMatch(city)}</div>
+        </div>
+        <div class="card-why-section">
+          <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
+          <div class="card-why-tradeoffs">
+            ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
+          </div>
+        </div>
+        <div class="card-why-section card-best-for">
+          <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
+          <div class="card-why-text card-best-for-text">${generateBestFor(city)}</div>
+        </div>
       </div>
       <div class="card-footer">
         <div class="match-score-display">Monthly est. <strong>${city.monthlyEst}</strong></div>
