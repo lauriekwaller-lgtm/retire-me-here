@@ -368,30 +368,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           <span class="ri-desc">True walkability</span>
           <span class="ri-badge available">Free</span>
         </div>
-        <div class="report-icon-btn" onclick="showReportSignup(event, 'frontier', 'The Active Frontier', true)">
+        <div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'g4M1M8', true)">
           <span class="ri-icon">🏔️</span><span class="ri-label">Active Frontier</span>
           <span class="ri-desc">Active lifestyle fit</span>
           <span class="ri-badge available">Free</span>
         </div>
       </div>
-      <div id="report-signup-panel" class="report-signup-panel" style="display:none">
-        <div class="rsp-title">Get <strong id="rsp-name"></strong></div>
-        <div class="rsp-sub" id="rsp-sub">Enter your email and we'll send it right to your inbox.</div>
-        <form id="rsp-form" class="rsp-form"
-              name="report-signup"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              onsubmit="submitReport(event)">
-          <input type="hidden" name="form-name" value="report-signup">
-          <input type="hidden" name="report-name" id="rsp-hidden-name">
-          <input type="text" name="bot-field" style="display:none">
-          <input type="email" name="email" id="rsp-email" class="rsp-input" placeholder="your@email.com" required>
-          <button type="submit" class="rsp-btn">Send It →</button>
-        </form>
-        <div id="rsp-confirm" style="display:none;color:var(--teal);font-size:13px;font-weight:600;margin-top:8px;text-align:center">✓ Got it! We'll send your report shortly.</div>
-      </div>
-    </div>
+      
 
   </div>
 </div>
