@@ -303,15 +303,19 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .site-footer a { color: var(--teal); text-decoration: none; font-weight: 500; }
 .site-footer a:hover { text-decoration: underline; }
 </style>
+  <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2238788');
+</script>
+<!-- End MailerLite Universal -->  
 </head>
 <body>
 
-<!-- NETLIFY FORM - required for form detection at deploy time -->
-<form name="report-signup" netlify netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="report-name">
-  <input type="email" name="email">
-  <input type="text" name="bot-field">
-</form>
+
 
 <div class="progress-bar" id="progressBar" style="width:0%"></div>
 
@@ -359,7 +363,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           <span class="ri-desc">Real cost of living</span>
           <span class="ri-badge available">Free</span>
         </div>
-        <div class="report-icon-btn" onclick="showReportSignup(event, 'walkabout', 'The Urban Walkabout', true)">
+        <div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'dJJ40D', true)">
           <span class="ri-icon">🚶</span><span class="ri-label">Urban Walkabout</span>
           <span class="ri-desc">True walkability</span>
           <span class="ri-badge available">Free</span>
