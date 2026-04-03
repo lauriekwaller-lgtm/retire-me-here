@@ -3141,7 +3141,7 @@ function runMatchingEngine() {
     return { ...city, matchScore: Math.min(99, matchPct) };
   });
 
-  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 5);
+  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 3); 
 }
 
 function generateWhyMatch(city) {
