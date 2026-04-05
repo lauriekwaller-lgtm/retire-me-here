@@ -2771,7 +2771,7 @@ function submitReport(e) {
     var name = document.getElementById('rsp-name').textContent;
     var subject = encodeURIComponent('Report Request: ' + name);
     var body = encodeURIComponent('Please send me: ' + name + '\n\nMy email: ' + email);
-    window.location.href = 'mailto:retiremehere@gmail.com?subject=' + subject + '&body=' + body;
+    window.location.href = 'mailto:hello@retiremehere.com?subject=' + subject + '&body=' + body;
     form.style.display = 'none';
     document.getElementById('rsp-confirm').style.display = 'block';
   });
@@ -3629,7 +3629,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <p style="margin-top:6px"><a href="/privacy.html">Privacy Policy</a></p>
   </div>
   <script>
-    var u = 'retiremehere'; var d = 'gmail.com';
+    var u = 'hello'; var d = 'retiremehere.com';
     document.getElementById('contact-email').innerHTML = '<a href="mailto:' + u + '@' + d + '">' + u + '@' + d + '</a>';
   </script>
 </body>
