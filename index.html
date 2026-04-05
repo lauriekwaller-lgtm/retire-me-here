@@ -2655,7 +2655,8 @@ function renderPriorities(container) {
 }
 
 function renderReportIcons(containerId, panelSuffix) {
-  const recommended = getRecommendedReports();
+  const showRecs = panelSuffix === 'results';
+  const recommended = showRecs ? getRecommendedReports() : [];
   const reports = [
     { key: 'globetrotter', icon: '✈️', name: 'The Globetrotter Guide', label: 'Globetrotter<br>Guide', desc: 'Airport access & travel' },
     { key: 'wellness', icon: '🏥', name: 'The Wellness Blueprint', label: 'Wellness<br>Blueprint', desc: 'Healthcare quality ranked' },
