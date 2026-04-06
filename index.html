@@ -48,7 +48,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
  letter-spacing: 0.04em; text-transform: uppercase;
 }
 .logo-wordmark .dest { color: var(--teal); }
-.logo-wordmark .ret { color: var(--terra); }
+.logo-wordmark .ret { color: var(--dark); }
 .logo-tagline {
  font-family: 'DM Sans', sans-serif; font-size: 8px; font-weight: 400;
  letter-spacing: 0.2em; text-transform: uppercase; color: var(--light);
@@ -244,15 +244,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .reports-icons-row { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 14px; }
 .report-icon-btn {
  flex: 1; display: flex; flex-direction: column; align-items: center;
- gap: 4px; cursor: pointer; padding: 12px 6px 10px; border-radius: 14px;
- border: 1.5px solid #ddd; background: #fff;
- box-shadow: 0 2px 8px rgba(0,0,0,0.07);
- transition: all 0.15s; position: relative;
+ gap: 3px; cursor: pointer; padding: 10px 4px 8px; border-radius: 12px;
+ border: 2px solid transparent; transition: all 0.15s; position: relative;
 }
 .report-icon-btn:hover, .report-icon-btn.selected {
  background: var(--teal-lt); border-color: var(--teal);
- box-shadow: 0 4px 12px rgba(0,0,0,0.12);
- transform: translateY(-1px);
 }
 .ri-icon { font-size: 26px; }
 .ri-label { font-size: 11px; color: var(--dark); text-align: center; line-height: 1.3; font-weight: 600; }
@@ -260,7 +256,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .ri-badge { font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 100px; }
 .ri-badge.available { background: var(--teal-lt); color: var(--teal); }
 .ri-badge.coming { background: var(--sand); color: var(--light); }
-.ri-cta { font-size: 9px; font-weight: 700; color: var(--navy); background: #e8f0f7; padding: 3px 8px; border-radius: 100px; margin-top: 2px; white-space: nowrap; }
 .report-signup-panel { background: var(--white); border-radius: 14px; padding: 18px; border: 2px solid var(--teal); }
 .rsp-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
 .rsp-sub { font-size: 12px; color: var(--mid); margin-bottom: 12px; }
@@ -356,9 +351,34 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <p class="hero-not-generic">Not a generic "best places" list — your results are based on what you value most.</p>
 
     <div class="reports-row" style="border-top:1px solid #e8e4de;padding-top:20px;margin-top:4px">
-      <div class="reports-row-label" style="font-size:16px;font-weight:700;color:var(--terra);margin-bottom:4px">Free In-Depth Reports — Delivered to Your Inbox Instantly</div>
-      <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;font-style:italic;">Pick the topic that matters most to you.</div>
-      <div class="reports-icons-row" id="hero-reports-icons"></div>
+      <div class="reports-row-label" style="font-size:16px;font-weight:600;color:var(--terra);margin-bottom:16px">Or go deeper — understand how each city really performs:</div>
+      <div class="reports-icons-row">
+        <div class="report-icon-btn" onclick="showReportSignup(event, 'globetrotter', 'The Globetrotter Guide', true)">
+          <span class="ri-icon">✈️</span><span class="ri-label">Globetrotter Guide</span>
+          <span class="ri-desc">Travel ease &amp; airport access</span>
+          <span class="ri-badge available">Free</span>
+        </div>
+        <div class="report-icon-btn" onclick="showReportSignup(event, 'wellness', 'The Wellness Blueprint', true)">
+          <span class="ri-icon">🏥</span><span class="ri-label">Wellness Blueprint</span>
+          <span class="ri-desc">Healthcare depth &amp; quality</span>
+          <span class="ri-badge available">Free</span>
+        </div>
+        <div class="report-icon-btn" onclick="showReportSignup(event, 'value', 'The Value Navigator', true)">
+          <span class="ri-icon">💰</span><span class="ri-label">Value Navigator</span>
+          <span class="ri-desc">Real cost of living</span>
+          <span class="ri-badge available">Free</span>
+        </div>
+        <div class="report-icon-btn" onclick="showReportSignup(event, 'walkabout', 'The Urban Walkabout', true)">
+          <span class="ri-icon">🚶</span><span class="ri-label">Urban Walkabout</span>
+          <span class="ri-desc">True walkability</span>
+          <span class="ri-badge available">Free</span>
+        </div>
+        <div class="report-icon-btn" onclick="showReportSignup(event, 'frontier', 'The Active Frontier', true)">
+          <span class="ri-icon">🏔️</span><span class="ri-label">Active Frontier</span>
+          <span class="ri-desc">Active lifestyle fit</span>
+          <span class="ri-badge available">Free</span>
+        </div>
+      </div>
       <div id="report-signup-panel" class="report-signup-panel" style="display:none">
         <div class="rsp-title">Get <strong id="rsp-name"></strong></div>
         <div class="rsp-sub" id="rsp-sub">Enter your email and we'll send it right to your inbox.</div>
@@ -422,35 +442,33 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   </div>
 
   <div class="results-reports-section">
-    <div class="results-reports-label" style="font-size:16px;font-weight:700;color:var(--terra);text-align:center;margin-bottom:4px">Free In-Depth Reports — Delivered to Your Inbox Instantly</div>
-    <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:14px;font-style:italic;">Pick the topic that matters most to you.</div>
+    <div class="results-reports-label">Go deeper on what matters to your matched cities — free:</div>
     <div class="reports-icons-row" id="results-reports-icons">
-<div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'fwB9NA', true)">
-  <span class="ri-icon">✈️</span><span class="ri-label">Globetrotter Guide</span>
-  <span class="ri-desc">Travel ease & airport access</span>
-  <span class="ri-badge available">Free</span>
-</div>
-<div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'f03tJB', true)">
-  <span class="ri-icon">🏥</span><span class="ri-label">Wellness Blueprint</span>
-  <span class="ri-desc">Healthcare depth & quality</span>
-  <span class="ri-badge available">Free</span>
-</div>
-<div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'W6rMh2', true)">
-  <span class="ri-icon">💰</span><span class="ri-label">Value Navigator</span>
-  <span class="ri-desc">Real cost of living</span>
-  <span class="ri-badge available">Free</span>
-</div>
-<div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'dJJ40D', true)">
-  <span class="ri-icon">🚶</span><span class="ri-label">Urban Walkabout</span>
-  <span class="ri-desc">True walkability</span>
-  <span class="ri-badge available">Free</span>
-</div>
-<div class="report-icon-btn ml-onclick-form" onclick="ml('show', 'g4M1M8', true)">
-  <span class="ri-icon">🏔️</span><span class="ri-label">Active Frontier</span>
-  <span class="ri-desc">Active lifestyle fit</span>
-  <span class="ri-badge available">Free</span>
-</div>
-
+      <div class="report-icon-btn" onclick="showReportSignupResults(event, 'globetrotter', 'The Globetrotter Guide', true)">
+        <span class="ri-icon">✈️</span><span class="ri-label">Globetrotter Guide</span>
+          <span class="ri-desc">Travel ease & airport access</span>
+        <span class="ri-badge available">Free</span>
+      </div>
+      <div class="report-icon-btn" onclick="showReportSignupResults(event, 'wellness', 'The Wellness Blueprint', true)">
+        <span class="ri-icon">🏥</span><span class="ri-label">Wellness Blueprint</span>
+          <span class="ri-desc">Healthcare depth & quality</span>
+        <span class="ri-badge available">Free</span>
+      </div>
+      <div class="report-icon-btn" onclick="showReportSignupResults(event, 'value', 'The Value Navigator', true)">
+        <span class="ri-icon">💰</span><span class="ri-label">Value Navigator</span>
+          <span class="ri-desc">Real cost of living</span>
+        <span class="ri-badge available">Free</span>
+      </div>
+      <div class="report-icon-btn" onclick="showReportSignupResults(event, 'walkabout', 'The Urban Walkabout', true)">
+        <span class="ri-icon">🚶</span><span class="ri-label">Urban Walkabout</span>
+          <span class="ri-desc">True walkability</span>
+        <span class="ri-badge available">Free</span>
+      </div>
+      <div class="report-icon-btn" onclick="showReportSignupResults(event, 'frontier', 'The Active Frontier', true)">
+        <span class="ri-icon">🏔️</span><span class="ri-label">Active Frontier</span>
+          <span class="ri-desc">Active lifestyle fit</span>
+        <span class="ri-badge available">Free</span>
+      </div>
     </div>
     <div id="report-signup-panel-results" class="report-signup-panel" style="display:none">
       <div class="rsp-title">Get <strong id="rsp-name-results"></strong></div>
@@ -2655,8 +2673,7 @@ function renderPriorities(container) {
 }
 
 function renderReportIcons(containerId, panelSuffix) {
-  const showRecs = panelSuffix === 'results';
-  const recommended = showRecs ? getRecommendedReports() : [];
+  const recommended = getRecommendedReports();
   const reports = [
     { key: 'globetrotter', icon: '✈️', name: 'The Globetrotter Guide', label: 'Globetrotter<br>Guide', desc: 'Airport access & travel' },
     { key: 'wellness', icon: '🏥', name: 'The Wellness Blueprint', label: 'Wellness<br>Blueprint', desc: 'Healthcare quality ranked' },
@@ -2680,9 +2697,9 @@ function renderReportIcons(containerId, panelSuffix) {
     const isRec = recommended.includes(r.key);
     const badge = isRec
       ? `<span class="ri-badge recommended">⭐ For You</span>`
-      : `<span class="ri-cta">Get It Free →</span>`;
+      : `<span class="ri-badge available">Free</span>`;
     const mlId = mlIds[r.key];
-    return `<div class="report-icon-btn ml-onclick-form ${isRec ? 'rec-report' : ''}" onclick="ml('show', '${mlId}', true)">
+    return `<div class="report-icon-btn ml-onclick-form ${isRec ? 'rec-report' : ''}" onclick="if(typeof gtag!=='undefined'){gtag('event','report_request',{'event_category':'Reports','event_label':'${r.name}'})}; ml('show', '${mlId}', true)">
       <span class="ri-icon">${r.icon}</span>
       <span class="ri-label">${r.label}</span>
       <span class="ri-desc">${r.desc}</span>
@@ -2771,7 +2788,7 @@ function submitReport(e) {
     var name = document.getElementById('rsp-name').textContent;
     var subject = encodeURIComponent('Report Request: ' + name);
     var body = encodeURIComponent('Please send me: ' + name + '\n\nMy email: ' + email);
-    window.location.href = 'mailto:hello@retiremehere.com?subject=' + subject + '&body=' + body;
+    window.location.href = 'mailto:retiremehere@gmail.com?subject=' + subject + '&body=' + body;
     form.style.display = 'none';
     document.getElementById('rsp-confirm').style.display = 'block';
   });
@@ -2999,10 +3016,16 @@ function calculateResults() {
     const results = runMatchingEngine();
     renderResults(results);
     showScreen('screen-results');
-    
     renderReportIcons('results-reports-icons', 'results');
     renderReportIcons('hero-reports-icons', '');
     window.scrollTo(0, 0);
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'quiz_complete', {
+        'event_category': 'Quiz',
+        'event_label': 'Completed',
+        'top_city': results[0] ? results[0].name + ', ' + results[0].state : 'unknown'
+      });
+    }
   }, 1800);
 }
 
@@ -3124,7 +3147,7 @@ function runMatchingEngine() {
     return { ...city, matchScore: Math.min(99, matchPct) };
   });
 
-  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 3); 
+  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 5);
 }
 
 function generateWhyMatch(city) {
@@ -3487,6 +3510,12 @@ function getTaxNote(state) {
 }
 
 function showCityDetail(cityName, cityState) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'city_view', {
+      'event_category': 'Engagement',
+      'event_label': cityName + ', ' + cityState
+    });
+  }
   const city = CITIES.find(c => c.name === cityName && c.state === cityState) ||
                CITIES.find(c => c.name === cityName);
   if (!city) return;
@@ -3617,20 +3646,13 @@ function restartQuiz() {
   showScreen('screen-hero');
   window.scrollTo(0, 0);
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  renderReportIcons('hero-reports-icons', '');
-});
 </script>
   <div class="site-footer">
     <p>Questions or feedback? We would love to hear from you.<br>
     <span id="contact-email"></span></p>
     <p style="margin-top:8px">&copy; 2026 RetireMeHere. All rights reserved.</p>
-    <p style="margin-top:6px"><a href="/privacy.html">Privacy Policy</a></p>
   </div>
   <script>
-    var u = 'hello'; var d = 'retiremehere.com';
+    var u = 'retiremehere'; var d = 'gmail.com';
     document.getElementById('contact-email').innerHTML = '<a href="mailto:' + u + '@' + d + '">' + u + '@' + d + '</a>';
   </script>
-</body>
-</html>
