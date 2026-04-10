@@ -20,6 +20,7 @@ ml('account', '2238788');
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
+ --navy: #2e5d8b;
  --teal: #2A5E5A;
  --teal-lt: #E8F4F3;
  --teal-mid: #3d7a75;
@@ -601,7 +602,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
     <a href="/naples-vs-sarasota.html">Compare Cities</a>
-    <a href="#reports">Free Reports</a>
+    <a href="#reports" onclick="document.getElementById('reports').scrollIntoView({behavior:'smooth'});return false;">Free Reports</a>
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
   </nav>
 </header>
