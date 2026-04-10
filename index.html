@@ -664,7 +664,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           </div>
           <div class="report-row-actions">
             <button class="btn-rr-preview" onclick="openReportModal('globetrotter')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('globetrotter')">Get Free</button>
+            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'fwB9NA', true)">Get Free</button>
           </div>
         </div>
 
@@ -676,7 +676,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           </div>
           <div class="report-row-actions">
             <button class="btn-rr-preview" onclick="openReportModal('wellness')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('wellness')">Get Free</button>
+            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'f03tJB', true)">Get Free</button>
           </div>
         </div>
 
@@ -688,7 +688,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           </div>
           <div class="report-row-actions">
             <button class="btn-rr-preview" onclick="openReportModal('value')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('value')">Get Free</button>
+            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'W6rMh2', true)">Get Free</button>
           </div>
         </div>
 
@@ -700,7 +700,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           </div>
           <div class="report-row-actions">
             <button class="btn-rr-preview" onclick="openReportModal('walkabout')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('walkabout')">Get Free</button>
+            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'dJJ40D', true)">Get Free</button>
           </div>
         </div>
 
@@ -712,7 +712,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           </div>
           <div class="report-row-actions">
             <button class="btn-rr-preview" onclick="openReportModal('frontier')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('frontier')">Get Free</button>
+            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'g4M1M8', true)">Get Free</button>
           </div>
         </div>
 
@@ -2985,7 +2985,7 @@ function renderReportIcons(containerId, panelSuffix) {
       </div>
       <div class="report-row-actions">
         <button class="btn-rr-preview" onclick="openReportModal('${r.key}')">Preview</button>
-        <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('${r.key}')">Get Free</button>
+        <button class="btn-rr-get ml-onclick-form" onclick="ml('show', '${r.mlId}', true)">Get Free</button>
       </div>
     </div>`;
   }).join('');
