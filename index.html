@@ -243,7 +243,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .btn-rr-preview:hover { background: #d0ebeb; }
 .btn-rr-get {
   font-size: 10px; font-weight: 700; color: var(--white);
-  background: var(--navy); border: none;
+  background: var(--terra); border: none;
   padding: 5px 0; border-radius: 100px;
   cursor: pointer; font-family: inherit;
   text-align: center;
@@ -252,7 +252,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   opacity: 1 !important;
   width: 100%; box-sizing: border-box;
 }
-.btn-rr-get:hover { background: #1e4470; }
+.btn-rr-get:hover { background: #a85e3a; }
 .rec-badge-row {
   font-size: 9px; font-weight: 700; color: var(--terra);
   background: #fce8dc; padding: 2px 7px; border-radius: 100px;
@@ -4017,13 +4017,11 @@ function openSignupModal(key) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'report_request', {event_category: 'Reports', event_label: r.title});
   }
-  // Use MailerLite popup if script is loaded
-  if (typeof ml === 'function') {
+  try {
     ml('show', r.mlId, true);
-    return;
+  } catch(e) {
+    showEmailFallbackModal(key);
   }
-  // Fallback: show custom email form modal
-  showEmailFallbackModal(key);
 }
 
 function showEmailFallbackModal(key) {
