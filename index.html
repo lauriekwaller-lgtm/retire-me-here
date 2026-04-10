@@ -780,10 +780,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <!-- SCREEN 5: CITY DETAIL -->
 <div class="screen" id="screen-detail">
-  <div class="site-logo" onclick="showScreen('screen-results')">
+  <div class="site-logo" onclick="showScreen('screen-results')" style="display:flex;align-items:center;justify-content:space-between;padding-right:20px;">
         <div class="logo-text">
       <div class="logo-wordmark" style="font-size:12px"><span class="dest">RETIREME</span><span class="ret">HERE</span></div>
     </div>
+    <a href="#" onclick="showScreen('screen-results');setTimeout(function(){var el=document.getElementById('results-reports-icons');if(el)el.scrollIntoView({behavior:'smooth'});},300);return false;" style="font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;">Free Reports</a>
   </div>
   <div id="cityDetail"></div>
 </div>
@@ -3072,7 +3073,7 @@ function submitReport(e) {
     var name = document.getElementById('rsp-name').textContent;
     var subject = encodeURIComponent('Report Request: ' + name);
     var body = encodeURIComponent('Please send me: ' + name + '\n\nMy email: ' + email);
-    window.location.href = 'mailto:retiremehere@gmail.com?subject=' + subject + '&body=' + body;
+    window.location.href = 'mailto:info@retiremehere.com?subject=' + subject + '&body=' + body;
     form.style.display = 'none';
     document.getElementById('rsp-confirm').style.display = 'block';
   });
@@ -4093,6 +4094,6 @@ function closeReportModal(e) {
     <p style="margin-top:8px">&copy; 2026 RetireMeHere. All rights reserved. &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
   </div>
   <script>
-    var u = 'retiremehere'; var d = 'gmail.com';
+    var u = 'info'; var d = 'retiremehere.com';
     document.getElementById('contact-email').innerHTML = '<a href="mailto:' + u + '@' + d + '">' + u + '@' + d + '</a>';
   </script>
