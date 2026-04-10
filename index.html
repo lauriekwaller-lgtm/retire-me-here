@@ -602,7 +602,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
     <a href="/naples-vs-sarasota.html">Compare Cities</a>
-    <a href="#reports" onclick="document.getElementById('reports').scrollIntoView({behavior:'smooth'});return false;">Free Reports</a>
+    <a href="#reports" onclick="(function(){var el=document.getElementById('results-reports-icons');if(el&&el.offsetParent){el.scrollIntoView({behavior:'smooth'});}else{var r=document.getElementById('reports');if(r)r.scrollIntoView({behavior:'smooth'});}return false;})();return false;">Free Reports</a>
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
   </nav>
 </header>
