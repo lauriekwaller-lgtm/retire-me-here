@@ -360,6 +360,18 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .cl-bar.tiny { width: 40%; height: 8px; }
 .cl-lock { font-size: 12px; color: var(--light); white-space: nowrap; }
 
+/* ── COMING SOON TOAST ── */
+.coming-soon-toast {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+  background: var(--dark); color: var(--white);
+  font-size: 13px; font-weight: 500;
+  padding: 10px 20px; border-radius: 100px;
+  z-index: 9999; opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none; white-space: nowrap;
+}
+.coming-soon-toast.show { opacity: 1; }
+
 /* ── RIGHT PANEL ── */
 .hero-right {
   background: var(--sand);
@@ -781,7 +793,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 <header class="site-header">
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
-    <a href="/naples-vs-sarasota.html">Compare Cities</a>
+    <a href="#" onclick="showComingSoon(event)">Compare Cities</a>
     <a href="#reports" onclick="(function(){var el=document.getElementById('results-reports-icons');if(el&&el.offsetParent){el.scrollIntoView({behavior:'smooth'});}else{var r=document.getElementById('reports');if(r)r.scrollIntoView({behavior:'smooth'});}return false;})();return false;">Free Reports</a>
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
   </nav>
@@ -951,7 +963,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <button class="btn-secondary" onclick="restartQuiz()">← Retake Quiz</button>
   </div>
 
-  <div class="results-reports-section">
+  <div class="results-reports-section" id="resultsReportsSection">
     <div style="font-size:16px;font-weight:700;color:var(--terra);text-align:center;margin-bottom:4px">Free In-Depth Reports — Delivered Instantly</div>
     <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;font-style:italic;">Pick the topic that matters most to you.</div>
     <div class="results-report-list" id="results-reports-icons"></div>
@@ -965,7 +977,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         <div class="logo-text">
       <div class="logo-wordmark" style="font-size:12px"><span class="dest">RETIREME</span><span class="ret">HERE</span></div>
     </div>
-    <a href="#" onclick="showScreen('screen-results');setTimeout(function(){var el=document.getElementById('results-reports-icons');if(el)el.scrollIntoView({behavior:'smooth'});},300);return false;" style="font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;">Free Reports</a>
+    <a href="#" onclick="showScreen('screen-results');setTimeout(function(){var el=document.getElementById('resultsReportsSection');if(el)el.scrollIntoView({behavior:'smooth'});},400);return false;" style="font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;">Free Reports</a>
   </div>
   <div id="cityDetail"></div>
 </div>
@@ -4170,6 +4182,14 @@ function showCityDetail(cityName, cityState) {
   window.scrollTo(0, 0);
 }
 
+function showComingSoon(e) {
+  e.preventDefault();
+  const toast = document.getElementById('comingSoonToast');
+  if (!toast) return;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -4358,6 +4378,9 @@ function closeReportModal(e) {
     <span id="contact-email"></span></p>
     <p style="margin-top:8px">&copy; 2026 RetireMeHere. All rights reserved. &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
   </div>
+
+  <!-- Coming Soon Toast -->
+  <div class="coming-soon-toast" id="comingSoonToast">🚧 Coming Soon</div>
   <script>
     var u = 'info'; var d = 'retiremehere.com';
     document.getElementById('contact-email').innerHTML = '<a href="mailto:' + u + '@' + d + '">' + u + '@' + d + '</a>';
