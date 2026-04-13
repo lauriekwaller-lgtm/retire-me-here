@@ -187,6 +187,179 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   margin-top: 16px; font-size: 12px; color: var(--light); font-style: italic;
 }
 
+/* ── NEW QUIZ CTA CARD ── */
+.quiz-cta-card {
+  background: var(--teal);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 28px;
+}
+.quiz-cta-card-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(255,255,255,0.45);
+  margin-bottom: 8px;
+}
+.quiz-cta-card-promise {
+  font-size: 13px; color: rgba(255,255,255,0.65);
+  line-height: 1.5; margin-bottom: 18px;
+}
+.quiz-cta-card-promise span { color: #fff; font-weight: 600; }
+.btn-quiz-hero {
+  display: inline-block; background: var(--teal); color: var(--white);
+  border: none;
+  padding: 16px 42px; border-radius: 100px;
+  font-size: 17px; font-weight: 700; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 20px rgba(42,94,90,0.3);
+}
+.btn-quiz-hero:hover { background: var(--teal-mid); transform: translateY(-1px); }
+
+/* ── NEW REPORT PANEL — featured + mini rows ── */
+.report-featured {
+  background: var(--white); border: 1.5px solid #9fd4cf;
+  border-radius: 12px; overflow: hidden; margin-bottom: 10px;
+}
+.report-featured-header {
+  padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;
+}
+.report-featured-icon {
+  font-size: 18px; width: 34px; height: 34px;
+  background: var(--sand); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.report-featured-tag {
+  display: inline-block; background: var(--teal-lt); color: var(--teal);
+  font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 100px; margin-bottom: 5px;
+}
+.report-featured-name { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.report-featured-desc { font-size: 11px; color: var(--mid); line-height: 1.45; }
+
+.report-preview-panel {
+  background: #FDF6E3; border-top: 1px solid #f0e4c0; padding: 14px 16px;
+}
+.rpp-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.rpp-items { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.rpp-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 11px; color: var(--mid); line-height: 1.5;
+}
+.rpp-dot { color: var(--teal); font-size: 10px; margin-top: 1px; flex-shrink: 0; }
+.rpp-cities { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+.rpp-chip {
+  background: rgba(42,94,90,0.08); color: var(--teal);
+  font-size: 10px; padding: 3px 8px; border-radius: 100px; font-weight: 500;
+}
+.rpp-chip.more { color: var(--gold); background: rgba(212,168,75,0.12); }
+.rpp-cta {
+  width: 100%; background: var(--teal); color: var(--white);
+  border: none; padding: 9px; border-radius: 6px;
+  font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.rpp-cta:hover { background: var(--teal-mid); }
+
+.report-featured-footer {
+  display: flex; border-top: 1px solid #f0ece6;
+}
+.btn-rff-close {
+  flex: 1; font-size: 11px; font-weight: 600; color: var(--light);
+  background: var(--white); border: none; border-right: 1px solid #f0ece6;
+  padding: 9px; text-align: center; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.btn-rff-close:hover { color: var(--mid); }
+.btn-rff-get {
+  flex: 1; font-size: 11px; font-weight: 700; color: var(--white);
+  background: var(--teal); border: none;
+  padding: 9px; text-align: center; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.btn-rff-get:hover { background: var(--teal-mid); }
+
+/* Mini report rows */
+.report-mini-list { display: flex; flex-direction: column; gap: 6px; }
+.report-mini-row {
+  background: var(--white); border: 1px solid #edeae5;
+  border-radius: 8px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 12px;
+  transition: border-color 0.15s;
+}
+.report-mini-row:hover { border-color: var(--teal); }
+.report-mini-icon {
+  font-size: 16px; width: 32px; height: 32px;
+  background: var(--sand); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.report-mini-content { flex: 1; min-width: 0; }
+.report-mini-name { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.report-mini-desc { font-size: 11px; color: var(--light); line-height: 1.35; }
+.btn-mini-get {
+  font-size: 10px; font-weight: 700;
+  color: var(--teal); background: var(--teal-lt);
+  border: 1px solid #9fd4cf;
+  padding: 7px 12px; border-radius: 100px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.btn-mini-get:hover { background: #d0e8e5; }
+
+/* ── EMAIL GATE (results screen) ── */
+.results-email-gate {
+  background: var(--teal); border-radius: var(--radius);
+  padding: 32px 28px; margin: 0 auto 16px;
+  max-width: 640px; text-align: center;
+}
+.reg-kicker {
+  display: inline-block; background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 14px;
+}
+.reg-headline {
+  font-family: 'Libre Franklin', sans-serif; font-size: 22px; font-weight: 700;
+  color: var(--white); margin-bottom: 8px; line-height: 1.2;
+}
+.reg-sub {
+  font-size: 14px; color: rgba(255,255,255,0.6);
+  line-height: 1.6; margin-bottom: 22px; font-weight: 300;
+}
+.reg-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto 14px; }
+.reg-input {
+  flex: 1; padding: 13px 16px; border: none; border-radius: 100px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--dark); outline: none;
+}
+.reg-input::placeholder { color: var(--light); }
+.reg-btn {
+  background: var(--terra); color: var(--white);
+  border: 3px solid rgba(255,255,255,0.3); padding: 13px 22px; border-radius: 100px;
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap; transition: background 0.2s; box-shadow: 0 0 0 1px var(--terra);
+}
+.reg-btn:hover { background: #b5633d; }
+.reg-perks { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.reg-perks span { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+/* ── LOCKED CITY CARDS ── */
+.city-card-locked {
+  background: var(--white); border-radius: var(--radius);
+  padding: 20px 24px; margin: 0 auto 16px;
+  display: flex; align-items: center; gap: 16px;
+  border: 2px dashed #e8e4de; max-width: 640px; opacity: 0.75;
+}
+.cl-rank {
+  font-family: 'Libre Franklin', sans-serif; font-size: 18px;
+  font-weight: 700; color: var(--terra); width: 32px; flex-shrink: 0;
+}
+.cl-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.cl-bar { height: 12px; background: #e8e4de; border-radius: 6px; }
+.cl-bar.short { width: 60%; }
+.cl-bar.tiny { width: 40%; height: 8px; }
+.cl-lock { font-size: 12px; color: var(--light); white-space: nowrap; }
+
 /* ── RIGHT PANEL ── */
 .hero-right {
   background: var(--sand);
@@ -595,6 +768,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <input type="text" name="bot-field">
 </form>
 
+<!-- Hidden Netlify form for quiz results email gate -->
+<form name="quiz-results" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:none">
+  <input type="hidden" name="form-name" value="quiz-results">
+  <input type="email" name="email">
+  <input type="text" name="bot-field">
+</form>
+
 <div class="progress-bar" id="progressBar" style="width:0%"></div>
 
 <!-- SITE HEADER -->
@@ -619,18 +799,12 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         <span class="sh-accent">actually works</span><br>
         — for you.
       </h1>
-      <p class="split-sub">
+      <p class="split-sub" style="line-height:1.45;">
         Tell us what matters. We weigh the tradeoffs across <strong>healthcare, cost, climate, safety</strong> and more — then match you to your best cities.
       </p>
       <div class="quiz-cta-wrap">
-        <button class="btn-quiz-split" onclick="startQuiz()">Find My Best Match →</button>
-        <span class="quiz-meta-line">
-          ⏱ About 2 minutes
-          <span class="quiz-meta-dot">·</span>
-          No account needed
-          <span class="quiz-meta-dot">·</span>
-          Free
-        </span>
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--light);margin-bottom:10px;">Free Quiz · Takes Just a Few Minutes</p>
+        <button class="btn-quiz-hero" onclick="startQuiz()">Find My Best Match →</button>
       </div>
       <div class="split-stats">
         <div>
@@ -639,11 +813,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         </div>
         <div>
           <span class="split-stat-num">10</span>
-          <span class="split-stat-label">Factors Analyzed</span>
+          <span class="split-stat-label">Priorities Weighed</span>
         </div>
         <div>
-          <span class="split-stat-num">~2</span>
-          <span class="split-stat-label">Minutes</span>
+          <span class="split-stat-num">5</span>
+          <span class="split-stat-label">Matches Per Result</span>
         </div>
       </div>
       <p class="split-not-generic">Not a generic "best places" list — your results are based on what <em>you</em> value most.</p>
@@ -651,74 +825,82 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
     <!-- RIGHT: REPORTS -->
     <div class="hero-right" id="reports">
-      <div class="reports-panel-eyebrow">Free Deep-Dive Reports</div>
-      <div class="reports-panel-title">Go deeper on what matters most</div>
-      <p class="reports-panel-sub">Each report ranks all 50+ cities on one topic — real data, honest tradeoffs, key takeaways. Delivered to your inbox instantly.</p>
+      <div class="reports-panel-eyebrow" style="color:var(--light);">Also Available Free</div>
+      <div class="reports-panel-title">Deep-Dive Reports</div>
+      <p class="reports-panel-sub">Each report ranks all 50+ cities on one topic — real data, honest tradeoffs.</p>
 
-      <div class="report-list">
-
-        <div class="report-row">
-          <div class="report-row-icon">✈️</div>
-          <div class="report-row-content">
-            <div class="report-row-name">The Globetrotter Guide</div>
-            <div class="report-row-desc">Airport access & travel ease — ranked across all cities</div>
-          </div>
-          <div class="report-row-actions">
-            <button class="btn-rr-preview" onclick="openReportModal('globetrotter')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'fwB9NA', true)">Get Free</button>
+      <!-- FEATURED: VALUE NAVIGATOR with preview open -->
+      <div class="report-featured">
+        <div class="report-featured-header">
+          <div class="report-featured-icon">💰</div>
+          <div>
+            <div class="report-featured-tag">Most Popular</div>
+            <div class="report-featured-name">The Value Navigator</div>
+            <div class="report-featured-desc">Real cost of living, taxes & monthly budget ranges — ranked across every city.</div>
           </div>
         </div>
+        <div class="report-preview-panel">
+          <p class="rpp-label">What's Inside</p>
+          <div class="rpp-items">
+            <div class="rpp-item"><span class="rpp-dot">▸</span>Median home prices & monthly rental estimates per city</div>
+            <div class="rpp-item"><span class="rpp-dot">▸</span>State tax burden on Social Security, 401k & pension income</div>
+            <div class="rpp-item"><span class="rpp-dot">▸</span>Realistic monthly budgets for a retired couple</div>
+          </div>
+          <div class="rpp-cities">
+            <span class="rpp-chip">Chattanooga, TN</span>
+            <span class="rpp-chip">Tucson, AZ</span>
+            <span class="rpp-chip">Naples, FL</span>
+            <span class="rpp-chip more">+ 47 more cities</span>
+          </div>
+          <button class="rpp-cta ml-onclick-form" onclick="ml('show', 'W6rMh2', true)">Get This Report Free — Delivered to Your Inbox →</button>
+        </div>
+        <div class="report-featured-footer">
+          <button class="btn-rff-close" onclick="openReportModal('value')">See Full Preview</button>
+          <button class="btn-rff-get ml-onclick-form" onclick="ml('show', 'W6rMh2', true)">Get Free →</button>
+        </div>
+      </div>
 
-        <div class="report-row">
-          <div class="report-row-icon">🏥</div>
-          <div class="report-row-content">
-            <div class="report-row-name">The Wellness Blueprint</div>
-            <div class="report-row-desc">Healthcare quality & hospital rankings by city</div>
+      <!-- MINI ROWS: remaining 4 reports, single Get Free button each -->
+      <div class="report-mini-list">
+
+        <div class="report-mini-row">
+          <div class="report-mini-icon">🏥</div>
+          <div class="report-mini-content">
+            <div class="report-mini-name">The Wellness Blueprint</div>
+            <div class="report-mini-desc">Hospital quality & specialist access ranked by city</div>
           </div>
-          <div class="report-row-actions">
-            <button class="btn-rr-preview" onclick="openReportModal('wellness')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'f03tJB', true)">Get Free</button>
-          </div>
+          <button class="btn-mini-get ml-onclick-form" onclick="ml('show', 'f03tJB', true)">Get Free</button>
         </div>
 
-        <div class="report-row">
-          <div class="report-row-icon">💰</div>
-          <div class="report-row-content">
-            <div class="report-row-name">The Value Navigator</div>
-            <div class="report-row-desc">Real cost of living, taxes & budget ranges by city</div>
+        <div class="report-mini-row">
+          <div class="report-mini-icon">✈️</div>
+          <div class="report-mini-content">
+            <div class="report-mini-name">The Globetrotter Guide</div>
+            <div class="report-mini-desc">Airport access & travel ease ranked across all cities</div>
           </div>
-          <div class="report-row-actions">
-            <button class="btn-rr-preview" onclick="openReportModal('value')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'W6rMh2', true)">Get Free</button>
-          </div>
+          <button class="btn-mini-get ml-onclick-form" onclick="ml('show', 'fwB9NA', true)">Get Free</button>
         </div>
 
-        <div class="report-row">
-          <div class="report-row-icon">🚶</div>
-          <div class="report-row-content">
-            <div class="report-row-name">The Urban Walkabout</div>
-            <div class="report-row-desc">True walkability scores & neighborhood analysis</div>
+        <div class="report-mini-row">
+          <div class="report-mini-icon">🚶</div>
+          <div class="report-mini-content">
+            <div class="report-mini-name">The Urban Walkabout</div>
+            <div class="report-mini-desc">True walkability & neighborhood-level analysis</div>
           </div>
-          <div class="report-row-actions">
-            <button class="btn-rr-preview" onclick="openReportModal('walkabout')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'dJJ40D', true)">Get Free</button>
-          </div>
+          <button class="btn-mini-get ml-onclick-form" onclick="ml('show', 'dJJ40D', true)">Get Free</button>
         </div>
 
-        <div class="report-row">
-          <div class="report-row-icon">🏔️</div>
-          <div class="report-row-content">
-            <div class="report-row-name">The Active Frontier</div>
-            <div class="report-row-desc">Outdoor recreation, fitness & active lifestyle fit</div>
+        <div class="report-mini-row">
+          <div class="report-mini-icon">🏔️</div>
+          <div class="report-mini-content">
+            <div class="report-mini-name">The Active Frontier</div>
+            <div class="report-mini-desc">Outdoor rec, trails, golf & year-round usability</div>
           </div>
-          <div class="report-row-actions">
-            <button class="btn-rr-preview" onclick="openReportModal('frontier')">Preview</button>
-            <button class="btn-rr-get ml-onclick-form" onclick="ml('show', 'g4M1M8', true)">Get Free</button>
-          </div>
+          <button class="btn-mini-get ml-onclick-form" onclick="ml('show', 'g4M1M8', true)">Get Free</button>
         </div>
 
       </div>
-      <p class="reports-free-note">All reports free — delivered to your inbox in minutes</p>
+      <p class="reports-free-note">All five reports are free — delivered via MailerLite instantly.</p>
     </div>
 
   </div>
@@ -761,9 +943,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     </div>
   </div>
   <div class="results-header">
-    <h2>Your 3 Best Matches</h2>
+    <h2>Your Top 5 Cities</h2>
     <p id="resultsSubtitle">Based on your priorities, here are your best retirement city matches.</p>
-    <div class="results-scroll-hint">Scroll down to see all 3 cities ↓</div>
   </div>
   <div class="results-grid" id="resultsGrid"></div>
   <div class="restart-bar">
@@ -3425,7 +3606,7 @@ function runMatchingEngine() {
     return { ...city, matchScore: Math.min(99, matchPct) };
   });
 
-  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 3);
+  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 5);
 }
 
 function generateWhyMatch(city) {
@@ -3648,6 +3829,58 @@ function getRecommendedReports() {
   return recommended.slice(0, 2);
 }
 
+function buildCityCardHTML(city, i, rankLabels) {
+  const topDims = getTopDimsForUser(city);
+  return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
+    <div class="card-header">
+      <div class="match-badge">${city.matchScore}% match</div>
+      <div class="card-rank">${rankLabels[i]}</div>
+      <div class="card-city-name">${city.name}, ${city.state}</div>
+      <div class="card-type">${city.type}</div>
+    </div>
+    <div class="card-body">
+      <div class="score-bars">
+        ${topDims.map(d => {
+          const score = getCityScore(city, d.key);
+          return `<div class="score-item">
+            <div class="score-item-label">
+              <span>${d.icon} ${d.label}</span>
+              <span>${score}/10</span>
+            </div>
+            <div class="score-bar-track">
+              <div class="score-bar-fill ${scoreClass(score)}" style="width:${score*10}%"></div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="card-tags">
+        ${[...city.setting, ...city.character].slice(0,3).map(t => `<span class="card-tag">${t}</span>`).join('')}
+      </div>
+      <div class="card-highlight">${city.highlight}</div>
+    </div>
+    <div class="card-why-divider"></div>
+    <div class="card-why">
+      <div class="card-why-section">
+        <div class="card-why-label match-label">✓ Why this matches you</div>
+        <div class="card-why-text">${generateWhyMatch(city)}</div>
+      </div>
+      <div class="card-why-section">
+        <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
+        <div class="card-why-tradeoffs">
+          ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
+        </div>
+      </div>
+      <div class="card-why-section card-best-for">
+        <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
+        <div class="card-why-text card-best-for-text">${generateBestFor(city)}</div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn-view-city">See Full City Profile →</button>
+    </div>
+  </div>`;
+}
+
 function renderResults(results) {
   const grid = document.getElementById('resultsGrid');
   const subtitle = document.getElementById('resultsSubtitle');
@@ -3662,57 +3895,89 @@ function renderResults(results) {
 
   const rankLabels = ['Best Match', '2nd Match', '3rd Match', '4th Match', '5th Match'];
 
-  grid.innerHTML = results.map((city, i) => {
-    const topDims = getTopDimsForUser(city);
-    return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
-      <div class="card-header">
-        <div class="match-badge">${city.matchScore}% match</div>
-        <div class="card-rank">${rankLabels[i]}</div>
-        <div class="card-city-name">${city.name}, ${city.state}</div>
-        <div class="card-type">${city.type}</div>
+  // Store all results for unlock
+  window.allResults = results;
+  window.rankLabels = rankLabels;
+
+  // City #1 — fully visible
+  const firstCard = buildCityCardHTML(results[0], 0, rankLabels);
+
+  // Email gate
+  const gate = `
+    <div class="results-email-gate" id="resultsGate">
+      <div class="reg-kicker">✓ Your #1 match is above</div>
+      <h3 class="reg-headline">Unlock your full top 5 cities</h3>
+      <p class="reg-sub">Enter your email and we'll reveal all 5 matches instantly — plus send your full results to your inbox so you can revisit anytime.</p>
+      <div class="reg-form">
+        <input type="email" id="gateEmail" class="reg-input" placeholder="your@email.com">
+        <button class="reg-btn" onclick="unlockResults(event)">Reveal My Top 5 →</button>
       </div>
-      <div class="card-body">
-        <div class="score-bars">
-          ${topDims.map(d => {
-            const score = getCityScore(city, d.key);
-            return `<div class="score-item">
-              <div class="score-item-label">
-                <span>${d.icon} ${d.label}</span>
-                <span>${score}/10</span>
-              </div>
-              <div class="score-bar-track">
-                <div class="score-bar-fill ${scoreClass(score)}" style="width:${score*10}%"></div>
-              </div>
-            </div>`;
-          }).join('')}
-        </div>
-        <div class="card-tags">
-          ${[...city.setting, ...city.character].slice(0,3).map(t => `<span class="card-tag">${t}</span>`).join('')}
-        </div>
-        <div class="card-highlight">${city.highlight}</div>
-      </div>
-      <div class="card-why-divider"></div>
-      <div class="card-why">
-        <div class="card-why-section">
-          <div class="card-why-label match-label">✓ Why this matches you</div>
-          <div class="card-why-text">${generateWhyMatch(city)}</div>
-        </div>
-        <div class="card-why-section">
-          <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
-          <div class="card-why-tradeoffs">
-            ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
-          </div>
-        </div>
-        <div class="card-why-section card-best-for">
-          <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
-          <div class="card-why-text card-best-for-text">${generateBestFor(city)}</div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <button class="btn-view-city">See Full City Profile →</button>
+      <div class="reg-perks">
+        <span>✓ Revealed on screen instantly</span>
+        <span>✓ Full results sent to your inbox</span>
+        <span>✓ No spam — unsubscribe anytime</span>
       </div>
     </div>`;
-  }).join('');
+
+  // Cities #2–5 — locked placeholders
+  const locked = results.slice(1).map((city, i) => `
+    <div class="city-card-locked">
+      <div class="cl-rank">#${i + 2}</div>
+      <div class="cl-content">
+        <div class="cl-bar"></div>
+        <div class="cl-bar short"></div>
+        <div class="cl-bar tiny"></div>
+      </div>
+      <div class="cl-lock">🔒 Locked</div>
+    </div>`).join('');
+
+  // Cities #2–5 — full cards, hidden until unlock
+  const remaining = `<div id="remainingCards" style="display:none">
+    ${results.slice(1).map((city, i) => buildCityCardHTML(city, i + 1, rankLabels)).join('')}
+  </div>`;
+
+  grid.innerHTML = firstCard + gate + locked + remaining;
+}
+
+function unlockResults(e) {
+  e.preventDefault();
+  const emailEl = document.getElementById('gateEmail');
+  const email = emailEl ? emailEl.value.trim() : '';
+  if (!email || !email.includes('@')) {
+    if (emailEl) emailEl.focus();
+    return;
+  }
+
+  // Submit to Netlify
+  const data = new URLSearchParams({
+    'form-name': 'quiz-results',
+    'email': email,
+    'bot-field': ''
+  });
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: data.toString()
+  }).catch(() => {});
+
+  // MailerLite — Quiz Results group
+  try { ml('show', 'ETbvqw', true); } catch(e) {}
+
+  // GA event
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'quiz_results_unlock', { event_category: 'Quiz', event_label: 'Email Gate' });
+  }
+
+  // Reveal: hide gate + locked cards, show full remaining cards
+  const gate = document.getElementById('resultsGate');
+  if (gate) gate.style.display = 'none';
+  document.querySelectorAll('.city-card-locked').forEach(el => el.style.display = 'none');
+  const remaining = document.getElementById('remainingCards');
+  if (remaining) {
+    remaining.style.display = 'block';
+    remaining.style.animation = 'fadeUp 0.4s ease both';
+    setTimeout(() => remaining.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
 }
 
 function getTopDimsForUser(city) {
