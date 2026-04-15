@@ -541,8 +541,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .q-subtitle { font-size: 14px; color: var(--light); margin-bottom: 24px; }
 .priority-section { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0ede8; }
 .priority-section:last-child { border-bottom: none; margin-bottom: 0; }
-.priority-label { font-size: 15px; font-weight: 500; color: var(--dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.priority-label { font-size: 15px; font-weight: 500; color: var(--dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .priority-label .icon { font-size: 18px; }
+.priority-label-desc { font-size: 11px; font-weight: 400; color: var(--light); font-style: italic; width: 100%; padding-left: 26px; margin-top: -4px; }
 .priority-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .priority-btn { padding: 10px 8px; border-radius: 10px; border: 2px solid #e8e4de; background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--mid); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.3; }
 .priority-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-lt); }
@@ -3023,10 +3024,10 @@ const DIMENSIONS = [
   { key: 'DC', icon: '🌤️', label: 'Climate Preference' },
   { key: 'D5', icon: '📋', label: 'Tax Friendliness' },
   { key: 'D6', icon: '🚶', label: 'Walkability' },
-  { key: 'D7', icon: '🏞', label: 'Outdoor Recreation' },
-  { key: 'D8', icon: '🏋️', label: 'Active Wellness' },
+  { key: 'D7', icon: '🏞', label: 'Outdoor Recreation', desc: 'Trails, hiking, parks, kayaking, cycling' },
+  { key: 'D8', icon: '🏋️', label: 'Active Wellness', desc: 'Gyms, pickleball, fitness centers, rec centers' },
   { key: 'D9', icon: '🔒', label: 'Safety' },
-  { key: 'D10', icon: '👥', label: 'Community & Social Life' }
+  { key: 'D10', icon: '👥', label: 'Community & Social Life', desc: 'Arts, dining, events, volunteering, sports' }
 ];
 
 const PRIORITIES = ['Must Have', 'Very Important', 'Somewhat Important', 'Not Important'];
@@ -3109,7 +3110,7 @@ function renderPriorities(container) {
     if (dim.key === 'DC') return; 
     const current = quizState.priorities[dim.key];
     html += `<div class="priority-section">
-      <div class="priority-label"><span class="icon">${dim.icon}</span>${dim.label}</div>
+      <div class="priority-label"><span class="icon">${dim.icon}</span>${dim.label}${dim.desc ? `<span class="priority-label-desc">${dim.desc}</span>` : ''}</div>
       <div class="priority-options">`;
     PRIORITIES.forEach(p => {
       const selected = current === p ? 'selected' : '';
