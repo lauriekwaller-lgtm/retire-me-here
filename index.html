@@ -3019,14 +3019,14 @@ const CITY_ENRICHMENT = {
 };
 
 const DIMENSIONS = [
-  { key: 'D1', icon: '✈️', label: 'Airport Access' },
-  { key: 'D3', icon: '🏥', label: 'Healthcare Quality' },
+  { key: 'D1', icon: '✈️', label: 'Airport Access', desc: 'Drive time to major hub, nonstop routes, airlines' },
+  { key: 'D3', icon: '🏥', label: 'Healthcare Quality', desc: 'Hospital ratings, specialist access, senior care' },
   { key: 'DC', icon: '🌤️', label: 'Climate Preference' },
-  { key: 'D5', icon: '📋', label: 'Tax Friendliness' },
-  { key: 'D6', icon: '🚶', label: 'Walkability' },
+  { key: 'D5', icon: '📋', label: 'Tax Friendliness', desc: 'Social Security, income, property tax burden' },
+  { key: 'D6', icon: '🚶', label: 'Walkability', desc: 'Walk to shops, restaurants, errands without a car' },
   { key: 'D7', icon: '🏞', label: 'Outdoor Recreation', desc: 'Trails, hiking, parks, kayaking, cycling' },
   { key: 'D8', icon: '🏋️', label: 'Active Wellness', desc: 'Gyms, pickleball, fitness centers, rec centers' },
-  { key: 'D9', icon: '🔒', label: 'Safety' },
+  { key: 'D9', icon: '🔒', label: 'Safety', desc: 'Violent and property crime rates by city' },
   { key: 'D10', icon: '👥', label: 'Community & Social Life', desc: 'Arts, dining, events, volunteering, sports' }
 ];
 
@@ -3086,7 +3086,7 @@ function renderStep() {
   if (step.type === 'priorities' && quizState.climateChoice) {
     var section = document.getElementById('climate-priority-section');
     if (section) {
-      var prioLabels = ['Must Have','Very Important','Somewhat Important','Not Important'];
+      var prioLabels = ['Must Have','Very Important','Somewhat Important'];
       var btnsHtml = '<div class="climate-priority-wrap"><div class="climate-priority-label">How important is this climate preference?</div><div class="priority-options">';
       for (var pi = 0; pi < prioLabels.length; pi++) {
         var p = prioLabels[pi];
@@ -3123,16 +3123,21 @@ function renderPriorities(container) {
   
   html += `<div class="priority-section">
     <div class="priority-label"><span class="icon">🌤️</span>Climate Preference</div>
-    <div class="climate-choice-wrap">
+    <div class="climate-choice-wrap" style="grid-template-columns:repeat(2,1fr);">
       <button class="climate-btn ${quizState.climateChoice === 'mild' ? 'selected' : ''}" onclick="setClimateChoice('mild')">
         <span class="climate-icon">☀️</span>
         <span class="climate-lbl">Mild Year-Round</span>
         <span class="climate-desc">Comfortable all 12 months — no extreme heat or cold</span>
       </button>
+      <button class="climate-btn ${quizState.climateChoice === 'warm_dry' ? 'selected' : ''}" onclick="setClimateChoice('warm_dry')">
+        <span class="climate-icon">🌵</span>
+        <span class="climate-lbl">Warm & Dry</span>
+        <span class="climate-desc">Warm winters, hot summers OK — but low humidity matters</span>
+      </button>
       <button class="climate-btn ${quizState.climateChoice === 'warm' ? 'selected' : ''}" onclick="setClimateChoice('warm')">
         <span class="climate-icon">🌴</span>
-        <span class="climate-lbl">Warm Winters, Hot Summers Fine</span>
-        <span class="climate-desc">Escape cold winters — summer heat doesn't bother me</span>
+        <span class="climate-lbl">Warm, Humidity OK</span>
+        <span class="climate-desc">Escape cold winters — heat and humidity don't bother me</span>
       </button>
       <button class="climate-btn ${quizState.climateChoice === 'seasons' ? 'selected' : ''}" onclick="setClimateChoice('seasons')">
         <span class="climate-icon">🍂</span>
@@ -3518,6 +3523,11 @@ function getCityScore(city, dimKey) {
       return Math.round((winterScore * 0.4 + summerScore * 0.35 + humidScore * 0.25));
     }
 
+    if (quizState.climateChoice === 'warm_dry') {
+      // Warm winters + low humidity — penalise humid cities heavily
+      return Math.round((W * 0.4) + (M * 0.4) + (H * 0.2));
+    }
+
     if (quizState.climateChoice === 'warm') {
       
       
@@ -3888,7 +3898,7 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>
     </div>
     <div class="card-footer">
-      <button class="btn-view-city">See Full City Profile →</button>
+      <button class="btn-view-city">See why ${city.name} made your list →</button>
     </div>
   </div>`;
 }
@@ -3919,7 +3929,7 @@ function renderResults(results) {
     <div class="results-email-gate" id="resultsGate">
       <div class="reg-kicker">✓ Your #1 match is above</div>
       <h3 class="reg-headline">Unlock your full top 5 cities</h3>
-      <p class="reg-sub">Enter your email to reveal all 5 of your personalized city matches instantly.</p>
+      <p class="reg-sub">Enter your email to reveal your personalized matches instantly — right here on this page.</p>
       <div class="reg-form">
         <input type="email" id="gateEmail" class="reg-input" placeholder="your@email.com">
         <button class="reg-btn" onclick="unlockResults(event)">Reveal My Top 5 →</button>
@@ -3927,8 +3937,8 @@ function renderResults(results) {
       <div class="reg-perks">
         <span>✓ Results revealed instantly on screen</span>
         <span>✓ Free — no account needed</span>
-        <span>✓ No spam — unsubscribe anytime</span>
       </div>
+      <p style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;">No spam. Unsubscribe anytime.</p>
     </div>`;
 
   // Cities #2–5 — locked placeholders
