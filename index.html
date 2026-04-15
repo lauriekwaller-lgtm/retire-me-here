@@ -821,7 +821,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       </div>
       <div class="split-stats">
         <div>
-          <span class="split-stat-num">75+</span>
+          <span class="split-stat-num">50+</span>
           <span class="split-stat-label">Cities Scored</span>
         </div>
         <div>
@@ -840,7 +840,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <div class="hero-right" id="reports">
       <div class="reports-panel-eyebrow" style="color:var(--light);">Also Available Free</div>
       <div class="reports-panel-title">Deep-Dive Reports</div>
-      <p class="reports-panel-sub">Each report ranks all 75+ cities on one topic — real data, honest tradeoffs.</p>
+      <p class="reports-panel-sub">Each report ranks all 50+ cities on one topic — real data, honest tradeoffs.</p>
 
       <!-- FEATURED: VALUE NAVIGATOR with preview open -->
       <div class="report-featured">
@@ -944,7 +944,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <div class="loading-screen">
     <div class="loading-spinner"></div>
     <h2>Finding your cities…</h2>
-    <p>Matching your priorities against 75+ scored retirement destinations.</p>
+    <p>Matching your priorities against 50 scored retirement destinations.</p>
   </div>
 </div>
 
@@ -3690,7 +3690,7 @@ function submitReport(e) {
 
 function setClimateChoice(choice) {
   quizState.climateChoice = choice;
-  quizState.priorities['DC'] = null; 
+  quizState.priorities['DC'] = 'Very Important'; // auto-set so Next button enables immediately
   renderStep();
 }
 
@@ -4053,6 +4053,7 @@ function generateWhyMatch(city) {
   if (quizState.climateChoice) {
     const climateMsg = {
       'warm': `You said warm winters matter — ${city.name} delivers exactly that, with mild temperatures that make outdoor life comfortable year-round.`,
+      'warm_dry': `You want warm weather without the humidity — ${city.name} delivers dry heat, meaning warm winters and summers that feel more bearable than the numbers suggest.`,
       'mild': `You're looking for mild weather all year, and ${city.name} is one of the few cities that genuinely delivers comfortable temperatures in every season.`,
       'seasons': `You want four real seasons, and ${city.name} has them — including the kind of fall and spring that make you glad you chose somewhere with actual weather.`,
     };
@@ -4191,7 +4192,8 @@ function generateBestFor(city) {
   };
 
   const climateDesc = {
-    'warm': "prioritize warm winters and don\'t mind summer heat",
+    'warm': "prioritize warm winters and don\'t mind summer heat or humidity",
+    'warm_dry': "want warm weather but prefer dry heat over humidity",
     'mild': 'want comfortable weather year-round without extremes',
     'seasons': "love four real seasons and don\'t shy away from winter",
   };
