@@ -984,7 +984,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <script>
 
-console.log("RMH v2.3 loaded - 50+ cities");
+console.log("RMH v2.3 loaded - 75+ cities");
 
 const CITIES = [
   {
@@ -1683,6 +1683,193 @@ const CITIES = [
     highlight: "Sun City Texas — 86,000 sq ft amenity center, 3 golf courses, 100+ clubs, Senior University. 85th percentile safety. No Texas income tax. AUS airport 35 min.",
     pros: ["Sun City Texas — 86,000 sq ft amenity center, best 55+ infrastructure in the database","85th percentile safety — one of the safest cities in the database","No Texas income tax on any retirement income","AUS (Austin) airport 35 min with strong national connections"],
     cons: ["Hot summers — 95°F+ routinely June through August with some humidity","D7 outdoor recreation limited — suburban Texas landscape","Hospital D3 score 6 — Williamson Medical adequate; Austin for complex care","Suburban character — depends on Sun City amenities for social life"]
+  },
+  {
+    name: "Whitefish", state: "MT", type: "Mountain Resort",
+    setting: ["Mountain", "Lakeside"],
+    character: ["Outdoor Lifestyle", "Arts & Culture", "Historic"],
+    monthlyEst: "$5,500–$7,500/mo", medianHome: "$870,000", budgetRange: 4,
+    scores: { D1:6, D2:4, D3:5, D4:5, D5:8, D6:6, D7:10, D8:9, D9:8, D10:7 },
+    climate: { W:2, H:5, M:4 },
+    highlight: "Gateway to Glacier National Park with world-class skiing, stunning lake views, and a walkable mountain town character that draws active retirees from across the country.",
+    pros: ["Glacier National Park literally in your backyard", "Whitefish Mountain Resort for world-class skiing and summer hiking", "Charming walkable downtown with restaurants and galleries", "Montana has no state income tax and no sales tax"],
+    cons: ["Median home prices exceed $850K — among Montana’s most expensive", "Remote — nearest major city is Spokane, 110 miles away", "Cold winters with 75+ inches of annual snowfall", "Local hospital is small — major specialty care requires Kalispell 15 miles away"]
+  },
+  {
+    name: "Steamboat Springs", state: "CO", type: "Mountain Resort",
+    setting: ["Mountain"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$6,500–$8,500/mo", medianHome: "$972,000", budgetRange: 4,
+    scores: { D1:5, D2:3, D3:5, D4:5, D5:5, D6:5, D7:10, D8:10, D9:8, D10:7 },
+    climate: { W:2, H:5, M:4 },
+    highlight: "The most Olympic athletes per capita of any American town, Steamboat Springs offers world-class skiing, natural hot springs, and a genuine mountain town character at prices more accessible than Aspen or Jackson Hole.",
+    pros: ["Steamboat Ski Resort — one of the best mountain experiences in Colorado", "Natural hot springs right in town", "Strong active adult community with deep outdoor culture", "Charming historic downtown with real Western character"],
+    cons: ["Median home prices approaching $1M — significant resort premium", "Colorado income tax at 4.4% applies to retirement income", "Remote — Yampa Valley Airport has limited year-round service", "Specialist healthcare requires travel to Denver — 3 hours away"]
+  },
+  {
+    name: "Coeur d’Alène", state: "ID", type: "Lakeside Mountain",
+    setting: ["Mountain", "Lakeside"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$4,500–$6,000/mo", medianHome: "$601,000", budgetRange: 3,
+    scores: { D1:6, D2:5, D3:6, D4:5, D5:7, D6:5, D7:9, D8:8, D9:7, D10:7 },
+    climate: { W:3, H:6, M:5 },
+    highlight: "One of the most visually stunning small cities in America — Coeur d’Alène sits on a sparkling lake surrounded by forested mountains, with Spokane’s full urban amenities just 30 miles west.",
+    pros: ["Lake Coeur d’Alène is genuinely spectacular — one of the most beautiful settings in the database", "30 miles from Spokane — full urban amenities without urban prices", "Idaho has no state tax on Social Security income", "Growing retirement community with strong outdoor lifestyle"],
+    cons: ["Median home prices now above $600K after sharp pandemic-era increases", "Serious specialist healthcare is in Spokane — 30 miles away", "Winters are cold with significant snowfall", "Car dependent outside of downtown and resort areas"]
+  },
+  {
+    name: "Grand Junction", state: "CO", type: "Desert / Wine Country",
+    setting: ["Mountain", "Desert"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$3,500–$5,000/mo", medianHome: "$376,000", budgetRange: 2,
+    scores: { D1:6, D2:8, D3:6, D4:5, D5:5, D6:5, D7:9, D8:7, D9:7, D10:6 },
+    climate: { W:5, H:7, M:6 },
+    highlight: "Colorado’s affordable outdoor alternative — Grand Junction delivers wine country, canyon recreation, 300+ sunny days, and access to world-class destinations at a fraction of Front Range prices.",
+    pros: ["Most affordable major city in Colorado — median home under $380K", "300+ sunny days per year with a dry high-desert climate", "Colorado National Monument and wine country minutes from downtown", "Small city feel with growing arts and dining scene"],
+    cons: ["Colorado income tax of 4.4% applies to pension and IRA income", "Specialist healthcare requires travel to Denver — 4 hours away", "Summers are very hot — temperatures regularly exceed 95°F", "Car dependent with limited public transit"]
+  },
+  {
+    name: "Kansas City", state: "MO", type: "Urban / Cultural",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Urban Neighborhood", "Arts & Culture", "Historic"],
+    monthlyEst: "$3,500–$4,800/mo", medianHome: "$252,000", budgetRange: 2,
+    scores: { D1:8, D2:8, D3:8, D4:5, D5:6, D6:5, D7:4, D8:6, D9:5, D10:8 },
+    climate: { W:3, H:7, M:4 },
+    highlight: "One of the most underrated major American cities for retirement — Kansas City combines world-class arts, legendary barbecue culture, affordable homes under $260K, and strong healthcare without coastal price tags.",
+    pros: ["Genuinely world-class arts scene — Nelson-Atkins Museum, Kauffman Center", "University of Kansas Health System is a major academic medical center", "Median home under $260K in a full-service major city", "Rich food, music, and cultural identity unlike anywhere else"],
+    cons: ["Crime varies significantly by neighborhood — careful selection is essential", "Cold winters with potential for ice and snow", "Car dependent outside of certain urban neighborhoods", "Missouri income tax applies to most retirement income"]
+  },
+  {
+    name: "Columbus", state: "OH", type: "Urban / University",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Urban Neighborhood", "Arts & Culture"],
+    monthlyEst: "$3,200–$4,500/mo", medianHome: "$212,000", budgetRange: 2,
+    scores: { D1:7, D2:9, D3:9, D4:5, D5:6, D6:6, D7:3, D8:6, D9:6, D10:7 },
+    climate: { W:3, H:7, M:4 },
+    highlight: "Ohio State University Medical Center makes Columbus a genuine healthcare powerhouse — and with median homes under $215K in a growing, culturally vibrant city, it offers extraordinary value for retirees who prioritize medical access.",
+    pros: ["Ohio State University Wexner Medical Center — nationally ranked in multiple specialties", "Median home under $215K — among the lowest for any major US city in the database", "Growing city with improving arts and food scene in Short North and German Village", "No Ohio state tax on Social Security income"],
+    cons: ["Cold winters — Ohio weather is not glamorous", "Car dependent outside of Short North and German Village", "Ohio income tax still applies to other retirement income sources", "Flat terrain limits outdoor recreation options"]
+  },
+  {
+    name: "Indianapolis", state: "IN", type: "Urban / Sports",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Urban Neighborhood", "Arts & Culture"],
+    monthlyEst: "$3,000–$4,200/mo", medianHome: "$223,000", budgetRange: 2,
+    scores: { D1:8, D2:9, D3:8, D4:5, D5:6, D6:5, D7:3, D8:6, D9:6, D10:7 },
+    climate: { W:3, H:7, M:4 },
+    highlight: "Indianapolis offers a complete major-city experience — excellent airport, strong healthcare, thriving sports culture, and a growing arts scene — at a median home price under $225K, making it one of the best value large cities in the database.",
+    pros: ["IU Health and Eskenazi Health are major medical systems with strong specialty depth", "Indianapolis International Airport consistently rated among the best in the Midwest", "Median home under $225K in a full major city", "Strong sports and civic culture — Pacers, Colts, Indy 500"],
+    cons: ["Cold winters — Indiana weather is a real tradeoff", "Car dependent outside of Mass Ave and Fountain Square", "Indiana income tax applies to retirement income", "Flat terrain limits outdoor recreation options"]
+  },
+  {
+    name: "Vail", state: "CO", type: "Mountain Luxury",
+    setting: ["Mountain"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$10,000–$15,000/mo", medianHome: "$3,100,000", budgetRange: 5,
+    scores: { D1:6, D2:1, D3:6, D4:5, D5:5, D6:7, D7:10, D8:10, D9:9, D10:7 },
+    climate: { W:2, H:5, M:5 },
+    highlight: "The gold standard of American mountain resort living — Vail offers world-class skiing, a walkable European-style pedestrian village, and outdoor recreation infrastructure that is unmatched in the database, at a price to match.",
+    pros: ["Vail Ski Resort — consistently ranked best in North America", "Pedestrian village is genuinely walkable and architecturally stunning", "World-class outdoor recreation in every season", "Strong cultural programming including Bravo! Vail music festival"],
+    cons: ["Median home $3.1M — among the most expensive communities in the database", "Colorado income tax at 4.4% applies to retirement income", "Remote — Eagle County Airport has limited year-round nonstop service", "Very small permanent population limits year-round community depth"]
+  },
+  {
+    name: "Sun Valley", state: "ID", type: "Mountain Resort",
+    setting: ["Mountain"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$7,500–$10,000/mo", medianHome: "$1,350,000", budgetRange: 5,
+    scores: { D1:5, D2:2, D3:5, D4:5, D5:7, D6:6, D7:10, D8:10, D9:9, D10:7 },
+    climate: { W:2, H:5, M:4 },
+    highlight: "Sun Valley has attracted artists, writers, and outdoor enthusiasts for a century — a sophisticated mountain resort with world-class skiing, summer festivals, and Idaho’s favorable tax environment.",
+    pros: ["Bald Mountain — one of the best ski mountains in America with exceptional vertical drop", "Idaho has no state tax on Social Security income", "World-class arts programming — Sun Valley Center for the Arts, film festival", "More intimate and authentic in character than Vail or Aspen"],
+    cons: ["Median home prices $1.3M+ and rising sharply", "Very remote — Friedman Memorial Airport has limited year-round service", "Serious specialist healthcare requires travel to Boise — 1.5 hours", "Very small permanent community — limited year-round social infrastructure"]
+  },
+  {
+    name: "Memphis", state: "TN", type: "Urban / Cultural",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Urban Neighborhood", "Arts & Culture", "Historic"],
+    monthlyEst: "$2,800–$4,000/mo", medianHome: "$175,000", budgetRange: 1,
+    scores: { D1:8, D2:9, D3:9, D4:5, D5:9, D6:5, D7:3, D8:5, D9:4, D10:8 },
+    climate: { W:5, H:8, M:5 },
+    highlight: "The birthplace of blues, rock and roll, and soul food — Memphis has one of the richest cultural identities in America, world-class healthcare in St. Jude and Methodist hospitals, and the most affordable home prices in the database.",
+    pros: ["St. Jude Children’s Research Hospital and Methodist Le Bonheur — exceptional healthcare depth", "Median home under $180K — most affordable major city in the database", "No Tennessee income tax on any retirement income whatsoever", "Beale Street, Graceland, National Civil Rights Museum — unmatched cultural richness"],
+    cons: ["Safety levels vary significantly by neighborhood — careful area selection is essential", "Hot and humid summers with temperatures regularly exceeding 90°F", "Car dependent — limited walkability outside Downtown and Midtown", "Some neighborhoods require significant research before committing"]
+  },
+  {
+    name: "Napa", state: "CA", type: "Wine Country",
+    setting: ["Inland / Green"],
+    character: ["Arts & Culture", "Outdoor Lifestyle"],
+    monthlyEst: "$7,000–$9,500/mo", medianHome: "$780,000", budgetRange: 5,
+    scores: { D1:6, D2:2, D3:6, D4:5, D5:2, D6:6, D7:7, D8:7, D9:7, D10:7 },
+    climate: { W:7, H:6, M:8 },
+    highlight: "The heart of America’s premier wine country — Napa offers world-class food and wine culture, a mild Mediterranean climate, and proximity to San Francisco for retirees who prioritize lifestyle and sophistication over mountain access.",
+    pros: ["World-class wine, food, and culinary culture — BottleRock, Oxbow Public Market", "Mild Mediterranean climate — comfortable year-round with warm dry summers", "Proximity to San Francisco (1.5 hours) and full Bay Area amenities", "Queen of the Valley Medical Center provides solid on-site care"],
+    cons: ["California income tax reaches 13.3% — among the worst in the database for retirement income", "Median home ~$780K with total monthly costs among the highest in the database", "Wildfire risk is real and increasing throughout wine country", "Car dependent outside of downtown Napa"]
+  },
+  {
+    name: "Carmel-by-the-Sea", state: "CA", type: "Coastal Luxury",
+    setting: ["Beach / Coastal"],
+    character: ["Arts & Culture", "Outdoor Lifestyle"],
+    monthlyEst: "$12,000–$18,000/mo", medianHome: "$3,000,000", budgetRange: 5,
+    scores: { D1:6, D2:1, D3:6, D4:5, D5:2, D6:8, D7:9, D8:7, D9:9, D10:7 },
+    climate: { W:8, H:6, M:9 },
+    highlight: "Widely regarded as one of the most beautiful places in America — Carmel-by-the-Sea is a walkable fairytale village perched on Pacific cliffs with extraordinary art galleries, Pebble Beach golf, and the mildest coastal climate in the database.",
+    pros: ["Arguably the most beautiful coastal setting of any city in the database", "Genuinely walkable village — art galleries, restaurants, and the beach all on foot", "Mildest coastal climate in the database — fog moderates temperatures year-round", "17-Mile Drive, Point Lobos State Reserve, and Big Sur from your doorstep"],
+    cons: ["Median home $2.8–3.3M — among the most expensive communities in the database", "California income tax among the highest in the US — major retirement income penalty", "Very small town — limited everyday services and local healthcare", "Specialist healthcare requires Monterey or San Jose — 30–80 miles"]
+  },
+  {
+    name: "Paducah", state: "KY", type: "River City / Arts",
+    setting: ["Lakeside", "Inland / Green"],
+    character: ["Arts & Culture", "Historic", "Outdoor Lifestyle"],
+    monthlyEst: "$2,500–$3,500/mo", medianHome: "$160,000", budgetRange: 1,
+    scores: { D1:4, D2:9, D3:6, D4:5, D5:7, D6:5, D7:5, D8:5, D9:6, D10:8 },
+    climate: { W:4, H:7, M:5 },
+    highlight: "A UNESCO Creative City at the confluence of the Ohio and Tennessee Rivers — Paducah offers a nationally recognized arts scene, gorgeous historic downtown, and some of the lowest home prices in the database.",
+    pros: ["UNESCO Creative City — nationally recognized arts and quilting culture", "Median home under $165K — among the most affordable in the database", "Kentucky has no state tax on Social Security income", "Carson Center for the Performing Arts and vibrant downtown arts district"],
+    cons: ["Limited airport access — Nashville is 2 hours, St. Louis is 2.5 hours", "Baptist Health Paducah is solid but complex specialty care requires travel", "Some flood risk near the river in low-lying areas", "Car dependent outside of downtown area"]
+  },
+  {
+    name: "Hot Springs", state: "AR", type: "Spa / Resort Town",
+    setting: ["Lakeside", "Mountain"],
+    character: ["Arts & Culture", "Historic", "Outdoor Lifestyle"],
+    monthlyEst: "$2,800–$3,800/mo", medianHome: "$235,000", budgetRange: 1,
+    scores: { D1:4, D2:9, D3:5, D4:5, D5:7, D6:5, D7:7, D8:6, D9:5, D10:7 },
+    climate: { W:5, H:8, M:5 },
+    highlight: "The only city in America with a national park running through its downtown — Hot Springs offers natural hot springs, Oaklawn horse racing, lake recreation, and a genuine historic resort character at prices well below the national average.",
+    pros: ["Hot Springs National Park is literally in the city — unique in all of America", "Cost of living 16.5% below national average with median home under $240K", "Arkansas has no state tax on Social Security income", "Lake Ouachita and Lake Hamilton — two beautiful lakes minutes from downtown"],
+    cons: ["No commercial airport in Hot Springs — Little Rock is 55 miles away", "Baptist Health Medical Center is solid but specialist care requires Little Rock", "Crime rate varies by neighborhood — careful selection is important", "Hot and humid summers"]
+  },
+  {
+    name: "Rio Rancho", state: "NM", type: "Desert Suburb",
+    setting: ["Desert", "Mountain"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$4,000–$5,500/mo", medianHome: "$323,000", budgetRange: 3,
+    scores: { D1:7, D2:7, D3:7, D4:5, D5:6, D6:4, D7:7, D8:7, D9:7, D10:6 },
+    climate: { W:6, H:8, M:7 },
+    highlight: "Ranked #6 US News Best Places to Retire 2026 — Rio Rancho combines 300+ sunny days, stunning Sandia Mountain views, affordable master-planned neighborhoods, and 20-minute access to Albuquerque’s medical centers.",
+    pros: ["Ranked #6 US News Best Places to Retire 2026", "300+ sunny days per year with dry climate ideal for joint health", "Albuquerque International Sunport just 15 miles south", "UNM Sandoval Regional Medical Center plus Albuquerque’s full medical system 20 minutes away"],
+    cons: ["Car dependent — master-planned suburban layout requires driving for most errands", "New Mexico income tax applies to retirement income", "Hot summers with temperatures regularly reaching 95°F+", "Limited walkable downtown character compared to Santa Fe"]
+  },
+  {
+    name: "The Woodlands", state: "TX", type: "Master-Planned Community",
+    setting: ["Inland / Green", "Lakeside"],
+    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    monthlyEst: "$5,500–$7,500/mo", medianHome: "$474,000", budgetRange: 4,
+    scores: { D1:8, D2:5, D3:9, D4:5, D5:9, D6:6, D7:7, D8:8, D9:8, D10:8 },
+    climate: { W:6, H:9, M:6 },
+    highlight: "Ranked #4 US News Best Places to Retire 2026 — The Woodlands is one of America’s most successful master-planned communities with 220 miles of trails, no Texas income tax, and 40-minute access to the world’s largest medical complex.",
+    pros: ["Ranked #4 US News Best Places to Retire 2026", "No Texas state income tax on any retirement income", "40 minutes from Texas Medical Center — MD Anderson, Houston Methodist, Memorial Hermann", "220 miles of trails, 26 parks, and beautiful lakes throughout the community"],
+    cons: ["Median home $474K with luxury properties significantly above that", "Hot and humid Houston-area summers are a significant tradeoff", "Car dependent outside of Market Street and Waterway areas", "Property taxes in Texas are relatively high"]
+  },
+  {
+    name: "Roanoke", state: "VA", type: "Blue Ridge Mountain City",
+    setting: ["Mountain", "Inland / Green"],
+    character: ["Arts & Culture", "Outdoor Lifestyle", "Historic"],
+    monthlyEst: "$3,200–$4,500/mo", medianHome: "$229,000", budgetRange: 2,
+    scores: { D1:5, D2:8, D3:7, D4:5, D5:5, D6:6, D7:8, D8:7, D9:7, D10:7 },
+    climate: { W:4, H:7, M:5 },
+    highlight: "Tucked into the Blue Ridge Mountains with the Appalachian Trail and Blue Ridge Parkway in its backyard — Roanoke combines genuine mountain access, Carilion’s strong regional healthcare, a growing arts scene, and median homes under $230K.",
+    pros: ["Blue Ridge Parkway and Appalachian Trail access from the city limits", "Carilion Roanoke Memorial Hospital — high-performing in 16 procedures and conditions", "Median home under $230K with overall cost of living 8% below national average", "AARP Age-Friendly Community with growing arts scene in Grandin Village"],
+    cons: ["Virginia income tax applies to retirement income — up to 5.75%", "Roanoke-Blacksburg Regional Airport has limited nonstop service", "Car dependent outside of downtown core", "Hot humid summers though mountain elevation provides some relief"]
   }
 ];
 
@@ -3015,6 +3202,230 @@ const CITY_ENRICHMENT = {
       { name: "Wolf Ranch / Teravista", vibe: "Master-planned, newer, active adult options", desc: "Southeast Georgetown. Newer master-planned development. Several active adult options. Good access to AUS and Austin tech corridor." }
     ],
     sources: "Zillow/Redfin (2026) · Williamson Medical Center ratings · St. David's Healthcare ratings · CrimeGrade.org (2025) · Texas Comptroller (no income tax) · NOAA Climate Normals · Georgetown Advocate · Data current as of March 2026."
+  },
+  "Whitefish": {
+    hospitalRating: "Logan Health Whitefish — emergency care; Kalispell Regional Medical (330 beds) 15 miles south",
+    walkScore: 55,
+    scoreNotes: {
+      D1: "Glacier Park International Airport (FCA) has direct flights to Seattle, Salt Lake, Denver, LA. Connecting flights required for most destinations.",
+      D2: "Median home $870K-$1M. Resort-town premium — 26% above national average cost of living. Montana's most expensive community.",
+      D3: "Logan Health Whitefish provides emergency care. Kalispell Regional Medical Center 15 miles south is the real healthcare hub. Limited specialty care locally.",
+      D5: "Montana has no state income tax and no sales tax. All retirement income benefits significantly — one of the best tax environments in the database.",
+      D6: "Downtown Whitefish genuinely walkable — restaurants, shops, galleries. Outside downtown, car is necessary.",
+      D7: "Best in class. Glacier National Park minutes away. Whitefish Mountain Resort. Hiking, biking, fishing, kayaking year-round.",
+      D9: "Among the safest cities in Montana. Violent crime well below national average. Resort community culture supports safety."
+    }
+  },
+  "Steamboat Springs": {
+    hospitalRating: "Yampa Valley Medical Center — full-service community hospital; UCHealth partnership; Denver 3 hours for major specialist care",
+    walkScore: 52,
+    scoreNotes: {
+      D1: "Yampa Valley Regional Airport (HDN) has seasonal direct flights to Denver, Dallas, Houston, Chicago. Off-season connections very limited.",
+      D2: "65% above national average cost of living. Median home approaching $1M. Fourth most expensive small town in the US by some rankings.",
+      D3: "Yampa Valley Medical Center is full-service community hospital with UCHealth partnership. Specialist care requires Denver — 3 hours.",
+      D5: "Colorado flat income tax of 4.4%. Social Security largely exempt. Moderate retirement tax environment.",
+      D6: "Downtown Steamboat walkable for core amenities. Free city bus service connects neighborhoods and ski area.",
+      D7: "Outstanding. Ski resort, hiking, mountain biking, hot springs, fishing, white water rafting. More Olympic athletes per capita than any US city.",
+      D9: "Safe mountain resort community. Crime well below national averages."
+    }
+  },
+  "Coeur d’Alène": {
+    hospitalRating: "Kootenai Health — regional hospital; Spokane medical system 30 miles west for specialty care",
+    walkScore: 48,
+    scoreNotes: {
+      D1: "Spokane International Airport (GEG) 30 miles west — solid regional hub with direct flights to major cities.",
+      D2: "14% above national average. Median home $600K+ after sharp pandemic increases. Still more affordable than Pacific Northwest coastal cities.",
+      D3: "Kootenai Health is solid regional hospital. Major specialty care in Spokane 30 miles away. Growing healthcare sector.",
+      D5: "Idaho has no state tax on Social Security. Income tax tops at 5.8%. Better than most western states for retirement income.",
+      D6: "Downtown and resort area walkable. Most neighborhoods require a car. Growing trail and bike infrastructure.",
+      D7: "Outstanding lake and mountain access. Hiking, skiing at Silver Mountain, boating, fishing — exceptional outdoor setting.",
+      D9: "Below average crime for its size. Resort town character and low population density support safety."
+    }
+  },
+  "Grand Junction": {
+    hospitalRating: "St. Mary’s Medical Center and Community Hospital of Grand Junction — solid regional care; Denver 4 hours for major specialists",
+    walkScore: 42,
+    scoreNotes: {
+      D1: "Grand Junction Regional Airport (GJT) has direct flights to Denver, Dallas, Phoenix, Salt Lake. Good regional connectivity.",
+      D2: "Most affordable major Colorado city. Median home ~$376K — significantly below state average. Cost of living near national average.",
+      D3: "St. Mary’s Medical Center and Community Hospital both serve the area. Reasonable for city size. Specialist care requires Denver — 4 hours.",
+      D5: "Colorado flat income tax 4.4%. Social Security exempt for most. Moderate retirement tax burden.",
+      D6: "Car necessary for most daily needs. Downtown has some walkability. Growing trail network.",
+      D7: "Outstanding. Colorado National Monument on the doorstep. Mountain biking at Lunch Loops. Wine country. Arches and Moab nearby.",
+      D9: "Below average crime for its size. Property crime is primary concern as in most small western cities."
+    }
+  },
+  "Kansas City": {
+    hospitalRating: "University of Kansas Health System — major academic medical center; Saint Luke’s Health System — strong multi-system depth",
+    walkScore: 35,
+    scoreNotes: {
+      D1: "Kansas City International Airport (MCI) is a major hub with direct flights nationwide. One of the better-connected mid-sized American cities.",
+      D2: "Median home ~$252K in a major metropolitan area is exceptional value. Cost of living well below national average.",
+      D3: "University of Kansas Health System is a major academic medical center. Saint Luke’s Hospital system. Strong healthcare depth for cost.",
+      D5: "Missouri income tax tops at 4.7%. Social Security is exempt from Missouri state tax. Reasonable retirement tax environment.",
+      D6: "Car-dependent overall. Country Club Plaza and Brookside offer walkable lifestyle. Streetcar runs downtown.",
+      D7: "Limited outdoor recreation compared to western cities. Excellent parks system. Mississippi/Missouri river access.",
+      D9: "Crime varies dramatically by neighborhood. Research specific neighborhoods carefully — safe areas are very safe."
+    }
+  },
+  "Columbus": {
+    hospitalRating: "OSU Wexner Medical Center — nationally ranked; James Cancer Hospital; strong multi-system healthcare",
+    walkScore: 46,
+    scoreNotes: {
+      D1: "John Glenn Columbus International Airport (CMH) serves as solid mid-tier hub. Direct flights to major cities.",
+      D2: "Median home ~$212K — one of the lowest in the database for a major city. Ohio most affordable state for housing.",
+      D3: "OSU Wexner Medical Center nationally ranked in cancer, cardiology, neurology. Exceptional healthcare depth for the cost.",
+      D5: "Ohio has no state tax on Social Security benefits. Income tax tops around 3.5%.",
+      D6: "Short North and German Village offer genuine walkability. Most of Columbus car-dependent.",
+      D7: "Limited. Flat terrain and Midwest geography. Hocking Hills State Park 45 minutes away for hiking.",
+      D9: "Crime varies by neighborhood. Established suburbs and Short North area are safe. Overall manageable with good neighborhood selection."
+    }
+  },
+  "Indianapolis": {
+    hospitalRating: "IU Health University Hospital — major academic system; Simon Cancer Center; Eskenazi Health — strong multi-system depth",
+    walkScore: 32,
+    scoreNotes: {
+      D1: "Indianapolis International Airport (IND) consistently rated one of the best in the US for efficiency. Direct flights to major hubs nationwide.",
+      D2: "Median home ~$223K. Indiana is one of the most affordable states. Cost of living 10-15% below national average.",
+      D3: "IU Health and Eskenazi Health provide strong multi-system coverage. Simon Cancer Center on campus.",
+      D5: "Indiana flat income tax of 3.05% — among the lowest flat rates nationally. Social Security partially exempt.",
+      D6: "Mass Ave and Fountain Square are walkable neighborhoods. Most of Indianapolis requires a car.",
+      D7: "Limited. Flat Midwest terrain. Eagle Creek Park for recreation. No mountain or coastal access.",
+      D9: "Crime varies by neighborhood significantly. Safe suburbs like Carmel and Zionsville rank among safest in Indiana."
+    }
+  },
+  "Vail": {
+    hospitalRating: "Vail Health Hospital — emergency and surgical care; complex cases transfer to Denver; adequate for resort community",
+    walkScore: 72,
+    scoreNotes: {
+      D1: "Eagle County Regional Airport (EGE) has seasonal direct flights from major cities. Denver 2 hours by car. Limited year-round nonstop service.",
+      D2: "Median home $3.1M. Cost of living 74% above national average. One of the most expensive communities in the database.",
+      D3: "Vail Health Hospital provides emergency and surgical care. UCHealth partnership. Complex cases transfer to Denver. Adequate for resort town.",
+      D5: "Colorado flat income tax of 4.4%. Social Security partially exempt. Moderate tax burden offset by no sales tax on groceries.",
+      D6: "Vail Village and Lionshead genuinely walkable — arguably most walkable mountain resort in America. Free bus system.",
+      D7: "Best in class. Vail Ski Resort, hiking, mountain biking, fly fishing on Eagle River. Year-round outdoor excellence.",
+      D9: "One of the safest communities in the database. Very low crime. Resort community character."
+    }
+  },
+  "Sun Valley": {
+    hospitalRating: "St. Luke’s Wood River Medical Center — basic care; Boise 1.5 hours for specialist needs",
+    walkScore: 58,
+    scoreNotes: {
+      D1: "Friedman Memorial Airport (SUN) has direct flights from Seattle, Denver, LA, San Francisco seasonally. Boise 1.5 hours by car.",
+      D2: "Median home $1.3M+. Very expensive resort market. More affordable than Aspen but true luxury pricing.",
+      D3: "St. Luke’s Wood River provides basic care. Complex cases require Boise (1.5 hours) or beyond. Limited specialty access.",
+      D5: "Idaho has no tax on Social Security income. State income tax tops at 5.8% but retirement income partially exempt.",
+      D6: "Ketchum village center walkable. Car needed for most daily needs outside core areas.",
+      D7: "World-class. Bald Mountain skiing, hiking, mountain biking, fly fishing on the Big Wood River. Outstanding mountain setting.",
+      D9: "Extremely safe. Very low crime. Small resort community with high social cohesion."
+    }
+  },
+  "Memphis": {
+    hospitalRating: "St. Jude Children’s Research Hospital, Methodist Le Bonheur Healthcare, Regional One Health — exceptional healthcare concentration",
+    walkScore: 38,
+    scoreNotes: {
+      D1: "Memphis International Airport (MEM) is a FedEx hub with strong connectivity. Direct flights to major cities nationwide.",
+      D2: "Median home ~$175K — most affordable major city in the database. Cost of living 11% below national average.",
+      D3: "St. Jude, Methodist Le Bonheur, Regional One Health. Exceptional healthcare concentration for a city of its size — truly world-class.",
+      D5: "Tennessee has no state income tax on any income — Social Security, pensions, 401k withdrawals all untaxed at state level.",
+      D6: "Downtown and Midtown have walkable areas. Most of Memphis car dependent. Most daily errands require driving.",
+      D7: "Limited. Mississippi River access for fishing. Shelby Farms Park. No mountains or coast.",
+      D9: "Safety varies significantly by neighborhood. Safe neighborhoods like Germantown and Collierville are excellent. Memphis overall requires neighborhood-level research."
+    }
+  },
+  "Napa": {
+    hospitalRating: "Queen of the Valley Medical Center — solid regional care; UCSF and Stanford within 1.5–2 hours",
+    walkScore: 54,
+    scoreNotes: {
+      D1: "Oakland International and San Francisco International both within 60-70 miles. Excellent Bay Area airport access.",
+      D2: "Median home ~$780K. California cost of living premium significant. Monthly costs among highest in database.",
+      D3: "Queen of the Valley Medical Center provides solid regional care. UCSF and Stanford within 1.5-2 hours for specialized treatment.",
+      D5: "California income tax reaches 13.3% on higher incomes. All retirement income except Social Security taxed. Among worst tax environments for retirees.",
+      D6: "Downtown Napa walkable for dining and wine tasting. Most residential areas car dependent.",
+      D7: "Strong. Wine country cycling, hiking in Mayacamas Mountains, Napa River recreation. Proximity to Marin and Sonoma.",
+      D9: "Generally safe. Lower crime than most California cities of similar size."
+    }
+  },
+  "Carmel-by-the-Sea": {
+    hospitalRating: "Community Hospital of the Monterey Peninsula (CHOMP) 10 minutes away — Stanford and UCSF 80–100 miles for specialist care",
+    walkScore: 78,
+    scoreNotes: {
+      D1: "Monterey Regional Airport (MRY) has direct flights to LA and San Francisco. San Jose airport 75 miles north for broader connectivity.",
+      D2: "Median home $2.8-3.3M. Among the most expensive communities in the database. True ultra-luxury pricing.",
+      D3: "Community Hospital of the Monterey Peninsula is 10 minutes away. Full-service acute care. Stanford and UCSF 80-100 miles for specialist care.",
+      D5: "California income tax up to 13.3%. All retirement income except Social Security taxed. Among worst tax environments in the database.",
+      D6: "Carmel Village is one of the most walkable communities in the database. No street addresses. Ocean Avenue is a pedestrian delight.",
+      D7: "Outstanding. 17-Mile Drive, Point Lobos State Reserve, Big Sur access, Pebble Beach, coastal hiking. Spectacular outdoor setting.",
+      D9: "One of the safest communities in the database. Very low crime. Affluent, small coastal community."
+    }
+  },
+  "Paducah": {
+    hospitalRating: "Baptist Health Paducah — solid regional hospital; Vanderbilt and St. Thomas in Nashville 2 hours for specialist care",
+    walkScore: 44,
+    scoreNotes: {
+      D1: "No local commercial airport. Nashville (BNA) is 2 hours, St. Louis (STL) is 2.5 hours. Significant tradeoff for travelers.",
+      D2: "Median home ~$160K. Cost of living 23% below national average. One of the most affordable cities in the database with genuine lifestyle amenities.",
+      D3: "Baptist Health Paducah is the primary hospital. Solid community care but complex specialty needs require travel to Nashville or St. Louis.",
+      D5: "Kentucky has no state tax on Social Security income. State income tax applies to other retirement income at modest rates.",
+      D6: "Historic downtown is walkable for arts, dining, and riverwalk. Most neighborhoods require a car.",
+      D7: "Ohio and Tennessee River confluence for fishing and boating. Land Between the Lakes National Recreation Area 30 minutes away — excellent outdoor access for Region 1.",
+      D9: "Generally safe small city. Crime below national average in most neighborhoods.",
+      D10: "Outstanding for its size. UNESCO Creative City designation. National Quilt Museum. Carson Center for Performing Arts. Strong arts identity."
+    }
+  },
+  "Hot Springs": {
+    hospitalRating: "Baptist Health Medical Center Hot Springs — solid regional care; UAMS and CHI St. Vincent in Little Rock 55 miles",
+    walkScore: 42,
+    scoreNotes: {
+      D1: "No commercial airport in Hot Springs. Little Rock National Airport (LIT) is 55 miles — manageable but requires planning.",
+      D2: "Median home ~$235K. Cost of living 16.5% below national average. Excellent value especially given the resort town character.",
+      D3: "Baptist Health Medical Center provides solid regional care. UAMS Medical Center in Little Rock (55 miles) for specialist and complex care.",
+      D5: "Arkansas has no state tax on Social Security income. Modest income tax on other retirement income. Favorable overall.",
+      D6: "Historic Bathhouse Row and downtown are walkable. Most residential areas and lake communities require a car.",
+      D7: "Hot Springs National Park in the city. Lake Ouachita and Lake Hamilton for boating, fishing, kayaking. Ouachita National Forest access. Strong for Range 1.",
+      D9: "Crime varies by neighborhood. Some elevated property crime as a resort town. Neighborhood selection is important.",
+      D10: "Strong character. Oaklawn Park racing, arts scene, spa culture, historic bathhouses. National Park in the city is genuinely unique."
+    }
+  },
+  "Rio Rancho": {
+    hospitalRating: "UNM Sandoval Regional Medical Center — high-performing; Presbyterian and Lovelace clinics; Albuquerque major medical 20 minutes",
+    walkScore: 28,
+    scoreNotes: {
+      D1: "Albuquerque International Sunport (ABQ) is 15 miles south — solid hub with direct flights to major cities. Very good access.",
+      D2: "Median home ~$323K. Cost of living 7% below national average. Strong value in the Southwest with growing master-planned communities.",
+      D3: "UNM Sandoval Regional Medical Center on-site. Presbyterian Medical Group throughout city. Albuquerque’s full medical system 20 minutes away including UNM Hospital.",
+      D5: "New Mexico income tax applies to retirement income. Social Security partially taxed depending on income level. Moderate retirement tax burden.",
+      D6: "Suburban master-planned layout — car essential for nearly all daily needs. Limited walkable areas outside of some neighborhood centers.",
+      D7: "Petroglyph National Monument at the city’s edge. Sandia Mountains for hiking 30 minutes. 300+ sunny days. Albuquerque Balloon Fiesta nearby.",
+      D9: "Generally safe suburban community. Lower crime than Albuquerque. Master-planned neighborhood structure supports safety."
+    }
+  },
+  "The Woodlands": {
+    hospitalRating: "Memorial Hermann The Woodlands Medical Center — 397-bed award-winning hospital; Texas Medical Center 40 minutes — MD Anderson, Houston Methodist",
+    walkScore: 38,
+    scoreNotes: {
+      D1: "George Bush Intercontinental Airport (IAH) is 20 miles south — major international hub. Excellent airport access.",
+      D2: "Median home $474K. Overall cost of living at national average — exceptional value for the healthcare access and amenity level provided.",
+      D3: "Memorial Hermann The Woodlands is award-winning 397-bed hospital. Texas Medical Center 40 minutes away — the largest medical complex in the world including MD Anderson.",
+      D5: "Texas has absolutely no state income tax on any retirement income. One of the best tax scores in the database.",
+      D6: "Market Street and Waterway area offer walkable lifestyle. Most of The Woodlands requires a car. Waterway Trolley helps. 220 miles of trails for recreation.",
+      D7: "220 miles of trails throughout forested community. 26 parks. Lakes for kayaking and fishing. Significant green space embedded in the master plan.",
+      D9: "One of the safest communities in the Houston metro. Master-planned community structure, strong community watch programs, and high median income support safety.",
+      D10: "Outstanding. Cynthia Woods Mitchell Pavilion (major concert venue), Waterway arts scene, strong civic identity, excellent senior programming."
+    }
+  },
+  "Roanoke": {
+    hospitalRating: "Carilion Roanoke Memorial Hospital — high-performing in 16 procedures and conditions; Carilion Clinic multi-location system",
+    walkScore: 52,
+    scoreNotes: {
+      D1: "Roanoke-Blacksburg Regional Airport (ROA) serves Atlanta and Charlotte direct. Limited nonstop options — connecting flights required for most destinations.",
+      D2: "Median home ~$229K. Cost of living 8-9% below national average. Strong value for a Blue Ridge Mountain city with real urban amenities.",
+      D3: "Carilion Roanoke Memorial Hospital high-performing in 16 procedures. Carilion Clinic system throughout region. Solid depth for a city its size.",
+      D5: "Virginia income tax up to 5.75%. Social Security exempt for many retirees. Moderate retirement tax burden — better than most Northeast states.",
+      D6: "Downtown Roanoke and Grandin Village are genuinely walkable. Valley Metro bus system. Most neighborhoods require a car.",
+      D7: "Blue Ridge Parkway and Appalachian Trail from city limits. Mill Mountain Park. Virginia’s Explore Park. Outstanding mountain access for a Range 2 city.",
+      D9: "Generally safe city. Crime below national average in established neighborhoods. Grandin Village and South Roanoke particularly safe."
+    }
   }
 };
 
