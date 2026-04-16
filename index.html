@@ -3994,6 +3994,16 @@ function runMatchingEngine() {
   }
 
   
+  // Climate hard filter — excludes cities with a poor climate match
+  // when user marks climate Very Important or Must Have
+  const climatePriority = quizState.priorities['DC'];
+  if (quizState.climateChoice && climatePriority &&
+      climatePriority !== 'Not Important' && climatePriority !== 'Somewhat Important') {
+    const climateThreshold = climatePriority === 'Must Have' ? 5 : 3;
+    const climateFiltered = candidates.filter(c => getCityScore(c, 'DC') >= climateThreshold);
+    if (climateFiltered.length >= 5) candidates = climateFiltered;
+  }
+
   const d1Priority = quizState.priorities['D1'];
   if (d1Priority && d1Priority !== 'Not Important' && d1Priority !== 'Somewhat Important') {
     const threshold = D1_THRESHOLDS[d1Priority];
