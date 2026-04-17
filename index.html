@@ -3442,7 +3442,7 @@ const DIMENSIONS = [
 ];
 
 const PRIORITIES = ['Must Have', 'Very Important', 'Somewhat Important', 'Not Important'];
-const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Important': 2, 'Not Important': 1 };
+const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Important': 2, 'Not Important': 0 };
 
 const D1_THRESHOLDS = { 'Must Have': 8, 'Very Important': 6, 'Somewhat Important': 4, 'Not Important': 0 };
 
@@ -4021,14 +4021,6 @@ function runMatchingEngine() {
     DIMENSIONS.forEach(dim => {
       const priority = quizState.priorities[dim.key];
       if (!priority || priority === 'Not Important') {
-        const weight = 1;
-        let score = getCityScore(city, dim.key);
-        
-        if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
-          score = Math.max(score, 5);
-        }
-        weightedTotal += score * weight;
-        totalWeight += weight * 10;
         return;
       }
       const weight = PRIORITY_WEIGHTS[priority] || 1;
@@ -4045,7 +4037,8 @@ function runMatchingEngine() {
     const budgetDiff = Math.abs(city.budgetRange - (quizState.budget || 2));
     const budgetBonus = Math.max(0, (3 - budgetDiff) * 2);
 
-    const matchPct = Math.round((weightedTotal / totalWeight) * 100) + budgetBonus;
+    const basePct = totalWeight > 0 ? (weightedTotal / totalWeight) * 100 : 50;
+    const matchPct = Math.round(basePct) + budgetBonus;
     return { ...city, matchScore: Math.min(99, matchPct) };
   });
 
