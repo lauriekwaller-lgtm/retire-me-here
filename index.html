@@ -587,7 +587,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .city-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; cursor: pointer; border: 2px solid transparent; }
 .city-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--teal-lt); }
 .city-card.top-match { border-color: var(--teal); }
-.card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; }
+.card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; overflow: hidden; min-height: 110px; }
+.card-header-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.card-header-overlay { position: absolute; inset: 0; background: rgba(28,26,24,0.52); z-index: 1; }
+.card-header > *:not(.card-header-photo):not(.card-header-overlay) { position: relative; z-index: 2; }
 .city-card:nth-child(2) .card-header { background: #3d7a75; }
 .city-card:nth-child(3) .card-header { background: #4e8f8a; }
 .city-card:nth-child(4) .card-header { background: #5fa4a0; }
@@ -634,14 +637,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .match-score-display strong { font-size: 20px; color: var(--teal); font-family: 'Libre Franklin', sans-serif; }
 .btn-view-city {
   display: block; width: 100%;
-  background: var(--teal); color: var(--white);
+  background: var(--terra); color: var(--white);
   border: none; font-family: 'DM Sans', sans-serif;
   font-size: 15px; font-weight: 700;
   padding: 14px 20px; border-radius: 0 0 var(--radius) var(--radius);
   cursor: pointer; transition: all 0.2s;
   letter-spacing: 0.01em;
 }
-.btn-view-city:hover { background: #235f5f; }
+.btn-view-city:hover { background: #a85e3a; }
 .city-detail-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
 .detail-hero { background: var(--teal); border-radius: var(--radius); padding: 36px 32px; margin: 24px 0 20px; color: white; position: relative; overflow: hidden; }
 .detail-hero::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.05); }
@@ -3442,7 +3445,7 @@ const DIMENSIONS = [
 ];
 
 const PRIORITIES = ['Must Have', 'Very Important', 'Somewhat Important', 'Not Important'];
-const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Important': 2, 'Not Important': 0 };
+const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Important': 2, 'Not Important': 1 };
 
 const D1_THRESHOLDS = { 'Must Have': 8, 'Very Important': 6, 'Somewhat Important': 4, 'Not Important': 0 };
 
@@ -4021,6 +4024,14 @@ function runMatchingEngine() {
     DIMENSIONS.forEach(dim => {
       const priority = quizState.priorities[dim.key];
       if (!priority || priority === 'Not Important') {
+        const weight = 1;
+        let score = getCityScore(city, dim.key);
+        
+        if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
+          score = Math.max(score, 5);
+        }
+        weightedTotal += score * weight;
+        totalWeight += weight * 10;
         return;
       }
       const weight = PRIORITY_WEIGHTS[priority] || 1;
@@ -4037,8 +4048,7 @@ function runMatchingEngine() {
     const budgetDiff = Math.abs(city.budgetRange - (quizState.budget || 2));
     const budgetBonus = Math.max(0, (3 - budgetDiff) * 2);
 
-    const basePct = totalWeight > 0 ? (weightedTotal / totalWeight) * 100 : 50;
-    const matchPct = Math.round(basePct) + budgetBonus;
+    const matchPct = Math.round((weightedTotal / totalWeight) * 100) + budgetBonus;
     return { ...city, matchScore: Math.min(99, matchPct) };
   });
 
@@ -4269,8 +4279,11 @@ function getRecommendedReports() {
 
 function buildCityCardHTML(city, i, rankLabels) {
   const topDims = getTopDimsForUser(city);
+  const photoQuery = encodeURIComponent(city.name + ' ' + city.state);
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
     <div class="card-header">
+      <img class="card-header-photo" src="https://source.unsplash.com/featured/600x220/?${photoQuery}" alt="${city.name}" onerror="this.style.display='none'"/>
+      <div class="card-header-overlay"></div>
       <div class="match-badge">${city.matchScore}% match</div>
       <div class="card-rank">${rankLabels[i]}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
@@ -4314,7 +4327,7 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>
     </div>
     <div class="card-footer">
-      <button class="btn-view-city">See why ${city.name} made your list →</button>
+      <button class="btn-view-city">Explore ${city.name} — Full City Profile →</button>
     </div>
   </div>`;
 }
@@ -4543,7 +4556,9 @@ function showCityDetail(cityName, cityState) {
 
   detail.innerHTML = `
     <div class="city-detail-wrap">
-      <div class="detail-hero">
+      <div class="detail-hero" style="position:relative;overflow:hidden;">
+        <img src="https://source.unsplash.com/featured/800x300/?${encodeURIComponent(city.name + ' ' + city.state)}" alt="${city.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.25;" onerror="this.style.display='none'"/>
+        <div style="position:relative;z-index:1;">
         <div class="detail-back" onclick="showScreen('screen-results')">← Back to Results</div>
         ${lastMatchScore ? `<div class="detail-match-score">
           <span class="detail-match-pct">${lastMatchScore}%</span>
@@ -4552,6 +4567,7 @@ function showCityDetail(cityName, cityState) {
         <div class="detail-city-name">${city.name}, ${city.state}</div>
         <div class="detail-state">${city.type}</div>
         <div class="detail-type-badge">${city.setting[0]}</div>
+        </div>
       </div>
 
       <div class="detail-stats">
