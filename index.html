@@ -590,12 +590,12 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; overflow: hidden; min-height: 110px; }
 .card-header-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 .card-header-overlay { position: absolute; inset: 0; background: rgba(28,26,24,0.52); z-index: 1; }
-.card-header > *:not(.card-header-photo):not(.card-header-overlay) { position: relative; z-index: 2; }
+.card-header > *:not(.card-header-photo):not(.card-header-overlay):not(.match-badge) { position: relative; z-index: 2; }
 .city-card:nth-child(2) .card-header { background: #3d7a75; }
 .city-card:nth-child(3) .card-header { background: #4e8f8a; }
 .city-card:nth-child(4) .card-header { background: #5fa4a0; }
 .city-card:nth-child(5) .card-header { background: #70b8b5; }
-.match-badge { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.2); color: white; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(4px); }
+.match-badge { position: absolute; top: 16px; right: 16px; z-index: 3; background: rgba(255,255,255,0.2); color: white; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(4px); }
 .city-card:first-child .match-badge { background: var(--gold); color: var(--dark); }
 .card-rank { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
 .card-city-name { font-family: 'Libre Franklin', sans-serif; font-size: clamp(22px, 5vw, 28px); color: var(--white); margin-bottom: 4px; }
@@ -2776,6 +2776,12 @@ const CITY_ENRICHMENT = {
     sources: "Zillow/Redfin (2026) · US News Health — UVA Health · CrimeGrade.org (2025) · Virginia Dept. of Taxation · NOAA Climate Normals · Daily Progress · Data current as of March 2026."
   },
     "Alexandria": {
+    neighborhoods: [
+      { name: "Old Town", vibe: "Historic, walkable, waterfront", desc: "Colonial street grid, King Street dining and shopping, Potomac waterfront. Most walkable neighborhood in the city. Premium pricing but incomparable character for retirees who want city life." },
+      { name: "Del Ray", vibe: "Arts, community, eclectic", desc: "The Avenue arts district, farmers market, local restaurants. Highly livable neighborhood with strong community feel. More affordable than Old Town with genuine neighborhood character." },
+      { name: "Eisenhower East", vibe: "Modern, Metro-connected, convenient", desc: "Newer development around Eisenhower Ave Metro. AMC Hoffman theater, Whole Foods. Good transit access to DC and Reagan National. More affordable entry point into Alexandria." },
+      { name: "Braddock Road", vibe: "Urban, walkable, diverse", desc: "Walk Score 90 — most walkable in Alexandria. Metro station at center. Mix of historic homes and condos. Strong community feel at more accessible price points than Old Town." }
+    ],
     hospitalRating: "Inova Alexandria Hospital — Leapfrog A, US News #7 in DC metro, #12 in Virginia, high-performing in 9 procedures. Healthgrades America's 100 Best. Inova Fairfax (#1 in VA) 8 miles away.",
     scoreNotes: {
       D1: "Reagan National Airport (DCA) 10–15 min by Metro Blue/Yellow line — direct from King Street station. American, Delta, United, Southwest hub. 300+ nonstop destinations. Best airport-Metro combination of any city in the database.",
@@ -2790,6 +2796,12 @@ const CITY_ENRICHMENT = {
     }
   },
     "Silver Spring": {
+    neighborhoods: [
+      { name: "Downtown Silver Spring", vibe: "Urban, walkable, Metro-connected", desc: "Ellsworth Drive entertainment district, AFI Silver Theatre, excellent dining. Red Line Metro to DC in 25 minutes. Most walkable area — very livable for retirees who want city energy." },
+      { name: "Woodside / Four Corners", vibe: "Residential, tree-lined, safe", desc: "Established residential neighborhoods north of downtown. Tree-lined streets, good safety, strong community associations. More affordable than DC proper with easy Metro access." },
+      { name: "Takoma Park Adjacent", vibe: "Eclectic, progressive, community", desc: "Border of Takoma Park with strong community character. Farmers market, local restaurants, very walkable streets. Appealing to retirees who want urban neighborhood feel at modest cost." },
+      { name: "Kemp Mill / Colesville", vibe: "Suburban, safe, quiet", desc: "Eastern Silver Spring suburbs. Quieter and more residential. Good safety, easy access to downtown Silver Spring and the Beltway. More space at lower price points." }
+    ],
     hospitalRating: "Holy Cross Hospital (Silver Spring) well-rated locally. Adventist HealthCare strong. Johns Hopkins 30 min, NIH Clinical Center 15 min (Bethesda), Suburban Hospital 15 min — exceptional regional medical access.",
     scoreNotes: {
       D1: "Reagan National (DCA) 30 min via Metro Red Line. BWI 30 min by car or MARC train. Two solid options. Not as direct as Alexandria but excellent transit-to-airport access for the DC area.",
@@ -2804,6 +2816,12 @@ const CITY_ENRICHMENT = {
     }
   },
     "Philadelphia": {
+    neighborhoods: [
+      { name: "Rittenhouse Square", vibe: "Walkable, upscale, vibrant", desc: "Best urban neighborhood for retirees in Philadelphia. World-class restaurants, weekly farmers market, and the square itself steps away. High Walk Score. Premium but worth it for urban lifestyle." },
+      { name: "Chestnut Hill", vibe: "Village character, safe, charming", desc: "Northwestern Philadelphia neighborhood that feels like a small town. Germantown Avenue shops and dining, Wissahickon Valley Park access. Very safe. Popular with retirees who want city amenities with residential calm." },
+      { name: "Manayunk", vibe: "Riverfront, active, eclectic", desc: "Main Street along the Schuylkill Canal. Restaurants, boutiques, cycling culture. More affordable than Center City. Active community popular with retirees who enjoy an energetic neighborhood." },
+      { name: "Society Hill / Old City", vibe: "Historic, walkable, cultural", desc: "Most historic area of Philadelphia. Independence Hall, Reading Terminal Market nearby. Very walkable. World-class cultural access. Good choice for history-minded retirees." }
+    ],
     hospitalRating: "Penn Medicine (HUP-Penn Presbyterian) — #1 in Pennsylvania, nationally ranked in 11 specialties. Jefferson Health — nationally ranked in 6 specialties including #2 ophthalmology. Children's Hospital of Philadelphia world-class. One of the greatest concentrations of academic medicine in the database.",
     scoreNotes: {
       D1: "PHL (Philadelphia International) 20–30 min from Center City. American Airlines hub. 150+ nonstop destinations. SEPTA Airport Line connects directly from Center City without a car. Good international connections.",
@@ -3111,6 +3129,12 @@ const CITY_ENRICHMENT = {
     sources: "Zillow/Redfin (2026) · Bozeman Health Deaconess ratings · Leapfrog Group · CrimeGrade.org (2025) · Montana Dept. of Revenue · NOAA Climate Normals · Data current as of March 2026."
   },
   "Missoula": {
+    neighborhoods: [
+      { name: "Downtown / Hip Strip", vibe: "Walkable, arts, vibrant", desc: "Higgins Avenue and the Hip Strip on South Higgins. Outstanding restaurants, local breweries, Caras Park events. Most walkable area. Best for culturally active retirees who want everything on foot." },
+      { name: "South Hills", vibe: "Views, residential, trail access", desc: "South of the Clark Fork River. Excellent views, trail access up into the Rattlesnake Wilderness. Quiet and residential with easy downtown access. Popular with outdoor-focused retirees." },
+      { name: "Rattlesnake / North Hills", vibe: "Outdoor access, quiet, scenic", desc: "Northern neighborhoods bordering the Rattlesnake National Recreation Area. Direct trail access from the neighborhood. Quieter character. Popular with retirees who prioritize outdoor access." },
+      { name: "Lolo / Stevensville", vibe: "Rural, affordable, Bitterroot Valley", desc: "South of Missoula in the Bitterroot Valley. More rural character with mountain views and river access. Significantly more affordable. Popular with retirees wanting space and scenery at lower cost." }
+    ],
     hospitalRating: "Providence St. Patrick Hospital — #1 in Montana, 15 consecutive CMS 5-star ratings",
     taxNote: "5.65% (SS taxed)",
     scoreNotes: {
@@ -3135,6 +3159,12 @@ const CITY_ENRICHMENT = {
     sources: "Zillow/Redfin (2026) · Providence St. Patrick ratings · Leapfrog Group · CrimeGrade.org (2025) · Montana Dept. of Revenue · NOAA Climate Normals · Data current as of March 2026."
   },
   "Sedona": {
+    neighborhoods: [
+      { name: "Uptown / Oak Creek Canyon", vibe: "Tourist center, scenic, walkable", desc: "Main tourist area with galleries, restaurants, and pink jeep tour departure points. Most walkable. Very scenic but can feel busy in peak season. Good for retirees who enjoy the energy." },
+      { name: "West Sedona", vibe: "Local, residential, quieter", desc: "Where Sedonans actually live. More affordable than Uptown. Local restaurants and services. Still stunning red rock views. Better for retirees wanting authentic community over tourist atmosphere." },
+      { name: "Village of Oak Creek", vibe: "Quieter, golf, affordable", desc: "South of Sedona proper. More affordable entry point with red rock views. Tlaquepaque arts village nearby. Golf courses adjacent. Popular with retirees wanting Sedona lifestyle at lower cost." },
+      { name: "Tlaquepaque / Chapel Area", vibe: "Arts, spiritual, scenic", desc: "Southern Sedona near Chapel of the Holy Cross and Tlaquepaque arts village. World-class galleries and restaurants. Stunning vortex area. Premium pricing but extraordinary setting." }
+    ],
     hospitalRating: "Verde Valley Medical Center (25 min) — Leapfrog A; Phoenix 2 hrs for major care",
     taxNote: "2.5% flat (SS exempt)",
     scoreNotes: {
@@ -3159,6 +3189,12 @@ const CITY_ENRICHMENT = {
     sources: "Zillow/Redfin (2026) · Verde Valley Medical Center · Leapfrog Group · CrimeGrade.org (2025) · Arizona Dept. of Revenue · NOAA Climate Normals · Data current as of March 2026."
   },
   "Durango": {
+    neighborhoods: [
+      { name: "Downtown / Historic District", vibe: "Walkable, vibrant, historic", desc: "Main Avenue dining and shops, Durango and Silverton Narrow Gauge Railroad, Animas River Trail. Most walkable area. Best for retirees wanting walkable lifestyle in a mountain town." },
+      { name: "Three Springs", vibe: "Master-planned, newer, amenity-rich", desc: "Newer planned community south of downtown. Durango Community Recreation Center nearby. More affordable than historic district. Good trails and open space. Growing active adult community." },
+      { name: "Animas City", vibe: "Historic, quiet, local", desc: "Historic neighborhood north of downtown. Victorian homes, local character, Animas River access. Quieter than downtown. Popular with retirees wanting residential calm with easy city access." },
+      { name: "Bayfield / Ignacio", vibe: "Rural, affordable, lake access", desc: "East of Durango near Vallecito Reservoir and Southern Ute lands. More affordable rural character with excellent fishing and outdoor access. Good option for retirees on tighter budget." }
+    ],
     hospitalRating: "Mercy Regional Medical Center — CMS 5-star 6 consecutive, Leapfrog Top Hospital 2025",
     taxNote: "4.4% flat (SS exempt 65+)",
     scoreNotes: {
@@ -3207,6 +3243,12 @@ const CITY_ENRICHMENT = {
     sources: "Zillow/Redfin (2026) · Williamson Medical Center ratings · St. David's Healthcare ratings · CrimeGrade.org (2025) · Texas Comptroller (no income tax) · NOAA Climate Normals · Georgetown Advocate · Data current as of March 2026."
   },
   "Whitefish": {
+    neighborhoods: [
+      { name: "Downtown Whitefish", vibe: "Charming, walkable, local", desc: "Central Avenue dining and shops, Whitefish Lake a short walk away. Most walkable area. Genuine small-town charm without tourist excess. Best for retirees wanting community life in a beautiful setting." },
+      { name: "Whitefish Lake / Baker Avenue", vibe: "Waterfront, premium, scenic", desc: "Lakefront and near-lake neighborhood. Direct Whitefish Lake access. Premium pricing but extraordinary setting. Quiet and residential with stunning mountain and lake views." },
+      { name: "Big Mountain Road / Mountain Area", vibe: "Ski access, resort, active", desc: "Access road to Whitefish Mountain Resort. Ski-in ski-out options and mountain access. Seasonal in character. Good for retirees who prioritize skiing and mountain lifestyle." },
+      { name: "Columbia Falls", vibe: "Affordable, local, Glacier access", desc: "10 miles east. More affordable community with genuine local character. Gateway to Glacier National Park. Good for retirees wanting Whitefish region lifestyle at meaningfully lower cost." }
+    ],
     hospitalRating: "Logan Health Whitefish — emergency care; Kalispell Regional Medical (330 beds) 15 miles south",
     walkScore: 55,
     scoreNotes: {
@@ -3220,6 +3262,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Steamboat Springs": {
+    neighborhoods: [
+      { name: "Old Town / Lincoln Avenue", vibe: "Walkable, Western, charming", desc: "Historic downtown with Western character. Lincoln Avenue shops and restaurants, Yampa River walk. Most walkable area. Steamboat's authentic identity lives here. Best for retirees wanting community life." },
+      { name: "Mountain Area / Ski Base", vibe: "Resort, ski access, active", desc: "Base of Steamboat Ski Resort. Ski-in ski-out access, resort restaurants and amenities. Seasonal energy. Premium pricing. Best for retirees who prioritize slope access and resort lifestyle." },
+      { name: "South Valley / Fish Creek", vibe: "Residential, affordable, local", desc: "Southern neighborhoods away from the tourist corridor. More affordable with local character. Fish Creek access. Growing area popular with year-round residents and budget-conscious retirees." },
+      { name: "Hayden / Oak Creek", vibe: "Rural, affordable, authentic", desc: "Small towns west and south of Steamboat. Authentic ranching community character. Much more affordable. Good for retirees wanting mountain Colorado lifestyle at a fraction of Steamboat pricing." }
+    ],
     hospitalRating: "Yampa Valley Medical Center — full-service community hospital; UCHealth partnership; Denver 3 hours for major specialist care",
     walkScore: 52,
     scoreNotes: {
@@ -3233,6 +3281,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Coeur d’Alène": {
+    neighborhoods: [
+      { name: "Downtown / Lakefront", vibe: "Walkable, vibrant, waterfront", desc: "Sherman Avenue dining and shops, City Park beach, Coeur d'Alene Resort boardwalk. Most walkable area. Stunning lakefront setting. Best for retirees wanting walkable lifestyle with lake access." },
+      { name: "Canfield / Fernan", vibe: "Residential, trails, views", desc: "Neighborhoods east of downtown with Canfield Mountain trail access and lake views. Quiet and residential with easy downtown access. Popular with outdoor-focused retirees." },
+      { name: "Hayden / Dalton Gardens", vibe: "Suburban, safe, affordable", desc: "Northern suburbs with very low crime and more affordable pricing. Good retail access. Popular with retirees wanting suburban safety near the lake." },
+      { name: "Post Falls / Rathdrum", vibe: "Affordable, growing, suburban", desc: "Western suburbs with the most affordable prices in the region. Growing retail and dining. Easy Spokane access. Good for retirees wanting the region lifestyle at lower cost." }
+    ],
     hospitalRating: "Kootenai Health — regional hospital; Spokane medical system 30 miles west for specialty care",
     walkScore: 48,
     scoreNotes: {
@@ -3246,6 +3300,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Grand Junction": {
+    neighborhoods: [
+      { name: "Downtown / Main Street", vibe: "Walkable, arts, local", desc: "Two Rivers Convention Center, excellent local restaurants, downtown arts district. More walkable than most of Grand Junction. Museums and cultural events. Best for retirees wanting walkable lifestyle." },
+      { name: "Redlands", vibe: "Scenic, residential, views", desc: "Southwest neighborhood with Colorado National Monument views and trail access. Quiet residential streets. Popular with retirees seeking scenic setting with proximity to downtown amenities." },
+      { name: "Orchard Mesa", vibe: "Established, affordable, quiet", desc: "South Grand Junction across the Colorado River. Established neighborhood with fruit orchards and river views. More affordable. Quieter character popular with retirees wanting calm residential life." },
+      { name: "Fruita / Palisade", vibe: "Small town, wine country, trails", desc: "Fruita is the mountain biking capital of Colorado. Palisade is wine country with peach orchards and river views. Both more affordable than Grand Junction proper with strong outdoor and lifestyle appeal." }
+    ],
     hospitalRating: "St. Mary’s Medical Center and Community Hospital of Grand Junction — solid regional care; Denver 4 hours for major specialists",
     walkScore: 42,
     scoreNotes: {
@@ -3258,9 +3318,15 @@ const CITY_ENRICHMENT = {
       D9: "Below average crime for its size. Property crime is primary concern as in most small western cities."
     }
   },
-  "Kansas City": {
+    "Kansas City": {
     hospitalRating: "University of Kansas Health System — major academic medical center; Saint Luke’s Health System — strong multi-system depth",
     walkScore: 35,
+    neighborhoods: [
+      { name: "Brookside / Waldo", vibe: "Walkable, local, community feel", desc: "Tree-lined streets, independent restaurants, farmers market. Most livable neighborhood for retirees — walkable to shops and dining without urban density." },
+      { name: "Country Club Plaza", vibe: "Upscale, walkable, Spanish architecture", desc: "America’s first outdoor shopping district. Fountain-lined streets, excellent dining, walkable retail. Higher price point but exceptional quality of life." },
+      { name: "Lee’s Summit", vibe: "Safe, suburban, good value", desc: "Southeast suburb with low crime and easy metro access. Popular with retirees wanting suburban safety with city amenities." },
+      { name: "Leawood / Overland Park", vibe: "Safest, most affluent, suburban", desc: "Just across the state line in Kansas. Consistently among safest cities nationally. Excellent healthcare access, lower Kansas income tax rate." }
+    ],
     scoreNotes: {
       D1: "Kansas City International Airport (MCI) is a major hub with direct flights nationwide. One of the better-connected mid-sized American cities.",
       D2: "Median home ~$252K in a major metropolitan area is exceptional value. Cost of living well below national average.",
@@ -3272,6 +3338,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Columbus": {
+    neighborhoods: [
+      { name: "Short North", vibe: "Walkable, arts, vibrant", desc: "Columbus's most vibrant neighborhood. High Street arts district, excellent restaurants, galleries. Most walkable area. Growing rapidly. Best for retirees wanting an active urban lifestyle." },
+      { name: "German Village", vibe: "Historic, walkable, charming", desc: "Restored 19th-century German immigrant neighborhood. Brick streets, Book Loft, Schiller Park. Excellent restaurants. Very walkable and safe. One of Columbus's most desirable addresses." },
+      { name: "Upper Arlington / Grandview", vibe: "Established, safe, suburban", desc: "Western suburbs consistently ranked safest in Columbus metro. Excellent retail, walkable Grandview Avenue dining corridor. Popular with professional retirees wanting safety and amenities." },
+      { name: "New Albany / Westerville", vibe: "Master-planned, very safe, newer", desc: "Northeast suburbs with very low crime, newer development, and strong amenities. New Albany is one of Ohio's wealthiest communities. Good healthcare access. Growing active adult population." }
+    ],
     hospitalRating: "OSU Wexner Medical Center — nationally ranked; James Cancer Hospital; strong multi-system healthcare",
     walkScore: 46,
     scoreNotes: {
@@ -3285,6 +3357,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Indianapolis": {
+    neighborhoods: [
+      { name: "Mass Ave / Downtown", vibe: "Walkable, arts, vibrant", desc: "Massachusetts Avenue arts district with galleries, restaurants, and theaters. Most walkable area in Indianapolis. Growing rapidly. Best for retirees wanting urban culture." },
+      { name: "Broad Ripple / Meridian Kessler", vibe: "Eclectic, local, community", desc: "North-side neighborhoods with strong local character. Canal towpath, Monon Trail access, independent restaurants. More affordable than downtown adjacent. Very livable." },
+      { name: "Carmel", vibe: "Safe, upscale, planned", desc: "Northern suburb consistently ranked among the best places to live in America. Monon Trail, Arts & Design District, Palladium concert hall. Very safe. Premium suburban lifestyle." },
+      { name: "Zionsville / Fishers", vibe: "Small town, safe, charming", desc: "Zionsville has a beautiful brick-street downtown. Fishers is one of Indiana's fastest-growing and safest cities. Both offer excellent quality of life at reasonable price points." }
+    ],
     hospitalRating: "IU Health University Hospital — major academic system; Simon Cancer Center; Eskenazi Health — strong multi-system depth",
     walkScore: 32,
     scoreNotes: {
@@ -3298,6 +3376,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Vail": {
+    neighborhoods: [
+      { name: "Vail Village", vibe: "World-class, walkable, resort", desc: "The European-style pedestrian village at the base of Vail Mountain. World-class restaurants, boutiques, and ski access steps away. Very walkable in season. Premium pricing — among highest in database." },
+      { name: "Lionshead", vibe: "Resort, gondola access, slightly quieter", desc: "Second base village with gondola access to Vail Mountain. More residential character than Vail Village. Slightly more affordable. Good dining and ski-in ski-out access." },
+      { name: "East Vail", vibe: "Quiet, residential, affordable", desc: "Eastern end of Vail Valley. Quieter and more residential. Bus access to Vail Village. More affordable than the base villages. Popular with year-round residents who want Vail lifestyle at lower cost." },
+      { name: "Edwards / Eagle", vibe: "Local, affordable, valley lifestyle", desc: "Towns west of Vail in Eagle County. Where local workers and budget-conscious retirees live. More affordable with Vail access via I-70. Growing dining scene. More authentic community character." }
+    ],
     hospitalRating: "Vail Health Hospital — emergency and surgical care; complex cases transfer to Denver; adequate for resort community",
     walkScore: 72,
     scoreNotes: {
@@ -3311,6 +3395,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Sun Valley": {
+    neighborhoods: [
+      { name: "Sun Valley Resort Area", vibe: "World-class, walkable, resort", desc: "The original resort village with ice rinks, world-class restaurants, and ski lifts. Very walkable within the resort. Premium pricing but extraordinary setting. Best for retirees with resort budgets." },
+      { name: "Ketchum", vibe: "Charming, arts, vibrant", desc: "The actual town adjacent to the resort. Ernest Hemingway connection, galleries, excellent restaurants, local shops. More affordable than resort area. Strong arts community. Very livable." },
+      { name: "Hailey", vibe: "Local, affordable, community", desc: "12 miles south. Where most locals live. More affordable with real community character. Friedman Memorial Airport here. Growing dining scene. Good choice for retirees wanting Ketchum proximity at lower cost." },
+      { name: "Bellevue / Carey", vibe: "Rural, affordable, open space", desc: "Southern Wood River Valley. Most affordable communities in the region. Rural character with mountain views. For retirees wanting Sun Valley region access at significantly reduced cost." }
+    ],
     hospitalRating: "St. Luke’s Wood River Medical Center — basic care; Boise 1.5 hours for specialist needs",
     walkScore: 58,
     scoreNotes: {
@@ -3337,6 +3427,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Napa": {
+    neighborhoods: [
+      { name: "Downtown Napa", vibe: "Walkable, dining, arts", desc: "Oxbow Public Market, First Street dining, Napa Valley Opera House, Riverfront promenade. Most walkable area in Napa. World-class food and wine destination. Best for retirees wanting vibrant lifestyle." },
+      { name: "Westwood Hills / Browns Valley", vibe: "Residential, views, established", desc: "Western Napa neighborhoods with hillside views and established character. Quiet streets with easy downtown access. Popular with retirees wanting residential calm near the valley's cultural life." },
+      { name: "Soda Canyon / Silverado", vibe: "Wine country, scenic, rural", desc: "Eastern Napa near Silverado Trail wineries. More rural character with vineyard views. Quiet and private. For retirees wanting true wine country immersion away from downtown energy." },
+      { name: "American Canyon", vibe: "Affordable, suburban, Bay access", desc: "Southern gateway to Napa at the Bay Area border. Most affordable Napa Valley community. Good for retirees wanting valley access with Bay Area proximity at significantly lower cost." }
+    ],
     hospitalRating: "Queen of the Valley Medical Center — solid regional care; UCSF and Stanford within 1.5–2 hours",
     walkScore: 54,
     scoreNotes: {
@@ -3350,6 +3446,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Carmel-by-the-Sea": {
+    neighborhoods: [
+      { name: "Downtown / Ocean Avenue", vibe: "Walkable, world-class, charming", desc: "One of the most walkable downtowns in California. Ocean Avenue galleries, Carmel Beach steps away, world-class restaurants on every block. Very small village — everything on foot. Premium pricing." },
+      { name: "Carmel Woods / Mission Fields", vibe: "Residential, quiet, forested", desc: "Quiet residential neighborhoods within the village. Pine forest setting, walking distance to downtown. More residential character. Very safe. Popular with retirees who want village proximity with calm." },
+      { name: "Carmel Valley Village", vibe: "Sunny, wine country, affordable", desc: "10 miles inland. More sunshine than coastal Carmel, wine country character, significantly more affordable. Growing restaurant scene. Good choice for retirees wanting Carmel proximity without the fog and price." },
+      { name: "Pebble Beach", vibe: "Luxury, golf, gated", desc: "17-Mile Drive gated community with world-famous golf courses, The Lodge, and private beach access. Ultra-premium pricing. Extraordinary setting. For retirees with resort-level budgets." }
+    ],
     hospitalRating: "Community Hospital of the Monterey Peninsula (CHOMP) 10 minutes away — Stanford and UCSF 80–100 miles for specialist care",
     walkScore: 78,
     scoreNotes: {
@@ -3363,6 +3465,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Paducah": {
+    neighborhoods: [
+      { name: "Lower Town Arts District", vibe: "Arts, historic, walkable", desc: "UNESCO Creative City neighborhood with galleries, studios, and artist residences. Floodwall murals along the riverfront. Most walkable area. Best for arts-focused retirees who appreciate cultural depth." },
+      { name: "Midtown", vibe: "Established, residential, safe", desc: "Historic residential neighborhood with tree-lined streets and well-maintained homes. Good safety. Central location with easy access to downtown and medical facilities. Popular with retiring professionals." },
+      { name: "West Paducah", vibe: "Suburban, safe, affordable", desc: "Western suburbs with good safety and affordable pricing. Strong retail access near Kentucky Oaks Mall area. More car-dependent. Good value for retirees prioritizing cost and safety." },
+      { name: "McCracken County Rural", vibe: "Rural, peaceful, affordable", desc: "Surrounding county with rural character and land options. Very affordable. Quiet lifestyle with easy Paducah access. For retirees wanting space and nature at the most accessible price points." }
+    ],
     hospitalRating: "Baptist Health Paducah — solid regional hospital; Vanderbilt and St. Thomas in Nashville 2 hours for specialist care",
     walkScore: 44,
     scoreNotes: {
@@ -3377,6 +3485,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Hot Springs": {
+    neighborhoods: [
+      { name: "Bathhouse Row / Downtown", vibe: "Historic, walkable, unique", desc: "Hot Springs National Park runs through downtown — America's only national park in a city center. Bathhouse Row, Central Avenue dining and galleries. Most walkable and culturally rich area." },
+      { name: "Lake Hamilton / Lakeside", vibe: "Waterfront, resort, relaxed", desc: "Lake Hamilton lakefront communities south of Hot Springs. Boating, fishing, lake lifestyle. Resort character. More affordable than downtown adjacent. Popular with retirees wanting water access." },
+      { name: "Garland County Rural", vibe: "Rural, affordable, Ouachita Mountains", desc: "Surrounding county with rural mountain character. Lake Ouachita and Ouachita National Forest access. Very affordable. Good for retirees wanting mountain lake lifestyle at budget-friendly prices." },
+      { name: "Hot Springs Village", vibe: "Gated, active adult, golf", desc: "One of the largest gated communities in the US — 40 square miles, 10 golf courses. Strong active adult culture, extensive amenities. More affordable than comparable communities in other states." }
+    ],
     hospitalRating: "Baptist Health Medical Center Hot Springs — solid regional care; UAMS and CHI St. Vincent in Little Rock 55 miles",
     walkScore: 42,
     scoreNotes: {
@@ -3391,6 +3505,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Rio Rancho": {
+    neighborhoods: [
+      { name: "Southern Hills / City Center", vibe: "Newer, suburban, convenient", desc: "Developing city center area with Rust Medical Center, performing arts venue, and growing retail. Most walkable area in Rio Rancho. City is actively investing in this district." },
+      { name: "Cabezon", vibe: "Master-planned, newer, active", desc: "Planned community with trails, parks, and amenity center. Newer homes. Growing community popular with active retirees. Easy Albuquerque access via Paseo del Norte." },
+      { name: "Northern Rio Rancho", vibe: "Established, affordable, quiet", desc: "Original Rio Rancho neighborhoods. More affordable pricing. Established community feel. Quieter and more residential. Good value for retirees wanting suburban safety near Albuquerque." },
+      { name: "Corrales Adjacent", vibe: "Rural, green, Rio Grande", desc: "Near the village of Corrales on the Rio Grande bosque. More rural character with horse properties and cottonwood trees. Farmers market, local wineries. Unique New Mexico lifestyle at modest cost." }
+    ],
     hospitalRating: "UNM Sandoval Regional Medical Center — high-performing; Presbyterian and Lovelace clinics; Albuquerque major medical 20 minutes",
     walkScore: 28,
     scoreNotes: {
@@ -3404,6 +3524,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "The Woodlands": {
+    neighborhoods: [
+      { name: "Town Center / Waterway", vibe: "Walkable, upscale, vibrant", desc: "The most walkable area in The Woodlands. Waterway Square, Market Street dining, Cynthia Woods Mitchell Pavilion concerts. Best for retirees wanting lifestyle amenities without driving everywhere." },
+      { name: "Creekside Park", vibe: "Newest, trail access, active", desc: "Most recently developed village with excellent trail connectivity. Great parks, newer homes, and strong community programming. Active adult culture strong. Popular with fitness-focused retirees." },
+      { name: "Cochran's Crossing", vibe: "Established, safe, golf", desc: "One of the original Woodlands villages. Mature trees, established community, golf course access. Very safe. More affordable than newer villages. Strong sense of established community." },
+      { name: "Panther Creek / Grogan's Mill", vibe: "Most affordable, established, central", desc: "Original Woodlands villages closest to Town Center. Most affordable entry point. Established trees and community. Some older homes but excellent value for The Woodlands lifestyle." }
+    ],
     hospitalRating: "Memorial Hermann The Woodlands Medical Center — 397-bed award-winning hospital; Texas Medical Center 40 minutes — MD Anderson, Houston Methodist",
     walkScore: 38,
     scoreNotes: {
@@ -3418,6 +3544,12 @@ const CITY_ENRICHMENT = {
     }
   },
   "Roanoke": {
+    neighborhoods: [
+      { name: "Downtown / Grandin Village", vibe: "Walkable, arts, vibrant", desc: "Two distinct walkable areas. Downtown Market has one of America's oldest farmers markets. Grandin Village on the west side is a charming walkable retail and dining strip." },
+      { name: "South Roanoke / Wasena", vibe: "Established, safe, residential", desc: "Most prestigious Roanoke neighborhoods. Quiet streets, Wasena Park and Roanoke River Greenway access. Very safe. Popular with retirees wanting established neighborhood character." },
+      { name: "Vinton / Cave Spring", vibe: "Suburban, safe, affordable", desc: "Eastern and southwestern suburbs with excellent safety and affordable pricing. More car-dependent but strong value for retirees prioritizing safety and cost." },
+      { name: "Salem", vibe: "Small town, safe, independent", desc: "Independent city adjacent to Roanoke with small-town character. Very safe, lower price points. Greenfield Recreation Area nearby. Popular with retirees wanting quiet community life." }
+    ],
     hospitalRating: "Carilion Roanoke Memorial Hospital — high-performing in 16 procedures and conditions; Carilion Clinic multi-location system",
     walkScore: 52,
     scoreNotes: {
