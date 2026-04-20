@@ -1857,7 +1857,7 @@ const CITIES = [
     setting: ["Inland / Green", "Lakeside"],
     character: ["Outdoor Lifestyle", "Arts & Culture"],
     monthlyEst: "$5,500–$7,500/mo", medianHome: "$474,000", budgetRange: 4,
-    scores: { D1:8, D2:5, D3:9, D4:5, D5:9, D6:6, D7:7, D8:8, D9:8, D10:8 },
+    scores: { D1:8, D2:5, D3:9, D4:5, D5:9, D6:6, D7:7, D8:7, D9:8, D10:7 },
     climate: { W:6, H:9, M:6 },
     highlight: "Ranked #4 US News Best Places to Retire 2026 — The Woodlands is one of America’s most successful master-planned communities with 220 miles of trails, no Texas income tax, and 40-minute access to the world’s largest medical complex.",
     pros: ["Ranked #4 US News Best Places to Retire 2026", "No Texas state income tax on any retirement income", "40 minutes from Texas Medical Center — MD Anderson, Houston Methodist, Memorial Hermann", "220 miles of trails, 26 parks, and beautiful lakes throughout the community"],
@@ -3444,7 +3444,61 @@ const DIMENSIONS = [
   { key: 'D10', icon: '👥', label: 'Community & Social Life', desc: 'Arts, dining, events, volunteering, sports' }
 ];
 
-const PRIORITIES = ['Must Have', 'Very Important', 'Somewhat Important', 'Not Important'];
+const CITY_PHOTOS = {
+  'Sarasota':           'photo-1507525428034-b723cf961d3e',
+  'Naples':             'photo-1510414842594-a61c69b5ae57',
+  'Chattanooga':        'photo-1558618666-fcd25c85cd64',
+  'Charleston':         'photo-1558618047-f4f8b4fb4793',
+  'Asheville':          'photo-1464822759023-fed622ff2c3b',
+  'Scottsdale':         'photo-1558618666-fcd25c85cd64',
+  'Santa Fe':           'photo-1570197788417-0e82375c9371',
+  'Delray Beach':       'photo-1507525428034-b723cf961d3e',
+  'St. George':         'photo-1558618666-fcd25c85cd64',
+  'Tucson':             'photo-1558015374-d8d8d0b0d9d1',
+  'Boise':              'photo-1464822759023-fed622ff2c3b',
+  'Colorado Springs':   'photo-1464822759023-fed622ff2c3b',
+  'Bend':               'photo-1501854140801-50d01698950b',
+  'Park City':          'photo-1501854140801-50d01698950b',
+  'Sedona':             'photo-1570197788417-0e82375c9371',
+  'Jackson Hole':       'photo-1501854140801-50d01698950b',
+  'Durango':            'photo-1501854140801-50d01698950b',
+  'Flagstaff':          'photo-1501854140801-50d01698950b',
+  'Hilton Head':        'photo-1507525428034-b723cf961d3e',
+  'Palm Springs':       'photo-1570197788417-0e82375c9371',
+  'Fort Myers':         'photo-1507525428034-b723cf961d3e',
+  'Tampa':              'photo-1558618047-f4f8b4fb4793',
+  'Knoxville':          'photo-1464822759023-fed622ff2c3b',
+  'Greenville':         'photo-1464822759023-fed622ff2c3b',
+  'Raleigh':            'photo-1558618047-f4f8b4fb4793',
+  'Charleston':         'photo-1558618047-f4f8b4fb4793',
+  'Annapolis':          'photo-1507525428034-b723cf961d3e',
+  'Portland':           'photo-1507525428034-b723cf961d3e',
+  'Saratoga Springs':   'photo-1464822759023-fed622ff2c3b',
+  'Madison':            'photo-1501854140801-50d01698950b',
+  'Ann Arbor':          'photo-1558618047-f4f8b4fb4793',
+  'Charlottesville':    'photo-1464822759023-fed622ff2c3b',
+  'Fayetteville':       'photo-1464822759023-fed622ff2c3b',
+  'Santa Barbara':      'photo-1507525428034-b723cf961d3e',
+  'Carmel-by-the-Sea':  'photo-1507525428034-b723cf961d3e',
+  'Napa':               'photo-1501854140801-50d01698950b',
+  'The Woodlands':      'photo-1501854140801-50d01698950b',
+  'Roanoke':            'photo-1464822759023-fed622ff2c3b',
+  'Missoula':           'photo-1501854140801-50d01698950b',
+  'Bozeman':            'photo-1501854140801-50d01698950b',
+  'Whitefish':          'photo-1501854140801-50d01698950b',
+  'St. Paul':           'photo-1558618047-f4f8b4fb4793',
+  'Philadelphia':       'photo-1558618047-f4f8b4fb4793',
+  'Pittsburgh':         'photo-1558618047-f4f8b4fb4793',
+  'Kansas City':        'photo-1558618047-f4f8b4fb4793',
+  'San Antonio':        'photo-1558618047-f4f8b4fb4793',
+  'Fort Worth':         'photo-1558618047-f4f8b4fb4793',
+};
+
+function getCityPhotoUrl(cityName) {
+  const id = CITY_PHOTOS[cityName];
+  if (id) return `https://images.unsplash.com/${id}?w=600&q=70`;
+  return null;
+}
 const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Important': 2, 'Not Important': 1 };
 
 const D1_THRESHOLDS = { 'Must Have': 8, 'Very Important': 6, 'Somewhat Important': 4, 'Not Important': 0 };
@@ -4279,11 +4333,12 @@ function getRecommendedReports() {
 
 function buildCityCardHTML(city, i, rankLabels) {
   const topDims = getTopDimsForUser(city);
-  const photoQuery = encodeURIComponent(city.name + ' ' + city.state);
+  const photoUrl = getCityPhotoUrl(city.name);
+  const photoHTML = photoUrl ? `<img class="card-header-photo" src="${photoUrl}" alt="${city.name}" onerror="this.style.display='none'"/>` : '';
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
     <div class="card-header">
-      <img class="card-header-photo" src="https://source.unsplash.com/featured/600x220/?${photoQuery}" alt="${city.name}" onerror="this.style.display='none'"/>
-      <div class="card-header-overlay"></div>
+      ${photoHTML}
+      ${photoUrl ? '<div class="card-header-overlay"></div>' : ''}
       <div class="match-badge">${city.matchScore}% match</div>
       <div class="card-rank">${rankLabels[i]}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
@@ -4554,10 +4609,12 @@ function showCityDetail(cityName, cityState) {
   const hospitalRating = en.hospitalRating || 'See full profile';
   const sources = en.sources || 'Zillow/Redfin (median home prices) · US News Health (hospital rankings) · CrimeGrade.org (safety data) · NOAA Climate Normals · State tax authority · Data current as of March 2026.';
 
+  const detailPhotoUrl = getCityPhotoUrl(city.name);
+  const detailPhotoHTML = detailPhotoUrl ? `<img src="${detailPhotoUrl}" alt="${city.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.25;" onerror="this.style.display='none'"/>` : '';
   detail.innerHTML = `
     <div class="city-detail-wrap">
       <div class="detail-hero" style="position:relative;overflow:hidden;">
-        <img src="https://source.unsplash.com/featured/800x300/?${encodeURIComponent(city.name + ' ' + city.state)}" alt="${city.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.25;" onerror="this.style.display='none'"/>
+        ${detailPhotoHTML}
         <div style="position:relative;z-index:1;">
         <div class="detail-back" onclick="showScreen('screen-results')">← Back to Results</div>
         ${lastMatchScore ? `<div class="detail-match-score">
