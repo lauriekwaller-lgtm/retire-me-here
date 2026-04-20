@@ -3499,6 +3499,7 @@ function getCityPhotoUrl(cityName) {
   if (id) return `https://images.unsplash.com/${id}?w=600&q=70`;
   return null;
 }
+const PRIORITIES = ['Must Have', 'Very Important', 'Somewhat Important', 'Not Important'];
 const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Important': 2, 'Not Important': 1 };
 
 const D1_THRESHOLDS = { 'Must Have': 8, 'Very Important': 6, 'Somewhat Important': 4, 'Not Important': 0 };
