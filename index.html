@@ -4642,7 +4642,7 @@ function submitProfileCapture(e, cityName) {
   if (capture) {
     capture.innerHTML = `<div class="capture-success">
       <strong>✓ On its way!</strong>
-      Check your inbox — your top 3 matches and a free retirement guide are heading there now. While you wait, head back to explore your other matches.
+      Check your inbox for the Value Navigator guide. And remember — you can retake the quiz anytime at retiremehere.com if you want to try different priorities.
     </div>`;
   }
 }
@@ -4845,18 +4845,10 @@ function showCityDetail(cityName, cityState) {
         <p style="font-size:12px;color:var(--light);line-height:1.8">${sources}</p>
       </div>
 
-      <div class="profile-capture" id="profileCapture-${city.name.replace(/\s/g,'-')}">
-        <div class="profile-capture-eyebrow">Free · Delivered instantly</div>
-        <h3>Save your results — get them in your inbox</h3>
-        <p>Want to revisit your matches later or share them with a partner? Enter your email and we'll send your top 3 city matches, along with a free retirement guide based on your priorities.</p>
-        <div class="reg-form">
-          <input type="email" id="profileEmail" class="reg-input" placeholder="your@email.com">
-          <button class="reg-btn" onclick="submitProfileCapture(event, '${city.name}')">Send My Results →</button>
-        </div>
-        <div class="reg-perks">
-          <span>✓ Free — no account needed</span>
-          <span>✓ No spam. Unsubscribe anytime.</span>
-        </div>
+      <div class="detail-section" style="padding-bottom:0;">
+        <h3>Free In-Depth Reports</h3>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 75+ cities.</p>
+        <div id="city-detail-reports"></div>
       </div>
 
       <div style="text-align:center;padding:20px 0 32px">
@@ -4868,6 +4860,7 @@ function showCityDetail(cityName, cityState) {
 
   showScreen('screen-detail');
   window.scrollTo(0, 0);
+  renderReportIcons('city-detail-reports', 'detail');
 }
 
 function showComingSoon(e) {
