@@ -1,816 +1,1063 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Value Navigator — RetireMeHere</title>
+<title>The Active Frontier — RetireMeHere</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold-dark: #8a6520;
-  --gold: #c47a2a;
-  --gold-mid: #d4943a;
-  --gold-lt: #fdf3e3;
-  --teal: #2e5d8b;
-  --teal-lt: #e8f0f8;
+  --forest: #1e4d2b;
+  --green: #2e7d52;
+  --green-mid: #3a9463;
+  --green-lt: #eaf5ef;
   --terra: #c4724a;
   --terra-lt: #fdf0ea;
+  --sky: #2a7fc1;
+  --sky-lt: #e8f4fd;
   --sand: #f7f3ed;
   --dark: #1c1a18;
   --mid: #5c5852;
   --light: #9a9490;
   --white: #ffffff;
-  --green: #2e7d52;
-  --green-lt: #eaf5ef;
+  --amber: #c47a2a;
+  --amber-lt: #fdf3e8;
   --red: #c0392b;
   --red-lt: #fde8e8;
+  --gold: #d4a84b;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--dark); max-width: 600px; margin: 0 auto; }
-.header { background: var(--gold-dark); padding: 0; position: relative; overflow: hidden; }
-.header-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 75% 25%, rgba(196,122,42,0.4) 0%, transparent 55%); }
+
+/* HEADER */
+.header { background: var(--forest); padding: 0; position: relative; overflow: hidden; }
+.header-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 20%, rgba(46,125,82,0.45) 0%, transparent 55%),
+              radial-gradient(ellipse at 25% 80%, rgba(196,114,74,0.2) 0%, transparent 50%);
+}
 .header-content { position: relative; padding: 40px 24px 36px; }
-.report-series { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-.report-series::before { content: '💰'; font-size: 12px; }
-.header h1 { font-family: 'Libre Franklin', sans-serif; font-size: clamp(28px, 6vw, 38px); font-weight: 800; color: var(--white); line-height: 1.1; margin-bottom: 14px; }
-.header h1 em { font-style: italic; color: var(--gold-mid); font-weight: 300; }
+.report-series {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.report-series::before { content: '🏔️'; font-size: 12px; }
+.header h1 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(28px, 6vw, 38px); font-weight: 800;
+  color: var(--white); line-height: 1.1; margin-bottom: 14px;
+}
+.header h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
 .header-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
 .header-meta { display: flex; gap: 12px; flex-wrap: wrap; }
-.meta-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 6px; }
-.meta-pill span { color: var(--gold-mid); font-weight: 600; }
+.meta-pill {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px; padding: 5px 14px;
+  font-size: 12px; color: rgba(255,255,255,0.75);
+  display: flex; align-items: center; gap: 6px;
+}
+.meta-pill span { color: var(--gold); font-weight: 600; }
+
+/* INTRO */
 .intro { padding: 24px 16px 0; }
-.intro-card { background: var(--white); border-radius: 14px; padding: 20px; border-left: 4px solid var(--gold); }
-.intro-card h2 { font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; }
+.intro-card {
+  background: var(--white); border-radius: 14px; padding: 20px;
+  border-left: 4px solid var(--green);
+}
+.intro-card h2 { font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700; color: var(--forest); margin-bottom: 8px; }
 .intro-card p { font-size: 13px; color: var(--mid); line-height: 1.7; }
 .intro-card p + p { margin-top: 8px; }
+
+/* WHAT WE MEASURE */
+.measures { padding: 20px 16px 0; }
+.measures-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 10px; }
+.measures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.measure-item { background: var(--white); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.measure-icon { font-size: 18px; flex-shrink: 0; }
+.measure-text strong { font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 2px; }
+.measure-text span { font-size: 11px; color: var(--mid); line-height: 1.4; }
+
+/* LEGEND */
+.legend { padding: 20px 16px 0; }
+.legend-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 10px; }
+.legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.legend-item { display: flex; align-items: flex-start; gap: 10px; background: var(--white); border-radius: 10px; padding: 10px 12px; }
+.tier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+.tier-dot.elite { background: var(--green); }
+.tier-dot.strong { background: var(--sky); }
+.tier-dot.solid { background: var(--amber); }
+.tier-dot.limited { background: var(--red); }
+.legend-text { font-size: 11px; color: var(--mid); line-height: 1.4; }
+.legend-text strong { color: var(--dark); font-size: 12px; display: block; margin-bottom: 1px; }
+
+/* INSIGHTS */
 .insights { padding: 24px 16px 0; }
 .insight-title { font-family: 'Libre Franklin', sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
 .insight-card { background: var(--white); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
-.insight-card h3 { font-size: 13px; font-weight: 700; color: var(--gold-dark); margin-bottom: 6px; }
+.insight-card h3 { font-size: 13px; font-weight: 700; color: var(--forest); margin-bottom: 6px; }
 .insight-card p { font-size: 13px; color: var(--mid); line-height: 1.65; }
+
+/* SECTION */
 .section { padding: 24px 16px 0; }
 .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-.section-icon.best { background: var(--green-lt); }
-.section-icon.good { background: var(--teal-lt); }
-.section-icon.moderate { background: var(--gold-lt); }
-.section-icon.premium { background: var(--red-lt); }
+.section-icon.elite { background: var(--green-lt); }
+.section-icon.strong { background: var(--sky-lt); }
+.section-icon.solid { background: var(--amber-lt); }
+.section-icon.limited { background: var(--red-lt); }
 .section-title h2 { font-family: 'Libre Franklin', sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
 .section-title p { font-size: 12px; color: var(--light); }
+
+/* CITY ROW */
 .city-list { display: flex; flex-direction: column; gap: 10px; }
 .city-row { background: var(--white); border-radius: 12px; padding: 16px; border-left: 3px solid transparent; }
-.city-row.best { border-left-color: var(--green); }
-.city-row.good { border-left-color: var(--teal); }
-.city-row.moderate { border-left-color: var(--gold); }
-.city-row.premium { border-left-color: var(--red); }
+.city-row.elite { border-left-color: var(--green); }
+.city-row.strong { border-left-color: var(--sky); }
+.city-row.solid { border-left-color: var(--amber); }
+.city-row.limited { border-left-color: var(--red); }
 .city-row-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
 .city-name-wrap { flex: 1; }
 .city-name { font-family: 'Libre Franklin', sans-serif; font-size: 16px; font-weight: 700; color: var(--dark); }
 .city-state { font-size: 12px; color: var(--light); margin-top: 1px; }
-.badges { display: flex; gap: 6px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
-.budget-badge { background: var(--sand); border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--mid); }
-.tax-badge { border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 700; }
-.tax-badge.best { background: var(--green-lt); color: var(--green); }
-.tax-badge.good { background: var(--teal-lt); color: var(--teal); }
-.tax-badge.moderate { background: var(--gold-lt); color: var(--gold-dark); }
-.tax-badge.poor { background: var(--red-lt); color: var(--red); }
-.value-note { font-size: 12px; color: var(--mid); line-height: 1.55; }
-.value-note strong { color: var(--dark); }
-.warning-tag { display: inline-block; background: var(--red-lt); color: var(--red); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
+.scores-wrap { display: flex; gap: 6px; flex-shrink: 0; }
+.score-badge { display: flex; flex-direction: column; align-items: center; background: var(--sand); border-radius: 8px; padding: 5px 9px; }
+.score-num { font-family: 'Libre Franklin', sans-serif; font-size: 16px; font-weight: 800; line-height: 1; }
+.score-num.elite { color: var(--green); }
+.score-num.strong { color: var(--sky); }
+.score-num.solid { color: var(--amber); }
+.score-num.limited { color: var(--red); }
+.score-lbl { font-size: 9px; color: var(--light); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 1px; }
+.active-note { font-size: 12px; color: var(--mid); line-height: 1.55; }
+.active-note strong { color: var(--dark); }
+.active-note .section-label { font-size: 11px; font-weight: 700; color: var(--green); margin-top: 8px; margin-bottom: 2px; display: block; }
+.active-note .section-label.wellness { color: var(--sky); }
 .star-tag { display: inline-block; background: var(--green-lt); color: var(--green); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
-.cta { margin: 24px 16px 0; background: var(--gold-dark); border-radius: 16px; padding: 28px 20px; text-align: center; }
+
+/* CTA */
+.cta { margin: 24px 16px 0; background: var(--forest); border-radius: 16px; padding: 28px 20px; text-align: center; }
 .cta h2 { font-family: 'Libre Franklin', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
 .cta p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.cta-btn { display: inline-block; background: var(--gold-mid); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 30px; border-radius: 100px; text-decoration: none; }
+.cta-btn { display: inline-block; background: var(--gold); color: var(--forest); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 30px; border-radius: 100px; text-decoration: none; }
 .cta-fine { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 12px; }
+
+/* FOOTER */
 .footer { text-align: center; padding: 24px 16px 40px; }
 .footer p { font-size: 11px; color: var(--light); line-height: 1.8; }
-.footer a { color: var(--gold); text-decoration: none; }
+.footer a { color: var(--green); text-decoration: none; }
 </style>
 </head>
 <body>
 
-<div class="header">
+<!-- HEADER -->
+<div class="header" style="background:#1e4d2b">
   <div class="header-bg"></div>
-  <div class="header-content">
-    <div class="report-series">RetireMeHere Deep Dive Series</div>
-    <h1>The Value<br><em>Navigator</em></h1>
-    <p class="header-desc">Where does your retirement dollar go furthest? We've ranked 50+ cities by budget range, tax friendliness, and real cost of living — so you can see exactly what your income buys in each market.</p>
+  <div class="header-content" style="color:#ffffff">
+    <div class="report-series" style="color:rgba(255,255,255,0.7)">RetireMeHere Deep Dive Series</div>
+    <h1 style="color:#ffffff">The Active<br><em>Frontier</em></h1>
+    <p class="header-desc">For active retirees, where you live shapes how you live. We've ranked 50+ cities across two dimensions — the quality of outdoor recreation and natural access, and the strength of active wellness infrastructure for retirees who want to stay seriously fit.</p>
     <div class="header-meta">
-      <div class="meta-pill">💰 <span>50+</span> Cities Ranked</div>
-      <div class="meta-pill">🏠 <span>5</span> Budget Tiers</div>
+      <div class="meta-pill">🏔️ <span>50+</span> Cities Ranked</div>
+      <div class="meta-pill">🎯 <span>Outdoor + Wellness</span></div>
       <div class="meta-pill">🗓 <span>March 2026</span></div>
     </div>
   </div>
 </div>
 
+<!-- INTRO -->
 <div class="intro">
   <div class="intro-card">
-    <h2>How we evaluate budget and value</h2>
-    <p>Each city is assigned a budget range based on what a comfortable retirement realistically costs — housing, healthcare, utilities, food, and lifestyle. We then score tax friendliness separately, because a city can have low housing costs but punishing taxes on your retirement income, or vice versa.</p>
-    <p>The real insight is the combination: a city with a budget score of 9 and a tax score of 10 is a fundamentally different retirement proposition than a city with the same scores reversed. Both dimensions together tell you what your money actually buys.</p>
+    <h2>Two dimensions, one active retirement</h2>
+    <p>We score each city on two separate dimensions: <strong>Outdoor Recreation (D7)</strong> evaluates natural assets — proximity to national parks, mountains, beaches, rivers, trails, and the quality of the outdoor experience available. <strong>Active Wellness (D8)</strong> evaluates the built fitness infrastructure — recreation centers, pickleball courts, fitness classes, senior programming, spa culture, and the overall community commitment to active aging.</p>
+    <p>The best cities score high on both. But the tradeoffs are real — some mountain cities offer world-class outdoor recreation but limited indoor wellness infrastructure. Some resort communities have exceptional wellness amenities but limited true wilderness access. Understanding both scores together tells the full picture.</p>
   </div>
 </div>
 
+<!-- WHAT WE MEASURE -->
+<div class="measures">
+  <div class="measures-title">What we evaluated</div>
+  <div class="measures-grid">
+    <div class="measure-item">
+      <div class="measure-icon">🏞️</div>
+      <div class="measure-text"><strong>National Parks & Wilderness</strong><span>Proximity and quality of protected lands, parks, and natural areas</span></div>
+    </div>
+    <div class="measure-item">
+      <div class="measure-icon">🎿</div>
+      <div class="measure-text"><strong>Outdoor Activity Range</strong><span>Skiing, hiking, cycling, water sports, fishing — variety and quality</span></div>
+    </div>
+    <div class="measure-item">
+      <div class="measure-icon">🏋️</div>
+      <div class="measure-text"><strong>Fitness Infrastructure</strong><span>Recreation centers, pools, pickleball courts, classes, senior programs</span></div>
+    </div>
+    <div class="measure-item">
+      <div class="measure-icon">🧘</div>
+      <div class="measure-text"><strong>Wellness Culture</strong><span>Spa scene, yoga studios, wellness community, active adult clubs</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-title">Combined score tiers (D7 + D8)</div>
+  <div class="legend-grid">
+    <div class="legend-item"><div class="tier-dot elite"></div><div class="legend-text"><strong>Elite (18–20)</strong>World-class outdoor recreation AND exceptional wellness infrastructure</div></div>
+    <div class="legend-item"><div class="tier-dot strong"></div><div class="legend-text"><strong>Strong (16–17)</strong>Outstanding in one dimension, very good in the other</div></div>
+    <div class="legend-item"><div class="tier-dot solid"></div><div class="legend-text"><strong>Solid (13–15)</strong>Good across both dimensions — active retirees well-served</div></div>
+    <div class="legend-item"><div class="tier-dot limited"></div><div class="legend-text"><strong>Moderate (11–12)</strong>Adequate outdoor and wellness options — not a primary draw</div></div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
 <div class="insights">
   <div class="insight-title">Key Takeaways — Before You Scroll</div>
 
   <div class="insight-card">
-    <h3>🏆 The Best Pure Value Play: Tennessee Cities</h3>
-    <p>Chattanooga and Johnson City are the strongest pure value cities in the database — Budget Range 1 (under $3,500/month) combined with a tax score of 10 (no Tennessee income tax on any retirement income). You get a low cost of living AND keep every dollar of your Social Security, pension, and IRA.</p>
+    <h3>🏆 The Perfect Balance: Scottsdale and Naples</h3>
+    <p>Only two cities in the database score 10/10 on Active Wellness: Scottsdale and Naples. Scottsdale is the undisputed pickleball capital of the US with 200+ golf courses, world-class resort spas, and the McDowell Sonoran Preserve for hiking. Naples has the most complete 55+ active adult infrastructure of any Florida city — and NCH Healthcare to back it up. Both also score 8–9 on outdoor recreation. They represent the gold standard of active retirement living.</p>
   </div>
 
   <div class="insight-card">
-    <h3>💡 The "Sweet Spot" Cities</h3>
-    <p>Several cities combine Budget Range 2 ($3,500–5,000/mo) with tax scores of 8–9: Corpus Christi TX, San Antonio TX, Knoxville TN, Spokane WA, Tucson AZ, and Fort Worth TX. These are cities where a moderate retirement income goes a genuinely long way.</p>
+    <h3>🏔️ The Mountain Outdoor Crown</h3>
+    <p>Four cities share a D7 score of 10 — the highest outdoor recreation rating: St. George UT, Park City UT, Jackson Hole WY, and Bend OR. Each offers a fundamentally different outdoor experience. St. George has Zion and Snow Canyon. Park City has two world-class ski resorts and 450+ miles of trails. Jackson Hole has Grand Teton as a literal backyard. Bend has Mt. Bachelor and the Cascade range. If outdoor recreation is your primary retirement driver, these four cities are in a class of their own.</p>
   </div>
 
   <div class="insight-card">
-    <h3>🏙️ The Northeast Surprise: Philly and Pittsburgh</h3>
-    <p>Most people assume Northeast automatically means expensive. Philadelphia and Pittsburgh break that assumption completely. Philadelphia's median home is $270K — comparable to San Antonio TX — with cost of living only 4–10% above national average. Pittsburgh's median home is $265K, the lowest of any major city in the database. Both cities sit in Budget Range 2. Both have world-class healthcare scoring 10/10. Pennsylvania's flat 3.07% income tax is the lowest flat rate nationally, and Social Security is exempt.</p>
+    <h3>🌴 Florida's Active Adult Infrastructure</h3>
+    <p>Florida has invested heavily in active adult community infrastructure and it shows in the D8 scores. Henderson NV (Sun City Anthem), Georgetown TX (Sun City Texas), Naples, Scottsdale, Delray Beach, Fort Myers, and Palm Springs all score 8–10 on wellness — not because of their wilderness, but because their active adult communities and resort amenities are purpose-built for exactly this lifestyle. If structured fitness and community programming matter more than wilderness access, Florida and the Sun Belt deliver.</p>
   </div>
 
   <div class="insight-card">
-    <h3>⚠️ The California and New York Premium</h3>
-    <p>Carlsbad, Santa Barbara, Palm Springs, and Saratoga Springs sit in Budget Range 4–5 with tax scores of 2 — the worst combination in the database. California's income tax reaches 13.3% on retirement income. New York tops 10.9%. You're paying premium housing prices AND handing a significant portion of your retirement income to the state.</p>
+    <h3>⚡ The Surprising Overachievers</h3>
+    <p>Greenville SC, Chattanooga TN, Fayetteville AR, and Missoula MT all punch above their weight on outdoor recreation. Greenville's Swamp Rabbit Trail and Blue Ridge access at this price point is remarkable. Chattanooga's Lookout Mountain and Tennessee River activities are genuinely impressive. Fayetteville's Ozark trails and Buffalo National River are world-class but rarely mentioned in national rankings. Missoula has three rivers converging in the city and wilderness beginning at the edge of town.</p>
   </div>
 
   <div class="insight-card">
-    <h3>🔍 Hidden Value: The "Afford More Than You Think" Cities</h3>
-    <p>Fayetteville AR (Budget Range 1, tax score 7), Greenville SC (Range 1, tax score 6), and St. Paul MN (Range 2, tax score 3) all offer surprisingly low housing costs. St. Paul's strong value on housing is offset by Minnesota's aggressive income tax — but Fayetteville and Greenville deliver genuine budget-friendly options that most lists overlook.</p>
+    <h3>❄️ The Winter Question</h3>
+    <p>Several high-scoring outdoor cities have a seasonal asterisk. St. Paul scores well for its trail system and lakes — but outdoor activity is genuinely limited November through March. Bozeman and Jackson Hole trade summer hiking for world-class skiing. Asheville's Blue Ridge Parkway is spectacular in fall but winter hiking is limited. When evaluating outdoor recreation scores, always ask: is this a year-round asset or a seasonal one?</p>
   </div>
-
-  <div class="insight-card">
-    <h3>🏔️ The Mountain Premium</h3>
-    <p>The most scenic mountain cities carry steep price tags. Park City (Budget Range 5, $1.5M+ median home), Jackson Hole (Range 5, $1.85M median), Sedona (Range 4, $930K median), and Bozeman (Range 4, $700K+) are gorgeous but financially demanding. Durango CO and Missoula MT are the most accessible mountain options.</p>
-  </div>
-
 </div>
 
-<!-- SECTION: BEST -->
-
+<!-- TIER 1: ELITE -->
 <div class="section">
   <div class="section-header">
-    <div class="section-icon best">🏆</div>
+    <div class="section-icon elite">🏆</div>
     <div class="section-title">
-      <h2>Best Value — Budget Range 1–2, Tax Score 8–10</h2>
-      <p>Affordable cost of living + favorable tax treatment · Your dollar goes furthest here</p>
+      <h2>Elite — Combined Score 18–20</h2>
+      <p>World-class outdoor recreation AND exceptional wellness infrastructure</p>
     </div>
   </div>
   <div class="city-list">
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Chattanooga</div><div class="city-state">TN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge best">Tax 10/10</span>
+        <div class="city-name-wrap"><div class="city-name">St. George</div><div class="city-state">Utah</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="star-tag">★ Best Value in Database</div>
-      <div class="value-note">Median home $314K. Monthly costs $3,000–$4,000. Among the most affordable in the Southeast. Exceptional value.</div>
+      <div class="star-tag">★ Best Outdoor Access in Database</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Snow Canyon State Park is literally within city limits. Zion National Park 45 min. Bryce Canyon 90 min. Red Cliffs National Conservation Area 15 min. Over 300 days of sunshine. Sand Hollow Reservoir for water sports. The density of world-class outdoor assets within driving distance is unmatched in the database.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        One of the leading pickleball cities in the US — dozens of dedicated courts. Golf in spectacular red rock settings. Dixie Center and multiple community rec facilities. Strong active adult culture built around the outdoor lifestyle. The 55+ community infrastructure is growing rapidly to match the population influx.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Corpus Christi</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Park City</div><div class="city-state">Utah</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $214K — most affordable Gulf Coast beach city in the database. Monthly costs $3,000–$4,000. No Texas income tax amplifies value.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Two world-class ski resorts — Park City Mountain and Deer Valley — literally in the backyard. 450+ miles of trails for hiking and mountain biking. Utah Olympic Park for bobsled, ski jumping, and biathlon. Uinta Mountains nearby. Summer and winter seasons equally compelling. The outdoor recreation density per square mile is extraordinary.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        PC MARC recreation center, 87,000 sq ft Basin Recreation Fieldhouse, 10+ pickleball courts, bocce, aquatic center, fitness classes. The outdoor culture IS the wellness culture — but the built infrastructure reinforces it strongly. One of the most complete active wellness environments at any price point.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">San Antonio</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Naples</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $260K. Monthly costs $2,800–$3,800. Range 2. Best value major city in the database. No Texas income tax amplifies the advantage.</div>
+      <div class="star-tag">★ Best Wellness Infrastructure in Florida</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Gulf beaches with white sugar sand. Everglades day trips. Big Cypress Preserve. Corkscrew Swamp Sanctuary. 10,000 Islands kayaking. The Southwest Florida nature ecosystem is genuinely exceptional — not just beaches but one of the great wildlife environments in North America.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Golf capital of Florida with 80+ courses. Pickleball culture strong and growing. Naples Community Park extensive rec facilities. World-class resort spas at The Ritz-Carlton, The Naples Grande. The depth of active adult infrastructure — from beginner fitness classes to competitive pickleball — is the best of any Florida city.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Knoxville</div><div class="city-state">TN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Sedona</div><div class="city-state">Arizona</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $327K. Monthly costs $3,200–$4,200. Range 2. Excellent value in a city with real healthcare and outdoor recreation.</div>
+      <div class="star-tag">★ America's Premier Small-Town Wellness Destination</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        100+ hiking trails including Cathedral Rock, Devil's Bridge, and West Fork Canyon. World-class mountain biking. Oak Creek swimming holes. Slide Rock State Park. Red rock vortex hiking culture. The trail system surrounding Sedona is among the most scenic and varied of any city in the database.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Mii amo destination spa at Enchantment Resort — nationally recognized as one of America's best. L'Auberge de Sedona spa. Extensive yoga and meditation culture. Vortex energy experiences unique to Sedona. The wellness tourism economy has created a permanent infrastructure of world-class wellness services that residents access year-round.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Spokane</div><div class="city-state">WA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Scottsdale</div><div class="city-state">Arizona</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $385K. Monthly costs $3,200–$4,500. Affordable Pacific Northwest. Much less expensive than Seattle, Portland, or Bend.</div>
+      <div class="star-tag">★ Pickleball Capital of the US</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        McDowell Sonoran Preserve — 30,000 acres, the largest urban wilderness preserve in the US. Camelback Mountain climbing. Pinnacle Peak hiking. Saguaro National Park accessible. 300+ days of sunshine. The desert outdoor experience is genuine and extraordinary — just hot June through September.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        200+ golf courses in the metro. More pickleball courts per capita than anywhere else in the US. World-class resort spas: The Phoenician, Sanctuary Camelback, Miraval Arizona. TPC Scottsdale hosts the PGA Waste Management Phoenix Open. The active wellness infrastructure for retirees is arguably the best-developed of any city in the database.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fort Myers</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Henderson</div><div class="city-state">Nevada</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $343K — more affordable than Naples or Sarasota for similar Gulf Coast access. Hurricane Ian insurance costs significant.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Lake Mead National Recreation Area for boating, kayaking, and fishing. Red Rock Canyon National Conservation Area 30 min — world-class rock climbing and hiking. Valley of Fire State Park. Sloan Canyon petroglyphs. The desert recreation landscape around Henderson is genuinely impressive and year-round accessible (with summer heat caveats).
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Sun City Anthem — three massive recreation centers, 8 pools, 100+ clubs, tennis, pickleball, fitness classes. One of the premier 55+ active adult communities in the country. The Del Webb active adult infrastructure is purpose-built for exactly this demographic. Non-Sun City residents also have access to strong Henderson Parks & Recreation facilities.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Pensacola</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Colorado Springs</div><div class="city-state">Colorado</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $340K. Monthly costs $3,000–$4,200. Range 2. More affordable than most FL beach cities. Good value.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Garden of the Gods — free, world-class red rock formations in city limits. Pikes Peak summit accessible by car or cog railway. 14ers within striking distance. Cheyenne Mountain State Park. North Cheyenne Cañon Park. Mueller State Park. The combination of dramatic urban open space and Rockies access is among the best of any Front Range city.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Military fitness culture creates an unusually active community baseline. Strong community rec centers. Excellent hiking and cycling culture. US Olympic and Paralympic Training Center in the city adds unique fitness events and culture. Growing pickleball scene.
+      </div>
     </div>
-    <div class="city-row best">
+
+    <div class="city-row elite">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Johnson City</div><div class="city-state">TN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
+        <div class="city-name-wrap"><div class="city-name">Sarasota</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="star-tag">★ Most Affordable City in Database</div>
-      <div class="value-note">Median home $285K. Monthly costs $2,500–$3,200. Range 1. The most affordable city in the database. Comfortable retirement on modest income.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Tucson</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Siesta Key — consistently voted #1 beach in America. Myakka River State Park — one of Florida's oldest and most wildlife-rich. Oscar Scherer State Park for kayaking. Waterfront access for boating and paddleboarding. The outdoor recreation picture goes well beyond beaches into genuine wilderness experiences.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Strong 55+ active wellness — multiple recreation centers, aquatic facilities. Pickleball culture strong and growing. Golf throughout the Sarasota area. Ringling area yoga and fitness boutiques. One of Florida's more complete active adult wellness ecosystems outside of Naples.
       </div>
-      <div class="value-note">Median home $315K. Monthly costs $3,200–$4,200. Range 2. Excellent value — affordable with real university culture and outdoor access.</div>
     </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fort Worth</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $340K. Monthly costs $3,000–$4,200. Range 2. Strong value for a major Texas metro with no income tax.</div>
-    </div>
+
   </div>
 </div>
 
-<!-- SECTION: GOOD -->
-
+<!-- TIER 2: STRONG -->
 <div class="section">
   <div class="section-header">
-    <div class="section-icon good">👍</div>
+    <div class="section-icon strong">🌲</div>
     <div class="section-title">
-      <h2>Good Value — Range 2–3, Tax Score 6–9</h2>
-      <p>Solid value proposition · Moderate costs with reasonable tax treatment</p>
+      <h2>Strong — Combined Score 16–17</h2>
+      <p>Outstanding in one dimension, very good in the other · Active retirees thrive here</p>
     </div>
   </div>
   <div class="city-list">
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Henderson</div><div class="city-state">NV</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 10/10</span>
+        <div class="city-name-wrap"><div class="city-name">Jackson Hole</div><div class="city-state">Wyoming</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $465K. Monthly costs $3,800–$5,200. Range 3. No Nevada income tax amplifies value.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Grand Teton National Park is the literal backyard. Yellowstone 1 hour. Snake River blue-ribbon trout fishing. Jackson Hole Mountain Resort — one of the most challenging ski mountains in North America. 1,000 miles of trails. The outdoor recreation available from Jackson Hole is arguably the most dramatic and varied of any city in the database.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Outdoor culture IS the fitness culture — skiing, hiking, cycling, climbing. St. John's Medical Center has fitness facilities. START Community Food Center fitness programs. Limited traditional gym infrastructure for a city of this size and price — but the active outdoor community is the wellness community here.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Tampa</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Bend</div><div class="city-state">Oregon</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $400K. Monthly costs $3,500–$5,000. More affordable than Sarasota or Naples. Range 2. Strong value for a major FL metro.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Mt. Bachelor skiing — world-class, 30 min from downtown. Cascades hiking: South Sister, Broken Top, Crater Lake accessible. Deschutes River kayaking and fly fishing. Smith Rock State Park — world-class sport climbing. High Desert wilderness at the doorstep. Four-season outdoor access is genuine and extraordinary.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Outdoor fitness culture dominant — the city's demographic skews young and active. Athletic Club of Bend. Bend Park & Recreation community programs. Pickleball growing. St. Charles Medical Center fitness programs. The wellness culture is active and outdoor-focused rather than resort spa-focused.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Georgetown</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Bozeman</div><div class="city-state">Montana</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $450K. Monthly costs $3,200–$4,500. Range 2. Good value for Austin-area access with no state income tax.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Bridger Bowl ski area 20 min. Big Sky Resort 60 min — one of the largest ski resorts in North America. Three blue-ribbon trout streams within the city. Yellowstone 90 min. Gallatin National Forest. Hyalite Canyon. The outdoor recreation density in the Bozeman area rivals anywhere in the Mountain West.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Ridge Athletic Club, Bozeman Hot Springs fitness, multiple yoga studios, growing pickleball scene. MSU campus recreation facilities. The fitness culture is strong but the formal infrastructure for 55+ active adults lags the outdoor reputation significantly. Strong for independently active retirees — less so for those wanting structured senior programs.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Sarasota</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Carlsbad</div><div class="city-state">California</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $538K. Monthly costs $4,800–$6,200. Getting expensive. Palmer Ranch and North Port offer more affordable alternatives.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Pacific Ocean beaches. Torrey Pines State Reserve 15 min — one of the finest coastal trails in California. La Jolla Cove snorkeling and kayaking nearby. Batiquitos Lagoon nature trails. Los Padres National Forest accessible. Year-round outdoor conditions are genuinely exceptional.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        La Costa Resort and Spa (now Omni La Costa) — nationally recognized destination spa and golf resort. Strong cycling culture on the coastal path network. Multiple fitness studios. Aviara Golf Club. Year-round outdoor fitness culture driven by the perfect climate.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. Augustine</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Santa Barbara</div><div class="city-state">California</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $425K. Monthly costs $3,500–$5,000. Getting expensive for historic FL city. Range 2.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Pacific Ocean beaches. Los Padres National Forest beginning at the city's northern edge. Channel Islands National Park boat trips. Cachuma Lake. East Beach cycling. Year-round outdoor conditions — Mediterranean climate means hiking, cycling, and swimming every month of the year.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Outdoor fitness culture year-round. Resort spa scene. Strong cycling culture — the Coastal Bikeway is excellent. Golf at Sandpiper and La Purisima. Multiple yoga and fitness studios. The outdoor climate makes staying active almost effortless — a genuine wellness asset.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Delray Beach</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Durango</div><div class="city-state">Colorado</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $500K. Monthly costs $5,000–$6,500. 21% above national average. Century Village offers more affordable 55+ entry points.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Purgatory Ski Resort 25 min. Gold-medal Animas River trout fishing through downtown. Weminuche Wilderness — largest wilderness area in Colorado. Mesa Verde National Park 35 min. Durango Mountain Area trails. The Four Corners outdoor landscape is genuinely world-class.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Durango Community Recreation Center — pools, gym, 6 pickleball courts, 60–70 fitness classes/week. Fort Lewis College fitness facilities. Animas River Trail cycling. Strong outdoor fitness culture driven by the college town demographic. For its size, Durango's wellness infrastructure is impressive.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Nashua</div><div class="city-state">NH</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Delray Beach</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $490K. Monthly costs $4,500–$6,000. Elevated for a NH city. Boston proximity drives prices.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Atlantic Ocean beaches. Morikami Museum and Japanese Gardens. Wakodahatchee Wetlands for birding. Arthur R. Marshall Loxahatchee National Wildlife Refuge. Kayaking on the Intracoastal. Year-round outdoor conditions — no winter, beach access daily.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Strong 55+ active adult culture in the Boca Raton–Delray Beach corridor. Multiple fitness centers, tennis and pickleball clubs. The Palm Beach region's wealth drives exceptional private club and resort fitness infrastructure. Growing pickleball culture. Year-round outdoor fitness enabled by the climate.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Pittsburgh</div><div class="city-state">PA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
+        <div class="city-name-wrap"><div class="city-name">Palm Springs</div><div class="city-state">California</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="star-tag">★ Best Budget + Healthcare Combination in the Database</div>
-      <div class="value-note">Median home ~$265K — most affordable major city in the entire database. Monthly costs $3,200–$4,500. Cost of living near the national average. The best budget + healthcare combination of any city we s</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Aerial Tramway to 8,516-ft snowfields — unique desert-to-alpine experience. Indian Canyons hiking. Joshua Tree National Park 45 min. Big Morongo Canyon Preserve. Salton Sea for birding. Note: summer heat makes outdoor recreation genuinely dangerous June–September.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        World-class resort spas. BNP Paribas Open tennis at Indian Wells — minutes from downtown, accessible to residents. 100+ golf courses in the Coachella Valley. Strong mid-century modern gym and fitness culture. One of the premier resort wellness destinations in the American West.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fayetteville</div><div class="city-state">AR</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
+        <div class="city-name-wrap"><div class="city-name">Fort Myers</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $350K. Monthly costs $2,800–$3,800. Range 1. Outstanding value — affordable with genuine university culture and outdoor access.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Sanibel and Captiva Islands — Ding Darling National Wildlife Refuge, world-class shelling beaches. Caloosahatchee River kayaking. Florida Trail access. J.N. "Ding" Darling Wilderness Canoe Trail. Outstanding birding throughout Lee County. Year-round outdoor conditions.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Pelican Preserve: 12 pickleball courts, 8 tennis courts, resort pools, fitness center, social clubs — one of Southwest Florida's premier active adult communities. Lakes Park Recreation Center. Strong 55+ infrastructure throughout Lee County. Golf throughout the area.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Savannah</div><div class="city-state">GA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
+        <div class="city-name-wrap"><div class="city-name">Asheville</div><div class="city-state">North Carolina</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">6</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $377K — significantly more affordable than FL coastal peers. Monthly costs $3,800–$4,200.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Blue Ridge Parkway passes through the city — one of the most scenic drives in America, with hiking trailheads throughout. Pisgah National Forest begins at the city's edge. Appalachian Trail accessible. French Broad River for kayaking and rafting. World-class mountain biking on the Bent Creek trails. The outdoor recreation on offer rivals cities costing three times as much.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Outdoor and fitness culture very strong. Growing yoga and wellness scene. YMCA solid. Community rec centers. The wellness infrastructure lags the outdoor recreation quality — more of an active outdoor city than a structured wellness city. Growing rapidly.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Virginia Beach</div><div class="city-state">VA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
+        <div class="city-name-wrap"><div class="city-name">Flagstaff</div><div class="city-state">Arizona</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">6</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $405K. Monthly costs $3,800–$4,500. More affordable than comparable FL beach cities.</div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Grand Canyon 1 hour. Sedona 30 min. Oak Creek Canyon. San Francisco Peaks skiing at Arizona Snowbowl. Coconino National Forest surrounding the city. 50+ miles of urban trails (FUTS). At 7,000 ft elevation, summer hiking is among the best in Arizona — cool when Phoenix is 115°F.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        NAU athletic culture drives a strong fitness community. Outdoor fitness community dominant — hiking, cycling, trail running. Flagstaff Athletic Club. Growing pickleball scene. The built wellness infrastructure for 55+ specifically is limited compared to Phoenix metro cities.
+      </div>
     </div>
-    <div class="city-row good">
+
+    <div class="city-row strong">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Wilmington</div><div class="city-state">NC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
+        <div class="city-name-wrap"><div class="city-name">Georgetown</div><div class="city-state">Texas</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num strong">5</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $420K. Monthly costs $3,200–$4,500. More affordable than comparable coastal NC markets. Range 2.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Raleigh</div><div class="city-state">NC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
+      <div class="active-note">
+        <span class="section-label">🏞️ Outdoor Recreation</span>
+        Lake Georgetown for boating and fishing. Inner Space Cavern. Balcones Canyonlands NWR for birding. Hill Country 30 min. San Gabriel River trails. Adequate outdoor assets for a suburban Texas city — nothing extraordinary, but functional year-round.
+        <span class="section-label wellness">🏋️ Active Wellness</span>
+        Sun City Texas — 86,000 sq ft Legacy Hills amenity center, 3 golf courses, 75+ clubs, pools, fitness centers, pickleball, tennis. One of the largest and most complete Del Webb active adult communities in the country. If structured 55+ active adult living is the priority, few communities in the database compare to Sun City Texas.
       </div>
-      <div class="value-note">Median home $445K. Monthly costs $3,500–$4,800. Range 3. Getting more expensive but reasonable for the healthcare and airport access.</div>
     </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fairhope</div><div class="city-state">AL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $480K — high for a small Alabama town. Reflects the desirability and limited supply. Monthly costs $3,200–$4,500.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Colorado Springs</div><div class="city-state">CO</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $445K. Monthly costs $3,800–$5,000. Range 3. Reasonable value for the outdoor recreation and healthcare access.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Greenville</div><div class="city-state">SC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $335K — 27% below national average. Monthly costs $3,200–$4,200. Outstanding value. SC primary residence exemption keeps property taxes very low.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Lexington</div><div class="city-state">KY</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $330K. Monthly costs $3,200–$4,200. Range 2. Good value in a city with genuine culture and top-tier healthcare.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bloomington</div><div class="city-state">IN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $345K. Monthly costs $3,200–$4,200. Affordable college town. Strong rental market given IU enrollment.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Philadelphia</div><div class="city-state">PA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="star-tag">★ Northeast Surprise — Major City at Midwest Prices</div>
-      <div class="value-note">Median home ~$270K — extraordinary for a major East Coast city. Monthly costs $3,500–$5,000. Cost of living only 4–10% above national average. Note: Philadelphia city wage tax (3.74%) applies to earne</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Charleston</div><div class="city-state">SC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $523K. Monthly costs $4,800–$5,800. Rising rapidly. Johns Island and Summerville offer more affordable alternatives.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Asheville</div><div class="city-state">NC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $465K. Above expectations for an inland mountain city. Hurricane Helene (2024) disrupted some areas. Monthly costs $4,200–$5,500.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Ann Arbor</div><div class="city-state">MI</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $425K. Monthly costs $3,800–$5,200. Getting expensive for a Midwest college town. Range 3.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. Paul</div><div class="city-state">MN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge poor">Tax 3/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $280K. Monthly costs $3,200–$3,800. Heating bills significant in winter. Among the most affordable metros in the database.</div>
-    </div>
+
   </div>
 </div>
 
-<!-- SECTION: MODERATE -->
-
+<!-- TIER 3: SOLID -->
 <div class="section">
   <div class="section-header">
-    <div class="section-icon moderate">⚖️</div>
+    <div class="section-icon solid">🌿</div>
     <div class="section-title">
-      <h2>Moderate Value — Range 3–4, Mixed Tax</h2>
-      <p>Above average costs · Value depends on lifestyle fit and income situation</p>
+      <h2>Solid — Combined Score 13–15</h2>
+      <p>Good outdoor access and wellness options · Active retirees well-served · Not the primary draw</p>
     </div>
   </div>
   <div class="city-list">
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Naples</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
+        <div class="city-name-wrap"><div class="city-name">Knoxville</div><div class="city-state">Tennessee</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $675K. Monthly costs $6,500–$7,500. Most expensive city in the database. HOA fees $300–$800/mo common in gated communities.</div>
+      <div class="active-note">Great Smoky Mountains National Park 30 min — most visited national park in the US. Urban Wilderness trail system within city limits. Tennessee Riverwalk. UT athletic culture. YMCA network strong. Growing pickleball. Solid across both dimensions at a price point far below the western mountain cities.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Prescott</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
+        <div class="city-name-wrap"><div class="city-name">Tucson</div><div class="city-state">Arizona</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $525K. Monthly costs $4,000–$5,500. Range 3. Getting expensive — retiree demand has driven prices well above regional norms.</div>
+      <div class="active-note">Saguaro National Park East and West literally within city limits — unique in the database. Santa Catalina Mountains with Mt. Lemmon ski valley (9,157 ft). Rincon Mountain District hiking. UA drives fitness culture. Senior Olympic-size pools. Sun Tran Streetcar. Strong value for outdoor recreation at a much lower price point than Scottsdale or Sedona.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Scottsdale</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
+        <div class="city-name-wrap"><div class="city-name">Boise</div><div class="city-state">Idaho</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $875K. Monthly costs $6,500–$8,500. 20%+ above national average. Summer utility bills spike $400–$600+/mo for AC.</div>
+      <div class="active-note">Boise Foothills trail system begins at the city's edge. Sawtooth NRA 2 hours. Sun Valley 2.5 hours. Boise River Greenbelt 25 miles. Growing pickleball scene. Community rec centers solid. Strong outdoor fitness culture. One of the most underrated active retirement cities in the Mountain West.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Flagstaff</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
+        <div class="city-name-wrap"><div class="city-name">Missoula</div><div class="city-state">Montana</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $650K. Monthly costs $5,000–$7,000. Expensive for an inland AZ city. Premium driven by lifestyle and limited supply.</div>
+      <div class="active-note">Three rivers converge at Missoula — Clark Fork, Blackfoot, and Bitterroot. Rattlesnake Wilderness borders the city. Snowbowl ski area 12 miles. PEAK Health 12 pickleball courts (6 indoor/6 outdoor). UM Campus Recreation. Fare-free Mountain Line transit. One of the best outdoor recreation cities relative to its size anywhere in the database.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Durango</div><div class="city-state">CO</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
+        <div class="city-name-wrap"><div class="city-name">Johnson City</div><div class="city-state">Tennessee</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Cost of living 18% above national average. County median $682K; in-town Durango ~$847K. More affordable than Park City or Sedona but expensive for a remote small town.</div>
+      <div class="active-note">Appalachian Trail access. Cherokee National Forest. Roan Mountain State Park — world-class rhododendron bloom in June. Watauga Lake. Waterfalls throughout the Tri-Cities region. Growing fitness culture. YMCA solid. The outdoor recreation on offer is genuinely impressive for the lowest-cost city in the database.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Sedona</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
+        <div class="city-name-wrap"><div class="city-name">Hilton Head</div><div class="city-state">South Carolina</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home ~$930K. Average SFH sale price $1.32M. Cost of living 17-33% above national average. Entry-level condos in Village of Oak Creek start ~$300K.</div>
+      <div class="active-note">12 miles of Atlantic beach. 20+ golf courses. 60+ miles of bike paths throughout the plantation communities. Calibogue Sound kayaking. Harbour Town sailing. Plantation fitness centers and tennis clubs. Golf is the dominant activity but the combination of beach, bike paths, and private club infrastructure creates a solid active lifestyle.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Hilton Head</div><div class="city-state">SC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
+        <div class="city-name-wrap"><div class="city-name">Madison</div><div class="city-state">Wisconsin</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $800K. Monthly costs $4,500–$5,500. Island premium significant. HOA fees $300–$700/mo common in plantation communities.</div>
+      <div class="active-note">Lake Mendota and Lake Monona — swimming, sailing, kayaking, ice fishing. Dane County Parks system extensive. UW athletic culture drives excellent community rec centers. Strong senior programming. Excellent cycling infrastructure. Note: outdoor recreation is strongly seasonal — winter limits outdoor activity significantly.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Boise</div><div class="city-state">ID</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
+        <div class="city-name-wrap"><div class="city-name">Charleston</div><div class="city-state">South Carolina</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $500K. Monthly costs $3,800–$5,200. Up significantly since 2020. Range 3.</div>
+      <div class="active-note">Sullivan's Island and Isle of Palms beaches. Francis Marion National Forest. ACE Basin — one of the largest undeveloped estuaries on the East Coast. Kayaking the creeks and marshes. Kiawah Island golf. Resort spas. Growing fitness culture. Strong overall active lifestyle picture.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Charlottesville</div><div class="city-state">VA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
+        <div class="city-name-wrap"><div class="city-name">Greenville</div><div class="city-state">South Carolina</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $460K. Monthly costs $4,000–$5,500. Range 3. Getting expensive driven by UVA demand and Blue Ridge lifestyle premium.</div>
+      <div class="active-note">Swamp Rabbit Trail — 22-mile paved greenway through the city and county. Blue Ridge Mountains 30 min. Caesars Head State Park. Paris Mountain State Park. Growing cycling culture driven by the trail. YMCA solid. Blue Ridge access for hiking. Outstanding value for outdoor recreation at Greenville's price point.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bend</div><div class="city-state">OR</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
+        <div class="city-name-wrap"><div class="city-name">Virginia Beach</div><div class="city-state">Virginia</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $800K. Monthly costs $4,500–$6,000. Range 3. Has surged dramatically — Bend is now unaffordable relative to where it was.</div>
+      <div class="active-note">35 miles of Atlantic Ocean beach. First Landing State Park. Back Bay National Wildlife Refuge. Chesapeake Bay kayaking. Military fitness culture creates an unusually active community baseline. Strong golf. Surfing and cycling culture. Good community rec infrastructure influenced by military presence.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Alexandria</div><div class="city-state">VA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
+        <div class="city-name-wrap"><div class="city-name">Spokane</div><div class="city-state">Washington</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home ~$970K. Monthly costs $6,500–$9,000+. Cost of living 40%+ above national average. One of the most expensive cities in the database alongside Scottsdale, Park City, and Santa Barbara.</div>
+      <div class="active-note">Riverfront Park in city center. Coeur d'Alene Lake 30 min — exceptional boating and swimming. Mt. Spokane 30 min for skiing. Centennial Trail 37 miles. Eastern Washington wine country. Community rec centers growing. Good for independently active retirees seeking Pacific Northwest access without Pacific Northwest prices.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Santa Fe</div><div class="city-state">NM</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
+        <div class="city-name-wrap"><div class="city-name">Saratoga Springs</div><div class="city-state">New York</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $520K — expensive relative to region and city size. Art-city pricing premium. More affordable than coastal peers.</div>
+      <div class="active-note">Adirondack Mountains 30 min — one of the great wilderness areas in the eastern US. Lake George 20 min. Saratoga Spa State Park with historic mineral springs, pools, and fitness trails. Growing modern fitness scene. YMCA solid. The historic spa culture of Saratoga is a genuine wellness asset unlike anything else in the Northeast.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Madison</div><div class="city-state">WI</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
+        <div class="city-name-wrap"><div class="city-name">Annapolis</div><div class="city-state">Maryland</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $375K. Monthly costs $3,800–$5,000. Getting expensive — demand driven by strong economy and quality of life.</div>
+      <div class="active-note">Chesapeake Bay sailing, kayaking, crabbing — a genuinely unique water sports culture. Sandy Point State Park. Quiet Waters Park trails. Growing pickleball. Strong water sports fitness culture. Community rec centers adequate. The water-centric outdoor lifestyle is distinctive and year-round accessible in three seasons.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. George</div><div class="city-state">UT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
+        <div class="city-name-wrap"><div class="city-name">Fayetteville</div><div class="city-state">Arkansas</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $530K — up 40%+ since 2020. Monthly costs $4,500–$6,000. Above expectations for an inland desert city.</div>
+      <div class="active-note">Ozark mountains surrounding the city. Buffalo National River 1.5 hrs — first national river in the US, world-class canoeing. Lake Leatherwood cycling and mountain biking. Petit Jean State Park. Razorback Greenway 37 miles. UA athletic culture. Growing pickleball. Extraordinary outdoor recreation at Budget Range 1 prices.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bozeman</div><div class="city-state">MT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
+        <div class="city-name-wrap"><div class="city-name">Prescott</div><div class="city-state">Arizona</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Cost of living 29-30% above national average. Median home ~$700K (SFH ~$875K). Housing 48-55% above national average.</div>
+      <div class="active-note">Prescott National Forest surrounding the city. Granite Dells — unique rock formations for hiking and bouldering. Thumb Butte trail system. Watson Lake kayaking. Goldwater Lake. Strong retiree fitness culture. Community rec center good. Golf. One of Arizona's most outdoor-accessible small cities at a moderate price point.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Silver Spring</div><div class="city-state">MD</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
+        <div class="city-name-wrap"><div class="city-name">Tampa</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home ~$630K. Monthly costs $5,000–$6,500. Expensive for a suburb but notably cheaper than DC proper, Bethesda, or Alexandria. Better value proposition for DC metro access.</div>
+      <div class="active-note">Gulf beaches 30–45 min (Clearwater, St. Pete Beach). Hillsborough River State Park. Tampa Bay kayaking. Growing active wellness infrastructure. Multiple community rec centers. Strong sports culture (Bucs, Rays, Lightning). Riverwalk cycling. Growing pickleball. A solid overall active lifestyle city for Florida.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Missoula</div><div class="city-state">MT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
+        <div class="city-name-wrap"><div class="city-name">Eugene</div><div class="city-state">Oregon</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $550K — most affordable of the 5 new mountain cities. Housing market softening for first time in 15 years.</div>
+      <div class="active-note">Oregon Coast 1 hr. Three Sisters wilderness and Crater Lake accessible. Willamette River. McKenzie River Trail — legendary mountain biking. Ruth Bascom Riverbank Trail. UO fitness culture. Community rec centers solid. Cycling culture exceptional. Note: high income tax significantly impacts the value equation for retirees.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Portland</div><div class="city-state">ME</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
+        <div class="city-name-wrap"><div class="city-name">Charlottesville</div><div class="city-state">Virginia</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $545K. Monthly costs $5,000–$7,000. Getting expensive — Boston commuter demand driving prices. Range 4.</div>
+      <div class="active-note">Shenandoah National Park 30 min — Skyline Drive is extraordinary. Blue Ridge Parkway accessible. Appalachian Trail trailheads nearby. Rivanna Trail around the city. UVA rec facilities excellent. Strong fitness culture. Blue Ridge access for hiking and cycling year-round (mild climate). Underrated outdoor access given the price point.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Annapolis</div><div class="city-state">MD</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
+        <div class="city-name-wrap"><div class="city-name">St. Paul</div><div class="city-state">Minnesota</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $655K. Monthly costs $5,500–$7,500. Range 4. Getting very expensive. Naval Academy and DC proximity drive prices.</div>
+      <div class="active-note">Mississippi River gorge trails. Chain of Lakes system. Strong cycling infrastructure. Boundary Waters Canoe Area 4 hrs — one of the great wilderness canoe experiences in North America. Excellent indoor facilities essential for winter. Strong senior programming. YMCA network outstanding. Active 4-season culture for those who embrace the cold.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Eugene</div><div class="city-state">OR</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge poor">Tax 3/10</span>
+        <div class="city-name-wrap"><div class="city-name">Portland</div><div class="city-state">Maine</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $460K. Monthly costs $4,200–$5,500. Getting expensive for a college town. Range 3.</div>
+      <div class="active-note">Atlantic Ocean coast and beaches 20 min. White Mountains 1.5 hrs. Acadia National Park 3 hrs — one of the crown jewels of the national park system. Peaks Island accessible by ferry. Active outdoor community year-round. Community fitness culture strong. Rock climbing at Blackwall and Catskills. Year-round outdoor culture for those who embrace New England seasons.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Palm Springs</div><div class="city-state">CA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
+        <div class="city-name-wrap"><div class="city-name">Raleigh</div><div class="city-state">North Carolina</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="warning-tag">⚠️ High Tax + High Cost</div>
-      <div class="value-note">Median home $662K. Monthly costs $6,000–$8,000. Summer utilities spike $300–$500/mo for AC. Many properties carry Agua Caliente land lease fees.</div>
+      <div class="active-note">Falls Lake State Recreation Area. Jordan Lake. Blue Ridge Mountains 2.5 hrs. Capital Area Greenway 100+ miles. Research Triangle demographic drives strong fitness culture. Multiple community rec centers. Growing pickleball. Outer Banks beaches 3 hrs. Good all-around active lifestyle picture for a fast-growing Southern city.</div>
     </div>
-    <div class="city-row moderate">
+
+    <div class="city-row solid">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Saratoga Springs</div><div class="city-state">NY</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
+        <div class="city-name-wrap"><div class="city-name">Santa Fe</div><div class="city-state">New Mexico</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $500K. Monthly costs $5,000–$7,000. Range 4. Getting expensive — Boston-NYC weekend destination drives prices.</div>
+      <div class="active-note">Sangre de Cristo Mountains. Santa Fe National Forest. Hyde Memorial State Park. Ski Santa Fe 16 miles. Strong yoga and wellness culture — some of the finest studios in the Southwest. Hiking and cycling in the mountains at 7,000 ft. Genuine wellness culture built around arts, mind-body practices, and outdoor mountain access.</div>
     </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">St. Augustine</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Atlantic Ocean beaches. Anastasia State Park. Matanzas River kayaking. Fort Matanzas National Monument. Growing active wellness infrastructure. Vilano Beach cycling. Community rec center improving. YMCA. Pickleball growing. Good overall active lifestyle for a Florida historic city at below-average Florida prices.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Lexington</div><div class="city-state">Kentucky</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Red River Gorge 1 hr — one of the great rock climbing and hiking destinations in the eastern US. Lake Cumberland 1.5 hrs. Mammoth Cave 1.5 hrs. UK athletic culture drives fitness community. Community rec centers solid. Horse farm cycling on the rural roads is genuinely beautiful. Legacy Trail for cycling.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Ann Arbor</div><div class="city-state">Michigan</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Nichols Arboretum — beautiful on foot. Huron River water trail. Pinckney Recreation Area 20 min. Four-season outdoor culture. Michigan Medicine rec facilities world-class and accessible to community members. Multiple aquatic centers. Strong senior programming. U-M campus cycling infrastructure excellent.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Bloomington</div><div class="city-state">Indiana</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Lake Monroe — Indiana's largest reservoir, sailing and fishing. Brown County State Park 30 min — the "Little Smokies" for hiking and fall foliage. IU campus trails beautiful. IU athletic culture and facilities. YMCA strong. Senior center well-equipped. Good active lifestyle infrastructure for an affordable college town.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Fort Worth</div><div class="city-state">Texas</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Trinity Trails — 100+ miles of paved trail along the Trinity River, one of the finest urban trail systems in Texas. Benbrook Lake for water sports. Fort Worth Nature Center. Well-funded community rec centers. Growing pickleball scene. Good active lifestyle infrastructure for a major Texas city at accessible prices.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Nashua</div><div class="city-state">New Hampshire</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Lake Winnipesaukee 1 hr. White Mountains 1.5 hrs. Mine Falls Park in city. Excellent four-season outdoor access given proximity to New Hampshire's natural assets. YMCA strong. Community rec center. Growing fitness culture. New Hampshire's tax advantage and access to world-class New England outdoors is a genuinely underrated combination.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Chattanooga</div><div class="city-state">Tennessee</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Lookout Mountain, Rock City, Ruby Falls. Tennessee River water activities. Cloudland Canyon State Park. Enterprise South Nature Park mountain biking. 13-mile Tennessee Riverwalk. Growing fitness culture. CARTA Zero free bus. Community rec improving. Excellent outdoor access at Budget Range 1 prices.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Wilmington</div><div class="city-state">North Carolina</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Wrightsville Beach — consistently rated among East Coast's finest. Cape Fear River paddling. Carolina Beach State Park. Figure Eight Island wildlife. Beach fitness culture prominent. YMCA strong. Community rec centers adequate. Pickleball growing. Good active lifestyle for a coastal NC city.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Pensacola</div><div class="city-state">Florida</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Pensacola Beach — white quartz sand consistently rated among America's best. Gulf Islands National Seashore. Perdido Key State Park. Naval Air Station Pensacola. Military fitness culture strong. Community rec centers adequate. Growing pickleball. The beach access quality at Pensacola's price point is genuinely exceptional.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Fairhope</div><div class="city-state">Alabama</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Mobile Bay access. Eastern Shore beaches. Weeks Bay Preserve. Biking trails along the bay. Golf. Outdoor walking culture strong — the bluff-top setting makes even casual walks beautiful. Community fitness culture adequate. Some senior programming. Outdoor walking and cycling in the mild climate is the primary active lifestyle draw.</div>
+    </div>
+
   </div>
 </div>
 
-<!-- SECTION: PREMIUM -->
 
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Alexandria</div><div class="city-state">Virginia</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Mount Vernon Trail 18 miles along the Potomac. Huntley Meadows Park 650 acres — best urban wetland birding in the DC area. Shenandoah NP 1.5 hrs. DC monuments, Rock Creek Park, and the Mall accessible by Metro. City rec centers with SilverSneakers. 70 pickleball courts at 19 locations. RPCA senior programs. Northern Virginia Senior Olympics. Strong fitness culture driven by federal and military workforce.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Silver Spring</div><div class="city-state">Maryland</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Sligo Creek Trail through the city. Rock Creek Park adjacent. C&O Canal 30 min. Shenandoah NP 1.5 hrs. Montgomery County Recreation Centers well-funded with strong senior programming. Growing pickleball. NIH-area community drives health-conscious culture. SilverSneakers available at multiple facilities. DC's parks and cultural institutions accessible by Metro Red Line.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Philadelphia</div><div class="city-state">Pennsylvania</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Fairmount Park — one of the largest urban park systems in the US at 9,200 acres. Kelly Drive cycling along the Schuylkill River. Wissahickon Valley Gorge for hiking. Jersey Shore beaches 90 min. Strong urban fitness culture. Boathouse Row rowing. Philadelphia Parks & Recreation senior programs. Growing pickleball. The Rocky Steps at the Art Museum — a cultural fitness landmark unique to Philadelphia.</div>
+    </div>
+
+    <div class="city-row solid">
+      <div class="city-row-top">
+        <div class="city-name-wrap"><div class="city-name">Pittsburgh</div><div class="city-state">Pennsylvania</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
+        </div>
+      </div>
+      <div class="active-note">Frick Park — 644-acre urban wilderness with exceptional trails. Three Rivers waterfront cycling and kayaking. Laurel Highlands 60 min for hiking and whitewater. Ohiopyle State Park 90 min — world-class rafting. UPMC drives strong community health culture. Carnegie Mellon and Pitt university energy. Growing pickleball. Pittsburgh Parks Conservancy programs. Excellent Three Rivers trail system for cycling and walking.</div>
+    </div>
+
+<!-- TIER 4: MODERATE -->
 <div class="section">
   <div class="section-header">
-    <div class="section-icon premium">💎</div>
+    <div class="section-icon limited">🌱</div>
     <div class="section-title">
-      <h2>Premium Tier — Range 4–5, Know What You're Paying</h2>
-      <p>High cost of living · Requires solid retirement income · Lifestyle premium is real</p>
+      <h2>Moderate — Combined Score 11–12</h2>
+      <p>Adequate outdoor and wellness options · Other dimensions are the primary draw</p>
     </div>
   </div>
   <div class="city-list">
-    <div class="city-row premium">
+
+    <div class="city-row limited">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Jackson Hole</div><div class="city-state">WY</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge best">Tax 10/10</span>
+        <div class="city-name-wrap"><div class="city-name">Corpus Christi</div><div class="city-state">Texas</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num limited">7</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num limited">5</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="warning-tag">⚠️ Elite Lifestyle Premium</div>
-      <div class="value-note">Median home $1.85M. Monthly costs $8,000–$15,000+. Range 5. Most expensive city in the database. Real estate among the most expensive in America.</div>
+      <div class="active-note">Padre Island National Seashore — the longest undeveloped barrier island in the US, extraordinary for birding and beach driving. Port Aransas ferry. Gulf fishing. Birding culture significant — on the Central Flyway. Active adult infrastructure limited. Some community rec. The primary value proposition is cost and coastal access, not fitness infrastructure.</div>
     </div>
-    <div class="city-row premium">
+
+    <div class="city-row limited">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Park City</div><div class="city-state">UT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
+        <div class="city-name-wrap"><div class="city-name">Savannah</div><div class="city-state">Georgia</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num limited">6</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num limited">6</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="value-note">Median home $1.5M+. Cost of living index 213 vs. national 100. Sales tax 9.05% — highest in Utah. Resort-town pricing throughout.</div>
+      <div class="active-note">Tybee Island beach 20 min. Skidaway Island State Park. Savannah National Wildlife Refuge. Forsyth Park fitness culture and river trails. SCAD energy drives boutique fitness studios. Cycling along Bull Street. Adequate outdoor and wellness options — but Savannah's primary draw is culture, history, and walkability rather than outdoor recreation or fitness infrastructure.</div>
     </div>
-    <div class="city-row premium">
+
+    <div class="city-row limited">
       <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Carlsbad</div><div class="city-state">CA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
+        <div class="city-name-wrap"><div class="city-name">San Antonio</div><div class="city-state">Texas</div></div>
+        <div class="scores-wrap">
+          <div class="score-badge"><span class="score-num limited">5</span><span class="score-lbl">Outdoor</span></div>
+          <div class="score-badge"><span class="score-num limited">7</span><span class="score-lbl">Wellness</span></div>
         </div>
       </div>
-      <div class="warning-tag">⚠️ Highest Cost in Database</div>
-      <div class="value-note">Median home $1.45M+. Monthly costs $10,000–$12,000+. The least affordable city in the database by a significant margin.</div>
+      <div class="active-note">Hill Country 30 min — Enchanted Rock, Pedernales Falls, Guadalupe River tubing. Government Canyon State Natural Area in city. River Walk and San Pedro Parks for casual walking. Military fitness culture strong. YMCA network excellent. Community rec centers well-funded. Good wellness infrastructure — outdoor recreation is the limitation, not the fitness culture.</div>
     </div>
-    <div class="city-row premium">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Santa Barbara</div><div class="city-state">CA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
-        </div>
-      </div>
-      <div class="warning-tag">⚠️ Luxury Tier</div>
-      <div class="value-note">Median home $1.85M. Monthly costs $8,000–$14,000+. Range 5. Among the most expensive cities in the database. Very limited housing supply.</div>
-    </div>
+
   </div>
 </div>
 
+<!-- CTA -->
 <div class="cta">
   <h2>Ready to find your best match?</h2>
   <p>Take our free quiz and get matched to your top retirement cities — scored across 10 dimensions with real data and honest tradeoffs.</p>
   <a href="https://retiremehere.com" class="cta-btn">Take the Quiz →</a>
-  <div class="cta-fine">retiremehere.com · Free · No account required<br>Questions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="017364756873646c646964736441666c60686d2f626e6c">[email&#160;protected]</a></div>
+  <div class="cta-fine">retiremehere.com · Free · No account required<br>Questions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef9d8a9b869d8a828a878a9d8aaf88828e8683c18c8082">[email&#160;protected]</a></div>
 </div>
 
 <div class="footer">
   <p>
-    A RetireMeHere Deep Dive Report · March 2026<br>
-    Data: Zillow · BLS Consumer Expenditure Survey · Tax Foundation · State revenue departments<br>
-    <a href="https://retiremehere.c
+    A RetireMeHere Intelligence Report · March 2026<br>
+    Data: National Park Service · AllTrails · Recreation.gov · City parks & recreation departments<br>
+    Outdoor recreation access reflects conditions as of early 2026.<br>
+    <a href="https://retiremehere.co
