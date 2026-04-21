@@ -308,24 +308,39 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .btn-mini-get:hover { background: #d0e8e5; }
 
 /* ── EMAIL GATE (results screen) ── */
-.results-email-gate {
+/* ── CITY PROFILE EMAIL CAPTURE ── */
+.profile-capture {
   background: var(--teal); border-radius: var(--radius);
-  padding: 32px 28px; margin: 0 auto 16px;
-  max-width: 640px; text-align: center;
+  padding: 32px 28px; margin: 24px 0 8px;
+  text-align: center;
 }
-.reg-kicker {
+.profile-capture-eyebrow {
   display: inline-block; background: rgba(255,255,255,0.12);
   color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 5px 14px; border-radius: 100px; margin-bottom: 14px;
 }
-.reg-headline {
-  font-family: 'Libre Franklin', sans-serif; font-size: 22px; font-weight: 700;
-  color: var(--white); margin-bottom: 8px; line-height: 1.2;
+.profile-capture h3 {
+  font-family: 'Libre Franklin', sans-serif; font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 8px; line-height: 1.25;
 }
-.reg-sub {
-  font-size: 14px; color: rgba(255,255,255,0.6);
-  line-height: 1.6; margin-bottom: 22px; font-weight: 300;
+.profile-capture p {
+  font-size: 14px; color: rgba(255,255,255,0.65);
+  line-height: 1.65; margin-bottom: 22px; font-weight: 300;
+}
+.profile-capture-whats-inside {
+  background: rgba(255,255,255,0.08); border-radius: 10px;
+  padding: 14px 18px; margin-bottom: 22px; text-align: left;
+}
+.profile-capture-whats-inside ul {
+  list-style: none; display: flex; flex-direction: column; gap: 7px;
+}
+.profile-capture-whats-inside li {
+  font-size: 13px; color: rgba(255,255,255,0.75);
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.profile-capture-whats-inside li::before {
+  content: '✓'; color: #7DC4BF; font-weight: 700; flex-shrink: 0;
 }
 .reg-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto 14px; }
 .reg-input {
@@ -337,28 +352,16 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   background: var(--terra); color: var(--white);
   border: 3px solid rgba(255,255,255,0.3); padding: 13px 22px; border-radius: 100px;
   font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
-  white-space: nowrap; transition: background 0.2s; box-shadow: 0 0 0 1px var(--terra);
+  white-space: nowrap; transition: background 0.2s;
 }
 .reg-btn:hover { background: #b5633d; }
 .reg-perks { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 .reg-perks span { font-size: 11px; color: rgba(255,255,255,0.45); }
-
-/* ── LOCKED CITY CARDS ── */
-.city-card-locked {
-  background: var(--white); border-radius: var(--radius);
-  padding: 20px 24px; margin: 0 auto 16px;
-  display: flex; align-items: center; gap: 16px;
-  border: 2px dashed #e8e4de; max-width: 640px; opacity: 0.75;
+.capture-success {
+  background: rgba(255,255,255,0.12); border-radius: 10px;
+  padding: 20px; color: #fff; font-size: 15px; line-height: 1.6;
 }
-.cl-rank {
-  font-family: 'Libre Franklin', sans-serif; font-size: 18px;
-  font-weight: 700; color: var(--terra); width: 32px; flex-shrink: 0;
-}
-.cl-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-.cl-bar { height: 12px; background: #e8e4de; border-radius: 6px; }
-.cl-bar.short { width: 60%; }
-.cl-bar.tiny { width: 40%; height: 8px; }
-.cl-lock { font-size: 12px; color: var(--light); white-space: nowrap; }
+.capture-success strong { display: block; font-size: 18px; margin-bottom: 6px; }
 
 /* ── COMING SOON TOAST ── */
 .coming-soon-toast {
@@ -788,6 +791,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 <form name="quiz-results" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:none">
   <input type="hidden" name="form-name" value="quiz-results">
   <input type="email" name="email">
+  <input type="text" name="city">
   <input type="text" name="bot-field">
 </form>
 
@@ -4532,58 +4536,18 @@ function renderResults(results) {
     ? `Matched on: ${topPriorities} and more.`
     : 'Based on your priorities and preferences.';
 
-  const rankLabels = ['Best Match', '2nd Match', '3rd Match', '4th Match', '5th Match'];
+  const rankLabels = ['Best Match', '2nd Match', '3rd Match'];
+  const top3 = results.slice(0, 3);
 
-  // Store all results for unlock
-  window.allResults = results;
-  window.rankLabels = rankLabels;
-
-  // City #1 — fully visible
-  const firstCard = buildCityCardHTML(results[0], 0, rankLabels);
-
-  // Email gate
-  const gate = `
-    <div class="results-email-gate" id="resultsGate">
-      <div class="reg-kicker">✓ Your #1 match is above</div>
-      <h3 class="reg-headline">Unlock your full top 5 cities</h3>
-      <p class="reg-sub">Enter your email to reveal your personalized matches instantly — right here on this page.</p>
-      <div class="reg-form">
-        <input type="email" id="gateEmail" class="reg-input" placeholder="your@email.com">
-        <button class="reg-btn" onclick="unlockResults(event)">Reveal My Top 5 →</button>
-      </div>
-      <div class="reg-perks">
-        <span>✓ Results revealed instantly on screen</span>
-        <span>✓ Free — no account needed</span>
-      </div>
-      <p style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;">No spam. Unsubscribe anytime.</p>
-    </div>`;
-
-  // Cities #2–5 — locked placeholders
-  const locked = results.slice(1).map((city, i) => `
-    <div class="city-card-locked">
-      <div class="cl-rank">#${i + 2}</div>
-      <div class="cl-content">
-        <div class="cl-bar"></div>
-        <div class="cl-bar short"></div>
-        <div class="cl-bar tiny"></div>
-      </div>
-      <div class="cl-lock">🔒 Locked</div>
-    </div>`).join('');
-
-  // Cities #2–5 — full cards, hidden until unlock
-  const remaining = `<div id="remainingCards" style="display:none">
-    ${results.slice(1).map((city, i) => buildCityCardHTML(city, i + 1, rankLabels)).join('')}
-  </div>`;
-
-  grid.innerHTML = firstCard + gate + locked + remaining;
+  grid.innerHTML = top3.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
 }
 
-function unlockResults(e) {
+function submitProfileCapture(e, cityName) {
   e.preventDefault();
-  const emailEl = document.getElementById('gateEmail');
+  const emailEl = document.getElementById('profileEmail');
   const email = emailEl ? emailEl.value.trim() : '';
   if (!email || !email.includes('@')) {
-    if (emailEl) emailEl.focus();
+    if (emailEl) { emailEl.focus(); emailEl.style.outline = '2px solid var(--terra)'; }
     return;
   }
 
@@ -4591,6 +4555,7 @@ function unlockResults(e) {
   const data = new URLSearchParams({
     'form-name': 'quiz-results',
     'email': email,
+    'city': cityName,
     'bot-field': ''
   });
   fetch('/', {
@@ -4604,18 +4569,16 @@ function unlockResults(e) {
 
   // GA event
   if (typeof gtag !== 'undefined') {
-    gtag('event', 'quiz_results_unlock', { event_category: 'Quiz', event_label: 'Email Gate' });
+    gtag('event', 'profile_capture', { event_category: 'Engagement', event_label: cityName });
   }
 
-  // Reveal: hide gate + locked cards, show full remaining cards
-  const gate = document.getElementById('resultsGate');
-  if (gate) gate.style.display = 'none';
-  document.querySelectorAll('.city-card-locked').forEach(el => el.style.display = 'none');
-  const remaining = document.getElementById('remainingCards');
-  if (remaining) {
-    remaining.style.display = 'block';
-    remaining.style.animation = 'fadeUp 0.4s ease both';
-    setTimeout(() => remaining.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  // Show success message
+  const capture = document.getElementById(`profileCapture-${cityName.replace(/\s/g,'-')}`);
+  if (capture) {
+    capture.innerHTML = `<div class="capture-success">
+      <strong>🎉 Your report is on its way!</strong>
+      Check your inbox for your personalized Top 3 Match Report. While you wait, explore more about ${cityName} above or head back to compare your other matches.
+    </div>`;
   }
 }
 
@@ -4803,8 +4766,30 @@ function showCityDetail(cityName, cityState) {
         <p style="font-size:12px;color:var(--light);line-height:1.8">${sources}</p>
       </div>
 
+      <div class="profile-capture" id="profileCapture-${city.name.replace(/\s/g,'-')}">
+        <div class="profile-capture-eyebrow">Free · Delivered instantly</div>
+        <h3>Get your personalized Top 3 Match Report</h3>
+        <p>You matched with ${city.name} for a reason. Get a full breakdown of why all three of your matches fit your specific priorities — healthcare, climate, budget, and more.</p>
+        <div class="profile-capture-whats-inside">
+          <ul>
+            <li>Your 3 matched cities with personalized match explanations</li>
+            <li>Side-by-side scores across all 10 dimensions</li>
+            <li>Key tradeoffs based on your specific priorities</li>
+            <li>Neighborhood recommendations for each city</li>
+          </ul>
+        </div>
+        <div class="reg-form">
+          <input type="email" id="profileEmail" class="reg-input" placeholder="your@email.com">
+          <button class="reg-btn" onclick="submitProfileCapture(event, '${city.name}')">Send My Report →</button>
+        </div>
+        <div class="reg-perks">
+          <span>✓ Free — no account needed</span>
+          <span>✓ No spam. Unsubscribe anytime.</span>
+        </div>
+      </div>
+
       <div style="text-align:center;padding:20px 0 32px">
-        <button class="btn-secondary" onclick="showScreen('screen-results')">← Back to Results</button>
+        <button class="btn-secondary" onclick="showScreen('screen-results')">← Back to My Matches</button>
         <br>
         <button class="btn-secondary" onclick="restartQuiz()" style="margin-top:10px">Retake Quiz</button>
       </div>
