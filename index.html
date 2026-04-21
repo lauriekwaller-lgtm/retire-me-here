@@ -963,7 +963,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     </div>
   </div>
   <div class="results-header">
-    <h2>Your Top 5 Cities</h2>
+    <h2>Your Top 3 Matches</h2>
     <p id="resultsSubtitle">Based on your priorities, here are your best retirement city matches.</p>
   </div>
   <div class="results-grid" id="resultsGrid"></div>
@@ -4469,9 +4469,11 @@ function getRecommendedReports() {
 }
 
 function buildCityCardHTML(city, i, rankLabels) {
-  const topDims = getTopDimsForUser(city);
+  const topDims = getTopDimsForUser(city).slice(0, 2);
   const photoUrl = getCityPhotoUrl(city.name);
   const photoHTML = photoUrl ? `<img class="card-header-photo" src="${photoUrl}" alt="${city.name}" onerror="this.style.display='none'"/>` : '';
+  const teaser = city.highlight.split('.')[0] + '.';
+  const whyTeaser = generateWhyMatch(city).split('.')[0] + '.';
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
     <div class="card-header">
       ${photoHTML}
@@ -4499,27 +4501,11 @@ function buildCityCardHTML(city, i, rankLabels) {
       <div class="card-tags">
         ${[...city.setting, ...city.character].slice(0,3).map(t => `<span class="card-tag">${t}</span>`).join('')}
       </div>
-      <div class="card-highlight">${city.highlight}</div>
-    </div>
-    <div class="card-why-divider"></div>
-    <div class="card-why">
-      <div class="card-why-section">
-        <div class="card-why-label match-label">✓ Why this matches you</div>
-        <div class="card-why-text">${generateWhyMatch(city)}</div>
-      </div>
-      <div class="card-why-section">
-        <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
-        <div class="card-why-tradeoffs">
-          ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
-        </div>
-      </div>
-      <div class="card-why-section card-best-for">
-        <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
-        <div class="card-why-text card-best-for-text">${generateBestFor(city)}</div>
-      </div>
+      <div class="card-highlight">${teaser}</div>
+      <div style="font-size:12px;color:var(--teal);margin-top:10px;font-weight:600;">✓ ${whyTeaser}</div>
     </div>
     <div class="card-footer">
-      <button class="btn-view-city">Explore ${city.name} — Full City Profile →</button>
+      <button class="btn-view-city">Why did I match ${city.name}? →</button>
     </div>
   </div>`;
 }
@@ -4576,8 +4562,8 @@ function submitProfileCapture(e, cityName) {
   const capture = document.getElementById(`profileCapture-${cityName.replace(/\s/g,'-')}`);
   if (capture) {
     capture.innerHTML = `<div class="capture-success">
-      <strong>🎉 Your report is on its way!</strong>
-      Check your inbox for your personalized Top 3 Match Report. While you wait, explore more about ${cityName} above or head back to compare your other matches.
+      <strong>✓ On its way!</strong>
+      Check your inbox — your top 3 matches and a free retirement guide are heading there now. While you wait, head back to explore your other matches.
     </div>`;
   }
 }
@@ -4768,19 +4754,11 @@ function showCityDetail(cityName, cityState) {
 
       <div class="profile-capture" id="profileCapture-${city.name.replace(/\s/g,'-')}">
         <div class="profile-capture-eyebrow">Free · Delivered instantly</div>
-        <h3>Get your personalized Top 3 Match Report</h3>
-        <p>You matched with ${city.name} for a reason. Get a full breakdown of why all three of your matches fit your specific priorities — healthcare, climate, budget, and more.</p>
-        <div class="profile-capture-whats-inside">
-          <ul>
-            <li>Your 3 matched cities with personalized match explanations</li>
-            <li>Side-by-side scores across all 10 dimensions</li>
-            <li>Key tradeoffs based on your specific priorities</li>
-            <li>Neighborhood recommendations for each city</li>
-          </ul>
-        </div>
+        <h3>Save your results — get them in your inbox</h3>
+        <p>Want to revisit your matches later or share them with a partner? Enter your email and we'll send your top 3 city matches, along with a free retirement guide based on your priorities.</p>
         <div class="reg-form">
           <input type="email" id="profileEmail" class="reg-input" placeholder="your@email.com">
-          <button class="reg-btn" onclick="submitProfileCapture(event, '${city.name}')">Send My Report →</button>
+          <button class="reg-btn" onclick="submitProfileCapture(event, '${city.name}')">Send My Results →</button>
         </div>
         <div class="reg-perks">
           <span>✓ Free — no account needed</span>
