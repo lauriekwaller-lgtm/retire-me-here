@@ -363,6 +363,33 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 }
 .capture-success strong { display: block; font-size: 18px; margin-bottom: 6px; }
 
+.detail-personalized {
+  background: var(--sand); border-radius: var(--radius);
+  padding: 20px 22px; border-left: 4px solid var(--teal);
+}
+.detail-personal-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+}
+.detail-personal-badge {
+  background: var(--teal); color: white; font-size: 11px; font-weight: 700;
+  padding: 4px 12px; border-radius: 100px; letter-spacing: 0.05em; white-space: nowrap;
+}
+.detail-personalized h3 { font-size: 17px; color: var(--dark); }
+.detail-why-text {
+  font-size: 14px; color: var(--mid); line-height: 1.7; margin-bottom: 16px;
+}
+.detail-tradeoffs-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: 8px;
+}
+.detail-tradeoffs { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.detail-bestfor-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.detail-bestfor-text {
+  font-size: 13px; color: var(--dark); line-height: 1.6; font-style: italic;
+}
 /* ── COMING SOON TOAST ── */
 .coming-soon-toast {
   position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
@@ -4473,7 +4500,9 @@ function buildCityCardHTML(city, i, rankLabels) {
   const photoUrl = getCityPhotoUrl(city.name);
   const photoHTML = photoUrl ? `<img class="card-header-photo" src="${photoUrl}" alt="${city.name}" onerror="this.style.display='none'"/>` : '';
   const teaser = city.highlight.split('.')[0] + '.';
-  const whyTeaser = generateWhyMatch(city).split('.')[0] + '.';
+  const whyMatch = generateWhyMatch(city);
+  const tradeoffs = generateTradeoffs(city);
+  const bestFor = generateBestFor(city);
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
     <div class="card-header">
       ${photoHTML}
@@ -4502,10 +4531,26 @@ function buildCityCardHTML(city, i, rankLabels) {
         ${[...city.setting, ...city.character].slice(0,3).map(t => `<span class="card-tag">${t}</span>`).join('')}
       </div>
       <div class="card-highlight">${teaser}</div>
-      <div style="font-size:12px;color:var(--teal);margin-top:10px;font-weight:600;">✓ ${whyTeaser}</div>
+    </div>
+    <div class="card-why-divider"></div>
+    <div class="card-why">
+      <div class="card-why-section">
+        <div class="card-why-label match-label">✓ Why this matches you</div>
+        <div class="card-why-text">${whyMatch}</div>
+      </div>
+      <div class="card-why-section">
+        <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
+        <div class="card-why-tradeoffs">
+          ${tradeoffs.map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
+        </div>
+      </div>
+      <div class="card-why-section card-best-for">
+        <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
+        <div class="card-why-text card-best-for-text">${bestFor}</div>
+      </div>
     </div>
     <div class="card-footer">
-      <button class="btn-view-city">Why did I match ${city.name}? →</button>
+      <button class="btn-view-city">Explore ${city.name} in depth →</button>
     </div>
   </div>`;
 }
@@ -4728,6 +4773,20 @@ function showCityDetail(cityName, cityState) {
         <h3>Overview</h3>
         <p style="font-size:15px;color:var(--mid);line-height:1.75">${city.highlight}</p>
       </div>
+
+      ${lastMatchScore ? `<div class="detail-section detail-personalized">
+        <div class="detail-personal-header">
+          <span class="detail-personal-badge">${lastMatchScore}% Your Match</span>
+          <h3 style="margin:0;">Why ${city.name} matched you</h3>
+        </div>
+        <div class="detail-why-text">${generateWhyMatch(city)}</div>
+        <div class="detail-tradeoffs-label">⚡ Tradeoffs based on your priorities</div>
+        <div class="detail-tradeoffs">
+          ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
+        </div>
+        <div class="detail-bestfor-label">🎯 Best for someone like you</div>
+        <div class="detail-bestfor-text">${generateBestFor(city)}</div>
+      </div>` : ''}
 
       <div class="detail-section">
         <h3>Scorecard — What Each Score Means</h3>
