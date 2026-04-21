@@ -390,6 +390,48 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .detail-bestfor-text {
   font-size: 13px; color: var(--dark); line-height: 1.6; font-style: italic;
 }
+/* ── CARD GATE ── */
+.card-gate {
+  background: var(--teal); padding: 20px 24px;
+  text-align: center;
+}
+.card-gate-headline {
+  font-family: 'Libre Franklin', sans-serif; font-size: 16px;
+  font-weight: 700; color: #fff; margin-bottom: 6px;
+}
+.card-gate-sub {
+  font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9);
+  margin-bottom: 10px; letter-spacing: 0.02em;
+}
+.card-gate-trust {
+  font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6;
+  margin-bottom: 14px; font-weight: 300; font-style: italic;
+}
+.card-gate-form {
+  display: flex; gap: 8px; max-width: 380px; margin: 0 auto 10px;
+}
+.card-gate-input {
+  flex: 1; padding: 11px 16px; border: none; border-radius: 100px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  color: var(--dark); outline: none;
+}
+.card-gate-input::placeholder { color: var(--light); }
+.card-gate-btn {
+  background: var(--terra); color: #fff;
+  border: 2px solid rgba(255,255,255,0.3); padding: 11px 18px;
+  border-radius: 100px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap; transition: background 0.2s;
+}
+.card-gate-btn:hover { background: #b5633d; }
+.card-gate-meta {
+  font-size: 11px; color: rgba(255,255,255,0.35);
+}
+.card-revealed { animation: fadeUp 0.4s ease both; }
+.card-profile-nudge {
+  font-size: 12px; color: var(--mid); text-align: center;
+  padding: 12px 20px 0; line-height: 1.55; font-style: italic;
+}
 /* ── COMING SOON TOAST ── */
 .coming-soon-toast {
   position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
@@ -617,10 +659,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .city-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; cursor: pointer; border: 2px solid transparent; }
 .city-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--teal-lt); }
 .city-card.top-match { border-color: var(--teal); }
-.card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; overflow: hidden; min-height: 110px; }
-.card-header-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-.card-header-overlay { position: absolute; inset: 0; background: rgba(28,26,24,0.52); z-index: 1; }
-.card-header > *:not(.card-header-photo):not(.card-header-overlay):not(.match-badge) { position: relative; z-index: 2; }
+.card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; overflow: hidden; min-height: 110px; cursor: pointer; }
 .city-card:nth-child(2) .card-header { background: #3d7a75; }
 .city-card:nth-child(3) .card-header { background: #4e8f8a; }
 .city-card:nth-child(4) .card-header { background: #5fa4a0; }
@@ -4497,16 +4536,10 @@ function getRecommendedReports() {
 
 function buildCityCardHTML(city, i, rankLabels) {
   const topDims = getTopDimsForUser(city).slice(0, 2);
-  const photoUrl = getCityPhotoUrl(city.name);
-  const photoHTML = photoUrl ? `<img class="card-header-photo" src="${photoUrl}" alt="${city.name}" onerror="this.style.display='none'"/>` : '';
   const teaser = city.highlight.split('.')[0] + '.';
-  const whyMatch = generateWhyMatch(city);
-  const tradeoffs = generateTradeoffs(city);
-  const bestFor = generateBestFor(city);
-  return `<div class="city-card ${i === 0 ? 'top-match' : ''}" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
-    <div class="card-header">
-      ${photoHTML}
-      ${photoUrl ? '<div class="card-header-overlay"></div>' : ''}
+  const cardId = 'card-' + city.name.replace(/[^a-zA-Z]/g, '-');
+  return `<div class="city-card ${i === 0 ? 'top-match' : ''}" id="${cardId}">
+    <div class="card-header" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">
       <div class="match-badge">${city.matchScore}% match</div>
       <div class="card-rank">${rankLabels[i]}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
@@ -4532,28 +4565,44 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>
       <div class="card-highlight">${teaser}</div>
     </div>
-    <div class="card-why-divider"></div>
-    <div class="card-why">
-      <div class="card-why-section">
-        <div class="card-why-label match-label">✓ Why this matches you</div>
-        <div class="card-why-text">${whyMatch}</div>
+
+    <!-- STEP 2: Email gate — reveals personalized match -->
+    <div class="card-gate" id="${cardId}-gate">
+      <div class="card-gate-headline">Why did you match ${city.name}?</div>
+      <div class="card-gate-sub">One email. Your results. Nothing else — ever.</div>
+      <div class="card-gate-trust">We're a small research project. We don't send newsletters, we don't sell your email. You'll get one email with your results so you can save or share them. That's it.</div>
+      <div class="card-gate-form">
+        <input type="email" class="card-gate-input" id="${cardId}-email" placeholder="your@email.com">
+        <button class="card-gate-btn" onclick="revealMatch(event,'${cardId}','${city.name}','${city.state}')">Show me why →</button>
       </div>
-      <div class="card-why-section">
-        <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
-        <div class="card-why-tradeoffs">
-          ${tradeoffs.map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
+      <div class="card-gate-meta">Sent from hello@retiremehere.com · No account needed</div>
+    </div>
+
+    <!-- STEP 2 revealed: personalized match content -->
+    <div class="card-revealed" id="${cardId}-revealed" style="display:none">
+      <div class="card-why">
+        <div class="card-why-section">
+          <div class="card-why-label match-label">✓ Why this matches you</div>
+          <div class="card-why-text" id="${cardId}-why"></div>
+        </div>
+        <div class="card-why-section">
+          <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
+          <div class="card-why-tradeoffs" id="${cardId}-tradeoffs"></div>
+        </div>
+        <div class="card-why-section card-best-for">
+          <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
+          <div class="card-why-text card-best-for-text" id="${cardId}-bestfor"></div>
         </div>
       </div>
-      <div class="card-why-section card-best-for">
-        <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
-        <div class="card-why-text card-best-for-text">${bestFor}</div>
+      <!-- STEP 3: City profile button -->
+      <div class="card-footer">
+        <div class="card-profile-nudge">We've identified neighborhoods worth considering in ${city.name} — and rated every dimension with data.</div>
+        <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">See neighborhoods + full city data →</button>
       </div>
-    </div>
-    <div class="card-footer">
-      <button class="btn-view-city">Explore ${city.name} in depth →</button>
     </div>
   </div>`;
 }
+
 
 function renderResults(results) {
   const grid = document.getElementById('resultsGrid');
@@ -4571,6 +4620,51 @@ function renderResults(results) {
   const top3 = results.slice(0, 3);
 
   grid.innerHTML = top3.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
+}
+
+function revealMatch(e, cardId, cityName, cityState) {
+  e.preventDefault();
+  const emailEl = document.getElementById(`${cardId}-email`);
+  const email = emailEl ? emailEl.value.trim() : '';
+  if (!email || !email.includes('@')) {
+    if (emailEl) { emailEl.focus(); emailEl.style.outline = '2px solid var(--terra)'; }
+    return;
+  }
+
+  // Submit to Netlify
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ 'form-name': 'quiz-results', 'email': email, 'city': cityName, 'bot-field': '' }).toString()
+  }).catch(() => {});
+
+  // MailerLite
+  try { ml('show', 'ETbvqw', true); } catch(err) {}
+
+  // GA
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'match_reveal', { event_category: 'Engagement', event_label: cityName });
+  }
+
+  // Find city and generate personalized content
+  const city = CITIES.find(c => c.name === cityName && c.state === cityState);
+  if (city) {
+    const why = document.getElementById(`${cardId}-why`);
+    const tradeoffsEl = document.getElementById(`${cardId}-tradeoffs`);
+    const bestfor = document.getElementById(`${cardId}-bestfor`);
+    if (why) why.textContent = generateWhyMatch(city);
+    if (tradeoffsEl) tradeoffsEl.innerHTML = generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('');
+    if (bestfor) bestfor.textContent = generateBestFor(city);
+  }
+
+  // Hide gate, show revealed content
+  const gate = document.getElementById(`${cardId}-gate`);
+  const revealed = document.getElementById(`${cardId}-revealed`);
+  if (gate) gate.style.display = 'none';
+  if (revealed) {
+    revealed.style.display = 'block';
+    revealed.style.animation = 'fadeUp 0.4s ease both';
+  }
 }
 
 function submitProfileCapture(e, cityName) {
