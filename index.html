@@ -633,7 +633,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   .preset-grid { grid-template-columns: repeat(2, 1fr); }
   .explore-cta-bar { flex-direction: column; text-align: center; }
 }
-.header-mobile-menu { display: none; }
+/* Hide mobile menu on desktop, show on mobile via media query above */
+@media (min-width: 769px) { .header-mobile-menu { display: none; } }
 .mobile-nav-btn {
   background: none; border: 1px solid #e8e4de; border-radius: 8px;
   padding: 6px 10px; font-size: 12px; font-weight: 600;
