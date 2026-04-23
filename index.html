@@ -1154,22 +1154,17 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         <div class="preset-tags"><span class="preset-tag t1">Vibrant Scene</span><span class="preset-tag t2">Car-Free</span></div>
       </button>
     </div>
-    <div id="exploreResultsArea">
-      <div class="explore-empty">
-        <span class="explore-empty-icon">☝️</span>
-        Pick a combination above to see the top cities
-      </div>
-    </div>
-    <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--light);">
+    <p style="text-align:center;margin-bottom:20px;font-size:13px;color:var(--light);">
       Don't see the combination you're looking for? 
       <a href="mailto:info@retiremehere.com?subject=City%20Combination%20Request&body=I'd%20love%20to%20see%20a%20list%20of%20cities%20that%20are%3A%0A%0A" style="color:var(--teal);font-weight:600;">Tell us what matters to you →</a>
     </p>
+    <div id="exploreResultsArea"></div>
   </div>
 </div>
 
 <!-- SCREEN 5: CITY DETAIL -->
 <div class="screen" id="screen-detail">
-  <div class="site-logo" onclick="showScreen(lastDetailSource || 'screen-results')" style="display:flex;align-items:center;justify-content:space-between;padding-right:20px;">
+  <div class="site-logo" onclick="goBack()" style="display:flex;align-items:center;justify-content:space-between;padding-right:20px;">
         <div class="logo-text">
       <div class="logo-wordmark" style="font-size:12px"><span class="dest">RETIREME</span><span class="ret">HERE</span></div>
     </div>
@@ -4826,6 +4821,10 @@ function scoreColor(score) {
 let lastMatchScore = null;
 let lastDetailSource = 'screen-results';
 
+function goBack() {
+  showScreen(lastDetailSource || 'screen-results');
+}
+
 function getStateAbbrev(stateName) {
   const map = {
     'AL':'AL','AK':'AK','AZ':'AZ','AR':'AR','CA':'CA','CO':'CO','CT':'CT',
@@ -4935,7 +4934,7 @@ function showCityDetail(cityName, cityState) {
       <div class="detail-hero" style="position:relative;overflow:hidden;">
         ${detailPhotoHTML}
         <div style="position:relative;z-index:1;">
-        <div class="detail-back" onclick="showScreen(lastDetailSource || 'screen-results')">← Back</div>
+        <div class="detail-back" onclick="goBack()">← Back</div>
         ${lastMatchScore ? `<div class="detail-match-score">
           <span class="detail-match-pct">${lastMatchScore}%</span>
           <span class="detail-match-lbl">Your Match</span>
@@ -5010,7 +5009,7 @@ function showCityDetail(cityName, cityState) {
       </div>
 
       <div style="text-align:center;padding:20px 0 32px">
-        <button class="btn-secondary" onclick="showScreen(lastDetailSource || 'screen-results')">← Back</button>
+        <button class="btn-secondary" onclick="goBack()">← Back</button>
         <br>
         <button class="btn-secondary" onclick="restartQuiz()" style="margin-top:10px">Retake Quiz</button>
       </div>
