@@ -620,8 +620,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   .site-header { padding: 10px 16px; }
+  .header-nav { gap: 0; }
   .header-nav a { display: none; }
-  .header-nav a:first-child { display: inline; }
+  .header-nav a:first-child { display: none; }
+  .header-mobile-menu { display: flex; gap: 8px; align-items: center; }
+  .header-split { grid-template-columns: 1fr; min-height: auto; }
   .hero-split { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 36px 22px 28px; border-right: none; border-bottom: 1px solid #e8e4de; }
   .split-headline { font-size: 28px; }
@@ -631,6 +634,29 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   .report-row-icon { flex-shrink: 0; margin-top: 2px; }
   .report-row-actions { width: 76px; }
 }
+.header-mobile-menu { display: none; }
+.mobile-nav-btn {
+  background: none; border: 1px solid #e8e4de; border-radius: 8px;
+  padding: 6px 10px; font-size: 12px; font-weight: 600;
+  color: var(--mid); cursor: pointer; font-family: inherit;
+  white-space: nowrap;
+}
+.mobile-nav-btn:hover { border-color: var(--teal); color: var(--teal); }
+.mobile-nav-dropdown {
+  display: none; position: absolute; top: 56px; left: 0; right: 0;
+  background: var(--white); border-bottom: 1px solid #e8e4de;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 500; padding: 8px 0;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-item {
+  display: block; width: 100%; padding: 12px 20px;
+  font-size: 14px; font-weight: 500; color: var(--dark);
+  text-decoration: none; border: none; background: none;
+  cursor: pointer; font-family: inherit; text-align: left;
+  border-bottom: 1px solid #f5f3f0;
+}
+.mobile-nav-item:last-child { border-bottom: none; }
+.mobile-nav-item:hover { background: var(--sand); color: var(--teal); }
 .quiz-container { max-width: 640px; margin: 0 auto; padding: 32px 20px 80px; }
 .question-card { background: var(--white); border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow); margin-bottom: 20px; }
 .q-step { font-size: 12px; font-weight: 600; color: var(--terra); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
@@ -930,7 +956,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 <div class="progress-bar" id="progressBar" style="width:0%"></div>
 
 <!-- SITE HEADER -->
-<header class="site-header">
+<header class="site-header" style="position:relative;">
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
     <a href="#" onclick="openCitySearch();return false;">🔍 Find a City</a>
@@ -938,6 +964,16 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <a href="#reports" onclick="showScreen('screen-hero');setTimeout(function(){var el=document.getElementById('reports');if(el)el.scrollIntoView({behavior:'smooth'});},300);return false;">Free Reports</a>
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
   </nav>
+  <!-- Mobile menu -->
+  <div class="header-mobile-menu">
+    <button class="mobile-nav-btn" onclick="toggleMobileNav()">☰ Menu</button>
+    <button class="header-quiz-btn" onclick="startQuiz()" style="font-size:12px;padding:7px 14px;">Quiz →</button>
+  </div>
+  <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+    <a class="mobile-nav-item" href="#" onclick="openCitySearch();toggleMobileNav();return false;">🔍 Find a City</a>
+    <a class="mobile-nav-item" href="#" onclick="showScreen('screen-explore');toggleMobileNav();return false;">Top Cities For...</a>
+    <a class="mobile-nav-item" href="#" onclick="showScreen('screen-hero');setTimeout(function(){var el=document.getElementById('reports');if(el)el.scrollIntoView({behavior:'smooth'});},300);toggleMobileNav();return false;">Free Reports</a>
+  </div>
 </header>
 
 <!-- SCREEN 1: HERO -->
@@ -5147,10 +5183,42 @@ function showComingSoon(e) {
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
+function toggleMobileNav() {
+  var dd = document.getElementById('mobileNavDropdown');
+  dd.classList.toggle('open');
+}
+
+// Close mobile nav when clicking outside
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd && dd.classList.contains('open')) {
+    if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
+      dd.classList.remove('open');
+    }
+  }
+});
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  // Push to browser history so back button works
+  if (history.pushState) {
+    history.pushState({ screen: id }, '', window.location.pathname);
+  }
+  window.scrollTo(0, 0);
 }
+
+// Handle browser back button
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.screen) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    var el = document.getElementById(e.state.screen);
+    if (el) el.classList.add('active');
+  } else {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-hero').classList.add('active');
+  }
+});
 
 function restartQuiz() {
   quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, eliminatedStates: [] };
