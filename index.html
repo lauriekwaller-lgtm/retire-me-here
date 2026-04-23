@@ -123,6 +123,66 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   font-size: 13px; color: var(--mid); text-decoration: none; font-weight: 500;
 }
 .header-nav a:hover { color: var(--teal); }
+
+/* City Search Modal */
+.city-search-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(28,26,24,0.6); z-index: 2000;
+  align-items: flex-start; justify-content: center;
+  padding-top: 80px;
+  backdrop-filter: blur(3px);
+}
+.city-search-overlay.open { display: flex; }
+.city-search-box {
+  background: var(--white); border-radius: 16px;
+  width: 100%; max-width: 520px; margin: 0 20px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+  overflow: hidden;
+  animation: searchIn 0.18s ease;
+}
+@keyframes searchIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.city-search-input-wrap {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 18px; border-bottom: 1px solid #eee;
+}
+.city-search-icon { font-size: 18px; flex-shrink: 0; }
+.city-search-input {
+  flex: 1; border: none; outline: none;
+  font-size: 16px; font-family: inherit;
+  color: var(--dark); background: transparent;
+}
+.city-search-input::placeholder { color: var(--light); }
+.city-search-close {
+  background: #f0ece6; border: none; border-radius: 50%;
+  width: 28px; height: 28px; font-size: 14px;
+  cursor: pointer; color: var(--mid); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.city-search-results { max-height: 360px; overflow-y: auto; }
+.city-search-result {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 18px; cursor: pointer;
+  transition: background 0.1s; border-bottom: 1px solid #f5f3f0;
+}
+.city-search-result:hover { background: var(--sand); }
+.city-search-result:last-child { border-bottom: none; }
+.csr-icon { font-size: 20px; flex-shrink: 0; }
+.csr-content { flex: 1; }
+.csr-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+.csr-meta { font-size: 11px; color: var(--light); margin-top: 1px; }
+.csr-arrow { font-size: 12px; color: var(--light); }
+.city-search-empty {
+  padding: 24px 18px; text-align: center;
+  font-size: 13px; color: var(--light);
+}
+.city-search-hint {
+  padding: 10px 18px 14px;
+  font-size: 11px; color: var(--light);
+  text-align: center; border-top: 1px solid #f0ece6;
+}
 .header-quiz-btn {
   background: var(--teal); color: var(--white);
   border: none; padding: 8px 18px; border-radius: 100px;
@@ -560,6 +620,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 @media (max-width: 768px) {
   .site-header { padding: 10px 16px; }
   .header-nav a { display: none; }
+  .header-nav a:first-child { display: inline; }
   .hero-split { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 36px 22px 28px; border-right: none; border-bottom: 1px solid #e8e4de; }
   .split-headline { font-size: 28px; }
@@ -832,6 +893,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 <header class="site-header">
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
+    <a href="#" onclick="openCitySearch();return false;">🔍 Find a City</a>
     <a href="#" onclick="showComingSoon(event)">Compare Cities</a>
     <a href="#reports" onclick="showScreen('screen-hero');setTimeout(function(){var el=document.getElementById('reports');if(el)el.scrollIntoView({behavior:'smooth'});},300);return false;">Free Reports</a>
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
@@ -5066,8 +5128,97 @@ function closeReportModal(e) {
     <p style="margin-top:4px;">&copy; 2026 RetireMeHere. All rights reserved. &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a></p>
   </div>
 
-  <!-- Coming Soon Toast -->
-  <div class="coming-soon-toast" id="comingSoonToast">🚧 Coming Soon</div>
+  <!-- Coming Soon Toast -->\n  <div class=\"coming-soon-toast\" id=\"comingSoonToast\">🚧 Coming Soon</div>
+
+  <!-- City Search Modal -->
+  <div class="city-search-overlay" id="citySearchOverlay" onclick="closeCitySearch(event)">
+    <div class="city-search-box" id="citySearchBox">
+      <div class="city-search-input-wrap">
+        <span class="city-search-icon">🔍</span>
+        <input type="text" class="city-search-input" id="citySearchInput"
+          placeholder="Search cities — e.g. Charleston, Tucson, Naples..."
+          oninput="renderCitySearchResults(this.value)"
+          autocomplete="off">
+        <button class="city-search-close" onclick="closeCitySearch()">✕</button>
+      </div>
+      <div class="city-search-results" id="citySearchResults">
+        <div class="city-search-hint">Start typing to search all 75+ cities</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function openCitySearch() {
+    document.getElementById('citySearchOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('citySearchInput').focus(); }, 100);
+  }
+
+  function closeCitySearch(e) {
+    if (!e || e.target === document.getElementById('citySearchOverlay')) {
+      document.getElementById('citySearchOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+      document.getElementById('citySearchInput').value = '';
+      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 75+ cities</div>';
+    }
+  }
+
+  function getCityIcon(city) {
+    const s = (city.setting || []).join(' ').toLowerCase();
+    const c = (city.character || []).join(' ').toLowerCase();
+    if (s.includes('beach') || s.includes('coastal')) return '🏖️';
+    if (s.includes('mountain')) return '🏔️';
+    if (s.includes('desert')) return '🌵';
+    if (s.includes('lake')) return '🌊';
+    if (c.includes('college') || c.includes('university')) return '🎓';
+    if (c.includes('historic')) return '🏛️';
+    if (c.includes('arts')) return '🎭';
+    return '🏙️';
+  }
+
+  function renderCitySearchResults(query) {
+    const container = document.getElementById('citySearchResults');
+    if (!query || query.trim().length < 1) {
+      container.innerHTML = '<div class="city-search-hint">Start typing to search all 75+ cities</div>';
+      return;
+    }
+    const q = query.toLowerCase().trim();
+    const matches = CITIES.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.state.toLowerCase().includes(q) ||
+      (c.type || '').toLowerCase().includes(q) ||
+      (c.setting || []).some(s => s.toLowerCase().includes(q))
+    ).slice(0, 8);
+
+    if (matches.length === 0) {
+      container.innerHTML = '<div class="city-search-empty">No cities found for "' + query + '"</div>';
+      return;
+    }
+
+    container.innerHTML = matches.map(city => `
+      <div class="city-search-result" onclick="selectSearchCity('${city.name}','${city.state}')">
+        <span class="csr-icon">${getCityIcon(city)}</span>
+        <div class="csr-content">
+          <div class="csr-name">${city.name}, ${city.state}</div>
+          <div class="csr-meta">${city.type || ''}</div>
+        </div>
+        <span class="csr-arrow">→</span>
+      </div>
+    `).join('');
+  }
+
+  function selectSearchCity(name, state) {
+    closeCitySearch();
+    lastMatchScore = null;
+    showCityDetail(name, state);
+    showScreen('screen-detail');
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCitySearch();
+  });
+  </script>
   <script>
     var u = 'info'; var d = 'retiremehere.com';
     document.getElementById('contact-email').innerHTML = '<a href="mailto:' + u + '@' + d + '">' + u + '@' + d + '</a>';
