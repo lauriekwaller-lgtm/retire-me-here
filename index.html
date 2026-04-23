@@ -1160,12 +1160,16 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         Pick a combination above to see the top cities
       </div>
     </div>
+    <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--light);">
+      Don't see the combination you're looking for? 
+      <a href="mailto:info@retiremehere.com?subject=City%20Combination%20Request&body=I'd%20love%20to%20see%20a%20list%20of%20cities%20that%20are%3A%0A%0A" style="color:var(--teal);font-weight:600;">Tell us what matters to you →</a>
+    </p>
   </div>
 </div>
 
 <!-- SCREEN 5: CITY DETAIL -->
 <div class="screen" id="screen-detail">
-  <div class="site-logo" onclick="showScreen('screen-results')" style="display:flex;align-items:center;justify-content:space-between;padding-right:20px;">
+  <div class="site-logo" onclick="showScreen(lastDetailSource || 'screen-results')" style="display:flex;align-items:center;justify-content:space-between;padding-right:20px;">
         <div class="logo-text">
       <div class="logo-wordmark" style="font-size:12px"><span class="dest">RETIREME</span><span class="ret">HERE</span></div>
     </div>
@@ -4705,7 +4709,7 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>
       <div class="card-footer">
         <div class="card-profile-nudge">We've identified neighborhoods worth considering — and scored ${city.name} across all 10 dimensions.</div>
-        <button class="btn-view-city btn-profile" onclick="lastMatchScore=${city.matchScore};showCityDetail('${city.name}','${city.state}')">See neighborhoods + full city data →</button>
+        <button class="btn-view-city btn-profile" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">See neighborhoods + full city data →</button>
       </div>
     </div>
   </div>`;
@@ -4820,6 +4824,7 @@ function scoreColor(score) {
 }
 
 let lastMatchScore = null;
+let lastDetailSource = 'screen-results';
 
 function getStateAbbrev(stateName) {
   const map = {
@@ -4930,7 +4935,7 @@ function showCityDetail(cityName, cityState) {
       <div class="detail-hero" style="position:relative;overflow:hidden;">
         ${detailPhotoHTML}
         <div style="position:relative;z-index:1;">
-        <div class="detail-back" onclick="showScreen('screen-results')">← Back to Results</div>
+        <div class="detail-back" onclick="showScreen(lastDetailSource || 'screen-results')">← Back</div>
         ${lastMatchScore ? `<div class="detail-match-score">
           <span class="detail-match-pct">${lastMatchScore}%</span>
           <span class="detail-match-lbl">Your Match</span>
@@ -5005,7 +5010,7 @@ function showCityDetail(cityName, cityState) {
       </div>
 
       <div style="text-align:center;padding:20px 0 32px">
-        <button class="btn-secondary" onclick="showScreen('screen-results')">← Back to My Matches</button>
+        <button class="btn-secondary" onclick="showScreen(lastDetailSource || 'screen-results')">← Back</button>
         <br>
         <button class="btn-secondary" onclick="restartQuiz()" style="margin-top:10px">Retake Quiz</button>
       </div>
@@ -5097,7 +5102,7 @@ function selectExplorePreset(btn, key) {
     </div>
     <div class="explore-results-list">
       ${d.cities.map((c,i) => `
-        <div class="explore-result-card" onclick="lastMatchScore=null;showCityDetail('${c.name}','${c.state}');showScreen('screen-detail');">
+        <div class="explore-result-card" onclick="lastMatchScore=null;lastDetailSource='screen-explore';showCityDetail('${c.name}','${c.state}');showScreen('screen-detail');">
           <div class="explore-result-rank">${i+1}</div>
           <div class="explore-result-info">
             <div class="explore-result-name">${c.name}, ${c.state}</div>
@@ -5412,6 +5417,7 @@ function closeReportModal(e) {
   function selectSearchCity(name, state) {
     closeCitySearch();
     lastMatchScore = null;
+    lastDetailSource = 'screen-hero';
     showCityDetail(name, state);
     showScreen('screen-detail');
   }
