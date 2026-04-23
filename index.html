@@ -780,6 +780,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
  .procon-grid { grid-template-columns: 1fr; }
  .full-score-label { width: 130px; font-size: 12px; }
  .hero-stats { gap: 20px; }
+ .preset-grid { grid-template-columns: repeat(2, 1fr); }
+ .explore-cta-bar { flex-direction: column; text-align: center; }
  .detail-match-score { display: none; }
 }
 .region-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }
@@ -856,6 +858,43 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .detail-stat { background: var(--teal); border-radius: 12px; padding: 16px 12px; text-align: center; }
 .detail-stat-val { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); display: block; margin-bottom: 5px; line-height: 1.35; letter-spacing: -0.01em; }
 .detail-stat-lbl { font-size: 9px; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.explore-page { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
+.explore-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 8px; }
+.explore-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--dark); margin-bottom: 8px; line-height: 1.1; }
+.explore-sub { font-size: 14px; color: var(--mid); line-height: 1.6; max-width: 560px; margin-bottom: 24px; }
+.preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
+.preset-btn { background: var(--white); border: 2px solid #e8e4de; border-radius: 14px; padding: 16px 14px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: inherit; }
+.preset-btn:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(42,94,90,0.12); transform: translateY(-1px); }
+.preset-btn.active { border-color: var(--teal); background: var(--teal-lt); }
+.preset-icon { font-size: 22px; margin-bottom: 8px; display: block; }
+.preset-name { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.3; }
+.preset-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.preset-tag { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 100px; }
+.preset-tag.t1 { background: #e8f0f7; color: #2e5d8b; }
+.preset-tag.t2 { background: var(--terra-lt); color: var(--terra); }
+.explore-results-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.explore-results-divider-line { flex: 1; height: 1px; background: #e8e4de; }
+.explore-results-divider-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); white-space: nowrap; }
+.explore-results-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.explore-result-card { background: var(--white); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; border: 1px solid #e8e4de; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.15s; }
+.explore-result-card:hover { border-color: var(--teal); box-shadow: 0 4px 14px rgba(42,94,90,0.1); transform: translateX(3px); }
+.explore-result-rank { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: var(--teal); width: 26px; text-align: center; flex-shrink: 0; }
+.explore-result-card:first-child .explore-result-rank { color: var(--gold); }
+.explore-result-info { flex: 1; }
+.explore-result-name { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.explore-result-meta { font-size: 11px; color: var(--light); }
+.explore-score-chips { display: flex; gap: 8px; flex-shrink: 0; }
+.explore-score-chip { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.explore-score-chip-val { font-size: 14px; font-weight: 800; color: var(--white); background: var(--teal); border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; }
+.explore-result-card:first-child .explore-score-chip-val { background: var(--gold); color: var(--dark); }
+.explore-score-chip-label { font-size: 8px; color: var(--light); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; text-align: center; max-width: 34px; line-height: 1.2; }
+.explore-result-arrow { font-size: 13px; color: var(--light); flex-shrink: 0; }
+.explore-cta-bar { background: var(--dark); border-radius: 14px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.explore-cta-bar h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.explore-cta-bar p { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.explore-cta-bar-btn { background: var(--teal); color: var(--white); border: none; padding: 12px 24px; border-radius: 100px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
+.explore-empty { text-align: center; padding: 40px 20px; color: var(--light); font-size: 14px; line-height: 1.6; }
+.explore-empty-icon { font-size: 36px; margin-bottom: 10px; display: block; }
 .site-footer { text-align: center; padding: 32px 24px 48px; border-top: 1px solid #e8e4de; margin-top: 20px; }
 .site-footer p { font-size: 13px; color: var(--light); line-height: 1.8; }
 .site-footer a { color: var(--teal); text-decoration: none; font-weight: 500; }
@@ -894,7 +933,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
     <a href="#" onclick="openCitySearch();return false;">🔍 Find a City</a>
-    <a href="#" onclick="showComingSoon(event)">Compare Cities</a>
+    <a href="#" onclick="showScreen('screen-explore');return false;">Top Cities For...</a>
     <a href="#reports" onclick="showScreen('screen-hero');setTimeout(function(){var el=document.getElementById('reports');if(el)el.scrollIntoView({behavior:'smooth'});},300);return false;">Free Reports</a>
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
   </nav>
@@ -1070,6 +1109,58 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <div class="results-report-list" id="results-reports-icons"></div>
   </div>
 
+</div>
+
+<!-- SCREEN: TOP CITIES FOR -->
+<div class="screen" id="screen-explore">
+  <div class="site-logo" onclick="showScreen('screen-hero')" style="cursor:pointer;">
+    <div class="logo-text">
+      <div class="logo-wordmark" style="font-size:12px"><span class="dest">RETIREME</span><span class="ret">HERE</span></div>
+    </div>
+  </div>
+  <div class="explore-page">
+    <div class="explore-eyebrow">Browse by What Matters Most</div>
+    <div class="explore-title">Top Cities For...</div>
+    <p class="explore-sub">Real questions people ask about retirement — answered with real data. Pick a combination to see cities that score well on both priorities.</p>
+    <div class="preset-grid">
+      <button class="preset-btn" onclick="selectExplorePreset(this,'walkable_affordable')">
+        <span class="preset-icon">🚶</span>
+        <div class="preset-name">Walkable + Affordable</div>
+        <div class="preset-tags"><span class="preset-tag t1">No Car Needed</span><span class="preset-tag t2">Low Budget</span></div>
+      </button>
+      <button class="preset-btn" onclick="selectExplorePreset(this,'warm_safe')">
+        <span class="preset-icon">☀️</span>
+        <div class="preset-name">Warm + Safe</div>
+        <div class="preset-tags"><span class="preset-tag t1">Year-Round Sun</span><span class="preset-tag t2">Low Crime</span></div>
+      </button>
+      <button class="preset-btn" onclick="selectExplorePreset(this,'healthcare_affordable')">
+        <span class="preset-icon">🏥</span>
+        <div class="preset-name">Healthcare + Affordable</div>
+        <div class="preset-tags"><span class="preset-tag t1">Top Hospitals</span><span class="preset-tag t2">Fixed Income</span></div>
+      </button>
+      <button class="preset-btn" onclick="selectExplorePreset(this,'outdoor_tax')">
+        <span class="preset-icon">🏔️</span>
+        <div class="preset-name">Outdoor + Tax-Friendly</div>
+        <div class="preset-tags"><span class="preset-tag t1">Active Lifestyle</span><span class="preset-tag t2">Keep More $</span></div>
+      </button>
+      <button class="preset-btn" onclick="selectExplorePreset(this,'warm_affordable')">
+        <span class="preset-icon">🌴</span>
+        <div class="preset-name">Warm + Affordable</div>
+        <div class="preset-tags"><span class="preset-tag t1">Sun Belt</span><span class="preset-tag t2">Best Value</span></div>
+      </button>
+      <button class="preset-btn" onclick="selectExplorePreset(this,'culture_walkable')">
+        <span class="preset-icon">🎭</span>
+        <div class="preset-name">Arts & Culture + Walkable</div>
+        <div class="preset-tags"><span class="preset-tag t1">Vibrant Scene</span><span class="preset-tag t2">Car-Free</span></div>
+      </button>
+    </div>
+    <div id="exploreResultsArea">
+      <div class="explore-empty">
+        <span class="explore-empty-icon">☝️</span>
+        Pick a combination above to see the top cities
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- SCREEN 5: CITY DETAIL -->
@@ -4923,6 +5014,117 @@ function showCityDetail(cityName, cityState) {
   showScreen('screen-detail');
   window.scrollTo(0, 0);
   renderReportIcons('city-detail-reports', 'detail');
+}
+
+const EXPLORE_PRESETS = {
+  walkable_affordable: {
+    label: 'Walkable + Affordable',
+    scores: ['Walkability', 'Affordability'],
+    cities: [
+      { name: 'Chattanooga', state: 'TN', type: 'Small City / Inland', s1: 6, s2: 9 },
+      { name: 'Greenville', state: 'SC', type: 'Small City / Inland', s1: 7, s2: 8 },
+      { name: 'St. Paul', state: 'MN', type: 'Major Metro', s1: 7, s2: 8 },
+      { name: 'Savannah', state: 'GA', type: 'Historic / Coastal', s1: 7, s2: 7 },
+      { name: 'Lexington', state: 'KY', type: 'College Town', s1: 6, s2: 8 },
+    ]
+  },
+  warm_safe: {
+    label: 'Warm + Safe',
+    scores: ['Climate', 'Safety'],
+    cities: [
+      { name: 'Naples', state: 'FL', type: 'Resort / Coastal', s1: 9, s2: 9 },
+      { name: 'Santa Barbara', state: 'CA', type: 'Small City / Coastal', s1: 10, s2: 7 },
+      { name: 'St. Augustine', state: 'FL', type: 'Historic / Beach Town', s1: 8, s2: 8 },
+      { name: 'Delray Beach', state: 'FL', type: 'Beach Town', s1: 9, s2: 7 },
+      { name: 'Henderson', state: 'NV', type: 'Major Metro / Desert', s1: 7, s2: 9 },
+    ]
+  },
+  healthcare_affordable: {
+    label: 'Healthcare + Affordable',
+    scores: ['Healthcare', 'Affordability'],
+    cities: [
+      { name: 'Chattanooga', state: 'TN', type: 'Small City / Inland', s1: 8, s2: 9 },
+      { name: 'Lexington', state: 'KY', type: 'College Town', s1: 9, s2: 8 },
+      { name: 'San Antonio', state: 'TX', type: 'Major Metro', s1: 8, s2: 9 },
+      { name: 'Greenville', state: 'SC', type: 'Small City / Inland', s1: 8, s2: 8 },
+      { name: 'Knoxville', state: 'TN', type: 'College Town', s1: 8, s2: 8 },
+    ]
+  },
+  outdoor_tax: {
+    label: 'Outdoor Recreation + Tax-Friendly',
+    scores: ['Outdoors', 'Taxes'],
+    cities: [
+      { name: 'Jackson Hole', state: 'WY', type: 'Mountain / Resort', s1: 10, s2: 10 },
+      { name: 'Naples', state: 'FL', type: 'Resort / Coastal', s1: 9, s2: 9 },
+      { name: 'Chattanooga', state: 'TN', type: 'Small City / Mountain', s1: 8, s2: 10 },
+      { name: 'Sarasota', state: 'FL', type: 'Beach Town', s1: 9, s2: 9 },
+      { name: 'Knoxville', state: 'TN', type: 'College Town', s1: 9, s2: 9 },
+    ]
+  },
+  warm_affordable: {
+    label: 'Warm + Affordable',
+    scores: ['Climate', 'Affordability'],
+    cities: [
+      { name: 'Corpus Christi', state: 'TX', type: 'Beach Town', s1: 8, s2: 9 },
+      { name: 'Tucson', state: 'AZ', type: 'College Town / Desert', s1: 8, s2: 8 },
+      { name: 'Fort Myers', state: 'FL', type: 'Resort / Coastal', s1: 9, s2: 7 },
+      { name: 'San Antonio', state: 'TX', type: 'Major Metro', s1: 7, s2: 9 },
+      { name: 'Pensacola', state: 'FL', type: 'Beach Town', s1: 9, s2: 7 },
+    ]
+  },
+  culture_walkable: {
+    label: 'Arts & Culture + Walkable',
+    scores: ['Community', 'Walkability'],
+    cities: [
+      { name: 'Portland', state: 'ME', type: 'Small City / Coastal', s1: 10, s2: 9 },
+      { name: 'Santa Barbara', state: 'CA', type: 'Small City / Coastal', s1: 10, s2: 8 },
+      { name: 'Saratoga Springs', state: 'NY', type: 'Historic / Arts', s1: 10, s2: 8 },
+      { name: 'Annapolis', state: 'MD', type: 'Small City / Coastal', s1: 9, s2: 8 },
+      { name: 'Ann Arbor', state: 'MI', type: 'College Town', s1: 9, s2: 8 },
+    ]
+  }
+};
+
+function selectExplorePreset(btn, key) {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = EXPLORE_PRESETS[key];
+  document.getElementById('exploreResultsArea').innerHTML = `
+    <div class="explore-results-divider">
+      <div class="explore-results-divider-line"></div>
+      <div class="explore-results-divider-label">Top Cities: ${d.label}</div>
+      <div class="explore-results-divider-line"></div>
+    </div>
+    <div class="explore-results-list">
+      ${d.cities.map((c,i) => `
+        <div class="explore-result-card" onclick="lastMatchScore=null;showCityDetail('${c.name}','${c.state}');showScreen('screen-detail');">
+          <div class="explore-result-rank">${i+1}</div>
+          <div class="explore-result-info">
+            <div class="explore-result-name">${c.name}, ${c.state}</div>
+            <div class="explore-result-meta">${c.type}</div>
+          </div>
+          <div class="explore-score-chips">
+            <div class="explore-score-chip">
+              <div class="explore-score-chip-val">${c.s1}</div>
+              <div class="explore-score-chip-label">${d.scores[0]}</div>
+            </div>
+            <div class="explore-score-chip">
+              <div class="explore-score-chip-val">${c.s2}</div>
+              <div class="explore-score-chip-label">${d.scores[1]}</div>
+            </div>
+          </div>
+          <div class="explore-result-arrow">→</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="explore-cta-bar">
+      <div>
+        <h3>Want your personalized match?</h3>
+        <p>These lists rank cities on two priorities — your best match depends on everything that matters to you, weighted your way.</p>
+      </div>
+      <button class="explore-cta-bar-btn" onclick="startQuiz()">Find My Best Match →</button>
+    </div>
+  `;
 }
 
 function showComingSoon(e) {
