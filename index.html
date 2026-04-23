@@ -620,11 +620,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   .site-header { padding: 10px 16px; }
-  .header-nav { gap: 0; }
-  .header-nav a { display: none; }
-  .header-nav a:first-child { display: none; }
+  .header-nav { display: none; }
   .header-mobile-menu { display: flex; gap: 8px; align-items: center; }
-  .header-split { grid-template-columns: 1fr; min-height: auto; }
   .hero-split { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 36px 22px 28px; border-right: none; border-bottom: 1px solid #e8e4de; }
   .split-headline { font-size: 28px; }
@@ -633,6 +630,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   .report-row { align-items: flex-start; }
   .report-row-icon { flex-shrink: 0; margin-top: 2px; }
   .report-row-actions { width: 76px; }
+  .preset-grid { grid-template-columns: repeat(2, 1fr); }
+  .explore-cta-bar { flex-direction: column; text-align: center; }
 }
 .header-mobile-menu { display: none; }
 .mobile-nav-btn {
@@ -1005,8 +1004,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
           <span class="split-stat-label">Priorities Weighed</span>
         </div>
         <div>
-          <span class="split-stat-num">5</span>
-          <span class="split-stat-label">Matches Per Result</span>
+          <span class="split-stat-num">~2</span>
+          <span class="split-stat-label">Minutes</span>
         </div>
       </div>
       <p class="split-not-generic">Not a generic "best places" list — your results are based on what <em>you</em> value most.</p>
