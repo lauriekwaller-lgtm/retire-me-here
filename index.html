@@ -17,6 +17,7 @@
 ml('account', '2238788');
 </script>
 <title>RetireMeHere — Find Your Retirement City</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -4823,6 +4824,13 @@ let lastDetailSource = 'screen-results';
 
 function goBack() {
   showScreen(lastDetailSource || 'screen-results');
+  window.scrollTo(0, 0);
+}
+
+function openCityFromExplore(name, state) {
+  lastMatchScore = null;
+  lastDetailSource = 'screen-explore';
+  showCityDetail(name, state);
 }
 
 function getStateAbbrev(stateName) {
@@ -5101,7 +5109,7 @@ function selectExplorePreset(btn, key) {
     </div>
     <div class="explore-results-list">
       ${d.cities.map((c,i) => `
-        <div class="explore-result-card" onclick="lastMatchScore=null;lastDetailSource='screen-explore';showCityDetail('${c.name}','${c.state}');showScreen('screen-detail');">
+        <div class="explore-result-card" onclick="openCityFromExplore('${c.name}','${c.state}')">
           <div class="explore-result-rank">${i+1}</div>
           <div class="explore-result-info">
             <div class="explore-result-name">${c.name}, ${c.state}</div>
