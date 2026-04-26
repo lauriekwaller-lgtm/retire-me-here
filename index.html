@@ -4237,23 +4237,25 @@ let quizState = {
 };
 
 const REGION_MAP = {
-  'New England':       { icon: '🍁', states: ['ME','NH','VT','MA','RI','CT'] },
-  'Mid-Atlantic':      { icon: '🏛️', states: ['NY','NJ','PA','MD','DE','VA'] },
-  'Southeast':         { icon: '🌴', states: ['NC','SC','GA','FL','AL','MS','TN','KY'] },
-  'Midwest':           { icon: '🌾', states: ['OH','IN','IL','MI','WI','MN','IA','MO','ND','SD','NE','KS'] },
-  'South / Texas':     { icon: '🤠', states: ['TX','OK','AR','LA'] },
-  'Mountain West':     { icon: '🏔️', states: ['CO','UT','WY','MT','ID','NV'] },
+  'New England':       { icon: '🍁', states: ['CT','MA','ME','NH','RI','VT'] },
+  'Mid-Atlantic':      { icon: '🏛️', states: ['DE','MD','NJ','NY','PA','VA'] },
+  'Southeast':         { icon: '🌴', states: ['AL','FL','GA','KY','MS','NC','SC','TN'] },
+  'Midwest':           { icon: '🏙️', states: ['IL','IN','MI','MN','MO','OH','WI'] },
+  'South / Texas':     { icon: '🤠', states: ['AR','LA','OK','TX'] },
+  'Plains States':     { icon: '🌾', states: ['IA','KS','ND','NE','SD'] },
+  'Mountain West':     { icon: '🏔️', states: ['CO','ID','MT','NV','UT','WY'] },
   'Southwest / Desert':{ icon: '🌵', states: ['AZ','NM'] },
   'Pacific Coast':     { icon: '🌊', states: ['CA','OR','WA'] }
 };
 
 const REGION_STATE_LABELS = {
-  'New England': 'ME, NH, VT, MA, RI, CT',
-  'Mid-Atlantic': 'NY, NJ, PA, MD, DE, VA',
-  'Southeast': 'NC, SC, GA, FL, AL, MS, TN, KY',
-  'Midwest': 'OH, IN, IL, MI, WI, MN, IA, MO, ND, SD, NE, KS',
-  'South / Texas': 'TX, OK, AR, LA',
-  'Mountain West': 'CO, UT, WY, MT, ID, NV',
+  'New England': 'CT, MA, ME, NH, RI, VT',
+  'Mid-Atlantic': 'DE, MD, NJ, NY, PA, VA',
+  'Southeast': 'AL, FL, GA, KY, MS, NC, SC, TN',
+  'Midwest': 'IL, IN, MI, MN, MO, OH, WI',
+  'South / Texas': 'AR, LA, OK, TX',
+  'Plains States': 'IA, KS, ND, NE, SD',
+  'Mountain West': 'CO, ID, MT, NV, UT, WY',
   'Southwest / Desert': 'AZ, NM',
   'Pacific Coast': 'CA, OR, WA'
 };
@@ -4301,7 +4303,7 @@ function renderIntro(container) {
       <div class="quiz-intro">
         <div class="quiz-intro-icon">🎯</div>
         <div class="q-step" style="text-align:center;">Find Your Best Retirement City</div>
-        <div class="q-title" style="text-align:center;margin-bottom:8px;">This quiz takes about 3 minutes</div>
+        <div class="q-title" style="text-align:center;margin-bottom:8px;">This quiz takes about 2 minutes</div>
         <div class="q-subtitle" style="text-align:center;">The more specific you are, the better your matches.</div>
         <div class="quiz-intro-steps">
           <div class="intro-step-row"><div class="intro-step-num">1</div><div class="intro-step-text">Tell us your preferred region and any states to exclude</div></div>
@@ -4611,122 +4613,6 @@ function setPriority(key, value) {
   renderStep();
 }
 
-const REGIONS = [
-  { name: 'New England', states: ['ME','NH','VT','MA','RI','CT'] },
-  { name: 'Mid-Atlantic', states: ['NY','NJ','PA','MD','DE','VA','WV','DC'] },
-  { name: 'Southeast', states: ['NC','SC','GA','FL','AL','MS','TN','KY','AR'] },
-  { name: 'Midwest', states: ['OH','IN','IL','MI','WI','MN','IA','MO','ND','SD','NE','KS'] },
-  { name: 'Southwest', states: ['TX','OK','NM','AZ'] },
-  { name: 'Mountain West', states: ['CO','UT','NV','ID','MT','WY'] },
-  { name: 'Pacific Coast', states: ['CA','OR','WA','AK','HI'] }
-];
-
-const STATE_ABBREVS = {
-  'AL':'Alabama','AK':'Alaska','AZ':'Arizona','AR':'Arkansas','CA':'California',
-  'CO':'Colorado','CT':'Connecticut','DE':'Delaware','FL':'Florida','GA':'Georgia',
-  'HI':'Hawaii','ID':'Idaho','IL':'Illinois','IN':'Indiana','IA':'Iowa',
-  'KS':'Kansas','KY':'Kentucky','LA':'Louisiana','ME':'Maine','MD':'Maryland',
-  'MA':'Massachusetts','MI':'Michigan','MN':'Minnesota','MS':'Mississippi',
-  'MO':'Missouri','MT':'Montana','NE':'Nebraska','NV':'Nevada','NH':'New Hampshire',
-  'NJ':'New Jersey','NM':'New Mexico','NY':'New York','NC':'North Carolina',
-  'ND':'North Dakota','OH':'Ohio','OK':'Oklahoma','OR':'Oregon','PA':'Pennsylvania',
-  'RI':'Rhode Island','SC':'South Carolina','SD':'South Dakota','TN':'Tennessee',
-  'TX':'Texas','UT':'Utah','VT':'Vermont','VA':'Virginia','WA':'Washington',
-  'WV':'West Virginia','WI':'Wisconsin','WY':'Wyoming','DC':'D.C.'
-};
-
-function renderStates(container) {
-  const eliminated = quizState.eliminatedStates;
-  let showingStates = quizState.showingStatesRegion || null;
-
-  let html = `<div class="question-card">
-    <div class="q-step">Step 2 of 5</div>
-    <div class="q-title">Any states you'd rule out?</div>
-    <div class="q-subtitle">Optional — eliminate regions or individual states. Skip if you're open to all.</div>`;
-
-  if (!showingStates) {
-    
-    html += `<div class="region-grid">`;
-    REGIONS.forEach(region => {
-      const allElim = region.states.every(s => eliminated.includes(s));
-      const someElim = region.states.some(s => eliminated.includes(s));
-      const cls = allElim ? 'region-btn eliminated' : someElim ? 'region-btn partial' : 'region-btn';
-      const label = allElim ? '✗ ' + region.name : someElim ? '~ ' + region.name : region.name;
-      html += `<button class="${cls}" onclick="toggleRegion('${region.name}')">${label}</button>`;
-    });
-    html += `</div>
-    <div style="text-align:center;margin-top:12px">
-      <button class="btn-show-states" onclick="showRegionPicker()">Or pick individual states ›</button>
-    </div>`;
-  } else if (showingStates === 'PICKER') {
-    
-    html += `<div class="q-subtitle" style="margin-bottom:12px">Select a region to see individual states:</div>
-    <div class="region-grid">`;
-    REGIONS.forEach(region => {
-      const allElim = region.states.every(s => eliminated.includes(s));
-      const someElim = region.states.some(s => eliminated.includes(s));
-      const cls = allElim ? 'region-btn eliminated' : someElim ? 'region-btn partial' : 'region-btn';
-      html += `<button class="${cls}" onclick="drillIntoRegion('${region.name}')">${region.name} ›</button>`;
-    });
-    html += `</div>
-    <button class="btn-back-regions" onclick="backToRegions()">← Back</button>`;
-  } else {
-    
-    const region = REGIONS.find(r => r.name === showingStates);
-    html += `<button class="btn-back-regions" onclick="showRegionPicker()">← All regions</button>
-    <div style="font-size:14px;font-weight:600;color:var(--dark);margin-bottom:10px">${region.name}</div>
-    <div class="states-grid">`;
-    region.states.forEach(s => {
-      const elim = eliminated.includes(s);
-      html += `<button class="state-btn ${elim ? 'eliminated' : ''}" onclick="toggleState('${s}')">${STATE_ABBREVS[s] || s}</button>`;
-    });
-    html += `</div>`;
-  }
-
-  const elimCount = eliminated.length;
-  html += elimCount > 0 ? `<div class="elim-count">${elimCount} state${elimCount > 1 ? 's' : ''} eliminated</div>` : '';
-
-  html += `</div>
-    <div class="quiz-nav">
-      <button class="btn-back" onclick="prevStep()">← Back</button>
-      <button class="btn-next" onclick="nextStep()">Next — Budget →</button>
-    </div>`;
-
-  container.innerHTML = html;
-}
-
-function toggleRegion(regionName) {
-  const region = REGIONS.find(r => r.name === regionName);
-  const allElim = region.states.every(s => quizState.eliminatedStates.includes(s));
-  if (allElim) {
-    quizState.eliminatedStates = quizState.eliminatedStates.filter(s => !region.states.includes(s));
-  } else {
-    region.states.forEach(s => { if (!quizState.eliminatedStates.includes(s)) quizState.eliminatedStates.push(s); });
-  }
-  renderStep();
-}
-
-function toggleState(state) {
-  const idx = quizState.eliminatedStates.indexOf(state);
-  if (idx >= 0) quizState.eliminatedStates.splice(idx, 1);
-  else quizState.eliminatedStates.push(state);
-  renderStep();
-}
-
-function showRegionPicker() {
-  quizState.showingStatesRegion = 'PICKER';
-  renderStep();
-}
-
-function drillIntoRegion(regionName) {
-  quizState.showingStatesRegion = regionName;
-  renderStep();
-}
-
-function backToRegions() {
-  quizState.showingStatesRegion = null;
-  renderStep();
-}
 
 function renderBudget(container) {
   const BUDGET_LABELS = [
