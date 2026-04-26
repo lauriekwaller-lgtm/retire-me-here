@@ -1039,7 +1039,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       </div>
       <div class="split-stats">
         <div>
-          <span class="split-stat-num">82+</span>
+          <span class="split-stat-num">87+</span>
           <span class="split-stat-label">Cities Scored</span>
         </div>
         <div>
@@ -1058,7 +1058,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <div class="hero-right" id="reports">
       <div class="reports-panel-eyebrow" style="color:var(--light);">Also Available Free</div>
       <div class="reports-panel-title">Deep-Dive Reports</div>
-      <p class="reports-panel-sub">Each report ranks all 82+ cities on one topic — real data, honest tradeoffs.</p>
+      <p class="reports-panel-sub">Each report ranks all 87+ cities on one topic — real data, honest tradeoffs.</p>
 
       <!-- FEATURED: VALUE NAVIGATOR with preview open -->
       <div class="report-featured">
@@ -1253,7 +1253,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <script>
 
-console.log("RMH v3.0 loaded - 82+ cities");
+console.log("RMH v3.0 loaded - 87+ cities");
 
 const CITIES = [
   {
@@ -2134,6 +2134,121 @@ const CITIES = [
     highlight: "Colorado’s affordable outdoor alternative — Grand Junction delivers wine country, canyon recreation, 300+ sunny days, and access to world-class destinations at a fraction of Front Range prices.",
     pros: ["Most affordable major city in Colorado — median home under $380K", "300+ sunny days per year with a dry high-desert climate", "Colorado National Monument and wine country minutes from downtown", "Small city feel with growing arts and dining scene"],
     cons: ["Colorado income tax of 4.4% applies to pension and IRA income", "Specialist healthcare requires travel to Denver — 4 hours away", "Summers are very hot — temperatures regularly exceed 95°F", "Car dependent with limited public transit"]
+  },
+  {
+    name: "St. Louis", state: "MO", type: "Major Metro / Historic",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Historic", "Arts & Culture", "Urban Neighborhood"],
+    monthlyEst: "$3,500–$4,800/mo", medianHome: "$350,000–$500,000", budgetRange: 2,
+    scores: { D1:8, D2:8, D3:10, D4:5, D5:6, D6:6, D7:6, D8:7, D9:5, D10:8 },
+    climate: { W:4, H:7, M:5 },
+    highlight: "Barnes-Jewish Hospital — #1 in Missouri, nationally ranked in 11 specialties, US News Honor Roll. Forest Park is larger than Central Park. Free world-class art museum. Median home $250K citywide but retirees target Chesterfield, Kirkwood, Webster Groves ($350K–$500K). Extraordinary value for healthcare quality.",
+    neighborhoods: [
+      { name: "Chesterfield", vibe: "Affluent, suburban, safe", desc: "Premier west-county suburb. Jordan Creek shopping, excellent restaurants, strong healthcare access. Most popular with retirees seeking amenity-rich suburban lifestyle. Median home $400K–$500K." },
+      { name: "Kirkwood / Webster Groves", vibe: "Historic, walkable, charming", desc: "Two of St. Louis's most beloved historic suburbs. Tree-lined streets, brick homes, walkable downtowns, excellent restaurants. Kirkwood School District highly rated. Median home $350K–$450K." },
+      { name: "Clayton", vibe: "Urban, walkable, sophisticated", desc: "St. Louis County seat. Most walkable suburb with genuine downtown feel. MetroLink access, upscale dining, art galleries. Median home $450K+. Best for retirees wanting urban walkability." },
+      { name: "Wildwood / Town & Country", vibe: "Quiet, luxury, spacious", desc: "Outer west-county communities with large lots, mature trees, very low crime. Town & Country consistently rated among safest St. Louis suburbs. Median home $500K–$800K." }
+    ],
+    pros: ["Barnes-Jewish — #1 in Missouri, US News Honor Roll, nationally ranked in 11 specialties including cancer, neurology, cardiology",
+           "Forest Park — 1,300 acres, larger than Central Park, free world-class zoo, art museum, history museum",
+           "STL airport — solid hub, 50+ nonstop destinations, 15 min from western suburbs",
+           "Missouri exempts Social Security from state income tax as of 2024 — meaningful tax relief for retirees"],
+    cons: ["City safety a serious concern — western suburbs essential for retirees. Chesterfield, Kirkwood, Clayton are genuinely safe",
+           "Hot humid summers — July average 88°F with significant humidity June through September",
+           "Missouri income tax 4.7% on other retirement income (401k, IRA, pension)",
+           "Car dependent outside of Clayton and a few walkable suburbs"]
+  },
+  {
+    name: "Des Moines", state: "IA", type: "Capital City / Midwest",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Urban Neighborhood", "Arts & Culture", "College Town"],
+    monthlyEst: "$3,200–$4,200/mo", medianHome: "$230,000", budgetRange: 2,
+    scores: { D1:7, D2:8, D3:8, D4:3, D5:6, D6:5, D7:5, D8:7, D9:7, D10:7 },
+    climate: { W:2, H:6, M:4 },
+    highlight: "Iowa's capital delivers extraordinary value — 17% below national cost of living, $217K median home, MercyOne top-ranked for coronary care. Principal Financial, Wells Fargo, Nationwide all headquartered here creating a sophisticated city feel. East Village arts district and Gray's Lake trails offer genuine urban quality of life.",
+    neighborhoods: [
+      { name: "West Des Moines / Clive", vibe: "Suburban, active, amenity-rich", desc: "Jordan Creek Town Center, excellent restaurants, multiple 55+ communities (Grand Living at Tower Place). MercyOne West Des Moines nearby. Most popular retirement destination in metro. Median home $280K–$350K." },
+      { name: "Beaverdale", vibe: "Walkable, charming, historic", desc: "Brick-lined streets, 1920s–40s character homes, walkable Beaver Avenue commercial strip. Calvin Retirement Community and Independence Village located here. Most affordable on this list at $250K–$296K." },
+      { name: "Urbandale", vibe: "Suburban, green, convenient", desc: "Miles of trails including Living History Farms, Walker Johnston Park. Urbandale Farmers Market, central location — 10-15 minutes from anywhere in metro. Median home $310K." },
+      { name: "East Village / Downtown", vibe: "Urban, walkable, arts", desc: "Principal Riverwalk, John and Mary Pappajohn Sculpture Park, Saturday farmers market (25,000+ visitors). Most walkable neighborhood. Slate 55+ luxury community at Gray's Landing. Median home $250K+" }
+    ],
+    pros: ["MercyOne Des Moines — top national ranking for coronary care (Healthgrades). UnityPoint Health strong secondary system",
+           "17% below national cost of living — one of the most affordable mid-sized cities in the country",
+           "DSM airport — 30+ nonstop destinations, American/Delta/United, convenient regional hub",
+           "Iowa fully exempts Social Security from state income tax"],
+    cons: ["Serious Midwest winters — January average 22°F, significant snow, cold grey November through March",
+           "Iowa income tax 3.8% flat rate on other retirement income (401k, IRA, pension)",
+           "Car dependent outside East Village and downtown core",
+           "Limited cultural depth compared to larger Midwest metros — though growing rapidly"]
+  },
+  {
+    name: "Sioux Falls", state: "SD", type: "Small Metro / Plains",
+    setting: ["Inland / Green"],
+    character: ["Small Town", "Outdoor Lifestyle"],
+    monthlyEst: "$3,000–$4,000/mo", medianHome: "$285,000", budgetRange: 2,
+    scores: { D1:6, D2:8, D3:8, D4:2, D5:10, D6:3, D7:5, D8:7, D9:8, D10:7 },
+    climate: { W:1, H:5, M:3 },
+    highlight: "No South Dakota state income tax — zero on Social Security, 401k, IRA, pension, everything. Sanford Health nationally recognized. Forbes Top 25 cities to retire. Median home $285K. Very safe. The trade is brutal winters — January average 16°F. For tax-motivated retirees who can handle cold, Sioux Falls delivers extraordinary financial value.",
+    neighborhoods: [
+      { name: "South Sioux Falls / Rattlesnake Creek", vibe: "Newer, active, family-friendly", desc: "Newer developments in south Sioux Falls. Courtyards at Golden Gateway — luxury 55+ community with pool, pickleball, golf simulator. Growing area with newer construction and HOA amenities." },
+      { name: "West Side / Dawley Farm", vibe: "Suburban, safe, convenient", desc: "Popular suburban corridor with strong retail, healthcare access, and established neighborhoods. Falls Community Health nearby. Safe and well-maintained with easy access to interstates." },
+      { name: "Downtown / Falls Park", vibe: "Urban, walkable, revitalizing", desc: "Washington Pavilion arts center, Falls Park (the city's signature attraction), growing restaurant scene. Village Cooperative 62+ community downtown. Most walkable area in the city." },
+      { name: "Southeast / Prairie Green", vibe: "Golf, quiet, established", desc: "Prairie Green Golf Course area. Established neighborhoods with mature trees. Dow Rummel Village — well-regarded senior living community. Quiet and safe with easy city access." }
+    ],
+    pros: ["No South Dakota state income tax — zero on ALL retirement income. No estate or inheritance tax. One of best tax states in database",
+           "Sanford Health — large regional system, nationally recognized for senior care. Avera Health strong secondary",
+           "Very safe — low crime, tight community feel. One of the safer cities added to the database",
+           "Forbes Top 25 Cities to Retire — validated by national ranking alongside Rochester MN, Des Moines IA"],
+    cons: ["Brutal winters — January average 16°F, significant snow, can feel isolating November through March",
+           "Poor walkability — Forbes specifically noted this as a weakness. Car required for virtually everything",
+           "FSD airport small regional — limited nonstops. Minneapolis or Omaha for major connections",
+           "Limited outdoor recreation compared to Mountain West — flat terrain with few natural dramatic features"]
+  },
+  {
+    name: "Las Vegas", state: "NV", type: "Major Metro / Entertainment",
+    setting: ["Desert", "City Energy"],
+    character: ["Resort / Golf", "Urban Neighborhood", "Arts & Culture"],
+    monthlyEst: "$4,500–$5,500/mo", medianHome: "$430,000", budgetRange: 3,
+    scores: { D1:10, D2:5, D3:7, D4:7, D5:10, D6:3, D7:7, D8:7, D9:5, D10:8 },
+    climate: { W:8, H:3, M:7 },
+    highlight: "Perfect 10 airport AND perfect 10 taxes — a rare double. LAS serves 120+ nonstop destinations. Zero Nevada income tax on everything. Warm dry winters. Red Rock Canyon 20 min. Cleveland Clinic Lou Ruvo Center for Brain Health. Entertainment capital of the world. Retirees live in Summerlin or Henderson — not near the Strip.",
+    neighborhoods: [
+      { name: "Summerlin", vibe: "Master-planned, safe, resort-style", desc: "Northwest Las Vegas. Premier retirement destination — Red Rock Canyon views, 200+ miles of trails, world-class golf, Sun City Summerlin 55+ community. Very safe. Median home $500K–$700K." },
+      { name: "Henderson", vibe: "Safe, suburban, established", desc: "Consistently rated one of safest large cities in Nevada. Green Valley area popular with retirees. Sun City MacDonald Ranch 55+ community. Good healthcare access. Median home $420K–$500K." },
+      { name: "Green Valley / Seven Hills", vibe: "Quiet, golf, established", desc: "South Henderson. Established communities with mature landscaping, golf courses, and strong neighborhood identity. Less expensive than Summerlin with same safety profile." },
+      { name: "Downtown Arts District", vibe: "Urban, walkable, emerging", desc: "18b Arts District revitalization. Most walkable area in Las Vegas. Growing restaurant scene, galleries, First Friday events. Not for everyone but genuinely different character from rest of Las Vegas." }
+    ],
+    pros: ["LAS Harry Reid International — 50M+ passengers, 120+ nonstop destinations, 20 min from Summerlin/Henderson",
+           "No Nevada state income tax — Social Security, 401k, IRA, pension all 100% tax-free. Property tax 0.5%. No estate tax",
+           "Red Rock Canyon 20 min, Lake Mead, Valley of Fire, Mt. Charleston (skiing 45 min) — exceptional desert outdoor access",
+           "Cleveland Clinic Lou Ruvo Center for Brain Health — nationally recognized. World-class entertainment with senior discounts common"],
+    cons: ["Summers brutal — 105°F+ routinely June through September. Highest heat score in the database",
+           "Extremely car dependent — one of lowest walkability scores in database. The Strip is for tourists, not residents",
+           "Cost of living 5% above national average — more expensive than perception. Median home $430K and rising",
+           "Safety mixed citywide — Summerlin and Henderson safe, but tourist corridor inflates metro-wide crime statistics"]
+  },
+  {
+    name: "Casper", state: "WY", type: "Small City / Outdoor",
+    setting: ["Mountain", "Inland / Green"],
+    character: ["Small Town", "Outdoor Lifestyle"],
+    monthlyEst: "$2,800–$3,800/mo", medianHome: "$275,000", budgetRange: 1,
+    scores: { D1:4, D2:9, D3:6, D4:3, D5:10, D6:3, D7:8, D8:6, D9:8, D10:6 },
+    climate: { W:2, H:5, M:4 },
+    highlight: "Wyoming ranked #1 retirement destination for affordability and open spaces (Cowboy State Daily, 2026). No Wyoming state income tax — zero on everything. Median home $275K. Platte River Trails, Casper Mountain, wild horses nearby. Wyoming Medical Center adequate regional hub. Best value for outdoor-oriented, tax-motivated retirees who embrace small-town life.",
+    neighborhoods: [
+      { name: "Paradise Valley", vibe: "Suburban, scenic, golf", desc: "South Casper with mountain views and mature landscaping. Golf courses nearby. Popular with retirees seeking suburban comfort with scenic surroundings. Most desirable retirement neighborhood in Casper." },
+      { name: "Central Casper", vibe: "Walkable, downtown, historic", desc: "Historic downtown with cute main street shops and restaurants. David Street Station community events. Most walkable area in the city. Within 15 min of everything — no traffic." },
+      { name: "East Casper", vibe: "Recreational, established, affordable", desc: "Proximity to golf courses and recreational areas. Mix of newer and established homes. Easy interstate access. More affordable entry point into Casper real estate market." },
+      { name: "Wolf Creek / South Side", vibe: "Newer, family, community-oriented", desc: "Newer development gaining popularity for modern homes and sense of community. Safe and friendly. Primrose Retirement Community and Meadow Wind Assisted Living nearby for future needs." }
+    ],
+    pros: ["No Wyoming state income tax — zero on ALL retirement income. Very low property tax. No estate or inheritance tax. Tied with SD for best tax state",
+           "Platte River Trails, Casper Mountain ski area, North Platte River fishing/kayaking, wild horses — genuine outdoor access",
+           "Very safe small city — low crime, tight community. 18% of population over 65 creating strong retiree community",
+           "Cost of living 5% below national average — $275K median home among most affordable in entire database"],
+    cons: ["No commercial airport — CPR small regional, United only to Denver. Major travel requires 4-hour drive to Denver",
+           "Serious winters — cold with notorious wind. January average 22°F. Wind is a significant lifestyle factor in Wyoming",
+           "Wyoming Medical Center adequate for city size but limited specialist depth — complex care may require Denver",
+           "Small city limitations — limited retail, dining variety, cultural events compared to larger cities. Population under 60,000"]
   },
   {
     name: "Kansas City", state: "MO", type: "Urban / Cultural",
@@ -3895,7 +4010,127 @@ const CITY_ENRICHMENT = {
       D9: "Below average crime for its size. Property crime is primary concern as in most small western cities."
     }
   },
-    "Kansas City": {
+    "St. Louis_MO": {
+    hospitalRating: "Barnes-Jewish — #1 Missouri, US News Honor Roll, nationally ranked 11 specialties",
+    scoreNotes: {
+      D1: "STL — solid hub, 50+ nonstop destinations. 15 min from western suburbs. Delta, American, United, Southwest.",
+      D2: "City median $250K but retirees target Chesterfield ($400K–$500K), Kirkwood/Webster ($350K–$450K), Clayton ($450K+). Use suburb pricing.",
+      D3: "Barnes-Jewish — #1 Missouri, US News Honor Roll. Nationally ranked cancer, neurology, cardiology, diabetes. Washington University School of Medicine affiliation. World-class.",
+      DW: "Jan avg 31°F — real Midwest winter. Cold with occasional snow. Four true seasons.",
+      DH: "Summers hot and humid — July avg 88°F. Significant humidity June through September.",
+      DM: "Beautiful spring and fall. Best months April–May and September–October.",
+      D5: "Missouri exempts Social Security from state income tax as of 2024. Other retirement income taxed at 4.7%. Sales tax high ~9%.",
+      D6: "Clayton genuinely walkable with MetroLink access. Kirkwood and Webster Groves have walkable downtowns. Most of metro car-dependent.",
+      D7: "Forest Park 1,300 acres (larger than Central Park) — free zoo, art museum, trails. Meramec River. Missouri wine country 45 min. Good but not exceptional.",
+      D8: "Forest Park recreation, excellent senior centers in suburbs, YMCA strong, growing pickleball. Suburban rec infrastructure solid.",
+      D9: "City safety serious concern — western suburbs (Chesterfield, Kirkwood, Clayton, Wildwood) very safe. Retirees should exclusively target suburbs.",
+      D10: "Cardinals/Blues culture, Forest Park free museums, symphony, opera, world-class restaurant scene, Soulard, Lafayette Square. Rich urban culture."
+    },
+    neighborhoods: [
+      { name: "Chesterfield", vibe: "Affluent, suburban, safe", desc: "Premier west-county suburb. Jordan Creek shopping, excellent restaurants, strong healthcare access. Most popular with retirees. Median home $400K–$500K." },
+      { name: "Kirkwood / Webster Groves", vibe: "Historic, walkable, charming", desc: "Beloved historic suburbs. Tree-lined streets, brick homes, walkable downtowns, excellent restaurants. Median home $350K–$450K." },
+      { name: "Clayton", vibe: "Urban, walkable, sophisticated", desc: "Most walkable suburb, MetroLink access, upscale dining, art galleries. Best for retirees wanting urban walkability. Median home $450K+." },
+      { name: "Wildwood / Town & Country", vibe: "Quiet, luxury, spacious", desc: "Large lots, mature trees, very low crime. Among safest St. Louis suburbs. Median home $500K–$800K." }
+    ],
+    sources: "Redfin/Zillow (2026) · Barnes-Jewish US News rankings · CrimeGrade.org · MO Dept. of Revenue · NOAA Climate Normals · St. Louis Post-Dispatch · Data current April 2026."
+  },
+  "Des Moines_IA": {
+    hospitalRating: "MercyOne Des Moines — top national ranking coronary care. UnityPoint Health strong secondary",
+    scoreNotes: {
+      D1: "DSM — 30+ nonstop destinations, American/Delta/United. Solid regional hub. 15 min from most suburbs.",
+      D2: "17% below national cost of living. City median $217K (Feb 2026 Redfin). Suburbs $280K–$350K. One of most affordable mid-sized cities in US.",
+      D3: "MercyOne Des Moines — top national ranking coronary interventions (Healthgrades). UnityPoint Health Methodist West strong. Iowa Methodist Medical Center Level I trauma.",
+      DW: "Jan avg 22°F — serious Midwest winter. Cold, grey, snowy November through March.",
+      DH: "Summers warm — July avg 83°F. Humid but not oppressive. Occasional severe weather.",
+      DM: "Best months May–June and September–October. Four distinct seasons.",
+      D5: "Iowa income tax 3.8% flat rate (2026). Social Security fully exempt. Moderate overall.",
+      D6: "East Village and downtown walkable. Gray's Lake trail system. Principal Riverwalk. Most of metro car-dependent.",
+      D7: "Gray's Lake, Des Moines River Greenbelt, Raccoon River Park, Living History Farms. Adequate Midwest parks but flat terrain limits excitement.",
+      D8: "Strong YMCA, Senior Activity Center well-regarded, Gray's Lake cycling/walking, strong indoor fitness culture. Iowa winters drive robust indoor infrastructure.",
+      D9: "Generally safe Midwest metro. Suburbs (West Des Moines, Ankeny, Clive, Urbandale) very safe. City overall 7/10.",
+      D10: "Principal Financial headquarters city energy. Iowa State Fair. Growing arts scene. East Village restaurants. Saturday farmers market (25,000+ visitors weekly)."
+    },
+    neighborhoods: [
+      { name: "West Des Moines / Clive", vibe: "Suburban, active, amenity-rich", desc: "Jordan Creek Town Center, excellent restaurants, multiple 55+ communities. MercyOne West Des Moines nearby. Most popular retirement destination in metro. Median home $280K–$350K." },
+      { name: "Beaverdale", vibe: "Walkable, charming, historic", desc: "Brick-lined streets, 1920s–40s homes, walkable commercial strip. Calvin Retirement Community here. Most affordable at $250K–$296K." },
+      { name: "Urbandale", vibe: "Suburban, green, convenient", desc: "Living History Farms, miles of trails, Urbandale Farmers Market. Central location — 10-15 min from anywhere in metro. Median home $310K." },
+      { name: "East Village / Downtown", vibe: "Urban, walkable, arts", desc: "Principal Riverwalk, Pappajohn Sculpture Park, Saturday farmers market. Most walkable. Slate 55+ luxury community. Median home $250K+." }
+    ],
+    sources: "Redfin (Feb 2026) · MercyOne Healthgrades rankings · CrimeGrade.org · Iowa Dept. of Revenue · NOAA Climate Normals · Des Moines Register · Data current April 2026."
+  },
+  "Sioux Falls_SD": {
+    hospitalRating: "Sanford Health — large regional system, nationally recognized senior care. Avera Health strong secondary",
+    scoreNotes: {
+      D1: "FSD — small regional, American/Delta/United, limited nonstops. Adequate for small metro. Minneapolis or Omaha for major connections.",
+      D2: "Cost of living below national average. Median home $285K. No state income tax dramatically improves purchasing power.",
+      D3: "Sanford Health — large regional system, recognized for senior care. Avera McKennan Hospital strong secondary. Good for city size.",
+      DW: "Jan avg 16°F — brutal South Dakota winter. Cold, windy, significant snow. Not for the faint-hearted.",
+      DH: "Summers mild and pleasant — July avg 79°F. Comfortable. Short but lovely.",
+      DM: "Best months June–September. Beautiful fall. Long winter the major trade-off.",
+      D5: "No South Dakota state income tax — zero on ALL retirement income including Social Security, 401k, IRA, pension. No estate or inheritance tax. Perfect 10.",
+      D6: "Car dependent throughout — Forbes specifically noted poor walkability as weakness. Falls Park area scenic but not functional walkability.",
+      D7: "Falls Park, Sioux River trails, Good Earth State Park. Limited compared to Mountain West but adequate for Plains.",
+      D8: "Sanford Sports Complex excellent. Strong YMCA, indoor rec essential given winters. Robustly built indoor wellness infrastructure.",
+      D9: "Very safe — consistently low crime rates. Strong community. One of the safer additions to the database.",
+      D10: "Washington Pavilion arts center, Augustana University energy, tight community feel. Growing restaurant scene. Strong civic engagement culture."
+    },
+    neighborhoods: [
+      { name: "South Sioux Falls / Rattlesnake Creek", vibe: "Newer, active, 55+ communities", desc: "Courtyards at Golden Gateway — luxury 55+ with pool, pickleball, golf simulator. Newer developments with HOA amenities. Growing retirement destination." },
+      { name: "West Side / Dawley Farm", vibe: "Suburban, safe, convenient", desc: "Strong retail, healthcare access, established neighborhoods. Falls Community Health nearby. Safe and well-maintained with easy interstate access." },
+      { name: "Downtown / Falls Park", vibe: "Urban, walkable, revitalizing", desc: "Washington Pavilion, Falls Park, growing restaurant scene. Village Cooperative 62+ community downtown. Most walkable area in the city." },
+      { name: "Southeast / Prairie Green", vibe: "Golf, quiet, established", desc: "Prairie Green Golf Course area. Mature trees, established neighborhoods. Dow Rummel Village well-regarded senior living. Quiet and safe." }
+    ],
+    sources: "Zillow/Redfin (2026) · Sanford Health · CrimeGrade.org · SD Dept. of Revenue · NOAA Climate Normals · Argus Leader · Data current April 2026."
+  },
+  "Las Vegas_NV": {
+    hospitalRating: "Cleveland Clinic Lou Ruvo Center for Brain Health — nationally recognized. University Medical Center Level I trauma",
+    scoreNotes: {
+      D1: "LAS Harry Reid International — 50M+ passengers, 120+ nonstop destinations. One of best connected airports in US. 20 min from Summerlin/Henderson. Perfect 10.",
+      D2: "Cost of living 5% above national average. Median home $430K and rising. More expensive than perception. No income tax helps offset housing costs.",
+      D3: "Cleveland Clinic Lou Ruvo Center for Brain Health nationally recognized. UMC Level I trauma. Growing system — Summerlin Hospital, Henderson Hospital. Adequate but not elite for metro size.",
+      DW: "Jan avg 46°F — warm and pleasant. Mild dry winters. Some years dip to freezing but rarely stays cold.",
+      DH: "Summers brutal — July avg 106°F. 100°F+ days routine June through September. Dry heat tolerable for some, miserable for others.",
+      DM: "Spring (March–May) and fall (October–November) exceptional. 300 sunny days. Summers harsh.",
+      D5: "No Nevada state income tax — zero on everything. Property tax 0.5–0.6%. No estate tax. Tied for best tax state. Perfect 10.",
+      D6: "Extremely car dependent. Walk Score among lowest in database. The Strip is for tourists. Summerlin/Henderson require car for everything.",
+      D7: "Red Rock Canyon 20 min, Lake Mead, Valley of Fire, Hoover Dam, Mt. Charleston skiing 45 min. Exceptional desert outdoor access.",
+      D8: "World-class fitness facilities in Summerlin/Henderson. Resort pools, year-round golf (9 months), active senior communities. Strong built infrastructure.",
+      D9: "Summerlin and Henderson very safe — consistently rated among safest large cities in Nevada. Tourist corridor inflates metro stats. Retiree neighborhoods 7–8/10.",
+      D10: "Entertainment capital of world. Shows, concerts, dining, Golden Knights, Raiders, Aces. Senior discounts widespread. Vibrant social scene unlike any other city."
+    },
+    neighborhoods: [
+      { name: "Summerlin", vibe: "Master-planned, safe, resort-style", desc: "Northwest Las Vegas. Premier retirement destination — Red Rock Canyon views, 200+ miles trails, world-class golf, Sun City Summerlin 55+. Median home $500K–$700K." },
+      { name: "Henderson", vibe: "Safe, suburban, established", desc: "Consistently one of safest large Nevada cities. Green Valley area popular with retirees. Sun City MacDonald Ranch 55+. Good healthcare. Median home $420K–$500K." },
+      { name: "Green Valley / Seven Hills", vibe: "Quiet, golf, established", desc: "South Henderson. Established communities, mature landscaping, golf courses. Less expensive than Summerlin with same safety profile." },
+      { name: "Downtown Arts District", vibe: "Urban, walkable, emerging", desc: "18b Arts District revitalization. Most walkable Las Vegas area. Growing restaurant scene, galleries, First Friday events. Different character from rest of city." }
+    ],
+    sources: "Zillow/Redfin (2026) · Cleveland Clinic Lou Ruvo · CrimeGrade.org · NV Dept. of Taxation · NOAA Climate Normals · Las Vegas Review-Journal · Data current April 2026."
+  },
+  "Casper_WY": {
+    hospitalRating: "Wyoming Medical Center — regional hub, adequate for city size. Complex care requires Denver",
+    scoreNotes: {
+      D1: "CPR — very small regional, United only to Denver. No commercial hub locally. Major travel requires 4-hour drive to Denver International.",
+      D2: "Cost of living 5% below national average. Median home $275K. No state income tax. One of most affordable cities in western US.",
+      D3: "Wyoming Medical Center — regional hub with reasonable services. Limited specialist depth. Complex specialty care requires Denver (4 hrs). Adequate for healthy retirees.",
+      DW: "Jan avg 22°F — cold Wyoming winter with notorious wind. Can feel harsh. Short but glorious summer.",
+      DH: "Summers mild — July avg 82°F. Pleasant with low humidity. Excellent outdoor weather June through September.",
+      DM: "Best months June–September. Fall colors along Poudre-adjacent terrain. Winters long but manageable for outdoorsy types.",
+      D5: "No Wyoming state income tax — zero on ALL retirement income. Very low property tax. No estate tax. Tied for best tax state. Perfect 10.",
+      D6: "Walk score ~40 — car required for virtually everything. Small city sprawl typical of Wyoming towns.",
+      D7: "Platte River Trails, Casper Mountain ski area (Hogadon Basin), North Platte River fishing/kayaking, wild horses nearby. Solid outdoor access for small city.",
+      D8: "Wyoming Senior Centers, Casper Recreation Center, adequate for city size. Limited boutique fitness infrastructure — basic but functional.",
+      D9: "Safe small city — low crime, 18% of population over 65 creating established retiree community. Very safe.",
+      D10: "Cute downtown main street, community events (Beartrap Summer Festival, Central Wyoming Fair), strong local identity. Limited but genuine."
+    },
+    neighborhoods: [
+      { name: "Paradise Valley", vibe: "Suburban, scenic, golf", desc: "South Casper with mountain views and mature landscaping. Golf courses nearby. Most desirable retirement neighborhood. Popular with outdoor-oriented retirees." },
+      { name: "Central Casper", vibe: "Walkable, downtown, historic", desc: "Historic downtown, David Street Station community events. Most walkable area. Within 15 min of everything. No traffic." },
+      { name: "East Casper", vibe: "Recreational, established, affordable", desc: "Golf courses and recreational areas nearby. Mix of newer and established homes. Easy interstate access. Affordable entry point." },
+      { name: "Wolf Creek / South Side", vibe: "Newer, community-oriented", desc: "Modern homes and growing community. Safe and friendly. Primrose Retirement Community and Meadow Wind Assisted Living nearby for future needs." }
+    ],
+    sources: "Zillow/Redfin (2026) · Wyoming Medical Center · CrimeGrade.org · WY Dept. of Revenue · NOAA Climate Normals · Casper Star-Tribune · Cowboy State Daily (March 2026)."
+  },
+  "Kansas City": {
     hospitalRating: "University of Kansas Health System — major academic medical center; Saint Luke’s Health System — strong multi-system depth",
     walkScore: 35,
     neighborhoods: [
@@ -4237,27 +4472,27 @@ let quizState = {
 };
 
 const REGION_MAP = {
+  'Pacific Coast':     { icon: '🌊', states: ['CA','OR','WA'] },
   'New England':       { icon: '🍁', states: ['CT','MA','ME','NH','RI','VT'] },
-  'Mid-Atlantic':      { icon: '🏛️', states: ['DE','MD','NJ','NY','PA','VA'] },
-  'Southeast':         { icon: '🌴', states: ['AL','FL','GA','KY','MS','NC','SC','TN'] },
-  'Midwest':           { icon: '🏙️', states: ['IL','IN','MI','MN','MO','OH','WI'] },
-  'South / Texas':     { icon: '🤠', states: ['AR','LA','OK','TX'] },
-  'Plains States':     { icon: '🌾', states: ['IA','KS','ND','NE','SD'] },
   'Mountain West':     { icon: '🏔️', states: ['CO','ID','MT','NV','UT','WY'] },
+  'Mid-Atlantic':      { icon: '🏛️', states: ['DE','MD','NJ','NY','PA','VA'] },
   'Southwest / Desert':{ icon: '🌵', states: ['AZ','NM'] },
-  'Pacific Coast':     { icon: '🌊', states: ['CA','OR','WA'] }
+  'Southeast':         { icon: '🌴', states: ['AL','FL','GA','KY','MS','NC','SC','TN'] },
+  'Plains States':     { icon: '🌾', states: ['IA','KS','ND','NE','SD'] },
+  'Midwest':           { icon: '🏙️', states: ['IL','IN','MI','MN','MO','OH','WI'] },
+  'South / Texas':     { icon: '🤠', states: ['AR','LA','OK','TX'] }
 };
 
 const REGION_STATE_LABELS = {
+  'Pacific Coast': 'CA, OR, WA',
   'New England': 'CT, MA, ME, NH, RI, VT',
-  'Mid-Atlantic': 'DE, MD, NJ, NY, PA, VA',
-  'Southeast': 'AL, FL, GA, KY, MS, NC, SC, TN',
-  'Midwest': 'IL, IN, MI, MN, MO, OH, WI',
-  'South / Texas': 'AR, LA, OK, TX',
-  'Plains States': 'IA, KS, ND, NE, SD',
   'Mountain West': 'CO, ID, MT, NV, UT, WY',
+  'Mid-Atlantic': 'DE, MD, NJ, NY, PA, VA',
   'Southwest / Desert': 'AZ, NM',
-  'Pacific Coast': 'CA, OR, WA'
+  'Southeast': 'AL, FL, GA, KY, MS, NC, SC, TN',
+  'Plains States': 'IA, KS, ND, NE, SD',
+  'Midwest': 'IL, IN, MI, MN, MO, OH, WI',
+  'South / Texas': 'AR, LA, OK, TX'
 };
 
 // Map each city state to a region
@@ -5462,7 +5697,7 @@ function showCityDetail(cityName, cityState) {
 
       <div class="detail-section" style="padding-bottom:0;">
         <h3>Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 82+ cities.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 87+ cities.</p>
         <div id="city-detail-reports"></div>
       </div>
 
@@ -5651,7 +5886,7 @@ function restartQuiz() {
 const REPORT_MODAL_DATA = {
   globetrotter: {
     icon: '✈️', title: 'The Globetrotter Guide',
-    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 82+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
+    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 87+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
     features: [
       { icon: '📍', text: 'Drive time to nearest major hub airport for every city' },
       { icon: '✈️', text: 'Number of airlines, nonstop routes, and hub status ranked' },
@@ -5843,7 +6078,7 @@ function closeReportModal(e) {
         <button class="city-search-close" onclick="closeCitySearch()">✕</button>
       </div>
       <div class="city-search-results" id="citySearchResults">
-        <div class="city-search-hint">Start typing to search all 82+ cities</div>
+        <div class="city-search-hint">Start typing to search all 87+ cities</div>
       </div>
     </div>
   </div>
@@ -5860,7 +6095,7 @@ function closeReportModal(e) {
       document.getElementById('citySearchOverlay').classList.remove('open');
       document.body.style.overflow = '';
       document.getElementById('citySearchInput').value = '';
-      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 82+ cities</div>';
+      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 87+ cities</div>';
     }
   }
 
@@ -5880,7 +6115,7 @@ function closeReportModal(e) {
   function renderCitySearchResults(query) {
     const container = document.getElementById('citySearchResults');
     if (!query || query.trim().length < 1) {
-      container.innerHTML = '<div class="city-search-hint">Start typing to search all 82+ cities</div>';
+      container.innerHTML = '<div class="city-search-hint">Start typing to search all 87+ cities</div>';
       return;
     }
     const q = query.toLowerCase().trim();
