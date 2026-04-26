@@ -997,7 +997,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       </div>
       <div class="split-stats">
         <div>
-          <span class="split-stat-num">75+</span>
+          <span class="split-stat-num">78+</span>
           <span class="split-stat-label">Cities Scored</span>
         </div>
         <div>
@@ -1016,7 +1016,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <div class="hero-right" id="reports">
       <div class="reports-panel-eyebrow" style="color:var(--light);">Also Available Free</div>
       <div class="reports-panel-title">Deep-Dive Reports</div>
-      <p class="reports-panel-sub">Each report ranks all 75+ cities on one topic — real data, honest tradeoffs.</p>
+      <p class="reports-panel-sub">Each report ranks all 78+ cities on one topic — real data, honest tradeoffs.</p>
 
       <!-- FEATURED: VALUE NAVIGATOR with preview open -->
       <div class="report-featured">
@@ -1211,7 +1211,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <script>
 
-console.log("RMH v3.0 loaded - 75+ cities");
+console.log("RMH v3.0 loaded - 78+ cities");
 
 const CITIES = [
   {
@@ -1554,6 +1554,52 @@ const CITIES = [
     highlight: "Perfect 10 outdoor recreation AND community. Pikes Peak, Garden of the Gods in city limits. UCHealth Memorial excellent. Military culture creates civic pride.",
     pros: ["Perfect 10 outdoor — Garden of the Gods and Pikes Peak in city limits","UCHealth Memorial Hospital — Level I trauma, strong regional system","Military community creates infrastructure and civic stability","Colorado Springs airport with good Denver connections"]
     ,cons: ["Safety 32nd percentile — some neighborhoods challenging","Real winters — January average 30°F, snow possible","Car-dependent suburban layout","CO income tax 4.4% applies to most retirement income"]
+  },
+  {
+    name: "Nashville", state: "TN", type: "Metro / Music City",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Arts & Culture", "Urban Neighborhood", "Historic"],
+    monthlyEst: "$5,000–$6,500/mo", medianHome: "$532,000", budgetRange: 3,
+    scores: { D1:9, D2:5, D3:9, D4:6, D5:9, D6:5, D7:6, D8:7, D9:5, D10:9 },
+    climate: { W:6, H:5, M:7 },
+    highlight: "Music City's secret weapon: Vanderbilt UIMC — #1 hospital in Tennessee, nationally ranked in 6 specialties. BNA airport 8 miles, 108 domestic routes. No state income tax. World-class food, music, and culture. Getting expensive but still compelling.",
+    neighborhoods: [
+      { name: "12 South", vibe: "Trendy, walkable, eclectic", desc: "Boutiques, restaurants, Sevier Park. One of Nashville's most walkable and livable neighborhoods. Strong community feel." },
+      { name: "Germantown", vibe: "Historic, safe, walkable", desc: "Safest neighborhood in Nashville per 2026 data. Brick streets, Victorian architecture, farmers market, excellent dining." },
+      { name: "East Nashville", vibe: "Artistic, eclectic, walkable", desc: "Walk Score 92 — Nashville's most walkable neighborhood. Arts scene, live music, independent restaurants. Growing rapidly." },
+      { name: "Belle Meade", vibe: "Affluent, quiet, safe", desc: "Historic estates, tranquil streets, low crime. Nashville's most exclusive neighborhood. Strong community feel for retirees." }
+    ],
+    pros: ["Vanderbilt UIMC — #1 in Tennessee, nationally ranked in 6 adult specialties",
+           "BNA airport — 24.8M passengers, 108 domestic + 13 international routes, 8 miles downtown",
+           "No Tennessee state income tax — 0% on all retirement income",
+           "World-class music scene, restaurant culture, and arts — Grand Ole Opry, Ryman Auditorium"],
+    cons: ["Getting expensive fast — median home $532K, up significantly from 2020",
+           "City-wide safety mixed — neighborhood selection critical (Belle Meade vs downtown)",
+           "Mostly car-dependent — limited walkability outside select neighborhoods",
+           "Hot humid summers June–August — heat index can reach 100°F+"]
+  },
+  {
+    name: "St. Petersburg", state: "FL", type: "Beach / Arts City",
+    setting: ["Beach / Coastal", "City Energy"],
+    character: ["Arts & Culture", "Urban Neighborhood", "Historic"],
+    monthlyEst: "$4,500–$5,500/mo", medianHome: "$350,000", budgetRange: 3,
+    scores: { D1:8, D2:6, D3:7, D4:9, D5:9, D6:8, D7:8, D8:8, D9:6, D10:9 },
+    climate: { W:9, H:7, M:8 },
+    highlight: "Motley Fool's #1 Best Place to Retire 2026. Walk Score 94, Bike Score 90. Dalí Museum, Chihuly Collection, vibrant arts scene. Cost of living 4% below national average. Homicides down 44% in 2025. Florida's most walkable city with real beach access.",
+    neighborhoods: [
+      { name: "Downtown St. Pete", vibe: "Walkable, arts, waterfront", desc: "St. Pete Pier, Dalí Museum, hundreds of restaurants. Walk Score 94. The most walkable neighborhood in Tampa Bay." },
+      { name: "Old Northeast", vibe: "Historic, affluent, waterfront", desc: "1920s architecture, stunning waterfront properties, brick streets, canopy oaks. Quiet and exclusive with water views." },
+      { name: "Kenwood", vibe: "Artistic, LGBTQ+ friendly, historic", desc: "Designated arts district, historic bungalows, front porch culture. Vibrant and welcoming community feel." },
+      { name: "Snell Isle", vibe: "Luxury, waterfront, quiet", desc: "Deep-water canals, luxury estates, Vinoy Golf Club. One of St. Pete's most prestigious and peaceful neighborhoods." }
+    ],
+    pros: ["Walk Score 94, Bike Score 90 — most walkable city in Tampa Bay",
+           "Dalí Museum, Chihuly Collection, Morean Arts Center — extraordinary arts scene",
+           "TPA (Tampa) 25 min — major hub; St. Pete/Clearwater airport closer for regional",
+           "No Florida income tax — Social Security, 401(k), IRA, pensions all tax-free"],
+    cons: ["Hurricane risk — Tampa Bay area historically vulnerable to direct hits",
+           "Homeowner insurance has surged significantly across coastal Florida",
+           "Safety improving but still mixed citywide — neighborhood selection matters",
+           "Hot humid summers June–September with afternoon thunderstorms daily"]
   },
   {
     name: "Tampa", state: "FL", type: "Metro / Beach",
@@ -5048,7 +5094,7 @@ function showCityDetail(cityName, cityState) {
 
       <div class="detail-section" style="padding-bottom:0;">
         <h3>Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 75+ cities.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 78+ cities.</p>
         <div id="city-detail-reports"></div>
       </div>
 
@@ -5232,7 +5278,7 @@ function restartQuiz() {
 const REPORT_MODAL_DATA = {
   globetrotter: {
     icon: '✈️', title: 'The Globetrotter Guide',
-    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 75+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
+    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 78+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
     features: [
       { icon: '📍', text: 'Drive time to nearest major hub airport for every city' },
       { icon: '✈️', text: 'Number of airlines, nonstop routes, and hub status ranked' },
@@ -5424,7 +5470,7 @@ function closeReportModal(e) {
         <button class="city-search-close" onclick="closeCitySearch()">✕</button>
       </div>
       <div class="city-search-results" id="citySearchResults">
-        <div class="city-search-hint">Start typing to search all 75+ cities</div>
+        <div class="city-search-hint">Start typing to search all 78+ cities</div>
       </div>
     </div>
   </div>
@@ -5441,7 +5487,7 @@ function closeReportModal(e) {
       document.getElementById('citySearchOverlay').classList.remove('open');
       document.body.style.overflow = '';
       document.getElementById('citySearchInput').value = '';
-      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 75+ cities</div>';
+      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 78+ cities</div>';
     }
   }
 
@@ -5461,7 +5507,7 @@ function closeReportModal(e) {
   function renderCitySearchResults(query) {
     const container = document.getElementById('citySearchResults');
     if (!query || query.trim().length < 1) {
-      container.innerHTML = '<div class="city-search-hint">Start typing to search all 75+ cities</div>';
+      container.innerHTML = '<div class="city-search-hint">Start typing to search all 78+ cities</div>';
       return;
     }
     const q = query.toLowerCase().trim();
