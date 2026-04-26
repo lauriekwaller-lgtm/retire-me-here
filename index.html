@@ -851,6 +851,48 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .rsp-input:focus { border-color: var(--teal); }
 .rsp-btn { background: var(--teal); color: white; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px; border: none; border-radius: 10px; cursor: pointer; }
 .climate-choice-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+
+/* Region cards */
+.region-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+.region-card { background: var(--white); border: 2px solid #e8e4de; border-radius: 12px; padding: 14px 12px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: 'DM Sans', sans-serif; position: relative; width: 100%; }
+.region-card:hover { border-color: var(--teal); background: var(--teal-lt); }
+.region-card.selected { border-color: var(--teal); background: var(--teal-lt); }
+.region-card.selected::after { content: '✓'; position: absolute; top: 8px; right: 10px; font-size: 11px; font-weight: 800; color: var(--teal); }
+.region-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+.region-name { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.region-states { font-size: 10px; color: var(--light); line-height: 1.4; }
+.open-to-all { width: 100%; background: none; border: 2px dashed #ddd; border-radius: 12px; padding: 13px 16px; font-size: 14px; font-weight: 500; color: var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; text-align: center; }
+.open-to-all:hover { border-color: var(--teal); color: var(--teal); }
+.open-to-all.selected { border-color: var(--teal); background: var(--teal-lt); color: var(--teal); border-style: solid; }
+
+/* State exclusion */
+.states-region-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin: 14px 0 8px; }
+.states-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.state-excl-btn { padding: 7px 14px; border-radius: 100px; border: 2px solid #e8e4de; background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--mid); cursor: pointer; transition: all 0.15s; }
+.state-excl-btn:hover { border-color: #c0392b; color: #c0392b; background: #fdf5f5; }
+.state-excl-btn.excluded { border-color: #c0392b; background: #c0392b; color: var(--white); }
+
+/* Dealbreaker buttons */
+.dealbreaker-btn { display: flex; align-items: center; gap: 12px; background: var(--white); border: 2px solid #e8e4de; border-radius: 12px; padding: 12px 14px; cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: left; transition: all 0.15s; width: 100%; margin-bottom: 8px; }
+.dealbreaker-btn:hover { border-color: #c0392b; background: #fdf5f5; }
+.dealbreaker-btn.selected { border-color: #c0392b; background: #fdf5f5; }
+.db-check { width: 20px; height: 20px; border-radius: 5px; border: 2px solid #ddd; flex-shrink: 0; font-size: 11px; font-weight: 800; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+.dealbreaker-btn.selected .db-check { background: #c0392b; border-color: #c0392b; color: var(--white); }
+.db-icon { font-size: 18px; flex-shrink: 0; }
+.db-label { flex: 1; }
+.db-name { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.db-desc { font-size: 11px; color: var(--light); }
+
+/* Intro screen */
+.quiz-intro { text-align: center; padding: 12px 0; }
+.quiz-intro-icon { font-size: 48px; margin-bottom: 16px; }
+.quiz-intro-steps { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; text-align: left; }
+.intro-step-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--sand); border-radius: 10px; }
+.intro-step-num { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: var(--teal); width: 24px; flex-shrink: 0; }
+.intro-step-text { font-size: 13px; color: var(--mid); font-family: 'DM Sans', sans-serif; }
+.quiz-hint { background: var(--teal-lt); border: 1px solid var(--teal); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--teal); line-height: 1.5; margin-bottom: 16px; }
+.climate-section-divider { font-size: 13px; font-weight: 700; color: var(--dark); margin: 18px 0 6px; }
+.climate-section-sub { font-size: 12px; color: var(--light); font-style: italic; margin-bottom: 12px; }
 .climate-priority-wrap { margin-top: 16px; padding-top: 14px; border-top: 1px solid #f0ede8; }
 .climate-priority-label { font-size: 13px; font-weight: 500; color: var(--mid); margin-bottom: 10px; }
 .climate-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 8px; border-radius: 12px; border: 2px solid #e8e4de; background: var(--white); cursor: pointer; transition: all 0.15s; text-align: center; }
@@ -4187,22 +4229,54 @@ let quizState = {
   priorities: {},
   budget: null,
   settingTags: [],
-  characterTags: []
+  characterTags: [],
+  climateChoice: null,
+  climateDeals: [],
+  regions: [],
+  excludedStates: []
 };
 
+const REGION_MAP = {
+  'New England':       { icon: '🍁', states: ['ME','NH','VT','MA','RI','CT'] },
+  'Mid-Atlantic':      { icon: '🏛️', states: ['NY','NJ','PA','MD','DE','VA'] },
+  'Southeast':         { icon: '🌴', states: ['NC','SC','GA','FL','AL','MS','TN','KY'] },
+  'Midwest':           { icon: '🌾', states: ['OH','IN','IL','MI','WI','MN','IA','MO','ND','SD','NE','KS'] },
+  'South / Texas':     { icon: '🤠', states: ['TX','OK','AR','LA'] },
+  'Mountain West':     { icon: '🏔️', states: ['CO','UT','WY','MT','ID','NV'] },
+  'Southwest / Desert':{ icon: '🌵', states: ['AZ','NM'] },
+  'Pacific Coast':     { icon: '🌊', states: ['CA','OR','WA'] }
+};
+
+const REGION_STATE_LABELS = {
+  'New England': 'ME, NH, VT, MA, RI, CT',
+  'Mid-Atlantic': 'NY, NJ, PA, MD, DE, VA',
+  'Southeast': 'NC, SC, GA, FL, AL, MS, TN, KY',
+  'Midwest': 'OH, IN, IL, MI, WI, MN, IA, MO, ND, SD, NE, KS',
+  'South / Texas': 'TX, OK, AR, LA',
+  'Mountain West': 'CO, UT, WY, MT, ID, NV',
+  'Southwest / Desert': 'AZ, NM',
+  'Pacific Coast': 'CA, OR, WA'
+};
+
+// Map each city state to a region
+const STATE_TO_REGION = {};
+Object.entries(REGION_MAP).forEach(([region, data]) => {
+  data.states.forEach(st => { STATE_TO_REGION[st] = region; });
+});
+
 const STEPS = [
-  { type: 'priorities' },
+  { type: 'intro' },
+  { type: 'region' },
   { type: 'states' },
   { type: 'budget' },
+  { type: 'priorities' },
   { type: 'setting' },
   { type: 'character' }
 ];
 
 function startQuiz() {
-  
-  quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, eliminatedStates: [] };
+  quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
   DIMENSIONS.forEach(d => { quizState.priorities[d.key] = null; });
-  quizState.climateChoice = null; 
   showScreen('screen-quiz');
   renderStep();
 }
@@ -4212,38 +4286,169 @@ function renderStep() {
   document.getElementById('progressBar').style.width = pct + '%';
   const container = document.getElementById('quizContainer');
   const step = STEPS[quizState.step];
-  if (step.type === 'priorities') renderPriorities(container);
+  if (step.type === 'intro') renderIntro(container);
+  else if (step.type === 'region') renderRegion(container);
   else if (step.type === 'states') renderStates(container);
   else if (step.type === 'budget') renderBudget(container);
+  else if (step.type === 'priorities') renderPriorities(container);
   else if (step.type === 'setting') renderSetting(container);
   else if (step.type === 'character') renderCharacter(container);
+}
 
-  
-  if (step.type === 'priorities' && quizState.climateChoice) {
-    var section = document.getElementById('climate-priority-section');
-    if (section) {
-      var prioLabels = ['Must Have','Very Important','Somewhat Important'];
-      var btnsHtml = '<div class="climate-priority-wrap"><div class="climate-priority-label">How important is this climate preference?</div><div class="priority-options">';
-      for (var pi = 0; pi < prioLabels.length; pi++) {
-        var p = prioLabels[pi];
-        var sel = quizState.priorities['DC'] === p ? 'selected' : '';
-        var mh = p === 'Must Have' ? 'must-have' : '';
-        btnsHtml += '<button class="priority-btn ' + sel + ' ' + mh + '" onclick="setClimatePriority(\'' + p + '\')">' + p + '</button>';
-      }
-      btnsHtml += '</div></div>';
-      section.innerHTML = btnsHtml;
-    }
-  }
+function renderIntro(container) {
+  container.innerHTML = `
+    <div class="question-card">
+      <div class="quiz-intro">
+        <div class="quiz-intro-icon">🎯</div>
+        <div class="q-step" style="text-align:center;">Find Your Best Retirement City</div>
+        <div class="q-title" style="text-align:center;margin-bottom:8px;">This quiz takes about 3 minutes</div>
+        <div class="q-subtitle" style="text-align:center;">The more specific you are, the better your matches.</div>
+        <div class="quiz-intro-steps">
+          <div class="intro-step-row"><div class="intro-step-num">1</div><div class="intro-step-text">Tell us your preferred region and any states to exclude</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">2</div><div class="intro-step-text">Set your monthly budget</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">3</div><div class="intro-step-text">Rate your priorities — climate, healthcare, walkability and more</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">4</div><div class="intro-step-text">Choose your ideal setting and community character</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn-next" onclick="nextStep()" style="background:var(--terra);">Let's Find My City →</button>
+    </div>`;
+}
+
+function renderRegion(container) {
+  const regions = Object.keys(REGION_MAP);
+  container.innerHTML = `
+    <div class="question-card">
+      <div class="q-step">Step 1 of 7 — Location</div>
+      <div class="q-title">Do you have a preferred region?</div>
+      <div class="q-subtitle">Select any that apply — or skip if you're open to anywhere in the US.</div>
+      <div class="quiz-hint">💡 Don't worry if a region includes a state you want to avoid — you'll be able to exclude specific states on the next screen.</div>
+      <div class="region-grid">
+        ${regions.map(r => `
+          <button class="region-card ${quizState.regions.includes(r) ? 'selected' : ''}" onclick="toggleRegion('${r}')">
+            <span class="region-icon">${REGION_MAP[r].icon}</span>
+            <div class="region-name">${r}</div>
+            <div class="region-states">${REGION_STATE_LABELS[r]}</div>
+          </button>`).join('')}
+      </div>
+      <button class="open-to-all ${quizState.regions.length === 0 ? 'selected' : ''}" onclick="setOpenToAll()">
+        🗺️ Open to anywhere — show me the best matches nationwide
+      </button>
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <button class="btn-skip" onclick="quizState.regions=[];nextStep();" style="background:none;border:none;color:var(--light);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit;">Skip region & state questions →</button>
+    </div>
+    <div class="quiz-nav" style="margin-top:8px;">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()">Continue →</button>
+    </div>`;
+}
+
+function toggleRegion(r) {
+  const idx = quizState.regions.indexOf(r);
+  if (idx >= 0) quizState.regions.splice(idx, 1);
+  else quizState.regions.push(r);
+  renderStep();
+}
+
+function setOpenToAll() {
+  quizState.regions = [];
+  renderStep();
+}
+
+function renderStates(container) {
+  // Show states from selected regions, or all regions if none selected
+  const activeRegions = quizState.regions.length > 0 ? quizState.regions : Object.keys(REGION_MAP);
+  let statesHtml = '';
+  activeRegions.forEach(region => {
+    const states = REGION_MAP[region].states;
+    statesHtml += `<div class="states-region-label">${region}</div><div class="states-grid">`;
+    states.forEach(st => {
+      const excl = quizState.excludedStates.includes(st) ? 'excluded' : '';
+      statesHtml += `<button class="state-excl-btn ${excl}" onclick="toggleExcludeState('${st}')">${st}</button>`;
+    });
+    statesHtml += `</div>`;
+  });
+
+  container.innerHTML = `
+    <div class="question-card">
+      <div class="q-step">Step 2 of 7 — States</div>
+      <div class="q-title">Any states you'd like to exclude?</div>
+      <div class="q-subtitle">Tap any state to remove it from your results. No need to explain why.</div>
+      <p style="font-size:12px;color:var(--light);font-style:italic;margin-bottom:14px;">Showing states in your selected regions. Tap to exclude.</p>
+      ${statesHtml}
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <button onclick="nextStep();" style="background:none;border:none;color:var(--light);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit;">Skip — include all states →</button>
+    </div>
+    <div class="quiz-nav" style="margin-top:8px;">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()">Continue →</button>
+    </div>`;
+}
+
+function toggleExcludeState(st) {
+  const idx = quizState.excludedStates.indexOf(st);
+  if (idx >= 0) quizState.excludedStates.splice(idx, 1);
+  else quizState.excludedStates.push(st);
+  renderStep();
+}
+
+function toggleDealbreaker(key) {
+  const idx = quizState.climateDeals.indexOf(key);
+  if (idx >= 0) quizState.climateDeals.splice(idx, 1);
+  else quizState.climateDeals.push(key);
+  renderStep();
 }
 
 function renderPriorities(container) {
-  let html = `<div class="question-card">
-    <div class="q-step">Step 1 of 5</div>
-    <div class="q-title">What matters most to you?</div>
-    <div class="q-subtitle">Set your priority for each. "Must Have" applies a threshold filter.</div>`;
+  const CLIMATE_OPTIONS = [
+    { key: 'mild', icon: '☀️', label: 'Warm Year-Round', desc: 'Mild winters, warm summers — comfortable all 12 months' },
+    { key: 'warm_dry', icon: '🌵', label: 'Warm & Dry', desc: 'Low humidity matters — desert warmth preferred' },
+    { key: 'warm', icon: '🌴', label: 'Warm, Humidity OK', desc: 'Escape cold winters — heat and humidity are fine' },
+    { key: 'seasons', icon: '🍂', label: 'Four Seasons', desc: 'Distinct spring, fall — real winters are OK' },
+    { key: 'cool', icon: '🏔️', label: 'Cool / Mountain', desc: 'Crisp air, cooler summers — I like layering weather' },
+    { key: 'none', icon: '🤷', label: 'No Preference', desc: 'Climate is not a major factor for me' }
+  ];
+  const DEAL_OPTIONS = [
+    { key: 'humid', icon: '🌡️', label: 'Humid summers', desc: 'Oppressive humidity June–September' },
+    { key: 'cold', icon: '❄️', label: 'Cold winters (below freezing)', desc: 'January averages below 32°F or significant snow' },
+    { key: 'heat', icon: '🔥', label: 'Extreme heat (100°F+ days)', desc: 'Regular triple-digit summer temperatures' },
+    { key: 'grey', icon: '🌧️', label: 'Grey / cloudy winters', desc: 'Overcast skies for months at a time' }
+  ];
 
-  DIMENSIONS.forEach(dim => {
-    if (dim.key === 'DC') return; 
+  let html = `<div class="question-card">
+    <div class="q-step">Step 5 of 7 — Priorities</div>
+    <div class="q-title">What matters most to you?</div>
+    <div class="q-subtitle">Climate first, then your key priorities. "Must Have" applies a threshold filter.</div>
+
+    <div class="priority-section">
+      <div class="priority-label"><span class="icon">⛅</span>Climate Preference</div>
+      <div class="priority-label-desc">What's your ideal weather year-round?</div>
+      <div class="climate-choice-wrap">
+        ${CLIMATE_OPTIONS.map(c => `
+          <button class="climate-btn ${quizState.climateChoice === c.key ? 'selected' : ''}" onclick="setClimateChoice('${c.key}')">
+            <span class="climate-icon">${c.icon}</span>
+            <span class="climate-lbl">${c.label}</span>
+            <span class="climate-desc">${c.desc}</span>
+          </button>`).join('')}
+      </div>
+      <div class="climate-section-divider">Any climate dealbreakers?</div>
+      <div class="climate-section-sub">Check anything you absolutely cannot live with — we'll filter those cities out entirely.</div>
+      ${DEAL_OPTIONS.map(d => `
+        <button class="dealbreaker-btn ${quizState.climateDeals.includes(d.key) ? 'selected' : ''}" onclick="toggleDealbreaker('${d.key}')">
+          <span class="db-check">${quizState.climateDeals.includes(d.key) ? '✕' : ''}</span>
+          <span class="db-icon">${d.icon}</span>
+          <div class="db-label">
+            <div class="db-name">${d.label}</div>
+            <div class="db-desc">${d.desc}</div>
+          </div>
+        </button>`).join('')}
+    </div>`;
+
+  // All dimensions except DC (climate handled above)
+  DIMENSIONS.filter(d => d.key !== 'DC').forEach(dim => {
     const current = quizState.priorities[dim.key];
     html += `<div class="priority-section">
       <div class="priority-label"><span class="icon">${dim.icon}</span>${dim.label}${dim.desc ? `<span class="priority-label-desc">${dim.desc}</span>` : ''}</div>
@@ -4256,41 +4461,12 @@ function renderPriorities(container) {
     html += `</div></div>`;
   });
 
-  
-  html += `<div class="priority-section">
-    <div class="priority-label"><span class="icon">🌤️</span>Climate Preference</div>
-    <div class="climate-choice-wrap" style="grid-template-columns:repeat(2,1fr);">
-      <button class="climate-btn ${quizState.climateChoice === 'mild' ? 'selected' : ''}" onclick="setClimateChoice('mild')">
-        <span class="climate-icon">☀️</span>
-        <span class="climate-lbl">Mild Year-Round</span>
-        <span class="climate-desc">Comfortable all 12 months — no extreme heat or cold</span>
-      </button>
-      <button class="climate-btn ${quizState.climateChoice === 'warm_dry' ? 'selected' : ''}" onclick="setClimateChoice('warm_dry')">
-        <span class="climate-icon">🌵</span>
-        <span class="climate-lbl">Warm & Dry</span>
-        <span class="climate-desc">Warm winters, hot summers OK — but low humidity matters</span>
-      </button>
-      <button class="climate-btn ${quizState.climateChoice === 'warm' ? 'selected' : ''}" onclick="setClimateChoice('warm')">
-        <span class="climate-icon">🌴</span>
-        <span class="climate-lbl">Warm, Humidity OK</span>
-        <span class="climate-desc">Escape cold winters — heat and humidity don't bother me</span>
-      </button>
-      <button class="climate-btn ${quizState.climateChoice === 'seasons' ? 'selected' : ''}" onclick="setClimateChoice('seasons')">
-        <span class="climate-icon">🍂</span>
-        <span class="climate-lbl">Four Seasons</span>
-        <span class="climate-desc">Distinct spring, fall & moderate winter</span>
-      </button>
-    </div>
-    <div id="climate-priority-section"></div>
-  </div>`;
-
-  const nonClimate = DIMENSIONS.filter(d => d.key !== 'DC').every(d => quizState.priorities[d.key] !== null);
-  const climateOk = !quizState.climateChoice || (quizState.climateChoice && quizState.priorities['DC'] !== null);
-  const allSet = nonClimate && climateOk;
+  const allSet = DIMENSIONS.filter(d => d.key !== 'DC').every(d => quizState.priorities[d.key] !== null);
 
   html += `</div>
     <div class="quiz-nav">
-      <button class="btn-next" onclick="nextStep()" ${allSet ? '' : 'disabled'}>Next →</button>
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()" ${allSet ? '' : 'disabled'}>Next — Setting →</button>
     </div>`;
   container.innerHTML = html;
 }
@@ -4553,19 +4729,26 @@ function backToRegions() {
 }
 
 function renderBudget(container) {
+  const BUDGET_LABELS = [
+    { label: 'Under $3,500 / month', range: 1 },
+    { label: '$3,500 – $4,500 / month', range: 2 },
+    { label: '$4,500 – $6,000 / month', range: 3 },
+    { label: '$6,000 – $8,000 / month', range: 4 },
+    { label: '$8,000+ / month', range: 5 },
+  ];
   let html = `<div class="question-card">
-    <div class="q-step">Step 3 of 5</div>
+    <div class="q-step">Step 3 of 7 — Budget</div>
     <div class="q-title">What is your monthly retirement budget?</div>
-    <div class="q-subtitle">Include all expenses — housing, food, healthcare, transportation, and lifestyle.</div>
+    <div class="q-subtitle">Estimated total for a couple — housing, food, healthcare, and lifestyle.</div>
     <div class="budget-options">`;
-  BUDGET_OPTIONS.forEach(opt => {
+  BUDGET_LABELS.forEach(opt => {
     const sel = quizState.budget === opt.range ? 'selected' : '';
     html += `<button class="budget-btn ${sel}" onclick="setBudget(${opt.range})">${opt.label}</button>`;
   });
   html += `</div></div>
     <div class="quiz-nav">
       <button class="btn-back" onclick="prevStep()">← Back</button>
-      <button class="btn-next" onclick="nextStep()" ${quizState.budget ? '' : 'disabled'}>Next — Setting →</button>
+      <button class="btn-next" onclick="nextStep()" ${quizState.budget ? '' : 'disabled'}>Next — Priorities →</button>
     </div>`;
   container.innerHTML = html;
 }
@@ -4574,7 +4757,7 @@ function setBudget(range) { quizState.budget = range; renderStep(); }
 
 function renderSetting(container) {
   let html = `<div class="question-card">
-    <div class="q-step">Step 4 of 5</div>
+    <div class="q-step">Step 6 of 7 — Setting</div>
     <div class="q-title">What setting appeals to you?</div>
     <div class="q-subtitle">Select all that feel right — this filters your city matches by geography.</div>
     <div class="tag-options">`;
@@ -4599,7 +4782,7 @@ function toggleSetting(tag) {
 
 function renderCharacter(container) {
   let html = `<div class="question-card">
-    <div class="q-step">Step 5 of 5</div>
+    <div class="q-step">Step 7 of 7 — Community</div>
     <div class="q-title">What kind of community feels like home?</div>
     <div class="q-subtitle">Pick up to 2 — this helps match your lifestyle preferences.</div>
     <div class="tag-options">`;
@@ -4684,6 +4867,13 @@ function getCityScore(city, dimKey) {
       if (W === 7) return 6;              
       return Math.max(1, 10 - W);         
     }
+    if (quizState.climateChoice === 'cool') {
+      // Cool/mountain — prefers cooler temps, penalise very warm winters
+      return Math.round((M * 0.4) + (10 - H) * 0.3 + (10 - W) * 0.3);
+    }
+    if (quizState.climateChoice === 'none') {
+      return 7; // neutral score for no preference
+    }
     return 5;
   }
   return city.scores[dimKey] || 5;
@@ -4692,11 +4882,36 @@ function getCityScore(city, dimKey) {
 function runMatchingEngine() {
   let candidates = [...CITIES];
 
-  
-  if (quizState.eliminatedStates && quizState.eliminatedStates.length > 0) {
+  // Region filter — keep only cities in selected regions
+  if (quizState.regions && quizState.regions.length > 0) {
+    const allowedStates = [];
+    quizState.regions.forEach(r => {
+      if (REGION_MAP[r]) allowedStates.push(...REGION_MAP[r].states);
+    });
+    const regionFiltered = candidates.filter(c => {
+      const abbrev = getStateAbbrev(c.state);
+      return allowedStates.includes(abbrev);
+    });
+    if (regionFiltered.length >= 3) candidates = regionFiltered;
+  }
+
+  // State exclusion filter
+  if (quizState.excludedStates && quizState.excludedStates.length > 0) {
     candidates = candidates.filter(c => {
-      const stateAbbrev = getStateAbbrev(c.state);
-      return !quizState.eliminatedStates.includes(stateAbbrev);
+      const abbrev = getStateAbbrev(c.state);
+      return !quizState.excludedStates.includes(abbrev);
+    });
+  }
+
+  // Climate dealbreaker filters
+  if (quizState.climateDeals && quizState.climateDeals.length > 0) {
+    quizState.climateDeals.forEach(deal => {
+      let dealFiltered;
+      if (deal === 'humid') dealFiltered = candidates.filter(c => (c.climate ? c.climate.H : 5) < 8);
+      else if (deal === 'cold') dealFiltered = candidates.filter(c => (c.climate ? c.climate.W : 5) > 3);
+      else if (deal === 'heat') dealFiltered = candidates.filter(c => (c.climate ? c.climate.H : 5) < 9);
+      else if (deal === 'grey') dealFiltered = candidates.filter(c => (c.climate ? c.climate.M : 5) > 4);
+      if (dealFiltered && dealFiltered.length >= 3) candidates = dealFiltered;
     });
   }
 
@@ -4791,6 +5006,8 @@ function generateWhyMatch(city) {
       'warm_dry': `You want warm weather without the humidity — ${city.name} delivers dry heat, meaning warm winters and summers that feel more bearable than the numbers suggest.`,
       'mild': `You're looking for mild weather all year, and ${city.name} is one of the few cities that genuinely delivers comfortable temperatures in every season.`,
       'seasons': `You want four real seasons, and ${city.name} has them — including the kind of fall and spring that make you glad you chose somewhere with actual weather.`,
+      'cool': `You prefer a cooler mountain climate, and ${city.name} delivers — crisp air, manageable summers, and the kind of weather that keeps outdoor living interesting year-round.`,
+      'none': ``,
     };
     if (climateMsg[quizState.climateChoice]) parts.push(climateMsg[quizState.climateChoice]);
   }
@@ -5537,7 +5754,7 @@ window.addEventListener('popstate', function(e) {
 });
 
 function restartQuiz() {
-  quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, eliminatedStates: [] };
+  quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
   DIMENSIONS.forEach(d => { quizState.priorities[d.key] = null; });
   document.getElementById('progressBar').style.width = '0%';
   showScreen('screen-hero');
