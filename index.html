@@ -997,7 +997,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       </div>
       <div class="split-stats">
         <div>
-          <span class="split-stat-num">78+</span>
+          <span class="split-stat-num">82+</span>
           <span class="split-stat-label">Cities Scored</span>
         </div>
         <div>
@@ -1016,7 +1016,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <div class="hero-right" id="reports">
       <div class="reports-panel-eyebrow" style="color:var(--light);">Also Available Free</div>
       <div class="reports-panel-title">Deep-Dive Reports</div>
-      <p class="reports-panel-sub">Each report ranks all 78+ cities on one topic — real data, honest tradeoffs.</p>
+      <p class="reports-panel-sub">Each report ranks all 82+ cities on one topic — real data, honest tradeoffs.</p>
 
       <!-- FEATURED: VALUE NAVIGATOR with preview open -->
       <div class="report-featured">
@@ -1211,7 +1211,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <script>
 
-console.log("RMH v3.0 loaded - 78+ cities");
+console.log("RMH v3.0 loaded - 82+ cities");
 
 const CITIES = [
   {
@@ -1657,6 +1657,98 @@ const CITIES = [
     cons: ["Housing up dramatically since 2020 — $500K median significantly above expectations","ID income tax 5.8% applies to retirement income","Summers hot — 93°F+ July average, though dry","Car-dependent outside limited downtown area"]
   },
   {
+    name: "Fort Collins", state: "CO", type: "College Town / Outdoor",
+    setting: ["Inland / Green", "Mountain"],
+    character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
+    monthlyEst: "$4,500–$5,500/mo", medianHome: "$550,000", budgetRange: 3,
+    scores: { D1:6, D2:5, D3:7, D4:6, D5:5, D6:5, D7:9, D8:8, D9:8, D10:8 },
+    climate: { W:5, H:5, M:7 },
+    highlight: "Colorado State University energy meets world-class outdoor recreation. UCHealth Poudre Valley — #5 in Colorado, nationally ranked. Rocky Mountain National Park 45 min away. Old Town arts scene. Award-winning Senior Center. 300+ sunny days. 70 min to DIA.",
+    neighborhoods: [
+      { name: "Old Town", vibe: "Walkable, artsy, vibrant", desc: "Fort Collins' most walkable neighborhood. Boutiques, craft breweries, restaurants, live music. Historic buildings along College Avenue. True pedestrian-friendly character." },
+      { name: "Midtown", vibe: "Convenient, active, mixed", desc: "Strong trail access along Poudre River Trail. Close to CSU campus. Mix of residential and commercial. Active lifestyle hub with easy access to recreation." },
+      { name: "Rigden Farm", vibe: "Suburban, senior-friendly, convenient", desc: "Ranch-style homes, proximity to shopping and medical. HOA handles exterior maintenance. Popular with retirees downsizing from larger homes." },
+      { name: "Harmony Club", vibe: "Golf, luxury, resort-style", desc: "Jim Engh-designed golf course, Front Range mountain views, custom and paired homes. HOA community with strong amenities. Popular 55+ adjacent neighborhood." }
+    ],
+    pros: ["UCHealth Poudre Valley — #5 in Colorado, high performing in 7 procedures, Lown Institute #15 nationally",
+           "Rocky Mountain National Park 45 min, Horsetooth Reservoir, Poudre Canyon — exceptional outdoor access",
+           "Award-winning Fort Collins Senior Center with wide range of programs and activities",
+           "Old Town arts scene, craft brewery culture, Colorado State University energy"],
+    cons: ["DIA airport 65 miles / 70 min — less convenient than Denver-area cities",
+           "Colorado income tax 4.4% applies to most retirement income",
+           "Housing up significantly — $550K median is above expectations for a college town",
+           "Real winters — cold snaps and snow, though dry cold is more manageable than humid"]
+  },
+  {
+    name: "Wilmington", state: "DE", type: "Historic / Urban",
+    setting: ["City Energy", "Inland / Green"],
+    character: ["Historic", "Arts & Culture", "Urban Neighborhood"],
+    monthlyEst: "$3,800–$5,000/mo", medianHome: "$260,000", budgetRange: 2,
+    scores: { D1:7, D2:7, D3:8, D4:5, D5:8, D6:6, D7:6, D8:5, D9:5, D10:7 },
+    climate: { W:4, H:6, M:5 },
+    highlight: "WalletHub's 8th best US city to retire. No sales tax. No estate tax. SS exempt. ChristianaCare highly ranked. Philly's world-class hospitals 25 min away. Delaware Art Museum, Hagley Museum, Brandywine Valley. Surprising value at $260K median home.",
+    neighborhoods: [
+      { name: "Trolley Square", vibe: "Walkable, eclectic, urban", desc: "Wilmington's most walkable neighborhood. Independent restaurants, coffee shops, boutiques along Delaware Ave. Younger energy with strong community feel." },
+      { name: "Brandywine Village", vibe: "Historic, quiet, riverside", desc: "Along the Brandywine Creek, historic homes, tree-lined streets. Access to Brandywine Creek State Park and trails. Peaceful residential character." },
+      { name: "Greenville", vibe: "Affluent, quiet, suburban", desc: "Upscale suburb southwest of Wilmington. Valley Garden Park, Somerville Manning Gallery. Quiet and safe with easy Wilmington access. Popular with established retirees." },
+      { name: "Hockessin", vibe: "Green, suburban, safe", desc: "Wooded hills near Pennsylvania border. Walking distance to three state parks. Low density, safe, excellent for nature lovers. ~20 min to Wilmington." }
+    ],
+    pros: ["No Delaware sales tax, no estate tax, SS exempt, $12,500 pension exclusion age 60+ — excellent tax package",
+           "ChristianaCare highly ranked locally. University of Pennsylvania Health and Jefferson Health 25 min (Philadelphia)",
+           "WalletHub #8 best US city to retire — recognized for weather, crime, and elder care laws",
+           "Delaware Art Museum, Hagley Museum, Brandywine Valley gardens, Grand Opera House"],
+    cons: ["Safety mixed citywide — downtown neighborhoods more challenging. Suburban retirees experience much safer conditions",
+           "Hot humid summers — Mid-Atlantic humidity June through September",
+           "Real winters — cold with occasional snow and ice",
+           "Car-dependent outside Trolley Square and downtown core"]
+  },
+  {
+    name: "Rehoboth Beach", state: "DE", type: "Beach Town / Resort",
+    setting: ["Beach / Coastal"],
+    character: ["Historic", "Arts & Culture", "Small Town"],
+    monthlyEst: "$5,500–$7,500/mo", medianHome: "$793,000", budgetRange: 4,
+    scores: { D1:5, D2:2, D3:6, D4:6, D5:9, D6:7, D7:8, D8:6, D9:7, D10:8 },
+    climate: { W:5, H:6, M:5 },
+    highlight: "Delaware's 'Florida of the North' — nicknamed for its large retiree population and coastal lifestyle. No sales tax, SS exempt, 0.5% property tax. Atlantic beaches, Cape Henlopen State Park. Strong arts scene. Nearly half the population over 65. Biden's summer home.",
+    neighborhoods: [
+      { name: "Downtown Rehoboth", vibe: "Walkable, boardwalk, resort", desc: "Rehoboth Avenue and the famous boardwalk. Restaurants, galleries, shops within walking distance. Most walkable area in the region. Seasonal but vibrant year-round community." },
+      { name: "South Rehoboth", vibe: "Quiet, residential, safest", desc: "Considered the safest area of the city. Quieter residential streets away from tourist activity. Good year-round living character." },
+      { name: "Lewes", vibe: "Historic, charming, upscale", desc: "5 miles north of Rehoboth. Lewes is often preferred by long-term retirees for its quieter year-round community feel, Junction & Breakwater Trail access, and Cape Henlopen State Park." },
+      { name: "Bethany Beach", vibe: "Family, quieter, coastal", desc: "15 miles south. Quieter alternative to Rehoboth with smaller permanent community. More affordable beachside living option in the region." }
+    ],
+    pros: ["No Delaware sales tax, SS exempt, $12,500 pension exclusion, 0.5% property tax — best tax package of any beach state",
+           "Atlantic beaches, Cape Henlopen State Park 5,000 acres, Junction & Breakwater Trail cycling to Lewes",
+           "Nearly half the population over 65 — one of the most established retirement beach communities on East Coast",
+           "Jazz Festival, Chocolate Festival, strong LGBTQ+ welcoming community, tight year-round social scene"],
+    cons: ["Median home $793K+ — expensive resort pricing. One of the pricier additions to the database",
+           "No major local airport — Philadelphia 2.5 hrs, Baltimore 2 hrs, Salisbury MD small regional 45 min",
+           "Beebe Healthcare local only — serious specialist care requires travel to Wilmington or Philadelphia",
+           "Tourist season inflates property crime and crowds — year-round character very different from summer"]
+  },
+  {
+    name: "Beaufort", state: "NC", type: "Historic / Coastal / Small Town",
+    setting: ["Beach / Coastal", "Lakeside"],
+    character: ["Historic", "Small Town", "Outdoor Lifestyle"],
+    monthlyEst: "$3,800–$5,000/mo", medianHome: "$450,000", budgetRange: 3,
+    scores: { D1:4, D2:7, D3:5, D4:7, D5:7, D6:5, D7:8, D8:7, D9:8, D10:8 },
+    climate: { W:7, H:5, M:6 },
+    highlight: "Third oldest town in NC (1709). Budget Travel's 'America's Coolest Small Town.' Carteret County's lowest property tax in NC. Wild horses on Rachel Carson Reserve. Year-round water sports. Cape Lookout National Seashore. Tight, welcoming community identity unlike anywhere in the database.",
+    neighborhoods: [
+      { name: "Historic Downtown", vibe: "Walkable, waterfront, charming", desc: "Taylor's Creek waterfront with views of wild horses on Carrot Island. Front Street historic district, galleries, restaurants. Beaufort's most distinctive and walkable area." },
+      { name: "Beau Coast", vibe: "New, planned, active adult", desc: "Purpose-built active adult community on the edge of Beaufort. New construction, low maintenance, amenities designed for retirees. Growing destination for active retirement living." },
+      { name: "Morehead City", vibe: "Practical, affordable, adjacent", desc: "10 min from Beaufort. More affordable housing, CarolinaEast Medical Center. Many retirees choose Morehead City for value while accessing Beaufort's charm easily." },
+      { name: "Atlantic Beach", vibe: "Beach, active, coastal", desc: "Connected to Beaufort by bridge. Direct Atlantic Ocean beach access. More affordable than many East Coast beach towns. Active water sports and fishing culture." }
+    ],
+    pros: ["Carteret County has NC's lowest property tax rate — genuine affordability advantage",
+           "Year-round water sports — fishing, kayaking, boating viable most months due to mild coastal climate",
+           "Wild horses on Rachel Carson Reserve, Cape Lookout National Seashore — unique natural assets",
+           "Budget Travel 'America's Coolest Small Town' — extremely high community identity and quality of life"],
+    cons: ["No commercial airport nearby — New Bern EWN 35 min (small regional), Raleigh-Durham 2.5 hrs",
+           "Healthcare limited locally — Carteret Health Care small. Major specialty care requires Greenville ECU Health (1 hr) or Raleigh (2.5 hrs)",
+           "Hurricane risk real — coastal NC exposure requires preparation and insurance consideration",
+           "Small town limitations — limited retail, dining variety, and cultural events compared to larger cities"]
+  },
+  {
     name: "Raleigh", state: "NC", type: "Metro / Research",
     setting: ["City Energy"],
     character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
@@ -2013,15 +2105,21 @@ const CITIES = [
     cons: ["Crime varies significantly by neighborhood — careful selection is essential", "Cold winters with potential for ice and snow", "Car dependent outside of certain urban neighborhoods", "Missouri income tax applies to most retirement income"]
   },
   {
-    name: "Columbus", state: "OH", type: "Urban / University",
+    name: "Columbus", state: "OH", type: "Major Metro / College Town",
     setting: ["City Energy", "Inland / Green"],
-    character: ["Urban Neighborhood", "Arts & Culture"],
-    monthlyEst: "$3,200–$4,500/mo", medianHome: "$212,000", budgetRange: 2,
-    scores: { D1:7, D2:9, D3:9, D4:5, D5:6, D6:6, D7:3, D8:5, D9:6, D10:6 },
-    climate: { W:3, H:7, M:4 },
-    highlight: "Ohio State University Medical Center makes Columbus a genuine healthcare powerhouse — and with median homes under $215K in a growing, culturally vibrant city, it offers extraordinary value for retirees who prioritize medical access.",
-    pros: ["Ohio State University Wexner Medical Center — nationally ranked in multiple specialties", "Median home under $215K — among the lowest for any major US city in the database", "Growing city with improving arts and food scene in Short North and German Village", "No Ohio state tax on Social Security income"],
-    cons: ["Cold winters — Ohio weather is not glamorous", "Car dependent outside of Short North and German Village", "Ohio income tax still applies to other retirement income sources", "Flat terrain limits outdoor recreation options"]
+    character: ["Urban Neighborhood", "Arts & Culture", "College Town"],
+    monthlyEst: "$3,500–$4,500/mo", medianHome: "$260,000", budgetRange: 2,
+    scores: { D1:8, D2:7, D3:9, D4:4, D5:6, D6:5, D7:5, D8:7, D9:6, D10:8 },
+    climate: { W:3, H:6, M:4 },
+    highlight: "Ohio State Wexner Medical Center and The James Cancer Hospital make Columbus a genuine healthcare powerhouse. At $260K median home in a growing, culturally vibrant city with 7% below national average cost of living — extraordinary value for retirees who prioritize medical access and urban amenities.",
+    pros: ["Ohio State Wexner Medical Center — nationally ranked in multiple specialties. The James Cancer Hospital world-class",
+           "Median home ~$260K in a full major city — among the best healthcare-to-cost ratios in the database",
+           "Short North arts district, German Village charm, diverse restaurant scene, OSU cultural programming",
+           "CMH airport — solid mid-size hub, 60+ nonstop destinations, 10 min from downtown"],
+    cons: ["Cold grey Ohio winters — significant drawback for warm-weather seekers",
+           "Car-dependent outside Short North and German Village neighborhoods",
+           "Ohio income tax applies to 401k, IRA, and pension income at up to 2.75%",
+           "Safety mixed citywide — safe suburbs like Upper Arlington, Dublin, Westerville vs more challenging urban core"]
   },
   {
     name: "Indianapolis", state: "IN", type: "Urban / Sports",
@@ -5094,7 +5192,7 @@ function showCityDetail(cityName, cityState) {
 
       <div class="detail-section" style="padding-bottom:0;">
         <h3>Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 78+ cities.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 82+ cities.</p>
         <div id="city-detail-reports"></div>
       </div>
 
@@ -5278,7 +5376,7 @@ function restartQuiz() {
 const REPORT_MODAL_DATA = {
   globetrotter: {
     icon: '✈️', title: 'The Globetrotter Guide',
-    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 78+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
+    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 82+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
     features: [
       { icon: '📍', text: 'Drive time to nearest major hub airport for every city' },
       { icon: '✈️', text: 'Number of airlines, nonstop routes, and hub status ranked' },
@@ -5470,7 +5568,7 @@ function closeReportModal(e) {
         <button class="city-search-close" onclick="closeCitySearch()">✕</button>
       </div>
       <div class="city-search-results" id="citySearchResults">
-        <div class="city-search-hint">Start typing to search all 78+ cities</div>
+        <div class="city-search-hint">Start typing to search all 82+ cities</div>
       </div>
     </div>
   </div>
@@ -5487,7 +5585,7 @@ function closeReportModal(e) {
       document.getElementById('citySearchOverlay').classList.remove('open');
       document.body.style.overflow = '';
       document.getElementById('citySearchInput').value = '';
-      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 78+ cities</div>';
+      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 82+ cities</div>';
     }
   }
 
@@ -5507,7 +5605,7 @@ function closeReportModal(e) {
   function renderCitySearchResults(query) {
     const container = document.getElementById('citySearchResults');
     if (!query || query.trim().length < 1) {
-      container.innerHTML = '<div class="city-search-hint">Start typing to search all 78+ cities</div>';
+      container.innerHTML = '<div class="city-search-hint">Start typing to search all 82+ cities</div>';
       return;
     }
     const q = query.toLowerCase().trim();
