@@ -5522,8 +5522,13 @@ function showScreen(id) {
 // Handle browser back button
 window.addEventListener('popstate', function(e) {
   if (e.state && e.state.screen) {
+    var targetScreen = e.state.screen;
+    // If going back to detail screen, go to source instead
+    if (targetScreen === 'screen-detail') {
+      targetScreen = lastDetailSource || 'screen-results';
+    }
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    var el = document.getElementById(e.state.screen);
+    var el = document.getElementById(targetScreen);
     if (el) el.classList.add('active');
   } else {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
