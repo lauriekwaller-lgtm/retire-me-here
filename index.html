@@ -18,7 +18,7 @@ ml('account', '2238788');
 </script>
 <title>RetireMeHere — Find Your Retirement City</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
 <style>
 :root {
  --navy: #2e5d8b;
@@ -969,6 +969,451 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .site-footer p { font-size: 13px; color: var(--light); line-height: 1.8; }
 .site-footer a { color: var(--teal); text-decoration: none; font-weight: 500; }
 .site-footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   EDITORIAL CITY DETAIL TEMPLATE (.ed-* prefix)
+   Used when CITY_ENRICHMENT[city].editorialOverview is present.
+   Coexists with existing detail-* classes; old template untouched.
+============================================================ */
+.ed-cream { background: #FBF7F1; }
+.ed-rule { border-color: #E5DED2 !important; }
+
+/* Hero */
+.ed-hero {
+  position: relative;
+  min-height: 540px;
+  color: var(--white);
+  display: flex; align-items: flex-end;
+  padding: 64px 0 48px;
+  overflow: hidden;
+}
+.ed-hero-photo {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  z-index: 0;
+}
+.ed-hero-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(28,26,24,0.15) 0%, rgba(28,26,24,0.55) 65%, rgba(28,26,24,0.78) 100%);
+}
+.ed-hero-glow {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse at 70% 0%, rgba(196,114,74,0.14) 0%, transparent 50%);
+  pointer-events: none;
+}
+.ed-hero-back {
+  position: absolute; top: 24px; left: 28px; z-index: 2;
+  font-size: 13px; letter-spacing: 0.05em; font-weight: 500;
+  background: rgba(28,26,24,0.4); backdrop-filter: blur(8px);
+  padding: 10px 16px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer; color: var(--white);
+}
+.ed-hero-back:hover { background: rgba(28,26,24,0.6); }
+.ed-hero-content {
+  position: relative; z-index: 1;
+  max-width: 1080px; margin: 0 auto; padding: 0 28px; width: 100%;
+}
+.ed-hero-eyebrow {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 16px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 16px;
+}
+.ed-hero-name {
+  font-family: 'Fraunces', serif; font-weight: 500;
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 0.95; letter-spacing: -0.02em;
+  margin-bottom: 14px; color: var(--white);
+}
+.ed-hero-name em { font-style: italic; font-weight: 400; color: var(--gold); }
+.ed-hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(18px, 2.4vw, 22px); font-weight: 400; font-style: italic;
+  max-width: 620px; line-height: 1.4;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 28px;
+}
+.ed-hero-meta {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  font-size: 13px; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 500;
+  color: rgba(255,255,255,0.85);
+}
+.ed-hero-meta span { display: flex; align-items: center; gap: 8px; }
+.ed-hero-meta span + span::before { content: "·"; color: var(--gold); font-size: 24px; line-height: 0; margin-right: 8px; }
+.ed-match-pill {
+  position: absolute; top: 24px; right: 28px; z-index: 2;
+  background: var(--white); color: var(--dark);
+  padding: 12px 20px; border-radius: 100px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.ed-match-pill-pct {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 26px; font-weight: 700; color: var(--teal); line-height: 1;
+}
+.ed-match-pill-lbl {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--mid); line-height: 1.2; font-weight: 600;
+}
+.ed-verified-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  color: var(--white);
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 600; padding: 6px 14px; border-radius: 100px;
+  margin-bottom: 20px;
+}
+.ed-verified-badge::before { content: "✓"; color: var(--gold); font-weight: 800; }
+
+/* Stats bar */
+.ed-stats-bar {
+  background: var(--white);
+  border-bottom: 1px solid #E5DED2;
+  padding: 36px 0;
+}
+.ed-stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  max-width: 1080px; margin: 0 auto; padding: 0 28px;
+}
+.ed-stat-cell { padding: 0 28px; border-right: 1px solid #E5DED2; }
+.ed-stat-cell:last-child { border-right: none; }
+.ed-stat-cell:first-child { padding-left: 0; }
+.ed-stat-label {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--mid); font-weight: 600; margin-bottom: 8px;
+}
+.ed-stat-value {
+  font-family: 'Fraunces', serif; font-size: 26px; font-weight: 500;
+  color: var(--dark); line-height: 1.15; letter-spacing: -0.01em;
+}
+.ed-stat-value .ed-small { font-size: 16px; color: var(--mid); font-weight: 400; }
+.ed-stat-sub { font-size: 12px; color: var(--mid); margin-top: 4px; }
+
+/* Method banner */
+.ed-method-banner {
+  background: #8B3A2A; color: var(--white);
+  padding: 18px 0; text-align: center;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.02em; line-height: 1.6;
+}
+.ed-method-banner-wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+.ed-method-banner strong { color: var(--gold); font-weight: 700; }
+
+/* Sections */
+.ed-section { padding: 72px 0; }
+.ed-section-wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+.ed-eyebrow {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 14px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--terra);
+  margin-bottom: 12px; font-weight: 500;
+}
+.ed-title {
+  font-family: 'Fraunces', serif; font-weight: 500;
+  font-size: clamp(28px, 4.5vw, 38px);
+  letter-spacing: -0.015em; line-height: 1.15;
+  margin-bottom: 20px; color: var(--dark);
+}
+.ed-title em { font-style: italic; color: var(--teal); }
+.ed-intro {
+  color: var(--mid); font-size: 17px;
+  max-width: 680px; line-height: 1.65; margin-bottom: 32px;
+}
+
+/* Fit (Yes/No) */
+.ed-fit-section {
+  background: #FBF7F1;
+  border-top: 1px solid #E5DED2;
+  border-bottom: 1px solid #E5DED2;
+}
+.ed-fit-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  background: var(--white); border-radius: 16px; overflow: hidden;
+  border: 1px solid #E5DED2;
+}
+.ed-fit-col { padding: 36px 40px; }
+.ed-fit-col.ed-no { background: #FBF7F1; border-left: 1px solid #E5DED2; }
+.ed-fit-col-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px; padding-bottom: 18px;
+  border-bottom: 1px solid #E5DED2;
+}
+.ed-fit-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+}
+.ed-fit-icon.ed-yes { background: var(--teal-lt); color: var(--teal); }
+.ed-fit-icon.ed-no  { background: var(--terra-lt); color: var(--terra); }
+.ed-fit-col-title {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.ed-fit-col-title em { font-style: italic; }
+.ed-fit-list { list-style: none; padding: 0; margin: 0; }
+.ed-fit-list li {
+  padding: 14px 0; font-size: 16px; line-height: 1.55;
+  color: var(--mid); border-bottom: 1px dashed #E5DED2;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.ed-fit-list li:last-child { border-bottom: none; }
+.ed-fit-marker {
+  flex-shrink: 0; margin-top: 6px;
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.ed-fit-col.ed-yes .ed-fit-marker { background: var(--teal); }
+.ed-fit-col.ed-no  .ed-fit-marker { background: var(--terra); }
+.ed-fit-list strong { color: var(--dark); font-weight: 600; }
+
+/* Character + pullquote */
+.ed-character-wrap {
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 64px; align-items: start;
+  max-width: 1080px; margin: 0 auto; padding: 0 28px;
+}
+.ed-character-body {
+  font-family: 'Fraunces', serif;
+  font-size: 19px; line-height: 1.75;
+  color: var(--mid); font-weight: 400;
+}
+.ed-character-body p { margin-bottom: 20px; }
+.ed-character-body p:first-of-type::first-line { font-weight: 500; color: var(--dark); }
+.ed-dropcap {
+  float: left; font-family: 'Fraunces', serif;
+  font-size: 76px; line-height: 0.85; font-weight: 600;
+  color: var(--terra); margin: 6px 12px 0 0; font-style: italic;
+}
+.ed-pullquote {
+  background: var(--teal); color: var(--white);
+  padding: 36px 32px; border-radius: 12px;
+  position: sticky; top: 32px;
+}
+.ed-pullquote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 88px; font-weight: 600; line-height: 0.6;
+  color: var(--gold); margin-bottom: -12px; font-style: italic;
+}
+.ed-pullquote-text {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 22px; line-height: 1.4;
+  font-weight: 400; margin-bottom: 16px;
+}
+.ed-pullquote-attr {
+  font-size: 12px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,255,255,0.7);
+  font-weight: 500;
+}
+
+/* Typical Week */
+.ed-week-section { background: var(--sand); }
+.ed-week-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+.ed-day-card {
+  background: var(--white); border-radius: 12px;
+  padding: 20px 18px; border: 1px solid #E5DED2;
+  display: flex; flex-direction: column;
+  min-height: 240px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ed-day-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+.ed-day-name {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 13px; color: var(--terra);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 500; margin-bottom: 12px;
+}
+.ed-day-time {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 18px; font-weight: 700; color: var(--teal);
+  margin-bottom: 6px; letter-spacing: -0.01em;
+}
+.ed-day-activity {
+  font-size: 14px; line-height: 1.45;
+  color: var(--dark); font-weight: 500; margin-bottom: 8px;
+}
+.ed-day-where {
+  font-size: 12px; color: var(--mid); line-height: 1.45;
+  margin-top: auto; font-style: italic;
+}
+
+/* Cost breakdown */
+.ed-cost-section { background: #FBF7F1; }
+.ed-cost-headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(22px, 3vw, 28px); color: var(--mid);
+  font-weight: 400; margin-bottom: 32px;
+  line-height: 1.4; max-width: 720px;
+}
+.ed-cost-headline strong { color: var(--terra); font-weight: 600; }
+.ed-cost-table {
+  background: var(--white); border-radius: 16px;
+  border: 1px solid #E5DED2; overflow: hidden;
+}
+.ed-cost-row {
+  display: grid; grid-template-columns: 1fr 200px 1fr 140px;
+  align-items: center; padding: 22px 32px;
+  border-bottom: 1px solid #E5DED2; gap: 24px;
+}
+.ed-cost-row:last-child { border-bottom: none; }
+.ed-cost-row.ed-total {
+  background: #F7EDD3; font-weight: 600;
+}
+.ed-cost-row.ed-total .ed-cost-label { color: var(--dark); font-weight: 700; }
+.ed-cost-row.ed-total .ed-cost-amount { color: var(--terra); }
+.ed-cost-icon {
+  font-size: 22px; width: 44px; height: 44px;
+  background: var(--teal-lt); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.ed-cost-row-left { display: flex; align-items: center; gap: 18px; }
+.ed-cost-label { font-size: 16px; font-weight: 500; color: var(--dark); }
+.ed-cost-bar-wrap {
+  height: 8px; background: var(--sand);
+  border-radius: 100px; overflow: hidden;
+}
+.ed-cost-bar { height: 100%; background: var(--teal); border-radius: 100px; }
+.ed-cost-amount {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 18px; font-weight: 700; color: var(--teal);
+  text-align: right; letter-spacing: -0.01em;
+}
+.ed-cost-detail { font-size: 13px; color: var(--mid); line-height: 1.4; }
+.ed-cost-disclaimer {
+  margin-top: 20px; font-size: 13px; color: var(--light);
+  font-style: italic; text-align: center;
+}
+
+/* Neighborhoods (editorial variant) */
+.ed-hoods-section { background: var(--white); }
+.ed-hoods-intro {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 18px; color: var(--mid);
+  max-width: 640px; margin-bottom: 36px; line-height: 1.6;
+}
+.ed-hoods-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+}
+.ed-hood-card {
+  background: #FBF7F1; border-radius: 14px;
+  padding: 28px; border: 1px solid #E5DED2;
+  transition: all 0.2s;
+}
+.ed-hood-card:hover {
+  border-color: var(--teal); background: var(--white);
+  box-shadow: 0 12px 28px rgba(42,94,90,0.08);
+}
+.ed-hood-name {
+  font-family: 'Fraunces', serif; font-size: 22px;
+  font-weight: 500; margin-bottom: 4px; color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.ed-hood-vibe {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--terra); font-weight: 600; margin-bottom: 14px;
+}
+.ed-hood-desc { font-size: 15px; line-height: 1.65; color: var(--mid); }
+
+/* Healthcare card */
+.ed-health-card {
+  background: linear-gradient(135deg, #1F3A2E 0%, #2A5E5A 100%);
+  color: var(--white); border-radius: 16px;
+  padding: 48px;
+  display: grid; grid-template-columns: 80px 1fr 220px;
+  gap: 36px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.ed-health-card.ed-honor::after {
+  content: "★ HONOR ROLL";
+  position: absolute; top: 24px; right: -38px;
+  background: var(--gold); color: var(--dark);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.15em; padding: 6px 44px;
+  transform: rotate(35deg);
+}
+.ed-health-icon {
+  width: 80px; height: 80px;
+  background: rgba(212,168,75,0.18); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+}
+.ed-health-name {
+  font-family: 'Fraunces', serif;
+  font-size: 24px; font-weight: 500; margin-bottom: 6px;
+}
+.ed-health-detail {
+  font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.55;
+}
+.ed-health-grade {
+  text-align: center; padding: 16px;
+  background: rgba(255,255,255,0.08); border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.ed-health-grade-num {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 38px; font-weight: 700; color: var(--gold); line-height: 1;
+}
+.ed-health-grade-lbl {
+  font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.7);
+  margin-top: 6px; font-weight: 500;
+}
+
+/* Scorecard accordion (collapsed by default) */
+.ed-scorecard-section { background: var(--sand); }
+.ed-scorecard-toggle {
+  background: var(--white); border: 1px solid #E5DED2;
+  border-radius: 12px; padding: 20px 28px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 500; color: var(--dark);
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; transition: all 0.15s;
+}
+.ed-scorecard-toggle:hover { border-color: var(--teal); }
+.ed-scorecard-toggle .ed-chevron {
+  transition: transform 0.2s; color: var(--teal); font-size: 18px;
+}
+.ed-scorecard-toggle.ed-open .ed-chevron { transform: rotate(180deg); }
+.ed-scorecard-content {
+  display: none; margin-top: 16px;
+  background: var(--white); border: 1px solid #E5DED2;
+  border-radius: 12px; padding: 28px;
+}
+.ed-scorecard-content.ed-open { display: block; }
+
+/* Sources footer */
+.ed-foot {
+  background: var(--dark); color: rgba(255,255,255,0.55);
+  padding: 32px 0; font-size: 12px; text-align: center;
+  letter-spacing: 0.04em; line-height: 1.7;
+}
+.ed-foot-wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ed-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .ed-stat-cell { padding: 0 !important; border-right: none; }
+  .ed-fit-grid { grid-template-columns: 1fr; }
+  .ed-fit-col.ed-no { border-left: none; border-top: 1px solid #E5DED2; }
+  .ed-character-wrap { grid-template-columns: 1fr; gap: 36px; }
+  .ed-pullquote { position: static; }
+  .ed-week-grid { grid-template-columns: repeat(2, 1fr); }
+  .ed-cost-row { grid-template-columns: 44px 1fr 100px; }
+  .ed-cost-bar-wrap, .ed-cost-detail { display: none; }
+  .ed-hoods-grid { grid-template-columns: 1fr; }
+  .ed-health-card { grid-template-columns: 1fr; text-align: center; padding: 32px; gap: 20px; }
+  .ed-health-icon { margin: 0 auto; }
+  .ed-section { padding: 48px 0; }
+  .ed-health-card.ed-honor::after { display: none; }
+}
 </style>
 </head>
 <body>
@@ -4077,6 +4522,70 @@ const CITY_ENRICHMENT = {
   },
     "St. Louis_MO": {
     hospitalRating: "Barnes-Jewish — #1 Missouri, US News Honor Roll, nationally ranked 11 specialties",
+    verifiedStatus: "locally_verified",
+    heroEyebrow: "Mississippi River · Missouri",
+    heroName: "St. Louis",
+    tagline: "A great American city of brick and baseball, free museums, and one of the best hospitals in the country — at Midwest prices.",
+    heroMeta: ["Pop. 280,000 city · 2.8M metro", "Founded 1764", "Gateway to the West"],
+    stats: [
+      { label: "Median Home (suburbs)", value: '$350<span class="ed-small">–500K</span>', sub: "Citywide $250K · retirees go suburban" },
+      { label: "Monthly Budget", value: '$3.5–4.8K<span class="ed-small">/mo</span>', sub: "Range 2 · Strong value" },
+      { label: "State Income Tax", value: '4.7<span class="ed-small">%</span>', sub: "SS exempt · IRA/401(k) taxed" },
+      { label: "Climate", value: "31 / 88°F", sub: "Real winters · hot humid summers" }
+    ],
+    methodologyNote: "<strong>How we score St. Louis:</strong> Citywide statistics misrepresent the retiree experience here. We score this city against its <strong>retiree-target suburbs</strong> — Chesterfield, Kirkwood, Webster Groves, Clayton, Wildwood — where the safety, housing, and amenity story is dramatically different from the city as a whole.",
+    fitIntro: "St. Louis is a value play with a very specific profile: world-class healthcare, deep urban culture, real seasons, and a brick-built sense of place. Some people fall in love. Others can't get past the summers — or the headlines.",
+    forYouIf: [
+      "<strong>Healthcare matters more than weather.</strong> Barnes-Jewish is on the U.S. News Honor Roll — a tier you usually pay Boston or New York prices for.",
+      "<strong>You want world-class culture without coastal prices.</strong> Free zoo, free art museum, free history museum, free Muny seats, $30 Cardinals tickets in the upper deck.",
+      "<strong>Real seasons appeal to you.</strong> Genuine autumn color, snowy winters, dogwood springs. Not the perpetual summer of Florida.",
+      "<strong>You're a baseball person — or game-night person.</strong> Cardinals culture is a year-round social fabric, not just April through October."
+    ],
+    notForYouIf: [
+      "<strong>Hot, humid summers are a deal-breaker.</strong> July averages 88°F with feels-like in the mid-90s. June through September is genuinely tough.",
+      "<strong>You won't go suburban.</strong> The retiree story here is in the County, not the City. If you want city-proper urban living, the safety story changes.",
+      "<strong>You need to be near family on the coasts.</strong> Central is convenient for connecting flights, but it's not 'near' anywhere on either coast.",
+      "<strong>You can't tolerate decline narratives.</strong> The city has lost population for decades. You'll hear about it. Some retirees love the underdog story; others find it tiring."
+    ],
+    characterEyebrow: "The character of the place",
+    characterTitle: "A great American city, <em>under-priced</em>.",
+    editorialOverview: [
+      "St. Louis was once the fourth-largest city in America. The 1904 World's Fair happened here. So did the first Olympics on American soil, the invention of the ice cream cone, and a hundred other small civic firsts. Then the city did what so many great American cities did between 1950 and now: it lost half its population to the suburbs, and the brick streets emptied out. What's left is more interesting than the headlines suggest.",
+      "The metro is structured by an emphatic City–County divide. The City of St. Louis covers sixty-one square miles, holds about 280,000 people, and contains both genuine urban gems (the Central West End, Lafayette Square, Tower Grove) and serious safety challenges. The County, the suburban donut around it, holds another million people across dozens of independent municipalities — and that's where retirees actually live. Kirkwood has a Norman Rockwell main street. Webster Groves has the brick bungalows. Clayton has the walkable downtown. Chesterfield has the Whole Foods and the surgical specialists.",
+      "What unites all of them is Forest Park — 1,300 acres in the geographic center of the metro, larger than Central Park, free in every meaningful sense. The art museum is free. The zoo is free. The history museum is free. The science center is free. There is no other major American city where a retiree of modest means has access to this much culture without writing a check. That, more than anything, is the St. Louis pitch."
+    ],
+    pullQuote: {
+      text: "My friends in California spend Tuesdays getting their cars serviced. I spend Tuesdays at the art museum. The art is free and the parking is free. I retired here, and I'm not leaving.",
+      attribution: "— Retired teacher, Webster Groves, 9 years here"
+    },
+    weekIntro: "A composite week from interviews with three retired couples in the western suburbs. The free-museum, Cardinals-game, brick-streets cadence is what locals mean when they say St. Louis 'punches above its weight.'",
+    typicalWeek: [
+      { day: "Monday", time: "9:00 AM", activity: "Forest Park loop walk", where: "6.2-mile path around the park. Most retirees do part of it." },
+      { day: "Tuesday", time: "11:00 AM", activity: "Art Museum visit", where: "Free always. Special exhibitions $14. Lunch at Panorama café." },
+      { day: "Wednesday", time: "7:15 PM", activity: "Cardinals at Busch", where: "Upper deck seats from $30. April–October ritual." },
+      { day: "Thursday", time: "12:30 PM", activity: "Lunch on The Hill", where: "Hot salami sandwich at Gioia's Deli — a James Beard classic." },
+      { day: "Friday", time: "8:00 PM", activity: "Symphony at Powell Hall", where: "SLSO is genuinely great. Friday-night season tickets ~$300/year." },
+      { day: "Saturday", time: "8:30 AM", activity: "Kirkwood Farmers' Market", where: "Open since 1976. Then brunch at Stratton's or Olive + Oak." },
+      { day: "Sunday", time: "2:00 PM", activity: "Wine country drive", where: "45 min west to Augusta. Mount Pleasant tasting, Norton red." }
+    ],
+    costBreakdown: {
+      anchorAmount: "$4,200/month",
+      headline: "For a couple in a <strong>3-bed, 2,000 sq ft brick home in Kirkwood</strong>, with two cars, a mid-tier Cardinals ticket package, and a habit of dining out twice a week. St. Louis property tax is moderate; the value comes from how much culture is genuinely free.",
+      items: [
+        { icon: "🏠", label: "Housing",            detail: "Mortgage on $400K @ 6.5% + insurance + utilities",       percent: 52, barPct: 80, amount: "$2,200" },
+        { icon: "🛒", label: "Groceries + dining", detail: "Twice-weekly meals out · Schnucks or Dierbergs · The Hill on Fridays", percent: 18, barPct: 35, amount: "$750" },
+        { icon: "🏥", label: "Healthcare",          detail: "Medicare + Medigap supplement, couple aged 67+",         percent: 12, barPct: 22, amount: "$500" },
+        { icon: "🚗", label: "Transportation",      detail: "Two cars · gas · MO car insurance · Uber rare",          percent: 8,  barPct: 16, amount: "$350" },
+        { icon: "🎟️", label: "Culture + recreation", detail: "Cardinals partial-season tix · symphony series · gym · Muny is free", percent: 7,  barPct: 14, amount: "$300" },
+        { icon: "📺", label: "Misc + subscriptions", detail: "Internet, streaming, household, modest discretionary",   percent: 2,  barPct: 6,  amount: "$100" }
+      ],
+      total: { label: "Estimated total", detail: "Excludes property tax (~$5K/year), travel, gifts, splurges", amount: "$4,200" },
+      disclaimer: "Estimates based on Q1 2026 local data — Zillow, Numbeo, Schnucks/Dierbergs basket pricing, MO Dept. of Insurance. Your numbers will vary."
+    },
+    neighborhoodsTitle: "Four <em>St. Louises</em>, depending on you.",
+    neighborhoodsIntro: "Almost every retiree in our database who chooses St. Louis ends up in St. Louis County, not the City. The four suburbs below cover the spectrum from amenity-rich-suburban to walkable-downtown to estate-quiet.",
+    healthTitle: "One of the country's <em>best hospitals</em>, sitting in the middle of the metro.",
+    healthDetail: "U.S. News &amp; World Report Honor Roll — one of only 22 hospitals in America with that designation. Nationally ranked in 11 specialties: cancer, cardiology, neurology, neurosurgery, gastroenterology, pulmonology, diabetes &amp; endocrinology, geriatrics, urology, ear/nose/throat, and rehabilitation. Affiliated with Washington University School of Medicine. For complex care, this is among the best in America.",
     scoreNotes: {
       D1: "STL — solid hub, 50+ nonstop destinations. 15 min from western suburbs. Delta, American, United, Southwest.",
       D2: "City median $250K but retirees target Chesterfield ($400K–$500K), Kirkwood/Webster ($350K–$450K), Clayton ($450K+). Use suburb pricing.",
@@ -4092,10 +4601,10 @@ const CITY_ENRICHMENT = {
       D10: "Cardinals/Blues culture, Forest Park free museums, symphony, opera, world-class restaurant scene, Soulard, Lafayette Square. Rich urban culture."
     },
     neighborhoods: [
-      { name: "Chesterfield", vibe: "Affluent, suburban, safe", desc: "Premier west-county suburb. Jordan Creek shopping, excellent restaurants, strong healthcare access. Most popular with retirees. Median home $400K–$500K." },
-      { name: "Kirkwood / Webster Groves", vibe: "Historic, walkable, charming", desc: "Beloved historic suburbs. Tree-lined streets, brick homes, walkable downtowns, excellent restaurants. Median home $350K–$450K." },
-      { name: "Clayton", vibe: "Urban, walkable, sophisticated", desc: "Most walkable suburb, MetroLink access, upscale dining, art galleries. Best for retirees wanting urban walkability. Median home $450K+." },
-      { name: "Wildwood / Town & Country", vibe: "Quiet, luxury, spacious", desc: "Large lots, mature trees, very low crime. Among safest St. Louis suburbs. Median home $500K–$800K." }
+      { name: "Chesterfield", vibe: "Affluent · Suburban · Amenity-rich", desc: "The premier west-county address. Chesterfield Mall, the Boone's Crossing dining strip, easy access to Mercy and Saint Luke's hospitals, plus Barnes-Jewish West County. Most popular with retirees who want a polished, full-service suburban experience. Median home $400K–$500K." },
+      { name: "Kirkwood / Webster Groves", vibe: "Historic · Walkable · Charming", desc: "Two of the most beloved historic suburbs in metro St. Louis. Brick bungalows, tree-lined streets, walkable downtowns with the kind of independent bookshops and pie diners that no longer exist most places. The Saturday Kirkwood Farmers' Market is iconic. Median home $350K–$450K." },
+      { name: "Clayton", vibe: "Urban · Walkable · Sophisticated", desc: "St. Louis County seat — the only suburb that genuinely feels urban. Walkable downtown, real restaurants (Niche-trained chefs), MetroLink to downtown St. Louis in 12 min, art galleries, the Wydown corridor. Best for retirees who want urban texture without urban prices. Median home $450K+." },
+      { name: "Wildwood / Town & Country", vibe: "Quiet · Spacious · Very low crime", desc: "The outer-west estate communities. Large lots, mature trees, deer in the yard at dusk. Town & Country consistently ranks among the safest municipalities in the metro. Best for retirees prioritizing privacy and space over walkability. Median home $500K–$800K." }
     ],
     sources: "Redfin/Zillow (2026) · Barnes-Jewish US News rankings · CrimeGrade.org · MO Dept. of Revenue · NOAA Climate Normals · St. Louis Post-Dispatch · Data current April 2026."
   },
@@ -5764,6 +6273,343 @@ function getTaxNote(state) {
   return notes[state] || 'See profile';
 }
 
+// ============================================================
+// EDITORIAL CITY DETAIL RENDERER
+// Activated when CITY_ENRICHMENT[city].editorialOverview is present.
+// Renders the rich, magazine-style template with For-You-If, A Typical Week,
+// Cost Breakdown, etc. Cities without editorialOverview get the legacy renderer.
+// ============================================================
+function renderEditorialDetail(city, en) {
+  const matchPct = (typeof lastMatchScore !== 'undefined' && lastMatchScore) ? lastMatchScore : null;
+
+  // Photo: prefer en.signaturePhoto.url if provided, else fall back to CITY_PHOTOS lookup
+  let photoUrl = '';
+  if (en.signaturePhoto && en.signaturePhoto.url) {
+    photoUrl = en.signaturePhoto.url;
+  } else {
+    const fallback = getCityPhotoUrl(city.name);
+    if (fallback) photoUrl = fallback.replace('w=600', 'w=1600');
+  }
+
+  // Hero
+  const heroPhotoBg = photoUrl
+    ? `<div class="ed-hero-photo" style="background-image:url('${photoUrl}');"></div>`
+    : `<div class="ed-hero-photo" style="background:linear-gradient(135deg,var(--teal) 0%,var(--teal-mid) 100%);"></div>`;
+
+  // Verified badge — only if status set
+  const verifiedHTML = en.verifiedStatus === 'locally_verified'
+    ? `<div class="ed-verified-badge">Locally verified</div>`
+    : en.verifiedStatus === 'editorially_reviewed'
+    ? `<div class="ed-verified-badge">Editorially reviewed</div>`
+    : '';
+
+  const heroMeta = (en.heroMeta || []).map(s => `<span>${s}</span>`).join('');
+
+  const matchPillHTML = matchPct ? `
+    <div class="ed-match-pill">
+      <span class="ed-match-pill-pct">${matchPct}%</span>
+      <span class="ed-match-pill-lbl">Your<br>Match</span>
+    </div>` : '';
+
+  // Stats — fall back to existing fields
+  const stat1 = en.stats && en.stats[0] ? en.stats[0] : { label: 'Median Home', value: city.medianHome || '—', sub: '' };
+  const stat2 = en.stats && en.stats[1] ? en.stats[1] : { label: 'Monthly Budget', value: city.monthlyEst || '—', sub: 'Range ' + (city.budgetRange || '?') };
+  const stat3 = en.stats && en.stats[2] ? en.stats[2] : { label: 'State Income Tax', value: getTaxNote(city.state), sub: '' };
+  const stat4 = en.stats && en.stats[3] ? en.stats[3] : { label: 'Climate', value: '—', sub: getClimateDesc(city) };
+
+  // Method banner — high-variance cities only
+  const methodBanner = en.methodologyNote ? `
+    <div class="ed-method-banner">
+      <div class="ed-method-banner-wrap">${en.methodologyNote}</div>
+    </div>` : '';
+
+  // For-you-if / Skip-if
+  const fitYesHTML = (en.forYouIf || []).map(item => `
+    <li><span class="ed-fit-marker"></span><span>${item}</span></li>`).join('');
+  const fitNoHTML = (en.notForYouIf || []).map(item => `
+    <li><span class="ed-fit-marker"></span><span>${item}</span></li>`).join('');
+  const fitSection = (fitYesHTML || fitNoHTML) ? `
+    <section class="ed-section ed-fit-section">
+      <div class="ed-section-wrap">
+        <div class="ed-eyebrow">Should you actually move here?</div>
+        <h2 class="ed-title">Is ${city.name} <em>for you</em>?</h2>
+        ${en.fitIntro ? `<p class="ed-intro">${en.fitIntro}</p>` : ''}
+        <div class="ed-fit-grid">
+          <div class="ed-fit-col ed-yes">
+            <div class="ed-fit-col-header">
+              <div class="ed-fit-icon ed-yes">✓</div>
+              <div class="ed-fit-col-title">You'll <em>love</em> it here if&hellip;</div>
+            </div>
+            <ul class="ed-fit-list">${fitYesHTML}</ul>
+          </div>
+          <div class="ed-fit-col ed-no">
+            <div class="ed-fit-col-header">
+              <div class="ed-fit-icon ed-no">✗</div>
+              <div class="ed-fit-col-title">Skip ${city.name} <em>if</em>&hellip;</div>
+            </div>
+            <ul class="ed-fit-list">${fitNoHTML}</ul>
+          </div>
+        </div>
+      </div>
+    </section>` : '';
+
+  // Editorial overview + pull quote
+  const overviewParas = Array.isArray(en.editorialOverview) ? en.editorialOverview : [en.editorialOverview];
+  const overviewHTML = overviewParas.map((p, i) => {
+    if (i === 0) {
+      const firstChar = p.charAt(0);
+      const rest = p.slice(1);
+      return `<p><span class="ed-dropcap">${firstChar}</span>${rest}</p>`;
+    }
+    return `<p>${p}</p>`;
+  }).join('');
+  const pullQuoteHTML = en.pullQuote ? `
+    <aside class="ed-pullquote">
+      <div class="ed-pullquote-mark">"</div>
+      <div class="ed-pullquote-text">${en.pullQuote.text}</div>
+      <div class="ed-pullquote-attr">${en.pullQuote.attribution}</div>
+    </aside>` : '';
+  const characterSection = `
+    <section class="ed-section">
+      <div class="ed-character-wrap">
+        <div>
+          <div class="ed-eyebrow">${en.characterEyebrow || 'The character of the place'}</div>
+          <h2 class="ed-title">${en.characterTitle || 'About ' + city.name + '.'}</h2>
+          <div class="ed-character-body">${overviewHTML}</div>
+        </div>
+        ${pullQuoteHTML}
+      </div>
+    </section>`;
+
+  // Typical week
+  const weekCards = (en.typicalWeek || []).map(d => `
+    <div class="ed-day-card">
+      <div class="ed-day-name">${d.day}</div>
+      <div class="ed-day-time">${d.time}</div>
+      <div class="ed-day-activity">${d.activity}</div>
+      <div class="ed-day-where">${d.where}</div>
+    </div>`).join('');
+  const weekSection = weekCards ? `
+    <section class="ed-section ed-week-section">
+      <div class="ed-section-wrap">
+        <div class="ed-eyebrow">What life actually looks like</div>
+        <h2 class="ed-title">A week in ${city.name}, <em>roughly</em>.</h2>
+        ${en.weekIntro ? `<p class="ed-intro">${en.weekIntro}</p>` : ''}
+        <div class="ed-week-grid">${weekCards}</div>
+      </div>
+    </section>` : '';
+
+  // Cost breakdown
+  const costRows = en.costBreakdown && en.costBreakdown.items ? en.costBreakdown.items.map(item => `
+    <div class="ed-cost-row">
+      <div class="ed-cost-row-left">
+        <div class="ed-cost-icon">${item.icon}</div>
+        <div>
+          <div class="ed-cost-label">${item.label}</div>
+          <div class="ed-cost-detail">${item.detail || ''}</div>
+        </div>
+      </div>
+      <div class="ed-cost-bar-wrap"><div class="ed-cost-bar" style="width:${item.barPct || item.percent || 0}%;"></div></div>
+      <div class="ed-cost-detail">${item.percent || 0}% of total</div>
+      <div class="ed-cost-amount">${item.amount}</div>
+    </div>`).join('') : '';
+  const costTotal = en.costBreakdown && en.costBreakdown.total ? `
+    <div class="ed-cost-row ed-total">
+      <div class="ed-cost-row-left">
+        <div class="ed-cost-icon" style="background:rgba(196,114,74,0.18);">∑</div>
+        <div>
+          <div class="ed-cost-label">${en.costBreakdown.total.label || 'Estimated total'}</div>
+          <div class="ed-cost-detail">${en.costBreakdown.total.detail || ''}</div>
+        </div>
+      </div>
+      <div class="ed-cost-bar-wrap"><div class="ed-cost-bar" style="width:100%;background:var(--terra);"></div></div>
+      <div class="ed-cost-detail">100%</div>
+      <div class="ed-cost-amount">${en.costBreakdown.total.amount}</div>
+    </div>` : '';
+  const costSection = costRows ? `
+    <section class="ed-section ed-cost-section">
+      <div class="ed-section-wrap">
+        <div class="ed-eyebrow">Where the money actually goes</div>
+        <h2 class="ed-title">What <em>${en.costBreakdown.anchorAmount || city.monthlyEst}</em> buys you here.</h2>
+        ${en.costBreakdown.headline ? `<p class="ed-cost-headline">${en.costBreakdown.headline}</p>` : ''}
+        <div class="ed-cost-table">
+          ${costRows}
+          ${costTotal}
+        </div>
+        ${en.costBreakdown.disclaimer ? `<p class="ed-cost-disclaimer">${en.costBreakdown.disclaimer}</p>` : ''}
+      </div>
+    </section>` : '';
+
+  // Neighborhoods
+  const hoodsHTML = (en.neighborhoods || []).map(n => `
+    <div class="ed-hood-card">
+      <div class="ed-hood-name">${n.name}</div>
+      <div class="ed-hood-vibe">${n.vibe}</div>
+      <div class="ed-hood-desc">${n.desc}</div>
+    </div>`).join('');
+  const hoodsSection = hoodsHTML ? `
+    <section class="ed-section ed-hoods-section">
+      <div class="ed-section-wrap">
+        <div class="ed-eyebrow">Where to live</div>
+        <h2 class="ed-title">${en.neighborhoodsTitle || 'Where to live in ' + city.name + '.'}</h2>
+        ${en.neighborhoodsIntro ? `<p class="ed-hoods-intro">${en.neighborhoodsIntro}</p>` : ''}
+        <div class="ed-hoods-grid">${hoodsHTML}</div>
+      </div>
+    </section>` : '';
+
+  // Healthcare card
+  const isHonorRoll = (en.hospitalRating || '').toLowerCase().includes('honor roll');
+  const healthCard = en.hospitalRating ? `
+    <section class="ed-section">
+      <div class="ed-section-wrap">
+        <div class="ed-eyebrow">Healthcare</div>
+        <h2 class="ed-title">${en.healthTitle || 'Healthcare in ' + city.name + '.'}</h2>
+        <div class="ed-health-card${isHonorRoll ? ' ed-honor' : ''}">
+          <div class="ed-health-icon">🏥</div>
+          <div>
+            <div class="ed-health-name">${en.hospitalRating.split('—')[0].trim()}</div>
+            <div class="ed-health-detail">${en.healthDetail || en.hospitalRating}</div>
+          </div>
+          <div class="ed-health-grade">
+            <div class="ed-health-grade-num">${getCityScore(city, 'D3')}<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+            <div class="ed-health-grade-lbl">Healthcare Score</div>
+          </div>
+        </div>
+      </div>
+    </section>` : '';
+
+  // Personalized "Why X matched you" block — preserved from legacy
+  const personalizedHTML = matchPct && typeof generateWhyMatch === 'function' ? `
+    <section class="ed-section" style="padding-top:0;">
+      <div class="ed-section-wrap">
+        <div class="detail-section detail-personalized" style="margin:0;">
+          <div class="detail-personal-header">
+            <span class="detail-personal-badge">${matchPct}% Your Match</span>
+            <h3 style="margin:0;">Why ${city.name} matched you</h3>
+          </div>
+          <div class="detail-why-text">${generateWhyMatch(city)}</div>
+          <div class="detail-tradeoffs-label">⚡ Tradeoffs based on your priorities</div>
+          <div class="detail-tradeoffs">
+            ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
+          </div>
+          <div class="detail-bestfor-label">🎯 Best for someone like you</div>
+          <div class="detail-bestfor-text">${generateBestFor(city)}</div>
+        </div>
+      </div>
+    </section>` : '';
+
+  // Scorecard accordion (collapsed by default, preserves legacy data)
+  const scoreRowsHTML = DIMENSIONS.map(dim => {
+    const score = getCityScore(city, dim.key);
+    const label = dim.label;
+    if (dim.key === 'DC') {
+      const climateDesc = getClimateDesc(city);
+      return `<div class="score-note-row">
+        <div class="snr-header"><span class="snr-label">🌤️ Climate</span></div>
+        <div class="snr-note">${climateDesc}</div>
+      </div>`;
+    }
+    const note = (en.scoreNotes && en.scoreNotes[dim.key]) || '';
+    const grade = score >= 9 ? 'Exceptional' : score >= 7 ? 'Strong' : score >= 5 ? 'Adequate' : score >= 3 ? 'Limited' : 'Weak';
+    const gradeColor = score >= 9 ? 'var(--teal)' : score >= 7 ? '#5a9e6f' : score >= 5 ? 'var(--gold)' : '#e07b5a';
+    return `<div class="score-note-row">
+      <div class="snr-header">
+        <span class="snr-label">${dim.icon} ${label}</span>
+        <span class="snr-grade" style="color:${gradeColor}">${grade}</span>
+      </div>
+      ${note ? `<div class="snr-note">${note}</div>` : ''}
+    </div>`;
+  }).join('');
+  const scorecardAccordion = `
+    <section class="ed-section ed-scorecard-section">
+      <div class="ed-section-wrap">
+        <button class="ed-scorecard-toggle" onclick="this.classList.toggle('ed-open');this.nextElementSibling.classList.toggle('ed-open');">
+          <span><strong>See all 10 scorecard dimensions</strong> &nbsp;·&nbsp; <span style="color:var(--mid);font-weight:400;">our analytical breakdown</span></span>
+          <span class="ed-chevron">▾</span>
+        </button>
+        <div class="ed-scorecard-content">
+          <div class="score-notes">${scoreRowsHTML}</div>
+        </div>
+      </div>
+    </section>`;
+
+  // Sources footer
+  const sources = en.sources || 'Zillow/Redfin · US News Health · CrimeGrade.org · NOAA · State tax authorities · Data current as of April 2026.';
+
+  // Reports + buttons (keep from legacy)
+  const reportsBlock = `
+    <section class="ed-section" style="background:var(--white);">
+      <div class="ed-section-wrap">
+        <h3 style="font-family:'Fraunces',serif;font-size:24px;font-weight:500;margin-bottom:8px;">Free In-Depth Reports</h3>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 92 cities.</p>
+        <div id="city-detail-reports"></div>
+      </div>
+    </section>
+    <div style="text-align:center;padding:20px 0 32px;background:var(--sand);">
+      <button class="btn-secondary" onclick="goBack()">← Back</button>
+      <br>
+      <button class="btn-secondary" onclick="restartQuiz()" style="margin-top:10px">Retake Quiz</button>
+    </div>`;
+
+  return `
+    <div class="city-detail-wrap">
+      <section class="ed-hero">
+        ${heroPhotoBg}
+        <div class="ed-hero-glow"></div>
+        <div class="ed-hero-back" onclick="goBack()">← Back to results</div>
+        ${matchPillHTML}
+        <div class="ed-hero-content">
+          ${verifiedHTML}
+          ${en.heroEyebrow ? `<div class="ed-hero-eyebrow">${en.heroEyebrow}</div>` : ''}
+          <h1 class="ed-hero-name">${en.heroName || city.name}</h1>
+          ${en.tagline ? `<p class="ed-hero-tagline">${en.tagline}</p>` : ''}
+          ${heroMeta ? `<div class="ed-hero-meta">${heroMeta}</div>` : ''}
+        </div>
+      </section>
+
+      <section class="ed-stats-bar">
+        <div class="ed-stats-grid">
+          <div class="ed-stat-cell">
+            <div class="ed-stat-label">${stat1.label}</div>
+            <div class="ed-stat-value">${stat1.value}</div>
+            ${stat1.sub ? `<div class="ed-stat-sub">${stat1.sub}</div>` : ''}
+          </div>
+          <div class="ed-stat-cell">
+            <div class="ed-stat-label">${stat2.label}</div>
+            <div class="ed-stat-value">${stat2.value}</div>
+            ${stat2.sub ? `<div class="ed-stat-sub">${stat2.sub}</div>` : ''}
+          </div>
+          <div class="ed-stat-cell">
+            <div class="ed-stat-label">${stat3.label}</div>
+            <div class="ed-stat-value">${stat3.value}</div>
+            ${stat3.sub ? `<div class="ed-stat-sub">${stat3.sub}</div>` : ''}
+          </div>
+          <div class="ed-stat-cell">
+            <div class="ed-stat-label">${stat4.label}</div>
+            <div class="ed-stat-value">${stat4.value}</div>
+            ${stat4.sub ? `<div class="ed-stat-sub">${stat4.sub}</div>` : ''}
+          </div>
+        </div>
+      </section>
+
+      ${methodBanner}
+      ${personalizedHTML}
+      ${fitSection}
+      ${characterSection}
+      ${weekSection}
+      ${costSection}
+      ${hoodsSection}
+      ${healthCard}
+      ${scorecardAccordion}
+
+      <footer class="ed-foot">
+        <div class="ed-foot-wrap">${sources}</div>
+      </footer>
+
+      ${reportsBlock}
+    </div>`;
+}
+
 function showCityDetail(cityName, cityState) {
   const city = CITIES.find(c => c.name === cityName && c.state === cityState) ||
                CITIES.find(c => c.name === cityName);
@@ -5772,7 +6618,17 @@ function showCityDetail(cityName, cityState) {
   const detail = document.getElementById('cityDetail');
   const en = CITY_ENRICHMENT[city.name + '_' + city.state] || CITY_ENRICHMENT[city.name] || {};
 
-  
+  // DISPATCH: cities with editorialOverview get the new editorial template;
+  // all others fall through to the legacy renderer (unchanged behavior).
+  if (en.editorialOverview) {
+    detail.innerHTML = renderEditorialDetail(city, en);
+    showScreen('screen-detail');
+    window.scrollTo(0, 0);
+    renderReportIcons('city-detail-reports', 'detail');
+    return;
+  }
+
+  // ============= LEGACY RENDERER (unchanged) =============
   const scoreRows = DIMENSIONS.map(dim => {
     const score = getCityScore(city, dim.key);
     const fill = scoreColor(score);
