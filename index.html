@@ -1392,12 +1392,12 @@ const CITIES = [
     name: "St. Paul", state: "MN", type: "Major Metro",
     setting: ["City Energy"],
     character: ["Historic", "College Town", "Urban Neighborhood"],
-    monthlyEst: "$3,200–$3,800/mo", medianHome: "$280,000", budgetRange: 2,
-    scores: { D1:10, D2:8, D3:9, D4:3, D5:3, D6:7, D7:6, D8:7, D9:3, D10:8 },
+    monthlyEst: "$3,800–$5,000/mo", medianHome: "$425,000–$650,000", budgetRange: 3,
+    scores: { D1:10, D2:5, D3:9, D4:3, D5:3, D6:7, D7:6, D8:7, D9:7, D10:8 },
     climate: { W:1, H:7, M:5 },
-    highlight: "Perfect 10 airport access — MSP is a major Delta hub. Exceptional healthcare. Affordable housing. Warning: brutal winters.",
-    pros: ["Perfect 10 airport — MSP major Delta hub with outstanding national connections","Excellent healthcare — Regions Hospital, Allina, Mayo Clinic 90 min","Most affordable housing at $280K median — exceptional value in a real city","World-class arts and cultural scene"],
-    cons: ["Winters are genuinely brutal — January average 15°F","MN income tax up to 9.85% — Social Security taxed at higher incomes","Safety requires careful neighborhood selection — 26th percentile","For warm-weather seekers this city is simply the wrong choice"]
+    highlight: "Perfect 10 airport access — MSP is a major Delta hub. Exceptional healthcare. Citywide median home $280K but retirees target Highland Park, Macalester-Groveland, Summit Hill, and St. Anthony Park ($425K–$650K). Warning: brutal winters.",
+    pros: ["Perfect 10 airport — MSP major Delta hub with outstanding national connections","Excellent healthcare — Regions Hospital, Allina, Mayo Clinic 90 min","Highland Park, Mac-Groveland, Summit Hill — among the great urban neighborhoods of the Midwest","World-class arts and cultural scene"],
+    cons: ["Winters are genuinely brutal — January average 15°F","MN income tax up to 9.85% — Social Security taxed at higher incomes","City-wide crime stats are misleading — choose Highland Park, Mac-Groveland, Summit Hill, or St. Anthony Park","For warm-weather seekers this city is simply the wrong choice"]
   },
   {
     name: "Virginia Beach", state: "VA", type: "Beach / Metro",
@@ -1568,12 +1568,12 @@ const CITIES = [
     name: "San Antonio", state: "TX", type: "City / Historic",
     setting: ["Inland / Green"],
     character: ["Historic", "Arts & Culture"],
-    monthlyEst: "$2,800–$3,800/mo", medianHome: "$260,000", budgetRange: 2,
-    scores: { D1:9, D2:9, D3:8, D4:7, D5:9, D6:5, D7:4, D7:5, D8:6, D9:3, D10:8 },
+    monthlyEst: "$4,200–$6,000/mo", medianHome: "$475,000–$900,000", budgetRange: 3,
+    scores: { D1:9, D2:6, D3:8, D4:7, D5:9, D6:5, D7:4, D7:5, D8:6, D9:7, D10:8 },
     climate: { W:7, H:3, M:4 },
-    highlight: "Best value major city in the database. No Texas income tax. SAT airport excellent. River Walk, the Alamo, world-class Mexican food culture.",
-    pros: ["Best value major city — $260K median home, no income tax, Range 2","SAT airport strong with good national connections","River Walk, the Alamo, extraordinary Mexican food and arts culture","University Health System nationally recognized"],
-    cons: ["Safety is the critical concern — 18th percentile nationally; neighborhood selection essential","Hot summers — 95°F+ routinely June through August with some humidity","D7 outdoor recreation limited — not a nature-access city","Large metro sprawl — car dependency significant"]
+    highlight: "No Texas income tax. SAT airport excellent. River Walk, the Alamo, world-class Mexican food culture. Citywide median home $260K but retirees target Stone Oak, Alamo Heights, Terrell Hills, and Olmos Park ($475K–$900K).",
+    pros: ["No Texas income tax on any retirement income — major advantage even at suburb pricing","Alamo Heights, Terrell Hills, Olmos Park have own police forces — among the safest in metro","SAT airport strong with good national connections","River Walk, the Alamo, extraordinary Mexican food and arts culture"],
+    cons: ["City-wide crime stats are misleading — choose Alamo Heights, Terrell Hills, Stone Oak, or Olmos Park for retiree-grade safety","Hot summers — 95°F+ routinely June through August with some humidity","D7 outdoor recreation limited — not a nature-access city","Property tax ~1.8% (Bexar Co.) — higher than FL but no state income tax more than offsets"]
   },
   {
     name: "Eugene", state: "OR", type: "College / Outdoor",
@@ -1725,10 +1725,10 @@ const CITIES = [
     name: "Wilmington", state: "DE", type: "Historic / Urban",
     setting: ["City Energy", "Inland / Green"],
     character: ["Historic", "Arts & Culture", "Urban Neighborhood"],
-    monthlyEst: "$3,800–$5,000/mo", medianHome: "$260,000", budgetRange: 2,
-    scores: { D1:7, D2:7, D3:8, D4:5, D5:8, D6:6, D7:6, D8:5, D9:5, D10:7 },
+    monthlyEst: "$4,500–$7,000/mo", medianHome: "$400,000–$1,100,000", budgetRange: 3,
+    scores: { D1:7, D2:5, D3:8, D4:5, D5:8, D6:6, D7:6, D8:5, D9:7, D10:7 },
     climate: { W:4, H:6, M:5 },
-    highlight: "WalletHub's 8th best US city to retire. No sales tax. No estate tax. SS exempt. ChristianaCare highly ranked. Philly's world-class hospitals 25 min away. Delaware Art Museum, Hagley Museum, Brandywine Valley. Surprising value at $260K median home.",
+    highlight: "WalletHub's 8th best US city to retire. No sales tax. No estate tax. SS exempt. ChristianaCare highly ranked. Philly's world-class hospitals 25 min away. Citywide median home $215K but retirees target Greenville, Hockessin, Brandywine Hundred, and Trolley Square ($400K–$1.1M). Strong tax package.",
     neighborhoods: [
       { name: "Trolley Square", vibe: "Walkable, eclectic, urban", desc: "Wilmington's most walkable neighborhood. Independent restaurants, coffee shops, boutiques along Delaware Ave. Younger energy with strong community feel." },
       { name: "Brandywine Village", vibe: "Historic, quiet, riverside", desc: "Along the Brandywine Creek, historic homes, tree-lined streets. Access to Brandywine Creek State Park and trails. Peaceful residential character." },
@@ -1737,12 +1737,12 @@ const CITIES = [
     ],
     pros: ["No Delaware sales tax, no estate tax, SS exempt, $12,500 pension exclusion age 60+ — excellent tax package",
            "ChristianaCare highly ranked locally. University of Pennsylvania Health and Jefferson Health 25 min (Philadelphia)",
-           "WalletHub #8 best US city to retire — recognized for weather, crime, and elder care laws",
+           "Greenville and Hockessin are 'chateau country' — multi-acre lots, very low crime, established retiree communities",
            "Delaware Art Museum, Hagley Museum, Brandywine Valley gardens, Grand Opera House"],
-    cons: ["Safety mixed citywide — downtown neighborhoods more challenging. Suburban retirees experience much safer conditions",
+    cons: ["City-wide crime stats are misleading — choose Greenville, Hockessin, Brandywine Hundred, or Trolley Square",
            "Hot humid summers — Mid-Atlantic humidity June through September",
            "Real winters — cold with occasional snow and ice",
-           "Car-dependent outside Trolley Square and downtown core"]
+           "Greenville and Hockessin medians genuinely $1M+ — premium retiree pricing"]
   },
   {
     name: "Rehoboth Beach", state: "DE", type: "Beach Town / Resort",
@@ -1884,10 +1884,10 @@ const CITIES = [
     name: "Philadelphia", state: "PA", type: "Historic / Urban / College Town",
     setting: ["City Energy", "Beach / Coastal"],
     character: ["Historic", "Arts & Culture", "Urban Neighborhood", "Outdoor Lifestyle"],
-    monthlyEst: "$3,500–$5,000/mo", medianHome: "$270,000", budgetRange: 2,
-    scores: { D1:8, D2:7, D3:10, D4:5, D5:6, D6:8, D7:5, D8:7, D9:4, D10:9 },
+    monthlyEst: "$4,500–$7,000/mo", medianHome: "$475,000–$975,000", budgetRange: 3,
+    scores: { D1:8, D2:5, D3:10, D4:5, D5:6, D6:8, D7:5, D8:7, D9:6, D10:9 },
     climate: { W:5, H:6, M:5 },
-    highlight: "Penn Medicine #1 in Pennsylvania, nationally ranked in 11 specialties. Jefferson Health nationally ranked in 6. Median home $270K — extraordinary value for a major East Coast city.",
+    highlight: "Penn Medicine #1 in Pennsylvania, nationally ranked in 11 specialties. Jefferson Health nationally ranked in 6. Citywide median home $270K but retirees target Rittenhouse Square, Society Hill, Chestnut Hill, and Manayunk ($475K–$975K).",
     neighborhoods: [
       { name: "Rittenhouse Square", vibe: "Upscale, walkable, urban", desc: "The most desirable neighborhood in Philadelphia. Exceptional restaurants, boutiques, and park. Very safe, very walkable." },
       { name: "Fairmount / Art Museum", vibe: "Arts, active, walkable", desc: "Adjacent to Fairmount Park and the Art Museum. Kelly Drive cycling. Strong community feel. Excellent walkability." },
@@ -1895,22 +1895,22 @@ const CITIES = [
       { name: "Old City", vibe: "Historic, walkable, arts", desc: "Independence Hall, Elfreth's Alley, First Friday gallery openings. Dense historic fabric. Excellent walkability and transit access." }
     ],
     pros: ["Penn Medicine + Jefferson Health — among the greatest medical concentrations in the database",
-           "Median home $270K — extraordinary value for a major Northeast city",
            "Walk Score 74, SEPTA subway and regional rail — genuinely car-optional living",
+           "PA wage tax 3.74% does NOT apply to retirement income — retirees pay only 3.07% PA flat tax",
            "Extraordinary cultural depth — art, food, history, sports culture"],
-    cons: ["Crime rate above national average — neighborhood selection is critical",
+    cons: ["City-wide crime stats are misleading — Rittenhouse Square, Society Hill, Chestnut Hill, and Fairmount are genuinely safe",
            "Philadelphia city wage tax 3.74% applies to earned income — not retirement income",
            "Real winters — January average 35°F, some snow and ice",
-           "Some neighborhoods have significant quality-of-life variation — research carefully"]
+           "Retiree-target neighborhoods carry premium pricing — Chestnut Hill SF homes $750K–$975K"]
   },
   {
     name: "Pittsburgh", state: "PA", type: "College Town / Urban / Outdoor",
     setting: ["Mountain", "Lakeside"],
     character: ["Arts & Culture", "Urban Neighborhood", "College Town", "Outdoor Lifestyle"],
-    monthlyEst: "$3,200–$4,500/mo", medianHome: "$265,000", budgetRange: 2,
-    scores: { D1:6, D2:8, D3:10, D4:5, D5:7, D6:6, D7:6, D8:6, D9:5, D10:8 },
+    monthlyEst: "$4,500–$6,500/mo", medianHome: "$425,000–$700,000", budgetRange: 3,
+    scores: { D1:6, D2:5, D3:10, D4:5, D5:7, D6:6, D7:6, D8:6, D9:7, D10:8 },
     climate: { W:4, H:6, M:5 },
-    highlight: "UPMC Presbyterian Shadyside #1 in Pittsburgh, #2 in Pennsylvania, nationally ranked in 9 specialties. Median home $265K — most affordable major city in the database with world-class healthcare.",
+    highlight: "UPMC Presbyterian Shadyside #1 in Pittsburgh, #2 in Pennsylvania, nationally ranked in 9 specialties. Citywide median home $265K but retirees target Squirrel Hill, Shadyside, Mt. Lebanon, and Fox Chapel ($425K–$700K+). World-class healthcare at northeastern-affordable prices.",
     neighborhoods: [
       { name: "Shadyside", vibe: "Walkable, upscale, safe", desc: "Historic mansions, Walnut Street boutiques and dining, proximity to UPMC hospitals. Very safe, very walkable. Popular with doctors and retirees." },
       { name: "Squirrel Hill", vibe: "Diverse, walkable, community", desc: "Vibrant neighborhood with excellent restaurants, Forbes Avenue retail, Frick Park access. Strong community identity and safety." },
@@ -1918,13 +1918,13 @@ const CITIES = [
       { name: "Mount Lebanon", vibe: "Suburban, safe, family", desc: "T light rail access to downtown. Walkable village center. Consistently rated one of Pittsburgh's safest and most livable neighborhoods." }
     ],
     pros: ["UPMC Presbyterian Shadyside — #1 Pittsburgh, #2 Pennsylvania, 9 nationally ranked specialties",
-           "Median home $265K — most affordable major city in the database",
-           "Best budget + healthcare combination of any city in the database",
+           "PA exempts Social Security from state income tax; flat 3.07% on other retirement income — strong tax position",
+           "Strong healthcare-to-cost ratio for the Northeast — UPMC at northeastern-affordable prices",
            "Carnegie museums, Andy Warhol Museum, exceptional neighborhood character"],
     cons: ["Airport 30–40 min — no direct transit, car or rideshare required",
            "Real winters — January average 31°F, significant snow and overcast days",
            "Hilly terrain limits walkability in many neighborhoods",
-           "Crime varies significantly by neighborhood — research carefully"]
+           "City-wide crime stats are misleading — choose Squirrel Hill, Shadyside, Mt. Lebanon, or Fox Chapel for retiree-grade safety"]
   },
   {
     name: "Pensacola", state: "FL", type: "Beach / Military",
@@ -2282,12 +2282,12 @@ const CITIES = [
     name: "Indianapolis", state: "IN", type: "Urban / Sports",
     setting: ["City Energy", "Inland / Green"],
     character: ["Urban Neighborhood", "Arts & Culture"],
-    monthlyEst: "$3,000–$4,200/mo", medianHome: "$223,000", budgetRange: 2,
-    scores: { D1:8, D2:9, D3:8, D4:5, D5:6, D6:5, D7:3, D8:5, D9:6, D10:7 },
+    monthlyEst: "$3,800–$5,200/mo", medianHome: "$425,000–$700,000", budgetRange: 3,
+    scores: { D1:8, D2:6, D3:8, D4:5, D5:6, D6:5, D7:3, D8:5, D9:7, D10:7 },
     climate: { W:3, H:7, M:4 },
-    highlight: "Indianapolis offers a complete major-city experience — excellent airport, strong healthcare, thriving sports culture, and a growing arts scene — at a median home price under $225K, making it one of the best value large cities in the database.",
-    pros: ["IU Health and Eskenazi Health are major medical systems with strong specialty depth", "Indianapolis International Airport consistently rated among the best in the Midwest", "Median home under $225K in a full major city", "Strong sports and civic culture — Pacers, Colts, Indy 500"],
-    cons: ["Cold winters — Indiana weather is a real tradeoff", "Car dependent outside of Mass Ave and Fountain Square", "Indiana income tax applies to retirement income", "Flat terrain limits outdoor recreation options"]
+    highlight: "Indianapolis offers a complete major-city experience — excellent airport, strong healthcare, thriving sports culture, and a growing arts scene. Citywide median home $223K but retirees target Carmel, Zionsville, Fishers, and Broad Ripple ($425K–$700K).",
+    pros: ["IU Health and Eskenazi Health are major medical systems with strong specialty depth", "Indianapolis International Airport consistently rated among the best in the Midwest", "Carmel and Zionsville among the safest cities in Indiana — established retiree communities", "Strong sports and civic culture — Pacers, Colts, Indy 500"],
+    cons: ["Cold winters — Indiana weather is a real tradeoff", "Car dependent outside of Mass Ave and Fountain Square", "Indiana income tax (3.05% flat) applies to retirement income", "Flat terrain limits outdoor recreation options"]
   },
   {
     name: "Vail", state: "CO", type: "Mountain Luxury",
@@ -2315,12 +2315,12 @@ const CITIES = [
     name: "Memphis", state: "TN", type: "Urban / Cultural",
     setting: ["City Energy", "Inland / Green"],
     character: ["Urban Neighborhood", "Arts & Culture", "Historic"],
-    monthlyEst: "$2,800–$4,000/mo", medianHome: "$175,000", budgetRange: 1,
-    scores: { D1:8, D2:9, D3:9, D4:5, D5:9, D6:5, D7:3, D8:4, D9:4, D10:7 },
+    monthlyEst: "$3,200–$4,500/mo", medianHome: "$280,000–$500,000", budgetRange: 2,
+    scores: { D1:8, D2:7, D3:9, D4:5, D5:9, D6:5, D7:3, D8:4, D9:7, D10:7 },
     climate: { W:5, H:8, M:5 },
-    highlight: "The birthplace of blues, rock and roll, and soul food — Memphis has one of the richest cultural identities in America, world-class healthcare in St. Jude and Methodist hospitals, and the most affordable home prices in the database.",
-    pros: ["St. Jude Children’s Research Hospital and Methodist Le Bonheur — exceptional healthcare depth", "Median home under $180K — most affordable major city in the database", "No Tennessee income tax on any retirement income whatsoever", "Beale Street, Graceland, National Civil Rights Museum — unmatched cultural richness"],
-    cons: ["Safety levels vary significantly by neighborhood — careful area selection is essential", "Hot and humid summers with temperatures regularly exceeding 90°F", "Car dependent — limited walkability outside Downtown and Midtown", "Some neighborhoods require significant research before committing"]
+    highlight: "The birthplace of blues, rock and roll, and soul food — Memphis has one of the richest cultural identities in America, world-class healthcare in St. Jude and Methodist hospitals. Citywide median home $170K but retirees target Germantown, Collierville, East Memphis, and Bartlett ($280K–$500K).",
+    pros: ["St. Jude Children's Research Hospital and Methodist Le Bonheur — exceptional healthcare depth", "Germantown and Collierville among Tennessee's safest cities — established retiree communities", "No Tennessee income tax on any retirement income whatsoever", "Beale Street, Graceland, National Civil Rights Museum — unmatched cultural richness"],
+    cons: ["City-wide crime stats are misleading — choose Germantown, Collierville, East Memphis, or Bartlett for retiree-grade safety", "Hot and humid summers with temperatures regularly exceeding 90°F", "Car dependent — limited walkability outside Downtown and Midtown", "Limited outdoor recreation — flat terrain, no mountains or coast"]
   },
   {
     name: "Napa", state: "CA", type: "Wine Country",
@@ -2683,7 +2683,7 @@ const CITY_ENRICHMENT = {
     hospitalRating: "Regions Hospital + Allina Health — all strong; Mayo Clinic 90 min",
     scoreNotes: {
       D1: "MSP (Minneapolis-Saint Paul International) 20 min. Major Delta, American, Southwest hub. Outstanding national and international connections. Perfect 10.",
-      D2: "Median home $280K. Monthly costs $3,200–$3,800. Heating bills significant in winter. Among the most affordable metros in the database.",
+      D2: "Citywide median ~$280K but retirees target Highland Park (~$510K), Macalester-Groveland (~$435K), Summit Hill/Cathedral Hill (~$538K), and St. Anthony Park (~$475K). Monthly costs $3,800–$5,000 in target areas. Heating bills significant in winter. MN income tax 5.35–9.85% is real drag — Social Security taxed above ~$76K income.",
       D3: "Regions Hospital (Level I trauma), United Hospital, Allina Health all strong. Mayo Clinic Rochester 90 min for top-tier specialty.",
       DW: "Jan avg 15°F — the most brutal winter in the database. Significant snow Nov–March. Wind chills can reach -30°F.",
       DH: "Summers pleasant and warm — July avg 82°F. Low humidity. Long daylight hours. Minnesotans live outdoors completely in summer.",
@@ -2692,15 +2692,16 @@ const CITY_ENRICHMENT = {
       D6: "Grand Avenue and Selby Avenue walkable. Mississippi River walking and biking trails. Summit Hill is one of the great urban neighborhoods in the Midwest.",
       D7: "Mississippi River gorge. Chain of Lakes system. Strong cycling infrastructure. Boundary Waters 3 hrs. Winter outdoor activities for the committed.",
       D8: "Excellent indoor facilities — essential for winter. Strong senior programming. Year-round fitness culture. Multiple community recreation centers.",
-      D9: "CrimeGrade D — 26th percentile. Concentrated in specific neighborhoods. Cathedral Hill, Summit Hill, Highland Park much safer.",
+      D9: "Citywide CrimeGrade D understates retiree-area safety dramatically. Highland Park, Macalester-Groveland, Summit Hill, Cathedral Hill, and St. Anthony Park are among the great urban neighborhoods of the Midwest — well-established, family- and retiree-heavy, with crime concentrated entirely in the East Side. Retiree-target areas are 80–90th percentile nationally.",
       D10: "Walker Art Center. Minnesota Orchestra. Ordway Concert Hall. James Beard restaurant scene. Vibrant neighborhood culture. World-class arts city."
     },
     neighborhoods: [
-      { name: "Summit Hill / Cathedral Hill", vibe: "Historic, elegant, walkable", desc: "Victorian mansions, Grand Avenue dining, Summit Avenue architecture. Beautiful and safe. The most desirable St. Paul neighborhood." },
-      { name: "Highland Park", vibe: "Established, quiet, consistently safe", desc: "Consistently the safest area. Good retail on Ford Parkway. Very livable." },
-      { name: "Macalester-Groveland", vibe: "College town, intellectual, walkable", desc: "Around Macalester College. Diverse, educated community. Great restaurants and bookshops. Very walkable." }
+      { name: "Summit Hill / Cathedral Hill", vibe: "Historic, elegant, walkable", desc: "Victorian mansions, Grand Avenue dining, Summit Avenue architecture. Beautiful and very safe. The most desirable St. Paul neighborhood. Median home ~$538K." },
+      { name: "Highland Park", vibe: "Established, quiet, consistently safe", desc: "Consistently among the safest areas in St. Paul. Good retail on Ford Parkway, Highland Bridge new development, Mississippi River access. Very livable. Median home ~$510K." },
+      { name: "Macalester-Groveland", vibe: "College town, intellectual, walkable", desc: "Around Macalester College. Diverse, educated community. Great restaurants, bookshops, walkable. Median home ~$435K — most accessible price point of the retiree-target areas." },
+      { name: "St. Anthony Park", vibe: "Quiet, leafy, residential", desc: "Near University of Minnesota St. Paul campus. Tree-lined streets, strong community feel, small commercial node at Como and Carter. Quieter alternative for retirees who want neighborhood character without the bustle. Median home ~$475K." }
     ],
-    sources: "Zillow/Redfin (2026) · US News Health · CrimeGrade.org (2025) · MN Dept. of Revenue · NOAA Climate Normals · Star Tribune · Data current as of March 2026."
+    sources: "Zillow/Redfin (2026) · US News Health · CrimeGrade.org (2025) · MN Dept. of Revenue · NOAA Climate Normals · Star Tribune · Data current as of April 2026."
   },
   "Virginia Beach": {
     hospitalRating: "Sentara Healthcare — strong regional system, high-performing in multiple procedures",
@@ -3123,7 +3124,7 @@ const CITY_ENRICHMENT = {
     hospitalRating: "ChristianaCare — Lown Institute highly ranked. University of Pennsylvania Health 25 min",
     scoreNotes: {
       D1: "PHL (Philadelphia International) 25 min — major hub. Wilmington Airport small but convenient for regional. Amtrak Acela station downtown.",
-      D2: "Median home ~$260K. No sales tax. Cost of living near national average. Excellent value for Mid-Atlantic location.",
+      D2: "Citywide median ~$215K but retirees target Greenville (~$1.085M), Hockessin (~$1.1M, with single-family ~$650K available), Brandywine Hundred (~$400–500K), and Trolley Square (~$300–400K). Monthly costs $4,500–$7,000 in target areas. No sales tax. Property tax 0.5% — among lowest nationally. $12,500 retirement income exclusion age 60+. Strong tax position offsets some of the housing premium.",
       D3: "ChristianaCare highly ranked by Lown Institute. Penn Medicine, Jefferson Health, and Temple University Hospital all within 25 min via I-95.",
       DW: "Jan avg 33°F — real winter with snow possible. Four true seasons. Spring and fall beautiful.",
       DH: "Summers hot and humid — July avg 87°F. Mid-Atlantic humidity real June–September.",
@@ -3132,14 +3133,14 @@ const CITY_ENRICHMENT = {
       D6: "Trolley Square and Riverwalk walkable. Brandywine Creek area has trail access. Most of city car-dependent.",
       D7: "Brandywine Creek State Park, Alapocas Run State Park, Delaware's scenic Brandywine Valley. Philadelphia's world-class museums 25 min.",
       D8: "Adequate gym and recreation infrastructure. Delaware Senior Games. Community recreation centers. Less robust than larger cities.",
-      D9: "Safety mixed citywide — some downtown neighborhoods challenging. Suburban areas (Greenville, Hockessin) very safe. Careful neighborhood selection important.",
+      D9: "Citywide Wilmington crime is mixed but retiree-target neighborhoods are genuinely very safe. Greenville and Hockessin are 'chateau country' with multi-acre lots and effectively zero violent crime. Brandywine Hundred is consistently among DE's safest. Trolley Square is the urban-walkable option with active foot traffic. Retiree-target areas are 80th–95th percentile nationally.",
       D10: "Delaware Art Museum, Hagley Museum and Library, Grand Opera House, Winterthur. Rich cultural infrastructure for a mid-size city."
     },
     neighborhoods: [
-      { name: "Trolley Square", vibe: "Walkable, eclectic, urban", desc: "Wilmington's most walkable neighborhood. Independent restaurants, coffee shops, boutiques along Delaware Ave. Younger energy with strong community feel." },
-      { name: "Brandywine Village", vibe: "Historic, quiet, riverside", desc: "Along the Brandywine Creek, historic homes, tree-lined streets. Access to Brandywine Creek State Park and trails. Peaceful residential character." },
-      { name: "Greenville", vibe: "Affluent, quiet, suburban", desc: "Upscale suburb southwest of Wilmington. Valley Garden Park, Somerville Manning Gallery. Quiet and safe with easy Wilmington access. Popular with established retirees." },
-      { name: "Hockessin", vibe: "Green, suburban, safe", desc: "Wooded hills near Pennsylvania border. Walking distance to three state parks. Low density, safe, excellent for nature lovers. ~20 min to Wilmington." }
+      { name: "Greenville", vibe: "Affluent, wooded, 'chateau country'", desc: "4 miles northwest of Wilmington in Delaware's chateau country. Rolling hills, multi-acre estates, prestigious homes. Tower Hill School, Tatnall School. Effectively zero violent crime. Median home ~$1.085M — the premium retiree option." },
+      { name: "Hockessin", vibe: "Green, suburban, near three state parks", desc: "Wooded hills near the Pennsylvania border. Walking distance to Brandywine Creek, Alapocas Run, and White Clay Creek state parks. Low density, very safe, excellent for nature-loving retirees. ~15 min to Wilmington. Median home ~$649K (single-family); $1.1M overall median includes estates." },
+      { name: "Brandywine Hundred", vibe: "Established, residential, accessible", desc: "Wilmington's northern suburb between the city and the PA border. Strong schools, established neighborhoods, easy I-95 access. The most accessible-priced retiree-target area. Median home $400K–$500K." },
+      { name: "Trolley Square", vibe: "Walkable, eclectic, urban", desc: "Wilmington's most walkable neighborhood. Independent restaurants, coffee shops, boutiques along Delaware Ave. Brandywine Park access. Younger energy with strong community feel. The urban-walkable option for retirees who want city living. Median home $300K–$400K." }
     ],
     sources: "Zillow/Redfin (2026) · ChristianaCare Lown Institute rankings · CrimeGrade.org (2025) · DE Dept. of Finance · NOAA Climate Normals · Delaware Online · Data current as of April 2026."
   },
@@ -3218,24 +3219,25 @@ const CITY_ENRICHMENT = {
     hospitalRating: "University Health System — nationally recognized Level I trauma center",
     scoreNotes: {
       D1: "SAT (San Antonio International) — American, Delta, United, Southwest. Strong national connections. Military and federal government drives excellent infrastructure.",
-      D2: "Median home $260K. Monthly costs $2,800–$3,800. Range 2. Best value major city in the database. No Texas income tax amplifies the advantage.",
+      D2: "Citywide median ~$260K but retirees target Stone Oak (~$525K), Alamo Heights (~$700K), Terrell Hills (~$880K), and Olmos Park ($730K+). Monthly costs $4,200–$6,000 in target areas. No Texas income tax is a major retiree advantage even at suburb pricing — property tax ~1.8% but no state income tax saves more than that costs.",
       D3: "University Health System — nationally recognized, Level I trauma, UT Health San Antonio affiliation. Methodist Hospital also highly rated.",
       DW: "Jan avg 44°F — mild TX winter. Occasional frost. Much milder than Midwest. Spring arrives early and beautifully.",
       DH: "Summers hot — July avg 95°F. Real limitation June through August. Less humid than Houston but still hot.",
       DM: "Moderately humid — less humid than Houston or Corpus Christi but summer humidity is present.",
       D5: "No Texas income tax on any retirement income. Property tax ~1.8% (Bexar Co.) — higher than FL but zero income tax is a major benefit.",
-      D6: "River Walk genuinely walkable. Pearl District walkable. King William Historic District. Beyond these, car-dependent sprawl.",
+      D6: "River Walk genuinely walkable. Pearl District walkable. King William Historic District. Alamo Heights Broadway corridor walkable. Beyond these, car-dependent sprawl.",
       D7: "River Walk and San Pedro Parks. Hill Country 30 min. Government Canyon State Natural Area.",
       D8: "Strong fitness culture influenced by military presence. YMCA network excellent. Community rec centers well-funded.",
-      D9: "CrimeGrade D — 18th percentile. Critical concern requiring careful neighborhood selection. Stone Oak and Alamo Heights significantly safer.",
+      D9: "Citywide CrimeGrade D understates retiree-area safety. Alamo Heights, Terrell Hills, and Olmos Park are independent municipalities with their own police forces — among the safest neighborhoods in metro San Antonio. Stone Oak is large, gated, and very safe. Retiree-target areas are 70–90th percentile nationally. Crime is concentrated in non-target districts.",
       D10: "The Alamo. River Walk culture. Extraordinary Mexican food and cultural heritage. San Antonio Museum of Art. Performing Arts Center."
     },
     neighborhoods: [
-      { name: "Stone Oak", vibe: "Upscale suburban, safe, North SA", desc: "North San Antonio. Consistently the safest area. Good shopping, restaurants, medical facilities. Highway 281 corridor. Popular with retirees." },
-      { name: "Alamo Heights", vibe: "Historic, walkable, affluent enclave", desc: "Established enclave surrounded by San Antonio. Walkable Broadway corridor. Boutique shops, restaurants, museums nearby. Very safe." },
-      { name: "King William Historic District", vibe: "Victorian, arts, River Walk adjacent", desc: "Historic German merchant mansions south of downtown. Walkable to River Walk. Gallery scene. Most walkable historic neighborhood option." }
+      { name: "Alamo Heights", vibe: "Historic, walkable, affluent enclave", desc: "Independent municipality surrounded by San Antonio. Walkable Broadway corridor with boutique shops, restaurants, museums. Top-rated Alamo Heights ISD schools. Own police force. Very safe. Median home ~$700K." },
+      { name: "Terrell Hills", vibe: "Established, large lots, exclusive", desc: "Coveted enclave adjacent to Alamo Heights. Large lots, mature trees, Alamo Heights ISD schools. Independent municipality with own police. Among the most exclusive retiree options in San Antonio. Median home ~$880K." },
+      { name: "Stone Oak", vibe: "Upscale suburban, safe, North SA", desc: "North San Antonio master-planned area. Gated communities, top schools, North East ISD. Very safe. Newer construction at more accessible price point than the inner-loop enclaves. Median home ~$525K." },
+      { name: "King William Historic District", vibe: "Victorian, arts, River Walk adjacent", desc: "Historic German merchant mansions south of downtown. Walkable to River Walk. Gallery scene. Most walkable of the retiree-target neighborhoods. Median home $400K–$600K." }
     ],
-    sources: "Zillow/Redfin (2026) · US News Health — University Health · CrimeGrade.org (2025) · Texas Comptroller (no income tax) · NOAA Climate Normals · San Antonio Express-News · Data current as of March 2026."
+    sources: "Zillow/Redfin (2026) · US News Health — University Health · CrimeGrade.org (2025) · Texas Comptroller (no income tax) · NOAA Climate Normals · San Antonio Express-News · Data current as of April 2026."
   },
   "Eugene": {
     hospitalRating: "PeaceHealth Sacred Heart — well-rated regional system",
@@ -3509,21 +3511,21 @@ const CITY_ENRICHMENT = {
   },
     "Philadelphia": {
     neighborhoods: [
-      { name: "Rittenhouse Square", vibe: "Walkable, upscale, vibrant", desc: "Best urban neighborhood for retirees in Philadelphia. World-class restaurants, weekly farmers market, and the square itself steps away. High Walk Score. Premium but worth it for urban lifestyle." },
-      { name: "Chestnut Hill", vibe: "Village character, safe, charming", desc: "Northwestern Philadelphia neighborhood that feels like a small town. Germantown Avenue shops and dining, Wissahickon Valley Park access. Very safe. Popular with retirees who want city amenities with residential calm." },
-      { name: "Manayunk", vibe: "Riverfront, active, eclectic", desc: "Main Street along the Schuylkill Canal. Restaurants, boutiques, cycling culture. More affordable than Center City. Active community popular with retirees who enjoy an energetic neighborhood." },
-      { name: "Society Hill / Old City", vibe: "Historic, walkable, cultural", desc: "Most historic area of Philadelphia. Independence Hall, Reading Terminal Market nearby. Very walkable. World-class cultural access. Good choice for history-minded retirees." }
+      { name: "Rittenhouse Square", vibe: "Walkable, upscale, vibrant", desc: "Best urban neighborhood for retirees in Philadelphia. World-class restaurants, weekly farmers market, the square itself steps away. Walk Score among highest in the country. Condos ~$470K+, SF homes $700K+. Premium but worth it for urban lifestyle." },
+      { name: "Chestnut Hill", vibe: "Village character, safe, charming", desc: "Northwestern Philadelphia neighborhood that feels like a small town. Germantown Avenue shops and dining, Wissahickon Valley Park access. Very safe. Median single-family home $750K–$975K. Popular with retirees who want city amenities with residential calm." },
+      { name: "Manayunk", vibe: "Riverfront, active, eclectic", desc: "Main Street along the Schuylkill Canal. Restaurants, boutiques, cycling culture. Median home $400K–$500K. Active community popular with retirees who enjoy an energetic neighborhood at a more affordable price point." },
+      { name: "Society Hill / Old City", vibe: "Historic, walkable, cultural", desc: "Most historic area of Philadelphia. Independence Hall, Reading Terminal Market nearby. Very walkable. Condos $300K–$700K, SF homes higher. World-class cultural access. Good choice for history-minded retirees." }
     ],
     hospitalRating: "Penn Medicine (HUP-Penn Presbyterian) — #1 in Pennsylvania, nationally ranked in 11 specialties. Jefferson Health — nationally ranked in 6 specialties including #2 ophthalmology. Children's Hospital of Philadelphia world-class. One of the greatest concentrations of academic medicine in the database.",
     scoreNotes: {
       D1: "PHL (Philadelphia International) 20–30 min from Center City. American Airlines hub. 150+ nonstop destinations. SEPTA Airport Line connects directly from Center City without a car. Good international connections.",
-      D2: "Median home ~$270K — extraordinary for a major East Coast city. Monthly costs $3,500–$5,000. Cost of living only 4–10% above national average. Note: Philadelphia city wage tax (3.74%) applies to earned income but NOT retirement income — retirees pay only PA state rate.",
+      D2: "Citywide median ~$270K but retirees target Rittenhouse Square (median $470K, SF homes $700K+), Society Hill ($500K+), Chestnut Hill ($750K–$975K SF), and Manayunk ($400–500K). Monthly costs $4,500–$7,000 in target areas. PA wage tax doesn't apply to retirement income — retirees effectively pay only 3.07% PA state rate. Excellent tax position for the price.",
       D3: "Penn Medicine HUP-Penn Presbyterian #1 in PA, nationally ranked 11 specialties. Jefferson Health nationally ranked 6 specialties including #2 ophthalmology (Wills Eye). Temple Health, Drexel Medicine, Pennsylvania Hospital. One of the greatest academic medical concentrations of any city in the database.",
       D5: "Pennsylvania flat income tax 3.07% — among lowest flat rates nationally. Social Security exempt. Philadelphia city wage tax (3.74%) only applies to earned income, not retirement income or investment income. Retirees effectively pay only the 3.07% PA state rate.",
       D6: "Walk Score 74 — 8th most walkable large city in the US. Center City, Rittenhouse Square, Old City, Fairmount, South Street all genuinely walkable. SEPTA Market-Frankford Line (El), Broad Street Line subway, and Regional Rail to suburbs and airport.",
       D7: "Fairmount Park — one of the largest urban park systems in the US at 9,200 acres. Wissahickon Valley Gorge — stunning urban wilderness hiking. Delaware River waterfront. Jersey Shore beaches 90 min. Pocono Mountains 90 min.",
       D8: "Strong urban fitness culture. Kelly Drive cycling along the Schuylkill River. Boathouse Row. Fairmount Park rec centers. Growing pickleball. Philadelphia Parks & Recreation senior programs. Rocky Steps at the Art Museum a cultural fitness landmark.",
-      D9: "Crime rate above national average — significant neighborhood variation. Rittenhouse Square, Society Hill, Chestnut Hill, and Fairmount very safe. Other areas require careful research. Property crime is the primary concern in most areas retirees would consider.",
+      D9: "Citywide crime is above national average but the retiree-target neighborhoods are genuinely safe. Rittenhouse Square, Society Hill, Chestnut Hill, and Fairmount benefit from active foot traffic, community patrols, and concentrated retiree presence. Property crime is the primary remaining concern in target areas. Crime is concentrated in non-target districts.",
       D10: "Philadelphia Museum of Art, Barnes Foundation, Reading Terminal Market, world-class restaurant scene, Broad Street arts corridor. Extraordinary cultural depth for the price. Sports culture deeply unifying. Strong neighborhood identity throughout the city."
     }
   },
@@ -3531,15 +3533,22 @@ const CITY_ENRICHMENT = {
     hospitalRating: "UPMC Presbyterian Shadyside — #1 in Pittsburgh, #2 in Pennsylvania, nationally ranked in 9 adult specialties. Allegheny Health Network strong alternative. UPMC is one of the largest and most respected health systems in America. Best healthcare-to-cost ratio in the database.",
     scoreNotes: {
       D1: "PIT (Pittsburgh International) 30–40 min by car or rideshare — no direct transit to airport. American, Delta, United, Southwest. Growing nonstop network. Good regional hub but transit gap is a real consideration for frequent fliers.",
-      D2: "Median home ~$265K — most affordable major city in the entire database. Monthly costs $3,200–$4,500. Cost of living near the national average. The best budget + healthcare combination of any city we score.",
+      D2: "Citywide median ~$265K but retirees target Squirrel Hill ($400–760K), Shadyside ($450–650K), Mt. Lebanon ($400–500K), and Fox Chapel ($700K+). Monthly costs $4,500–$6,500 in target areas. Cost of living near national average. Strong healthcare-to-cost ratio for the Northeast.",
       D3: "UPMC Presbyterian Shadyside — #1 in Pittsburgh, #2 Pennsylvania, nationally ranked 9 specialties. Allegheny Health Network strong alternative throughout the city. UPMC is one of the largest integrated health systems in America. World-class care at Budget Range 2 prices — unique in the database.",
       D5: "Pennsylvania flat income tax 3.07% — among lowest flat rates nationally. Social Security exempt. No Pittsburgh city income tax on retirement income — wage tax only applies to earned income. Better than most northeastern cities for retirees.",
       D6: "Walkable neighborhoods: Shadyside, Squirrel Hill, Lawrenceville, South Side. Pittsburgh Light Rail (T) free downtown and North Shore. Port Authority buses citywide. Hilly terrain limits walking in some areas. Beyond walkable neighborhoods car dependency increases.",
       D7: "Frick Park — 644-acre urban wilderness with exceptional trails. Three Rivers waterfront for kayaking and cycling. Laurel Highlands 60 min — hiking and whitewater. Ohiopyle State Park 90 min — world-class rafting. Frank Lloyd Wright's Fallingwater nearby. Good four-season outdoor access.",
       D8: "UPMC drives strong community health culture. CMU and Pitt university energy. Growing pickleball scene. Pittsburgh Parks Conservancy programs. Excellent three rivers cycling trail. Strong senior programming across multiple neighborhoods.",
-      D9: "CrimeGrade B- overall (60th percentile) — better than national average. Significant neighborhood variation — Shadyside, Squirrel Hill, Mt. Lebanon, and Swisshelm Park very safe. Concentrated crime in specific districts. Choose neighborhood carefully.",
+      D9: "Citywide CrimeGrade B- (60th percentile) understates retiree-area safety. Squirrel Hill 60% lower violent crime than Pittsburgh average. Mt. Lebanon ~80% below national average. Fox Chapel near-zero violent crime. Crime is concentrated in non-target districts — neighborhood selection matters but Pittsburgh's retiree neighborhoods are genuinely safe.",
       D10: "Carnegie Museum of Art, Carnegie Museum of Natural History, Andy Warhol Museum. Remarkable neighborhood character — each Pittsburgh neighborhood has distinct identity. Sports culture (Steelers, Pirates, Penguins) deeply unifying. CMU and Pitt academic energy driving city revival."
-    }
+    },
+    neighborhoods: [
+      { name: "Squirrel Hill", vibe: "Diverse, walkable, community", desc: "Pittsburgh's most established walkable urban retiree neighborhood. Murray Avenue village with strong dining and retail. Frick Park and Schenley Park access. 60% lower violent crime than Pittsburgh average. Walk Score 82. Median home $400K–$760K (South side more affordable, North side more affluent)." },
+      { name: "Shadyside", vibe: "Walkable, upscale, historic", desc: "Historic mansions, Walnut Street boutiques and dining, immediate proximity to UPMC hospitals. Very walkable, very safe — popular with doctors and retirees. Median home $450K–$650K with high-end Wallingford Street homes well over $1M." },
+      { name: "Mount Lebanon", vibe: "Suburban, walkable, T-rail access", desc: "South Hills suburb 8 miles from downtown. Walkable Washington Road village center, T light rail to downtown — one of few Pittsburgh suburbs where you can commute without a car. Top 5 Western PA school district. Violent crime ~80% below national average. Median home $400K–$500K." },
+      { name: "Fox Chapel", vibe: "Affluent, wooded, country club", desc: "Pittsburgh's most prestigious North Hills suburb. Mature wooded estates, near Beechwood Farms Nature Reserve. Effectively zero violent crime. For retirees seeking privacy, space, and country-club lifestyle. Median home $700K–$1.5M+." }
+    ],
+    sources: "Zillow/Redfin (2026) · UPMC US News rankings · CrimeGrade.org (2025) · PA Dept. of Revenue · NOAA Climate Normals · Pittsburgh Post-Gazette · Data current as of April 2026."
   },
   "Annapolis": {
     hospitalRating: "Anne Arundel Medical Center — well-rated; Johns Hopkins 30 min",
@@ -4170,21 +4179,21 @@ const CITY_ENRICHMENT = {
   },
   "Indianapolis": {
     neighborhoods: [
-      { name: "Mass Ave / Downtown", vibe: "Walkable, arts, vibrant", desc: "Massachusetts Avenue arts district with galleries, restaurants, and theaters. Most walkable area in Indianapolis. Growing rapidly. Best for retirees wanting urban culture." },
-      { name: "Broad Ripple / Meridian Kessler", vibe: "Eclectic, local, community", desc: "North-side neighborhoods with strong local character. Canal towpath, Monon Trail access, independent restaurants. More affordable than downtown adjacent. Very livable." },
-      { name: "Carmel", vibe: "Safe, upscale, planned", desc: "Northern suburb consistently ranked among the best places to live in America. Monon Trail, Arts & Design District, Palladium concert hall. Very safe. Premium suburban lifestyle." },
-      { name: "Zionsville / Fishers", vibe: "Small town, safe, charming", desc: "Zionsville has a beautiful brick-street downtown. Fishers is one of Indiana's fastest-growing and safest cities. Both offer excellent quality of life at reasonable price points." }
+      { name: "Carmel", vibe: "Safe, upscale, planned", desc: "Northern suburb consistently ranked among the best places to live in America. Monon Trail, Arts & Design District, Palladium concert hall. Very safe. Premium suburban lifestyle. Median home ~$525K." },
+      { name: "Zionsville", vibe: "Small town, brick streets, charming", desc: "Beautiful brick-street downtown, top-rated schools. Median home ~$689K — the most premium retiree option in Indianapolis metro. Among Indiana's safest cities." },
+      { name: "Fishers", vibe: "Family-oriented, growing, safe", desc: "One of Indiana's fastest-growing and safest cities. Excellent quality of life at a more accessible price than Carmel or Zionsville. Median home ~$425K." },
+      { name: "Broad Ripple / Meridian Kessler", vibe: "Eclectic, local, community", desc: "North-side neighborhoods with strong local character. Canal towpath, Monon Trail access, independent restaurants. More walkable than the suburbs and more affordable than downtown adjacent. Median home $400K–$500K." }
     ],
     hospitalRating: "IU Health University Hospital — major academic system; Simon Cancer Center; Eskenazi Health — strong multi-system depth",
     walkScore: 32,
     scoreNotes: {
       D1: "Indianapolis International Airport (IND) consistently rated one of the best in the US for efficiency. Direct flights to major hubs nationwide.",
-      D2: "Median home ~$223K. Indiana is one of the most affordable states. Cost of living 10-15% below national average.",
+      D2: "Citywide median ~$223K but retirees target Carmel (~$525K), Zionsville (~$689K), Fishers (~$425K), and Broad Ripple/Meridian Kessler ($400–500K). Monthly costs $3,800–$5,200 in target areas. Indiana cost of living 10–15% below national average. Strong value even at premium-suburb pricing.",
       D3: "IU Health and Eskenazi Health provide strong multi-system coverage. Simon Cancer Center on campus.",
       D5: "Indiana flat income tax of 3.05% — among the lowest flat rates nationally. Social Security partially exempt.",
-      D6: "Mass Ave and Fountain Square are walkable neighborhoods. Most of Indianapolis requires a car.",
+      D6: "Mass Ave and Fountain Square are walkable neighborhoods. Carmel Arts & Design District genuinely walkable. Most of Indianapolis requires a car.",
       D7: "Limited. Flat Midwest terrain. Eagle Creek Park for recreation. No mountain or coastal access.",
-      D9: "Crime varies by neighborhood significantly. Safe suburbs like Carmel and Zionsville rank among safest in Indiana."
+      D9: "Carmel consistently ranked among the best places to live in America with very low crime. Zionsville and Fishers among Indiana's safest cities. Broad Ripple/Meridian Kessler adequate. Citywide Indianapolis statistics are dragged by non-target areas — retiree-target neighborhoods are 70–90th percentile nationally."
     }
   },
   "Vail": {
@@ -4226,17 +4235,24 @@ const CITY_ENRICHMENT = {
     }
   },
   "Memphis": {
-    hospitalRating: "St. Jude Children’s Research Hospital, Methodist Le Bonheur Healthcare, Regional One Health — exceptional healthcare concentration",
+    hospitalRating: "St. Jude Children's Research Hospital, Methodist Le Bonheur Healthcare, Regional One Health — exceptional healthcare concentration",
     walkScore: 38,
     scoreNotes: {
       D1: "Memphis International Airport (MEM) is a FedEx hub with strong connectivity. Direct flights to major cities nationwide.",
-      D2: "Median home ~$175K — most affordable major city in the database. Cost of living 11% below national average.",
+      D2: "Citywide median ~$170K but retirees target Germantown ($499K), Collierville ($380K), East Memphis ($280K), and Bartlett ($280K). Monthly costs $3,200–$4,500 in target areas. Cost of living 11% below national average. Strong value even at suburb pricing.",
       D3: "St. Jude, Methodist Le Bonheur, Regional One Health. Exceptional healthcare concentration for a city of its size — truly world-class.",
       D5: "Tennessee has no state income tax on any income — Social Security, pensions, 401k withdrawals all untaxed at state level.",
       D6: "Downtown and Midtown have walkable areas. Most of Memphis car dependent. Most daily errands require driving.",
       D7: "Limited. Mississippi River access for fishing. Shelby Farms Park. No mountains or coast.",
-      D9: "Safety varies significantly by neighborhood. Safe neighborhoods like Germantown and Collierville are excellent. Memphis overall requires neighborhood-level research."
-    }
+      D9: "Citywide Memphis CrimeGrade is poor — but Germantown and Collierville rank among the safest cities in Tennessee, with their own police departments and very low violent crime. East Memphis and Bartlett are adequate. The retiree-target areas score 70th–90th percentile nationally. Crime is concentrated in non-target districts."
+    },
+    neighborhoods: [
+      { name: "Germantown", vibe: "Affluent, top schools, very safe", desc: "Premier Memphis suburb and the most popular retiree neighborhood in the metro. Excellent schools, strong shopping, restaurants. Among the safest cities in Tennessee with its own police force. Median home ~$499K." },
+      { name: "Collierville", vibe: "Historic, family-oriented, walkable downtown", desc: "Historic town square, top-rated schools, family-friendly community feel. One of the most sought-after areas in the Memphis region. Median home ~$380K." },
+      { name: "East Memphis", vibe: "Established, residential, in-city", desc: "Mix of historic and modern homes including Chickasaw Gardens. Convenient to St. Jude, Methodist Le Bonheur. Excellent for retirees wanting in-city access without urban downsides. Median home ~$280K." },
+      { name: "Bartlett", vibe: "Suburban, affordable, low-key", desc: "Northeast Memphis suburb. Quiet, residential, lower price point than Germantown or Collierville. Good fit for budget-conscious retirees. Median home ~$280K." }
+    ],
+    sources: "Zillow/Redfin (2026) · St. Jude/Methodist rankings · CrimeGrade.org (2025) · TN no income tax · NOAA Climate Normals · Commercial Appeal · Data current as of April 2026."
   },
   "Napa": {
     neighborhoods: [
