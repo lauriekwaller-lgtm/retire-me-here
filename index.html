@@ -456,6 +456,95 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   font-size: 12px; color: var(--mid); text-align: center;
   padding: 12px 20px 0; line-height: 1.55; font-style: italic;
 }
+
+/* Card "deep" CTA — replaces small dark button. More inviting, signals depth of content. */
+.card-deep-cta {
+  display: flex; align-items: center; gap: 16px;
+  margin: 14px 16px 12px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #FDF0EA 0%, #FBE8DC 100%);
+  border: 1.5px solid var(--terra);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(196, 114, 74, 0.08);
+}
+.card-deep-cta::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--terra);
+}
+.card-deep-cta:hover {
+  background: linear-gradient(135deg, #FBE0CD 0%, #F8D2B6 100%);
+  border-color: #a05c39;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(196, 114, 74, 0.22);
+}
+.card-deep-cta:active { transform: translateY(0); }
+.card-deep-cta-icon {
+  font-size: 22px;
+  width: 44px; height: 44px;
+  background: var(--white);
+  border: 1.5px solid var(--terra);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(196, 114, 74, 0.15);
+}
+.card-deep-cta-content { flex: 1; min-width: 0; }
+.card-deep-cta-eyebrow {
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--terra);
+  font-weight: 800; margin-bottom: 3px;
+}
+.card-deep-cta-title {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 17px; font-weight: 700; color: var(--dark);
+  line-height: 1.25; margin-bottom: 4px;
+}
+.card-deep-cta-features {
+  font-size: 12px; color: var(--mid); line-height: 1.4;
+}
+.card-deep-cta-arrow {
+  font-size: 24px; color: var(--terra);
+  font-weight: 700; flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.card-deep-cta:hover .card-deep-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Stack the deep CTA + secondary why-match button */
+.card-footer-stack {
+  display: flex; flex-direction: column;
+  align-items: stretch; gap: 0;
+  padding: 0 0 14px;
+}
+.btn-why-secondary {
+  margin: 4px 16px 0 16px;
+  background: transparent !important;
+  color: var(--teal) !important;
+  border: 1px dashed rgba(42, 94, 90, 0.35) !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-why-secondary:hover {
+  background: var(--teal-lt) !important;
+  border-color: var(--teal) !important;
+}
+
+@media (max-width: 480px) {
+  .card-deep-cta { gap: 12px; padding: 14px 16px; margin: 12px 12px 10px; }
+  .card-deep-cta-icon { width: 38px; height: 38px; font-size: 19px; }
+  .card-deep-cta-title { font-size: 15px; }
+  .card-deep-cta-features { font-size: 11px; }
+  .btn-why-secondary { margin: 2px 12px 0 12px; padding: 9px 12px !important; font-size: 12px !important; }
+}
 /* ── COMING SOON TOAST ── */
 .coming-soon-toast {
   position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
@@ -1406,8 +1495,16 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   .ed-character-wrap { grid-template-columns: 1fr; gap: 36px; }
   .ed-pullquote { position: static; }
   .ed-week-grid { grid-template-columns: repeat(2, 1fr); }
-  .ed-cost-row { grid-template-columns: 44px 1fr 100px; }
-  .ed-cost-bar-wrap, .ed-cost-detail { display: none; }
+  .ed-cost-row {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 20px;
+  }
+  .ed-cost-row-left { gap: 12px; }
+  .ed-cost-icon { width: 36px; height: 36px; font-size: 18px; flex-shrink: 0; }
+  .ed-cost-amount { font-size: 17px; align-self: center; }
+  .ed-cost-bar-wrap { display: none; }
+  .ed-cost-row > .ed-cost-detail { display: none; }
   .ed-hoods-grid { grid-template-columns: 1fr; }
   .ed-health-card { grid-template-columns: 1fr; text-align: center; padding: 32px; gap: 20px; }
   .ed-health-icon { margin: 0 auto; }
@@ -6073,8 +6170,17 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>
       <div class="card-highlight">${teaser}</div>
     </div>
-    <div class="card-footer">
-      <button class="btn-view-city" onclick="revealMatch(event,'${cardId}','${city.name}','${city.state}')">Why did I match ${city.name}? →</button>
+    <div class="card-footer card-footer-stack">
+      <div class="card-deep-cta" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+        <div class="card-deep-cta-icon">📍</div>
+        <div class="card-deep-cta-content">
+          <div class="card-deep-cta-eyebrow">See the full profile</div>
+          <div class="card-deep-cta-title">Explore ${city.name}, ${city.state}</div>
+          <div class="card-deep-cta-features">Neighborhoods · Cost breakdown · Healthcare · Local life</div>
+        </div>
+        <div class="card-deep-cta-arrow">→</div>
+      </div>
+      <button class="btn-view-city btn-why-secondary" onclick="revealMatch(event,'${cardId}','${city.name}','${city.state}')">Why did I match ${city.name}? →</button>
     </div>
 
     <div class="card-revealed" id="${cardId}-revealed" style="display:none">
@@ -6088,14 +6194,6 @@ function buildCityCardHTML(city, i, rankLabels) {
           <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
           <div class="card-why-tradeoffs" id="${cardId}-tradeoffs"></div>
         </div>
-        <div class="card-why-section card-best-for">
-          <div class="card-why-label best-for-label">🎯 Best for someone like you</div>
-          <div class="card-why-text card-best-for-text" id="${cardId}-bestfor"></div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="card-profile-nudge">We've identified neighborhoods worth considering — and scored ${city.name} across all 10 dimensions.</div>
-        <button class="btn-view-city btn-profile" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">See neighborhoods + full city data →</button>
       </div>
     </div>
   </div>`;
@@ -6478,25 +6576,10 @@ function renderEditorialDetail(city, en) {
       </div>
     </section>` : '';
 
-  // Personalized "Why X matched you" block — preserved from legacy
-  const personalizedHTML = matchPct && typeof generateWhyMatch === 'function' ? `
-    <section class="ed-section" style="padding-top:0;">
-      <div class="ed-section-wrap">
-        <div class="detail-section detail-personalized" style="margin:0;">
-          <div class="detail-personal-header">
-            <span class="detail-personal-badge">${matchPct}% Your Match</span>
-            <h3 style="margin:0;">Why ${city.name} matched you</h3>
-          </div>
-          <div class="detail-why-text">${generateWhyMatch(city)}</div>
-          <div class="detail-tradeoffs-label">⚡ Tradeoffs based on your priorities</div>
-          <div class="detail-tradeoffs">
-            ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
-          </div>
-          <div class="detail-bestfor-label">🎯 Best for someone like you</div>
-          <div class="detail-bestfor-text">${generateBestFor(city)}</div>
-        </div>
-      </div>
-    </section>` : '';
+  // Personalized "Why X matched you" block REMOVED from editorial detail page
+  // (per user feedback: it duplicates content already shown on the city match results page).
+  // The match score still appears in the hero pill.
+  const personalizedHTML = '';
 
   // Scorecard accordion (collapsed by default, preserves legacy data)
   const scoreRowsHTML = DIMENSIONS.map(dim => {
@@ -6711,20 +6794,6 @@ function showCityDetail(cityName, cityState) {
         <h3>Overview</h3>
         <p style="font-size:15px;color:var(--mid);line-height:1.75">${city.highlight}</p>
       </div>
-
-      ${lastMatchScore ? `<div class="detail-section detail-personalized">
-        <div class="detail-personal-header">
-          <span class="detail-personal-badge">${lastMatchScore}% Your Match</span>
-          <h3 style="margin:0;">Why ${city.name} matched you</h3>
-        </div>
-        <div class="detail-why-text">${generateWhyMatch(city)}</div>
-        <div class="detail-tradeoffs-label">⚡ Tradeoffs based on your priorities</div>
-        <div class="detail-tradeoffs">
-          ${generateTradeoffs(city).map(t => `<div class="tradeoff-item">— ${t}</div>`).join('')}
-        </div>
-        <div class="detail-bestfor-label">🎯 Best for someone like you</div>
-        <div class="detail-bestfor-text">${generateBestFor(city)}</div>
-      </div>` : ''}
 
       <div class="detail-section">
         <h3>Scorecard — What Each Score Means</h3>
