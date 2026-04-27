@@ -2431,13 +2431,7 @@ const CITIES = [
     climate: { W:10, H:2, M:1 },
     highlight: "The only city in the database with all four major pro sports leagues. UM-Sylvester (NCI-designated cancer center), Jackson Memorial, Mount Sinai. Citywide median home $430K but retirees target Coral Gables, Coconut Grove, Key Biscayne, Aventura, Pinecrest ($592K–$2.25M). World-class culture, no state tax.",
     pros: ["MIA hub airport with 160+ nonstop destinations and major Latin America gateway — every airline, anywhere", "Multiple top-tier hospital systems: UM-Sylvester (NCI cancer), Jackson Memorial, Mount Sinai, plus Cleveland Clinic Florida 30 min", "All four major pro sports — Heat (NBA), Dolphins (NFL), Marlins (MLB), Panthers (NHL); Art Basel, Pérez Art Museum, Adrienne Arsht Center", "No Florida income tax on Social Security, pensions, IRAs, or 401(k) distributions"],
-    cons: ["Premium-tier housing in retiree-target neighborhoods — $900K–$1.5M typical, Range 5 budget required", "Citywide crime rate is high — neighborhood selection critical (Coral Gables, Coconut Grove, Key Biscayne are 36–84% safer than city average)", "Hurricane risk significant and rising flood-insurance costs in coastal areas", "Hot humid summers feel like 100°F+; humidity is year-round"],
-    neighborhoods: [
-      { name: "Coral Gables", vibe: "Prestigious, walkable, established", desc: "The \"City Beautiful\" — Mediterranean Revival architecture, Miracle Mile dining, University of Miami nearby. Among Florida's safest. Condos and townhomes are the practical retiree choice; single-family median $1.2M+." },
-      { name: "Coconut Grove", vibe: "Bohemian, lush, waterfront", desc: "Miami's oldest neighborhood. Tree canopy, marinas, village feel. Walk Score 72 — one of the most walkable retiree options. Crime ~18/1,000 vs. city's 33/1,000. Median home $592K–$1.5M." },
-      { name: "Key Biscayne", vibe: "Island, secure, beach-adjacent", desc: "Causeway-access island village with 24/7 marine patrols, Crandon Park beach, Bill Baggs Cape Florida. Among the safest places in South Florida. Median home $1.5M+." },
-      { name: "Aventura", vibe: "Master-planned, amenity-rich, accessible", desc: "Most affordable retiree-target area at $354K–$500K. Aventura Mall, condos with full amenities, dense walkable core. Heavy 55+ presence in many buildings." }
-    ]
+    cons: ["Premium-tier housing in retiree-target neighborhoods — $900K–$1.5M typical, Range 5 budget required", "Citywide crime rate is high — neighborhood selection critical (Coral Gables, Coconut Grove, Key Biscayne are 36–84% safer than city average)", "Hurricane risk significant and rising flood-insurance costs in coastal areas", "Hot humid summers feel like 100°F+; humidity is year-round"]
   },
   {
     name: "La Crosse", state: "WI", type: "River City / College Town",
@@ -4504,6 +4498,12 @@ const CITY_ENRICHMENT = {
       D9: "Per v3.2, score retiree-target areas. Coral Gables 36% below city avg, Pinecrest 28% below, Coconut Grove ~18/1,000 vs city 33/1,000, Key Biscayne nearly zero crime. Target neighborhoods sit 70th–90th percentile.",
       D10: "World-class cultural destination. All four major pro sports (Heat, Dolphins, Marlins, Panthers), Pérez Art Museum, Adrienne Arsht Center, Wynwood, Art Basel, James Beard tier dining, Cuban/Latin culture, year-round festivals."
     },
+    neighborhoods: [
+      { name: "Coral Gables", vibe: "Prestigious, walkable, established", desc: "The \"City Beautiful\" — Mediterranean Revival architecture, Miracle Mile dining, University of Miami nearby. Among Florida's safest. Condos and townhomes are the practical retiree choice; single-family median $1.2M+." },
+      { name: "Coconut Grove", vibe: "Bohemian, lush, waterfront", desc: "Miami's oldest neighborhood. Tree canopy, marinas, village feel. Walk Score 72 — one of the most walkable retiree options. Crime ~18/1,000 vs. city's 33/1,000. Median home $592K–$1.5M." },
+      { name: "Key Biscayne", vibe: "Island, secure, beach-adjacent", desc: "Causeway-access island village with 24/7 marine patrols, Crandon Park beach, Bill Baggs Cape Florida. Among the safest places in South Florida. Median home $1.5M+." },
+      { name: "Aventura", vibe: "Master-planned, amenity-rich, accessible", desc: "Most affordable retiree-target area at $354K–$500K. Aventura Mall, condos with full amenities, dense walkable core. Heavy 55+ presence in many buildings." }
+    ],
     sources: "Zillow/Redfin/SoFi neighborhood data (Apr 2026) · US News Best Hospitals 2025–26 · Healthgrades 2026 · CrimeGrade.org · Florida Dept. of Revenue · NOAA · Data current as of April 2026."
   },
   "La Crosse": {
