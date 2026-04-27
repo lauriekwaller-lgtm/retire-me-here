@@ -2399,6 +2399,67 @@ const CITIES = [
     highlight: "Tucked into the Blue Ridge Mountains with the Appalachian Trail and Blue Ridge Parkway in its backyard — Roanoke combines genuine mountain access, Carilion’s strong regional healthcare, a growing arts scene, and median homes under $230K.",
     pros: ["Blue Ridge Parkway and Appalachian Trail access from the city limits", "Carilion Roanoke Memorial Hospital — high-performing in 16 procedures and conditions", "Median home under $230K with overall cost of living 8% below national average", "AARP Age-Friendly Community with growing arts scene in Grandin Village"],
     cons: ["Virginia income tax applies to retirement income — up to 5.75%", "Roanoke-Blacksburg Regional Airport has limited nonstop service", "Car dependent outside of downtown core", "Hot humid summers though mountain elevation provides some relief"]
+  },
+  {
+    name: "Iowa City", state: "IA", type: "College Town / University Hub",
+    setting: ["Inland / Green"],
+    character: ["College Town", "Urban Neighborhood", "Arts & Culture"],
+    monthlyEst: "$3,400–$4,200/mo", medianHome: "$284,000", budgetRange: 2,
+    scores: { D1:5, D2:7, D3:9, D5:8, D6:7, D7:5, D8:5, D9:7, D10:7 },
+    climate: { W:2, H:6, M:3 },
+    highlight: "University of Iowa Hospitals — #1 in Iowa, nationally ranked in 4 specialties including ophthalmology #6. Iowa eliminated state tax on retirement income in 2023. Iowa Writers' Workshop and a deep arts culture punch well above the city's size.",
+    pros: ["University of Iowa Hospitals — #1 in Iowa, top-50 nationally in 4 specialties (ophthalmology, ENT, cancer, OB/GYN)", "Iowa fully exempts retirement income for 55+ — zero state tax on Social Security, pensions, IRAs, 401(k)s", "Iowa Writers' Workshop, FilmScene, Englert Theatre — outsized arts and literary culture for a city of 75K", "Median home $284K with cost of living near national average — comfortable on Range 2 budget"],
+    cons: ["Cold humid winters — January average 22°F, significant snow", "Eastern Iowa Airport (CID) 30 min — only 17 nonstops on 5 airlines", "Outdoor recreation limited — flat terrain, no mountains or major trail systems", "Property tax 1.33–1.57% — relatively high despite low income tax"]
+  },
+  {
+    name: "Eureka Springs", state: "AR", type: "Mountain Arts Town",
+    setting: ["Mountain"],
+    character: ["Small Town", "Arts & Culture", "Historic"],
+    monthlyEst: "$3,500–$4,200/mo", medianHome: "$350,000", budgetRange: 2,
+    scores: { D1:4, D2:6, D3:4, D5:7, D6:6, D7:7, D8:4, D9:6, D10:7 },
+    climate: { W:4, H:5, M:3 },
+    highlight: "Often called \"the gayest small town in America\" — Eureka Springs has a 30%+ LGBTQ+ population, three Diversity Weekends per year, and a month-long May arts festival. Victorian historic district, Ozark spa heritage, Buffalo River nearby.",
+    pros: ["One of the most LGBTQ+-welcoming small towns in America — three Diversity Weekends/year, ~70% of businesses LGBTQ+ friendly", "Outsized arts and culture scene for a town of 2,200 — month-long May Festival of the Arts, Opera in the Ozarks, ~24 galleries", "Entire city listed on the National Register of Historic Places — Victorian architecture and unique character", "Arkansas: Social Security exempt, low property tax (~0.53%), no estate or inheritance tax"],
+    cons: ["Healthcare is the biggest tradeoff — Mercy NW Arkansas in Rogers ~50 min for serious specialty care", "Hilly streets and stairways throughout — meaningful mobility consideration for older retirees", "Tornado risk 145% above national average — Ozark region weather is significant", "XNA airport (Bentonville) ~50 min for limited commercial service"]
+  },
+  {
+    name: "Miami", state: "FL", type: "Major Metro / Beach",
+    setting: ["Beach / Coastal", "City Energy"],
+    character: ["Urban Neighborhood", "Arts & Culture"],
+    monthlyEst: "$8,000–$10,500/mo", medianHome: "$592,000–$2,250,000", budgetRange: 5,
+    scores: { D1:10, D2:2, D3:9, D5:10, D6:7, D7:6, D8:7, D9:7, D10:10 },
+    climate: { W:10, H:2, M:1 },
+    highlight: "The only city in the database with all four major pro sports leagues. UM-Sylvester (NCI-designated cancer center), Jackson Memorial, Mount Sinai. Citywide median home $430K but retirees target Coral Gables, Coconut Grove, Key Biscayne, Aventura, Pinecrest ($592K–$2.25M). World-class culture, no state tax.",
+    pros: ["MIA hub airport with 160+ nonstop destinations and major Latin America gateway — every airline, anywhere", "Multiple top-tier hospital systems: UM-Sylvester (NCI cancer), Jackson Memorial, Mount Sinai, plus Cleveland Clinic Florida 30 min", "All four major pro sports — Heat (NBA), Dolphins (NFL), Marlins (MLB), Panthers (NHL); Art Basel, Pérez Art Museum, Adrienne Arsht Center", "No Florida income tax on Social Security, pensions, IRAs, or 401(k) distributions"],
+    cons: ["Premium-tier housing in retiree-target neighborhoods — $900K–$1.5M typical, Range 5 budget required", "Citywide crime rate is high — neighborhood selection critical (Coral Gables, Coconut Grove, Key Biscayne are 36–84% safer than city average)", "Hurricane risk significant and rising flood-insurance costs in coastal areas", "Hot humid summers feel like 100°F+; humidity is year-round"],
+    neighborhoods: [
+      { name: "Coral Gables", vibe: "Prestigious, walkable, established", desc: "The \"City Beautiful\" — Mediterranean Revival architecture, Miracle Mile dining, University of Miami nearby. Among Florida's safest. Condos and townhomes are the practical retiree choice; single-family median $1.2M+." },
+      { name: "Coconut Grove", vibe: "Bohemian, lush, waterfront", desc: "Miami's oldest neighborhood. Tree canopy, marinas, village feel. Walk Score 72 — one of the most walkable retiree options. Crime ~18/1,000 vs. city's 33/1,000. Median home $592K–$1.5M." },
+      { name: "Key Biscayne", vibe: "Island, secure, beach-adjacent", desc: "Causeway-access island village with 24/7 marine patrols, Crandon Park beach, Bill Baggs Cape Florida. Among the safest places in South Florida. Median home $1.5M+." },
+      { name: "Aventura", vibe: "Master-planned, amenity-rich, accessible", desc: "Most affordable retiree-target area at $354K–$500K. Aventura Mall, condos with full amenities, dense walkable core. Heavy 55+ presence in many buildings." }
+    ]
+  },
+  {
+    name: "La Crosse", state: "WI", type: "River City / College Town",
+    setting: ["Inland / Green", "Lakeside"],
+    character: ["Outdoor Lifestyle", "College Town", "Small Town"],
+    monthlyEst: "$3,400–$4,000/mo", medianHome: "$258,000", budgetRange: 2,
+    scores: { D1:4, D2:8, D3:9, D5:6, D6:5, D7:8, D8:6, D9:5, D10:6 },
+    climate: { W:2, H:6, M:4 },
+    highlight: "Two top-tier teaching hospitals in a city of 50K — Gundersen Health and Mayo Clinic Health System. Driftless Region bluffs (Grandad Bluff, Hixon Forest 10 mi of trails) make this a rare Midwest hiking destination. Median home $258K.",
+    pros: ["Two major teaching hospitals: Gundersen Lutheran (US News High Performing in 8 specialties, Healthgrades America's 50 Best) and Mayo Clinic Health System (CMS 5-Star, Leapfrog A)", "Driftless Region terrain — Grandad Bluff 600 ft, Hixon Forest 10 mi of bluff trails accessible from city, Mississippi River, Perrot State Park", "Median home $258K and 12% below national cost of living — strong affordability", "Three colleges add cultural depth; Oktoberfest USA is one of nation's largest"],
+    cons: ["LSE airport limited — 3 airlines, ~4 nonstop destinations; Rochester or Madison drive for hub access", "Citywide property crime above national average — choose east or southeast neighborhoods, avoid west-side retail corridors", "Cold humid winters with significant snow — January average 18°F", "Wisconsin taxes most retirement income above the new 67+ exclusion ($24K single, $48K MFJ); property tax ~1.61%"]
+  },
+  {
+    name: "Pinehurst", state: "NC", type: "Resort / Golf",
+    setting: ["Inland / Green"],
+    character: ["Resort / Golf", "Small Town", "Quiet Residential"],
+    monthlyEst: "$5,200–$6,000/mo", medianHome: "$542,000", budgetRange: 3,
+    scores: { D1:5, D2:4, D3:8, D5:6, D6:5, D7:6, D8:9, D9:9, D10:7 },
+    climate: { W:7, H:5, M:4 },
+    highlight: "Home of American Golf — Pinehurst Resort with 10 courses including #2 (Donald Ross masterpiece, US Open anchor site). 16 of NC's Top 100 courses in Pinehurst/Southern Pines. Already a retirement community: median age 60.6, 39% age 65+. Crime extraordinarily low.",
+    pros: ["10 Pinehurst Resort courses including Pinehurst No. 2 — US Open anchor site and the most celebrated Donald Ross design in America", "Already a mature retirement community — median age 60.6 with 39% of residents 65+; affluent, established, golf-and-tennis culture", "FirstHealth Moore Regional Hospital in town; Duke and UNC academic centers ~90 min for complex care", "Crime extraordinarily low — among the safest cities in the database; village layout designed by Frederick Law Olmsted"],
+    cons: ["Median home $542K — golf-community premium pricing for amenities you may not use if you don't golf", "RDU 75 min drive for commercial flights; Moore County Airport is private aviation only", "Identity is golf, tennis, and equestrian — limited fit for hikers, weight-lifters, or non-golf retirees", "NC taxes retirement income at flat 4.25% (3.99% in 2026, 2.99% by 2028); Social Security exempt"]
   }
 ];
 
@@ -4390,6 +4451,96 @@ const CITY_ENRICHMENT = {
       D7: "Blue Ridge Parkway and Appalachian Trail from city limits. Mill Mountain Park. Virginia’s Explore Park. Outstanding mountain access for a Range 2 city.",
       D9: "Generally safe city. Crime below national average in established neighborhoods. Grandin Village and South Roanoke particularly safe."
     }
+  },
+  "Iowa City": {
+    hospitalRating: "University of Iowa Hospitals & Clinics — #1 in Iowa, top-50 nationally in 4 specialties",
+    scoreNotes: {
+      D1: "Eastern Iowa Airport (CID) 30 min — 5 airlines, 17 nonstops to ORD, MSP, ATL, DEN, CLT, DFW, PHX, DCA. Solid hub access for the size, frequency limited.",
+      D2: "Zillow median $284K (Apr 2026); Iowa City COL near national average. Comfortable on Range 2 budget. Property tax 1.33–1.57% is the offset.",
+      D3: "University of Iowa Hospitals & Clinics — #1 in Iowa, nationally ranked in ophthalmology (#6), ENT, cancer, OB/GYN; high-performing in cardiology, GI, orthopedics, pulmonology, urology.",
+      DW: "Cold humid winters — January average 22°F. Significant snow December through March.",
+      DH: "Summers warm and humid — July average 84°F.",
+      DM: "Humid year-round; no real dry season.",
+      D5: "Iowa fully exempts retirement income for 55+ (SS, pensions, IRAs, 401(k)s). Flat 3.8% income tax on other income; no estate or inheritance tax.",
+      D6: "Downtown ZIP 52242 Walk Score 68; Longfellow neighborhood 75. Citywide average is 45 — walkability is strong in best retiree neighborhoods.",
+      D7: "60+ parks, 44 local trails, Coralville Lake nearby. Flat Midwest terrain — no mountain or major nature destination access.",
+      D8: "University rec center, standard gyms. No documented Silver Sneakers density or 55+ programming standout.",
+      D9: "Violent crime 2.78/1,000 vs. national 33.37; property 17.96 vs. 33.37. CrimeGrade ranks Iowa overall in 73rd percentile.",
+      D10: "Iowa Writers' Workshop (the prestige MFA program in America), Hancher Auditorium, Englert Theatre, FilmScene, decent dining, Big Ten football culture."
+    },
+    sources: "Zillow/Redfin (Apr 2026) · US News Best Hospitals 2025–26 · CrimeGrade.org · Iowa Dept. of Revenue · Walk Score · NOAA Climate Normals · Data current as of April 2026."
+  },
+  "Eureka Springs": {
+    hospitalRating: "Eureka Springs Hospital limited; Mercy NW Arkansas (Rogers, ~50 min) is the serious option",
+    scoreNotes: {
+      D1: "XNA (Northwest Arkansas Regional, Bentonville) ~50 min drive. ~30 nonstops on 6 airlines. Drive penalty puts it in the 4–5 bracket.",
+      D2: "Median home $330–$390K range (small market, wide variance). Cost of living 12% below national per ERI. Comfortable on Range 2–3.",
+      D3: "Eureka Springs Hospital is small and not Joint Commission accredited. For serious specialty care, drive ~50 min to Mercy NW Arkansas in Rogers (CMS 5-star, Newsweek #1 Best-in-State).",
+      DW: "Cool to cold winters — January average ~30°F. Ice storms occasional.",
+      DH: "Hot humid summers — July 80s and 90s.",
+      DM: "Moderate humidity; no real dry season.",
+      D5: "Arkansas: Social Security exempt, $6K pension exclusion, income tax 2–3.9%, low property tax (~0.53%), groceries become state-sales-tax-free Jan 2026. Caveat: 4th-highest combined sales tax (9.46%) in US.",
+      D6: "Compact historic downtown is genuinely walkable for daily errands. Hilly streets and stairways are a real mobility consideration for older retirees — flagged repeatedly in retirement reviews.",
+      D7: "Ozark Mountains, Beaver Lake, Buffalo River, Pig Trail (top-10 motorcycle/cycling destination), multiple cave systems. Solid outdoor variety; not a hiking-mecca scale.",
+      D8: "Population ~2,200 constrains built rec infrastructure. Spa culture exists (20+ spas) but no documented Silver Sneakers, dedicated rec center, or 55+ programming.",
+      D9: "Total crime 2.09%, violent 0.36%. Property crime slightly above national average due to tourist volume; violent crime well below.",
+      D10: "Outsized arts scene for population: month-long May Festival of the Arts, Opera in the Ozarks, Eureka Springs School of the Arts, ~24 art galleries, three Diversity Weekends/year, Ozark Folk Festival."
+    },
+    sources: "Zillow/Redfin (Apr 2026) · ERI Cost of Living · Arkansas DFA · NOAA · CNN, ABC News, Vacationer Magazine LGBTQ+ coverage · Data current as of April 2026."
+  },
+  "Miami": {
+    hospitalRating: "UM-Sylvester (NCI cancer), Jackson Memorial, Mount Sinai (Healthgrades America's 100 Best 2026)",
+    scoreNotes: {
+      D1: "MIA hub airport — 160+ nonstop destinations, all major US carriers + international, American Airlines hub, Latin America gateway. 8 mi from Coral Gables, 6 mi from Coconut Grove.",
+      D2: "Retiree-target neighborhoods: Coral Gables $1.2–2.25M, Coconut Grove $592K–1.5M, Key Biscayne $1.5M+, Pinecrest $1.1M, Aventura $354–500K. Range 5 budget required. Citywide median is $430K but does not represent retiree experience.",
+      D3: "UM Sylvester (NCI-designated comprehensive cancer center), Jackson Memorial (1,550 beds, Level I trauma), Mount Sinai Medical Center (Healthgrades 100 Best 2026, US News #3 in FL). Cleveland Clinic Florida 30 min away.",
+      DW: "Warm winters — January average 68°F. Effectively no winter.",
+      DH: "Very hot, very humid summers — July average 84°F with feels-like 100°F+ daily.",
+      DM: "Humid year-round; the most humid major US city.",
+      D5: "Florida: no state income tax, no tax on Social Security, pensions, IRA/401(k) distributions; no estate tax. Property tax moderate (~1.0% effective).",
+      D6: "Per v3.2 methodology, score retiree-target areas. Coconut Grove Walk Score 72, Coral Gables Miracle Mile walkable, Aventura Mall area walkable. Strong walkable enclaves; not citywide.",
+      D7: "Per v3.2 flat-coastal-cities audit, beach is captured in setting tag, not D7. Everglades 30 min, Biscayne Bay water sports, Oleta River State Park, kayaking/biking — but no trail network or terrain variety.",
+      D8: "Extensive rec centers in Aventura, Coral Gables, Pinecrest; pickleball developed; tennis, golf, swimming abundant; Miami is a boutique fitness epicenter. Not specifically a 55+ destination like Naples.",
+      D9: "Per v3.2, score retiree-target areas. Coral Gables 36% below city avg, Pinecrest 28% below, Coconut Grove ~18/1,000 vs city 33/1,000, Key Biscayne nearly zero crime. Target neighborhoods sit 70th–90th percentile.",
+      D10: "World-class cultural destination. All four major pro sports (Heat, Dolphins, Marlins, Panthers), Pérez Art Museum, Adrienne Arsht Center, Wynwood, Art Basel, James Beard tier dining, Cuban/Latin culture, year-round festivals."
+    },
+    sources: "Zillow/Redfin/SoFi neighborhood data (Apr 2026) · US News Best Hospitals 2025–26 · Healthgrades 2026 · CrimeGrade.org · Florida Dept. of Revenue · NOAA · Data current as of April 2026."
+  },
+  "La Crosse": {
+    hospitalRating: "Gundersen Lutheran (US News High Performing in 8 specialties) and Mayo Clinic Health System (CMS 5-Star, Leapfrog A)",
+    scoreNotes: {
+      D1: "LSE airport: 3 airlines (American, United starting May 2026, Allegiant), ~4 nonstops (ORD via American + United, Phoenix/Mesa + Orlando/Sanford via Allegiant). Rochester MN 1.5 hr or Madison 2.25 hr for hub access.",
+      D2: "Zillow median $242K, Redfin $258K. ERI shows 12% below national average COL. Strong on both housing and daily costs.",
+      D3: "Two top-tier teaching hospitals in a 50K-pop city. Gundersen Lutheran (325 beds, Level II Trauma, US News High Performing in 8 specialties — cardiology, GI, neurosurgery/stroke, orthopedics, cancer, urology — Healthgrades America's 50 Best 2015 & 2017). Mayo Clinic Health System (CMS 5-Star, Leapfrog A three years running, Healthgrades America's 250 Best).",
+      DW: "Cold humid winters — January average 18°F with significant snow.",
+      DH: "Summers warm and humid — July average 82°F.",
+      DM: "Humid year-round.",
+      D5: "Wisconsin: Social Security exempt, military retirement exempt. New 2025 Act 15 allows $24K/$48K MFJ exclusion for 67+. Income tax 3.5–7.65%; property tax ~1.61%.",
+      D6: "Downtown along Mississippi is walkable (~Walk Score 53). University and riverfront have decent density. Most retirees would live in established residential where car is needed.",
+      D7: "Driftless Region terrain — rare in Midwest. Grandad Bluff 600 ft, Hixon Forest 10 mi of bluff trails accessible from city, Mississippi River, Perrot State Park, Great River Bluffs State Park, 600+ mi snowmobile trails. AllTrails: 30 running and 16 biking trails.",
+      D8: "Three colleges including UW-La Crosse (kinesiology tradition), multiple YMCA and gym options, standard rec infrastructure. No standout 55+ programming.",
+      D9: "CrimeGrade citywide D (20th percentile), but violent crime is below national average (3.21/1,000 vs national 13.32). Property crime is 58% above national, concentrated in west/retail/university. East and southeast neighborhoods score notably safer (1 in 39 vs 1 in 16 west).",
+      D10: "Three colleges (UW-La Crosse, Viterbo, Western Tech), Riverfest (July 4), Oktoberfest USA (one of nation's largest), Pump House Regional Arts Center, La Crosse Symphony, microbreweries."
+    },
+    sources: "Zillow/Redfin (Mar 2026) · US News Best Hospitals 2025–26 · Leapfrog Hospital Safety Grade · CrimeGrade.org · Wisconsin DOR · NOAA · Data current as of April 2026."
+  },
+  "Pinehurst": {
+    hospitalRating: "FirstHealth Moore Regional Hospital — Magnet-designated; Duke and UNC ~90 min for complex care",
+    scoreNotes: {
+      D1: "Moore County Airport (SOP) is private/general aviation only. RDU 75 min drive (major hub, all carriers, 60+ nonstops), FAY 60 min, GSO 75 min, CLT 2 hr.",
+      D2: "Zillow median $542K (Apr 2026). Comfortably in $525–750K bracket. Affluent village (median household income $109K). Sits with Naples, Scottsdale, Fort Myers, Hilton Head.",
+      D3: "FirstHealth Moore Regional Hospital (~400 beds, Magnet-designated nursing). Strong regional with cardiac surgery, cancer center, neurosciences. Duke and UNC academic centers ~90 min for complex care.",
+      DW: "Mild winters — January average 40°F. Pleasant year-round; rarely truly cold.",
+      DH: "Warm summers — July average 79°F.",
+      DM: "Humid year-round but not extreme.",
+      D5: "NC: SS exempt; flat 4.25% on pensions/IRA/401(k) (3.99% in 2026, 2.99% by 2028). Moore County property tax very low (~$0.30/$100). No estate or inheritance tax.",
+      D6: "Pinehurst Village historic core walkable — small downtown, library, shops, dining accessible on foot. Density 1,008/sq mi (high for a village). Broader community is suburban/golf-community sprawl requiring a car.",
+      D7: "Sandhills region — pine forests, gentle rolling terrain. Weymouth Woods Sandhills Nature Preserve, Reservoir Park, Uwharrie National Forest 30 min. No bluffs or mountains; flat-to-rolling terrain limits hiking variety.",
+      D8: "Home of American Golf — Pinehurst Resort 10 courses (including #2, Donald Ross masterpiece, US Open anchor site, with #11 opening 2027). 16 of NC's Top 100 courses in Pinehurst/Southern Pines. Tennis, croquet, equestrian (Pinehurst Harness Track) developed. Spa at Pinehurst, 24/7 fitness center.",
+      D9: "Multiple sources cite \"extraordinarily low\" crime. Affluent village, Moore County 90th+ percentile per CrimeGrade. Sits with Naples, Henderson, Georgetown, St. George.",
+      D10: "World-class golf events (US Open anchor), Pinehurst Resort dining, Sandhills Community College, Weymouth Center for Arts & Humanities (Southern Pines), Olmsted-designed village layout, equestrian culture."
+    },
+    sources: "Zillow/NeighborhoodScout (Apr 2026) · Pinehurst Resort · Business North Carolina Top 100 NC Courses 2026 · NC DOR · CrimeGrade.org · NOAA · Data current as of April 2026."
   }
 };
 
@@ -4453,6 +4604,11 @@ const CITY_PHOTOS = {
   'Kansas City':        'photo-1558618047-f4f8b4fb4793',
   'San Antonio':        'photo-1558618047-f4f8b4fb4793',
   'Fort Worth':         'photo-1558618047-f4f8b4fb4793',
+  'Iowa City':          'photo-1558618047-f4f8b4fb4793',
+  'Eureka Springs':     'photo-1570197788417-0e82375c9371',
+  'Miami':              'photo-1507525428034-b723cf961d3e',
+  'La Crosse':          'photo-1464822759023-fed622ff2c3b',
+  'Pinehurst':          'photo-1464822759023-fed622ff2c3b',
 };
 
 function getCityPhotoUrl(cityName) {
