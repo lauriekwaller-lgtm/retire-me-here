@@ -1582,7 +1582,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       </div>
       <div class="split-stats">
         <div>
-          <span class="split-stat-num">87+</span>
+          <span class="split-stat-num">100+</span>
           <span class="split-stat-label">Cities Scored</span>
         </div>
         <div>
@@ -1601,7 +1601,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <div class="hero-right" id="reports">
       <div class="reports-panel-eyebrow" style="color:var(--light);">Also Available Free</div>
       <div class="reports-panel-title">Deep-Dive Reports</div>
-      <p class="reports-panel-sub">Each report ranks all 87+ cities on one topic — real data, honest tradeoffs.</p>
+      <p class="reports-panel-sub">Each report ranks all 100+ cities on one topic — real data, honest tradeoffs.</p>
 
       <!-- FEATURED: VALUE NAVIGATOR with preview open -->
       <div class="report-featured">
@@ -1624,7 +1624,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
             <span class="rpp-chip">Chattanooga, TN</span>
             <span class="rpp-chip">Tucson, AZ</span>
             <span class="rpp-chip">Naples, FL</span>
-            <span class="rpp-chip more">+ 47 more cities</span>
+            <span class="rpp-chip more">+ 97 more cities</span>
           </div>
           <button class="rpp-cta ml-onclick-form" onclick="ml('show', 'W6rMh2', true)">Get This Report Free — Delivered to Your Inbox →</button>
         </div>
@@ -1796,7 +1796,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <script>
 
-console.log("RMH v3.0 loaded - 87+ cities");
+console.log("RMH v3.0 loaded - 100+ cities");
 
 const CITIES = [
   {
@@ -2213,11 +2213,11 @@ const CITIES = [
     setting: ["Lakeside"],
     character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$425,000", budgetRange: 3,
-    scores: { D1:9, D2:5, D3:10, D5:6, D6:8, D7:5, D8:7, D9:7, D10:8 },
+    scores: { D1:9, D2:5, D3:10, D5:7, D6:8, D7:5, D8:7, D9:7, D10:8 },
     climate: { W:3, H:7, M:5 },
     highlight: "University of Michigan drives world-class healthcare and culture. DTW airport 30 min. Michigan Medicine top 10 hospital nationally. Exceptional college town.",
     pros: ["Michigan Medicine — consistently top 10 hospital nationally","DTW Detroit airport 30 min — major Delta hub","University of Michigan creates extraordinary intellectual and arts culture","Genuinely walkable downtown with independent shops, restaurants, live music"],
-    cons: ["Brutal winters — January average 27°F, significant snow and ice","MI income tax 4.25% applies to most retirement income","Getting expensive for a Midwest college town — $425K median","Car-dependent outside downtown core"]
+    cons: ["Brutal winters — January average 27°F, significant snow and ice","Property tax 1.39% effective — high; absolute bills can be substantial on $425K+ homes","Getting expensive for a Midwest college town — $425K median","Car-dependent outside downtown core"]
   },
   {
     name: "Madison", state: "WI", type: "College Town / Lakes",
@@ -4026,7 +4026,7 @@ const CITY_ENRICHMENT = {
       DW: "Jan avg 27°F — brutal Michigan winter. Significant snow and ice. Four very distinct seasons.",
       DH: "Summers pleasant — July avg 83°F. Warm but not extreme. Moderate humidity. Very enjoyable summers.",
       DM: "Moderate humidity — Great Lakes influence. Summer humidity present but manageable.",
-      D5: "Michigan income tax 4.25%. Some retirement income exemptions. Moderate.",
+      D5: "Michigan completed retirement tax repeal for 2026 (PA 4 of 2023, PA 24 of 2025). Social Security fully exempt. Retirement income deduction up to $66K single / $132K joint. Flat 4.05% above caps. Property tax 1.39% effective (high). No estate or inheritance tax. Genuinely retirement-friendly for 2026 onward.",
       D6: "State Street and downtown exceptionally walkable. University of Michigan campus beautiful. Beyond downtown, car-dependent.",
       D7: "Nichols Arboretum. Huron River water trail. Pinckney Recreation Area 20 min. Four-season outdoor access.",
       D8: "University of Michigan rec facilities world-class. Multiple aquatic centers. Strong senior programming. College town fitness culture elevated.",
@@ -7102,7 +7102,7 @@ function showCityDetail(cityName, cityState) {
 
       <div class="detail-section" style="padding-bottom:0;">
         <h3>Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 87+ cities.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 100+ cities.</p>
         <div id="city-detail-reports"></div>
       </div>
 
@@ -7291,7 +7291,7 @@ function restartQuiz() {
 const REPORT_MODAL_DATA = {
   globetrotter: {
     icon: '✈️', title: 'The Globetrotter Guide',
-    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 87+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
+    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 100+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
     features: [
       { icon: '📍', text: 'Drive time to nearest major hub airport for every city' },
       { icon: '✈️', text: 'Number of airlines, nonstop routes, and hub status ranked' },
@@ -7483,7 +7483,7 @@ function closeReportModal(e) {
         <button class="city-search-close" onclick="closeCitySearch()">✕</button>
       </div>
       <div class="city-search-results" id="citySearchResults">
-        <div class="city-search-hint">Start typing to search all 87+ cities</div>
+        <div class="city-search-hint">Start typing to search all 100+ cities</div>
       </div>
     </div>
   </div>
@@ -7500,7 +7500,7 @@ function closeReportModal(e) {
       document.getElementById('citySearchOverlay').classList.remove('open');
       document.body.style.overflow = '';
       document.getElementById('citySearchInput').value = '';
-      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 87+ cities</div>';
+      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 100+ cities</div>';
     }
   }
 
@@ -7520,7 +7520,7 @@ function closeReportModal(e) {
   function renderCitySearchResults(query) {
     const container = document.getElementById('citySearchResults');
     if (!query || query.trim().length < 1) {
-      container.innerHTML = '<div class="city-search-hint">Start typing to search all 87+ cities</div>';
+      container.innerHTML = '<div class="city-search-hint">Start typing to search all 100+ cities</div>';
       return;
     }
     const q = query.toLowerCase().trim();
