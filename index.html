@@ -1511,6 +1511,83 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   .ed-section { padding: 48px 0; }
   .ed-health-card.ed-honor::after { display: none; }
 }
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 24px;
+  background: white;
+  border-radius: 18px;
+  margin: 20px 0;
+}
+.empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+.empty-state h2 { font-family: var(--serif, Georgia, serif); font-size: 24px; margin-bottom: 12px; color: var(--ink, #1a1a1a); }
+.empty-state p { color: var(--mid, #666); margin-bottom: 16px; }
+.empty-state ul { text-align: left; max-width: 320px; margin: 0 auto 24px; color: var(--mid, #666); padding-left: 20px; line-height: 1.6; }
+.empty-state-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* More cities section */
+.more-matches { margin-top: 32px; }
+.more-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 14px; padding: 0 4px;
+}
+.more-header h2 {
+  font-family: var(--serif, Georgia, serif); font-size: 20px;
+  font-weight: 600; color: var(--ink, #1a1a1a); letter-spacing: -0.01em;
+}
+.more-count { font-size: 13px; color: var(--mid, #666); font-weight: 500; }
+.more-list { background: white; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 1px 6px rgba(31, 61, 54, 0.06); }
+.more-row {
+  display: flex; align-items: center; padding: 14px 18px;
+  border-bottom: 1px solid #e5dccb; cursor: pointer;
+  transition: background 0.15s ease; gap: 14px;
+}
+.more-row:last-child { border-bottom: none; }
+.more-row:hover { background: #faf3e7; }
+.more-rank {
+  font-family: var(--serif, Georgia, serif); font-size: 16px;
+  font-weight: 600; color: var(--mid, #666); width: 22px; flex-shrink: 0;
+}
+.more-info { flex: 1; min-width: 0; }
+.more-city { font-size: 15px; font-weight: 600; color: var(--ink, #1a1a1a); margin-bottom: 2px; }
+.more-meta { font-size: 12.5px; color: var(--mid, #666); }
+.more-pct {
+  font-size: 13px; font-weight: 600; color: #1f3d36;
+  background: #eef4f1; padding: 4px 10px; border-radius: 999px; flex-shrink: 0;
+}
+.more-arrow { color: var(--terra, #c4724a); font-size: 18px; flex-shrink: 0; }
+
+/* Budget indicator on cards */
+.budget-indicator {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; margin-left: 8px; color: rgba(255,255,255,0.85);
+}
+.budget-dot {
+  width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+}
+.budget-dot.in-range { background: #7bc47f; }
+.budget-dot.over-1 { background: #e8b94a; }
+.budget-dot.over-2 { background: #d96a4a; }
+
+/* Card insight rows */
+.card-insights { padding: 4px 0 8px; }
+.insight-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 11px 0; border-bottom: 1px solid #e5dccb;
+  font-size: 14.5px; line-height: 1.45;
+}
+.insight-row:last-of-type { border-bottom: none; padding-bottom: 14px; }
+.insight-icon {
+  flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+}
+.icon-check { color: #1f3d36; }
+.icon-warn { color: #c4724a; }
+.insight-label { color: var(--mid, #666); font-weight: 500; margin-right: 4px; }
+.insight-row strong { color: var(--ink, #1a1a1a); font-weight: 600; }
+.tradeoff-row strong { color: var(--terra, #c4724a); }
 </style>
 </head>
 <body>
@@ -6097,7 +6174,7 @@ function runMatchingEngine() {
       const abbrev = getStateAbbrev(c.state);
       return allowedStates.includes(abbrev);
     });
-    if (regionFiltered.length >= 3) candidates = regionFiltered;
+    candidates = regionFiltered; 
   }
 
   // State exclusion filter
@@ -6116,7 +6193,7 @@ function runMatchingEngine() {
       else if (deal === 'cold') dealFiltered = candidates.filter(c => (c.climate ? c.climate.W : 5) > 3);
       else if (deal === 'heat') dealFiltered = candidates.filter(c => (c.climate ? c.climate.H : 5) < 9);
       else if (deal === 'grey') dealFiltered = candidates.filter(c => (c.climate ? c.climate.M : 5) > 4);
-      if (dealFiltered && dealFiltered.length >= 3) candidates = dealFiltered;
+      if (dealFiltered) candidates = dealFiltered;
     });
   }
 
@@ -6128,8 +6205,11 @@ function runMatchingEngine() {
 
   
   if (quizState.settingTags.length > 0) {
-    const filtered = candidates.filter(c => c.setting.some(s => quizState.settingTags.includes(s)));
-    if (filtered.length >= 3) candidates = filtered;
+    candidates = candidates.filter(c => c.setting.some(s => quizState.settingTags.includes(s)));
+  }
+
+  if (quizState.characterTags.length > 0) {
+    candidates = candidates.filter(c => c.character.some(ch => quizState.characterTags.includes(ch)));
   }
 
   
@@ -6194,7 +6274,7 @@ function runMatchingEngine() {
     return { ...city, matchScore: Math.min(99, matchPct) };
   });
 
-  return scored.sort((a, b) => b.matchScore - a.matchScore).slice(0, 5);
+  return scored.sort((a, b) => b.matchScore - a.matchScore);
 }
 
 function generateWhyMatch(city) {
@@ -6486,20 +6566,80 @@ function renderResults(results) {
   const grid = document.getElementById('resultsGrid');
   const subtitle = document.getElementById('resultsSubtitle');
 
+  // Apply 60% floor — drop any city below 60% match
+  const qualified = results.filter(c => c.matchScore >= 60);
+
+  // Empty state: no cities qualify
+  if (qualified.length === 0) {
+    subtitle.textContent = '';
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h2>No cities matched all your criteria</h2>
+        <p>Your filters may be too restrictive. Common culprits:</p>
+        <ul>
+          <li>Too many "Must Have" priorities (try limiting to 1–2)</li>
+          <li>State exclusions combined with a small region</li>
+          <li>Climate dealbreakers that conflict with your climate preference</li>
+          <li>A budget that's tighter than the cities in your selected region</li>
+        </ul>
+        <div class="empty-state-actions">
+          <button class="btn-next" onclick="quizState.step=4;renderStep();">Adjust Priorities</button>
+          <button class="btn-back" onclick="restartQuiz()">Start Over</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Build the "Matched on" subtitle from user's actual priorities
   const topPriorities = DIMENSIONS
     .filter(d => quizState.priorities[d.key] === 'Must Have' || quizState.priorities[d.key] === 'Very Important')
     .map(d => d.label).slice(0, 3).join(', ');
 
+  const totalDims = DIMENSIONS.length;
+  const moreCount = totalDims - 3;
   subtitle.textContent = topPriorities
-    ? `Matched on: ${topPriorities} and more.`
+    ? `Based on your priorities: ${topPriorities} — and ${moreCount} more factors.`
     : 'Based on your priorities and preferences.';
 
-  const rankLabels = ['Best Match', '2nd Match', '3rd Match'];
-  const top3 = results.slice(0, 3);
+  // Top 3 detailed cards (or fewer if fewer qualify)
+  const topCount = Math.min(qualified.length, 3);
+  const topCards = qualified.slice(0, topCount);
+  const rankLabels = topCount === 3
+    ? ['Best Match', '2nd Match', '3rd Match']
+    : topCount === 2
+    ? ['Best Match', '2nd Match']
+    : ['Best Match'];
 
-  grid.innerHTML = top3.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
+  let html = topCards.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
+
+  // "More cities that fit" section: cards 4-10
+  const moreCities = qualified.slice(3, 10);
+  if (moreCities.length > 0) {
+    html += `
+      <div class="more-matches">
+        <div class="more-header">
+          <h2>More cities that fit</h2>
+          <span class="more-count">${moreCities.length} more</span>
+        </div>
+        <div class="more-list">
+          ${moreCities.map((city, idx) => `
+            <div class="more-row" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+              <span class="more-rank">${idx + 4}</span>
+              <div class="more-info">
+                <div class="more-city">${city.name}, ${city.state}</div>
+                <div class="more-meta">${city.type}</div>
+              </div>
+              <span class="more-pct">${city.matchScore}%</span>
+              <span class="more-arrow">›</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
 }
 
+  grid.innerHTML = html;
+}
+  
 function revealMatch(e, cardId, cityName, cityState) {
   e.preventDefault();
 
