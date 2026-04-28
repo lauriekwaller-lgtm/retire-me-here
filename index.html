@@ -6199,9 +6199,8 @@ function runMatchingEngine() {
 
   
   if (quizState.budget) {
-    const filtered = candidates.filter(c => c.budgetRange <= quizState.budget + 2);
-    if (filtered.length >= 3) candidates = filtered;
-  }
+    // Allow cities up to 1 range over budget (so users can see slight stretches)
+    candidates = candidates.filter(c => c.budgetRange <= quizState.budget + 1);  }
 
   
   if (quizState.settingTags.length > 0) {
