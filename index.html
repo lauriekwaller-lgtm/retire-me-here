@@ -2996,6 +2996,28 @@ const CITIES = [
     highlight: "Home of American Golf — Pinehurst Resort with 10 courses including #2 (Donald Ross masterpiece, US Open anchor site). 16 of NC's Top 100 courses in Pinehurst/Southern Pines. Already a retirement community: median age 60.6, 39% age 65+. Crime extraordinarily low.",
     pros: ["10 Pinehurst Resort courses including Pinehurst No. 2 — US Open anchor site and the most celebrated Donald Ross design in America", "Already a mature retirement community — median age 60.6 with 39% of residents 65+; affluent, established, golf-and-tennis culture", "FirstHealth Moore Regional Hospital in town; Duke and UNC academic centers ~90 min for complex care", "Crime extraordinarily low — among the safest cities in the database; village layout designed by Frederick Law Olmsted"],
     cons: ["Median home $542K — golf-community premium pricing for amenities you may not use if you don't golf", "RDU 75 min drive for commercial flights; Moore County Airport is private aviation only", "Identity is golf, tennis, and equestrian — limited fit for hikers, weight-lifters, or non-golf retirees", "NC taxes retirement income at flat 4.25% (3.99% in 2026, 2.99% by 2028); Social Security exempt"]
+  },
+  {
+    name: "Bentonville", state: "AR", type: "Small City / Cultural / Ozarks",
+    setting: ["Inland / Green"],
+    character: ["Arts & Culture", "Outdoor Lifestyle", "Historic"],
+    monthlyEst: "$3,800–$5,200/mo", medianHome: "$400,000–$500,000", budgetRange: 2,
+    scores: { D1:6, D2:6, D3:7, D5:7, D6:5, D7:8, D8:7, D9:8, D10:8 },
+    climate: { W:4, H:3, M:6 },
+    highlight: "Self-proclaimed Mountain Biking Capital of the World — 130+ miles of singletrack connected to downtown, IMBA Silver Ride Center. Crystal Bridges Museum (free, world-class American art) anchors a downtown that punches well above its size. Two James Beard 2025 finalists for Best Chef: South — only city in the category with two. Strong regional healthcare. Bella Vista 12 min north is the affordable retiree pick. Bentonville median home $400K–$490K, Bella Vista ~$300K.",
+    pros: ["Crystal Bridges Museum of American Art (free, world-class) plus 21c Museum Hotel and Walmart AMP — genuinely unmatched cultural infrastructure for a city this size", "Mountain Biking Capital of the World with 130+ miles of singletrack connected to downtown, plus 250+ mile OZ Trails regional network and the 40-mile Razorback Greenway", "Strong regional healthcare — Mercy NW Arkansas (10 min, #2 in Arkansas, CMS 5-star, Newsweek Best-in-State 2026), Northwest Medical Center-Bentonville in town, Washington Regional in Fayetteville for stroke care", "Two James Beard 2025 finalists for Best Chef: South (Conifer, Yeyo's) — only city in that category with two finalists; rising national food reputation"],
+    cons: ["No Honor Roll or nationally-ranked specialty hospitals — for serious complex care you'd travel to Little Rock, St. Louis, or Memphis (3+ hours)", "XNA airport limited compared to major hubs — ~25 nonstop destinations, smaller-airline coverage, no major-hub backup nearby", "Hot humid summers (July avg high 90°F) and real winters with occasional ice storms; Ozark severe weather risk", "Less car-friendly than peer Southern retirement towns — the city's growth has outpaced its road infrastructure, and traffic is a real local complaint"]
+  },
+  {
+    name: "Boulder", state: "CO", type: "College Town / Mountain / Outdoor",
+    setting: ["Mountain", "Inland / Green"],
+    character: ["Outdoor Lifestyle", "Arts & Culture", "College Town"],
+    monthlyEst: "$5,500–$7,500/mo", medianHome: "$800,000–$1,000,000", budgetRange: 4,
+    scores: { D1:8, D2:3, D3:7, D5:7, D6:8, D7:10, D8:8, D9:7, D10:9 },
+    climate: { W:5, H:7, M:9 },
+    highlight: "AARP Top 100 Place to Live for Older Adults (2025) — #6 mid-sized. Premier outdoor city in America — 300+ trail miles, 45,000 acres of community-funded protected Open Space (since 1967), the Flatirons. Pearl Street pedestrian mall, vibrant cultural and food scene, 300+ days of sunshine. Expensive ($800K–$1M median, COL 29% above national) but exceptional for active retirees who can afford it.",
+    pros: ["Premier outdoor recreation in the Lower 48 — 300+ trail miles, 45,000 acres of community-protected Open Space (taxed and funded by Boulder voters since 1967), the Flatirons, Eldorado Canyon", "AARP Top 100 retirement (#6 mid-sized, 2025) with 300+ days of sunshine, dry climate, and Pearl Street's walkable downtown culture", "Strong healthcare — Foothills Hospital (Newsweek Best-in-State 2025, high performing 7 procedures); UCHealth University of Colorado in Aurora (45 min) is nationally ranked in 7 specialties for serious care", "DIA major hub 45 min away (200+ destinations); CU Boulder cultural calendar; Colorado Music Festival, Boulder International Film Festival"],
+    cons: ["Very expensive — median home $800K–$1M, cost of living 29% above national average; aspirational retirement pricing", "Severe wildfire risk — 99% of properties at some risk over 30 years; Marshall Fire (2021) destroyed 1,000+ homes in adjacent Louisville/Superior", "High elevation (5,400 ft) is a real adjustment — harder for retirees with cardiac or pulmonary conditions; bring patience for the first year", "Strongly progressive cultural identity — politically homogeneous in ways that fit some retirees and not others; new transplants sometimes find the social scene insular"]
   }
 ];
 
@@ -5172,6 +5194,54 @@ const CITY_ENRICHMENT = {
       { name: "Seven Lakes / Foxfire (nearby)", vibe: "Affordable, lakeside, golf", desc: "Communities just outside Pinehurst proper. Seven Lakes has chain of lakes, golf, more affordable single-family homes. Foxfire has its own golf course. The value-conscious option for the Pinehurst lifestyle. Median home $350K–$550K." }
     ],
     sources: "Zillow/NeighborhoodScout (Apr 2026) · Pinehurst Resort · Business North Carolina Top 100 NC Courses 2026 · NC DOR · CrimeGrade.org · NOAA · Data current as of April 2026."
+  },
+  "Bentonville": {
+    hospitalRating: "Mercy Hospital NW Arkansas (Rogers, 10 min) — #2 in Arkansas, CMS 5-star, Newsweek Best-in-State 2026. Northwest Medical Center-Bentonville in town. Washington Regional (Fayetteville) for stroke care.",
+    scoreNotes: {
+      D1: "XNA Northwest Arkansas Regional Airport 10 min away. ~25 nonstop destinations, smaller hub but punches above weight thanks to Walmart corporate traffic. Delta, American, United, Southwest, Allegiant. Connect through DFW, ATL, ORD for international.",
+      D2: "Median sale price $418K-$490K (Redfin/Zillow Q1 2026). Bella Vista 12 min north significantly more affordable at ~$300K. COL 3% below national. Arkansas overall low taxes.",
+      D3: "Mercy Hospital NW Arkansas (Rogers, 10 min) — #2 Arkansas, CMS 5-star, Newsweek Best-in-State #1 (2026), high performing in 10 procedures. Northwest Medical Center-Bentonville in town. Washington Regional (Fayetteville, 45 min) recognized for stroke. Strong regional access. No Honor Roll/nationally ranked specialty hospital — for serious cases retirees travel to Little Rock, St. Louis, Memphis.",
+      DW: "Real winter — January avg low 28°F, occasional snow and ice. Four true seasons.",
+      DH: "Hot humid summers — July avg high 90°F. June through September genuinely warm.",
+      DM: "Beautiful spring (April-May) and fall (September-October). Tornado/severe thunderstorm risk in spring.",
+      D5: "Arkansas: flat 4.4% income tax, Social Security exempt, low property tax (~0.6% effective). Sales tax ~9% (high). No estate or inheritance tax.",
+      D6: "Downtown Square genuinely walkable — restaurants, breweries, Crystal Bridges accessible on foot from Old High district. Razorback Greenway connects to Fayetteville. Broader metro is car-dependent.",
+      D7: "Self-proclaimed Mountain Biking Capital of the World — IMBA Silver Ride Center. 130+ miles of singletrack connected to downtown, plus 250+ mile OZ Trails regional network. 40-mile Razorback Regional Greenway. Beaver Lake (~30 min). Ozark foothills, Hobbs State Park 30 min.",
+      D8: "Bella Vista has 8 golf courses (Country Club of Bella Vista plus 7 public/semi-private), 7 lakes. Pinnacle Country Club in Rogers. Strong pickleball scene growing. Mercy Wellness Center, multiple YMCAs. Solid suburban rec infrastructure.",
+      D9: "Crime well below national average. Walmart-stable economy, low unemployment. Bella Vista among safest communities in Arkansas. Property crime moderate citywide.",
+      D10: "Crystal Bridges Museum (free, world-class American art, Walton Foundation) is the regional cultural anchor. 21c Museum Hotel, Walmart AMP outdoor amphitheater, Walton Arts Center (Fayetteville). Two James Beard 2025 finalists for Best Chef: South (Conifer, Yeyo's) — only city in that category with two. The Hive, The Preacher's Son also nationally recognized."
+    },
+    neighborhoods: [
+      { name: "Bella Vista", vibe: "Affordable retiree haven · Golf · Lakes", desc: "The most popular retiree pick in Northwest Arkansas. Technically a separate municipality 12 miles north of Bentonville, but most local retirees consider the two interchangeable. 8 golf courses (Bella Vista Country Club is the anchor), 7 lakes, Tanyard Creek Trail, miles of Back 40 mountain bike trails. Heavily retiree-concentrated population. Median home ~$300K — significantly more affordable than Bentonville proper. Best for retirees prioritizing value, golf, and outdoor access." },
+      { name: "Old High / Town Square (Bentonville)", vibe: "Historic, walkable, charming", desc: "Heart of Bentonville's resurgence. Walking distance to Crystal Bridges, The Square's restaurants and breweries, the 21c Museum Hotel, and the start of the Razorback Greenway. Best for retirees who want walkability and to be in the cultural action. Median home $400K–$600K." },
+      { name: "Pinnacle Hills (Rogers)", vibe: "Upscale, country club, suburban", desc: "Adjacent Rogers, near Pinnacle Country Club and the Pinnacle Hills Promenade. Closest neighborhood to Mercy Hospital. Best for retirees prioritizing hospital access and upscale suburban lifestyle. Median home $450K–$700K." },
+      { name: "Centerton", vibe: "Affordable, suburban, growing", desc: "West of Bentonville, more affordable, family-friendly. Less retiree-focused but worth considering for value. Median home $300K–$450K." }
+    ],
+    sources: "Zillow/Redfin/Houzeo (Q1 2026) · Mercy Hospital NW Arkansas, US News, Newsweek Best-in-State 2025 · IMBA Ride Centers, OZ Trails · James Beard Foundation 2025 · Crystal Bridges Museum · AR DOR · CrimeGrade.org · NOAA · Data current April 2026."
+  },
+  "Boulder": {
+    hospitalRating: "Foothills Hospital (Boulder Community Health) — Newsweek Best-in-State 2025, high performing in 7 procedures. UCHealth University of Colorado (Aurora, 45 min) — nationally ranked in 7 specialties for serious care.",
+    scoreNotes: {
+      D1: "Denver International Airport (DIA) 45 min drive. Major hub — 200+ nonstop destinations, all major carriers, international gateway. RTD bus service from Boulder. One of the strongest airport situations in the database.",
+      D2: "Median home $819K (Redfin Mar 2026) to $988K (Zillow). Range 4 budget required. COL 29% above national average. Down 6-12% YoY but still aspirational pricing. Adjacent Longmont/Lafayette more affordable for retirees willing to commute.",
+      D3: "Foothills Hospital (Boulder Community Health) — Newsweek Best-in-State 2025, high performing in 7 procedures (cardiac, neurosurgery, orthopedics). Solid regional. UCHealth University of Colorado in Aurora 45 min — nationally ranked in 7 specialties (cancer, cardiology, neurology, pulmonology, orthopedics) for serious complex care.",
+      DW: "Cold but SUNNY — January avg 22°-47°F. Significant snow but bluebird sky days. 300+ days of sunshine annually.",
+      DH: "Hot but DRY — July avg high 87°F, low humidity (very different from Midwest/East Coast summers).",
+      DM: "300+ days of sunshine. April-June and September-October are exceptional. Wildfire smoke can affect summer air quality some years.",
+      D5: "Colorado: flat 4.4% income tax, Social Security partially exempt (full exempt at 65+ for federally-taxed amounts), low property tax (~0.5% effective). Sales tax ~8.8%. No estate or inheritance tax.",
+      D6: "Pearl Street pedestrian mall is one of the most successful in America. Dense walkable downtown, B-cycle bikeshare, RTD transit, 300+ miles of dedicated bike paths. CU Boulder area highly walkable. South Boulder more suburban.",
+      D7: "Premier outdoor recreation in the Lower 48. 300+ trail miles, 45,000 acres of community-funded protected Open Space (Boulder voters have taxed themselves to acquire and protect it since 1967). The Flatirons, Eldorado Canyon, Boulder Creek, Chautauqua Park. Rocky Mountain National Park 1 hour. World-class.",
+      D8: "Boulder Country Club, multiple public courses, excellent rec centers (East Boulder, North Boulder, South Boulder), strong pickleball culture, CU Boulder rec access. Consistently ranked among America's fittest cities.",
+      D9: "Generally safe; crime moderate for college town with property theft above national average. SEVERE wildfire risk — 99% of properties at some risk over 30 years. Marshall Fire (2021) destroyed 1,000+ homes in adjacent Louisville/Superior. Real consideration for retirement planning.",
+      D10: "CU Boulder cultural calendar (lectures, concerts, athletics), Pearl Street's restaurant and shopping scene, Boulder Theater, Macky Auditorium, Colorado Music Festival, Boulder International Film Festival, vibrant brewery culture, strong foodie scene with farm-to-table tradition."
+    },
+    neighborhoods: [
+      { name: "Mapleton Hill", vibe: "Historic Victorian · Premium · Walkable", desc: "Boulder's most prestigious historic neighborhood. Victorian and Craftsman homes on tree-lined streets, walking distance to Pearl Street. Best for retirees who want walkability, history, and don't blink at premium pricing. Median home $1M–$2M+." },
+      { name: "Newlands", vibe: "Established · Charming · Near Pearl Street", desc: "Established neighborhood north of Pearl Street. Mix of bungalows and remodels, strong sense of community, easy walk or bike to downtown. Median home $900K–$1.5M." },
+      { name: "South Boulder", vibe: "Quieter · Trail access · Retiree-friendly", desc: "Quieter, established, near Open Space and the foothills trail network. South Boulder Rec Center is a community anchor. Strong retiree concentration. Easier driving to DIA via US-36. Best for active retirees prioritizing trail access over urban walkability. Median home $750K–$1.2M." },
+      { name: "Gunbarrel / East Boulder", vibe: "More affordable · Suburban · Golf", desc: "More affordable, suburban feel, near the Boulder Country Club golf course. Less walkable but better value and easier garage parking. Best for retirees prioritizing budget and amenity-suburban lifestyle. Median home $500K–$800K." }
+    ],
+    sources: "Redfin/Zillow/Houzeo (Q1 2026) · Boulder Community Health, Newsweek Best-in-State 2025, US News · AARP Top 100 Places to Live for Older Adults 2025 · City of Boulder Open Space and Mountain Parks · CO DOR · NOAA · CrimeGrade.org · First Street Foundation wildfire data · Data current April 2026."
   }
 };
 
