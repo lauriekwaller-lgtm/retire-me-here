@@ -5609,6 +5609,8 @@ const PRIORITY_WEIGHTS = { 'Must Have': 4, 'Very Important': 3, 'Somewhat Import
 
 const D1_THRESHOLDS = { 'Must Have': 8, 'Very Important': 6, 'Somewhat Important': 4, 'Not Important': 0 };
 
+// Generic Must Have threshold applied to all priority dimensions
+const MUST_HAVE_THRESHOLD = 7;
 const BUDGET_OPTIONS = [
   { label: 'Range 1 — Under $3,500/mo', range: 1 },
   { label: 'Range 2 — $3,500–$4,500/mo', range: 2 },
@@ -6228,14 +6230,15 @@ function runMatchingEngine() {
     if (climateFiltered.length >= 5) candidates = climateFiltered;
   }
 
-  const d1Priority = quizState.priorities['D1'];
-  if (d1Priority && d1Priority !== 'Not Important' && d1Priority !== 'Somewhat Important') {
-    const threshold = D1_THRESHOLDS[d1Priority];
-    if (threshold > 0) {
-      const filtered = candidates.filter(c => (c.scores.D1 || 5) >= threshold);
-      if (filtered.length >= 5) candidates = filtered;
+  // Must Have hard-filter: applied to all priority dimensions
+  // Cities below MUST_HAVE_THRESHOLD on a Must Have dimension are removed
+  DIMENSIONS.forEach(dim => {
+    if (dim.key === 'DC') return; // Climate handled separately above
+    const priority = quizState.priorities[dim.key];
+    if (priority === 'Must Have') {
+      candidates = candidates.filter(c => getCityScore(c, dim.key) >= MUST_HAVE_THRESHOLD);
     }
-  }
+  });
 
   
   const scored = candidates.map(city => {
