@@ -975,7 +975,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 /* Intro screen */
 .quiz-intro { text-align: center; padding: 12px 0; }
 .quiz-intro-icon { font-size: 48px; margin-bottom: 16px; }
-.quiz-intro-steps { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; text-align: left; }
+.quiz-intro- { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; text-align: left; }
 .intro-step-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--sand); border-radius: 10px; }
 .intro-step-num { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: var(--teal); width: 24px; flex-shrink: 0; }
 .intro-step-text { font-size: 13px; color: var(--mid); font-family: 'DM Sans', sans-serif; }
@@ -4274,7 +4274,7 @@ const CITY_ENRICHMENT = {
   },
     "Philadelphia": {
     neighborhoods: [
-      { name: "Rittenhouse Square", vibe: "Walkable, upscale, vibrant", desc: "Best urban neighborhood for retirees in Philadelphia. World-class restaurants, weekly farmers market, the square itself steps away. Walk Score among highest in the country. Condos ~$470K+, SF homes $700K+. Premium but worth it for urban lifestyle." },
+      { name: "Rittenhouse Square", vibe: "Walkable, upscale, vibrant", desc: "Best urban neighborhood for retirees in Philadelphia. World-class restaurants, weekly farmers market, the square itself  away. Walk Score among highest in the country. Condos ~$470K+, SF homes $700K+. Premium but worth it for urban lifestyle." },
       { name: "Chestnut Hill", vibe: "Village character, safe, charming", desc: "Northwestern Philadelphia neighborhood that feels like a small town. Germantown Avenue shops and dining, Wissahickon Valley Park access. Very safe. Median single-family home $750K–$975K. Popular with retirees who want city amenities with residential calm." },
       { name: "Manayunk", vibe: "Riverfront, active, eclectic", desc: "Main Street along the Schuylkill Canal. Restaurants, boutiques, cycling culture. Median home $400K–$500K. Active community popular with retirees who enjoy an energetic neighborhood at a more affordable price point." },
       { name: "Society Hill / Old City", vibe: "Historic, walkable, cultural", desc: "Most historic area of Philadelphia. Independence Hall, Reading Terminal Market nearby. Very walkable. Condos $300K–$700K, SF homes higher. World-class cultural access. Good choice for history-minded retirees." }
@@ -6584,7 +6584,6 @@ function renderResults(results) {
           <li>A budget that's tighter than the cities in your selected region</li>
         </ul>
         <div class="empty-state-actions">
-          <button class="btn-next" onclick="quizState.step=4;renderStep();">Adjust Priorities</button>
           <button class="btn-back" onclick="restartQuiz()">Start Over</button>
         </div>
       </div>`;
