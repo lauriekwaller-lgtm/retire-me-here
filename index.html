@@ -6267,8 +6267,16 @@ function runMatchingEngine() {
     });
 
     
-    const budgetDiff = Math.abs(city.budgetRange - (quizState.budget || 2));
-    const budgetBonus = Math.max(0, (3 - budgetDiff) * 2);
+    // Asymmetric budget bonus: reward under-budget (margin), penalize over-budget (stress)
+    const budget = quizState.budget || 2;
+    const cityRange = city.budgetRange;
+    let budgetBonus;
+    if (cityRange === budget) budgetBonus = 6;          // Exact match
+    else if (cityRange === budget - 1) budgetBonus = 5; // 1 under (margin)
+    else if (cityRange === budget - 2) budgetBonus = 3; // 2 under
+    else if (cityRange < budget - 2) budgetBonus = 2;   // Way under
+    else if (cityRange === budget + 1) budgetBonus = 2; // 1 over (stretch)
+    else budgetBonus = 0;                                // 2+ over
 
     const matchPct = Math.round((weightedTotal / totalWeight) * 100) + budgetBonus;
     return { ...city, matchScore: Math.min(99, matchPct) };
