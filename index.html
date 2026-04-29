@@ -5834,8 +5834,8 @@ function renderPriorities(container) {
             <span class="climate-desc">${c.desc}</span>
           </button>`).join('')}
       </div>
-      <div class="climate-section-divider">Any climate dealbreakers?</div>
-      <div class="climate-section-sub">Check anything you absolutely cannot live with — we'll filter those cities out entirely.</div>
+       <div class="climate-section-divider">Any climate dealbreakers?</div>
+      <div class="climate-section-sub">Check anything that's a hard no — we'll remove those cities from your results.</div>
       ${DEAL_OPTIONS.map(d => `
         <button class="dealbreaker-btn ${quizState.climateDeals.includes(d.key) ? 'selected' : ''}" onclick="toggleDealbreaker('${d.key}')">
           <span class="db-check">${quizState.climateDeals.includes(d.key) ? '✕' : ''}</span>
@@ -6043,7 +6043,7 @@ function renderSetting(container) {
   let html = `<div class="question-card">
     <div class="q-step">Step 6 of 7 — Setting</div>
     <div class="q-title">What setting appeals to you?</div>
-    <div class="q-subtitle">Select all that feel right — this filters your city matches by geography.</div>
+    <div class="q-subtitle">Pick the settings you're naturally drawn to — this narrows your matches by geography.</div>
     <div class="tag-options">`;
   SETTING_TAGS.forEach(tag => {
     const sel = quizState.settingTags.includes(tag) ? 'selected' : '';
