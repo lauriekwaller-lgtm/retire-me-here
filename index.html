@@ -5719,11 +5719,11 @@ function renderRegion(container) {
   const regions = Object.keys(REGION_MAP);
   container.innerHTML = `
     <div class="question-card">
-      <div class="q-step">Step 1 of 7 — Location</div>
-      <div class="q-title">Do you have a preferred region?</div>
+       <div class="q-step">Step 1 of 7 — Location</div>
+      <div class="q-title">Where are you open to living?</div>
       <div class="q-subtitle">Select any that apply — or skip if you're open to anywhere in the US.</div>
-      <div class="quiz-hint">💡 Don't worry if a region includes a state you want to avoid — you'll be able to exclude specific states on the next screen.</div>
-      <div class="region-grid">
+      <div class="quiz-hint">💡 We'll only show cities in the regions you select. You can rule out specific states on the next screen.</div>
+            <div class="region-grid">
         ${regions.map(r => `
           <button class="region-card ${quizState.regions.includes(r) ? 'selected' : ''}" onclick="toggleRegion('${r}')">
             <span class="region-icon">${REGION_MAP[r].icon}</span>
