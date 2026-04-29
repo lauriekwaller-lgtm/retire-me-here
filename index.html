@@ -6191,9 +6191,17 @@ function runMatchingEngine() {
   if (quizState.climateDeals && quizState.climateDeals.length > 0) {
     quizState.climateDeals.forEach(deal => {
       let dealFiltered;
-      if (deal === 'humid') dealFiltered = candidates.filter(c => (c.climate ? c.climate.H : 5) < 8);
+      // Humidity uses climate.HUM if available, falls back to climate.H for compatibility
+      // Heat uses climate.HEAT if available, falls back to climate.H
+      if (deal === 'humid') dealFiltered = candidates.filter(c => {
+        const h = c.climate ? (c.climate.HUM !== undefined ? c.climate.HUM : c.climate.H) : 5;
+        return h < 8;
+      });
       else if (deal === 'cold') dealFiltered = candidates.filter(c => (c.climate ? c.climate.W : 5) > 3);
-      else if (deal === 'heat') dealFiltered = candidates.filter(c => (c.climate ? c.climate.H : 5) < 9);
+      else if (deal === 'heat') dealFiltered = candidates.filter(c => {
+        const h = c.climate ? (c.climate.HEAT !== undefined ? c.climate.HEAT : c.climate.H) : 5;
+        return h < 9;
+      });
       else if (deal === 'grey') dealFiltered = candidates.filter(c => (c.climate ? c.climate.M : 5) > 4);
       if (dealFiltered) candidates = dealFiltered;
     });
