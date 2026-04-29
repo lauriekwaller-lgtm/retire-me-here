@@ -5618,7 +5618,7 @@ const BUDGET_OPTIONS = [
   { label: 'Range 5 — $8,000+/mo', range: 5 },
 ];
 
-const SETTING_TAGS = ['Beach / Coastal', 'Mountain', 'Desert', 'Inland / Green', 'City Energy', 'Lakeside'];
+const SETTING_TAGS = ['Beach / Coastal', 'Mountain', 'Desert', 'Forest / Green', 'City Energy', 'Lakeside'];
 const CHARACTER_TAGS = ['Historic', 'Arts & Culture', 'Resort / Golf', 'Urban Neighborhood', 'Quiet Residential', 'Small Town', 'Outdoor Lifestyle', 'College Town'];
 
 let quizState = {
@@ -6346,7 +6346,7 @@ function generateWhyMatch(city) {
         'Beach / Coastal': `You said coastal living appeals to you, and ${city.name} delivers that waterfront character.`,
         'Mountain': `You're drawn to mountain settings — ${city.name} has that elevation and natural backdrop you're looking for.`,
         'City Energy': `You want urban energy and walkable city life — ${city.name} has the density and character to deliver that.`,
-        'Inland / Green': `You prefer green, inland settings — ${city.name} fits that quieter, nature-connected character.`,
+        'Forest / Green': `You prefer green, inland settings — ${city.name} fits that quieter, nature-connected character.`,
         'Desert': `You're drawn to desert living — ${city.name} has that distinctive arid landscape and culture.`,
         'Lakeside': `You want water nearby — ${city.name} has that lakeside quality that brings a sense of calm and recreation.`,
       };
@@ -6440,7 +6440,7 @@ function generateBestFor(city) {
     'Beach / Coastal': 'a coastal lifestyle',
     'Mountain': 'mountain scenery and outdoor access',
     'City Energy': 'urban energy and walkable neighborhoods',
-    'Inland / Green': 'a quieter, greener setting',
+    'Forest / Green': 'a quieter, greener setting',
     'Desert': 'desert living and wide-open spaces',
     'Lakeside': 'lakeside living and water access',
   };
