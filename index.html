@@ -5700,13 +5700,14 @@ function renderIntro(container) {
       <div class="quiz-intro">
         <div class="quiz-intro-icon">🎯</div>
         <div class="q-step" style="text-align:center;">Find Your Best Retirement City</div>
-        <div class="q-title" style="text-align:center;margin-bottom:8px;">This quiz takes about 2 minutes</div>
-        <div class="q-subtitle" style="text-align:center;">The more specific you are, the better your matches.</div>
+        <div class="q-title" style="text-align:center;margin-bottom:4px;">Weigh your tradeoffs. Find your best fit.</div>
+        <div style="text-align:center;font-size:13px;color:var(--mid);margin-bottom:12px;">Takes ~2 minutes</div>
+        <div class="q-subtitle" style="text-align:center;">We factor in your budget, lifestyle, and priorities to show where you actually fit — and the tradeoffs that come with it.</div>
         <div class="quiz-intro-steps">
-          <div class="intro-step-row"><div class="intro-step-num">1</div><div class="intro-step-text">Tell us your preferred region and any states to exclude</div></div>
-          <div class="intro-step-row"><div class="intro-step-num">2</div><div class="intro-step-text">Set your monthly budget</div></div>
-          <div class="intro-step-row"><div class="intro-step-num">3</div><div class="intro-step-text">Rate your priorities — climate, healthcare, walkability and more</div></div>
-          <div class="intro-step-row"><div class="intro-step-num">4</div><div class="intro-step-text">Choose your ideal setting and community character</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">1</div><div class="intro-step-text"><strong>Define your boundaries</strong> — Where you're open to living and what's off the table</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">2</div><div class="intro-step-text"><strong>Set your monthly budget</strong> — What you can comfortably spend, all-in</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">3</div><div class="intro-step-text"><strong>Prioritize what matters most</strong> — Climate, healthcare, walkability, and more</div></div>
+          <div class="intro-step-row"><div class="intro-step-num">4</div><div class="intro-step-text"><strong>We calculate your best matches</strong> — Including tradeoffs most lists ignore</div></div>
         </div>
       </div>
     </div>
@@ -5714,7 +5715,6 @@ function renderIntro(container) {
       <button class="btn-next" onclick="nextStep()" style="background:var(--terra);">Let's Find My City →</button>
     </div>`;
 }
-
 function renderRegion(container) {
   const regions = Object.keys(REGION_MAP);
   container.innerHTML = `
