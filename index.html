@@ -1878,7 +1878,7 @@ console.log("RMH v3.0 loaded - 100+ cities");
 const CITIES = [
   {
     name: "Savannah", state: "GA", type: "Historic / Coastal",
-    setting: ["Beach / Coastal", "Inland / Green"],
+    setting: ["Beach / Coastal", "Forest / Green"],
     character: ["Urban Neighborhood", "Arts & Culture", "Historic"],
     monthlyEst: "$3,800–$4,200/mo", medianHome: "$377,000", budgetRange: 2,
     scores: { D1:5, D2:7, D3:6, D5:7, D6:7, D7:6, D8:5, D9:4, D10:8 },
@@ -1901,7 +1901,7 @@ const CITIES = [
   {
     name: "Chattanooga", state: "TN", type: "Outdoor / Mid-size",
     setting: ["Mountain", "Lakeside"],
-    character: ["Urban Neighborhood", "Small Town", "Outdoor Lifestyle"],
+    character: ["Urban Neighborhood", "Quiet & Residential", "Nature-Centric"],
     monthlyEst: "$3,000–$4,000/mo", medianHome: "$314,000", budgetRange: 1,
     scores: { D1:5, D2:9, D3:8, D5:10, D6:6, D7:8, D8:6, D9:4, D10:7 },
     climate: { W:5, H:6, M:4, HUM:8, HEAT:7 },
@@ -1944,8 +1944,8 @@ const CITIES = [
   },
   {
     name: "Greenville", state: "SC", type: "Inland / Small City",
-    setting: ["Mountain", "Inland / Green"],
-    character: ["Urban Neighborhood", "Small Town", "Arts & Culture"],
+    setting: ["Mountain", "Forest / Green"],
+    character: ["Urban Neighborhood", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$3,200–$4,200/mo", medianHome: "$335,000", budgetRange: 1,
     scores: { D1:6, D2:8, D3:8, D5:6, D6:7, D7:7, D8:6, D9:4, D10:7 },
     climate: { W:5, H:6, M:4, HUM:8, HEAT:7 },
@@ -1956,7 +1956,7 @@ const CITIES = [
   {
     name: "Asheville", state: "NC", type: "Mountain Arts Town",
     setting: ["Mountain"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$4,200–$5,500/mo", medianHome: "$465,000", budgetRange: 3,
     scores: { D1:5, D2:5, D3:5, D5:6, D6:7, D7:10, D8:6, D9:5, D10:9 },
     climate: { W:5, H:8, M:7, HUM:7, HEAT:4 },
@@ -1967,7 +1967,7 @@ const CITIES = [
   {
     name: "St. George", state: "UT", type: "Desert / Outdoor",
     setting: ["Desert"],
-    character: ["Resort / Golf", "Outdoor Lifestyle"],
+    character: ["Resort / Golf", "Nature-Centric"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$530,000", budgetRange: 3,
     scores: { D1:5, D2:4, D3:10, D5:5, D6:3, D7:10, D8:9, D9:7, D10:6 },
     climate: { W:6, H:2, M:9, HUM:2, HEAT:9 },
@@ -1978,7 +1978,7 @@ const CITIES = [
   {
     name: "Carlsbad", state: "CA", type: "Beach Town",
     setting: ["Beach / Coastal"],
-    character: ["Quiet Residential", "Small Town"],
+    character: ["Quiet & Residential"al"],
     monthlyEst: "$10,000–$12,000/mo", medianHome: "$1,450,000", budgetRange: 5,
     scores: { D1:6, D2:1, D3:9, D5:2, D6:5, D7:8, D8:7, D9:6, D10:7 },
     climate: { W:9, H:10, M:9, HUM:5, HEAT:2 },
@@ -1989,7 +1989,7 @@ const CITIES = [
   {
     name: "Scottsdale", state: "AZ", type: "Desert / Resort",
     setting: ["Desert"],
-    character: ["Resort / Golf", "Quiet Residential"],
+    character: ["Resort / Golf", "Quiet & Residential"],
     monthlyEst: "$6,500–$8,500/mo", medianHome: "$875,000", budgetRange: 4,
     scores: { D1:9, D2:3, D3:10, D5:8, D6:4, D7:8, D8:10, D9:6, D10:8 },
     climate: { W:8, H:1, M:10, HUM:1, HEAT:10 },
@@ -2000,7 +2000,7 @@ const CITIES = [
   {
     name: "Santa Fe", state: "NM", type: "Historic Arts Capital",
     setting: ["Mountain", "Desert"],
-    character: ["Historic", "Small Town", "Arts & Culture"],
+    character: ["Historic", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$4,200–$5,000/mo", medianHome: "$520,000", budgetRange: 3,
     scores: { D1:5, D2:6, D3:7, D5:5, D6:6, D7:7, D8:6, D9:3, D10:10 },
     climate: { W:4, H:8, M:8, HUM:3, HEAT:5 },
@@ -2010,7 +2010,7 @@ const CITIES = [
   },
   {
     name: "St. Paul", state: "MN", type: "Major Metro",
-    setting: ["City Energy"],
+    setting: ["Urban / Metro"],
     character: ["Historic", "College Town", "Urban Neighborhood"],
     monthlyEst: "$3,800–$5,000/mo", medianHome: "$425,000–$650,000", budgetRange: 3,
     scores: { D1:10, D2:5, D3:9, D5:3, D6:7, D7:6, D8:7, D9:7, D10:8 },
@@ -2022,7 +2022,7 @@ const CITIES = [
   {
     name: "Virginia Beach", state: "VA", type: "Beach / Metro",
     setting: ["Beach / Coastal"],
-    character: ["Resort / Golf", "Quiet Residential"],
+    character: ["Resort / Golf", "Quiet & Residential"],
     monthlyEst: "$3,800–$4,500/mo", medianHome: "$405,000", budgetRange: 2,
     scores: { D1:7, D2:6, D3:8, D5:7, D6:4, D7:7, D8:7, D9:6, D10:7 },
     climate: { W:5, H:6, M:4, HUM:8, HEAT:6 },
@@ -2054,8 +2054,8 @@ const CITIES = [
   },
   {
     name: "Bloomington", state: "IN", type: "College Town",
-    setting: ["Inland / Green"],
-    character: ["College Town", "Small Town", "Arts & Culture"],
+    setting: ["Forest / Green"],
+    character: ["College Town", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$3,200–$4,200/mo", medianHome: "$345,000", budgetRange: 2,
     scores: { D1:5, D2:7, D3:7, D5:6, D6:6, D7:5, D8:6, D9:6, D10:8 },
     climate: { W:3, H:7, M:5, HUM:7, HEAT:6 },
@@ -2066,7 +2066,7 @@ const CITIES = [
   {
     name: "Knoxville", state: "TN", type: "College / Outdoor",
     setting: ["Mountain", "Lakeside"],
-    character: ["College Town", "Urban Neighborhood", "Outdoor Lifestyle"],
+    character: ["College Town", "Urban Neighborhood", "Nature-Centric"],
     monthlyEst: "$3,200–$4,200/mo", medianHome: "$327,000", budgetRange: 2,
     scores: { D1:6, D2:8, D3:8, D5:9, D6:5, D7:8, D8:7, D9:7, D10:8 },
     climate: { W:5, H:6, M:4, HUM:8, HEAT:7 },
@@ -2077,7 +2077,7 @@ const CITIES = [
   {
     name: "Fort Myers", state: "FL", type: "Beach / Active Adult",
     setting: ["Beach / Coastal", "Lakeside"],
-    character: ["Resort / Golf", "Quiet Residential"],
+    character: ["Resort / Golf", "Quiet & Residential"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$343,000", budgetRange: 3,
     scores: { D1:9, D2:7, D3:9, D5:9, D6:3, D7:6, D8:8, D9:6, D10:7 },
     climate: { W:10, H:4, M:3, HUM:9, HEAT:7 },
@@ -2088,7 +2088,7 @@ const CITIES = [
   {
     name: "Corpus Christi", state: "TX", type: "Beach / Affordable",
     setting: ["Beach / Coastal"],
-    character: ["Quiet Residential", "Small Town"],
+    character: ["Quiet & Residential"al"],
     monthlyEst: "$3,000–$4,000/mo", medianHome: "$214,000", budgetRange: 2,
     scores: { D1:3, D2:9, D3:5, D5:9, D6:3, D7:5, D8:4, D9:4, D10:5 },
     climate: { W:8, H:4, M:3, HUM:9, HEAT:7 },
@@ -2110,7 +2110,7 @@ const CITIES = [
   {
     name: "Fairhope", state: "AL", type: "Small Town / Coastal",
     setting: ["Beach / Coastal", "Lakeside"],
-    character: ["Historic", "Small Town", "Arts & Culture"],
+    character: ["Historic", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$480,000", budgetRange: 2,
     scores: { D1:4, D2:5, D3:6, D5:7, D6:7, D7:6, D8:5, D9:7, D10:7 },
     climate: { W:7, H:4, M:3, HUM:10, HEAT:7 },
@@ -2120,8 +2120,8 @@ const CITIES = [
   },
   {
     name: "Nashua", state: "NH", type: "New England / Value",
-    setting: ["Lakeside", "Inland / Green"],
-    character: ["Historic", "Small Town", "Arts & Culture"],
+    setting: ["Lakeside", "Forest / Green"],
+    character: ["Historic", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$490,000", budgetRange: 3,
     scores: { D1:8, D2:4, D3:8, D5:9, D6:6, D7:5, D8:5, D9:6, D10:6 },
     climate: { W:2, H:7, M:6, HUM:6, HEAT:5 },
@@ -2131,7 +2131,7 @@ const CITIES = [
   },
   {
     name: "Lexington", state: "KY", type: "Horse Country / College",
-    setting: ["Lakeside", "Inland / Green"],
+    setting: ["Lakeside", "Forest / Green"],
     character: ["Historic", "College Town", "Arts & Culture"],
     monthlyEst: "$3,200–$4,200/mo", medianHome: "$330,000", budgetRange: 2,
     scores: { D1:6, D2:8, D3:9, D5:6, D6:6, D7:6, D8:6, D9:6, D10:7 },
@@ -2143,7 +2143,7 @@ const CITIES = [
   {
     name: "Flagstaff", state: "AZ", type: "Mountain / University",
     setting: ["Mountain", "Desert"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$5,000–$7,000/mo", medianHome: "$650,000", budgetRange: 4,
     scores: { D1:3, D2:3, D3:4, D5:8, D6:6, D7:10, D8:5, D9:5, D10:7 },
     climate: { W:4, H:9, M:7, HUM:4, HEAT:3 },
@@ -2154,7 +2154,7 @@ const CITIES = [
   {
     name: "Spokane", state: "WA", type: "Inland / Outdoor",
     setting: ["Mountain", "Lakeside"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$385,000", budgetRange: 2,
     scores: { D1:7, D2:8, D3:8, D5:9, D6:6, D7:7, D8:6, D9:3, D10:7 },
     climate: { W:3, H:7, M:8, HUM:4, HEAT:6 },
@@ -2165,7 +2165,7 @@ const CITIES = [
   {
     name: "Portland", state: "ME", type: "New England / Arts",
     setting: ["Beach / Coastal", "Lakeside"],
-    character: ["Historic", "Small Town", "Arts & Culture"],
+    character: ["Historic", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$5,000–$7,000/mo", medianHome: "$545,000", budgetRange: 4,
     scores: { D1:8, D2:3, D3:9, D5:4, D6:9, D7:7, D8:6, D9:4, D10:9 },
     climate: { W:2, H:8, M:6, HUM:6, HEAT:3 },
@@ -2176,7 +2176,7 @@ const CITIES = [
   {
     name: "Wilmington", state: "NC", type: "Beach / Historic",
     setting: ["Beach / Coastal", "Lakeside"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$420,000", budgetRange: 2,
     scores: { D1:6, D2:6, D3:5, D5:7, D6:5, D7:7, D8:6, D9:3, D10:7 },
     climate: { W:6, H:6, M:4, HUM:9, HEAT:7 },
@@ -2186,7 +2186,7 @@ const CITIES = [
   },
   {
     name: "San Antonio", state: "TX", type: "City / Historic",
-    setting: ["Inland / Green"],
+    setting: ["Forest / Green"],
     character: ["Historic", "Arts & Culture"],
     monthlyEst: "$4,200–$6,000/mo", medianHome: "$475,000–$900,000", budgetRange: 3,
     scores: { D1:9, D2:6, D3:8, D5:9, D6:5, D7:5, D8:6, D9:7, D10:8 },
@@ -2198,7 +2198,7 @@ const CITIES = [
   {
     name: "Eugene", state: "OR", type: "College / Outdoor",
     setting: ["Mountain", "Lakeside"],
-    character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["College Town", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$4,200–$5,500/mo", medianHome: "$460,000", budgetRange: 3,
     scores: { D1:5, D2:4, D3:7, D5:3, D6:7, D7:8, D8:6, D9:5, D10:7 },
     climate: { W:5, H:7, M:8, HUM:6, HEAT:4 },
@@ -2209,7 +2209,7 @@ const CITIES = [
   {
     name: "Colorado Springs", state: "CO", type: "Mountain / Military",
     setting: ["Mountain"],
-    character: ["Historic", "Outdoor Lifestyle"],
+    character: ["Historic", "Nature-Centric"],
     monthlyEst: "$3,800–$5,000/mo", medianHome: "$445,000", budgetRange: 3,
     scores: { D1:6, D2:5, D3:8, D5:7, D6:4, D7:9, D8:7, D9:4, D10:8 },
     climate: { W:4, H:8, M:8, HUM:3, HEAT:4 },
@@ -2219,7 +2219,7 @@ const CITIES = [
   },
   {
     name: "Nashville", state: "TN", type: "Metro / Music City",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Arts & Culture", "Urban Neighborhood", "Historic"],
     monthlyEst: "$5,000–$6,500/mo", medianHome: "$532,000", budgetRange: 3,
     scores: { D1:9, D2:5, D3:9, D5:9, D6:5, D7:6, D8:7, D9:5, D10:9 },
@@ -2242,7 +2242,7 @@ const CITIES = [
   },
   {
     name: "St. Petersburg", state: "FL", type: "Beach / Arts City",
-    setting: ["Beach / Coastal", "City Energy"],
+    setting: ["Beach / Coastal", "Urban / Metro"],
     character: ["Arts & Culture", "Urban Neighborhood", "Historic"],
     monthlyEst: "$4,500–$5,500/mo", medianHome: "$350,000", budgetRange: 3,
     scores: { D1:8, D2:6, D3:7, D5:9, D6:8, D7:7, D8:8, D9:6, D10:9 },
@@ -2277,7 +2277,7 @@ const CITIES = [
   {
     name: "Saratoga Springs", state: "NY", type: "Historic / Arts",
     setting: ["Lakeside"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$5,000–$7,000/mo", medianHome: "$500,000", budgetRange: 4,
     scores: { D1:6, D2:3, D3:6, D5:2, D6:8, D7:7, D8:6, D9:8, D10:8 },
     climate: { W:2, H:7, M:6, HUM:6, HEAT:5 },
@@ -2288,7 +2288,7 @@ const CITIES = [
   {
     name: "Ann Arbor", state: "MI", type: "College Town",
     setting: ["Lakeside"],
-    character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["College Town", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$425,000", budgetRange: 3,
     scores: { D1:9, D2:5, D3:10, D5:7, D6:8, D7:5, D8:7, D9:7, D10:8 },
     climate: { W:3, H:7, M:5, HUM:6, HEAT:5 },
@@ -2299,7 +2299,7 @@ const CITIES = [
   {
     name: "Madison", state: "WI", type: "College Town / Lakes",
     setting: ["Lakeside"],
-    character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["College Town", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,800–$5,000/mo", medianHome: "$375,000", budgetRange: 3,
     scores: { D1:6, D2:6, D3:8, D5:5, D6:5, D7:7, D8:7, D9:6, D10:8 },
     climate: { W:2, H:7, M:5, HUM:6, HEAT:5 },
@@ -2310,7 +2310,7 @@ const CITIES = [
   {
     name: "Boise", state: "ID", type: "Outdoor / Growing",
     setting: ["Lakeside"],
-    character: ["Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$500,000", budgetRange: 3,
     scores: { D1:7, D2:4, D3:7, D5:6, D6:4, D7:8, D8:7, D9:8, D10:7 },
     climate: { W:4, H:5, M:8, HUM:4, HEAT:7 },
@@ -2320,8 +2320,8 @@ const CITIES = [
   },
   {
     name: "Fort Collins", state: "CO", type: "College Town / Outdoor",
-    setting: ["Inland / Green", "Mountain"],
-    character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
+    setting: ["Forest / Green", "Mountain"],
+    character: ["College Town", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$4,500–$5,500/mo", medianHome: "$550,000", budgetRange: 3,
     scores: { D1:6, D2:5, D3:7, D5:5, D6:5, D7:9, D8:8, D9:8, D10:8 },
     climate: { W:5, H:5, M:7, HUM:3, HEAT:5 },
@@ -2343,7 +2343,7 @@ const CITIES = [
   },
   {
     name: "Wilmington", state: "DE", type: "Historic / Urban",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Historic", "Arts & Culture", "Urban Neighborhood"],
     monthlyEst: "$4,500–$7,000/mo", medianHome: "$400,000–$1,100,000", budgetRange: 3,
     scores: { D1:7, D2:5, D3:8, D5:8, D6:6, D7:6, D8:5, D9:7, D10:7 },
@@ -2367,7 +2367,7 @@ const CITIES = [
   {
     name: "Rehoboth Beach", state: "DE", type: "Beach Town / Resort",
     setting: ["Beach / Coastal"],
-    character: ["Historic", "Arts & Culture", "Small Town"],
+    character: ["Historic", "Arts & Culture", "Quiet & Residential"],
     monthlyEst: "$5,500–$7,500/mo", medianHome: "$793,000", budgetRange: 4,
     scores: { D1:5, D2:2, D3:6, D5:9, D6:7, D7:8, D8:6, D9:7, D10:8 },
     climate: { W:5, H:6, M:5, HUM:8, HEAT:6 },
@@ -2390,7 +2390,7 @@ const CITIES = [
   {
     name: "Beaufort", state: "NC", type: "Historic / Coastal / Small Town",
     setting: ["Beach / Coastal", "Lakeside"],
-    character: ["Historic", "Small Town", "Outdoor Lifestyle"],
+    character: ["Historic", "Quiet & Residential", "Nature-Centric"],
     monthlyEst: "$3,800–$5,000/mo", medianHome: "$450,000", budgetRange: 3,
     scores: { D1:4, D2:7, D3:5, D5:7, D6:5, D7:8, D8:7, D9:8, D10:8 },
     climate: { W:7, H:5, M:6, HUM:9, HEAT:6 },
@@ -2412,8 +2412,8 @@ const CITIES = [
   },
   {
     name: "Raleigh", state: "NC", type: "Metro / Research",
-    setting: ["City Energy"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    setting: ["Urban / Metro"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,500–$4,800/mo", medianHome: "$445,000", budgetRange: 3,
     scores: { D1:9, D2:6, D3:10, D5:7, D6:4, D7:6, D8:6, D9:6, D10:7 },
     climate: { W:5, H:5, M:4, HUM:8, HEAT:7 },
@@ -2423,7 +2423,7 @@ const CITIES = [
   },
   {
     name: "Fort Worth", state: "TX", type: "City / Western",
-    setting: ["City Energy"],
+    setting: ["Urban / Metro"],
     character: ["Historic", "Arts & Culture"],
     monthlyEst: "$3,000–$4,200/mo", medianHome: "$340,000", budgetRange: 2,
     scores: { D1:10, D2:7, D3:8, D5:8, D6:5, D7:4, D8:6, D9:6, D10:7 },
@@ -2435,7 +2435,7 @@ const CITIES = [
   {
     name: "Charlottesville", state: "VA", type: "College / Historic",
     setting: ["Lakeside"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$4,000–$5,500/mo", medianHome: "$460,000", budgetRange: 3,
     scores: { D1:4, D2:4, D3:9, D5:6, D6:7, D7:8, D8:5, D9:7, D10:8 },
     climate: { W:5, H:6, M:5, HUM:7, HEAT:6 },
@@ -2445,8 +2445,8 @@ const CITIES = [
   },
   {
     name: "Alexandria", state: "VA", type: "Historic / Urban / Waterfront",
-    setting: ["Beach / Coastal", "City Energy"],
-    character: ["Historic", "Arts & Culture", "Urban Neighborhood", "Outdoor Lifestyle"],
+    setting: ["Beach / Coastal", "Urban / Metro"],
+    character: ["Historic", "Arts & Culture", "Urban Neighborhood", "Nature-Centric"],
     monthlyEst: "$6,500–$9,000/mo", medianHome: "$970,000", budgetRange: 4,
     scores: { D1:9, D2:3, D3:9, D5:6, D6:9, D7:5, D8:6, D9:5, D10:8 },
     climate: { W:6, H:7, M:6, HUM:8, HEAT:6 },
@@ -2469,7 +2469,7 @@ const CITIES = [
   {
     name: "Annapolis", state: "MD", type: "Historic / Waterfront",
     setting: ["Beach / Coastal", "Lakeside"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$5,500–$7,500/mo", medianHome: "$655,000", budgetRange: 4,
     scores: { D1:8, D2:3, D3:7, D5:4, D6:8, D7:7, D8:6, D9:6, D10:8 },
     climate: { W:4, H:6, M:4, HUM:7, HEAT:5 },
@@ -2479,8 +2479,8 @@ const CITIES = [
   },
   {
     name: "Silver Spring", state: "MD", type: "Urban / Walkable / DC Metro",
-    setting: ["City Energy"],
-    character: ["Arts & Culture", "Urban Neighborhood", "Outdoor Lifestyle"],
+    setting: ["Urban / Metro"],
+    character: ["Arts & Culture", "Urban Neighborhood", "Nature-Centric"],
     monthlyEst: "$5,000–$6,500/mo", medianHome: "$630,000", budgetRange: 3,
     scores: { D1:8, D2:4, D3:8, D5:4, D6:7, D7:5, D8:6, D9:5, D10:7 },
     climate: { W:5, H:6, M:5, HUM:8, HEAT:6 },
@@ -2502,8 +2502,8 @@ const CITIES = [
   },
   {
     name: "Philadelphia", state: "PA", type: "Historic / Urban / College Town",
-    setting: ["City Energy", "Beach / Coastal"],
-    character: ["Historic", "Arts & Culture", "Urban Neighborhood", "Outdoor Lifestyle"],
+    setting: ["Urban / Metro", "Beach / Coastal"],
+    character: ["Historic", "Arts & Culture", "Urban Neighborhood", "Nature-Centric", "Big City Energy" ],
     monthlyEst: "$4,500–$7,000/mo", medianHome: "$475,000–$975,000", budgetRange: 3,
     scores: { D1:8, D2:5, D3:10, D5:6, D6:8, D7:5, D8:7, D9:6, D10:9 },
     climate: { W:5, H:6, M:5, HUM:7, HEAT:6 },
@@ -2526,7 +2526,7 @@ const CITIES = [
   {
     name: "Pittsburgh", state: "PA", type: "College Town / Urban / Outdoor",
     setting: ["Mountain", "Lakeside"],
-    character: ["Arts & Culture", "Urban Neighborhood", "College Town", "Outdoor Lifestyle"],
+    character: ["Arts & Culture", "Urban Neighborhood", "College Town", "Nature-Centric"],
     monthlyEst: "$4,500–$6,500/mo", medianHome: "$425,000–$700,000", budgetRange: 3,
     scores: { D1:6, D2:5, D3:10, D5:7, D6:6, D7:6, D8:6, D9:7, D10:8 },
     climate: { W:4, H:6, M:5, HUM:7, HEAT:5 },
@@ -2549,7 +2549,7 @@ const CITIES = [
   {
     name: "Pensacola", state: "FL", type: "Beach / Military",
     setting: ["Beach / Coastal"],
-    character: ["Historic", "Outdoor Lifestyle"],
+    character: ["Historic", "Nature-Centric"],
     monthlyEst: "$3,000–$4,200/mo", medianHome: "$340,000", budgetRange: 2,
     scores: { D1:7, D2:7, D3:7, D5:9, D6:4, D7:7, D8:6, D9:6, D10:7 },
     climate: { W:7, H:5, M:3, HUM:9, HEAT:7 },
@@ -2560,7 +2560,7 @@ const CITIES = [
   {
     name: "St. Augustine", state: "FL", type: "Historic / Beach",
     setting: ["Beach / Coastal"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$3,500–$5,000/mo", medianHome: "$425,000", budgetRange: 2,
     scores: { D1:6, D2:5, D3:8, D5:9, D6:7, D7:6, D8:6, D9:8, D10:9 },
     climate: { W:8, H:4, M:4, HUM:9, HEAT:7 },
@@ -2571,7 +2571,7 @@ const CITIES = [
   {
     name: "Fayetteville", state: "AR", type: "College / Outdoor",
     setting: ["Lakeside"],
-    character: ["College Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["College Town", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$2,800–$3,800/mo", medianHome: "$350,000", budgetRange: 1,
     scores: { D1:6, D2:8, D3:8, D5:7, D6:6, D7:8, D8:7, D9:7, D10:8 },
     climate: { W:5, H:6, M:4, HUM:7, HEAT:7 },
@@ -2582,7 +2582,7 @@ const CITIES = [
   {
     name: "Henderson", state: "NV", type: "Desert / Active Adult",
     setting: ["Desert"],
-    character: ["Quiet Residential"],
+    character: ["Quiet & Residential"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$465,000", budgetRange: 3,
     scores: { D1:9, D2:5, D3:6, D5:10, D6:3, D7:4, D8:8, D9:9, D10:5 },
     climate: { W:8, H:1, M:10, HUM:1, HEAT:10 },
@@ -2593,7 +2593,7 @@ const CITIES = [
   {
     name: "Johnson City", state: "TN", type: "Mountain / Affordable",
     setting: ["Lakeside"],
-    character: ["Historic", "Outdoor Lifestyle"],
+    character: ["Historic", "Nature-Centric"],
     monthlyEst: "$2,500–$3,200/mo", medianHome: "$285,000", budgetRange: 1,
     scores: { D1:5, D2:9, D3:3, D5:8, D6:4, D7:8, D8:6, D9:6, D10:6 },
     climate: { W:5, H:7, M:5, HUM:7, HEAT:5 },
@@ -2603,8 +2603,8 @@ const CITIES = [
   },
   {
     name: "Prescott", state: "AZ", type: "Mountain / Small Town",
-    setting: ["Inland / Green"],
-    character: ["Historic", "Outdoor Lifestyle"],
+    setting: ["Forest / Green"],
+    character: ["Historic", "Nature-Centric"],
     monthlyEst: "$4,000–$5,500/mo", medianHome: "$525,000", budgetRange: 3,
     scores: { D1:3, D2:4, D3:5, D5:8, D6:6, D7:8, D8:7, D9:7, D10:7 },
     climate: { W:6, H:5, M:9, HUM:3, HEAT:5 },
@@ -2615,7 +2615,7 @@ const CITIES = [
   {
     name: "Jackson Hole", state: "WY", type: "Mountain / Luxury",
     setting: ["Mountain", "Lakeside"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$8,000–$15,000+/mo", medianHome: "$1,850,000", budgetRange: 5,
     scores: { D1:8, D2:1, D3:4, D5:10, D6:7, D7:10, D8:7, D9:8, D10:7 },
     climate: { W:2, H:8, M:9, HUM:3, HEAT:3 },
@@ -2626,7 +2626,7 @@ const CITIES = [
   {
     name: "Santa Barbara", state: "CA", type: "Beach / Luxury",
     setting: ["Beach / Coastal"],
-    character: ["Historic", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$8,000–$14,000+/mo", medianHome: "$1,850,000", budgetRange: 5,
     scores: { D1:7, D2:1, D3:7, D5:2, D6:8, D7:9, D8:7, D9:7, D10:9 },
     climate: { W:9, H:10, M:9, HUM:5, HEAT:3 },
@@ -2637,7 +2637,7 @@ const CITIES = [
   {
     name: "Bend", state: "OR", type: "Outdoor / Growing",
     setting: ["Mountain", "Lakeside"],
-    character: ["Outdoor Lifestyle"],
+    character: ["Nature-Centric"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$800,000", budgetRange: 3,
     scores: { D1:6, D2:4, D3:8, D5:6, D6:7, D7:10, D8:7, D9:8, D10:7 },
     climate: { W:5, H:8, M:9, HUM:3, HEAT:4 },
@@ -2648,7 +2648,7 @@ const CITIES = [
   {
     name: "Park City", state: "UT", type: "Mountain / Resort Town",
     setting: ["Mountain"],
-    character: ["Historic", "Resort / Golf", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "Resort / Golf", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$8,000+/mo", medianHome: "$1,520,000", budgetRange: 5,
     scores: { D1:8, D2:1, D3:7, D5:4, D6:6, D7:10, D8:9, D9:7, D10:7 },
     climate: { W:2, H:9, M:9, HUM:3, HEAT:3 },
@@ -2659,7 +2659,7 @@ const CITIES = [
   {
     name: "Bozeman", state: "MT", type: "Mountain / College Town",
     setting: ["Mountain"],
-    character: ["College Town", "Small Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["College Town", "Quiet & Residential", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$6,000–$8,000/mo", medianHome: "$700,000", budgetRange: 4,
     scores: { D1:7, D2:3, D3:6, D5:5, D6:5, D7:9, D8:7, D9:7, D10:7 },
     climate: { W:2, H:8, M:9, HUM:3, HEAT:3 },
@@ -2670,7 +2670,7 @@ const CITIES = [
   {
     name: "Missoula", state: "MT", type: "Mountain / Arts & College Town",
     setting: ["Mountain"],
-    character: ["College Town", "Small Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["College Town", "Quiet & Residential", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$550,000", budgetRange: 3,
     scores: { D1:5, D2:4, D3:7, D5:4, D6:5, D7:8, D8:6, D9:3, D10:8 },
     climate: { W:3, H:6, M:9, HUM:4, HEAT:4 },
@@ -2681,7 +2681,7 @@ const CITIES = [
   {
     name: "Sedona", state: "AZ", type: "Desert / Arts & Wellness Retreat",
     setting: ["Mountain", "Desert"],
-    character: ["Resort / Golf", "Small Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Resort / Golf", "Quiet & Residential", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$6,000–$8,000/mo", medianHome: "$932,000", budgetRange: 4,
     scores: { D1:3, D2:2, D3:4, D5:8, D6:4, D7:9, D8:6, D9:8, D10:7 },
     climate: { W:7, H:3, M:8, HUM:2, HEAT:8 },
@@ -2692,7 +2692,7 @@ const CITIES = [
   {
     name: "Durango", state: "CO", type: "Mountain / Historic Railroad Town",
     setting: ["Mountain"],
-    character: ["Historic", "College Town", "Small Town", "Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Historic", "College Town", "Quiet & Residential", "Arts & Culture", "Nature-Centric"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$682,500", budgetRange: 3,
     scores: { D1:3, D2:3, D3:5, D5:8, D6:4, D7:9, D8:7, D9:6, D10:8 },
     climate: { W:3, H:7, M:9, HUM:4, HEAT:4 },
@@ -2702,8 +2702,8 @@ const CITIES = [
   },
   {
     name: "Georgetown", state: "TX", type: "Active Adult / Suburban",
-    setting: ["Inland / Green"],
-    character: ["Quiet Residential"],
+    setting: ["Forest / Green"],
+    character: ["Quiet & Residential"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$450,000", budgetRange: 2,
     scores: { D1:7, D2:6, D3:6, D5:9, D6:5, D7:5, D8:10, D9:9, D10:7 },
     climate: { W:7, H:3, M:4, HUM:7, HEAT:9 },
@@ -2714,7 +2714,7 @@ const CITIES = [
   {
     name: "Whitefish", state: "MT", type: "Mountain Resort",
     setting: ["Mountain", "Lakeside"],
-    character: ["Outdoor Lifestyle", "Arts & Culture", "Historic"],
+    character: ["Nature-Centric", "Arts & Culture", "Historic"],
     monthlyEst: "$5,500–$7,500/mo", medianHome: "$870,000", budgetRange: 4,
     scores: { D1:6, D2:4, D3:5, D5:8, D6:6, D7:9, D8:5, D9:8, D10:6 },
     climate: { W:2, H:5, M:4, HUM:5, HEAT:3 },
@@ -2725,7 +2725,7 @@ const CITIES = [
   {
     name: "Steamboat Springs", state: "CO", type: "Mountain Resort",
     setting: ["Mountain"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$6,500–$8,500/mo", medianHome: "$972,000", budgetRange: 4,
     scores: { D1:5, D2:3, D3:5, D5:5, D6:5, D7:9, D8:6, D9:8, D10:7 },
     climate: { W:2, H:5, M:4, HUM:3, HEAT:3 },
@@ -2736,7 +2736,7 @@ const CITIES = [
   {
     name: "Coeur d’Alène", state: "ID", type: "Lakeside Mountain",
     setting: ["Mountain", "Lakeside"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$601,000", budgetRange: 3,
     scores: { D1:6, D2:5, D3:6, D5:7, D6:5, D7:8, D8:7, D9:7, D10:7 },
     climate: { W:3, H:6, M:5, HUM:5, HEAT:5 },
@@ -2747,7 +2747,7 @@ const CITIES = [
   {
     name: "Grand Junction", state: "CO", type: "Desert / Wine Country",
     setting: ["Mountain", "Desert"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$3,500–$5,000/mo", medianHome: "$376,000", budgetRange: 2,
     scores: { D1:6, D2:8, D3:6, D5:5, D6:5, D7:7, D8:6, D9:7, D10:6 },
     climate: { W:5, H:7, M:6, HUM:3, HEAT:7 },
@@ -2757,7 +2757,7 @@ const CITIES = [
   },
   {
     name: "St. Louis", state: "MO", type: "Major Metro / Historic",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Historic", "Arts & Culture", "Urban Neighborhood"],
     monthlyEst: "$3,500–$4,800/mo", medianHome: "$350,000–$500,000", budgetRange: 2,
     scores: { D1:8, D2:8, D3:10, D5:6, D6:6, D7:6, D8:7, D9:5, D10:8 },
@@ -2780,7 +2780,7 @@ const CITIES = [
   },
   {
     name: "Des Moines", state: "IA", type: "Capital City / Midwest",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Urban Neighborhood", "Arts & Culture", "College Town"],
     monthlyEst: "$3,200–$4,200/mo", medianHome: "$230,000", budgetRange: 2,
     scores: { D1:7, D2:8, D3:8, D5:6, D6:5, D7:5, D8:7, D9:7, D10:7 },
@@ -2803,8 +2803,8 @@ const CITIES = [
   },
   {
     name: "Sioux Falls", state: "SD", type: "Small Metro / Plains",
-    setting: ["Inland / Green"],
-    character: ["Small Town", "Outdoor Lifestyle"],
+    setting: ["Forest / Green"],
+    character: ["Quiet & Residential", "Nature-Centric"],
     monthlyEst: "$3,000–$4,000/mo", medianHome: "$285,000", budgetRange: 2,
     scores: { D1:6, D2:8, D3:8, D5:10, D6:3, D7:5, D8:7, D9:8, D10:7 },
     climate: { W:1, H:5, M:3, HUM:6, HEAT:5 },
@@ -2826,7 +2826,7 @@ const CITIES = [
   },
   {
     name: "Las Vegas", state: "NV", type: "Major Metro / Entertainment",
-    setting: ["Desert", "City Energy"],
+    setting: ["Desert", "Urban / Metro"],
     character: ["Resort / Golf", "Urban Neighborhood", "Arts & Culture"],
     monthlyEst: "$4,500–$5,500/mo", medianHome: "$430,000", budgetRange: 3,
     scores: { D1:10, D2:5, D3:7, D5:10, D6:3, D7:7, D8:7, D9:5, D10:8 },
@@ -2849,8 +2849,8 @@ const CITIES = [
   },
   {
     name: "Casper", state: "WY", type: "Small City / Outdoor",
-    setting: ["Mountain", "Inland / Green"],
-    character: ["Small Town", "Outdoor Lifestyle"],
+    setting: ["Mountain", "Forest / Green"],
+    character: ["Quiet & Residential", "Nature-Centric"],
     monthlyEst: "$2,800–$3,800/mo", medianHome: "$275,000", budgetRange: 1,
     scores: { D1:4, D2:9, D3:6, D5:10, D6:3, D7:8, D8:6, D9:8, D10:6 },
     climate: { W:2, H:5, M:4, HUM:3, HEAT:6 },
@@ -2872,7 +2872,7 @@ const CITIES = [
   },
   {
     name: "Kansas City", state: "MO", type: "Urban / Cultural",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Urban Neighborhood", "Arts & Culture", "Historic"],
     monthlyEst: "$3,500–$4,800/mo", medianHome: "$252,000", budgetRange: 2,
     scores: { D1:8, D2:8, D3:8, D5:6, D6:5, D7:4, D8:5, D9:5, D10:7 },
@@ -2883,7 +2883,7 @@ const CITIES = [
   },
   {
     name: "Columbus", state: "OH", type: "Major Metro / College Town",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Urban Neighborhood", "Arts & Culture", "College Town"],
     monthlyEst: "$3,500–$4,500/mo", medianHome: "$260,000", budgetRange: 2,
     scores: { D1:8, D2:7, D3:9, D5:6, D6:5, D7:5, D8:7, D9:6, D10:8 },
@@ -2900,7 +2900,7 @@ const CITIES = [
   },
   {
     name: "Indianapolis", state: "IN", type: "Urban / Sports",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Urban Neighborhood", "Arts & Culture"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$425,000–$700,000", budgetRange: 3,
     scores: { D1:8, D2:6, D3:8, D5:6, D6:5, D7:3, D8:5, D9:7, D10:7 },
@@ -2912,7 +2912,7 @@ const CITIES = [
   {
     name: "Vail", state: "CO", type: "Mountain Luxury",
     setting: ["Mountain"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$10,000–$15,000/mo", medianHome: "$3,100,000", budgetRange: 5,
     scores: { D1:6, D2:1, D3:6, D5:5, D6:7, D7:10, D8:8, D9:9, D10:7 },
     climate: { W:2, H:5, M:5, HUM:3, HEAT:2 },
@@ -2923,7 +2923,7 @@ const CITIES = [
   {
     name: "Sun Valley", state: "ID", type: "Mountain Resort",
     setting: ["Mountain"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$7,500–$10,000/mo", medianHome: "$1,350,000", budgetRange: 5,
     scores: { D1:5, D2:2, D3:5, D5:7, D6:6, D7:10, D8:5, D9:9, D10:7 },
     climate: { W:2, H:5, M:4, HUM:3, HEAT:4 },
@@ -2933,7 +2933,7 @@ const CITIES = [
   },
   {
     name: "Memphis", state: "TN", type: "Urban / Cultural",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Urban Neighborhood", "Arts & Culture", "Historic"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$280,000–$500,000", budgetRange: 2,
     scores: { D1:8, D2:7, D3:9, D5:9, D6:5, D7:3, D8:4, D9:7, D10:7 },
@@ -2944,8 +2944,8 @@ const CITIES = [
   },
   {
     name: "Napa", state: "CA", type: "Wine Country",
-    setting: ["Inland / Green"],
-    character: ["Arts & Culture", "Outdoor Lifestyle"],
+    setting: ["Forest / Green"],
+    character: ["Arts & Culture", "Nature-Centric"],
     monthlyEst: "$7,000–$9,500/mo", medianHome: "$780,000", budgetRange: 5,
     scores: { D1:6, D2:2, D3:6, D5:2, D6:6, D7:6, D8:6, D9:7, D10:8 },
     climate: { W:7, H:6, M:8, HUM:4, HEAT:6 },
@@ -2956,7 +2956,7 @@ const CITIES = [
   {
     name: "Carmel-by-the-Sea", state: "CA", type: "Coastal Luxury",
     setting: ["Beach / Coastal"],
-    character: ["Arts & Culture", "Outdoor Lifestyle"],
+    character: ["Arts & Culture", "Nature-Centric"],
     monthlyEst: "$12,000–$18,000/mo", medianHome: "$3,000,000", budgetRange: 5,
     scores: { D1:6, D2:1, D3:6, D5:2, D6:8, D7:8, D8:6, D9:9, D10:8 },
     climate: { W:8, H:6, M:9, HUM:5, HEAT:2 },
@@ -2966,8 +2966,8 @@ const CITIES = [
   },
   {
     name: "Paducah", state: "KY", type: "River City / Arts",
-    setting: ["Lakeside", "Inland / Green"],
-    character: ["Arts & Culture", "Historic", "Outdoor Lifestyle"],
+    setting: ["Lakeside", "Forest / Green"],
+    character: ["Arts & Culture", "Historic", "Nature-Centric"],
     monthlyEst: "$2,500–$3,500/mo", medianHome: "$160,000", budgetRange: 1,
     scores: { D1:4, D2:9, D3:6, D5:7, D6:5, D7:4, D8:4, D9:6, D10:7 },
     climate: { W:4, H:7, M:5, HUM:8, HEAT:7 },
@@ -2978,7 +2978,7 @@ const CITIES = [
   {
     name: "Hot Springs", state: "AR", type: "Spa / Resort Town",
     setting: ["Lakeside", "Mountain"],
-    character: ["Arts & Culture", "Historic", "Outdoor Lifestyle"],
+    character: ["Arts & Culture", "Historic", "Nature-Centric"],
     monthlyEst: "$2,800–$3,800/mo", medianHome: "$235,000", budgetRange: 1,
     scores: { D1:4, D2:9, D3:5, D5:7, D6:5, D7:6, D8:5, D9:5, D10:6 },
     climate: { W:5, H:8, M:5, HUM:8, HEAT:7 },
@@ -2989,7 +2989,7 @@ const CITIES = [
   {
     name: "Rio Rancho", state: "NM", type: "Desert Suburb",
     setting: ["Desert", "Mountain"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$4,000–$5,500/mo", medianHome: "$323,000", budgetRange: 3,
     scores: { D1:7, D2:7, D3:7, D5:6, D6:4, D7:5, D8:6, D9:7, D10:5 },
     climate: { W:6, H:8, M:7, HUM:2, HEAT:7 },
@@ -2999,8 +2999,8 @@ const CITIES = [
   },
   {
     name: "The Woodlands", state: "TX", type: "Master-Planned Community",
-    setting: ["Inland / Green", "Lakeside"],
-    character: ["Outdoor Lifestyle", "Arts & Culture"],
+    setting: ["Forest / Green", "Lakeside"],
+    character: ["Nature-Centric", "Arts & Culture"],
     monthlyEst: "$5,500–$7,500/mo", medianHome: "$474,000", budgetRange: 4,
     scores: { D1:8, D2:5, D3:9, D5:9, D6:6, D7:7, D8:7, D9:8, D10:7 },
     climate: { W:6, H:9, M:6, HUM:9, HEAT:8 },
@@ -3010,8 +3010,8 @@ const CITIES = [
   },
   {
     name: "Roanoke", state: "VA", type: "Blue Ridge Mountain City",
-    setting: ["Mountain", "Inland / Green"],
-    character: ["Arts & Culture", "Outdoor Lifestyle", "Historic"],
+    setting: ["Mountain", "Forest / Green"],
+    character: ["Arts & Culture", "Nature-Centric", "Historic"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$229,000", budgetRange: 2,
     scores: { D1:5, D2:8, D3:7, D5:5, D6:6, D7:8, D8:7, D9:7, D10:7 },
     climate: { W:4, H:7, M:5, HUM:7, HEAT:6 },
@@ -3021,7 +3021,7 @@ const CITIES = [
   },
   {
     name: "Iowa City", state: "IA", type: "College Town / University Hub",
-    setting: ["Inland / Green"],
+    setting: ["Forest / Green"],
     character: ["College Town", "Urban Neighborhood", "Arts & Culture"],
     monthlyEst: "$3,400–$4,200/mo", medianHome: "$284,000", budgetRange: 2,
     scores: { D1:5, D2:7, D3:9, D5:8, D6:7, D7:5, D8:5, D9:7, D10:7 },
@@ -3033,7 +3033,7 @@ const CITIES = [
   {
     name: "Eureka Springs", state: "AR", type: "Mountain Arts Town",
     setting: ["Mountain"],
-    character: ["Small Town", "Arts & Culture", "Historic"],
+    character: ["Quiet & Residential", "Arts & Culture", "Historic"],
     monthlyEst: "$3,500–$4,200/mo", medianHome: "$350,000", budgetRange: 2,
     scores: { D1:4, D2:6, D3:4, D5:7, D6:6, D7:7, D8:4, D9:6, D10:7 },
     climate: { W:4, H:5, M:3, HUM:7, HEAT:6 },
@@ -3043,7 +3043,7 @@ const CITIES = [
   },
   {
     name: "Miami", state: "FL", type: "Major Metro / Beach",
-    setting: ["Beach / Coastal", "City Energy"],
+    setting: ["Beach / Coastal", "Urban / Metro"],
     character: ["Urban Neighborhood", "Arts & Culture"],
     monthlyEst: "$8,000–$10,500/mo", medianHome: "$592,000–$2,250,000", budgetRange: 5,
     scores: { D1:10, D2:2, D3:9, D5:10, D6:7, D7:6, D8:7, D9:7, D10:10 },
@@ -3054,8 +3054,8 @@ const CITIES = [
   },
   {
     name: "La Crosse", state: "WI", type: "River City / College Town",
-    setting: ["Inland / Green", "Lakeside"],
-    character: ["Outdoor Lifestyle", "College Town", "Small Town"],
+    setting: ["Forest / Green", "Lakeside"],
+    character: ["Nature-Centric", "College Town", "Quiet & Residential"],
     monthlyEst: "$3,400–$4,000/mo", medianHome: "$258,000", budgetRange: 2,
     scores: { D1:4, D2:8, D3:9, D5:6, D6:5, D7:8, D8:6, D9:5, D10:6 },
     climate: { W:2, H:6, M:4, HUM:6, HEAT:6 },
@@ -3065,8 +3065,8 @@ const CITIES = [
   },
   {
     name: "Pinehurst", state: "NC", type: "Resort / Golf",
-    setting: ["Inland / Green"],
-    character: ["Resort / Golf", "Small Town", "Quiet Residential"],
+    setting: ["Forest / Green"],
+    character: ["Resort / Golf", "Quiet & Residential"al"],
     monthlyEst: "$5,200–$6,000/mo", medianHome: "$542,000", budgetRange: 3,
     scores: { D1:5, D2:4, D3:8, D5:6, D6:5, D7:6, D8:9, D9:9, D10:7 },
     climate: { W:7, H:5, M:4, HUM:8, HEAT:7 },
@@ -3076,8 +3076,8 @@ const CITIES = [
   },
   {
     name: "Bentonville", state: "AR", type: "Small City / Cultural / Ozarks",
-    setting: ["Inland / Green"],
-    character: ["Arts & Culture", "Outdoor Lifestyle", "Historic"],
+    setting: ["Forest / Green"],
+    character: ["Arts & Culture", "Nature-Centric", "Historic"],
     monthlyEst: "$3,800–$5,200/mo", medianHome: "$300,000–$500,000", budgetRange: 2,
     scores: { D1:6, D2:6, D3:7, D5:7, D6:5, D7:8, D8:7, D9:8, D10:8 },
     climate: { W:4, H:3, M:6, HUM:7, HEAT:7 },
@@ -3087,8 +3087,8 @@ const CITIES = [
   },
   {
     name: "Boulder", state: "CO", type: "College Town / Mountain / Outdoor",
-    setting: ["Mountain", "Inland / Green"],
-    character: ["Outdoor Lifestyle", "Arts & Culture", "College Town"],
+    setting: ["Mountain", "Forest / Green"],
+    character: ["Nature-Centric", "Arts & Culture", "College Town"],
     monthlyEst: "$5,500–$7,500/mo", medianHome: "$800,000–$1,000,000", budgetRange: 4,
     scores: { D1:8, D2:3, D3:7, D5:7, D6:8, D7:10, D8:8, D9:7, D10:9 },
     climate: { W:5, H:7, M:9, HUM:3, HEAT:4 },
@@ -3098,8 +3098,8 @@ const CITIES = [
   },
   {
     name: "Salt Lake City", state: "UT", type: "Major Metro / Mountain",
-    setting: ["Mountain", "City Energy"],
-    character: ["Outdoor Lifestyle", "Arts & Culture", "Historic"],
+    setting: ["Mountain", "Urban / Metro"],
+    character: ["Nature-Centric", "Arts & Culture", "Historic"],
     monthlyEst: "$4,800–$6,200/mo", medianHome: "$575,000", budgetRange: 3,
     scores: { D1:10, D2:4, D3:10, D5:5, D6:6, D7:10, D8:7, D9:7, D10:8 },
     climate: { W:3, H:5, M:9, HUM:3, HEAT:7 },
@@ -3109,7 +3109,7 @@ const CITIES = [
   },
   {
     name: "New Orleans", state: "LA", type: "Major Metro / Historic / Cultural",
-    setting: ["City Energy", "Lakeside"],
+    setting: ["Urban / Metro", "Lakeside"],
     character: ["Historic", "Arts & Culture", "Live Music"],
     monthlyEst: "$4,500–$6,000/mo", medianHome: "$400,000–$764,000", budgetRange: 3,
     scores: { D1:8, D2:5, D3:9, D5:7, D6:8, D7:5, D8:6, D9:5, D10:10 },
@@ -3120,7 +3120,7 @@ const CITIES = [
   },
   {
     name: "Tulsa", state: "OK", type: "Major Metro / Cultural / Plains",
-    setting: ["City Energy", "Inland / Green"],
+    setting: ["Urban / Metro", "Forest / Green"],
     character: ["Arts & Culture", "Live Music", "Historic"],
     monthlyEst: "$3,200–$4,500/mo", medianHome: "$245,000–$500,000", budgetRange: 2,
     scores: { D1:7, D2:7, D3:8, D5:7, D6:5, D7:5, D8:6, D9:7, D10:8 },
@@ -3132,7 +3132,7 @@ const CITIES = [
   {
     name: "Burlington", state: "VT", type: "College Town / Lakeside / Outdoor",
     setting: ["Lakeside", "Mountain"],
-    character: ["College Town", "Outdoor Lifestyle", "Arts & Culture"],
+    character: ["College Town", "Nature-Centric", "Arts & Culture"],
     monthlyEst: "$5,000–$6,500/mo", medianHome: "$485,000–$650,000", budgetRange: 3,
     scores: { D1:6, D2:5, D3:8, D5:3, D6:7, D7:9, D8:7, D9:7, D10:8 },
     climate: { W:3, H:9, M:5, HUM:6, HEAT:4 },
@@ -3142,8 +3142,8 @@ const CITIES = [
   },
   {
     name: "Traverse City", state: "MI", type: "Resort / Lakeside / Wine Country",
-    setting: ["Lakeside", "Inland / Green"],
-    character: ["Outdoor Lifestyle", "Resort / Golf", "Arts & Culture"],
+    setting: ["Lakeside", "Forest / Green"],
+    character: ["Nature-Centric", "Resort / Golf", "Arts & Culture"],
     monthlyEst: "$4,800–$6,200/mo", medianHome: "$400,000–$700,000", budgetRange: 3,
     scores: { D1:6, D2:5, D3:8, D5:7, D6:6, D7:8, D8:7, D9:8, D10:8 },
     climate: { W:3, H:9, M:4, HUM:6, HEAT:4 },
@@ -3154,7 +3154,7 @@ const CITIES = [
   {
     name: "Provincetown", state: "MA", type: "Coastal Resort / Arts Colony",
     setting: ["Beach / Coastal"],
-    character: ["Arts & Culture", "Small Town", "Resort / Golf"],
+    character: ["Arts & Culture", "Quiet & Residential", "Resort / Golf"],
     monthlyEst: "$7,500–$10,000/mo", medianHome: "$1,500,000–$2,100,000", budgetRange: 5,
     scores: { D1:4, D2:2, D3:4, D5:4, D6:9, D7:8, D8:7, D9:7, D10:9 },
     climate: { W:4, H:8, M:5, HUM:7, HEAT:3 },
@@ -5619,7 +5619,7 @@ const BUDGET_OPTIONS = [
 ];
 
 const SETTING_TAGS = ['Beach / Coastal', 'Mountain', 'Desert', 'Forest / Green', 'Urban / Metro', 'Lakeside'];
-const CHARACTER_TAGS = ['Historic', 'Arts & Culture', 'Resort / Golf', 'Urban Neighborhood', 'Quiet Residential', 'Small Town', 'Outdoor Lifestyle', 'College Town'];
+const CHARACTER_TAGS = ['Historic', 'Arts & Culture', 'Resort / Golf', 'Big City Energy', 'Urban Neighborhood', 'Quiet & Residential', 'Nature-Centric', 'College Town'];
 
 let quizState = {
   step: 0,
