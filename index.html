@@ -6570,10 +6570,9 @@ function buildCityCardHTML(city, i, rankLabels) {
     insightRows += `
       <div class="insight-row tradeoff-row">
         <div class="insight-icon icon-warn">⚠</div>
-        <div><strong>${tradeoffCount} tradeoff${tradeoffCount === 1 ? '' : 's'} to know before you commit</strong></div>
+        <div><strong>Tradeoffs to know before you commit</strong></div>
       </div>`;
   }
-
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" id="${cardId}">
     <div class="card-header">
       <div class="match-badge">${city.matchScore}% match</div>
