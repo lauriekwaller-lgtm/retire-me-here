@@ -1889,9 +1889,11 @@ window.addEventListener('load', function() {
     if (cityName && cityState && typeof showCityDetail === 'function') {
       lastMatchScore = null;
       lastDetailSource = 'screen-explore';
-      // Clean URL FIRST, before showCityDetail does any of its own history work
       window.history.replaceState({}, document.title, '/index.html');
       showCityDetail(cityName, cityState);
+      setTimeout(function() {
+        window.history.replaceState({}, document.title, '/index.html');
+      }, 100);
     }
   } catch(e) { console.warn('Landing page param handler:', e); }
 });
