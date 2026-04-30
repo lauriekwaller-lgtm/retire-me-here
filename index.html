@@ -1875,6 +1875,28 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 <script>
 
+// ============================================================
+// LANDING PAGE DEEP-LINK HANDLER
+// Add this to index.html so visitors arriving from landing pages
+// (e.g. /top-cities-for-hikers.html) land directly on the city detail screen
+// ============================================================
+
+window.addEventListener('load', function() {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var cityName = params.get('city');
+    var cityState = params.get('state');
+    if (cityName && cityState && typeof showCityDetail === 'function') {
+      lastMatchScore = null;
+      lastDetailSource = 'screen-explore';
+      showCityDetail(cityName, cityState);
+      // Clean URL so refresh doesn't re-trigger
+      var cleanUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  } catch(e) { console.warn('Landing page param handler:', e); }
+});  
+  
 console.log("RMH v3.0 loaded - 100+ cities");
 
 const CITIES = [
