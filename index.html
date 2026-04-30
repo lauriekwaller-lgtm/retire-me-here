@@ -6519,61 +6519,76 @@ function getRecommendedReports() {
 }
 
 function buildCityCardHTML(city, i, rankLabels) {
-  const topDims = getTopDimsForUser(city).slice(0, 2);
-  const teaser = city.highlight.split('.')[0] + '.';
   const cardId = 'card-' + city.name.replace(/[^a-zA-Z]/g, '-');
+
+  // Calculate budget indicator
+  let budgetClass = 'in-range';
+  let budgetLabel = 'in your range';
+  if (quizState.budget) {
+    const diff = city.budgetRange - quizState.budget;
+    if (diff === 1) { budgetClass = 'over-1'; budgetLabel = '1 range over budget'; }
+    else if (diff >= 2) { budgetClass = 'over-2'; budgetLabel = 'over budget'; }
+  }
+
+  // Find Must Haves this city meets (score >= MUST_HAVE_THRESHOLD)
+  const mustHavesMet = DIMENSIONS.filter(d => {
+    if (d.key === 'DC') return false;
+    return quizState.priorities[d.key] === 'Must Have' && getCityScore(city, d.key) >= MUST_HAVE_THRESHOLD;
+  }).map(d => d.label);
+
+  // Find Strong Fits — Very Important dimensions where city scores 8+
+  const strongFits = DIMENSIONS.filter(d => {
+    if (d.key === 'DC') return false;
+    return quizState.priorities[d.key] === 'Very Important' && getCityScore(city, d.key) >= 8;
+  }).map(d => d.label).slice(0, 2);
+
+  // Count tradeoffs to tease
+  const tradeoffCount = generateTradeoffs(city).length;
+
+  let insightRows = '';
+  if (mustHavesMet.length > 0) {
+    insightRows += `
+      <div class="insight-row">
+        <div class="insight-icon icon-check">✓</div>
+        <div>
+          <span class="insight-label">Meets your must-haves:</span>
+          <strong>${mustHavesMet.join(', ')}</strong>
+        </div>
+      </div>`;
+  }
+  if (strongFits.length > 0) {
+    insightRows += `
+      <div class="insight-row">
+        <div class="insight-icon icon-check">✓</div>
+        <div>
+          <span class="insight-label">Strong fit:</span>
+          <strong>${strongFits.join(', ')}</strong>
+        </div>
+      </div>`;
+  }
+  if (tradeoffCount > 0) {
+    insightRows += `
+      <div class="insight-row tradeoff-row">
+        <div class="insight-icon icon-warn">⚠</div>
+        <div><strong>${tradeoffCount} tradeoff${tradeoffCount === 1 ? '' : 's'} to know before you commit</strong></div>
+      </div>`;
+  }
+
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" id="${cardId}">
     <div class="card-header">
       <div class="match-badge">${city.matchScore}% match</div>
       <div class="card-rank">${rankLabels[i]}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
-      <div class="card-type">${city.type}</div>
+      <div class="card-type">${city.type}${quizState.budget ? ` <span class="budget-indicator"><span class="budget-dot ${budgetClass}"></span>${city.monthlyEst || ''}</span>` : ''}</div>
     </div>
     <div class="card-body">
-      <div class="score-bars">
-        ${topDims.map(d => {
-          const score = getCityScore(city, d.key);
-          return `<div class="score-item">
-            <div class="score-item-label">
-              <span>${d.icon} ${d.label}</span>
-              <span>${score}/10</span>
-            </div>
-            <div class="score-bar-track">
-              <div class="score-bar-fill ${scoreClass(score)}" style="width:${score*10}%"></div>
-            </div>
-          </div>`;
-        }).join('')}
+      <div class="card-insights">
+        ${insightRows}
       </div>
-      <div class="card-tags">
-        ${[...city.setting, ...city.character].slice(0,3).map(t => `<span class="card-tag">${t}</span>`).join('')}
-      </div>
-      <div class="card-highlight">${teaser}</div>
-    </div>
-    <div class="card-footer card-footer-stack">
-      <div class="card-deep-cta" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
-        <div class="card-deep-cta-icon">📍</div>
-        <div class="card-deep-cta-content">
-          <div class="card-deep-cta-eyebrow">See the full profile</div>
-          <div class="card-deep-cta-title">Explore ${city.name}, ${city.state}</div>
-          <div class="card-deep-cta-features">Neighborhoods · Cost breakdown · Healthcare · Local life</div>
-        </div>
-        <div class="card-deep-cta-arrow">→</div>
-      </div>
-      <button class="btn-view-city btn-why-secondary" onclick="revealMatch(event,'${cardId}','${city.name}','${city.state}')">Why did I match ${city.name}? →</button>
-    </div>
-
-    <div class="card-revealed" id="${cardId}-revealed" style="display:none">
-      <div class="card-why-divider"></div>
-      <div class="card-why">
-        <div class="card-why-section">
-          <div class="card-why-label match-label">✓ Why this matches you</div>
-          <div class="card-why-text" id="${cardId}-why"></div>
-        </div>
-        <div class="card-why-section">
-          <div class="card-why-label tradeoff-label">⚡ Tradeoffs based on your priorities</div>
-          <div class="card-why-tradeoffs" id="${cardId}-tradeoffs"></div>
-        </div>
-      </div>
+      <button class="btn-view-city" style="background:var(--terra);color:white;width:100%;padding:14px 20px;border-radius:14px;border:none;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+        <span>See the full breakdown</span>
+        <span style="font-size:18px;">→</span>
+      </button>
     </div>
   </div>`;
 }
