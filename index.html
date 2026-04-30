@@ -1889,11 +1889,13 @@ window.addEventListener('load', function() {
     if (cityName && cityState && typeof showCityDetail === 'function') {
       lastMatchScore = null;
       lastDetailSource = 'screen-explore';
-      showCityDetail(cityName, cityState);
+      // Clean URL FIRST, before showCityDetail does any of its own history work
       window.history.replaceState({}, document.title, '/index.html');
+      showCityDetail(cityName, cityState);
     }
   } catch(e) { console.warn('Landing page param handler:', e); }
 });
+
   
   
 console.log("RMH v3.0 loaded - 100+ cities");
