@@ -1890,10 +1890,20 @@ window.addEventListener('load', function() {
       lastMatchScore = null;
       lastDetailSource = 'screen-explore';
       window.history.replaceState({}, document.title, '/index.html');
-      showCityDetail(cityName, cityState);
-      setTimeout(function() {
-        window.history.replaceState({}, document.title, '/index.html');
-      }, 100);
+      // Temporarily intercept pushState so showScreen's history.pushState
+      // becomes a replaceState — preserving the back-stack to the landing page
+      var originalPush = history.pushState;
+      history.pushState = function() {
+        history.replaceState.apply(history, arguments);
+      };
+      try {
+        showCityDetail(cityName, cityState);
+      } finally {
+        // Restore original pushState after a tick so any async work also gets caught
+        setTimeout(function() {
+          history.pushState = originalPush;
+        }, 200);
+      }
     }
   } catch(e) { console.warn('Landing page param handler:', e); }
 });
