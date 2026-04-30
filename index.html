@@ -7240,7 +7240,17 @@ function showCityDetail(cityName, cityState) {
 
       <p class="detail-budget-note">Est. Monthly Budget includes housing, utilities, groceries, healthcare, transportation, and lifestyle costs for retirees in this city's most popular neighborhoods.</p>
 
-      <!-- TRADEOFFS — prominent, immediately after hero/stats -->
+     <div class="detail-section">
+        <h3>Overview</h3>
+        <p style="font-size:15px;color:var(--mid);line-height:1.75">${city.highlight}</p>
+      </div>
+
+      <div class="detail-section">
+        <h3>What's Great About ${city.name}</h3>
+        <div>${prosHTML}</div>
+      </div>
+
+      <!-- TRADEOFFS — honest counterweight after the positives -->
       <div class="detail-section" style="border-left:4px solid var(--terra);">
         <h3 style="color:var(--terra);display:flex;align-items:center;gap:10px;border-bottom-color:#f5e0d4;">
           <span style="font-size:22px;">⚠️</span>
@@ -7254,20 +7264,10 @@ function showCityDetail(cityName, cityState) {
         </div>
       </div>
 
-      <div class="detail-section">
-        <h3>Overview</h3>
-        <p style="font-size:15px;color:var(--mid);line-height:1.75">${city.highlight}</p>
-      </div>
-
       ${hoodsHTML ? `<div class="detail-section">
         <h3>Where to Live in ${city.name}</h3>
         <div class="hoods-grid">${hoodsHTML}</div>
       </div>` : ''}
-
-      <div class="detail-section">
-        <h3>What's Great About ${city.name}</h3>
-        <div>${prosHTML}</div>
-      </div>
 
       <!-- SCORECARD — moved to near the bottom -->
       <div class="detail-section">
