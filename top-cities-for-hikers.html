@@ -93,14 +93,38 @@ a:hover { color: var(--teal-mid); }
   transition: color 0.15s;
 }
 .header-nav a:hover { color: var(--teal); }
+
+/* ============ QUIZ BUTTON (bulletproof) ============ */
+/* Belt and suspenders: explicit hex, all link states covered, defeats UA stylesheet */
+a.header-quiz-btn,
+a.header-quiz-btn:link,
+a.header-quiz-btn:visited,
+a.header-quiz-btn:active,
+button.header-quiz-btn,
 .header-quiz-btn {
-  background: var(--teal); color: var(--white);
-  border: none; padding: 8px 18px; border-radius: 100px;
-  font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
-  text-decoration: none; display: inline-block;
-  transition: background 0.15s;
+  background-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2A5E5A !important;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: background-color 0.15s, border-color 0.15s;
+  -webkit-text-fill-color: #FFFFFF !important; /* Safari fallback */
 }
-.header-quiz-btn:hover { background: var(--teal-mid); color: var(--white); }
+a.header-quiz-btn:hover,
+button.header-quiz-btn:hover,
+.header-quiz-btn:hover {
+  background-color: #3d7a75 !important;
+  border-color: #3d7a75 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
 .header-mobile-menu { display: none; gap: 10px; align-items: center; }
 .mobile-nav-btn {
   background: transparent; border: 1px solid #e8e4de;
@@ -135,7 +159,7 @@ a:hover { color: var(--teal-mid); }
   .page { padding: 36px 18px 60px; }
 }
 
-/* ============ HERO (compressed) ============ */
+/* ============ HERO ============ */
 .hero {
   text-align: center;
   margin-bottom: 40px;
@@ -199,7 +223,7 @@ a:hover { color: var(--teal-mid); }
   max-width: 680px;
 }
 
-/* ============ CITY CARD (clickable) ============ */
+/* ============ CITY CARD ============ */
 .city-list {
   display: flex;
   flex-direction: column;
@@ -367,19 +391,23 @@ a:hover { color: var(--teal-mid); }
   margin-bottom: 16px;
 }
 .report-cta-btn {
-  background: var(--teal);
-  color: var(--white);
-  border: none;
+  background-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border: 1px solid #2A5E5A;
   padding: 13px 26px;
   border-radius: 100px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, transform 0.15s;
+  transition: background-color 0.15s, transform 0.15s;
   box-shadow: 0 4px 16px rgba(42,94,90,0.25);
 }
-.report-cta-btn:hover { background: var(--teal-mid); transform: translateY(-1px); }
+.report-cta-btn:hover {
+  background-color: #3d7a75 !important;
+  transform: translateY(-1px);
+}
 @media (max-width: 640px) {
   .report-cta { flex-direction: column; text-align: center; padding: 26px 20px; gap: 16px; }
   .report-cta-icon { font-size: 42px; }
@@ -407,28 +435,37 @@ a:hover { color: var(--teal-mid); }
   font-size: clamp(20px, 2.6vw, 26px);
   font-weight: 300;
   line-height: 1.25;
-  color: var(--white);
+  color: #FFFFFF;
   margin-bottom: 16px;
   letter-spacing: -0.005em;
 }
 .quiz-cta-h3 .accent { font-weight: 800; color: var(--gold); }
+
+/* Bulletproof bottom quiz button: white pill with teal text */
+a.quiz-cta-btn,
+a.quiz-cta-btn:link,
+a.quiz-cta-btn:visited,
+a.quiz-cta-btn:active,
 .quiz-cta-btn {
-  background: var(--white);
-  color: var(--teal);
-  border: none;
+  background-color: #FFFFFF !important;
+  color: #2A5E5A !important;
+  -webkit-text-fill-color: #2A5E5A !important;
+  border: 1px solid #FFFFFF !important;
   padding: 13px 30px;
   border-radius: 100px;
-  font-family: inherit;
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   display: inline-block;
-  transition: background 0.15s, transform 0.15s;
+  transition: background-color 0.15s, transform 0.15s;
 }
+a.quiz-cta-btn:hover,
 .quiz-cta-btn:hover {
-  background: var(--gold-lt);
-  color: var(--teal);
+  background-color: #FAF1D9 !important;
+  color: #2A5E5A !important;
+  -webkit-text-fill-color: #2A5E5A !important;
   transform: translateY(-1px);
 }
 
@@ -506,7 +543,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Bend&state=OR">
-          <div class="city-rank">3</div>
+          <div class="city-rank">2</div>
           <div class="city-info">
             <div class="city-name">Bend<span class="state-code">OR</span></div>
             <div class="city-type">Outdoor / Growing</div>
@@ -516,7 +553,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Asheville&state=NC">
-          <div class="city-rank">7</div>
+          <div class="city-rank">3</div>
           <div class="city-info">
             <div class="city-name">Asheville<span class="state-code">NC</span></div>
             <div class="city-type">Mountain Arts Town</div>
@@ -526,7 +563,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Colorado Springs&state=CO">
-          <div class="city-rank">13</div>
+          <div class="city-rank">4</div>
           <div class="city-info">
             <div class="city-name">Colorado Springs<span class="state-code">CO</span></div>
             <div class="city-type">Mountain / Military</div>
@@ -544,7 +581,7 @@ a:hover { color: var(--teal-mid); }
       <div class="city-list">
 
         <a class="city-card" href="index.html?city=Salt Lake City&state=UT">
-          <div class="city-rank">2</div>
+          <div class="city-rank">1</div>
           <div class="city-info">
             <div class="city-name">Salt Lake City<span class="state-code">UT</span></div>
             <div class="city-type">Major Metro / Mountain</div>
@@ -554,7 +591,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Jackson Hole&state=WY">
-          <div class="city-rank">4</div>
+          <div class="city-rank">2</div>
           <div class="city-info">
             <div class="city-name">Jackson Hole<span class="state-code">WY</span></div>
             <div class="city-type">Mountain / Luxury</div>
@@ -564,7 +601,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Park City&state=UT">
-          <div class="city-rank">5</div>
+          <div class="city-rank">3</div>
           <div class="city-info">
             <div class="city-name">Park City<span class="state-code">UT</span></div>
             <div class="city-type">Mountain / Resort Town</div>
@@ -574,7 +611,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Vail&state=CO">
-          <div class="city-rank">6</div>
+          <div class="city-rank">4</div>
           <div class="city-info">
             <div class="city-name">Vail<span class="state-code">CO</span></div>
             <div class="city-type">Mountain Luxury</div>
@@ -584,7 +621,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Sun Valley&state=ID">
-          <div class="city-rank">8</div>
+          <div class="city-rank">5</div>
           <div class="city-info">
             <div class="city-name">Sun Valley<span class="state-code">ID</span></div>
             <div class="city-type">Mountain Resort</div>
@@ -594,7 +631,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Flagstaff&state=AZ">
-          <div class="city-rank">9</div>
+          <div class="city-rank">6</div>
           <div class="city-info">
             <div class="city-name">Flagstaff<span class="state-code">AZ</span></div>
             <div class="city-type">Mountain / University</div>
@@ -604,7 +641,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Fort Collins&state=CO">
-          <div class="city-rank">11</div>
+          <div class="city-rank">7</div>
           <div class="city-info">
             <div class="city-name">Fort Collins<span class="state-code">CO</span></div>
             <div class="city-type">College Town / Outdoor</div>
@@ -614,7 +651,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Burlington&state=VT">
-          <div class="city-rank">12</div>
+          <div class="city-rank">8</div>
           <div class="city-info">
             <div class="city-name">Burlington<span class="state-code">VT</span></div>
             <div class="city-type">College Town / Lakeside / Outdoor</div>
@@ -624,7 +661,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Whitefish&state=MT">
-          <div class="city-rank">14</div>
+          <div class="city-rank">9</div>
           <div class="city-info">
             <div class="city-name">Whitefish<span class="state-code">MT</span></div>
             <div class="city-type">Mountain Resort</div>
@@ -634,7 +671,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Bozeman&state=MT">
-          <div class="city-rank">15</div>
+          <div class="city-rank">10</div>
           <div class="city-info">
             <div class="city-name">Bozeman<span class="state-code">MT</span></div>
             <div class="city-type">Mountain / College Town</div>
@@ -644,7 +681,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Steamboat Springs&state=CO">
-          <div class="city-rank">16</div>
+          <div class="city-rank">11</div>
           <div class="city-info">
             <div class="city-name">Steamboat Springs<span class="state-code">CO</span></div>
             <div class="city-type">Mountain Resort</div>
@@ -654,7 +691,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Durango&state=CO">
-          <div class="city-rank">17</div>
+          <div class="city-rank">12</div>
           <div class="city-info">
             <div class="city-name">Durango<span class="state-code">CO</span></div>
             <div class="city-type">Mountain / Historic Railroad Town</div>
@@ -672,7 +709,7 @@ a:hover { color: var(--teal-mid); }
       <div class="city-list">
 
         <a class="city-card" href="index.html?city=Tucson&state=AZ">
-          <div class="city-rank">10</div>
+          <div class="city-rank">1</div>
           <div class="city-info">
             <div class="city-name">Tucson<span class="state-code">AZ</span></div>
             <div class="city-type">Desert / University</div>
@@ -682,7 +719,7 @@ a:hover { color: var(--teal-mid); }
         </a>
 
         <a class="city-card" href="index.html?city=Sedona&state=AZ">
-          <div class="city-rank">18</div>
+          <div class="city-rank">2</div>
           <div class="city-info">
             <div class="city-name">Sedona<span class="state-code">AZ</span></div>
             <div class="city-type">Desert / Arts & Wellness Retreat</div>
