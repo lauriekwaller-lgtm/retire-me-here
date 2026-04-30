@@ -7163,14 +7163,13 @@ function showCityDetail(cityName, cityState) {
     return;
   }
 
-  // ============= LEGACY RENDERER (unchanged) =============
+  // ============= LEGACY RENDERER =============
   const scoreRows = DIMENSIONS.map(dim => {
     const score = getCityScore(city, dim.key);
     const fill = scoreColor(score);
     const label = dim.label;
-    
+
     if (dim.key === 'DC') {
-      const cNote = (en.scoreNotes && (en.scoreNotes.DW || en.scoreNotes.DH)) || '';
       const climateDesc = getClimateDesc(city);
       return `<div class="score-note-row">
         <div class="snr-header">
@@ -7191,7 +7190,6 @@ function showCityDetail(cityName, cityState) {
     </div>`;
   }).join('');
 
-  
   const hoodsHTML = (en.neighborhoods || []).map(n => `
     <div class="hood-card">
       <div class="hood-name">${n.name}</div>
@@ -7201,19 +7199,20 @@ function showCityDetail(cityName, cityState) {
 
   const prosHTML = (city.pros || []).map(p => `
     <div class="procon-item"><div class="procon-dot pros-dot">✓</div><span>${p}</span></div>`).join('');
-  const consHTML = (city.cons || []).map(c => `
-    <div class="procon-item"><div class="procon-dot cons-dot">✗</div><span>${c}</span></div>`).join('');
+
+  // NEW: Tradeoffs use city.cons — same data that drives the match card promise
+  const tradeoffsHTML = (city.cons || []).map(con => `
+    <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--terra-lt);border-radius:10px;border-left:3px solid var(--terra);">
+      <span style="color:var(--terra);font-weight:700;flex-shrink:0;font-size:16px;line-height:1.4;">⚠</span>
+      <span style="font-size:14px;color:var(--dark);line-height:1.6;">${con}</span>
+    </div>`).join('');
 
   const hospitalRating = en.hospitalRating || 'See full profile';
   const sources = en.sources || 'Zillow/Redfin (median home prices) · US News Health (hospital rankings) · CrimeGrade.org (safety data) · NOAA Climate Normals · State tax authority · Data current as of March 2026.';
 
-  const detailPhotoUrl = getCityPhotoUrl(city.name);
-  const detailPhotoHTML = detailPhotoUrl ? `<img src="${detailPhotoUrl}" alt="${city.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.25;" onerror="this.style.display='none'"/>` : '';
   detail.innerHTML = `
     <div class="city-detail-wrap">
-      <div class="detail-hero" style="position:relative;overflow:hidden;">
-        ${detailPhotoHTML}
-        <div style="position:relative;z-index:1;">
+      <div class="detail-hero">
         <div class="detail-back" onclick="goBack()">← Back</div>
         ${lastMatchScore ? `<div class="detail-match-score">
           <span class="detail-match-pct">${lastMatchScore}%</span>
@@ -7222,7 +7221,6 @@ function showCityDetail(cityName, cityState) {
         <div class="detail-city-name">${city.name}, ${city.state}</div>
         <div class="detail-state">${city.type}</div>
         <div class="detail-type-badge">${city.setting[0]}</div>
-        </div>
       </div>
 
       <div class="detail-stats">
@@ -7242,14 +7240,23 @@ function showCityDetail(cityName, cityState) {
 
       <p class="detail-budget-note">Est. Monthly Budget includes housing, utilities, groceries, healthcare, transportation, and lifestyle costs for retirees in this city's most popular neighborhoods.</p>
 
-      <div class="detail-section">
-        <h3>Overview</h3>
-        <p style="font-size:15px;color:var(--mid);line-height:1.75">${city.highlight}</p>
+      <!-- TRADEOFFS — prominent, immediately after hero/stats -->
+      <div class="detail-section" style="border-left:4px solid var(--terra);">
+        <h3 style="color:var(--terra);display:flex;align-items:center;gap:10px;border-bottom-color:#f5e0d4;">
+          <span style="font-size:22px;">⚠️</span>
+          Tradeoffs to know before you commit
+        </h3>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;font-style:italic;line-height:1.6;">
+          Every city has them. Here's what you should know about ${city.name} before deciding.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          ${tradeoffsHTML}
+        </div>
       </div>
 
       <div class="detail-section">
-        <h3>Scorecard — What Each Score Means</h3>
-        <div class="score-notes">${scoreRows}</div>
+        <h3>Overview</h3>
+        <p style="font-size:15px;color:var(--mid);line-height:1.75">${city.highlight}</p>
       </div>
 
       ${hoodsHTML ? `<div class="detail-section">
@@ -7258,11 +7265,15 @@ function showCityDetail(cityName, cityState) {
       </div>` : ''}
 
       <div class="detail-section">
-        <h3>Honest Assessment</h3>
-        <div class="procon-grid">
-          <div class="procon-col pros"><h4>✓ What's Great</h4>${prosHTML}</div>
-          <div class="procon-col cons"><h4>✗ Worth Knowing</h4>${consHTML}</div>
-        </div>
+        <h3>What's Great About ${city.name}</h3>
+        <div>${prosHTML}</div>
+      </div>
+
+      <!-- SCORECARD — moved to near the bottom -->
+      <div class="detail-section">
+        <h3>Scorecard — How ${city.name} Stacks Up</h3>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:14px;font-style:italic;">Detailed dimension-by-dimension breakdown.</p>
+        <div class="score-notes">${scoreRows}</div>
       </div>
 
       <div class="detail-section sources-section">
