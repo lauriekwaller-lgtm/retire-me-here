@@ -189,53 +189,67 @@ button.header-quiz-btn:hover,
   line-height: 1.5;
 }
 
-/* INTRO CAVEAT */
-.intro-caveat {
+/* INTRO EDUCATIONAL BLOCK */
+.intro-block {
   background: var(--white);
   border: 1px solid #ece6dc;
   border-radius: var(--radius);
-  padding: 18px 22px;
-  font-size: 13px;
+  padding: 24px 26px;
+  font-size: 14px;
   color: var(--mid);
-  line-height: 1.6;
-  margin-bottom: 40px;
-  max-width: 720px;
+  line-height: 1.7;
+  margin-bottom: 44px;
+  max-width: 760px;
   margin-left: auto;
   margin-right: auto;
 }
-.intro-caveat strong { color: var(--dark); font-weight: 600; }
+.intro-block p { margin-bottom: 12px; }
+.intro-block p:last-child { margin-bottom: 0; }
+.intro-block strong { color: var(--dark); font-weight: 600; }
+.intro-block .small {
+  font-size: 12px;
+  color: var(--light);
+  font-style: italic;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f0ebe0;
+}
+.intro-block a { color: var(--teal); text-decoration: underline; }
+.intro-block a:hover { color: var(--teal-mid); }
 
 /* SECTION HEADERS */
-.bucket-section { margin-top: 40px; }
+.bucket-section { margin-top: 48px; }
 .bucket-section:first-of-type { margin-top: 0; }
 .bucket-section-h3 {
   font-family: 'Libre Franklin', sans-serif;
-  font-size: 19px;
+  font-size: clamp(18px, 2.4vw, 22px);
   font-weight: 700;
   color: var(--dark);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
+  letter-spacing: -0.01em;
 }
 .bucket-section-marker {
   display: inline-block;
-  width: 10px; height: 10px; border-radius: 50%;
+  width: 12px; height: 12px; border-radius: 50%;
+  flex-shrink: 0;
 }
 .bucket-section-marker.tier-1 { background: var(--teal); }
 .bucket-section-marker.tier-2 { background: var(--terra); }
 .bucket-section-blurb {
   font-size: 13px;
   color: var(--mid);
-  margin-bottom: 16px;
-  margin-left: 21px;
+  margin-bottom: 18px;
+  margin-left: 24px;
   line-height: 1.55;
   max-width: 720px;
 }
 .bucket-section-blurb a { color: var(--teal); text-decoration: underline; }
 .bucket-section-blurb a:hover { color: var(--teal-mid); }
 
-/* CITY CARDS */
+/* CITY CARDS - no pill, prominent arrow */
 .city-list {
   display: flex;
   flex-direction: column;
@@ -248,7 +262,7 @@ button.header-quiz-btn:hover,
   background: var(--white);
   border: 1px solid #ece6dc;
   border-radius: 14px;
-  padding: 16px 20px;
+  padding: 18px 22px;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
@@ -287,35 +301,22 @@ button.header-quiz-btn:hover,
   color: var(--mid);
   font-weight: 500;
 }
-.city-pill {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 5px 12px;
-  border-radius: 100px;
-  white-space: nowrap;
-  text-transform: uppercase;
-}
-.city-pill.tier-1 { background: var(--teal-lt); color: var(--teal); }
-.city-pill.tier-2 { background: var(--terra-lt); color: var(--terra); }
 .city-arrow {
-  font-size: 16px;
-  color: var(--light);
+  font-size: 22px;
+  color: var(--teal);
   font-weight: 600;
-  margin-left: 4px;
   flex-shrink: 0;
-  transition: transform 0.15s, color 0.15s;
+  transition: transform 0.18s;
+  line-height: 1;
 }
 .city-card:hover .city-arrow {
-  color: var(--teal);
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 @media (max-width: 540px) {
-  .city-card { padding: 14px 14px; gap: 12px; }
+  .city-card { padding: 16px 16px; gap: 12px; }
   .city-rank { font-size: 18px; min-width: 26px; }
   .city-name { font-size: 15px; }
-  .city-pill { font-size: 10px; padding: 4px 10px; }
-  .city-arrow { display: none; }
+  .city-arrow { font-size: 20px; }
 }
 
 /* QUIZ CTA */
@@ -429,14 +430,16 @@ a.quiz-cta-btn:hover,
     <p class="hero-tagline">Where you can retire openly, with community already in place.</p>
   </section>
 
-  <p class="intro-caveat">
-    These 18 cities have particularly established LGBTQ+ communities and welcoming reputations. <strong>This list isn't exhaustive</strong> — many other cities in our database are home to thriving LGBTQ+ retirees, and the right city for you depends on your full priorities. Take the quiz below for a personalized match across all 100+ cities.
-  </p>
+  <div class="intro-block">
+    <p><strong>Cities and states don't always agree on LGBTQ+ rights.</strong> Some cities have welcoming local cultures even when their state has passed restrictive legislation — and that gap matters more for retirees than for younger residents. Marriage rights, hospital visitation, healthcare directives, and protection from discrimination all depend on a stable legal framework that doesn't shift with each new state legislative session.</p>
+    <p>We've sorted these 18 cities into two groups: cities where <strong>both the state and the city protect you</strong>, and cities where <strong>local culture is welcoming but state laws may not</strong>. Both groups are worth your consideration — your priorities will guide which fits.</p>
+    <p class="small">This list isn't exhaustive — many other cities in our database are home to thriving LGBTQ+ retirees. Take the quiz at the bottom for a personalized match across all 100+ cities.</p>
+  </div>
 
   <section>
 
     <div class="bucket-section">
-      <h3 class="bucket-section-h3"><span class="bucket-section-marker tier-1"></span>Welcoming city + protective state</h3>
+      <h3 class="bucket-section-h3"><span class="bucket-section-marker tier-1"></span>State + city both protect you</h3>
       <p class="bucket-section-blurb">These 12 cities pair an established LGBTQ+ community with a state that has comprehensive nondiscrimination protections in employment, housing, and public accommodations.</p>
       <div class="city-list">
 
@@ -446,7 +449,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Ann Arbor<span class="state-code">MI</span></div>
             <div class="city-type">College Town</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -456,7 +458,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Boulder<span class="state-code">CO</span></div>
             <div class="city-type">College Town / Mountain / Outdoor</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -466,7 +467,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Burlington<span class="state-code">VT</span></div>
             <div class="city-type">College Town / Lakeside / Outdoor</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -476,7 +476,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Madison<span class="state-code">WI</span></div>
             <div class="city-type">College Town / Lakes</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -486,7 +485,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Palm Springs<span class="state-code">CA</span></div>
             <div class="city-type">Desert / Resort</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -496,7 +494,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Philadelphia<span class="state-code">PA</span></div>
             <div class="city-type">Historic / Urban / College Town</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -506,7 +503,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Portland<span class="state-code">ME</span></div>
             <div class="city-type">New England / Arts</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -516,7 +512,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Provincetown<span class="state-code">MA</span></div>
             <div class="city-type">Coastal Resort / Arts Colony</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -526,7 +521,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Rehoboth Beach<span class="state-code">DE</span></div>
             <div class="city-type">Beach Town / Resort</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -536,7 +530,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Saratoga Springs<span class="state-code">NY</span></div>
             <div class="city-type">Historic / Arts</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -546,7 +539,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Santa Fe<span class="state-code">NM</span></div>
             <div class="city-type">Historic Arts Capital</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -556,7 +548,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">St. Paul<span class="state-code">MN</span></div>
             <div class="city-type">Major Metro</div>
           </div>
-          <span class="city-pill tier-1">Tier 1</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -564,7 +555,7 @@ a.quiz-cta-btn:hover,
     </div>
 
     <div class="bucket-section">
-      <h3 class="bucket-section-h3"><span class="bucket-section-marker tier-2"></span>Welcoming city + state with mixed legal climate</h3>
+      <h3 class="bucket-section-h3"><span class="bucket-section-marker tier-2"></span>Welcoming city, but state laws may not protect you</h3>
       <p class="bucket-section-blurb">These 6 cities have established LGBTQ+ communities and welcoming local cultures, but their states either lack comprehensive nondiscrimination protections or have recently passed restrictive legislation. Worth your serious consideration if local culture and community matter most — but check current state-level legal protections at <a href="https://www.lgbtmap.org/equality-maps" target="_blank" rel="noopener">lgbtmap.org/equality-maps</a> before making a final decision.</p>
       <div class="city-list">
 
@@ -574,7 +565,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Asheville<span class="state-code">NC</span></div>
             <div class="city-type">Mountain Arts Town</div>
           </div>
-          <span class="city-pill tier-2">Tier 2</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -584,7 +574,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Charleston<span class="state-code">SC</span></div>
             <div class="city-type">Historic / Beach</div>
           </div>
-          <span class="city-pill tier-2">Tier 2</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -594,7 +583,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Eureka Springs<span class="state-code">AR</span></div>
             <div class="city-type">Mountain Arts Town</div>
           </div>
-          <span class="city-pill tier-2">Tier 2</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -604,7 +592,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Miami<span class="state-code">FL</span></div>
             <div class="city-type">Major Metro / Beach</div>
           </div>
-          <span class="city-pill tier-2">Tier 2</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -614,7 +601,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">Nashville<span class="state-code">TN</span></div>
             <div class="city-type">Metro / Music City</div>
           </div>
-          <span class="city-pill tier-2">Tier 2</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -624,7 +610,6 @@ a.quiz-cta-btn:hover,
             <div class="city-name">New Orleans<span class="state-code">LA</span></div>
             <div class="city-type">Major Metro / Historic / Cultural</div>
           </div>
-          <span class="city-pill tier-2">Tier 2</span>
           <span class="city-arrow">→</span>
         </a>
 
