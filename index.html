@@ -126,6 +126,29 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 }
 .header-nav a:hover { color: var(--teal); }
 
+/* ── TOP CITIES DROPDOWN ── */
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger {
+  font-size: 13px; color: var(--mid); text-decoration: none; font-weight: 500;
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger:hover { color: var(--teal); }
+.nav-dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 8px); left: 0;
+  background: var(--white); border: 1px solid #e8e4de; border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); min-width: 240px; z-index: 100;
+  padding: 6px 0;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a {
+  display: block; padding: 10px 16px; font-size: 13px; color: var(--dark);
+  text-decoration: none; font-weight: 500; border-bottom: 1px solid #f5f3f0;
+}
+.nav-dropdown-menu a:last-child { border-bottom: none; }
+.nav-dropdown-menu a:hover { background: var(--sand); color: var(--teal); }
+.nav-dropdown-menu a.more-link { color: var(--terra); font-weight: 600; }
+
 /* City Search Modal */
 .city-search-overlay {
   display: none; position: fixed; inset: 0;
@@ -1631,7 +1654,18 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <div class="header-wordmark"><span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span></div>
   <nav class="header-nav">
     <a href="#" onclick="openCitySearch();return false;">🔍 Find a City</a>
-    <a href="#" onclick="showScreen('screen-explore');return false;">Top Cities For...</a>
+    <div class="nav-dropdown" id="topCitiesDropdown">
+      <button class="nav-dropdown-trigger" onclick="toggleTopCitiesDropdown(event)">Top Cities For… ▾</button>
+      <div class="nav-dropdown-menu">
+        <a href="/top-cities-for-active-retirees.html">Active Retirees</a>
+        <a href="/top-cities-for-arts-lovers.html">Arts Lovers</a>
+        <a href="/top-cities-for-healthcare.html">Healthcare-First Retirees</a>
+        <a href="/top-cities-for-hikers.html">Hikers</a>
+        <a href="/top-cities-for-lgbtq-retirees.html">LGBTQ+ Retirees</a>
+        <a href="/top-cities-for-sports-fans.html">Sports Fans</a>
+        <a href="#" class="more-link" onclick="showScreen('screen-explore');document.getElementById('topCitiesDropdown').classList.remove('open');return false;">More topics →</a>
+      </div>
+    </div>
     
     <button class="header-quiz-btn" onclick="startQuiz()">Find My Match →</button>
   </nav>
@@ -1642,8 +1676,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   </div>
   <div class="mobile-nav-dropdown" id="mobileNavDropdown">
     <a class="mobile-nav-item" href="#" onclick="openCitySearch();toggleMobileNav();return false;">🔍 Find a City</a>
-    <a class="mobile-nav-item" href="#" onclick="showScreen('screen-explore');toggleMobileNav();return false;">Top Cities For...</a>
-    <a class="mobile-nav-item" href="#" onclick="showScreen('screen-hero');setTimeout(function(){var el=document.getElementById('reports');if(el)el.scrollIntoView({behavior:'smooth'});},300);toggleMobileNav();return false;">Free Reports</a>
+    <a class="mobile-nav-item" href="/top-cities-for-active-retirees.html">For Active Retirees</a>
+    <a class="mobile-nav-item" href="/top-cities-for-arts-lovers.html">For Arts Lovers</a>
+    <a class="mobile-nav-item" href="/top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+    <a class="mobile-nav-item" href="/top-cities-for-hikers.html">For Hikers</a>
+    <a class="mobile-nav-item" href="/top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+    <a class="mobile-nav-item" href="/top-cities-for-sports-fans.html">For Sports Fans</a>
+    <a class="mobile-nav-item" href="#" onclick="showScreen('screen-explore');toggleMobileNav();return false;" style="color:var(--terra);font-weight:600;">More topics →</a>
   </div>
 </header>
 
@@ -7383,6 +7422,20 @@ function toggleMobileNav() {
   var dd = document.getElementById('mobileNavDropdown');
   dd.classList.toggle('open');
 }
+
+function toggleTopCitiesDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+
+// Close Top Cities dropdown on outside click
+document.addEventListener('click', function(e) {
+  var tcd = document.getElementById('topCitiesDropdown');
+  if (tcd && tcd.classList.contains('open') && !e.target.closest('#topCitiesDropdown')) {
+    tcd.classList.remove('open');
+  }
+});
 
 // Close mobile nav when clicking outside
 document.addEventListener('click', function(e) {
