@@ -140,6 +140,42 @@ button.header-quiz-btn:hover,
   color: var(--dark); text-decoration: none; border-radius: 8px;
 }
 .mobile-nav-item:hover { background: var(--sand); }
+
+/* ── HEADER DROPDOWN ── */
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); font-weight: 500;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger:hover { color: var(--teal); }
+.nav-dropdown-trigger .nav-chev {
+  font-size: 10px; transition: transform 0.15s;
+}
+.nav-dropdown.open .nav-dropdown-trigger .nav-chev { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute; top: 100%; right: 0; margin-top: 8px;
+  background: var(--white);
+  border: 1px solid #e8e4de; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 240px; padding: 6px; z-index: 500;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-item {
+  display: block; padding: 10px 14px;
+  font-size: 13px; font-weight: 500; color: var(--dark);
+  text-decoration: none; border-radius: 8px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.nav-dropdown-item:hover { background: var(--sand); color: var(--teal); }
+.nav-dropdown-divider {
+  height: 1px; background: #f0ece6; margin: 6px 4px;
+}
+.nav-dropdown-item.more {
+  color: var(--mid); font-style: italic; font-size: 12px;
+}
 @media (max-width: 760px) {
   .header-nav { display: none; }
   .header-mobile-menu { display: flex; }
@@ -375,7 +411,22 @@ a.quiz-cta-btn:hover,
   </div>
   <nav class="header-nav">
     <a href="index.html">🔍 Find a City</a>
-    <a href="index.html">Top Cities For…</a>
+    <div class="nav-dropdown" id="topCitiesDropdown">
+      <button class="nav-dropdown-trigger" onclick="toggleTopCitiesDropdown(event)">
+        Top Cities For… <span class="nav-chev">▾</span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <a class="nav-dropdown-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-foodies.html">For Foodies</a>
+        <a class="nav-dropdown-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-hikers.html">For Hikers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item more" href="index.html#explore">More topics →</a>
+      </div>
+    </div>
     <a href="index.html" class="header-quiz-btn">Find My Match →</a>
   </nav>
   <div class="header-mobile-menu">
@@ -384,7 +435,13 @@ a.quiz-cta-btn:hover,
   </div>
   <div class="mobile-nav-dropdown" id="mobileNavDropdown">
     <a class="mobile-nav-item" href="index.html">🔍 Find a City</a>
-    <a class="mobile-nav-item" href="index.html">Top Cities For…</a>
+    <a class="mobile-nav-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+    <a class="mobile-nav-item" href="top-cities-for-foodies.html">For Foodies</a>
+    <a class="mobile-nav-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-hikers.html">For Hikers</a>
+    <a class="mobile-nav-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
   </div>
 </header>
 
@@ -671,11 +728,22 @@ function toggleMobileNav() {
   var dd = document.getElementById('mobileNavDropdown');
   if (dd) dd.classList.toggle('open');
 }
+function toggleTopCitiesDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
 document.addEventListener('click', function(e) {
   var dd = document.getElementById('mobileNavDropdown');
   if (dd && dd.classList.contains('open')) {
     if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
       dd.classList.remove('open');
+    }
+  }
+  var tc = document.getElementById('topCitiesDropdown');
+  if (tc && tc.classList.contains('open')) {
+    if (!e.target.closest('#topCitiesDropdown')) {
+      tc.classList.remove('open');
     }
   }
 });
