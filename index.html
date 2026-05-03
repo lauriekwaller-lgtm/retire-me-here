@@ -1701,7 +1701,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         — for you.
       </h1>
       <p class="split-sub" style="line-height:1.45;">
-        Tell us what matters. We weigh the tradeoffs across <strong>healthcare, cost, climate, safety</strong> and more — then match you to your best cities.
+        Tell us what matters. We weigh the tradeoffs across <strong>healthcare, cost, weather, safety</strong> and more — then match you to your best cities.
       </p>
       <div class="quiz-cta-wrap">
         <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--light);margin-bottom:10px;">Free Quiz · Takes Just a Few Minutes</p>
@@ -4795,7 +4795,7 @@ const CITY_ENRICHMENT = {
       { label: "Median Home (suburbs)", value: '$350<span class="ed-small">–500K</span>', sub: "Citywide $250K · retirees go suburban" },
       { label: "Monthly Budget", value: '$3.5–4.8K<span class="ed-small">/mo</span>', sub: "Range 2 · Strong value" },
       { label: "State Income Tax", value: '4.7<span class="ed-small">%</span>', sub: "SS exempt · IRA/401(k) taxed" },
-      { label: "Climate", value: "31 / 88°F", sub: "Real winters · hot humid summers" }
+      { label: "Weather", value: "31 / 88°F", sub: "Real winters · hot humid summers" }
     ],
     methodologyNote: "<strong>How we score St. Louis:</strong> Citywide statistics misrepresent the retiree experience here. We score this city against its <strong>retiree-target suburbs</strong> — Chesterfield, Kirkwood, Webster Groves, Clayton, Wildwood — where the safety, housing, and amenity story is dramatically different from the city as a whole.",
     fitIntro: "St. Louis is a value play with a very specific profile: world-class healthcare, deep urban culture, real seasons, and a brick-built sense of place. Some people fall in love. Others can't get past the summers — or the headlines.",
@@ -5536,7 +5536,7 @@ const CITY_ENRICHMENT = {
 const DIMENSIONS = [
   { key: 'D1', icon: '✈️', label: 'Airport Access', desc: 'Drive time to major hub, nonstop routes, airlines' },
   { key: 'D3', icon: '🏥', label: 'Healthcare Quality', desc: 'Hospital ratings, specialist access, senior care' },
-  { key: 'DC', icon: '🌤️', label: 'Climate Preference' },
+  { key: 'DC', icon: '🌤️', label: 'Weather Preference' },
   { key: 'D5', icon: '📋', label: 'Tax Friendliness', desc: 'Social Security, income, property tax burden' },
   { key: 'D6', icon: '🚶', label: 'Walkability & Transit', desc: 'Live car-free or car-light — walkable streets, plus transit or rideshare for getting around' },
   { key: 'D7', icon: '🏞', label: 'Outdoor Recreation', desc: 'Nature-based activities — trails, hiking, parks, kayaking, cycling' },
@@ -5723,7 +5723,7 @@ function renderRegion(container) {
     <div class="question-card">
        <div class="q-step">Step 1 of 7 — Location</div>
       <div class="q-title">Where are you open to living?</div>
-      <div class="q-subtitle">Select any that apply — or skip if you're open to anywhere in the US.</div>
+      <div class="q-subtitle">Many retirees prioritize staying near family — children, grandchildren, aging parents — or near communities they already love. Select regions that work for you, or skip if you're truly open to anywhere.</div>
       <div class="quiz-hint">💡 We'll only show cities in the regions you select. You can rule out specific states on the next screen.</div>
             <div class="region-grid">
         ${regions.map(r => `
@@ -5810,7 +5810,7 @@ function renderPriorities(container) {
     { key: 'warm', icon: '🌴', label: 'Warm & Humid', desc: 'Hot, humid summers (Southeast-style)' },
     { key: 'seasons', icon: '🍂', label: 'Four Seasons', desc: 'Distinct spring, fall — real winters are OK' },
     { key: 'cool', icon: '🏔️', label: 'Cool / Mountain', desc: 'Crisp air, cooler summers — I like layering weather' },
-    { key: 'none', icon: '🤷', label: 'No Preference', desc: 'Climate is not a major factor for me' }
+    { key: 'none', icon: '🤷', label: 'No Preference', desc: 'Weather is not a major factor for me' }
   ];
   const DEAL_OPTIONS = [
     { key: 'humid', icon: '🌡️', label: 'Humid summers', desc: 'Oppressive humidity June–September' },
@@ -5822,11 +5822,11 @@ function renderPriorities(container) {
   let html = `<div class="question-card">
      <div class="q-step">Step 5 of 7 — Priorities</div>
     <div class="q-title">What matters most to you?</div>
-    <div class="q-subtitle">Start with climate, then rate what matters most. "Must Have" removes cities that don't meet your minimum.</div>
+    <div class="q-subtitle">Start with weather, then rate what matters most. "Must Have" removes cities that don't meet your minimum.</div>
     <div class="quiz-hint" style="margin-bottom:16px;">💡 Tip: Limit "Must Haves" to your top 1–2. Too many can leave you with no matches.</div>
 
     <div class="priority-section">
-      <div class="priority-label"><span class="icon">⛅</span>Climate Preference</div>
+      <div class="priority-label"><span class="icon">⛅</span>Weather Preference</div>
       <div class="priority-label-desc">What's your ideal weather year-round?</div>
       <div class="climate-choice-wrap">
         ${CLIMATE_OPTIONS.map(c => `
@@ -6867,7 +6867,7 @@ function renderEditorialDetail(city, en) {
   const stat1 = en.stats && en.stats[0] ? en.stats[0] : { label: 'Median Home', value: city.medianHome || '—', sub: '' };
   const stat2 = en.stats && en.stats[1] ? en.stats[1] : { label: 'Monthly Budget', value: city.monthlyEst || '—', sub: 'Range ' + (city.budgetRange || '?') };
   const stat3 = en.stats && en.stats[2] ? en.stats[2] : { label: 'State Income Tax', value: getTaxNote(city.state), sub: '' };
-  const stat4 = en.stats && en.stats[3] ? en.stats[3] : { label: 'Climate', value: '—', sub: getClimateDesc(city) };
+  const stat4 = en.stats && en.stats[3] ? en.stats[3] : { label: 'Weather', value: '—', sub: getClimateDesc(city) };
 
   // Method banner — high-variance cities only
   const methodBanner = en.methodologyNote ? `
