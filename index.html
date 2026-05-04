@@ -7148,6 +7148,17 @@ function renderEditorialDetail(city, en) {
 }
 
 function showCityDetail(cityName, cityState) {
+  // Cities with full standalone profile pages — redirect there instead of inline view
+  const PUBLISHED_PROFILES = {
+    'Boulder_CO': 'cities/boulder-co-profile.html'
+    // Add more as cities are published: 'Pittsburgh_PA': 'cities/pittsburgh-pa-profile.html'
+  };
+  const profileKey = cityName + '_' + cityState;
+  if (PUBLISHED_PROFILES[profileKey]) {
+    window.location.href = PUBLISHED_PROFILES[profileKey];
+    return;
+  }
+
   const city = CITIES.find(c => c.name === cityName && c.state === cityState) ||
                CITIES.find(c => c.name === cityName);
   if (!city) return;
