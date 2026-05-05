@@ -895,7 +895,31 @@ footer {
   .wrap { padding: 0 24px; }
   .section { padding: 56px 0; }
 
-  .hero-content { padding: 0 24px 36px; }
+  /* Hero — give content room to breathe and move credit out of the tagline zone */
+  .hero { min-height: 540px; }
+  .hero-content { padding: 0 24px 60px; }
+  .hero-eyebrow {
+    font-size: 10px;
+    padding: 6px 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 14px;
+  }
+  .hero-name { font-size: 64px; line-height: 0.95; margin-bottom: 6px; }
+  .hero-state { font-size: 18px; margin-bottom: 14px; }
+  .hero-tagline {
+    font-size: 17px;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+  /* Photo credit: tuck into bottom-right corner below text overlay */
+  .hero-photo-credit {
+    bottom: 14px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.4);
+  }
 
   .stats-bar {
     margin: -40px 20px 0;
