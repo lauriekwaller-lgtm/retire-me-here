@@ -897,7 +897,7 @@ footer {
 
   /* Hero — give content room to breathe and move credit out of the tagline zone */
   .hero { min-height: 540px; }
-  .hero-content { padding: 0 24px 60px; }
+  .hero-content { padding: 0 24px 96px; }
   .hero-eyebrow {
     font-size: 10px;
     padding: 6px 12px;
@@ -911,9 +911,10 @@ footer {
     line-height: 1.5;
     max-width: 100%;
   }
-  /* Photo credit: tuck into bottom-right corner below text overlay */
+  /* Photo credit: in the gap between tagline (96px from hero bottom)
+     and stats card top edge (40px from hero bottom from margin: -40px) */
   .hero-photo-credit {
-    bottom: 14px;
+    bottom: 56px;
     right: 14px;
     font-size: 9px;
     letter-spacing: 0.08em;
