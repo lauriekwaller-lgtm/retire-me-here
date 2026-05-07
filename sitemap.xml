@@ -92,4 +92,18 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://retiremehere.com/cities/lexington/profile.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://retiremehere.com/cities/pittsburgh/profile.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
