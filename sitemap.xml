@@ -113,4 +113,25 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://retiremehere.com/cities/asheville/profile.html</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://retiremehere.com/cities/santa-fe/profile.html</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://retiremehere.com/cities/charleston/profile.html</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
