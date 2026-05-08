@@ -1709,7 +1709,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       </div>
       <div class="split-stats">
         <div>
-          <span class="split-stat-num">100+</span>
+          <span class="split-stat-num">100</span>
           <span class="split-stat-label">Cities Scored</span>
         </div>
         <div>
@@ -1874,7 +1874,7 @@ window.addEventListener('load', function() {
 
   
   
-console.log("RMH v3.0 loaded - 100+ cities");
+console.log("RMH v3.0 loaded - 100 cities");
 
 const CITIES = [
   {
@@ -7157,7 +7157,10 @@ function showCityDetail(cityName, cityState) {
     'Alexandria_VA': 'cities/alexandria/profile.html',
     'Lexington_KY': 'cities/lexington/profile.html',
     'Pittsburgh_PA': 'cities/pittsburgh/profile.html',
-    'Tucson_AZ': 'cities/tucson/profile.html'
+    'Tucson_AZ': 'cities/tucson/profile.html',
+    'Asheville_NC': 'cities/asheville/profile.html',
+    'Santa Fe_NM': 'cities/santa-fe/profile.html',
+    'Charleston_SC': 'cities/charleston/profile.html'
   };
   const profileKey = cityName + '_' + cityState;
   if (PUBLISHED_PROFILES[profileKey]) {
@@ -7302,7 +7305,7 @@ function showCityDetail(cityName, cityState) {
 
       <div class="detail-section" style="padding-bottom:0;">
         <h3>Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 100+ cities.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you — each report covers all 100 cities.</p>
         <div id="city-detail-reports"></div>
       </div>
 
@@ -7514,7 +7517,7 @@ window.addEventListener('DOMContentLoaded', function() {
 const REPORT_MODAL_DATA = {
   globetrotter: {
     icon: '✈️', title: 'The Globetrotter Guide',
-    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 100+ cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
+    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked 100 cities by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
     features: [
       { icon: '📍', text: 'Drive time to nearest major hub airport for every city' },
       { icon: '✈️', text: 'Number of airlines, nonstop routes, and hub status ranked' },
@@ -7706,7 +7709,7 @@ function closeReportModal(e) {
         <button class="city-search-close" onclick="closeCitySearch()">✕</button>
       </div>
       <div class="city-search-results" id="citySearchResults">
-        <div class="city-search-hint">Start typing to search all 100+ cities</div>
+        <div class="city-search-hint">Start typing to search all 100 cities</div>
       </div>
     </div>
   </div>
@@ -7723,7 +7726,7 @@ function closeReportModal(e) {
       document.getElementById('citySearchOverlay').classList.remove('open');
       document.body.style.overflow = '';
       document.getElementById('citySearchInput').value = '';
-      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 100+ cities</div>';
+      document.getElementById('citySearchResults').innerHTML = '<div class="city-search-hint">Start typing to search all 100 cities</div>';
     }
   }
 
@@ -7743,7 +7746,7 @@ function closeReportModal(e) {
   function renderCitySearchResults(query) {
     const container = document.getElementById('citySearchResults');
     if (!query || query.trim().length < 1) {
-      container.innerHTML = '<div class="city-search-hint">Start typing to search all 100+ cities</div>';
+      container.innerHTML = '<div class="city-search-hint">Start typing to search all 100 cities</div>';
       return;
     }
     const q = query.toLowerCase().trim();
