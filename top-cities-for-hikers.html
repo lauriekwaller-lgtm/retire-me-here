@@ -266,6 +266,7 @@ button.header-quiz-btn:hover,
 .bucket-section-marker.year-round { background: var(--teal); }
 .bucket-section-marker.peak-summer { background: var(--terra); }
 .bucket-section-marker.peak-winter { background: var(--gold); }
+.bucket-section-marker.high-budget { background: #3d3938; }
 .bucket-section-blurb {
   font-size: 13px;
   color: var(--mid);
@@ -339,6 +340,7 @@ button.header-quiz-btn:hover,
 .city-pill.year-round { background: var(--teal-lt); color: var(--teal); }
 .city-pill.peak-summer { background: var(--terra-lt); color: var(--terra); }
 .city-pill.peak-winter { background: var(--gold-lt); color: var(--gold-dk); }
+.city-pill.high-budget { background: #ebe5dc; color: #3d3938; }
 .city-arrow {
   font-size: 16px;
   color: var(--light);
@@ -405,6 +407,57 @@ button.header-quiz-btn:hover,
 .honorable-region.south { background: #FBE9D9; color: #8B5A2B; }
 .honorable-region.midwest { background: #E5EFE0; color: #3F6B30; }
 .honorable-region.coastal { background: #DEEAF2; color: #2E5D8B; }
+
+/* ============ CONSIDERED BUT NOT INCLUDED ============ */
+.considered-section {
+  margin-top: 56px;
+  padding-top: 36px;
+  border-top: 1px solid #e8e1d4;
+}
+.considered-section-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--mid);
+  margin-bottom: 4px;
+}
+.considered-section-blurb {
+  font-size: 13px;
+  color: var(--mid);
+  margin-bottom: 16px;
+  line-height: 1.5;
+  max-width: 720px;
+}
+.considered-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 720px;
+}
+.considered-item {
+  padding: 12px 16px;
+  border: 1px dashed #d8d0c2;
+  border-radius: 12px;
+  background: transparent;
+}
+.considered-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--dark);
+}
+.considered-name .state-code {
+  font-weight: 500;
+  color: var(--light);
+  margin-left: 6px;
+  font-size: 13px;
+}
+.considered-reason {
+  font-size: 13px;
+  color: var(--mid);
+  margin-top: 3px;
+  line-height: 1.5;
+}
 
 /* ============ REPORT CTA ============ */
 .report-cta {
@@ -593,7 +646,7 @@ a.quiz-cta-btn:hover,
 
   <section class="hero">
     <p class="hero-eyebrow">For Hikers</p>
-    <h1 class="hero-h1">The 18 best cities to retire <span class="accent">for hiking</span>.</h1>
+    <h1 class="hero-h1">The best cities to retire <span class="accent">for hiking</span>.</h1>
     <p class="hero-scope">From our curated database of U.S. retirement cities — a sampling, not an exhaustive ranking. We add new cities regularly.</p>
     <p class="hero-tagline">Where to retire if you want trails out your back door.</p>
   </section>
@@ -602,21 +655,11 @@ a.quiz-cta-btn:hover,
 
     <div class="bucket-section">
       <h3 class="bucket-section-h3"><span class="bucket-section-marker year-round"></span>Year-round hikeable</h3>
-      <p class="bucket-section-blurb">Trails usable 10 to 12 months a year.</p>
+      <p class="bucket-section-blurb">Trails usable 10 to 12 months a year. Some higher-elevation trails may require winter traction devices on icy days, but trail access is preserved most of the year.</p>
       <div class="city-list">
 
-        <a class="city-card" href="cities/boulder/profile.html">
-          <div class="city-rank">1</div>
-          <div class="city-info">
-            <div class="city-name">Boulder<span class="state-code">CO</span></div>
-            <div class="city-type">College Town / Mountain / Outdoor</div>
-          </div>
-          <span class="city-pill year-round">Year-round</span>
-          <span class="city-arrow">→</span>
-        </a>
-
         <a class="city-card" href="cities/bend/profile.html">
-          <div class="city-rank">2</div>
+          <div class="city-rank">1</div>
           <div class="city-info">
             <div class="city-name">Bend<span class="state-code">OR</span></div>
             <div class="city-type">Outdoor / Growing</div>
@@ -625,8 +668,28 @@ a.quiz-cta-btn:hover,
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="cities/asheville/profile.html">
+        <a class="city-card" href="index.html?city=Sedona&state=AZ">
+          <div class="city-rank">2</div>
+          <div class="city-info">
+            <div class="city-name">Sedona<span class="state-code">AZ</span></div>
+            <div class="city-type">Desert / Arts & Wellness Retreat</div>
+          </div>
+          <span class="city-pill year-round">Year-round</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="cities/boulder/profile.html">
           <div class="city-rank">3</div>
+          <div class="city-info">
+            <div class="city-name">Boulder<span class="state-code">CO</span></div>
+            <div class="city-type">College Town / Mountain / Outdoor</div>
+          </div>
+          <span class="city-pill year-round">Year-round</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="cities/asheville/profile.html">
+          <div class="city-rank">4</div>
           <div class="city-info">
             <div class="city-name">Asheville<span class="state-code">NC</span></div>
             <div class="city-type">Mountain Arts Town</div>
@@ -636,7 +699,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="index.html?city=Colorado Springs&state=CO">
-          <div class="city-rank">4</div>
+          <div class="city-rank">5</div>
           <div class="city-info">
             <div class="city-name">Colorado Springs<span class="state-code">CO</span></div>
             <div class="city-type">Mountain / Military</div>
@@ -653,8 +716,28 @@ a.quiz-cta-btn:hover,
       <p class="bucket-section-blurb">Elite May through October. Trails buried November through April.</p>
       <div class="city-list">
 
-        <a class="city-card" href="index.html?city=Salt Lake City&state=UT">
+        <a class="city-card" href="index.html?city=Whitefish&state=MT">
           <div class="city-rank">1</div>
+          <div class="city-info">
+            <div class="city-name">Whitefish<span class="state-code">MT</span></div>
+            <div class="city-type">Mountain Resort</div>
+          </div>
+          <span class="city-pill peak-summer">Peak summer</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="index.html?city=Flagstaff&state=AZ">
+          <div class="city-rank">2</div>
+          <div class="city-info">
+            <div class="city-name">Flagstaff<span class="state-code">AZ</span></div>
+            <div class="city-type">Mountain / University</div>
+          </div>
+          <span class="city-pill peak-summer">Peak summer</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="index.html?city=Salt Lake City&state=UT">
+          <div class="city-rank">3</div>
           <div class="city-info">
             <div class="city-name">Salt Lake City<span class="state-code">UT</span></div>
             <div class="city-type">Major Metro / Mountain</div>
@@ -663,51 +746,31 @@ a.quiz-cta-btn:hover,
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Jackson Hole&state=WY">
-          <div class="city-rank">2</div>
-          <div class="city-info">
-            <div class="city-name">Jackson Hole<span class="state-code">WY</span></div>
-            <div class="city-type">Mountain / Luxury</div>
-          </div>
-          <span class="city-pill peak-summer">Peak summer</span>
-          <span class="city-arrow">→</span>
-        </a>
-
-        <a class="city-card" href="index.html?city=Park City&state=UT">
-          <div class="city-rank">3</div>
-          <div class="city-info">
-            <div class="city-name">Park City<span class="state-code">UT</span></div>
-            <div class="city-type">Mountain / Resort Town</div>
-          </div>
-          <span class="city-pill peak-summer">Peak summer</span>
-          <span class="city-arrow">→</span>
-        </a>
-
-        <a class="city-card" href="index.html?city=Vail&state=CO">
+        <a class="city-card" href="index.html?city=Bozeman&state=MT">
           <div class="city-rank">4</div>
           <div class="city-info">
-            <div class="city-name">Vail<span class="state-code">CO</span></div>
-            <div class="city-type">Mountain Luxury</div>
+            <div class="city-name">Bozeman<span class="state-code">MT</span></div>
+            <div class="city-type">Mountain / College Town</div>
           </div>
           <span class="city-pill peak-summer">Peak summer</span>
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Sun Valley&state=ID">
+        <a class="city-card" href="index.html?city=Durango&state=CO">
           <div class="city-rank">5</div>
           <div class="city-info">
-            <div class="city-name">Sun Valley<span class="state-code">ID</span></div>
-            <div class="city-type">Mountain Resort</div>
+            <div class="city-name">Durango<span class="state-code">CO</span></div>
+            <div class="city-type">Mountain / Historic Railroad Town</div>
           </div>
           <span class="city-pill peak-summer">Peak summer</span>
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Flagstaff&state=AZ">
+        <a class="city-card" href="index.html?city=Boise&state=ID">
           <div class="city-rank">6</div>
           <div class="city-info">
-            <div class="city-name">Flagstaff<span class="state-code">AZ</span></div>
-            <div class="city-type">Mountain / University</div>
+            <div class="city-name">Boise<span class="state-code">ID</span></div>
+            <div class="city-type">Outdoor / Growing</div>
           </div>
           <span class="city-pill peak-summer">Peak summer</span>
           <span class="city-arrow">→</span>
@@ -723,38 +786,8 @@ a.quiz-cta-btn:hover,
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Burlington&state=VT">
-          <div class="city-rank">8</div>
-          <div class="city-info">
-            <div class="city-name">Burlington<span class="state-code">VT</span></div>
-            <div class="city-type">College Town / Lakeside / Outdoor</div>
-          </div>
-          <span class="city-pill peak-summer">Peak summer</span>
-          <span class="city-arrow">→</span>
-        </a>
-
-        <a class="city-card" href="index.html?city=Whitefish&state=MT">
-          <div class="city-rank">9</div>
-          <div class="city-info">
-            <div class="city-name">Whitefish<span class="state-code">MT</span></div>
-            <div class="city-type">Mountain Resort</div>
-          </div>
-          <span class="city-pill peak-summer">Peak summer</span>
-          <span class="city-arrow">→</span>
-        </a>
-
-        <a class="city-card" href="index.html?city=Bozeman&state=MT">
-          <div class="city-rank">10</div>
-          <div class="city-info">
-            <div class="city-name">Bozeman<span class="state-code">MT</span></div>
-            <div class="city-type">Mountain / College Town</div>
-          </div>
-          <span class="city-pill peak-summer">Peak summer</span>
-          <span class="city-arrow">→</span>
-        </a>
-
         <a class="city-card" href="index.html?city=Steamboat Springs&state=CO">
-          <div class="city-rank">11</div>
+          <div class="city-rank">8</div>
           <div class="city-info">
             <div class="city-name">Steamboat Springs<span class="state-code">CO</span></div>
             <div class="city-type">Mountain Resort</div>
@@ -763,11 +796,11 @@ a.quiz-cta-btn:hover,
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Durango&state=CO">
-          <div class="city-rank">12</div>
+        <a class="city-card" href="index.html?city=Burlington&state=VT">
+          <div class="city-rank">9</div>
           <div class="city-info">
-            <div class="city-name">Durango<span class="state-code">CO</span></div>
-            <div class="city-type">Mountain / Historic Railroad Town</div>
+            <div class="city-name">Burlington<span class="state-code">VT</span></div>
+            <div class="city-type">College Town / Lakeside / Outdoor</div>
           </div>
           <span class="city-pill peak-summer">Peak summer</span>
           <span class="city-arrow">→</span>
@@ -781,8 +814,18 @@ a.quiz-cta-btn:hover,
       <p class="bucket-section-blurb">Hike October through May. Summers are dawn-only at best.</p>
       <div class="city-list">
 
-        <a class="city-card" href="cities/tucson/profile.html">
+        <a class="city-card" href="index.html?city=St. George&state=UT">
           <div class="city-rank">1</div>
+          <div class="city-info">
+            <div class="city-name">St. George<span class="state-code">UT</span></div>
+            <div class="city-type">Desert / Outdoor</div>
+          </div>
+          <span class="city-pill peak-winter">Peak winter</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="cities/tucson/profile.html">
+          <div class="city-rank">2</div>
           <div class="city-info">
             <div class="city-name">Tucson<span class="state-code">AZ</span></div>
             <div class="city-type">Desert / University</div>
@@ -791,13 +834,51 @@ a.quiz-cta-btn:hover,
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Sedona&state=AZ">
+      </div>
+    </div>
+
+    <div class="bucket-section">
+      <h3 class="bucket-section-h3"><span class="bucket-section-marker high-budget"></span>For high-budget retirees</h3>
+      <p class="bucket-section-blurb">World-class hiking, but median home prices over $1.3M place these out of reach for most retirees. Listed here in their own section for transparency — these are genuinely world-class hiking landscapes, and retirees with the means should know they're here.</p>
+      <div class="city-list">
+
+        <a class="city-card" href="index.html?city=Jackson Hole&state=WY">
+          <div class="city-rank">1</div>
+          <div class="city-info">
+            <div class="city-name">Jackson Hole<span class="state-code">WY</span></div>
+            <div class="city-type">Mountain / Luxury</div>
+          </div>
+          <span class="city-pill high-budget">$1.85M+</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="index.html?city=Sun Valley&state=ID">
           <div class="city-rank">2</div>
           <div class="city-info">
-            <div class="city-name">Sedona<span class="state-code">AZ</span></div>
-            <div class="city-type">Desert / Arts & Wellness Retreat</div>
+            <div class="city-name">Sun Valley<span class="state-code">ID</span></div>
+            <div class="city-type">Mountain Resort</div>
           </div>
-          <span class="city-pill peak-winter">Peak winter</span>
+          <span class="city-pill high-budget">$1.35M+</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="index.html?city=Park City&state=UT">
+          <div class="city-rank">3</div>
+          <div class="city-info">
+            <div class="city-name">Park City<span class="state-code">UT</span></div>
+            <div class="city-type">Mountain / Resort Town</div>
+          </div>
+          <span class="city-pill high-budget">$1.52M+</span>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="index.html?city=Vail&state=CO">
+          <div class="city-rank">4</div>
+          <div class="city-info">
+            <div class="city-name">Vail<span class="state-code">CO</span></div>
+            <div class="city-type">Mountain Luxury</div>
+          </div>
+          <span class="city-pill high-budget">$3.1M+</span>
           <span class="city-arrow">→</span>
         </a>
 
@@ -807,8 +888,8 @@ a.quiz-cta-btn:hover,
   </section>
 
   <section class="honorable">
-    <h2 class="honorable-h2">Honorable <span class="accent">mentions</span></h2>
-    <p class="honorable-blurb">Eight more cities worth a serious look — strong East Coast, Midwest, and coastal hiking picks.</p>
+    <h2 class="honorable-h2">Worth a look — <span class="accent">strong regional alternatives</span></h2>
+    <p class="honorable-blurb">The main tiers skew Mountain West because that's where the most extensive trail systems are. These cities offer real hiking access for retirees who want to stay east of the Rockies, in the Midwest, or near the coast — including mountain, river, forest, and coastal options.</p>
 
     <div class="city-list">
 
@@ -822,8 +903,18 @@ a.quiz-cta-btn:hover,
         <span class="city-arrow">→</span>
       </a>
 
-      <a class="city-card" href="index.html?city=Charlottesville&state=VA">
+      <a class="city-card" href="index.html?city=Chattanooga&state=TN">
         <div class="city-rank">2</div>
+        <div class="city-info">
+          <div class="city-name">Chattanooga<span class="state-code">TN</span></div>
+          <div class="city-type">Outdoor / Mid-size</div>
+        </div>
+        <span class="honorable-region south">South</span>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charlottesville&state=VA">
+        <div class="city-rank">3</div>
         <div class="city-info">
           <div class="city-name">Charlottesville<span class="state-code">VA</span></div>
           <div class="city-type">College Town / Historic</div>
@@ -833,7 +924,7 @@ a.quiz-cta-btn:hover,
       </a>
 
       <a class="city-card" href="index.html?city=Knoxville&state=TN">
-        <div class="city-rank">3</div>
+        <div class="city-rank">4</div>
         <div class="city-info">
           <div class="city-name">Knoxville<span class="state-code">TN</span></div>
           <div class="city-type">College Town / Outdoor</div>
@@ -842,33 +933,23 @@ a.quiz-cta-btn:hover,
         <span class="city-arrow">→</span>
       </a>
 
-      <a class="city-card" href="index.html?city=Chattanooga&state=TN">
-        <div class="city-rank">4</div>
+      <a class="city-card" href="index.html?city=Bentonville&state=AR">
+        <div class="city-rank">5</div>
         <div class="city-info">
-          <div class="city-name">Chattanooga<span class="state-code">TN</span></div>
-          <div class="city-type">Outdoor / Mid-size</div>
+          <div class="city-name">Bentonville<span class="state-code">AR</span></div>
+          <div class="city-type">Small City / Cultural / Ozarks</div>
         </div>
         <span class="honorable-region south">South</span>
         <span class="city-arrow">→</span>
       </a>
 
       <a class="city-card" href="index.html?city=La Crosse&state=WI">
-        <div class="city-rank">5</div>
+        <div class="city-rank">6</div>
         <div class="city-info">
           <div class="city-name">La Crosse<span class="state-code">WI</span></div>
           <div class="city-type">River City / College Town</div>
         </div>
         <span class="honorable-region midwest">Midwest</span>
-        <span class="city-arrow">→</span>
-      </a>
-
-      <a class="city-card" href="index.html?city=Provincetown&state=MA">
-        <div class="city-rank">6</div>
-        <div class="city-info">
-          <div class="city-name">Provincetown<span class="state-code">MA</span></div>
-          <div class="city-type">Coastal Resort / Arts Colony</div>
-        </div>
-        <span class="honorable-region coastal">Coastal</span>
         <span class="city-arrow">→</span>
       </a>
 
@@ -882,16 +963,29 @@ a.quiz-cta-btn:hover,
         <span class="city-arrow">→</span>
       </a>
 
-      <a class="city-card" href="index.html?city=Bentonville&state=AR">
-        <div class="city-rank">8</div>
-        <div class="city-info">
-          <div class="city-name">Bentonville<span class="state-code">AR</span></div>
-          <div class="city-type">Small City / Cultural / Ozarks</div>
-        </div>
-        <span class="honorable-region south">South</span>
-        <span class="city-arrow">→</span>
-      </a>
+    </div>
 
+    <div class="considered-section">
+      <h3 class="considered-section-h3">Considered but not included</h3>
+      <p class="considered-section-blurb">A few cities readers often expect to see on a hiking list. Here's why each fell just outside the cut on our rubric — which weights trail access, landscape quality, and season length over outdoor reputation alone.</p>
+      <div class="considered-list">
+
+        <div class="considered-item">
+          <div class="considered-name">Scottsdale<span class="state-code">AZ</span></div>
+          <div class="considered-reason">The McDowell Sonoran Preserve is a legitimate 225-mile trail system, and Scottsdale has a real outdoor retirement following. But Tucson and St. George already represent Arizona desert hiking at higher scores, and Scottsdale's summer heat is the most extreme on this list — limiting comfortable hiking to October–April with no iconic landscape destination within an hour.</div>
+        </div>
+
+        <div class="considered-item">
+          <div class="considered-name">Santa Fe<span class="state-code">NM</span></div>
+          <div class="considered-reason">The Sangre de Cristo Mountains and Pecos Wilderness are real, but Santa Fe's strength is more its arts and culinary identity than its trail infrastructure. Featured on the Foodies page instead.</div>
+        </div>
+
+        <div class="considered-item">
+          <div class="considered-name">Provincetown<span class="state-code">MA</span></div>
+          <div class="considered-reason">Cape Cod National Seashore trails are genuine, but the experience is primarily beach and dune walking rather than trail hiking, and the town empties out in winter.</div>
+        </div>
+
+      </div>
     </div>
   </section>
 
