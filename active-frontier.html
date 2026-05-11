@@ -1,1063 +1,1337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BTL743DSJQ');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Active Frontier — RetireMeHere</title>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<title>The Active Frontier — Where to Retire if Outdoor Living is Your Priority | RetireMeHere</title>
+<meta name="description" content="A curated guide to the best US cities to retire if outdoor living defines your lifestyle — mountain or coast, hiking or pickleball, summer or winter.">
+<link rel="canonical" href="https://retiremehere.com/active-frontier.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Active Frontier — Where to Retire if Outdoor Living is Your Priority">
+<meta property="og:description" content="A curated guide to the best US cities to retire if outdoor living defines your lifestyle.">
+<meta property="og:url" content="https://retiremehere.com/active-frontier.html">
+<meta property="og:site_name" content="RetireMeHere">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Active Frontier — Where to Retire if Outdoor Living is Your Priority">
+<meta name="twitter:description" content="A curated guide to the best US cities to retire if outdoor living defines your lifestyle.">
+
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2238788');
+</script>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
+  --teal: #2A5E5A;
+  --teal-lt: #E8F4F3;
+  --teal-mid: #3d7a75;
+  --terra: #C4724A;
+  --terra-lt: #FDF0EA;
+  --gold: #D4A84B;
+  --gold-lt: #FAF1D9;
+  --gold-dk: #8B6914;
   --forest: #1e4d2b;
-  --green: #2e7d52;
-  --green-mid: #3a9463;
-  --green-lt: #eaf5ef;
-  --terra: #c4724a;
-  --terra-lt: #fdf0ea;
   --sky: #2a7fc1;
-  --sky-lt: #e8f4fd;
-  --sand: #f7f3ed;
-  --dark: #1c1a18;
-  --mid: #5c5852;
-  --light: #9a9490;
-  --white: #ffffff;
-  --amber: #c47a2a;
-  --amber-lt: #fdf3e8;
-  --red: #c0392b;
-  --red-lt: #fde8e8;
-  --gold: #d4a84b;
+  --sand: #F7F3ED;
+  --sand-dk: #EFE9DD;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #9A9490;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(28,26,24,0.08);
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--dark); max-width: 600px; margin: 0 auto; }
 
-/* HEADER */
-.header { background: var(--forest); padding: 0; position: relative; overflow: hidden; }
-.header-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 70% 20%, rgba(46,125,82,0.45) 0%, transparent 55%),
-              radial-gradient(ellipse at 25% 80%, rgba(196,114,74,0.2) 0%, transparent 50%);
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--sand);
+  color: var(--dark);
+  min-height: 100vh;
+  line-height: 1.6;
 }
-.header-content { position: relative; padding: 40px 24px 36px; }
-.report-series {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 6px;
-  display: flex; align-items: center; gap: 8px;
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { color: var(--teal-mid); }
+
+/* ============ HEADER ============ */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid #e8e4de;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
 }
-.report-series::before { content: '🏔️'; font-size: 12px; }
-.header h1 {
+.header-wordmark {
   font-family: 'Libre Franklin', sans-serif;
-  font-size: clamp(28px, 6vw, 38px); font-weight: 800;
-  color: var(--white); line-height: 1.1; margin-bottom: 14px;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
 }
-.header h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
-.header-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.header-meta { display: flex; gap: 12px; flex-wrap: wrap; }
-.meta-pill {
-  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 100px; padding: 5px 14px;
-  font-size: 12px; color: rgba(255,255,255,0.75);
-  display: flex; align-items: center; gap: 6px;
+.header-wordmark .hw-retire { color: var(--teal); }
+.header-wordmark .hw-here { color: var(--terra); }
+.header-nav { display: flex; gap: 20px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none; font-weight: 500;
+  transition: color 0.15s;
 }
-.meta-pill span { color: var(--gold); font-weight: 600; }
+.header-nav a:hover { color: var(--teal); }
 
-/* INTRO */
-.intro { padding: 24px 16px 0; }
-.intro-card {
-  background: var(--white); border-radius: 14px; padding: 20px;
-  border-left: 4px solid var(--green);
+a.header-quiz-btn,
+a.header-quiz-btn:link,
+a.header-quiz-btn:visited,
+a.header-quiz-btn:active,
+button.header-quiz-btn,
+.header-quiz-btn {
+  background-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2A5E5A !important;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: background-color 0.15s, border-color 0.15s;
+  -webkit-text-fill-color: #FFFFFF !important;
 }
-.intro-card h2 { font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700; color: var(--forest); margin-bottom: 8px; }
-.intro-card p { font-size: 13px; color: var(--mid); line-height: 1.7; }
-.intro-card p + p { margin-top: 8px; }
+a.header-quiz-btn:hover,
+button.header-quiz-btn:hover,
+.header-quiz-btn:hover {
+  background-color: #3d7a75 !important;
+  border-color: #3d7a75 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
 
-/* WHAT WE MEASURE */
-.measures { padding: 20px 16px 0; }
-.measures-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 10px; }
-.measures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.measure-item { background: var(--white); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; }
-.measure-icon { font-size: 18px; flex-shrink: 0; }
-.measure-text strong { font-size: 12px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 2px; }
-.measure-text span { font-size: 11px; color: var(--mid); line-height: 1.4; }
+.header-mobile-menu { display: none; gap: 10px; align-items: center; }
+.mobile-nav-btn {
+  background: transparent; border: 1px solid #e8e4de;
+  padding: 7px 14px; border-radius: 100px;
+  font-size: 13px; color: var(--mid); cursor: pointer; font-family: inherit;
+}
+.mobile-nav-dropdown {
+  display: none; position: absolute; top: 100%; right: 16px;
+  background: var(--white); border: 1px solid #e8e4de; border-radius: 12px;
+  padding: 8px; box-shadow: var(--shadow);
+  min-width: 200px;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-item {
+  display: block; padding: 10px 14px; font-size: 13px;
+  color: var(--dark); text-decoration: none; border-radius: 8px;
+}
+.mobile-nav-item:hover { background: var(--sand); }
 
-/* LEGEND */
-.legend { padding: 20px 16px 0; }
-.legend-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 10px; }
-.legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.legend-item { display: flex; align-items: flex-start; gap: 10px; background: var(--white); border-radius: 10px; padding: 10px 12px; }
-.tier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
-.tier-dot.elite { background: var(--green); }
-.tier-dot.strong { background: var(--sky); }
-.tier-dot.solid { background: var(--amber); }
-.tier-dot.limited { background: var(--red); }
-.legend-text { font-size: 11px; color: var(--mid); line-height: 1.4; }
-.legend-text strong { color: var(--dark); font-size: 12px; display: block; margin-bottom: 1px; }
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); font-weight: 500;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger:hover { color: var(--teal); }
+.nav-dropdown-trigger .nav-chev { font-size: 10px; transition: transform 0.15s; }
+.nav-dropdown.open .nav-dropdown-trigger .nav-chev { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute; top: 100%; right: 0; margin-top: 8px;
+  background: var(--white);
+  border: 1px solid #e8e4de; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 240px; padding: 6px; z-index: 500;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-item {
+  display: block; padding: 10px 14px;
+  font-size: 13px; font-weight: 500; color: var(--dark);
+  text-decoration: none; border-radius: 8px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.nav-dropdown-item:hover { background: var(--sand); color: var(--teal); }
+.nav-dropdown-divider { height: 1px; background: #f0ece6; margin: 6px 4px; }
+.nav-dropdown-item.more { color: var(--mid); font-style: italic; font-size: 12px; }
+@media (max-width: 760px) {
+  .header-nav { display: none; }
+  .header-mobile-menu { display: flex; }
+  .site-header { padding: 12px 16px; position: relative; }
+}
 
-/* INSIGHTS */
-.insights { padding: 24px 16px 0; }
-.insight-title { font-family: 'Libre Franklin', sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
-.insight-card { background: var(--white); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
-.insight-card h3 { font-size: 13px; font-weight: 700; color: var(--forest); margin-bottom: 6px; }
-.insight-card p { font-size: 13px; color: var(--mid); line-height: 1.65; }
+/* ============ PAGE LAYOUT ============ */
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+@media (max-width: 760px) {
+  .page { padding: 36px 18px 60px; }
+}
 
-/* SECTION */
-.section { padding: 24px 16px 0; }
-.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-.section-icon.elite { background: var(--green-lt); }
-.section-icon.strong { background: var(--sky-lt); }
-.section-icon.solid { background: var(--amber-lt); }
-.section-icon.limited { background: var(--red-lt); }
-.section-title h2 { font-family: 'Libre Franklin', sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
-.section-title p { font-size: 12px; color: var(--light); }
+/* ============ HERO ============ */
+.hero { text-align: center; margin-bottom: 40px; }
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 14px;
+}
+.hero-h1 {
+  text-wrap: balance;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--dark);
+  margin-bottom: 14px;
+  letter-spacing: -0.015em;
+}
+.hero-h1 .accent { font-weight: 800; color: var(--teal); }
+.hero-scope {
+  text-wrap: balance;
+  font-size: 13px;
+  color: var(--mid);
+  font-style: italic;
+  max-width: 600px;
+  margin: 14px auto 0;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+.hero-tagline {
+  text-wrap: balance;
+  font-size: clamp(15px, 2vw, 17px);
+  color: var(--mid);
+  font-style: italic;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
 
-/* CITY ROW */
-.city-list { display: flex; flex-direction: column; gap: 10px; }
-.city-row { background: var(--white); border-radius: 12px; padding: 16px; border-left: 3px solid transparent; }
-.city-row.elite { border-left-color: var(--green); }
-.city-row.strong { border-left-color: var(--sky); }
-.city-row.solid { border-left-color: var(--amber); }
-.city-row.limited { border-left-color: var(--red); }
-.city-row-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
-.city-name-wrap { flex: 1; }
-.city-name { font-family: 'Libre Franklin', sans-serif; font-size: 16px; font-weight: 700; color: var(--dark); }
-.city-state { font-size: 12px; color: var(--light); margin-top: 1px; }
-.scores-wrap { display: flex; gap: 6px; flex-shrink: 0; }
-.score-badge { display: flex; flex-direction: column; align-items: center; background: var(--sand); border-radius: 8px; padding: 5px 9px; }
-.score-num { font-family: 'Libre Franklin', sans-serif; font-size: 16px; font-weight: 800; line-height: 1; }
-.score-num.elite { color: var(--green); }
-.score-num.strong { color: var(--sky); }
-.score-num.solid { color: var(--amber); }
-.score-num.limited { color: var(--red); }
-.score-lbl { font-size: 9px; color: var(--light); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 1px; }
-.active-note { font-size: 12px; color: var(--mid); line-height: 1.55; }
-.active-note strong { color: var(--dark); }
-.active-note .section-label { font-size: 11px; font-weight: 700; color: var(--green); margin-top: 8px; margin-bottom: 2px; display: block; }
-.active-note .section-label.wellness { color: var(--sky); }
-.star-tag { display: inline-block; background: var(--green-lt); color: var(--green); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
+/* ============ METHOD NOTE ============ */
+.method-note {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: var(--radius);
+  padding: 22px 28px;
+  margin-bottom: 32px;
+  font-size: 13.5px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.method-note strong { color: var(--dark); font-weight: 700; }
 
-/* CTA */
-.cta { margin: 24px 16px 0; background: var(--forest); border-radius: 16px; padding: 28px 20px; text-align: center; }
-.cta h2 { font-family: 'Libre Franklin', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-.cta p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.cta-btn { display: inline-block; background: var(--gold); color: var(--forest); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 30px; border-radius: 100px; text-decoration: none; }
-.cta-fine { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 12px; }
+/* ============ KEY TAKEAWAYS ============ */
+.takeaways {
+  background: linear-gradient(135deg, var(--teal-lt) 0%, var(--sand) 100%);
+  border: 1px solid #d8e8e6;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+.takeaways-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 6px;
+}
+.takeaways-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+.takeaway-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(42,94,90,0.12);
+}
+.takeaway-item:first-of-type { border-top: none; padding-top: 4px; }
+.takeaway-num {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.takeaway-body { flex: 1; font-size: 14px; color: var(--mid); line-height: 1.55; }
+.takeaway-body strong { color: var(--dark); font-weight: 700; }
+@media (max-width: 540px) {
+  .takeaways { padding: 22px 20px; }
+  .takeaway-body { font-size: 13.5px; }
+}
 
-/* FOOTER */
-.footer { text-align: center; padding: 24px 16px 40px; }
-.footer p { font-size: 11px; color: var(--light); line-height: 1.8; }
-.footer a { color: var(--green); text-decoration: none; }
+/* ============ SPOTLIGHT SECTIONS ============ */
+.bucket-section { margin-top: 48px; }
+.bucket-section:first-of-type { margin-top: 0; }
+.bucket-section-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.bucket-section-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  letter-spacing: -0.01em;
+}
+.bucket-section-marker {
+  display: inline-block;
+  width: 12px; height: 12px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.bucket-section-marker.spot1 { background: var(--teal); }
+.bucket-section-marker.spot2 { background: var(--forest); }
+.bucket-section-marker.spot3 { background: var(--sky); }
+.bucket-section-marker.spot4 { background: var(--gold); }
+.bucket-section-marker.spot5 { background: var(--terra); }
+.bucket-section-marker.spot6 { background: var(--gold-dk); }
+.bucket-section-marker.spot7 { background: var(--teal-mid); }
+.bucket-section-marker.spot8 { background: var(--terra); }
+
+.bucket-section-blurb {
+  font-size: 14px;
+  color: var(--mid);
+  margin-bottom: 22px;
+  margin-left: 25px;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+/* ============ CITY CARDS — STANDARD (Spotlights 2-8) ============ */
+.city-list { display: flex; flex-direction: column; gap: 8px; }
+.city-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.city-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+  border-color: var(--teal-lt);
+  color: inherit;
+}
+.city-info { flex: 1; min-width: 0; }
+.city-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.city-name .state-code {
+  font-weight: 500;
+  color: var(--mid);
+  font-size: 14px;
+  margin-left: 4px;
+}
+.city-teams {
+  font-size: 12.5px;
+  color: var(--mid);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.city-arrow {
+  font-size: 16px;
+  color: var(--light);
+  font-weight: 600;
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition: transform 0.15s, color 0.15s;
+}
+.city-card:hover .city-arrow {
+  color: var(--teal);
+  transform: translateX(3px);
+}
+
+/* ============ CITY CARDS — FEATURED (Top 10) ============ */
+.city-featured {
+  display: block;
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+}
+.city-featured:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--teal-lt);
+  color: inherit;
+}
+.city-featured-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.city-featured-rank {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--terra);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+.city-featured-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.city-featured-name .state-code {
+  font-weight: 500;
+  color: var(--mid);
+  font-size: 16px;
+  margin-left: 6px;
+}
+.city-featured-prose {
+  font-size: 14.5px;
+  color: var(--mid);
+  line-height: 1.65;
+  margin-left: 50px;
+}
+.city-featured-prose strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 540px) {
+  .city-featured { padding: 18px 18px; }
+  .city-featured-rank { font-size: 24px; }
+  .city-featured-name { font-size: 19px; }
+  .city-featured-prose { margin-left: 0; font-size: 14px; margin-top: 4px; }
+  .city-featured-header { flex-wrap: wrap; gap: 10px; }
+}
+
+@media (max-width: 540px) {
+  .city-card { padding: 14px 14px; gap: 12px; }
+  .city-name { font-size: 15px; }
+  .city-teams { font-size: 11.5px; }
+  .city-arrow { display: none; }
+}
+
+/* ============ QUIZ CTA ============ */
+.quiz-cta {
+  margin-top: 64px;
+  background: var(--teal);
+  border-radius: var(--radius);
+  padding: 44px 36px;
+  text-align: center;
+  color: var(--white);
+}
+.quiz-cta-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 12px;
+}
+.quiz-cta-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(22px, 2.8vw, 28px);
+  font-weight: 300;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.quiz-cta-h3 .accent { font-weight: 800; color: var(--gold); }
+.quiz-cta-body {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.85);
+  max-width: 580px;
+  margin: 0 auto 22px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+a.quiz-cta-btn,
+a.quiz-cta-btn:link,
+a.quiz-cta-btn:visited,
+a.quiz-cta-btn:active,
+.quiz-cta-btn {
+  background-color: #FFFFFF !important;
+  color: #2A5E5A !important;
+  -webkit-text-fill-color: #2A5E5A !important;
+  border: 1px solid #FFFFFF !important;
+  padding: 13px 30px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: background-color 0.15s, transform 0.15s;
+}
+a.quiz-cta-btn:hover,
+.quiz-cta-btn:hover {
+  background-color: #FAF1D9 !important;
+  color: #2A5E5A !important;
+  -webkit-text-fill-color: #2A5E5A !important;
+  transform: translateY(-1px);
+}
+
+/* ============ FOOTER ============ */
+.site-footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.6);
+  padding: 32px 24px 28px;
+  text-align: center;
+  margin-top: 64px;
+  font-size: 12px;
+}
+.site-footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.site-footer-wordmark .sf-retire { color: var(--teal-lt); }
+.site-footer-wordmark .sf-here { color: var(--terra); }
+.site-footer a {
+  color: rgba(255,255,255,0.7);
+  margin: 0 12px;
+}
+.site-footer a:hover { color: var(--white); }
+.site-footer-copy { margin-top: 14px; color: rgba(255,255,255,0.4); }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header" style="background:#1e4d2b">
-  <div class="header-bg"></div>
-  <div class="header-content" style="color:#ffffff">
-    <div class="report-series" style="color:rgba(255,255,255,0.7)">RetireMeHere Deep Dive Series</div>
-    <h1 style="color:#ffffff">The Active<br><em>Frontier</em></h1>
-    <p class="header-desc">For active retirees, where you live shapes how you live. We've ranked 50+ cities across two dimensions — the quality of outdoor recreation and natural access, and the strength of active wellness infrastructure for retirees who want to stay seriously fit.</p>
-    <div class="header-meta">
-      <div class="meta-pill">🏔️ <span>50+</span> Cities Ranked</div>
-      <div class="meta-pill">🎯 <span>Outdoor + Wellness</span></div>
-      <div class="meta-pill">🗓 <span>March 2026</span></div>
-    </div>
+<header class="site-header">
+  <div class="header-wordmark" onclick="window.location.href='index.html'">
+    <span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span>
   </div>
-</div>
-
-<!-- INTRO -->
-<div class="intro">
-  <div class="intro-card">
-    <h2>Two dimensions, one active retirement</h2>
-    <p>We score each city on two separate dimensions: <strong>Outdoor Recreation (D7)</strong> evaluates natural assets — proximity to national parks, mountains, beaches, rivers, trails, and the quality of the outdoor experience available. <strong>Active Wellness (D8)</strong> evaluates the built fitness infrastructure — recreation centers, pickleball courts, fitness classes, senior programming, spa culture, and the overall community commitment to active aging.</p>
-    <p>The best cities score high on both. But the tradeoffs are real — some mountain cities offer world-class outdoor recreation but limited indoor wellness infrastructure. Some resort communities have exceptional wellness amenities but limited true wilderness access. Understanding both scores together tells the full picture.</p>
+  <nav class="header-nav">
+    <a href="index.html">🔍 Find a City</a>
+    <div class="nav-dropdown" id="topCitiesDropdown">
+      <button class="nav-dropdown-trigger" onclick="toggleTopCitiesDropdown(event)">
+        Top Cities For… <span class="nav-chev">▾</span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <a class="nav-dropdown-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-foodies.html">For Foodies</a>
+        <a class="nav-dropdown-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-hikers.html">For Hikers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item more" href="index.html#screen-explore">More topics →</a>
+      </div>
+    </div>
+    <a href="index.html" class="header-quiz-btn">Find My Match →</a>
+  </nav>
+  <div class="header-mobile-menu">
+    <button class="mobile-nav-btn" onclick="toggleMobileNav()">☰ Menu</button>
+    <a href="index.html" class="header-quiz-btn" style="font-size:12px;padding:7px 14px;">Quiz →</a>
   </div>
-</div>
-
-<!-- WHAT WE MEASURE -->
-<div class="measures">
-  <div class="measures-title">What we evaluated</div>
-  <div class="measures-grid">
-    <div class="measure-item">
-      <div class="measure-icon">🏞️</div>
-      <div class="measure-text"><strong>National Parks & Wilderness</strong><span>Proximity and quality of protected lands, parks, and natural areas</span></div>
-    </div>
-    <div class="measure-item">
-      <div class="measure-icon">🎿</div>
-      <div class="measure-text"><strong>Outdoor Activity Range</strong><span>Skiing, hiking, cycling, water sports, fishing — variety and quality</span></div>
-    </div>
-    <div class="measure-item">
-      <div class="measure-icon">🏋️</div>
-      <div class="measure-text"><strong>Fitness Infrastructure</strong><span>Recreation centers, pools, pickleball courts, classes, senior programs</span></div>
-    </div>
-    <div class="measure-item">
-      <div class="measure-icon">🧘</div>
-      <div class="measure-text"><strong>Wellness Culture</strong><span>Spa scene, yoga studios, wellness community, active adult clubs</span></div>
-    </div>
+  <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+    <a class="mobile-nav-item" href="index.html">🔍 Find a City</a>
+    <a class="mobile-nav-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+    <a class="mobile-nav-item" href="top-cities-for-foodies.html">For Foodies</a>
+    <a class="mobile-nav-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-hikers.html">For Hikers</a>
+    <a class="mobile-nav-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+    <a class="mobile-nav-item" href="index.html#screen-explore" style="color:var(--terra);font-weight:600;">More topics →</a>
   </div>
-</div>
+</header>
 
-<!-- LEGEND -->
-<div class="legend">
-  <div class="legend-title">Combined score tiers (D7 + D8)</div>
-  <div class="legend-grid">
-    <div class="legend-item"><div class="tier-dot elite"></div><div class="legend-text"><strong>Elite (18–20)</strong>World-class outdoor recreation AND exceptional wellness infrastructure</div></div>
-    <div class="legend-item"><div class="tier-dot strong"></div><div class="legend-text"><strong>Strong (16–17)</strong>Outstanding in one dimension, very good in the other</div></div>
-    <div class="legend-item"><div class="tier-dot solid"></div><div class="legend-text"><strong>Solid (13–15)</strong>Good across both dimensions — active retirees well-served</div></div>
-    <div class="legend-item"><div class="tier-dot limited"></div><div class="legend-text"><strong>Moderate (11–12)</strong>Adequate outdoor and wellness options — not a primary draw</div></div>
-  </div>
-</div>
+<main class="page">
 
-<!-- KEY TAKEAWAYS -->
-<div class="insights">
-  <div class="insight-title">Key Takeaways — Before You Scroll</div>
+  <section class="hero">
+    <p class="hero-eyebrow">The Active Frontier</p>
+    <h1 class="hero-h1">Where to retire if outdoor living is <span class="accent">your priority</span>.</h1>
+    <p class="hero-tagline">For retirees who want their lifestyle defined by being outside — mountain or coast, summer or winter, hiking or pickleball.</p>
+    <p class="hero-scope">From our curated database of 100 U.S. retirement cities. Cities appear in multiple sections — different lenses on the same place.</p>
+  </section>
 
-  <div class="insight-card">
-    <h3>🏆 The Perfect Balance: Scottsdale and Naples</h3>
-    <p>Only two cities in the database score 10/10 on Active Wellness: Scottsdale and Naples. Scottsdale is the undisputed pickleball capital of the US with 200+ golf courses, world-class resort spas, and the McDowell Sonoran Preserve for hiking. Naples has the most complete 55+ active adult infrastructure of any Florida city — and NCH Healthcare to back it up. Both also score 8–9 on outdoor recreation. They represent the gold standard of active retirement living.</p>
+  <div class="method-note">
+    <strong>What we looked for:</strong> substantive outdoor recreation infrastructure (trails, parks, water access, ski terrain), real activity depth (hiking, cycling, water sports, golf and pickleball at scale), and year-round usability. Cities with strong indoor fitness scenes but thin outdoor recreation are covered in our companion report, the <em>Wellness Blueprint</em>, and on our <a href="top-cities-for-active-retirees.html">Top Cities for Active Retirees</a> page.
   </div>
 
-  <div class="insight-card">
-    <h3>🏔️ The Mountain Outdoor Crown</h3>
-    <p>Four cities share a D7 score of 10 — the highest outdoor recreation rating: St. George UT, Park City UT, Jackson Hole WY, and Bend OR. Each offers a fundamentally different outdoor experience. St. George has Zion and Snow Canyon. Park City has two world-class ski resorts and 450+ miles of trails. Jackson Hole has Grand Teton as a literal backyard. Bend has Mt. Bachelor and the Cascade range. If outdoor recreation is your primary retirement driver, these four cities are in a class of their own.</p>
+  <section class="takeaways">
+    <p class="takeaways-eyebrow">Before You Scroll</p>
+    <h2 class="takeaways-h2">Four things to know about outdoor retirement.</h2>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-body"><strong>The 10/10 crown is shared.</strong> Ten cities tie for top outdoor recreation in the database: Asheville, Bend, Boulder, Flagstaff, Jackson Hole, Park City, St. George, Salt Lake City, Sun Valley, and Vail. Each offers a fundamentally different version of "outdoor" — Blue Ridge forest, Cascade alpine, Sonoran desert, Tetons, Wasatch. The crown is wide.</div>
+    </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-body"><strong>Climate is the real divider.</strong> A 10/10 outdoor city in Montana is not the same lifestyle as a 10/10 outdoor city in Florida. Mountain towns trade summer hiking for winter skiing. Sun Belt cities trade winter mildness for brutal summers. The first question isn't "how good is the outdoor recreation" — it's "what season do you want to be outside?"</div>
+    </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-body"><strong>Outdoor club sports concentrate in four states.</strong> Pickleball, golf, and tennis at scale — purpose-built for active 55+ communities — live in Arizona, Nevada, Florida, and Texas. Scottsdale, Naples, Henderson, and Sun City Texas (Georgetown) anchor this category. The infrastructure is unmatched, but it requires the Sun Belt climate and the master-planned community model to exist at this scale.</div>
+    </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-body"><strong>College towns punch above their weight.</strong> Boulder, Bozeman, Bentonville, Fort Collins, Knoxville, Madison, Missoula, La Crosse, Bloomington — university towns benefit from athletic infrastructure, young-skewing fitness cultures, and decades of trail and recreation investment. Several appear here at price points far below resort towns offering similar outdoor access.</div>
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 1 — TOP 10 ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 1</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot1"></span>The Outdoor Capitals — Top 10</h3>
+    <p class="bucket-section-blurb">These ten cities score the highest combined marks in the database for outdoor recreation and active community infrastructure. They're geographically diverse — Pacific Northwest, Rockies, Southern Appalachians, Sonoran desert, Wasatch Front. Each offers a distinct version of an outdoor retirement.</p>
+
+    <div class="city-list">
+
+      <a class="city-featured" href="index.html?city=Boulder&state=CO">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">1</div>
+          <div class="city-featured-name">Boulder<span class="state-code">CO</span></div>
+        </div>
+        <div class="city-featured-prose">The fitness mecca of the American outdoors. <strong>300+ trail miles, 45,000 acres of city-funded protected open space</strong> (in place since 1967), the Flatirons rising directly from town. Saturated masters athletics culture; world-class running, cycling, and climbing communities. Pearl Street pedestrian mall and 300+ days of sunshine. Expensive ($800K–$1M median) but unmatched if you can afford it.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Bend&state=OR">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">2</div>
+          <div class="city-featured-name">Bend<span class="state-code">OR</span></div>
+        </div>
+        <div class="city-featured-prose">Mt. Bachelor skiing 30 minutes from downtown. <strong>Cascades hiking</strong> — South Sister, Broken Top, Crater Lake. Deschutes River fly fishing and kayaking. Smith Rock State Park world-class climbing. High Desert wilderness at the doorstep. Four-season outdoor access is genuine and extraordinary; high desert at 3,600 ft means 300 sunny days and dry summers.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Park City&state=UT">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">3</div>
+          <div class="city-featured-name">Park City<span class="state-code">UT</span></div>
+        </div>
+        <div class="city-featured-prose">Two world-class ski resorts — <strong>Park City Mountain and Deer Valley</strong> — literally in the backyard. 450+ miles of hiking and mountain biking trails. Utah Olympic Park venues open to residents. Summer and winter equally compelling. SLC airport 35 minutes. The premium mountain resort retirement destination in the West.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Asheville&state=NC">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">4</div>
+          <div class="city-featured-name">Asheville<span class="state-code">NC</span></div>
+        </div>
+        <div class="city-featured-prose"><strong>Blue Ridge Parkway through town</strong> — one of the most scenic drives in America. Pisgah National Forest at the city edge. Appalachian Trail accessible. French Broad whitewater rafting. World-class mountain biking on Bent Creek trails. Outdoor recreation rivaling cities three times the price.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Jackson Hole&state=WY">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">5</div>
+          <div class="city-featured-name">Jackson Hole<span class="state-code">WY</span></div>
+        </div>
+        <div class="city-featured-prose"><strong>Grand Teton National Park as the literal backyard.</strong> Yellowstone an hour away. Snake River blue-ribbon trout fishing. Jackson Hole Mountain Resort — one of North America's most challenging ski mountains. 1,000+ miles of trails. The most dramatic outdoor setting in the database; no Wyoming income tax to soften the price.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=St. George&state=UT">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">6</div>
+          <div class="city-featured-name">St. George<span class="state-code">UT</span></div>
+        </div>
+        <div class="city-featured-prose">Snow Canyon State Park inside city limits. <strong>Zion National Park 45 minutes, Bryce Canyon 90 minutes.</strong> Red Cliffs National Conservation Area 15 minutes. 300+ days of sunshine. One of the leading pickleball cities in the US — dozens of dedicated outdoor courts. Density of world-class outdoor assets within driving distance is unmatched.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Bozeman&state=MT">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">7</div>
+          <div class="city-featured-name">Bozeman<span class="state-code">MT</span></div>
+        </div>
+        <div class="city-featured-prose">Bridger Bowl 20 minutes; <strong>Big Sky Resort 60 minutes</strong> — one of the largest ski resorts in North America. Yellowstone 90 minutes. Three blue-ribbon trout streams within the city. Gallatin National Forest, Hyalite Canyon. Outdoor density rivals anywhere in the Mountain West, with MSU energy year-round.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Sedona&state=AZ">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">8</div>
+          <div class="city-featured-name">Sedona<span class="state-code">AZ</span></div>
+        </div>
+        <div class="city-featured-prose"><strong>100+ trails</strong> including Cathedral Rock, Devil's Bridge, and West Fork Canyon. World-class mountain biking. Oak Creek swimming holes; Slide Rock State Park. Mild winters at 4,500 ft mean year-round red rock trail access. The most scenic trail system of any city in the database.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Salt Lake City&state=UT">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">9</div>
+          <div class="city-featured-name">Salt Lake City<span class="state-code">UT</span></div>
+        </div>
+        <div class="city-featured-prose"><strong>11 ski resorts within an hour.</strong> Wasatch Front trails immediately accessible from the Avenues and East Bench. Major Delta hub at the city's edge. The rare combination of major-metro infrastructure with genuine wilderness access fifteen minutes from downtown.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Colorado Springs&state=CO">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">10</div>
+          <div class="city-featured-name">Colorado Springs<span class="state-code">CO</span></div>
+        </div>
+        <div class="city-featured-prose"><strong>Garden of the Gods</strong> — free, world-class red rock formations within city limits. Pikes Peak summit accessible by car or cog railway. 14ers within striking distance. Cheyenne Mountain State Park. Mountain access anchored by an unusually strong military fitness culture and US Olympic and Paralympic Training Center events.</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 2 — MOUNTAIN & WILDERNESS ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 2</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot2"></span>Mountain &amp; Wilderness Towns</h3>
+    <p class="bucket-section-blurb">Beyond the Top 10 — cities where wilderness is the defining feature. Most have severe winter trade-offs and limited summer-only seasons. For retirees whose retirement is structured around hiking, skiing, fly fishing, and big-sky living.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Vail&state=CO">
+        <div class="city-info">
+          <div class="city-name">Vail<span class="state-code">CO</span></div>
+          <div class="city-teams">World-class skiing · European-style pedestrian village · Vail Pass cycling · outdoor infrastructure unmatched in the database · gold-standard mountain resort, with the price tag to match</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sun Valley&state=ID">
+        <div class="city-info">
+          <div class="city-name">Sun Valley<span class="state-code">ID</span></div>
+          <div class="city-teams">Century-old mountain resort · Bald Mountain skiing · summer festival culture · Idaho's tax environment · sophisticated mountain-town character</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Steamboat Springs&state=CO">
+        <div class="city-info">
+          <div class="city-name">Steamboat Springs<span class="state-code">CO</span></div>
+          <div class="city-teams">Most Olympic athletes per capita of any American town · Strawberry Park hot springs · Steamboat Ski Resort · genuine ranching-meets-skiing identity</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Whitefish&state=MT">
+        <div class="city-info">
+          <div class="city-name">Whitefish<span class="state-code">MT</span></div>
+          <div class="city-teams">Gateway to Glacier National Park · Whitefish Mountain Resort skiing · Whitefish Lake · walkable mountain town with retiree influx</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Durango&state=CO">
+        <div class="city-info">
+          <div class="city-name">Durango<span class="state-code">CO</span></div>
+          <div class="city-teams">Purgatory Resort 25 min · gold-medal Animas River trout fishing through downtown · Mesa Verde 35 min · Weminuche Wilderness, the largest in CO · Colorado's best senior tax benefits</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Flagstaff&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Flagstaff<span class="state-code">AZ</span></div>
+          <div class="city-teams">7,000 ft elevation means mild summers (77°F) while Phoenix bakes · Grand Canyon 1 hour · Sedona 30 min · 50+ miles of urban trails (FUTS) · NAU athletic culture</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Missoula&state=MT">
+        <div class="city-info">
+          <div class="city-name">Missoula<span class="state-code">MT</span></div>
+          <div class="city-teams">Three rivers converging in the city · Rattlesnake Wilderness at city edge · Snowbowl ski area 12 miles · UM Campus Recreation · most accessible mountain college town in the database</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Coeur d'Alene&state=ID">
+        <div class="city-info">
+          <div class="city-name">Coeur d'Alene<span class="state-code">ID</span></div>
+          <div class="city-teams">Sparkling lake surrounded by forested mountains · 30 min west of Spokane for full-metro amenities · Schweitzer 90 min · genuine summer water culture</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Roanoke&state=VA">
+        <div class="city-info">
+          <div class="city-name">Roanoke<span class="state-code">VA</span></div>
+          <div class="city-teams">Blue Ridge Mountains · Appalachian Trail and Blue Ridge Parkway in the backyard · Carvins Cove urban watershed · genuine mountain access at median home under $230K</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charlottesville&state=VA">
+        <div class="city-info">
+          <div class="city-name">Charlottesville<span class="state-code">VA</span></div>
+          <div class="city-teams">Shenandoah National Park 30 min (Skyline Drive is extraordinary) · Appalachian Trail trailheads nearby · Rivanna Trail around the city · mild climate enables Blue Ridge cycling year-round</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 3 — COASTAL & WATER ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 3</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot3"></span>Coastal &amp; Water Outdoor</h3>
+    <p class="bucket-section-blurb">For retirees whose outdoor life is on or near the water. Beach access, paddleboarding, kayaking, sailing, surf-fishing, and waterfront cycling. These cities define outdoor living through proximity to the ocean, gulf, or major bays — not through wilderness or mountains.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Carlsbad&state=CA">
+        <div class="city-info">
+          <div class="city-name">Carlsbad<span class="state-code">CA</span></div>
+          <div class="city-teams">Pacific beaches · Torrey Pines State Reserve 15 min · La Jolla Cove snorkeling · Batiquitos Lagoon · perfect 10 climate · year-round outdoor conditions are exceptional</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Santa Barbara&state=CA">
+        <div class="city-info">
+          <div class="city-name">Santa Barbara<span class="state-code">CA</span></div>
+          <div class="city-teams">Pacific beaches · Los Padres National Forest at the city's northern edge · Channel Islands National Park · Mediterranean climate · best all-around weather in the database</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Naples&state=FL">
+        <div class="city-info">
+          <div class="city-name">Naples<span class="state-code">FL</span></div>
+          <div class="city-teams">Gulf white-sand beaches · Everglades day trips · Big Cypress Preserve · Corkscrew Swamp Sanctuary birding · 10,000 Islands kayaking · Southwest Florida nature ecosystem is genuinely exceptional</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sarasota&state=FL">
+        <div class="city-info">
+          <div class="city-name">Sarasota<span class="state-code">FL</span></div>
+          <div class="city-teams">Siesta Key (consistently voted #1 beach in America) · Myakka River State Park · Oscar Scherer kayaking · waterfront access for boating and paddleboarding</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charleston&state=SC">
+        <div class="city-info">
+          <div class="city-name">Charleston<span class="state-code">SC</span></div>
+          <div class="city-teams">Sullivan's Island and Isle of Palms · Francis Marion National Forest · ACE Basin (one of the largest undeveloped East Coast estuaries) · creek and marsh kayaking · Kiawah Island golf</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Hilton Head&state=SC">
+        <div class="city-info">
+          <div class="city-name">Hilton Head<span class="state-code">SC</span></div>
+          <div class="city-teams">12 miles of Atlantic beach · 60+ miles of bike paths through the plantation communities · Calibogue Sound kayaking · Harbour Town sailing</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Annapolis&state=MD">
+        <div class="city-info">
+          <div class="city-name">Annapolis<span class="state-code">MD</span></div>
+          <div class="city-teams">America's sailing capital · Chesapeake Bay kayaking and crabbing · Sandy Point State Park · year-round water sports culture is distinctive</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Beaufort&state=NC">
+        <div class="city-info">
+          <div class="city-name">Beaufort<span class="state-code">NC</span></div>
+          <div class="city-teams">Cape Lookout National Seashore · wild horses on Rachel Carson Reserve · year-round water sports · Budget Travel's "America's Coolest Small Town"</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Carmel-by-the-Sea&state=CA">
+        <div class="city-info">
+          <div class="city-name">Carmel-by-the-Sea<span class="state-code">CA</span></div>
+          <div class="city-teams">Pacific cliff village · Pebble Beach golf · Point Lobos Reserve · the mildest coastal climate in the database</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Provincetown&state=MA">
+        <div class="city-info">
+          <div class="city-name">Provincetown<span class="state-code">MA</span></div>
+          <div class="city-teams">73% of town land is Cape Cod National Seashore · PeopleForBikes #1 cycling network in America · 3-mile peninsula village · year-round outdoor culture</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 4 — PICKLEBALL & GOLF ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 4</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot4"></span>The Pickleball &amp; Golf Capitals</h3>
+    <p class="bucket-section-blurb">Outdoor club sports at scale — purpose-built 55+ infrastructure. The dominant geography is Sun Belt — Arizona, Nevada, Florida, Texas, and the Carolinas — where year-round outdoor play is possible and active-adult communities have built at scale.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Scottsdale&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Scottsdale<span class="state-code">AZ</span></div>
+          <div class="city-teams">200+ golf courses metro-wide · more pickleball courts per capita than anywhere in the US · TPC Scottsdale (PGA Phoenix Open) · McDowell Sonoran Preserve hiking</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Naples&state=FL">
+        <div class="city-info">
+          <div class="city-name">Naples<span class="state-code">FL</span></div>
+          <div class="city-teams">80+ golf courses · pickleball culture strong and growing · Pelican Bay and Olde Naples country clubs · most complete 55+ active adult ecosystem in Florida</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Henderson&state=NV">
+        <div class="city-info">
+          <div class="city-name">Henderson<span class="state-code">NV</span></div>
+          <div class="city-teams">Sun City Anthem with 100+ clubs · three rec centers, 8 pools, tennis, pickleball · Lake Mead boating · world-class 55+ infrastructure</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Georgetown&state=TX">
+        <div class="city-info">
+          <div class="city-name">Georgetown<span class="state-code">TX</span></div>
+          <div class="city-teams">Sun City Texas · 86,000 sq ft Legacy Hills amenity center · 3 golf courses · 75+ clubs · pickleball, tennis, pools · one of the largest Del Webb communities in the country</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Pinehurst&state=NC">
+        <div class="city-info">
+          <div class="city-name">Pinehurst<span class="state-code">NC</span></div>
+          <div class="city-teams">Home of American golf · Pinehurst Resort with 10 courses including #2 (Donald Ross masterpiece, US Open anchor site) · 16 of NC's Top 100 courses in Pinehurst/Southern Pines · already a retirement community at 39% age 65+</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=The Woodlands&state=TX">
+        <div class="city-info">
+          <div class="city-name">The Woodlands<span class="state-code">TX</span></div>
+          <div class="city-teams">220 miles of trails · master-planned outdoor amenities · golf, tennis, pickleball at scale · 40 minutes to Houston's medical complex</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sarasota&state=FL">
+        <div class="city-info">
+          <div class="city-name">Sarasota<span class="state-code">FL</span></div>
+          <div class="city-teams">Strong 55+ active adult ecosystem · pickleball culture growing · golf throughout the area · waterfront recreation</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Palm Springs&state=CA">
+        <div class="city-info">
+          <div class="city-name">Palm Springs<span class="state-code">CA</span></div>
+          <div class="city-teams">100+ golf courses in the Coachella Valley · BNP Paribas Open at Indian Wells · world-class resort golf · winter outdoor capital of California</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 5 — CYCLING ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 5</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot5"></span>Cycling Capitals</h3>
+    <p class="bucket-section-blurb">The best US retirement cities for serious cyclists. Road cyclists, mountain bikers, gravel riders, and cruiser commuters all want different things. These cities deliver across the spectrum — climbing terrain, dedicated greenways, mountain bike trail networks, and the cycling cultures that come with them.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Boulder&state=CO">
+        <div class="city-info">
+          <div class="city-name">Boulder<span class="state-code">CO</span></div>
+          <div class="city-teams">Saturated cycling culture · 300+ trail miles · iconic climbs to the Continental Divide (Flagstaff, Lefthand, Sunshine Canyon) · masters cycling clubs · Pearl Street group rides</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bend&state=OR">
+        <div class="city-info">
+          <div class="city-name">Bend<span class="state-code">OR</span></div>
+          <div class="city-teams">Mountain biking and road cycling both world-class · Cascade access · Deschutes River trails · year-round dry-side conditions</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bentonville&state=AR">
+        <div class="city-info">
+          <div class="city-name">Bentonville<span class="state-code">AR</span></div>
+          <div class="city-teams">Self-proclaimed Mountain Biking Capital of the World · 130+ miles of singletrack connected to downtown · IMBA Silver Ride Center · Walton-funded trail network keeps expanding</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Fort Collins&state=CO">
+        <div class="city-info">
+          <div class="city-name">Fort Collins<span class="state-code">CO</span></div>
+          <div class="city-teams">Front Range cycling culture · CSU rec infrastructure · Cache la Poudre River trails · Old Town cycling community</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Madison&state=WI">
+        <div class="city-info">
+          <div class="city-name">Madison<span class="state-code">WI</span></div>
+          <div class="city-teams">Capital City Trail · 200+ miles of bike infrastructure · UW athletic culture · Lake Mendota and Monona shoreline cycling</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bloomington&state=IN">
+        <div class="city-info">
+          <div class="city-name">Bloomington<span class="state-code">IN</span></div>
+          <div class="city-teams">Home of the Little 500 (the famous collegiate cycling race) · B-Line Trail through downtown · Hoosier National Forest gravel and singletrack · Brown County State Park 30 min (premier Midwest mountain biking) · IU cycling culture deeply embedded since 1951</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Tucson&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Tucson<span class="state-code">AZ</span></div>
+          <div class="city-teams">Mt. Lemmon climb (one of America's great cycling climbs, 9,000 ft elevation gain) · Saguaro National Park bike loops · winter cycling capital</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Greenville&state=SC">
+        <div class="city-info">
+          <div class="city-name">Greenville<span class="state-code">SC</span></div>
+          <div class="city-teams">Swamp Rabbit Trail (22-mile paved greenway through the city) · Blue Ridge Mountains 30 min · cycling culture growing fast around the trail</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Provincetown&state=MA">
+        <div class="city-info">
+          <div class="city-name">Provincetown<span class="state-code">MA</span></div>
+          <div class="city-teams">PeopleForBikes #1 ranked cycling network in America · 3-mile peninsula village · Cape Cod National Seashore trail access</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 6 — YEAR-ROUND ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 6</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot6"></span>Year-Round Outdoor Climates</h3>
+    <p class="bucket-section-blurb">Cities where weather doesn't end the season. Mountain towns trade summer hiking for winter skiing; Florida and the desert Southwest trade winter mildness for summer heat. These cities offer year-round outdoor accessibility — though even here, climate trade-offs exist.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=St. George&state=UT">
+        <div class="city-info">
+          <div class="city-name">St. George<span class="state-code">UT</span></div>
+          <div class="city-teams">300+ days of sunshine · winter hiking exceptional (when Wasatch Front is buried) · pickleball outdoors year-round · Snow Canyon, Zion, Bryce all accessible</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Carlsbad&state=CA">
+        <div class="city-info">
+          <div class="city-name">Carlsbad<span class="state-code">CA</span></div>
+          <div class="city-teams">Perfect 10 climate · Pacific beaches · year-round cycling, hiking, surfing</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Santa Barbara&state=CA">
+        <div class="city-info">
+          <div class="city-name">Santa Barbara<span class="state-code">CA</span></div>
+          <div class="city-teams">American Riviera · Mediterranean climate · year-round hiking, cycling, swimming (the rare city where every month is outdoor season)</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Tucson&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Tucson<span class="state-code">AZ</span></div>
+          <div class="city-teams">Saguaro National Park in city limits · winter desert hiking is peak season · 300+ sunny days · summer mornings only</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sedona&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Sedona<span class="state-code">AZ</span></div>
+          <div class="city-teams">Mild winters at 4,500 ft · year-round red rock trail access · 100+ trails open virtually any month</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Naples&state=FL">
+        <div class="city-info">
+          <div class="city-name">Naples<span class="state-code">FL</span></div>
+          <div class="city-teams">No winter · Gulf beach access daily · year-round outdoor club sports · summer storms but no off-season</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sarasota&state=FL">
+        <div class="city-info">
+          <div class="city-name">Sarasota<span class="state-code">FL</span></div>
+          <div class="city-teams">Siesta Key year-round · Myakka River State Park · year-round Gulf coast outdoor culture</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Palm Springs&state=CA">
+        <div class="city-info">
+          <div class="city-name">Palm Springs<span class="state-code">CA</span></div>
+          <div class="city-teams">Winter outdoor capital · Joshua Tree access · Indian Canyons hiking · summer heat (June–September) is genuinely dangerous and the major trade</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charleston&state=SC">
+        <div class="city-info">
+          <div class="city-name">Charleston<span class="state-code">SC</span></div>
+          <div class="city-teams">Three-season outdoor culture · marshes, beaches, ACE Basin · mild winters · summer humidity is the trade</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 7 — BUDGET ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 7</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot7"></span>Best Outdoor Lifestyle on a Budget</h3>
+    <p class="bucket-section-blurb">The expensive mountain towns aren't the only places with serious outdoor access. These cities offer genuine wilderness, trail systems, and outdoor culture at a fraction of the price — often anchored by a state university, low or no state income tax, and modest housing markets.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Chattanooga&state=TN">
+        <div class="city-info">
+          <div class="city-name">Chattanooga<span class="state-code">TN</span></div>
+          <div class="city-teams">Lookout Mountain · Tennessee River paddle and cycling · best value city in the Southeast · no Tennessee income tax · CHI Memorial regional hospital</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Knoxville&state=TN">
+        <div class="city-info">
+          <div class="city-name">Knoxville<span class="state-code">TN</span></div>
+          <div class="city-teams">Great Smoky Mountains 30 min (most-visited national park in the US) · Urban Wilderness trail system within city limits · UT athletic culture · no state income tax</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Fayetteville&state=AR">
+        <div class="city-info">
+          <div class="city-name">Fayetteville<span class="state-code">AR</span></div>
+          <div class="city-teams">Ozark trails · Buffalo National River 1.5 hrs (first national river in the US) · Razorback Greenway 37 miles · UA athletic energy · best value college town in the database</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Greenville&state=SC">
+        <div class="city-info">
+          <div class="city-name">Greenville<span class="state-code">SC</span></div>
+          <div class="city-teams">Swamp Rabbit Trail · Blue Ridge Mountains 30 min · Caesars Head and Paris Mountain State Parks · housing 27% below national average</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Roanoke&state=VA">
+        <div class="city-info">
+          <div class="city-name">Roanoke<span class="state-code">VA</span></div>
+          <div class="city-teams">Blue Ridge Mountains in the backyard · Appalachian Trail · Blue Ridge Parkway · median home under $230K · genuine mountain access at extraordinary value</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Johnson City&state=TN">
+        <div class="city-info">
+          <div class="city-name">Johnson City<span class="state-code">TN</span></div>
+          <div class="city-teams">Cherokee National Forest · Roan Mountain rhododendron bloom · Watauga Lake · Appalachian Trail access · most affordable city in the database</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Casper&state=WY">
+        <div class="city-info">
+          <div class="city-name">Casper<span class="state-code">WY</span></div>
+          <div class="city-teams">Platte River Trails · Casper Mountain · wild horses · no Wyoming state income tax (zero on everything) · best value for outdoor-oriented, tax-motivated retirees</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=La Crosse&state=WI">
+        <div class="city-info">
+          <div class="city-name">La Crosse<span class="state-code">WI</span></div>
+          <div class="city-teams">Driftless Region bluffs · Grandad Bluff and Hixon Forest · rare Midwest hiking destination · two top-tier teaching hospitals in a city of 50K · median home $258K</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 8 — SURPRISING ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 8</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot8"></span>Surprising Overachievers</h3>
+    <p class="bucket-section-blurb">Cities punching far above their weight on outdoor recreation. These cities don't show up in the typical "best mountain towns" or "best beaches" lists, but the outdoor recreation depth they offer rivals — and sometimes exceeds — much more famous destinations.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Bentonville&state=AR">
+        <div class="city-info">
+          <div class="city-name">Bentonville<span class="state-code">AR</span></div>
+          <div class="city-teams">Mountain Biking Capital of the World · 130+ miles of singletrack connected to downtown · Walton wealth driving outdoor infrastructure · two James Beard 2025 finalists · Crystal Bridges Museum anchors a downtown punching above its size</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=La Crosse&state=WI">
+        <div class="city-info">
+          <div class="city-name">La Crosse<span class="state-code">WI</span></div>
+          <div class="city-teams">Driftless Region bluffs · Hixon Forest 10 miles of trails · Grandad Bluff · the Midwest hiking secret · two teaching hospitals (Gundersen + Mayo) in a city of 50K</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Burlington&state=VT">
+        <div class="city-info">
+          <div class="city-name">Burlington<span class="state-code">VT</span></div>
+          <div class="city-teams">Lake Champlain on one side, Green Mountains on the other · four world-class ski resorts within 45 min (Stowe, Sugarbush, Mad River Glen, Smuggler's Notch) · UVM-anchored walkable downtown</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Traverse City&state=MI">
+        <div class="city-info">
+          <div class="city-name">Traverse City<span class="state-code">MI</span></div>
+          <div class="city-teams">39 wineries on Old Mission and Leelanau Peninsulas · Sleeping Bear Dunes National Lakeshore · Grand Traverse Bay · "Most Beautiful Place in America" (Good Morning America)</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Eureka Springs&state=AR">
+        <div class="city-info">
+          <div class="city-name">Eureka Springs<span class="state-code">AR</span></div>
+          <div class="city-teams">Buffalo National River nearby · Victorian historic district · Ozark spa heritage · arts + outdoor blend in a town of 2,000</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Provincetown&state=MA">
+        <div class="city-info">
+          <div class="city-name">Provincetown<span class="state-code">MA</span></div>
+          <div class="city-teams">PeopleForBikes #1 cycling network in America · 73% of land Cape Cod National Seashore · oldest continuous art colony · genuine year-round outdoor lifestyle on the Cape</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Pittsburgh&state=PA">
+        <div class="city-info">
+          <div class="city-name">Pittsburgh<span class="state-code">PA</span></div>
+          <div class="city-teams">Frick Park (644-acre urban wilderness) · Three Rivers waterfront cycling and kayaking · Laurel Highlands 60 min for hiking · Ohiopyle State Park 90 min (world-class rafting) · world-class healthcare at northeastern-affordable prices</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ QUIZ CTA ============ -->
+  <section class="quiz-cta">
+    <p class="quiz-cta-eyebrow">Want a personalized match?</p>
+    <h3 class="quiz-cta-h3">This report covered the cities that <span class="accent">define outdoor retirement living.</span></h3>
+    <p class="quiz-cta-body">Our database has 100. Take the 2-minute quiz to see how all 100 rank against your specific priorities — climate, budget, activity types, and the eight other dimensions that shape an outdoor retirement.</p>
+    <a href="index.html" class="quiz-cta-btn">Take the 2-minute quiz →</a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-wordmark"><span class="sf-retire">RETIREME</span><span class="sf-here">HERE</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="index.html">Take the Quiz</a>
   </div>
-
-  <div class="insight-card">
-    <h3>🌴 Florida's Active Adult Infrastructure</h3>
-    <p>Florida has invested heavily in active adult community infrastructure and it shows in the D8 scores. Henderson NV (Sun City Anthem), Georgetown TX (Sun City Texas), Naples, Scottsdale, Delray Beach, Fort Myers, and Palm Springs all score 8–10 on wellness — not because of their wilderness, but because their active adult communities and resort amenities are purpose-built for exactly this lifestyle. If structured fitness and community programming matter more than wilderness access, Florida and the Sun Belt deliver.</p>
-  </div>
-
-  <div class="insight-card">
-    <h3>⚡ The Surprising Overachievers</h3>
-    <p>Greenville SC, Chattanooga TN, Fayetteville AR, and Missoula MT all punch above their weight on outdoor recreation. Greenville's Swamp Rabbit Trail and Blue Ridge access at this price point is remarkable. Chattanooga's Lookout Mountain and Tennessee River activities are genuinely impressive. Fayetteville's Ozark trails and Buffalo National River are world-class but rarely mentioned in national rankings. Missoula has three rivers converging in the city and wilderness beginning at the edge of town.</p>
-  </div>
-
-  <div class="insight-card">
-    <h3>❄️ The Winter Question</h3>
-    <p>Several high-scoring outdoor cities have a seasonal asterisk. St. Paul scores well for its trail system and lakes — but outdoor activity is genuinely limited November through March. Bozeman and Jackson Hole trade summer hiking for world-class skiing. Asheville's Blue Ridge Parkway is spectacular in fall but winter hiking is limited. When evaluating outdoor recreation scores, always ask: is this a year-round asset or a seasonal one?</p>
-  </div>
-</div>
-
-<!-- TIER 1: ELITE -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon elite">🏆</div>
-    <div class="section-title">
-      <h2>Elite — Combined Score 18–20</h2>
-      <p>World-class outdoor recreation AND exceptional wellness infrastructure</p>
-    </div>
-  </div>
-  <div class="city-list">
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. George</div><div class="city-state">Utah</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="star-tag">★ Best Outdoor Access in Database</div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Snow Canyon State Park is literally within city limits. Zion National Park 45 min. Bryce Canyon 90 min. Red Cliffs National Conservation Area 15 min. Over 300 days of sunshine. Sand Hollow Reservoir for water sports. The density of world-class outdoor assets within driving distance is unmatched in the database.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        One of the leading pickleball cities in the US — dozens of dedicated courts. Golf in spectacular red rock settings. Dixie Center and multiple community rec facilities. Strong active adult culture built around the outdoor lifestyle. The 55+ community infrastructure is growing rapidly to match the population influx.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Park City</div><div class="city-state">Utah</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Two world-class ski resorts — Park City Mountain and Deer Valley — literally in the backyard. 450+ miles of trails for hiking and mountain biking. Utah Olympic Park for bobsled, ski jumping, and biathlon. Uinta Mountains nearby. Summer and winter seasons equally compelling. The outdoor recreation density per square mile is extraordinary.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        PC MARC recreation center, 87,000 sq ft Basin Recreation Fieldhouse, 10+ pickleball courts, bocce, aquatic center, fitness classes. The outdoor culture IS the wellness culture — but the built infrastructure reinforces it strongly. One of the most complete active wellness environments at any price point.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Naples</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="star-tag">★ Best Wellness Infrastructure in Florida</div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Gulf beaches with white sugar sand. Everglades day trips. Big Cypress Preserve. Corkscrew Swamp Sanctuary. 10,000 Islands kayaking. The Southwest Florida nature ecosystem is genuinely exceptional — not just beaches but one of the great wildlife environments in North America.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Golf capital of Florida with 80+ courses. Pickleball culture strong and growing. Naples Community Park extensive rec facilities. World-class resort spas at The Ritz-Carlton, The Naples Grande. The depth of active adult infrastructure — from beginner fitness classes to competitive pickleball — is the best of any Florida city.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Sedona</div><div class="city-state">Arizona</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="star-tag">★ America's Premier Small-Town Wellness Destination</div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        100+ hiking trails including Cathedral Rock, Devil's Bridge, and West Fork Canyon. World-class mountain biking. Oak Creek swimming holes. Slide Rock State Park. Red rock vortex hiking culture. The trail system surrounding Sedona is among the most scenic and varied of any city in the database.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Mii amo destination spa at Enchantment Resort — nationally recognized as one of America's best. L'Auberge de Sedona spa. Extensive yoga and meditation culture. Vortex energy experiences unique to Sedona. The wellness tourism economy has created a permanent infrastructure of world-class wellness services that residents access year-round.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Scottsdale</div><div class="city-state">Arizona</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="star-tag">★ Pickleball Capital of the US</div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        McDowell Sonoran Preserve — 30,000 acres, the largest urban wilderness preserve in the US. Camelback Mountain climbing. Pinnacle Peak hiking. Saguaro National Park accessible. 300+ days of sunshine. The desert outdoor experience is genuine and extraordinary — just hot June through September.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        200+ golf courses in the metro. More pickleball courts per capita than anywhere else in the US. World-class resort spas: The Phoenician, Sanctuary Camelback, Miraval Arizona. TPC Scottsdale hosts the PGA Waste Management Phoenix Open. The active wellness infrastructure for retirees is arguably the best-developed of any city in the database.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Henderson</div><div class="city-state">Nevada</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Lake Mead National Recreation Area for boating, kayaking, and fishing. Red Rock Canyon National Conservation Area 30 min — world-class rock climbing and hiking. Valley of Fire State Park. Sloan Canyon petroglyphs. The desert recreation landscape around Henderson is genuinely impressive and year-round accessible (with summer heat caveats).
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Sun City Anthem — three massive recreation centers, 8 pools, 100+ clubs, tennis, pickleball, fitness classes. One of the premier 55+ active adult communities in the country. The Del Webb active adult infrastructure is purpose-built for exactly this demographic. Non-Sun City residents also have access to strong Henderson Parks & Recreation facilities.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Colorado Springs</div><div class="city-state">Colorado</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Garden of the Gods — free, world-class red rock formations in city limits. Pikes Peak summit accessible by car or cog railway. 14ers within striking distance. Cheyenne Mountain State Park. North Cheyenne Cañon Park. Mueller State Park. The combination of dramatic urban open space and Rockies access is among the best of any Front Range city.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Military fitness culture creates an unusually active community baseline. Strong community rec centers. Excellent hiking and cycling culture. US Olympic and Paralympic Training Center in the city adds unique fitness events and culture. Growing pickleball scene.
-      </div>
-    </div>
-
-    <div class="city-row elite">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Sarasota</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num elite">9</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Siesta Key — consistently voted #1 beach in America. Myakka River State Park — one of Florida's oldest and most wildlife-rich. Oscar Scherer State Park for kayaking. Waterfront access for boating and paddleboarding. The outdoor recreation picture goes well beyond beaches into genuine wilderness experiences.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Strong 55+ active wellness — multiple recreation centers, aquatic facilities. Pickleball culture strong and growing. Golf throughout the Sarasota area. Ringling area yoga and fitness boutiques. One of Florida's more complete active adult wellness ecosystems outside of Naples.
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- TIER 2: STRONG -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon strong">🌲</div>
-    <div class="section-title">
-      <h2>Strong — Combined Score 16–17</h2>
-      <p>Outstanding in one dimension, very good in the other · Active retirees thrive here</p>
-    </div>
-  </div>
-  <div class="city-list">
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Jackson Hole</div><div class="city-state">Wyoming</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Grand Teton National Park is the literal backyard. Yellowstone 1 hour. Snake River blue-ribbon trout fishing. Jackson Hole Mountain Resort — one of the most challenging ski mountains in North America. 1,000 miles of trails. The outdoor recreation available from Jackson Hole is arguably the most dramatic and varied of any city in the database.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Outdoor culture IS the fitness culture — skiing, hiking, cycling, climbing. St. John's Medical Center has fitness facilities. START Community Food Center fitness programs. Limited traditional gym infrastructure for a city of this size and price — but the active outdoor community is the wellness community here.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bend</div><div class="city-state">Oregon</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Mt. Bachelor skiing — world-class, 30 min from downtown. Cascades hiking: South Sister, Broken Top, Crater Lake accessible. Deschutes River kayaking and fly fishing. Smith Rock State Park — world-class sport climbing. High Desert wilderness at the doorstep. Four-season outdoor access is genuine and extraordinary.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Outdoor fitness culture dominant — the city's demographic skews young and active. Athletic Club of Bend. Bend Park & Recreation community programs. Pickleball growing. St. Charles Medical Center fitness programs. The wellness culture is active and outdoor-focused rather than resort spa-focused.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bozeman</div><div class="city-state">Montana</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Bridger Bowl ski area 20 min. Big Sky Resort 60 min — one of the largest ski resorts in North America. Three blue-ribbon trout streams within the city. Yellowstone 90 min. Gallatin National Forest. Hyalite Canyon. The outdoor recreation density in the Bozeman area rivals anywhere in the Mountain West.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Ridge Athletic Club, Bozeman Hot Springs fitness, multiple yoga studios, growing pickleball scene. MSU campus recreation facilities. The fitness culture is strong but the formal infrastructure for 55+ active adults lags the outdoor reputation significantly. Strong for independently active retirees — less so for those wanting structured senior programs.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Carlsbad</div><div class="city-state">California</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Pacific Ocean beaches. Torrey Pines State Reserve 15 min — one of the finest coastal trails in California. La Jolla Cove snorkeling and kayaking nearby. Batiquitos Lagoon nature trails. Los Padres National Forest accessible. Year-round outdoor conditions are genuinely exceptional.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        La Costa Resort and Spa (now Omni La Costa) — nationally recognized destination spa and golf resort. Strong cycling culture on the coastal path network. Multiple fitness studios. Aviara Golf Club. Year-round outdoor fitness culture driven by the perfect climate.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Santa Barbara</div><div class="city-state">California</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Pacific Ocean beaches. Los Padres National Forest beginning at the city's northern edge. Channel Islands National Park boat trips. Cachuma Lake. East Beach cycling. Year-round outdoor conditions — Mediterranean climate means hiking, cycling, and swimming every month of the year.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Outdoor fitness culture year-round. Resort spa scene. Strong cycling culture — the Coastal Bikeway is excellent. Golf at Sandpiper and La Purisima. Multiple yoga and fitness studios. The outdoor climate makes staying active almost effortless — a genuine wellness asset.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Durango</div><div class="city-state">Colorado</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Purgatory Ski Resort 25 min. Gold-medal Animas River trout fishing through downtown. Weminuche Wilderness — largest wilderness area in Colorado. Mesa Verde National Park 35 min. Durango Mountain Area trails. The Four Corners outdoor landscape is genuinely world-class.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Durango Community Recreation Center — pools, gym, 6 pickleball courts, 60–70 fitness classes/week. Fort Lewis College fitness facilities. Animas River Trail cycling. Strong outdoor fitness culture driven by the college town demographic. For its size, Durango's wellness infrastructure is impressive.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Delray Beach</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Atlantic Ocean beaches. Morikami Museum and Japanese Gardens. Wakodahatchee Wetlands for birding. Arthur R. Marshall Loxahatchee National Wildlife Refuge. Kayaking on the Intracoastal. Year-round outdoor conditions — no winter, beach access daily.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Strong 55+ active adult culture in the Boca Raton–Delray Beach corridor. Multiple fitness centers, tennis and pickleball clubs. The Palm Beach region's wealth drives exceptional private club and resort fitness infrastructure. Growing pickleball culture. Year-round outdoor fitness enabled by the climate.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Palm Springs</div><div class="city-state">California</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Aerial Tramway to 8,516-ft snowfields — unique desert-to-alpine experience. Indian Canyons hiking. Joshua Tree National Park 45 min. Big Morongo Canyon Preserve. Salton Sea for birding. Note: summer heat makes outdoor recreation genuinely dangerous June–September.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        World-class resort spas. BNP Paribas Open tennis at Indian Wells — minutes from downtown, accessible to residents. 100+ golf courses in the Coachella Valley. Strong mid-century modern gym and fitness culture. One of the premier resort wellness destinations in the American West.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fort Myers</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">9</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Sanibel and Captiva Islands — Ding Darling National Wildlife Refuge, world-class shelling beaches. Caloosahatchee River kayaking. Florida Trail access. J.N. "Ding" Darling Wilderness Canoe Trail. Outstanding birding throughout Lee County. Year-round outdoor conditions.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Pelican Preserve: 12 pickleball courts, 8 tennis courts, resort pools, fitness center, social clubs — one of Southwest Florida's premier active adult communities. Lakes Park Recreation Center. Strong 55+ infrastructure throughout Lee County. Golf throughout the area.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Asheville</div><div class="city-state">North Carolina</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Blue Ridge Parkway passes through the city — one of the most scenic drives in America, with hiking trailheads throughout. Pisgah National Forest begins at the city's edge. Appalachian Trail accessible. French Broad River for kayaking and rafting. World-class mountain biking on the Bent Creek trails. The outdoor recreation on offer rivals cities costing three times as much.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Outdoor and fitness culture very strong. Growing yoga and wellness scene. YMCA solid. Community rec centers. The wellness infrastructure lags the outdoor recreation quality — more of an active outdoor city than a structured wellness city. Growing rapidly.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Flagstaff</div><div class="city-state">Arizona</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Grand Canyon 1 hour. Sedona 30 min. Oak Creek Canyon. San Francisco Peaks skiing at Arizona Snowbowl. Coconino National Forest surrounding the city. 50+ miles of urban trails (FUTS). At 7,000 ft elevation, summer hiking is among the best in Arizona — cool when Phoenix is 115°F.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        NAU athletic culture drives a strong fitness community. Outdoor fitness community dominant — hiking, cycling, trail running. Flagstaff Athletic Club. Growing pickleball scene. The built wellness infrastructure for 55+ specifically is limited compared to Phoenix metro cities.
-      </div>
-    </div>
-
-    <div class="city-row strong">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Georgetown</div><div class="city-state">Texas</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num strong">5</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num strong">10</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">
-        <span class="section-label">🏞️ Outdoor Recreation</span>
-        Lake Georgetown for boating and fishing. Inner Space Cavern. Balcones Canyonlands NWR for birding. Hill Country 30 min. San Gabriel River trails. Adequate outdoor assets for a suburban Texas city — nothing extraordinary, but functional year-round.
-        <span class="section-label wellness">🏋️ Active Wellness</span>
-        Sun City Texas — 86,000 sq ft Legacy Hills amenity center, 3 golf courses, 75+ clubs, pools, fitness centers, pickleball, tennis. One of the largest and most complete Del Webb active adult communities in the country. If structured 55+ active adult living is the priority, few communities in the database compare to Sun City Texas.
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- TIER 3: SOLID -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon solid">🌿</div>
-    <div class="section-title">
-      <h2>Solid — Combined Score 13–15</h2>
-      <p>Good outdoor access and wellness options · Active retirees well-served · Not the primary draw</p>
-    </div>
-  </div>
-  <div class="city-list">
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Knoxville</div><div class="city-state">Tennessee</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Great Smoky Mountains National Park 30 min — most visited national park in the US. Urban Wilderness trail system within city limits. Tennessee Riverwalk. UT athletic culture. YMCA network strong. Growing pickleball. Solid across both dimensions at a price point far below the western mountain cities.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Tucson</div><div class="city-state">Arizona</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Saguaro National Park East and West literally within city limits — unique in the database. Santa Catalina Mountains with Mt. Lemmon ski valley (9,157 ft). Rincon Mountain District hiking. UA drives fitness culture. Senior Olympic-size pools. Sun Tran Streetcar. Strong value for outdoor recreation at a much lower price point than Scottsdale or Sedona.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Boise</div><div class="city-state">Idaho</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Boise Foothills trail system begins at the city's edge. Sawtooth NRA 2 hours. Sun Valley 2.5 hours. Boise River Greenbelt 25 miles. Growing pickleball scene. Community rec centers solid. Strong outdoor fitness culture. One of the most underrated active retirement cities in the Mountain West.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Missoula</div><div class="city-state">Montana</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Three rivers converge at Missoula — Clark Fork, Blackfoot, and Bitterroot. Rattlesnake Wilderness borders the city. Snowbowl ski area 12 miles. PEAK Health 12 pickleball courts (6 indoor/6 outdoor). UM Campus Recreation. Fare-free Mountain Line transit. One of the best outdoor recreation cities relative to its size anywhere in the database.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Johnson City</div><div class="city-state">Tennessee</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Appalachian Trail access. Cherokee National Forest. Roan Mountain State Park — world-class rhododendron bloom in June. Watauga Lake. Waterfalls throughout the Tri-Cities region. Growing fitness culture. YMCA solid. The outdoor recreation on offer is genuinely impressive for the lowest-cost city in the database.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Hilton Head</div><div class="city-state">South Carolina</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">12 miles of Atlantic beach. 20+ golf courses. 60+ miles of bike paths throughout the plantation communities. Calibogue Sound kayaking. Harbour Town sailing. Plantation fitness centers and tennis clubs. Golf is the dominant activity but the combination of beach, bike paths, and private club infrastructure creates a solid active lifestyle.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Madison</div><div class="city-state">Wisconsin</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Lake Mendota and Lake Monona — swimming, sailing, kayaking, ice fishing. Dane County Parks system extensive. UW athletic culture drives excellent community rec centers. Strong senior programming. Excellent cycling infrastructure. Note: outdoor recreation is strongly seasonal — winter limits outdoor activity significantly.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Charleston</div><div class="city-state">South Carolina</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Sullivan's Island and Isle of Palms beaches. Francis Marion National Forest. ACE Basin — one of the largest undeveloped estuaries on the East Coast. Kayaking the creeks and marshes. Kiawah Island golf. Resort spas. Growing fitness culture. Strong overall active lifestyle picture.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Greenville</div><div class="city-state">South Carolina</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Swamp Rabbit Trail — 22-mile paved greenway through the city and county. Blue Ridge Mountains 30 min. Caesars Head State Park. Paris Mountain State Park. Growing cycling culture driven by the trail. YMCA solid. Blue Ridge access for hiking. Outstanding value for outdoor recreation at Greenville's price point.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Virginia Beach</div><div class="city-state">Virginia</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">35 miles of Atlantic Ocean beach. First Landing State Park. Back Bay National Wildlife Refuge. Chesapeake Bay kayaking. Military fitness culture creates an unusually active community baseline. Strong golf. Surfing and cycling culture. Good community rec infrastructure influenced by military presence.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Spokane</div><div class="city-state">Washington</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Riverfront Park in city center. Coeur d'Alene Lake 30 min — exceptional boating and swimming. Mt. Spokane 30 min for skiing. Centennial Trail 37 miles. Eastern Washington wine country. Community rec centers growing. Good for independently active retirees seeking Pacific Northwest access without Pacific Northwest prices.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Saratoga Springs</div><div class="city-state">New York</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Adirondack Mountains 30 min — one of the great wilderness areas in the eastern US. Lake George 20 min. Saratoga Spa State Park with historic mineral springs, pools, and fitness trails. Growing modern fitness scene. YMCA solid. The historic spa culture of Saratoga is a genuine wellness asset unlike anything else in the Northeast.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Annapolis</div><div class="city-state">Maryland</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Chesapeake Bay sailing, kayaking, crabbing — a genuinely unique water sports culture. Sandy Point State Park. Quiet Waters Park trails. Growing pickleball. Strong water sports fitness culture. Community rec centers adequate. The water-centric outdoor lifestyle is distinctive and year-round accessible in three seasons.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fayetteville</div><div class="city-state">Arkansas</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Ozark mountains surrounding the city. Buffalo National River 1.5 hrs — first national river in the US, world-class canoeing. Lake Leatherwood cycling and mountain biking. Petit Jean State Park. Razorback Greenway 37 miles. UA athletic culture. Growing pickleball. Extraordinary outdoor recreation at Budget Range 1 prices.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Prescott</div><div class="city-state">Arizona</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Prescott National Forest surrounding the city. Granite Dells — unique rock formations for hiking and bouldering. Thumb Butte trail system. Watson Lake kayaking. Goldwater Lake. Strong retiree fitness culture. Community rec center good. Golf. One of Arizona's most outdoor-accessible small cities at a moderate price point.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Tampa</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Gulf beaches 30–45 min (Clearwater, St. Pete Beach). Hillsborough River State Park. Tampa Bay kayaking. Growing active wellness infrastructure. Multiple community rec centers. Strong sports culture (Bucs, Rays, Lightning). Riverwalk cycling. Growing pickleball. A solid overall active lifestyle city for Florida.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Eugene</div><div class="city-state">Oregon</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Oregon Coast 1 hr. Three Sisters wilderness and Crater Lake accessible. Willamette River. McKenzie River Trail — legendary mountain biking. Ruth Bascom Riverbank Trail. UO fitness culture. Community rec centers solid. Cycling culture exceptional. Note: high income tax significantly impacts the value equation for retirees.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Charlottesville</div><div class="city-state">Virginia</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">9</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Shenandoah National Park 30 min — Skyline Drive is extraordinary. Blue Ridge Parkway accessible. Appalachian Trail trailheads nearby. Rivanna Trail around the city. UVA rec facilities excellent. Strong fitness culture. Blue Ridge access for hiking and cycling year-round (mild climate). Underrated outdoor access given the price point.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. Paul</div><div class="city-state">Minnesota</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Mississippi River gorge trails. Chain of Lakes system. Strong cycling infrastructure. Boundary Waters Canoe Area 4 hrs — one of the great wilderness canoe experiences in North America. Excellent indoor facilities essential for winter. Strong senior programming. YMCA network outstanding. Active 4-season culture for those who embrace the cold.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Portland</div><div class="city-state">Maine</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Atlantic Ocean coast and beaches 20 min. White Mountains 1.5 hrs. Acadia National Park 3 hrs — one of the crown jewels of the national park system. Peaks Island accessible by ferry. Active outdoor community year-round. Community fitness culture strong. Rock climbing at Blackwall and Catskills. Year-round outdoor culture for those who embrace New England seasons.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Raleigh</div><div class="city-state">North Carolina</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Falls Lake State Recreation Area. Jordan Lake. Blue Ridge Mountains 2.5 hrs. Capital Area Greenway 100+ miles. Research Triangle demographic drives strong fitness culture. Multiple community rec centers. Growing pickleball. Outer Banks beaches 3 hrs. Good all-around active lifestyle picture for a fast-growing Southern city.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Santa Fe</div><div class="city-state">New Mexico</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Sangre de Cristo Mountains. Santa Fe National Forest. Hyde Memorial State Park. Ski Santa Fe 16 miles. Strong yoga and wellness culture — some of the finest studios in the Southwest. Hiking and cycling in the mountains at 7,000 ft. Genuine wellness culture built around arts, mind-body practices, and outdoor mountain access.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. Augustine</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Atlantic Ocean beaches. Anastasia State Park. Matanzas River kayaking. Fort Matanzas National Monument. Growing active wellness infrastructure. Vilano Beach cycling. Community rec center improving. YMCA. Pickleball growing. Good overall active lifestyle for a Florida historic city at below-average Florida prices.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Lexington</div><div class="city-state">Kentucky</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Red River Gorge 1 hr — one of the great rock climbing and hiking destinations in the eastern US. Lake Cumberland 1.5 hrs. Mammoth Cave 1.5 hrs. UK athletic culture drives fitness community. Community rec centers solid. Horse farm cycling on the rural roads is genuinely beautiful. Legacy Trail for cycling.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Ann Arbor</div><div class="city-state">Michigan</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Nichols Arboretum — beautiful on foot. Huron River water trail. Pinckney Recreation Area 20 min. Four-season outdoor culture. Michigan Medicine rec facilities world-class and accessible to community members. Multiple aquatic centers. Strong senior programming. U-M campus cycling infrastructure excellent.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bloomington</div><div class="city-state">Indiana</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Lake Monroe — Indiana's largest reservoir, sailing and fishing. Brown County State Park 30 min — the "Little Smokies" for hiking and fall foliage. IU campus trails beautiful. IU athletic culture and facilities. YMCA strong. Senior center well-equipped. Good active lifestyle infrastructure for an affordable college town.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fort Worth</div><div class="city-state">Texas</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Trinity Trails — 100+ miles of paved trail along the Trinity River, one of the finest urban trail systems in Texas. Benbrook Lake for water sports. Fort Worth Nature Center. Well-funded community rec centers. Growing pickleball scene. Good active lifestyle infrastructure for a major Texas city at accessible prices.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Nashua</div><div class="city-state">New Hampshire</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Lake Winnipesaukee 1 hr. White Mountains 1.5 hrs. Mine Falls Park in city. Excellent four-season outdoor access given proximity to New Hampshire's natural assets. YMCA strong. Community rec center. Growing fitness culture. New Hampshire's tax advantage and access to world-class New England outdoors is a genuinely underrated combination.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Chattanooga</div><div class="city-state">Tennessee</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Lookout Mountain, Rock City, Ruby Falls. Tennessee River water activities. Cloudland Canyon State Park. Enterprise South Nature Park mountain biking. 13-mile Tennessee Riverwalk. Growing fitness culture. CARTA Zero free bus. Community rec improving. Excellent outdoor access at Budget Range 1 prices.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Wilmington</div><div class="city-state">North Carolina</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Wrightsville Beach — consistently rated among East Coast's finest. Cape Fear River paddling. Carolina Beach State Park. Figure Eight Island wildlife. Beach fitness culture prominent. YMCA strong. Community rec centers adequate. Pickleball growing. Good active lifestyle for a coastal NC city.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Pensacola</div><div class="city-state">Florida</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">8</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Pensacola Beach — white quartz sand consistently rated among America's best. Gulf Islands National Seashore. Perdido Key State Park. Naval Air Station Pensacola. Military fitness culture strong. Community rec centers adequate. Growing pickleball. The beach access quality at Pensacola's price point is genuinely exceptional.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fairhope</div><div class="city-state">Alabama</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Mobile Bay access. Eastern Shore beaches. Weeks Bay Preserve. Biking trails along the bay. Golf. Outdoor walking culture strong — the bluff-top setting makes even casual walks beautiful. Community fitness culture adequate. Some senior programming. Outdoor walking and cycling in the mild climate is the primary active lifestyle draw.</div>
-    </div>
-
-  </div>
-</div>
-
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Alexandria</div><div class="city-state">Virginia</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Mount Vernon Trail 18 miles along the Potomac. Huntley Meadows Park 650 acres — best urban wetland birding in the DC area. Shenandoah NP 1.5 hrs. DC monuments, Rock Creek Park, and the Mall accessible by Metro. City rec centers with SilverSneakers. 70 pickleball courts at 19 locations. RPCA senior programs. Northern Virginia Senior Olympics. Strong fitness culture driven by federal and military workforce.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Silver Spring</div><div class="city-state">Maryland</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Sligo Creek Trail through the city. Rock Creek Park adjacent. C&O Canal 30 min. Shenandoah NP 1.5 hrs. Montgomery County Recreation Centers well-funded with strong senior programming. Growing pickleball. NIH-area community drives health-conscious culture. SilverSneakers available at multiple facilities. DC's parks and cultural institutions accessible by Metro Red Line.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Philadelphia</div><div class="city-state">Pennsylvania</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Fairmount Park — one of the largest urban park systems in the US at 9,200 acres. Kelly Drive cycling along the Schuylkill River. Wissahickon Valley Gorge for hiking. Jersey Shore beaches 90 min. Strong urban fitness culture. Boathouse Row rowing. Philadelphia Parks & Recreation senior programs. Growing pickleball. The Rocky Steps at the Art Museum — a cultural fitness landmark unique to Philadelphia.</div>
-    </div>
-
-    <div class="city-row solid">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Pittsburgh</div><div class="city-state">Pennsylvania</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num solid">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Frick Park — 644-acre urban wilderness with exceptional trails. Three Rivers waterfront cycling and kayaking. Laurel Highlands 60 min for hiking and whitewater. Ohiopyle State Park 90 min — world-class rafting. UPMC drives strong community health culture. Carnegie Mellon and Pitt university energy. Growing pickleball. Pittsburgh Parks Conservancy programs. Excellent Three Rivers trail system for cycling and walking.</div>
-    </div>
-
-<!-- TIER 4: MODERATE -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon limited">🌱</div>
-    <div class="section-title">
-      <h2>Moderate — Combined Score 11–12</h2>
-      <p>Adequate outdoor and wellness options · Other dimensions are the primary draw</p>
-    </div>
-  </div>
-  <div class="city-list">
-
-    <div class="city-row limited">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Corpus Christi</div><div class="city-state">Texas</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num limited">7</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num limited">5</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Padre Island National Seashore — the longest undeveloped barrier island in the US, extraordinary for birding and beach driving. Port Aransas ferry. Gulf fishing. Birding culture significant — on the Central Flyway. Active adult infrastructure limited. Some community rec. The primary value proposition is cost and coastal access, not fitness infrastructure.</div>
-    </div>
-
-    <div class="city-row limited">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Savannah</div><div class="city-state">Georgia</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num limited">6</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num limited">6</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Tybee Island beach 20 min. Skidaway Island State Park. Savannah National Wildlife Refuge. Forsyth Park fitness culture and river trails. SCAD energy drives boutique fitness studios. Cycling along Bull Street. Adequate outdoor and wellness options — but Savannah's primary draw is culture, history, and walkability rather than outdoor recreation or fitness infrastructure.</div>
-    </div>
-
-    <div class="city-row limited">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">San Antonio</div><div class="city-state">Texas</div></div>
-        <div class="scores-wrap">
-          <div class="score-badge"><span class="score-num limited">5</span><span class="score-lbl">Outdoor</span></div>
-          <div class="score-badge"><span class="score-num limited">7</span><span class="score-lbl">Wellness</span></div>
-        </div>
-      </div>
-      <div class="active-note">Hill Country 30 min — Enchanted Rock, Pedernales Falls, Guadalupe River tubing. Government Canyon State Natural Area in city. River Walk and San Pedro Parks for casual walking. Military fitness culture strong. YMCA network excellent. Community rec centers well-funded. Good wellness infrastructure — outdoor recreation is the limitation, not the fitness culture.</div>
-    </div>
-
-  </div>
-</div>
-
-<!-- CTA -->
-<div class="cta">
-  <h2>Ready to find your best match?</h2>
-  <p>Take our free quiz and get matched to your top retirement cities — scored across 10 dimensions with real data and honest tradeoffs.</p>
-  <a href="https://retiremehere.com" class="cta-btn">Take the Quiz →</a>
-  <div class="cta-fine">retiremehere.com · Free · No account required<br>Questions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef9d8a9b869d8a828a878a9d8aaf88828e8683c18c8082">[email&#160;protected]</a></div>
-</div>
-
-<div class="footer">
-  <p>
-    A RetireMeHere Intelligence Report · March 2026<br>
-    Data: National Park Service · AllTrails · Recreation.gov · City parks & recreation departments<br>
-    Outdoor recreation access reflects conditions as of early 2026.<br>
-    <a href="https://retiremehere.co
+  <p class="site-footer-copy">© RetireMeHere · Real data, honest tradeoffs.</p>
+</footer>
+
+<script>
+function toggleMobileNav() {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+function toggleTopCitiesDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd && dd.classList.contains('open')) {
+    if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
+      dd.classList.remove('open');
+    }
+  }
+  var tc = document.getElementById('topCitiesDropdown');
+  if (tc && tc.classList.contains('open')) {
+    if (!e.target.closest('#topCitiesDropdown')) {
+      tc.classList.remove('open');
+    }
+  }
+});
+</script>
+
+</body>
+</html>
