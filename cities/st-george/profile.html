@@ -1,1 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>St. George, Utah — A Retirement City Profile | RetireMeHere</title>
+<meta name="description" content="An editorial profile of St. George, Utah as a retirement destination. The Mojave-meets-Colorado Plateau setting, Snow Canyon at the city edge, Zion 45 minutes east, Intermountain Health St. George — and the honest tradeoffs of a desert city growing fast.">
+<link rel="canonical" href="https://retiremehere.com/cities/st-george/profile.html">
 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal: #2A5E5A;
+  --teal-mid: #3d7a75;
+  --teal-deep: #1f4744;
+  --terra: #C4724A;
+  --terra-soft: #E89F75;
+  --sand: #F7F3ED;
+  --cream: #FBF7F1;
+  --paper: #FFFCF5;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #8B867E;
+  --gold: #D4A84B;
+  --line: #ECE6DC;
+
+  --max-w: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--dark);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; }
+
+/* HEADER */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 252, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.18em;
+  text-decoration: none;
+}
+.header-wordmark .retire { color: var(--teal); }
+.header-wordmark .here { color: var(--terra); }
+.header-nav { display: flex; gap: 24px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+.header-nav a:hover { color: var(--teal); }
+.header-nav a.header-cta {
+  background: var(--teal-deep);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(28,26,24,0.25);
+  letter-spacing: 0.04em;
+  display: inline-block;
+  line-height: 1;
+}
+.header-nav a.header-cta:hover {
+  background: var(--teal);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(28,26,24,0.3);
+}
+
+/* ============================================
+   HERO — reduced to 70vh
+   ============================================ */
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  z-index: 1;
+}
+.hero-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.1) 30%,
+      rgba(0,0,0,0.1) 45%,
+      rgba(0,0,0,0.65) 75%,
+      rgba(0,0,0,0.88) 100%
+    );
+}
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 88px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(212, 168, 75, 0.6);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+}
+.hero-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: 0.92; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  color: white;
+  text-shadow:
+    0 2px 12px rgba(0,0,0,0.5),
+    0 8px 40px rgba(0,0,0,0.4);
+}
+.hero-state {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 300;
+  font-size: clamp(20px, 3vw, 30px);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(16px, 1.9vw, 20px);
+  max-width: 540px; line-height: 1.4;
+  color: white;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+.hero-photo-credit {
+  position: absolute;
+  bottom: 92px; right: 32px;
+  z-index: 4;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+/* ============================================
+   STATS BAR — overlay onto hero
+   ============================================ */
+.stats-bar {
+  background: white;
+  max-width: var(--max-w);
+  margin: -56px auto 0;
+  position: relative;
+  z-index: 3;
+  border-radius: 4px;
+  box-shadow: 0 24px 80px rgba(28,26,24,0.18);
+  padding: 32px 44px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 0 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: none; }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { padding-right: 0; }
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px; line-height: 1.1;
+  color: var(--dark); letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.stat-value .small { font-size: 16px; color: var(--mid); }
+.stat-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--mid); line-height: 1.4;
+}
+
+/* ============================================
+   SECTION SCAFFOLDING
+   ============================================ */
+.section {
+  padding: 64px 0;
+}
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--dark);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.section-title em {
+  font-style: italic; color: var(--teal);
+}
+
+/* ============================================
+   FIT SECTION (Is St. George for you?)
+   ============================================ */
+.fit-section .fit-intro {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--mid);
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.fit-col-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.fit-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+  flex-shrink: 0;
+}
+.fit-icon.yes { background: var(--teal); color: white; }
+.fit-icon.no { background: var(--terra); color: white; }
+.fit-col-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+}
+.fit-col-title em { font-style: italic; color: var(--teal); }
+.fit-col.no .fit-col-title em { color: var(--terra); }
+
+.fit-list { list-style: none; padding: 0; }
+.fit-list li {
+  display: flex; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px; line-height: 1.55;
+  color: var(--mid);
+}
+.fit-list li:last-child { border-bottom: none; }
+.fit-list li strong { color: var(--dark); font-weight: 600; }
+.fit-list .marker {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 9px;
+}
+.fit-col.yes .fit-list .marker { background: var(--teal); }
+.fit-col.no .fit-list .marker { background: var(--terra); }
+
+/* ============================================
+   CHARACTER (with pull-quote aside)
+   ============================================ */
+.character-section {
+  background: var(--cream);
+}
+.character-section .wrap {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.character-body p {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mid);
+  margin-bottom: 22px;
+}
+.character-body p:last-child { margin-bottom: 0; }
+.character-body strong { color: var(--dark); font-weight: 600; }
+.dropcap {
+  float: left;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 76px;
+  line-height: 0.85;
+  margin: 6px 12px 0 0;
+  color: var(--terra);
+}
+
+.pullquote {
+  background: var(--paper);
+  border-left: 3px solid var(--gold);
+  padding: 32px 32px 36px;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
+}
+.pullquote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 80px;
+  line-height: 0.6;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.pullquote-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.pullquote-attr {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--mid);
+}
+
+/* Aside container holds pull-quote + fast-facts */
+.aside-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fast-facts {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 28px 32px 32px;
+  border-radius: 2px;
+}
+.fast-facts-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.fast-fact {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.fast-fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fast-fact:first-of-type { padding-top: 0; }
+
+.fast-fact-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fast-fact-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.45;
+}
+
+/* ============================================
+   SAMPLE WEEK
+   ============================================ */
+.week-section { background: var(--sand); }
+.week-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 680px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.day-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 22px;
+  transition: all 0.25s;
+}
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  border-color: var(--gold);
+}
+.day-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.day-time {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--light);
+  margin-bottom: 12px;
+}
+.day-activity {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.day-where {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+/* ============================================
+   NEIGHBORHOODS
+   ============================================ */
+.hoods-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.hoods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.hood-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px 32px 36px;
+  transition: all 0.25s;
+}
+.hood-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+}
+.hood-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.hood-vibe {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 18px;
+}
+.hood-desc {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.hood-desc strong { color: var(--dark); font-weight: 600; }
+
+/* ============================================
+   LIFESTYLE PHOTO BANNER
+   ============================================ */
+.lifestyle-banner {
+  position: relative;
+  width: 100%;
+  height: 56vh;
+  min-height: 420px;
+  max-height: 580px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.lifestyle-banner-img {
+  position: absolute; inset: 0;
+  background-image: url('lifestyle.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.lifestyle-banner-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.55) 90%,
+    rgba(0,0,0,0.75) 100%
+  );
+}
+.lifestyle-banner-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 56px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.lifestyle-banner-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.lifestyle-banner-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500; font-style: italic;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.15; letter-spacing: -0.015em;
+  color: white;
+  text-wrap: balance;
+  max-width: 720px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.lifestyle-banner-credit {
+  position: absolute;
+  bottom: 14px; right: 24px;
+  z-index: 2;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* ============================================
+   DETAIL PHOTO + QUOTE BREAK
+   ============================================ */
+.detail-section {
+  position: relative;
+  padding: 0;
+  background: var(--dark);
+  overflow: hidden;
+}
+/* Tighter spacing for sections that border the photo break */
+.character-section { padding-bottom: 48px; }
+.section.week-section { padding-top: 48px; }
+
+.detail-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+.detail-photo {
+  position: relative;
+  background-image: url('detail.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.detail-photo-credit {
+  position: absolute;
+  bottom: 12px; right: 14px;
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.detail-text {
+  padding: 80px 60px;
+  background: var(--dark);
+  color: white;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.detail-quote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 90px; line-height: 0.7;
+  color: var(--gold);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.detail-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.4;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.detail-attribution {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ============================================
+   HEALTHCARE DEEP-DIVE
+   ============================================ */
+.health-card {
+  background: var(--dark);
+  color: white;
+  padding: 44px 48px;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 36px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.health-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 60%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.health-icon {
+  font-size: 48px;
+  z-index: 1;
+}
+.health-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: white;
+  z-index: 1; position: relative;
+}
+.health-detail {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  z-index: 1; position: relative;
+}
+.health-grade {
+  text-align: center;
+  z-index: 1;
+}
+.health-grade-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.health-grade-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================================
+   APPEARS ON LISTS
+   ============================================ */
+.lists-section { background: var(--cream); }
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+.list-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 26px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.list-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.list-card-rank {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--terra);
+  font-weight: 500; line-height: 1;
+  margin-bottom: 10px;
+}
+.list-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.list-card-tier {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid);
+}
+.list-card-arrow {
+  position: absolute;
+  top: 24px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.list-card:hover .list-card-arrow {
+  opacity: 1; transform: translateX(2px);
+}
+
+/* ============================================
+   QUIZ CTA
+   ============================================ */
+.cta-section {
+  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: -10%;
+  width: 60%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 96px 48px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.cta-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cta-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(34px, 4.5vw, 50px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: white;
+  text-wrap: balance;
+}
+.cta-h2 em { font-style: italic; color: var(--gold); }
+.cta-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  text-wrap: balance;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 17px 36px;
+  border-radius: 100px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 168, 75, 0.4);
+}
+.cta-btn .arrow { font-size: 18px; transition: transform 0.25s; }
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--dark);
+  padding: 48px 48px 36px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.18em;
+}
+.footer-wordmark .retire { color: rgba(255,255,255,0.85); }
+.footer-wordmark .here { color: var(--terra-soft); }
+.footer-credits {
+  font-size: 11px; letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  text-align: right;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 880px) {
+  .site-header { padding: 12px 20px; }
+  .header-nav { gap: 14px; }
+  .header-nav a:not(.header-cta) { display: none; }
+  .wrap { padding: 0 24px; }
+  .section { padding: 56px 0; }
+
+  /* Hero — give content room to breathe and move credit out of the tagline zone */
+  .hero { min-height: 540px; }
+  .hero-content { padding: 0 24px 96px; }
+  .hero-eyebrow {
+    font-size: 10px;
+    padding: 6px 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 14px;
+  }
+  .hero-name { font-size: 64px; line-height: 0.95; margin-bottom: 6px; }
+  .hero-state { font-size: 18px; margin-bottom: 14px; }
+  .hero-tagline {
+    line-height: 1.5;
+    max-width: 100%;
+  }
+  /* Photo credit: in the gap between tagline (96px from hero bottom)
+     and stats card top edge (40px from hero bottom from margin: -40px) */
+  .hero-photo-credit {
+    bottom: 56px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.4);
+  }
+
+  .stats-bar {
+    margin: -40px 20px 0;
+    padding: 24px 22px;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+  }
+  .stat { padding: 0 14px; border-right: none; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stat:first-child, .stat:nth-child(3) { padding-left: 0; }
+  .stat:nth-child(2), .stat:last-child { padding-right: 0; }
+  .stat:nth-child(1), .stat:nth-child(2) {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fit-grid { grid-template-columns: 1fr; gap: 56px; }
+
+  .character-section .wrap {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .week-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  .lifestyle-banner {
+    height: 50vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
+  .lifestyle-banner-content {
+    padding: 0 24px 36px;
+  }
+
+  .hoods-grid { grid-template-columns: 1fr; }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .detail-photo {
+    height: 75vw;
+    max-height: 480px;
+    min-height: 280px;
+    aspect-ratio: auto;
+  }
+  .detail-text { padding: 56px 28px; }
+
+  .health-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .health-icon { font-size: 40px; }
+
+  .lists-grid { grid-template-columns: 1fr; }
+
+  .cta-inner { padding: 72px 24px; }
+
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-credits { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="/" class="header-wordmark">
+    <span class="retire">RETIREME</span><span class="here">HERE</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/#explore">Top Cities For…</a>
+    <a href="/" class="header-cta">Find My Match</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">★ A Retirement City Profile</span>
+    <h1 class="hero-name">St. George.</h1>
+    <p class="hero-state">Utah</p>
+    <p class="hero-tagline">A red-rock city at the edge of the Mojave Desert, where Snow Canyon is fifteen minutes away, Zion is forty-five — and a major regional hospital sits inside the city limits.</p>
+  </div>
+  <div class="hero-photo-credit">Photo · mojaveNC / Wikimedia Commons</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-label">Median Home</div>
+    <div class="stat-value">$525<span class="small">K</span></div>
+    <div class="stat-sub">Mid-tier · Range 3 · Below Bend, Bozeman, Scottsdale</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Monthly Budget</div>
+    <div class="stat-value">$4.2–5.6K<span class="small">/mo</span></div>
+    <div class="stat-sub">Tier 3 · Cost-tier sweet spot for a desert outdoor city</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Outdoor</div>
+    <div class="stat-value">10<span class="small">/10</span></div>
+    <div class="stat-sub">Snow Canyon · Zion · Bryce · the database's top tier</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Elevation</div>
+    <div class="stat-value">2,860<span class="small">ft</span></div>
+    <div class="stat-sub">Lowest in Utah · Mojave-to-Colorado-Plateau transition</div>
+  </div>
+</div>
+
+<!-- IS THIS FOR YOU? -->
+<section class="section fit-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Should you actually move here?</div>
+    <h2 class="section-title">Is St. George <em>for you</em>?</h2>
+    <p class="fit-intro">
+      St. George is the southwestern corner of Utah — a red-rock city at the geological transition between the Mojave Desert and the Colorado Plateau, with Snow Canyon at the city edge, Zion forty-five minutes east, and Bryce Canyon two hours further. Retirees come for the outdoor recreation, the mild winters, and the cost-tier sweet spot. The ones who leave usually leave because of the summer heat, the growth pace (one of the fastest-growing metros in America), or because the LDS-majority cultural setting wasn't what they expected.
+    </p>
+
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <div class="fit-col-header">
+          <div class="fit-icon yes">✓</div>
+          <div class="fit-col-title">You'll <em>love</em> it here if&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>National-park outdoor recreation is the daily routine.</strong> Snow Canyon State Park is fifteen minutes from downtown — red and white sandstone, lava beds, slot canyons, accessible trails. Zion National Park is forty-five minutes east. Bryce Canyon is two hours. The Pine Valley Mountains (over 10,000 feet) sit thirty minutes north for cool-weather summer escapes. The St. George Marathon and the Ironman 70.3 World Championship choose this city for a reason. Outdoor scored 10 of 10 in our database — the top tier.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Winter is mild and dry.</strong> St. George sits at 2,860 feet — the lowest elevation in Utah, and in the warmest-winter zone of the Intermountain West. December through February daily highs run 55–60°F, with rare snow, abundant sunshine, and the kind of dry desert winter that retirees move to Arizona for. The "Utah's Dixie" branding is in the name for a reason.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Healthcare is unusually strong for a city this size.</strong> Intermountain Health St. George Regional Hospital — formerly Dixie Regional Medical Center — is a 245-bed acute-care facility and the only Level II trauma center in southwest Utah, with cardiology, oncology (a cancer center on campus), orthopedics, and neurosurgery. As part of <strong>Intermountain Health</strong> (one of the country's most-respected integrated health systems, with the flagship Intermountain Medical Center in Salt Lake City as the academic anchor), local care is meaningfully better-resourced than the city's size would suggest. Healthcare scored 10 of 10 in our database.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>The math works.</strong> Median home around $525K, monthly costs of $4,200–$5,600 for a couple. That's tier 3 — meaningfully below Scottsdale, Bend, and Bozeman for a city with comparable outdoor recreation. Utah doesn't tax Social Security as of 2021 reform, and the state income-tax structure is moderate. The math is friendlier than California, comparable to Arizona, and a clear value for retirees who prioritize outdoor recreation and healthcare over walkable urban density.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fit-col no">
+        <div class="fit-col-header">
+          <div class="fit-icon no">✗</div>
+          <div class="fit-col-title">Skip St. George <em>if</em>&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>Summer heat is non-negotiable.</strong> June through September, daily highs run 95–105°F, with stretches above 110°F in July and August. The dry heat is more tolerable than humid heat, but it's still genuine desert summer. Many retirees become summer-snowbirds in reverse — leaving for the Pine Valley Mountains, the Utah high country, or coastal California for parts of the summer. The cost of admission for the other nine months.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Growth pace and traffic concern you.</strong> Greater St. George (Washington County) has been one of the fastest-growing metros in America for the past decade — population doubled since 2000, and ongoing master-planned communities continue to build out. I-15 traffic during peak times, retail-corridor congestion, and the general feeling of a city still under construction are real. If you wanted a settled, finished feel, this isn't it. Retirees moving here today are often moving to a sub-community that's still being built.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You wanted urban walkability and major-airport access.</strong> St. George is genuinely car-dependent — the downtown is walkable in pockets, but most retirees live in master-planned communities (Bloomington Hills, SunRiver, Coral Canyon, Sienna Hills) where driving is required. The St. George Regional Airport (SGU) has limited service. The nearest major-hub airport is Las Vegas Harry Reid (120 miles, about 2 hours), with Salt Lake City 4.5 hours north. International travel and frequent grandkid visits require planning.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Long-term water and desert-sustainability questions concern you.</strong> Washington County draws from the Virgin River and Colorado River basin — both increasingly stressed. The Lake Powell Pipeline project, the broader Colorado River compact negotiations, and the reality of building a fast-growing metro in a desert are real, ongoing conversations in Utah. The city itself has invested significantly in conservation and reuse, but the regional question is regional. If Western water headlines worry you, sit with it before you buy.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTER -->
+<section class="section character-section">
+  <div class="wrap">
+    <div>
+      <div class="section-eyebrow">The character of the place</div>
+      <h2 class="section-title">Utah's Dixie, <em>at the geological seam</em>.</h2>
+      <div class="character-body">
+        <p><span class="dropcap">S</span>t. George was founded in 1861 by Latter-day Saints sent by Brigham Young from Salt Lake City to grow cotton in the warmest, lowest corner of the Utah Territory — hence the longstanding "Dixie" nickname (which the local university dropped from its name in 2022 amid changing cultural conversations). The first settlers were Southerners and converts who'd been displaced from earlier LDS communities; the cotton experiment was modestly successful, the silk experiment less so, and the city eventually became what it remains: a mid-19th-century LDS planted town that grew into a real city as the Sun Belt boomed. The white-walled St. George Utah Temple (1877) is the oldest still-operating LDS temple in the world and the visible historical anchor of the city.</p>
+        <p>What makes St. George visually unforgettable is the geology. The city sits at the edge of three major North American geological provinces — the Mojave Desert from the southwest, the Colorado Plateau from the east, and the Great Basin from the north. The result is a landscape of red Navajo Sandstone, white Aztec Sandstone, black basalt lava flows from recent volcanic activity, and the pine-forested Pine Valley Mountains rising to 10,000+ feet thirty minutes north. Snow Canyon State Park, just minutes from the city, contains all of this in a single hike. Zion is forty-five minutes east, Bryce Canyon two hours, the North Rim of the Grand Canyon three. The national-park density per drive-hour is the highest of any city in the database.</p>
+        <p>The trade-off is growth and the cost of admission. Greater St. George (Washington County) doubled in population since 2000 and continues to grow at roughly twice the national pace — second-homers, retirees from California, Utah families priced out of Salt Lake City. Master-planned communities — SunRiver, Coral Canyon, Sienna Hills, Stone Cliff — are still building out, and traffic on I-15 and on the retail corridors has gotten real. The retirees who do well here came for the red rock and the healthcare and the cost-tier; they came with eyes open about the heat, the growth, and the cultural setting. The retirees who didn't usually wanted Sedona's arts scene or Bend's beer culture or Bishop's altitude, and St. George turned out not to be those places.</p>
+      </div>
+    </div>
+
+    <div class="aside-stack">
+      <aside class="pullquote">
+        <div class="pullquote-mark">"</div>
+        <div class="pullquote-text">The national-park density per drive-hour is the highest of any city in the database — Snow Canyon at the edge, Zion forty-five minutes east, Bryce two hours, the Grand Canyon North Rim three.</div>
+        <div class="pullquote-attr">— On the outdoor case</div>
+      </aside>
+
+      <aside class="fast-facts">
+        <div class="fast-facts-label">St. George by the Numbers</div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">1861</div>
+          <div class="fast-fact-desc">LDS settlers sent by Brigham Young to grow cotton in southern Utah's warmest corner — the founding that named the city after Apostle George A. Smith and gave the region its "Utah's Dixie" nickname</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">2,860 ft</div>
+          <div class="fast-fact-desc">The city's elevation — the lowest in Utah, and the reason a real Utah winter doesn't reach here. Mojave-warm, Colorado-Plateau-dry, the seam between two desert ecosystems</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">10/10</div>
+          <div class="fast-fact-desc">Outdoor recreation in our database — the top tier. Snow Canyon at the city's edge, Zion 45 minutes east, Bryce 2 hours, the Grand Canyon North Rim 3 hours. National-park-density per drive-hour is unmatched</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL PHOTO BREAK -->
+<section class="detail-section">
+  <div class="detail-grid">
+    <div class="detail-photo">
+      <div class="detail-photo-credit">Photo · Dan Cutler / Unsplash</div>
+    </div>
+    <div class="detail-text">
+      <div class="detail-quote-mark">"</div>
+      <p class="detail-quote">A sacred datura blooming against red sandstone — the small, particular beauty of the Mojave-Colorado Plateau seam. The big landscape is the headline; the desert details are the texture of daily life.</p>
+      <p class="detail-attribution">— On the desert's particular beauty</p>
+    </div>
+  </div>
+</section>
+
+<!-- TYPICAL WEEK -->
+<section class="section week-section">
+  <div class="wrap">
+    <div class="section-eyebrow">What life actually looks like</div>
+    <h2 class="section-title">A week in St. George, <em>roughly</em>.</h2>
+    <p class="week-intro">A composite week of what an active St. George retiree's days could look like — drawn from the early-trail, mid-morning-coffee, park-trip-Saturday cadence locals describe when explaining how the city's outdoor proximity shapes daily routines. (This is fall through spring. Summer mornings start much earlier.)</p>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-name">Monday</div>
+        <div class="day-time">7:30 AM</div>
+        <div class="day-activity">Snow Canyon State Park</div>
+        <div class="day-where">Fifteen minutes from downtown. Petrified Dunes, Jenny's Canyon, the Whiterocks Amphitheater — accessible trails ranging from short paved loops to half-day scrambles. The closest red-rock landscape this dramatic is at the city's edge, not a day trip.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Tuesday</div>
+        <div class="day-time">10:00 AM</div>
+        <div class="day-activity">Red Hills Desert Garden</div>
+        <div class="day-where">A free city botanic garden featuring native Mojave and Colorado Plateau plants — the bronze running-horses sculpture is the photo spot, but the educational design about desert-adapted landscaping is the practical hook for retirees planning their own yards.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Wednesday</div>
+        <div class="day-time">12:30 PM</div>
+        <div class="day-activity">Downtown St. George lunch</div>
+        <div class="day-where">Painted Pony for upscale Southwestern (on Ancestor Square), Xetava Gardens Café in Kayenta for vegetarian-friendly desert dining, or George's Corner downtown for casual lunches. The historic core has slowly become more of a real downtown over the past decade.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Thursday</div>
+        <div class="day-time">9:00 AM</div>
+        <div class="day-activity">Zion National Park day trip</div>
+        <div class="day-where">Forty-five minutes east on UT-9 to Springdale. The Pa'rus Trail and Riverside Walk are accessible to any ability; Emerald Pools is a moderate half-day; Angels Landing and the Narrows are the famous moves. Closer to St. George than the next city of comparable size is.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Friday</div>
+        <div class="day-time">6:00 PM</div>
+        <div class="day-activity">Tuacahn Amphitheatre (in season)</div>
+        <div class="day-where">An outdoor Broadway-style theater built into a red-rock canyon in Ivins, just outside St. George. Summer-fall season runs Broadway musicals against a red-cliff backdrop. The most distinctive cultural venue in the region, and a regular routine for many St. George retirees.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Saturday</div>
+        <div class="day-time">8:00 AM</div>
+        <div class="day-activity">Downtown Farmers Market (in season)</div>
+        <div class="day-where">Saturday mornings at Ancestor Square during the cooler months. Local produce, regional artisans, prepared foods. The walking route through downtown afterward — the historic temple, the Old Pioneer Courthouse, Town Square — is the routine many retirees fold in.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Sunday</div>
+        <div class="day-time">11:00 AM</div>
+        <div class="day-activity">Pine Valley Mountains (summer)</div>
+        <div class="day-where">Thirty minutes north, the Pine Valley Mountains rise to 10,000+ feet — pine forests, lakes, and 30°F-cooler air. The summer escape that makes the city's heat tolerable. Pine Valley Recreation Area for hiking; the Pine Valley Reservoir for fishing and a packed lunch.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Anytime</div>
+        <div class="day-time">—</div>
+        <div class="day-activity">St. George Marathon weekend</div>
+        <div class="day-where">Every October, the St. George Marathon draws thousands of runners on a fast downhill course from Pine Valley to downtown. The Ironman 70.3 World Championship returns to the city periodically. Even non-racing retirees find the race weekends a defining city event.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE PHOTO BANNER -->
+<section class="lifestyle-banner">
+  <div class="lifestyle-banner-img"></div>
+  <div class="lifestyle-banner-content">
+    <div class="lifestyle-banner-eyebrow">Snow Canyon, fifteen minutes away</div>
+    <h2 class="lifestyle-banner-title">Red sandstone, white sandstone, lava beds, slot canyons — all at the city's edge.</h2>
+  </div>
+  <div class="lifestyle-banner-credit">Photo · Paul Torres / Unsplash</div>
+</section>
+
+<!-- NEIGHBORHOODS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Where to live</div>
+    <h2 class="section-title">Four <em>St. Georges</em>, depending on you.</h2>
+    <p class="hoods-intro">
+      Greater St. George (Washington County) is structured as a series of master-planned communities, plus the historic downtown core. The four below cover the spectrum from established downtown to newer-construction-with-amenities. <strong>Pricing reflects May 2026 estimates and varies meaningfully by lot, view, and proximity to red-rock viewscapes.</strong>
+    </p>
+
+    <div class="hoods-grid">
+      <div class="hood-card">
+        <div class="hood-name">Downtown / Historic District</div>
+        <div class="hood-vibe">Walkable pockets · Historic · Mid-century homes</div>
+        <div class="hood-desc">The pre-1980 St. George — Tabernacle and Main Street, the LDS Temple, mid-century single-family homes on tree-lined streets near the historic core. The walkable pockets of the metro and the closest the city gets to a real downtown feel. Popular with retirees who want urban character over master-planned amenities. <strong>Median: $475K–$675K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Bloomington / Bloomington Hills</div>
+        <div class="hood-vibe">Established master-planned · Golf · Mid-tier</div>
+        <div class="hood-desc">Southwest St. George, organized around the Bloomington Country Club and the Virgin River. The original master-planned retirement community in the area — established trees, mature golf course, established neighborhoods. The mid-tier value option compared to newer northern developments. <strong>Median: $525K–$775K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">SunRiver</div>
+        <div class="hood-vibe">55+ active adult · Master-planned · Amenities</div>
+        <div class="hood-desc">A 55+ active-adult master-planned community in southwest St. George — golf course, multiple pools, pickleball courts, social calendar, single-story homes. The dedicated retirement-community option for retirees who want the amenities and the active-adult community feel. <strong>Median: $475K–$750K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Coral Canyon / Sienna Hills (Washington)</div>
+        <div class="hood-vibe">Newer master-planned · Single-family · Northeast metro</div>
+        <div class="hood-desc">The newer-construction master-planned communities along the I-15 corridor into Washington (the adjacent city). Coral Canyon is built around a Tom Lehman-designed golf course; Sienna Hills is the master plan east of I-15. Larger lots, newer homes, easier driving to Zion. Popular with retirees who want newer construction and don't need to be in St. George proper. <strong>Median: $575K–$825K.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTHCARE -->
+<section class="section" style="background: var(--cream); padding-bottom: 64px;">
+  <div class="wrap">
+    <div class="section-eyebrow">Healthcare — strong regional system, Intermountain Health network access</div>
+    <h2 class="section-title">Intermountain Health, <em>with the SLC academic center upstream</em>.</h2>
+
+    <div class="health-card">
+      <div class="health-icon">🏥</div>
+      <div>
+        <div class="health-name">Intermountain Health St. George Regional Hospital · Intermountain Health network</div>
+        <div class="health-detail">St. George Regional Hospital — operated by <strong>Intermountain Health</strong>, the dominant integrated health system across the Mountain West — is a 245-bed acute-care facility and the only Level II trauma center in southwest Utah. The on-campus cancer center, cardiology program, orthopedic surgery program, and neurosurgery capability are meaningfully stronger than a city of this size would typically support, because the hospital serves a broad regional catchment from southern Utah, northern Arizona, and parts of Nevada. The flagship Intermountain Medical Center in Salt Lake City is the academic anchor of the system — 4.5 hours north, with major-airport access if quaternary care is needed. <strong>Dixie Applied Technology College / Utah Tech University</strong> partners with the hospital for nursing and allied-health training. Healthcare scored 10 of 10 in our database — the top tier, alongside Mayo-cities and academic-medical-center metros.</div>
+      </div>
+      <div class="health-grade">
+        <div class="health-grade-num">10<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+        <div class="health-grade-lbl">Healthcare Match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPEARS ON LISTS -->
+<section class="section lists-section">
+  <div class="wrap">
+    <div class="section-eyebrow">St. George also appears on</div>
+    <h2 class="section-title">A list where <em>St. George earned its place.</em></h2>
+
+    <div class="lists-grid">
+      <a href="/top-cities-for-hikers.html" class="list-card">
+        <div class="list-card-name">Top Cities for Hikers</div>
+        <div class="list-card-tier">Peak winter desert · Snow Canyon · Zion 45 min · Bryce 2 hours</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Want a personalized match?</div>
+    <h2 class="cta-h2">St. George might fit. <em>Or it might not.</em></h2>
+    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you — not what's trending.</p>
+    <a href="/" class="cta-btn">
+      <span>Find My Match</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-wordmark">
+      <span class="retire">RETIREME</span><span class="here">HERE</span>
+    </div>
+    <div class="footer-credits">
+      Photos: mojaveNC / Wikimedia Commons, Dan Cutler (Unsplash), Paul Torres (Unsplash).<br>
+      Sources: Redfin / Zillow (May 2026) · Intermountain Health St. George Regional Hospital · Intermountain Health · Snow Canyon State Park · Zion National Park (NPS) · Bryce Canyon National Park (NPS) · Tuacahn Center for the Arts · St. George Marathon · NOAA Climate Normals · Washington County Water Conservancy District.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
