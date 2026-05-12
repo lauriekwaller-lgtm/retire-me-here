@@ -1,1 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bozeman, Montana — A Retirement City Profile | RetireMeHere</title>
+<meta name="description" content="An editorial profile of Bozeman, Montana as a retirement destination. The Bridger Range and Hyalite Canyon, Montana State University, Bridger Bowl and Big Sky 50 miles south, Yellowstone 90 miles southeast — and what a real Montana winter and the post-2015 cost spike mean for the move.">
+<link rel="canonical" href="https://retiremehere.com/cities/bozeman/profile.html">
 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal: #2A5E5A;
+  --teal-mid: #3d7a75;
+  --teal-deep: #1f4744;
+  --terra: #C4724A;
+  --terra-soft: #E89F75;
+  --sand: #F7F3ED;
+  --cream: #FBF7F1;
+  --paper: #FFFCF5;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #8B867E;
+  --gold: #D4A84B;
+  --line: #ECE6DC;
+
+  --max-w: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--dark);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; }
+
+/* HEADER */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 252, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.18em;
+  text-decoration: none;
+}
+.header-wordmark .retire { color: var(--teal); }
+.header-wordmark .here { color: var(--terra); }
+.header-nav { display: flex; gap: 24px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+.header-nav a:hover { color: var(--teal); }
+.header-nav a.header-cta {
+  background: var(--teal-deep);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(28,26,24,0.25);
+  letter-spacing: 0.04em;
+  display: inline-block;
+  line-height: 1;
+}
+.header-nav a.header-cta:hover {
+  background: var(--teal);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(28,26,24,0.3);
+}
+
+/* ============================================
+   HERO — reduced to 70vh
+   ============================================ */
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  z-index: 1;
+}
+.hero-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.1) 30%,
+      rgba(0,0,0,0.1) 45%,
+      rgba(0,0,0,0.65) 75%,
+      rgba(0,0,0,0.88) 100%
+    );
+}
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 88px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(212, 168, 75, 0.6);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+}
+.hero-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: 0.92; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  color: white;
+  text-shadow:
+    0 2px 12px rgba(0,0,0,0.5),
+    0 8px 40px rgba(0,0,0,0.4);
+}
+.hero-state {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 300;
+  font-size: clamp(20px, 3vw, 30px);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(16px, 1.9vw, 20px);
+  max-width: 540px; line-height: 1.4;
+  color: white;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+.hero-photo-credit {
+  position: absolute;
+  bottom: 92px; right: 32px;
+  z-index: 4;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+/* ============================================
+   STATS BAR — overlay onto hero
+   ============================================ */
+.stats-bar {
+  background: white;
+  max-width: var(--max-w);
+  margin: -56px auto 0;
+  position: relative;
+  z-index: 3;
+  border-radius: 4px;
+  box-shadow: 0 24px 80px rgba(28,26,24,0.18);
+  padding: 32px 44px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 0 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: none; }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { padding-right: 0; }
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px; line-height: 1.1;
+  color: var(--dark); letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.stat-value .small { font-size: 16px; color: var(--mid); }
+.stat-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--mid); line-height: 1.4;
+}
+
+/* ============================================
+   SECTION SCAFFOLDING
+   ============================================ */
+.section {
+  padding: 64px 0;
+}
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--dark);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.section-title em {
+  font-style: italic; color: var(--teal);
+}
+
+/* ============================================
+   FIT SECTION (Is Bozeman for you?)
+   ============================================ */
+.fit-section .fit-intro {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--mid);
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.fit-col-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.fit-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+  flex-shrink: 0;
+}
+.fit-icon.yes { background: var(--teal); color: white; }
+.fit-icon.no { background: var(--terra); color: white; }
+.fit-col-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+}
+.fit-col-title em { font-style: italic; color: var(--teal); }
+.fit-col.no .fit-col-title em { color: var(--terra); }
+
+.fit-list { list-style: none; padding: 0; }
+.fit-list li {
+  display: flex; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px; line-height: 1.55;
+  color: var(--mid);
+}
+.fit-list li:last-child { border-bottom: none; }
+.fit-list li strong { color: var(--dark); font-weight: 600; }
+.fit-list .marker {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 9px;
+}
+.fit-col.yes .fit-list .marker { background: var(--teal); }
+.fit-col.no .fit-list .marker { background: var(--terra); }
+
+/* ============================================
+   CHARACTER (with pull-quote aside)
+   ============================================ */
+.character-section {
+  background: var(--cream);
+}
+.character-section .wrap {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.character-body p {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mid);
+  margin-bottom: 22px;
+}
+.character-body p:last-child { margin-bottom: 0; }
+.character-body strong { color: var(--dark); font-weight: 600; }
+.dropcap {
+  float: left;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 76px;
+  line-height: 0.85;
+  margin: 6px 12px 0 0;
+  color: var(--terra);
+}
+
+.pullquote {
+  background: var(--paper);
+  border-left: 3px solid var(--gold);
+  padding: 32px 32px 36px;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
+}
+.pullquote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 80px;
+  line-height: 0.6;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.pullquote-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.pullquote-attr {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--mid);
+}
+
+/* Aside container holds pull-quote + fast-facts */
+.aside-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fast-facts {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 28px 32px 32px;
+  border-radius: 2px;
+}
+.fast-facts-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.fast-fact {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.fast-fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fast-fact:first-of-type { padding-top: 0; }
+
+.fast-fact-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fast-fact-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.45;
+}
+
+/* ============================================
+   SAMPLE WEEK
+   ============================================ */
+.week-section { background: var(--sand); }
+.week-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 680px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.day-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 22px;
+  transition: all 0.25s;
+}
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  border-color: var(--gold);
+}
+.day-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.day-time {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--light);
+  margin-bottom: 12px;
+}
+.day-activity {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.day-where {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+/* ============================================
+   NEIGHBORHOODS
+   ============================================ */
+.hoods-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.hoods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.hood-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px 32px 36px;
+  transition: all 0.25s;
+}
+.hood-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+}
+.hood-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.hood-vibe {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 18px;
+}
+.hood-desc {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.hood-desc strong { color: var(--dark); font-weight: 600; }
+
+/* ============================================
+   LIFESTYLE PHOTO BANNER
+   ============================================ */
+.lifestyle-banner {
+  position: relative;
+  width: 100%;
+  height: 56vh;
+  min-height: 420px;
+  max-height: 580px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.lifestyle-banner-img {
+  position: absolute; inset: 0;
+  background-image: url('lifestyle.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.lifestyle-banner-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.55) 90%,
+    rgba(0,0,0,0.75) 100%
+  );
+}
+.lifestyle-banner-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 56px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.lifestyle-banner-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.lifestyle-banner-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500; font-style: italic;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.15; letter-spacing: -0.015em;
+  color: white;
+  text-wrap: balance;
+  max-width: 720px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.lifestyle-banner-credit {
+  position: absolute;
+  bottom: 14px; right: 24px;
+  z-index: 2;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* ============================================
+   DETAIL PHOTO + QUOTE BREAK
+   ============================================ */
+.detail-section {
+  position: relative;
+  padding: 0;
+  background: var(--dark);
+  overflow: hidden;
+}
+/* Tighter spacing for sections that border the photo break */
+.character-section { padding-bottom: 48px; }
+.section.week-section { padding-top: 48px; }
+
+.detail-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+.detail-photo {
+  position: relative;
+  background-image: url('detail.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.detail-photo-credit {
+  position: absolute;
+  bottom: 12px; right: 14px;
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.detail-text {
+  padding: 80px 60px;
+  background: var(--dark);
+  color: white;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.detail-quote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 90px; line-height: 0.7;
+  color: var(--gold);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.detail-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.4;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.detail-attribution {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ============================================
+   HEALTHCARE DEEP-DIVE
+   ============================================ */
+.health-card {
+  background: var(--dark);
+  color: white;
+  padding: 44px 48px;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 36px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.health-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 60%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.health-icon {
+  font-size: 48px;
+  z-index: 1;
+}
+.health-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: white;
+  z-index: 1; position: relative;
+}
+.health-detail {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  z-index: 1; position: relative;
+}
+.health-grade {
+  text-align: center;
+  z-index: 1;
+}
+.health-grade-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.health-grade-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================================
+   APPEARS ON LISTS
+   ============================================ */
+.lists-section { background: var(--cream); }
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+.list-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 26px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.list-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.list-card-rank {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--terra);
+  font-weight: 500; line-height: 1;
+  margin-bottom: 10px;
+}
+.list-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.list-card-tier {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid);
+}
+.list-card-arrow {
+  position: absolute;
+  top: 24px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.list-card:hover .list-card-arrow {
+  opacity: 1; transform: translateX(2px);
+}
+
+/* ============================================
+   QUIZ CTA
+   ============================================ */
+.cta-section {
+  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: -10%;
+  width: 60%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 96px 48px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.cta-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cta-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(34px, 4.5vw, 50px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: white;
+  text-wrap: balance;
+}
+.cta-h2 em { font-style: italic; color: var(--gold); }
+.cta-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  text-wrap: balance;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 17px 36px;
+  border-radius: 100px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 168, 75, 0.4);
+}
+.cta-btn .arrow { font-size: 18px; transition: transform 0.25s; }
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--dark);
+  padding: 48px 48px 36px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.18em;
+}
+.footer-wordmark .retire { color: rgba(255,255,255,0.85); }
+.footer-wordmark .here { color: var(--terra-soft); }
+.footer-credits {
+  font-size: 11px; letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  text-align: right;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 880px) {
+  .site-header { padding: 12px 20px; }
+  .header-nav { gap: 14px; }
+  .header-nav a:not(.header-cta) { display: none; }
+  .wrap { padding: 0 24px; }
+  .section { padding: 56px 0; }
+
+  /* Hero — give content room to breathe and move credit out of the tagline zone */
+  .hero { min-height: 540px; }
+  .hero-content { padding: 0 24px 96px; }
+  .hero-eyebrow {
+    font-size: 10px;
+    padding: 6px 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 14px;
+  }
+  .hero-name { font-size: 64px; line-height: 0.95; margin-bottom: 6px; }
+  .hero-state { font-size: 18px; margin-bottom: 14px; }
+  .hero-tagline {
+    line-height: 1.5;
+    max-width: 100%;
+  }
+  /* Photo credit: in the gap between tagline (96px from hero bottom)
+     and stats card top edge (40px from hero bottom from margin: -40px) */
+  .hero-photo-credit {
+    bottom: 56px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.4);
+  }
+
+  .stats-bar {
+    margin: -40px 20px 0;
+    padding: 24px 22px;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+  }
+  .stat { padding: 0 14px; border-right: none; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stat:first-child, .stat:nth-child(3) { padding-left: 0; }
+  .stat:nth-child(2), .stat:last-child { padding-right: 0; }
+  .stat:nth-child(1), .stat:nth-child(2) {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fit-grid { grid-template-columns: 1fr; gap: 56px; }
+
+  .character-section .wrap {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .week-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  .lifestyle-banner {
+    height: 50vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
+  .lifestyle-banner-content {
+    padding: 0 24px 36px;
+  }
+
+  .hoods-grid { grid-template-columns: 1fr; }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .detail-photo {
+    height: 75vw;
+    max-height: 480px;
+    min-height: 280px;
+    aspect-ratio: auto;
+  }
+  .detail-text { padding: 56px 28px; }
+
+  .health-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .health-icon { font-size: 40px; }
+
+  .lists-grid { grid-template-columns: 1fr; }
+
+  .cta-inner { padding: 72px 24px; }
+
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-credits { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="/" class="header-wordmark">
+    <span class="retire">RETIREME</span><span class="here">HERE</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/#explore">Top Cities For…</a>
+    <a href="/" class="header-cta">Find My Match</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">★ A Retirement City Profile</span>
+    <h1 class="hero-name">Bozeman.</h1>
+    <p class="hero-state">Montana</p>
+    <p class="hero-tagline">A Rocky Mountain college town in the Gallatin Valley, pressed against the Bridger Range, with Yellowstone ninety miles southeast — and a real Montana winter as the cost of admission.</p>
+  </div>
+  <div class="hero-photo-credit">Photo · Matthew Lancaster / Unsplash</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-label">Median Home</div>
+    <div class="stat-value">$725<span class="small">K</span></div>
+    <div class="stat-sub">High · Range 4 · Doubled since 2015</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Monthly Budget</div>
+    <div class="stat-value">$4.8–6.2K<span class="small">/mo</span></div>
+    <div class="stat-sub">Tier 3 · Mountain-town premium</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Outdoor</div>
+    <div class="stat-value">9<span class="small">/10</span></div>
+    <div class="stat-sub">Bridgers · Hyalite · 90 min to Yellowstone</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Elevation</div>
+    <div class="stat-value">4,820<span class="small">ft</span></div>
+    <div class="stat-sub">Gallatin Valley · semi-arid · real winter</div>
+  </div>
+</div>
+
+<!-- IS THIS FOR YOU? -->
+<section class="section fit-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Should you actually move here?</div>
+    <h2 class="section-title">Is Bozeman <em>for you</em>?</h2>
+    <p class="fit-intro">
+      Bozeman is the rare Rocky Mountain college town where world-class outdoor recreation, a Big Sky setting, and a university anchor all sit in one place — twenty minutes from a major ski resort, ninety minutes from Yellowstone, and walking distance from a Main Street that's stayed intact. The retirees who land here happily are the ones who came for the mountains and the seasons and don't flinch at a real winter. The ones who leave usually leave because of the snow, the cost (which has doubled in a decade), or because the small-city healthcare didn't match what they needed.
+    </p>
+
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <div class="fit-col-header">
+          <div class="fit-icon yes">✓</div>
+          <div class="fit-col-title">You'll <em>love</em> it here if&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>Outdoor recreation is the daily routine.</strong> The Bridger Range rises directly east of the city; the Gallatin Range is south; Hyalite Canyon is fifteen minutes from downtown with hiking, ice climbing, and fishing on the same access road. Bridger Bowl ski area is sixteen miles up Bridger Canyon — a locally-owned, non-resort mountain with serious terrain. Big Sky Resort is 50 miles south, Yellowstone's north entrance is 90 minutes southeast. Outdoor scored 9 of 10 in our database.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>A real downtown, intact.</strong> Bozeman's Main Street is a working historic district — late-19th-century brick storefronts, the Ellen Theatre (1919), the Bozeman Public Library a block north, restaurants and shops on both sides for several blocks. Genuinely walkable from downtown-adjacent neighborhoods. The Bogert Park summer farmers' market, the Sweet Pea Festival every August, the Music on Main concerts — the civic infrastructure of a college town that takes its downtown seriously.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Montana State University changes everything.</strong> MSU's 16,000+ students bring a research-and-cultural infrastructure that's unusual for a city of 56,000. Reynolds Hall's lecture series, the MSU Museum of the Rockies (paleontology — Jack Horner's institutional home), MSU Bobcats football and basketball, the Emerson Center for the Arts &amp; Culture. The university is also the city's largest employer and the reason Bozeman has the kind of restaurant and coffee scene retirees expect from a much larger place.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Montana's tax structure favors retirees.</strong> No state sales tax in Montana — one of only five states. Property taxes are moderate. Social Security is partially taxed at the state level, but the income tax structure has flattened in recent years. The math is meaningfully friendlier than California, Oregon, or Washington for retirees moving from those neighboring markets.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fit-col no">
+        <div class="fit-col-header">
+          <div class="fit-icon no">✗</div>
+          <div class="fit-col-title">Skip Bozeman <em>if</em>&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>A real Montana winter is not for you.</strong> December through March is the actual story — daily highs in the 20s and 30s, lows often below zero, snow on the ground for months, and stretches of subzero cold from arctic air masses. Bozeman gets 75–95 inches of snow in a typical year. Driving requires snow tires and the right vehicle. The retirees who do well here either love the winter or become snowbirds and split the year; the ones who try to tough it out often regret it.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Cost has changed dramatically since 2015.</strong> Median home around $725K. Realistic monthly costs of $4,800–$6,200 for a couple. Range 4 — Bozeman's housing market has roughly doubled since 2015, driven by remote-work migration, tech and finance arrivals, and Yellowstone-adjacent investment. Budget scored 3 of 10. For retirees relocating from cheaper markets, the math has gotten meaningfully harder. The "affordable mountain-town retirement" story is no longer accurate.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You need top-tier specialty medicine in town.</strong> Bozeman Health Deaconess Hospital is a strong regional community hospital, and a Mayo Clinic Care Network member — meaning local physicians can consult directly with Mayo specialists on complex cases. For most needs, this works. For high-end specialty care or major surgery, retirees often travel to Salt Lake City (5 hours by car, or a flight), Seattle, or Mayo Clinic Rochester. Worth understanding before you move.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You wanted a quiet retirement and small-town pace.</strong> Bozeman is a real working city now — students, professors, hospital staff, tech workers, second-home owners, and tourists routing to Yellowstone. The Main Street is busy. Traffic on 19th Avenue and along North 7th is real. The Bozeman of 1995 is gone. If you wanted Livingston or a Paradise Valley feel, you can find that 25 miles east — but Bozeman itself is no longer that.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTER -->
+<section class="section character-section">
+  <div class="wrap">
+    <div>
+      <div class="section-eyebrow">The character of the place</div>
+      <h2 class="section-title">A college town that <em>found Yellowstone first</em>.</h2>
+      <div class="character-body">
+        <p><span class="dropcap">B</span>ozeman is named for John Bozeman, the trail-blazer who in 1864 cut a wagon route through the Gallatin Valley to the gold fields of Virginia City and Helena. The valley itself — fertile, sheltered, glacially carved, and ringed by mountains — had been Crow and Shoshone territory before the gold-rush settlers arrived. The town that grew along Bozeman's trail became a farming-and-ranching supply hub through the late 19th century, and got two pieces of long-tenure infrastructure that shaped everything since: the Northern Pacific Railroad in 1883, and Montana Agricultural College — now Montana State University — in 1893. The college turned Bozeman into a research-and-engineering town long before that was a national category.</p>
+        <p>What changed Bozeman from a small Montana college town into the city it is today happened in roughly three waves. Yellowstone National Park, established in 1872 and accessed through the Gallatin Valley, brought a tourism economy that has compounded for over a century. Big Sky Resort, founded by Chet Huntley in 1973, established the south-of-Bozeman ski-and-mountain economy that anchors today's wealth migration. And the post-2015 wave — remote work, tech and finance arrivals, second-home buyers, and the migration south from cooler-climate states — doubled housing prices in about a decade. The Bozeman of 2015 had a median home price near $325,000. Today it's near $725,000. The city is the same place; the economics aren't.</p>
+        <p>What this earns is a city retirees move to for very specific reasons: world-class outdoor recreation at the city's edge, a real downtown that has stayed intact, an academic-and-cultural infrastructure unusual for a city of 56,000, and four real seasons in a Rocky Mountain setting. What it costs is winter (genuine, long, cold), distance (Salt Lake City is the nearest major-hub airport, and it's five hours south), and a cost structure that has caught up to Boulder and Bend. The retirees who do well here came for the mountains, embraced the seasons, and either had a Bozeman connection already or did their research carefully. The retirees who didn't usually leave within three winters.</p>
+      </div>
+    </div>
+
+    <div class="aside-stack">
+      <aside class="pullquote">
+        <div class="pullquote-mark">"</div>
+        <div class="pullquote-text">The Bozeman of 2015 had a median home price near $325,000. Today it's near $725,000. The city is the same place; the economics aren't.</div>
+        <div class="pullquote-attr">— On the post-2015 cost spike</div>
+      </aside>
+
+      <aside class="fast-facts">
+        <div class="fast-facts-label">Bozeman by the Numbers</div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">1893</div>
+          <div class="fast-fact-desc">Montana Agricultural College (now Montana State University) founded — over 130 years of co-evolution between the city and the university shapes everything from the downtown to the medical infrastructure</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">90 mi</div>
+          <div class="fast-fact-desc">To Yellowstone National Park's North Entrance at Gardiner — Bozeman is the closest sizable city to the park and the de facto gateway for the northern half of Yellowstone</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">75–95"</div>
+          <div class="fast-fact-desc">Snow in a typical winter — a real Rocky Mountain winter with subzero stretches from arctic air, not just resort-pretty snowfall. The seasonal honesty is non-negotiable</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL PHOTO BREAK -->
+<section class="detail-section">
+  <div class="detail-grid">
+    <div class="detail-photo">
+      <div class="detail-photo-credit">Photo · Drew / Unsplash</div>
+    </div>
+    <div class="detail-text">
+      <div class="detail-quote-mark">"</div>
+      <p class="detail-quote">A ranch road in January, two tire tracks through fresh snow, the Bridgers blue-shadowed in the distance — Bozeman's defining season is also its longest, and the retirees who do well here either love this or learn to leave for parts of it.</p>
+      <p class="detail-attribution">— On the Montana winter</p>
+    </div>
+  </div>
+</section>
+
+<!-- TYPICAL WEEK -->
+<section class="section week-section">
+  <div class="wrap">
+    <div class="section-eyebrow">What life actually looks like</div>
+    <h2 class="section-title">A week in Bozeman, <em>roughly</em>.</h2>
+    <p class="week-intro">A composite week of what an active Bozeman retiree's days could look like — drawn from the trail-and-downtown, lecture-and-museum, fly-shop-and-coffee cadence locals describe when they explain the four-season rhythm of the place.</p>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-name">Monday</div>
+        <div class="day-time">7:30 AM</div>
+        <div class="day-activity">Hike or snowshoe Drinking Horse Mountain</div>
+        <div class="day-where">A short loop trail just north of town on Bridger Drive, gentle elevation, big views of the valley. Easy enough for daily routine, scenic enough that locals keep going. Snowshoes in winter, dry trail in summer.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Tuesday</div>
+        <div class="day-time">10:30 AM</div>
+        <div class="day-activity">Museum of the Rockies</div>
+        <div class="day-where">On the MSU campus. Best-in-the-world paleontology collection — Jack Horner's institutional home, T. rex skeletons assembled from Montana digs. Smithsonian Affiliate. Plus rotating exhibits and a planetarium. A genuine national-tier museum in a city of 56,000.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Wednesday</div>
+        <div class="day-time">12:30 PM</div>
+        <div class="day-activity">Lunch downtown</div>
+        <div class="day-where">Blackbird Kitchen for wood-fired Italian; Jam! on Main for the lunch institution; Wild Crumb on West Babcock for sandwiches and pastry. Walking distance from most downtown-adjacent neighborhoods. Coffee after at Wild Joe's Coffee or Townshend's Teahouse.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Thursday</div>
+        <div class="day-time">7:00 PM</div>
+        <div class="day-activity">The Ellen Theatre</div>
+        <div class="day-where">1919 vaudeville-era theater on Main Street, restored and operating as the downtown's cultural anchor — first-run art house films, live music, plays. MSU's College of Arts &amp; Architecture also programs Reynolds Hall on campus with chamber music and concerts.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Friday</div>
+        <div class="day-time">2:00 PM</div>
+        <div class="day-activity">Hyalite Canyon</div>
+        <div class="day-where">Fifteen minutes south of downtown. Hyalite Reservoir at the canyon's head, waterfalls and trail networks along the access road. Hiking and trout fishing in summer; ice climbing and Nordic skiing in winter. The closest serious mountain recreation to a downtown of any city in the database.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Saturday</div>
+        <div class="day-time">8:30 AM</div>
+        <div class="day-activity">Bogert Park Farmers' Market (summer)</div>
+        <div class="day-where">Tuesday evenings and Saturday mornings, June through September. Local produce, Montana-grown grain, prepared food, music. Winter alternative: Wild Joe's for coffee and the Bozeman Public Library's Saturday programming.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Sunday</div>
+        <div class="day-time">10:00 AM</div>
+        <div class="day-activity">Bridger Bowl (winter) or Bridger Ridge hike (summer)</div>
+        <div class="day-where">Bridger Bowl, sixteen miles up Bridger Canyon, is a locally-owned non-resort mountain — 2,000 feet of vertical, big serious terrain, lift tickets cheaper than the Big Sky norm. In summer, the same canyon road accesses Bridger Ridge for the hike — long views east and west across two valleys.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Anytime</div>
+        <div class="day-time">—</div>
+        <div class="day-activity">Yellowstone day trip</div>
+        <div class="day-where">90 minutes southeast to the North Entrance at Gardiner — Mammoth Hot Springs, the Lamar Valley wolf-watching, Tower-Roosevelt. The whole northern half of Yellowstone is a day trip. The closest a U.S. city this size gets to a national park of this scale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE PHOTO BANNER -->
+<section class="lifestyle-banner">
+  <div class="lifestyle-banner-img"></div>
+  <div class="lifestyle-banner-content">
+    <div class="lifestyle-banner-eyebrow">Hyalite, fifteen minutes south</div>
+    <h2 class="lifestyle-banner-title">A summer creek in the Gallatin range, the short Bozeman summer at its best.</h2>
+  </div>
+  <div class="lifestyle-banner-credit">Photo · Colter Olmstead / Unsplash</div>
+</section>
+
+<!-- NEIGHBORHOODS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Where to live</div>
+    <h2 class="section-title">Four <em>Bozemans</em>, depending on you.</h2>
+    <p class="hoods-intro">
+      Bozeman is about 56,000 residents but the neighborhoods feel meaningfully different by era of construction, distance from downtown, and walkability. The four below cover the spectrum from historic-walkable to newer-master-planned. <strong>Pricing reflects May 2026 estimates and varies meaningfully by lot, view, and proximity to the Main Street core.</strong>
+    </p>
+
+    <div class="hoods-grid">
+      <div class="hood-card">
+        <div class="hood-name">Bon Ton / Cooper Park</div>
+        <div class="hood-vibe">Historic · Walkable · Downtown-adjacent</div>
+        <div class="hood-desc">National Register historic district just north and west of Main Street. Tree-lined streets, 1900s craftsman and Victorian homes, walking distance to downtown, Bogert Park, and the library. The classic Bozeman address for retirees who want walkability and don't need a yard. <strong>Median: $750K–$1.1M.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">South Tracy / South Willson</div>
+        <div class="hood-vibe">Historic · Walkable · MSU-adjacent</div>
+        <div class="hood-desc">South of downtown along the Tracy and Willson corridors, with mature trees and a mix of 1910s–1940s homes. Walkable to Main Street north and to the MSU campus south. The civic-and-academic walkable address for retirees who want both. <strong>Median: $675K–$950K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Northeast Bozeman</div>
+        <div class="hood-vibe">Eclectic · Established · Mixed character</div>
+        <div class="hood-desc">East of N. Rouse and north of the rail tracks. Was once Bozeman's working-class quarter, now a mix of mid-century homes, newer infill, and creative-class re-development. Walkable to Main Street and to the brewery district along Rouse and N. Wallace. Popular with retirees who want character and a slightly more affordable entry. <strong>Median: $575K–$825K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Valley West / Baxter Meadows</div>
+        <div class="hood-vibe">Newer master-planned · Single-family · West-side</div>
+        <div class="hood-desc">Bozeman's west-side master-planned communities, built largely post-2005 — Baxter Meadows is the older established one, Valley West is newer. Newer construction, larger lots, mixed neighborhoods of single-family and townhomes, parks and trails built into the master plan. Popular with retirees who want a newer house and don't need to be walking distance from downtown. <strong>Median: $675K–$950K.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTHCARE -->
+<section class="section" style="background: var(--cream); padding-bottom: 64px;">
+  <div class="wrap">
+    <div class="section-eyebrow">Healthcare — regional community hospital, Mayo Clinic Care Network access</div>
+    <h2 class="section-title">Bozeman Health Deaconess, <em>with Mayo on the consult line</em>.</h2>
+
+    <div class="health-card">
+      <div class="health-icon">🏥</div>
+      <div>
+        <div class="health-name">Bozeman Health Deaconess Hospital · Mayo Clinic Care Network member</div>
+        <div class="health-detail">Bozeman Health Deaconess is the regional community hospital — a 96-bed acute-care facility covering most of southwest Montana, with cardiology, orthopedics, cancer care, and a Level III trauma center. As a <strong>Mayo Clinic Care Network</strong> member (one of about 50 hospital systems nationwide), Bozeman Health physicians can directly consult Mayo specialists on complex cases without the patient leaving Bozeman. For routine and most specialty care, this works well. For very complex care or major surgery, retirees often travel to Salt Lake City (the nearest major-hub metro, 5 hours by car or a flight), Seattle, or Mayo Clinic Rochester. Healthcare scored 6 of 10 in our database — meaningfully lower than Mayo-Scottsdale or Michigan Medicine cities, and worth weighing carefully if specialty care is a priority.</div>
+      </div>
+      <div class="health-grade">
+        <div class="health-grade-num">6<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+        <div class="health-grade-lbl">Healthcare Match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPEARS ON LISTS -->
+<section class="section lists-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Bozeman also appears on</div>
+    <h2 class="section-title">A list where <em>Bozeman earned its place.</em></h2>
+
+    <div class="lists-grid">
+      <a href="/top-cities-for-hikers.html" class="list-card">
+        <div class="list-card-name">Top Cities for Hikers</div>
+        <div class="list-card-tier">Bridger Range · Hyalite Canyon · gateway to Yellowstone</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Want a personalized match?</div>
+    <h2 class="cta-h2">Bozeman might fit. <em>Or it might not.</em></h2>
+    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you — not what's trending.</p>
+    <a href="/" class="cta-btn">
+      <span>Find My Match</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-wordmark">
+      <span class="retire">RETIREME</span><span class="here">HERE</span>
+    </div>
+    <div class="footer-credits">
+      Photos: Matthew Lancaster, Drew, Colter Olmstead — all via Unsplash.<br>
+      Sources: Redfin / Zillow (May 2026) · Bozeman Health Deaconess Hospital · Mayo Clinic Care Network · Montana State University · Museum of the Rockies · Bridger Bowl Ski Area · Big Sky Resort · Yellowstone National Park (NPS) · NOAA Climate Normals · Montana Department of Revenue.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
