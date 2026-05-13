@@ -826,20 +826,83 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   50% { transform: translateY(4px); }
 }
 .results-grid { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; display: flex; flex-direction: column; gap: 16px; }
-.city-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; cursor: pointer; border: 2px solid transparent; }
-.city-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--teal-lt); }
-.city-card.top-match { border-color: var(--teal); }
-.card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; overflow: hidden; min-height: 110px; cursor: pointer; }
-.city-card:nth-child(2) .card-header { background: #3d7a75; }
-.city-card:nth-child(3) .card-header { background: #4e8f8a; }
-.city-card:nth-child(4) .card-header { background: #5fa4a0; }
-.city-card:nth-child(5) .card-header { background: #70b8b5; }
-.match-badge { position: absolute; top: 16px; right: 16px; z-index: 3; background: rgba(255,255,255,0.2); color: white; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(4px); }
-.city-card:first-child .match-badge { background: var(--gold); color: var(--dark); }
-.card-rank { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.card-city-name { font-family: 'Libre Franklin', sans-serif; font-size: clamp(22px, 5vw, 28px); color: var(--white); margin-bottom: 4px; }
-.card-type { font-size: 13px; color: rgba(255,255,255,0.75); }
-.card-body { padding: 20px 24px; }
+/* ===== Result cards — Editorial direction ===== */
+.city-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid #ece7dd;
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+}
+.city-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.card-region-bar {
+  height: 8px;
+  background: var(--region-color, var(--teal));
+}
+.card-header {
+  background: #fff;
+  padding: 22px 24px 20px;
+  position: relative;
+  min-height: 110px;
+  cursor: pointer;
+  border-bottom: 1px solid #ece7dd;
+}
+.match-badge {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  background: transparent;
+  padding: 0;
+  backdrop-filter: none;
+  z-index: 3;
+}
+.match-badge-pct {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--region-color, var(--teal));
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.match-badge-lbl {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--light);
+  margin-top: 4px;
+}
+.card-rank {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--region-color, var(--teal));
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+}
+.card-city-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.card-type {
+  font-size: 13px;
+  color: var(--mid);
+}.card-body { padding: 20px 24px; }
 .score-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-bottom: 16px; }
 .score-item-label { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: flex; justify-content: space-between; }
 .score-item-label span:last-child { color: var(--dark); font-weight: 600; }
@@ -875,18 +938,24 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .match-score-display { font-size: 13px; color: var(--light); }
 .match-score-display strong { font-size: 20px; color: var(--teal); font-family: 'Libre Franklin', sans-serif; }
 .btn-view-city {
-  display: block; width: 100%;
-  background: var(--terra); color: var(--white);
+  display: flex; width: 100%;
+  align-items: center; justify-content: center; gap: 8px;
+  background: #3F3D3A; color: #fff;
   border: none; font-family: 'DM Sans', sans-serif;
-  font-size: 15px; font-weight: 700;
-  padding: 14px 20px; border-radius: 0 0 var(--radius) var(--radius);
-  cursor: pointer; transition: all 0.2s;
+  font-size: 15px; font-weight: 600;
+  padding: 14px 20px; border-radius: 100px;
+  margin-top: 14px;
+  cursor: pointer; transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
   letter-spacing: 0.01em;
 }
-.btn-view-city:hover { background: #a85e3a; }
-.btn-view-city.btn-profile { background: var(--dark); }
-.btn-view-city.btn-profile:hover { background: #333; }
-.city-detail-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+.btn-view-city:hover {
+  background: #1C1A18;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(28,26,24,0.18);
+}
+.btn-view-city.btn-profile { background: #3F3D3A; }
+.btn-view-city.btn-profile:hover { background: #1C1A18; }
+.btn-view-city .arrow { font-size: 18px; }.city-detail-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
 /* ===== In-app city detail view — Editorial direction ===== */
 .detail-hero {
   background: #fff;
@@ -6677,9 +6746,16 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>`;
   }
   return `<div class="city-card ${i === 0 ? 'top-match' : ''}" id="${cardId}">
+const region = getCityRegion(city.state);
+
+  return `<div class="city-card" id="${cardId}" style="--region-color: ${region.color};">
+    <div class="card-region-bar"></div>
     <div class="card-header">
-      <div class="match-badge">${city.matchScore}% match</div>
-      <div class="card-rank">${rankLabels[i]}</div>
+      <div class="match-badge">
+        <span class="match-badge-pct">${city.matchScore}</span>
+        <span class="match-badge-lbl">Your match</span>
+      </div>
+      <div class="card-rank">${rankLabels[i]} · ${region.label}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
       <div class="card-type">${city.type}${quizState.budget ? ` <span class="budget-indicator"><span class="budget-dot ${budgetClass}"></span>${city.monthlyEst || ''}</span>` : ''}</div>
     </div>
@@ -6687,13 +6763,13 @@ function buildCityCardHTML(city, i, rankLabels) {
       <div class="card-insights">
         ${insightRows}
       </div>
-      <button class="btn-view-city" style="background:var(--terra);color:white;width:100%;padding:14px 20px;border-radius:14px;border:none;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
         <span>See the full breakdown</span>
-        <span style="font-size:18px;">→</span>
+        <span class="arrow">→</span>
       </button>
     </div>
   </div>`;
-}
+} 
 
 
 function renderResults(results) {
