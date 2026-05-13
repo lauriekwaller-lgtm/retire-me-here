@@ -6745,9 +6745,8 @@ function buildCityCardHTML(city, i, rankLabels) {
         <div><strong>Tradeoffs to know before you commit</strong></div>
       </div>`;
   }
-  return `<div class="city-card ${i === 0 ? 'top-match' : ''}" id="${cardId}">
-const region = getCityRegion(city.state);
-
+  
+  const region = getCityRegion(city.state);
   return `<div class="city-card" id="${cardId}" style="--region-color: ${region.color};">
     <div class="card-region-bar"></div>
     <div class="card-header">
