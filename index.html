@@ -826,83 +826,20 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   50% { transform: translateY(4px); }
 }
 .results-grid { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; display: flex; flex-direction: column; gap: 16px; }
-/* ===== Result cards — Editorial direction ===== */
-.city-card {
-  background: #fff;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  border: 1px solid #ece7dd;
-  transition: transform 0.25s, box-shadow 0.25s;
-  cursor: pointer;
-}
-.city-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-.card-region-bar {
-  height: 8px;
-  background: var(--region-color, var(--teal));
-}
-.card-header {
-  background: #fff;
-  padding: 22px 24px 20px;
-  position: relative;
-  min-height: 110px;
-  cursor: pointer;
-  border-bottom: 1px solid #ece7dd;
-}
-.match-badge {
-  position: absolute;
-  top: 20px;
-  right: 22px;
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  line-height: 1;
-  background: transparent;
-  padding: 0;
-  backdrop-filter: none;
-  z-index: 3;
-}
-.match-badge-pct {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 30px;
-  font-weight: 600;
-  color: var(--region-color, var(--teal));
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-.match-badge-lbl {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--light);
-  margin-top: 4px;
-}
-.card-rank {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--region-color, var(--teal));
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 8px;
-}
-.card-city-name {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(22px, 5vw, 28px);
-  font-weight: 600;
-  color: var(--dark);
-  letter-spacing: -0.015em;
-  line-height: 1.05;
-  margin-bottom: 8px;
-}
-.card-type {
-  font-size: 13px;
-  color: var(--mid);
-}.card-body { padding: 20px 24px; }
+.city-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: all 0.25s; cursor: pointer; border: 2px solid transparent; }
+.city-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--teal-lt); }
+.city-card.top-match { border-color: var(--teal); }
+.card-header { background: var(--teal); padding: 20px 24px 16px; position: relative; overflow: hidden; min-height: 110px; cursor: pointer; }
+.city-card:nth-child(2) .card-header { background: #3d7a75; }
+.city-card:nth-child(3) .card-header { background: #4e8f8a; }
+.city-card:nth-child(4) .card-header { background: #5fa4a0; }
+.city-card:nth-child(5) .card-header { background: #70b8b5; }
+.match-badge { position: absolute; top: 16px; right: 16px; z-index: 3; background: rgba(255,255,255,0.2); color: white; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(4px); }
+.city-card:first-child .match-badge { background: var(--gold); color: var(--dark); }
+.card-rank { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.card-city-name { font-family: 'Libre Franklin', sans-serif; font-size: clamp(22px, 5vw, 28px); color: var(--white); margin-bottom: 4px; }
+.card-type { font-size: 13px; color: rgba(255,255,255,0.75); }
+.card-body { padding: 20px 24px; }
 .score-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-bottom: 16px; }
 .score-item-label { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: flex; justify-content: space-between; }
 .score-item-label span:last-child { color: var(--dark); font-weight: 600; }
@@ -938,144 +875,33 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .match-score-display { font-size: 13px; color: var(--light); }
 .match-score-display strong { font-size: 20px; color: var(--teal); font-family: 'Libre Franklin', sans-serif; }
 .btn-view-city {
-  display: flex; width: 100%;
-  align-items: center; justify-content: center; gap: 8px;
-  background: #3F3D3A; color: #fff;
+  display: block; width: 100%;
+  background: var(--terra); color: var(--white);
   border: none; font-family: 'DM Sans', sans-serif;
-  font-size: 15px; font-weight: 600;
-  padding: 14px 20px; border-radius: 100px;
-  margin-top: 14px;
-  cursor: pointer; transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+  font-size: 15px; font-weight: 700;
+  padding: 14px 20px; border-radius: 0 0 var(--radius) var(--radius);
+  cursor: pointer; transition: all 0.2s;
   letter-spacing: 0.01em;
 }
-.btn-view-city:hover {
-  background: #1C1A18;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(28,26,24,0.18);
-}
-.btn-view-city.btn-profile { background: #3F3D3A; }
-.btn-view-city.btn-profile:hover { background: #1C1A18; }
-.btn-view-city .arrow { font-size: 18px; }.city-detail-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
-/* ===== In-app city detail view — Editorial direction ===== */
-.detail-hero {
-  background: #fff;
-  border-radius: var(--radius);
-  margin: 24px 0 20px;
-  border: 1px solid #ece7dd;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  position: relative;
-}
-.detail-region-bar {
-  height: 8px;
-  background: var(--region-color, var(--teal));
-}
-.detail-hero-inner {
-  padding: 22px 28px 28px;
-  position: relative;
-}
-.detail-back {
-  font-size: 13px;
-  color: var(--mid);
-  cursor: pointer;
-  margin-bottom: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.detail-back:hover { color: var(--dark); }
-.detail-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--region-color, var(--teal));
-  margin-bottom: 10px;
-}
-.detail-city-name {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(28px, 6.5vw, 40px);
-  font-weight: 600;
-  color: var(--dark);
-  line-height: 1.05;
-  letter-spacing: -0.015em;
-  margin-bottom: 2px;
-}
-.detail-flourish {
-  display: block;
-  width: 44px;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 1px;
-  margin: 12px 0;
-}
-.detail-state {
-  font-size: 14px;
-  color: var(--mid);
-}
-.detail-type-badge { display: none; } /* badge retired — duplicated detail-state */
-.detail-match-score {
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  text-align: right;
-  background: transparent;
-  padding: 0;
-  z-index: 1;
-}
-.detail-match-pct {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(28px, 6vw, 36px);
-  font-weight: 600;
-  color: var(--region-color, var(--teal));
-  line-height: 1;
-  letter-spacing: -0.02em;
-  display: block;
-}
-.detail-match-lbl {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--light);
-  font-weight: 700;
-  margin-top: 4px;
-  display: block;
-}
-.detail-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 14px;
-}
-.detail-stat {
-  background: #fff;
-  border: 1px solid #ece7dd;
-  border-top: 3px solid var(--region-color, var(--teal));
-  border-radius: 10px;
-  padding: 14px 10px 12px;
-  text-align: center;
-  box-shadow: none;
-}
-.detail-stat-val {
-  font-family: 'Libre Franklin', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--dark);
-  display: block;
-  margin-bottom: 6px;
-  letter-spacing: -0.005em;
-}
-.detail-stat-lbl {
-  font-size: 9px;
-  color: var(--light);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  display: block;
-}
+.btn-view-city:hover { background: #a85e3a; }
+.btn-view-city.btn-profile { background: var(--dark); }
+.btn-view-city.btn-profile:hover { background: #333; }
+.city-detail-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+.detail-hero { background: var(--teal); border-radius: var(--radius); padding: 36px 32px; margin: 24px 0 20px; color: white; position: relative; overflow: hidden; }
+.detail-hero::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+.detail-hero::after { content: ''; position: absolute; bottom: -60px; left: -20px; width: 160px; height: 160px; border-radius: 50%; background: rgba(212,168,75,0.1); }
+.detail-back { font-size: 13px; color: rgba(255,255,255,0.7); cursor: pointer; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; position: relative; z-index: 1; }
+.detail-back:hover { color: white; }
+.detail-city-name { font-family: 'Libre Franklin', sans-serif; font-size: clamp(32px, 7vw, 48px); margin-bottom: 6px; position: relative; z-index: 1; }
+.detail-state { font-size: 15px; opacity: 0.75; margin-bottom: 12px; position: relative; z-index: 1; }
+.detail-type-badge { display: inline-block; background: rgba(255,255,255,0.15); font-size: 12px; padding: 4px 12px; border-radius: 100px; position: relative; z-index: 1; }
+.detail-match-score { position: absolute; top: 32px; right: 32px; background: var(--gold); color: var(--dark); border-radius: 12px; padding: 12px 16px; text-align: center; z-index: 1; }
+.detail-match-pct { font-family: 'Libre Franklin', sans-serif; font-size: 32px; font-weight: 600; line-height: 1; display: block; }
+.detail-match-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-top: 2px; }
+.detail-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.detail-stat { background: var(--white); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); text-align: center; }
+.detail-stat-val { font-family: 'Libre Franklin', sans-serif; font-size: 18px; color: var(--teal); display: block; margin-bottom: 4px; }
+.detail-stat-lbl { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: 0.5px; }
 .detail-section { background: var(--white); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
 .detail-section h3 { font-family: 'Libre Franklin', sans-serif; font-size: 20px; color: var(--dark); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--sand); }
 .full-scores { display: flex; flex-direction: column; gap: 12px; }
@@ -1102,7 +928,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
  .hero-stats { gap: 20px; }
  .preset-grid { grid-template-columns: repeat(2, 1fr); }
  .explore-cta-bar { flex-direction: column; text-align: center; }
-
+ .detail-match-score { display: none; }
 }
 .region-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }
 .region-btn { padding: 14px 12px; border-radius: 12px; border: 2px solid #e8e4de; background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--dark); cursor: pointer; transition: all 0.15s; text-align: center; }
@@ -1218,6 +1044,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .cons-dot { background: var(--terra-lt); color: var(--terra); }
 .sources-section { border-top: 3px solid var(--sand); }
 .sources-section h3 { color: var(--light) !important; font-size: 14px !important; }
+.detail-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.detail-stat { background: var(--teal); border-radius: 12px; padding: 16px 12px; text-align: center; }
+.detail-stat-val { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); display: block; margin-bottom: 5px; line-height: 1.35; letter-spacing: -0.01em; }
+.detail-stat-lbl { font-size: 9px; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
 .detail-budget-note { font-size: 12px; color: var(--mid); font-style: italic; line-height: 1.5; margin: -10px 0 22px 0; padding: 0 4px; }
 .explore-page { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
 .explore-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 8px; }
@@ -6745,16 +6575,10 @@ function buildCityCardHTML(city, i, rankLabels) {
         <div><strong>Tradeoffs to know before you commit</strong></div>
       </div>`;
   }
-  
-  const region = getCityRegion(city.state);
-  return `<div class="city-card" id="${cardId}" style="--region-color: ${region.color};">
-    <div class="card-region-bar"></div>
+  return `<div class="city-card ${i === 0 ? 'top-match' : ''}" id="${cardId}">
     <div class="card-header">
-      <div class="match-badge">
-        <span class="match-badge-pct">${city.matchScore}</span>
-        <span class="match-badge-lbl">Your match</span>
-      </div>
-      <div class="card-rank">${rankLabels[i]} · ${region.label}</div>
+      <div class="match-badge">${city.matchScore}% match</div>
+      <div class="card-rank">${rankLabels[i]}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
       <div class="card-type">${city.type}${quizState.budget ? ` <span class="budget-indicator"><span class="budget-dot ${budgetClass}"></span>${city.monthlyEst || ''}</span>` : ''}</div>
     </div>
@@ -6762,13 +6586,13 @@ function buildCityCardHTML(city, i, rankLabels) {
       <div class="card-insights">
         ${insightRows}
       </div>
-      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+      <button class="btn-view-city" style="background:var(--terra);color:white;width:100%;padding:14px 20px;border-radius:14px;border:none;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
         <span>See the full breakdown</span>
-        <span class="arrow">→</span>
+        <span style="font-size:18px;">→</span>
       </button>
     </div>
   </div>`;
-} 
+}
 
 
 function renderResults(results) {
@@ -6983,42 +6807,7 @@ function getClimateDesc(city) {
   const humDesc = M >= 9 ? 'very low humidity year-round' : M >= 7 ? 'low to moderate humidity' : M >= 5 ? 'moderate summer humidity' : M >= 3 ? 'hot humid summers' : 'very humid — oppressive summer humidity';
   return `${winterDesc.charAt(0).toUpperCase() + winterDesc.slice(1)} · ${summerDesc} · ${humDesc}.`;
 }
-// =====================================================
-// REGIONAL PALETTE — used by in-app city detail view
-// =====================================================
-const STATE_REGIONS = {
-  // Northeast & Mid-Atlantic
-  'ME':'northeast','NH':'northeast','VT':'northeast','MA':'northeast',
-  'CT':'northeast','RI':'northeast','NY':'northeast','NJ':'northeast',
-  'PA':'northeast','DE':'northeast','MD':'northeast','DC':'northeast','VA':'northeast',
-  // Southeast (includes Texas & Oklahoma)
-  'NC':'southeast','SC':'southeast','GA':'southeast','AL':'southeast',
-  'MS':'southeast','TN':'southeast','KY':'southeast','WV':'southeast','AR':'southeast',
-  'TX':'southeast','OK':'southeast',
-  // Florida & Gulf
-  'FL':'florida','LA':'florida',
-  // Midwest
-  'OH':'midwest','IN':'midwest','IL':'midwest','MI':'midwest','WI':'midwest',
-  'MN':'midwest','IA':'midwest','MO':'midwest','ND':'midwest','SD':'midwest',
-  'NE':'midwest','KS':'midwest',
-  // Mountain West
-  'CO':'mountain','UT':'mountain','WY':'mountain','MT':'mountain','ID':'mountain',
-  'NV':'mountain','NM':'mountain','AZ':'mountain',
-  // West Coast
-  'CA':'west','OR':'west','WA':'west','AK':'west','HI':'west'
-};
-const REGION_META = {
-  northeast: { color: '#2e5d8b', label: 'Northeast' },
-  southeast: { color: '#2A5E5A', label: 'Southeast' },
-  florida:   { color: '#3D8B85', label: 'Florida / Gulf Coast' },
-  midwest:   { color: '#6B7A4F', label: 'Midwest' },
-  mountain:  { color: '#A8552D', label: 'Mountain West' },
-  west:      { color: '#4A6B8A', label: 'West Coast' }
-};
 
-function getCityRegion(stateAbbr) {
-  return REGION_META[STATE_REGIONS[stateAbbr]] || REGION_META.southeast;
-}  
 function getTaxNote(state) {
   const noTax = ['FL','TX','NV','WY','TN'];
   const notes = {
@@ -7376,7 +7165,8 @@ function showCityDetail(cityName, cityState) {
     'Ann Arbor_MI': 'cities/ann-arbor/profile.html',
     'Carlsbad_CA': 'cities/carlsbad/profile.html',
     'Bozeman_MT': 'cities/bozeman/profile.html',
-    'St. George_UT': 'cities/st-george/profile.html'
+    'St. George_UT': 'cities/st-george/profile.html',
+    'Tampa_FL': 'cities/tampa/profile.html'
   };
   const profileKey = cityName + '_' + cityState;
   if (PUBLISHED_PROFILES[profileKey]) {
@@ -7448,23 +7238,17 @@ function showCityDetail(cityName, cityState) {
   const hospitalRating = en.hospitalRating || 'See full profile';
   const sources = en.sources || 'Zillow/Redfin (median home prices) · US News Health (hospital rankings) · CrimeGrade.org (safety data) · NOAA Climate Normals · State tax authority · Data current as of March 2026.';
 
-  const region = getCityRegion(city.state);
-
   detail.innerHTML = `
-    <div class="city-detail-wrap" style="--region-color: ${region.color};">
+    <div class="city-detail-wrap">
       <div class="detail-hero">
-        <div class="detail-region-bar"></div>
-        <div class="detail-hero-inner">
-          <div class="detail-back" onclick="goBack()">← Back</div>
-          ${lastMatchScore ? `<div class="detail-match-score">
-            <span class="detail-match-pct">${lastMatchScore}%</span>
-            <span class="detail-match-lbl">Your Match</span>
-          </div>` : ''}
-          <div class="detail-eyebrow">${region.label}</div>
-          <div class="detail-city-name">${city.name}, ${city.state}</div>
-          <span class="detail-flourish"></span>
-          <div class="detail-state">${city.type}</div>
-        </div>
+        <div class="detail-back" onclick="goBack()">← Back</div>
+        ${lastMatchScore ? `<div class="detail-match-score">
+          <span class="detail-match-pct">${lastMatchScore}%</span>
+          <span class="detail-match-lbl">Your Match</span>
+        </div>` : ''}
+        <div class="detail-city-name">${city.name}, ${city.state}</div>
+        <div class="detail-state">${city.type}</div>
+        <div class="detail-type-badge">${city.setting[0]}</div>
       </div>
 
       <div class="detail-stats">
