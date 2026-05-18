@@ -1,1 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarasota, Florida — A Retirement City Profile | RetireMeHere</title>
+<meta name="description" content="An editorial profile of Sarasota, Florida as a retirement destination. The Gulf Coast's cultural capital — Ringling, opera, ballet, symphony, Siesta Key, and the rare combination of world-class healthcare with serious arts infrastructure.">
+<link rel="canonical" href="https://retiremehere.com/cities/sarasota/profile.html">
 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal: #2A5E5A;
+  --teal-mid: #3d7a75;
+  --teal-deep: #1f4744;
+  --terra: #C4724A;
+  --terra-soft: #E89F75;
+  --sand: #F7F3ED;
+  --cream: #FBF7F1;
+  --paper: #FFFCF5;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #8B867E;
+  --gold: #D4A84B;
+  --line: #ECE6DC;
+
+  --max-w: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--dark);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; }
+
+/* HEADER */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 252, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.18em;
+  text-decoration: none;
+}
+.header-wordmark .retire { color: var(--teal); }
+.header-wordmark .here { color: var(--terra); }
+.header-nav { display: flex; gap: 24px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+.header-nav a:hover { color: var(--teal); }
+.header-nav a.header-cta {
+  background: var(--teal-deep);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(28,26,24,0.25);
+  letter-spacing: 0.04em;
+  display: inline-block;
+  line-height: 1;
+}
+.header-nav a.header-cta:hover {
+  background: var(--teal);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(28,26,24,0.3);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  z-index: 1;
+}
+.hero-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.1) 30%,
+      rgba(0,0,0,0.1) 45%,
+      rgba(0,0,0,0.65) 75%,
+      rgba(0,0,0,0.88) 100%
+    );
+}
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 88px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(212, 168, 75, 0.6);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+}
+.hero-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: 0.92; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  color: white;
+  text-shadow:
+    0 2px 12px rgba(0,0,0,0.5),
+    0 8px 40px rgba(0,0,0,0.4);
+}
+.hero-state {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 300;
+  font-size: clamp(20px, 3vw, 30px);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(16px, 1.9vw, 20px);
+  max-width: 540px; line-height: 1.4;
+  color: white;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+.hero-photo-credit {
+  position: absolute;
+  bottom: 92px; right: 32px;
+  z-index: 4;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+/* STATS BAR */
+.stats-bar {
+  background: white;
+  max-width: var(--max-w);
+  margin: -56px auto 0;
+  position: relative;
+  z-index: 3;
+  border-radius: 4px;
+  box-shadow: 0 24px 80px rgba(28,26,24,0.18);
+  padding: 32px 44px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 0 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: none; }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { padding-right: 0; }
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px; line-height: 1.1;
+  color: var(--dark); letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.stat-value .small { font-size: 16px; color: var(--mid); }
+.stat-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--mid); line-height: 1.4;
+}
+
+/* SECTION SCAFFOLDING */
+.section { padding: 64px 0; }
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--dark);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.section-title em { font-style: italic; color: var(--teal); }
+
+/* FIT SECTION */
+.fit-section .fit-intro {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--mid);
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.fit-col-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.fit-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+  flex-shrink: 0;
+}
+.fit-icon.yes { background: var(--teal); color: white; }
+.fit-icon.no { background: var(--terra); color: white; }
+.fit-col-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+}
+.fit-col-title em { font-style: italic; color: var(--teal); }
+.fit-col.no .fit-col-title em { color: var(--terra); }
+.fit-list { list-style: none; padding: 0; }
+.fit-list li {
+  display: flex; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px; line-height: 1.55;
+  color: var(--mid);
+}
+.fit-list li:last-child { border-bottom: none; }
+.fit-list li strong { color: var(--dark); font-weight: 600; }
+.fit-list .marker {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 9px;
+}
+.fit-col.yes .fit-list .marker { background: var(--teal); }
+.fit-col.no .fit-list .marker { background: var(--terra); }
+
+/* CHARACTER */
+.character-section { background: var(--cream); padding-bottom: 48px; }
+.character-section .wrap {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.character-body p {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mid);
+  margin-bottom: 22px;
+}
+.character-body p:last-child { margin-bottom: 0; }
+.character-body strong { color: var(--dark); font-weight: 600; }
+.dropcap {
+  float: left;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 76px;
+  line-height: 0.85;
+  margin: 6px 12px 0 0;
+  color: var(--terra);
+}
+.aside-stack { display: flex; flex-direction: column; gap: 24px; }
+.pullquote {
+  background: var(--paper);
+  border-left: 3px solid var(--gold);
+  padding: 32px 32px 36px;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
+}
+.pullquote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 80px;
+  line-height: 0.6;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.pullquote-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.pullquote-attr {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--mid);
+}
+.fast-facts {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 28px 32px 32px;
+  border-radius: 2px;
+}
+.fast-facts-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.fast-fact {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.fast-fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fast-fact:first-of-type { padding-top: 0; }
+.fast-fact-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fast-fact-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.45;
+}
+
+/* DETAIL PHOTO BREAK */
+.detail-section {
+  position: relative;
+  padding: 0;
+  background: var(--dark);
+  overflow: hidden;
+}
+.detail-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+.detail-photo {
+  position: relative;
+  background-image: url('detail.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.detail-photo-credit {
+  position: absolute;
+  bottom: 12px; right: 14px;
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.detail-text {
+  padding: 80px 60px;
+  background: var(--dark);
+  color: white;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.detail-quote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 90px; line-height: 0.7;
+  color: var(--gold);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.detail-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.4;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.detail-attribution {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* TYPICAL WEEK */
+.week-section { background: var(--sand); padding-top: 48px; }
+.week-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 680px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.day-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 22px;
+  transition: all 0.25s;
+}
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  border-color: var(--gold);
+}
+.day-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.day-time {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--light);
+  margin-bottom: 12px;
+}
+.day-activity {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.day-where { font-size: 13px; color: var(--mid); line-height: 1.5; }
+
+/* LIFESTYLE BANNER */
+.lifestyle-banner {
+  position: relative;
+  width: 100%;
+  height: 56vh;
+  min-height: 420px;
+  max-height: 580px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.lifestyle-banner-img {
+  position: absolute; inset: 0;
+  background-image: url('lifestyle.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+.lifestyle-banner-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.10) 40%,
+    rgba(0,0,0,0.35) 65%,
+    rgba(0,0,0,0.55) 90%,
+    rgba(0,0,0,0.65) 100%
+  );
+}
+.lifestyle-banner-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 56px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.lifestyle-banner-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+.lifestyle-banner-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500; font-style: italic;
+  font-size: clamp(22px, 2.8vw, 34px);
+  line-height: 1.2; letter-spacing: -0.015em;
+  color: white;
+  text-wrap: balance;
+  max-width: 680px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
+}
+.lifestyle-banner-credit {
+  position: absolute;
+  bottom: 14px; right: 24px;
+  z-index: 2;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* NEIGHBORHOODS */
+.hoods-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.hoods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.hood-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px 32px 36px;
+  transition: all 0.25s;
+}
+.hood-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+}
+.hood-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.hood-vibe {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 18px;
+}
+.hood-desc { font-size: 15px; color: var(--mid); line-height: 1.6; }
+.hood-desc strong { color: var(--dark); font-weight: 600; }
+
+/* HEALTHCARE */
+.health-card {
+  background: var(--dark);
+  color: white;
+  padding: 44px 48px;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 36px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.health-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 60%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.health-icon { font-size: 48px; z-index: 1; }
+.health-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: white;
+  z-index: 1; position: relative;
+}
+.health-detail {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  z-index: 1; position: relative;
+}
+.health-grade { text-align: center; z-index: 1; }
+.health-grade-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.health-grade-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* APPEARS ON LISTS */
+.lists-section { background: var(--cream); }
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+.list-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 26px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.list-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.list-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.list-card-tier {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid);
+}
+.list-card-arrow {
+  position: absolute;
+  top: 24px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.list-card:hover .list-card-arrow { opacity: 1; transform: translateX(2px); }
+
+/* QUIZ CTA */
+.cta-section {
+  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: -10%;
+  width: 60%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 96px 48px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.cta-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cta-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(34px, 4.5vw, 50px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: white;
+  text-wrap: balance;
+}
+.cta-h2 em { font-style: italic; color: var(--gold); }
+.cta-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  text-wrap: balance;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 17px 36px;
+  border-radius: 100px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 168, 75, 0.4);
+}
+.cta-btn .arrow { font-size: 18px; transition: transform 0.25s; }
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  padding: 48px 48px 36px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.18em;
+}
+.footer-wordmark .retire { color: rgba(255,255,255,0.85); }
+.footer-wordmark .here { color: var(--terra-soft); }
+.footer-credits {
+  font-size: 11px; letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  text-align: right;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 880px) {
+  .site-header { padding: 12px 20px; }
+  .header-nav { gap: 14px; }
+  .header-nav a:not(.header-cta) { display: none; }
+  .wrap { padding: 0 24px; }
+  .section { padding: 56px 0; }
+
+  .hero { min-height: 540px; }
+  .hero-content { padding: 0 24px 96px; }
+  .hero-eyebrow {
+    font-size: 10px;
+    padding: 6px 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 14px;
+  }
+  .hero-name { font-size: 64px; line-height: 0.95; margin-bottom: 6px; }
+  .hero-state { font-size: 18px; margin-bottom: 14px; }
+  .hero-tagline { line-height: 1.5; max-width: 100%; }
+  .hero-photo-credit {
+    bottom: 56px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.4);
+  }
+
+  .stats-bar {
+    margin: -40px 20px 0;
+    padding: 24px 22px;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+  }
+  .stat { padding: 0 14px; border-right: none; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stat:first-child, .stat:nth-child(3) { padding-left: 0; }
+  .stat:nth-child(2), .stat:last-child { padding-right: 0; }
+  .stat:nth-child(1), .stat:nth-child(2) {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fit-grid { grid-template-columns: 1fr; gap: 56px; }
+  .character-section .wrap { grid-template-columns: 1fr; gap: 48px; }
+  .week-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .lifestyle-banner {
+    height: 50vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
+  .lifestyle-banner-content { padding: 0 24px 36px; }
+  .hoods-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; min-height: auto; }
+  .detail-photo { 
+    height: 75vw;
+    max-height: 480px;
+    min-height: 280px;
+    aspect-ratio: auto;
+  }
+  .detail-text { padding: 56px 28px; }
+  .health-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .health-icon { font-size: 40px; }
+  .lists-grid { grid-template-columns: 1fr; }
+  .cta-inner { padding: 72px 24px; }
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-credits { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="/" class="header-wordmark">
+    <span class="retire">RETIREME</span><span class="here">HERE</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/#explore">Top Cities For…</a>
+    <a href="/" class="header-cta">Find My Match</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">★ A Retirement City Profile</span>
+    <h1 class="hero-name">Sarasota.</h1>
+    <p class="hero-state">Florida</p>
+    <p class="hero-tagline">The Gulf Coast's cultural capital — Ringling, opera, ballet, symphony, and a hospital that's earned a perfect federal rating every year since the program began.</p>
+  </div>
+  <div class="hero-photo-credit">Photo · Jeffrey Eisen / Unsplash</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-label">Median Home</div>
+    <div class="stat-value">$538<span class="small">K</span></div>
+    <div class="stat-sub">Pricier than most Gulf Coast cities</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Monthly Budget</div>
+    <div class="stat-value">$4.8–6.2<span class="small">K/mo</span></div>
+    <div class="stat-sub">Mid-to-upper · arts-city premium</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Healthcare</div>
+    <div class="stat-value">10<span class="small">/10</span></div>
+    <div class="stat-sub">Sarasota Memorial · perfect CMS 5-star</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Community</div>
+    <div class="stat-value">9<span class="small">/10</span></div>
+    <div class="stat-sub">Opera · ballet · symphony · Ringling</div>
+  </div>
+</div>
+
+<!-- IS THIS FOR YOU? -->
+<section class="section fit-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Should you actually move here?</div>
+    <h2 class="section-title">Is Sarasota <em>for you</em>?</h2>
+    <p class="fit-intro">
+      Sarasota is small — under 60,000 in the city proper, around 450,000 in the metro — but the cultural infrastructure runs deeper than cities five times its size. Opera, ballet, symphony, the Ringling Museum, Asolo Repertory Theatre, the Van Wezel performing-arts hall on the bayfront. Layered on top: a hospital with a perfect federal rating every year since the program began, and Siesta Key twenty minutes south. The retirees who land here happily come for that combination. The ones who leave usually leave because of the cost, the seasonal crowds, or the summer they didn't fully reckon with.
+    </p>
+
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <div class="fit-col-header">
+          <div class="fit-icon yes">✓</div>
+          <div class="fit-col-title">You'll <em>love</em> it here if&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>The arts are non-negotiable.</strong> Few American cities of any size match Sarasota's cultural density. <strong>The John and Mable Ringling Museum of Art</strong> — bequeathed to the state of Florida in 1936 — is the official state art museum, and its 66-acre bayfront campus also houses Ca' d'Zan, the Asolo Theater, and the Tibbals Learning Center. <strong>Sarasota Opera</strong> performs in a restored 1926 Mediterranean Revival opera house downtown. <strong>The Sarasota Orchestra</strong> is the South's oldest continuing orchestra. Add the <strong>Asolo Repertory Theatre</strong>, the <strong>Van Wezel Performing Arts Hall</strong>, the <strong>Florida Studio Theatre</strong>, the <strong>Sarasota Ballet</strong>, and <strong>Marie Selby Botanical Gardens</strong> — and you have a cultural calendar most cities can't match.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Healthcare is non-negotiable.</strong> <strong>Sarasota Memorial Hospital</strong> has earned a perfect 5-star rating from the Centers for Medicare &amp; Medicaid Services every year since CMS launched the rating system — a distinction held by only a handful of U.S. hospitals. The main Sarasota campus is a Magnet-designated, 900+ bed facility with a Level II trauma center, and the system continues to expand. Healthcare scored 10 of 10 in our database — the maximum.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want a world-class beach without paying beachfront prices.</strong> <strong>Siesta Key</strong>, twenty minutes south of downtown, has repeatedly been named the #1 beach in America — its famously fine quartz sand stays cool underfoot even in August. Lido Key (closer in, 10 min) and Longboat Key (north) round out the barrier-island options. None of which requires you to buy a beachfront condo to enjoy.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>The Florida financial picture matters.</strong> No state income tax — a structural advantage for retirees drawing from 401(k)s, IRAs, and pensions. The Florida homestead exemption caps property tax growth for primary residents. Tax scored 9 of 10 in our database. Cost of living isn't cheap — median homes run $538K and monthly budgets sit in the $4.8–6.2K range — but the tax structure recovers a meaningful piece of that.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fit-col no">
+        <div class="fit-col-header">
+          <div class="fit-icon no">✗</div>
+          <div class="fit-col-title">Skip Sarasota <em>if</em>&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>Budget is the constraint.</strong> Sarasota is pricier than most Gulf Coast cities — a real step up from Tampa, St. Petersburg, or Fort Myers. Median home around $538K, monthly budgets $4.8–6.2K. Budget scored 5 of 10 in our database. The cultural infrastructure has a real-estate premium attached to it. If your numbers are tight, the math may not work without significant compromises on neighborhood.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Hurricanes and Florida summers worry you.</strong> Sarasota's Gulf Coast position carries genuine hurricane exposure — the 2024 season's Helene and Milton storms were close enough to focus every retiree's attention on insurance, evacuation zones, and elevation. Summers are hot (highs in the low 90s) and humidity scored 9 of 10 in our database. Many retirees plan to spend part of the summer elsewhere. October through May is the reward; June through September is the reality.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Seasonal crowds bother you.</strong> Sarasota's population effectively doubles during the winter season — January through April brings snowbirds, performance subscribers, and an Airbnb-and-vacation-rental crowd that fills the restaurants, the beaches, and US-41. Sarasota Memorial's emergency room is genuinely busier in February. Some find the energy; others wait it out at home. Worth honest reflection on which version you'd be.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Walkable urbanism is what you want.</strong> Walkability scored 6 of 10. Downtown Sarasota — the Main Street and Palm Avenue corridor — is genuinely walkable, as are St. Armands Circle and parts of the bayfront. But the metro is mostly Sun Belt in layout, and outside those pockets you'll drive. If a Charleston- or Madison-style walkable city is what you're after, Sarasota's walkable footprint may not be enough.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTER -->
+<section class="section character-section">
+  <div class="wrap">
+    <div>
+      <div class="section-eyebrow">The character of the place</div>
+      <h2 class="section-title">A circus town that <em>kept the museum</em>.</h2>
+      <div class="character-body">
+        <p><span class="dropcap">S</span>arasota's modern character was largely set by one man. <strong>John Ringling</strong> — co-owner of the Ringling Brothers and Barnum &amp; Bailey Circus — chose Sarasota as his winter home in 1911, and over the next two decades poured circus money into the city's bayfront. He built <strong>Ca' d'Zan</strong> ("House of John" in Venetian dialect) in 1924–26 — a 36,000-square-foot Mediterranean Revival mansion on the bay. He built the Italian Renaissance-style museum to house his European art collection, opened in 1931. When he died in 1936, he left the entire 66-acre estate — mansion, museum, art collection — to the people of Florida. It's now the official state art museum.</p>
+        <p>The cultural infrastructure that followed is what makes Sarasota distinctive among Florida retirement destinations. <strong>The Sarasota Orchestra</strong>, founded in 1949, is the oldest continuing orchestra in the American South. <strong>Asolo Repertory Theatre</strong> arrived in 1960, operating out of a relocated 18th-century Italian theatre on the Ringling campus. <strong>Sarasota Opera</strong> performs in a restored 1926 opera house downtown. <strong>The Van Wezel Performing Arts Hall</strong> — designed by William Wesley Peters of Frank Lloyd Wright's Taliesin Associated Architects, painted lavender at Olgivanna Lloyd Wright's suggestion — opened on the bayfront in 1970. The <strong>Sarasota Ballet</strong>, the <strong>Florida Studio Theatre</strong>, the <strong>Hermitage Artist Retreat</strong>, the <strong>Sarasota Film Festival</strong>: layer after layer of arts institutions, sustained by a generations-deep philanthropic culture.</p>
+        <p>What's less often said is that Sarasota also pays attention to its hospital. <strong>Sarasota Memorial</strong>, founded in 1925 as a small county hospital, has grown into one of the most rigorously-rated medical centers in the country — and the local political culture treats the hospital's reputation as a public-good responsibility, not a marketing claim. The combination is unusual: a small Gulf Coast city with world-class arts, world-class healthcare, the #1 beach in America twenty minutes away, and no state income tax. The price is the cost. Sarasota has earned its expense.</p>
+      </div>
+    </div>
+
+    <div class="aside-stack">
+      <aside class="pullquote">
+        <div class="pullquote-mark">"</div>
+        <div class="pullquote-text">Sarasota is what happens when one man's circus fortune funds a museum, then a century of cultural investment compounds on top — opera, ballet, symphony, theater, all in a town small enough to walk across.</div>
+        <div class="pullquote-attr">— On the inheritance</div>
+      </aside>
+
+      <aside class="fast-facts">
+        <div class="fast-facts-label">Sarasota by the Numbers</div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">1931</div>
+          <div class="fast-fact-desc">The Ringling Museum opens — John Ringling's bayfront estate, bequeathed to Florida and now the official state art museum</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">1949</div>
+          <div class="fast-fact-desc">Sarasota Orchestra founded — the oldest continuing orchestra in the American South, still performing today</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">5★</div>
+          <div class="fast-fact-desc">Sarasota Memorial's perfect CMS rating — earned every year since the federal star-rating program began, a distinction held by only a handful of U.S. hospitals</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL PHOTO BREAK -->
+<section class="detail-section">
+  <div class="detail-grid">
+    <div class="detail-photo">
+      <div class="detail-photo-credit">Photo · Wikimedia Commons (CC0)</div>
+    </div>
+    <div class="detail-text">
+      <div class="detail-quote-mark">"</div>
+      <p class="detail-quote">Marie Selby Botanical Gardens — 15 bayfront acres of tropical horticulture, with Sarasota's downtown skyline rising across the water. Founded in 1975, it's the country's only botanical garden specializing in the display of epiphytes — air plants and bromeliads — in their natural habitat.</p>
+      <p class="detail-attribution">— On the gardens on the bay</p>
+    </div>
+  </div>
+</section>
+
+<!-- TYPICAL WEEK -->
+<section class="section week-section">
+  <div class="wrap">
+    <div class="section-eyebrow">What life actually looks like</div>
+    <h2 class="section-title">A week in Sarasota, <em>roughly</em>.</h2>
+    <p class="week-intro">A composite week of what an arts-engaged Sarasota retiree's days could look like — drawn from the Ringling-museum-opera-beach cadence locals describe when they explain what a Tuesday actually looks like here.</p>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-name">Monday</div>
+        <div class="day-time">10:00 AM</div>
+        <div class="day-activity">The Ringling estate</div>
+        <div class="day-where">The 66-acre bayfront campus: Museum of Art (the courtyard above), Ca' d'Zan mansion, Tibbals Learning Center, and the Asolo Theater. Free general-admission Mondays for Florida residents. Plan three hours minimum.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Tuesday</div>
+        <div class="day-time">8:00 AM</div>
+        <div class="day-activity">Siesta Key Beach</div>
+        <div class="day-where">Twenty minutes south of downtown. The famously fine quartz sand stays cool underfoot. Arrive early — parking fills by 10am on weekends. Daiquiri Deck on Siesta Key Village for lunch.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Wednesday</div>
+        <div class="day-time">11:00 AM</div>
+        <div class="day-activity">Selby Gardens + lunch</div>
+        <div class="day-where">15 bayfront acres of tropical horticulture, the country's premier orchid and bromeliad collection, and views back across the water to downtown. Michael's On East nearby for lunch — Sarasota's longtime fine-dining anchor.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Thursday</div>
+        <div class="day-time">2:00 PM</div>
+        <div class="day-activity">St. Armands Circle</div>
+        <div class="day-where">The Mediterranean-Revival shopping circle on Lido Key, just over the bridge from downtown. Galleries, restaurants, coffee, the Columbia Restaurant for Spanish-Cuban. Park once and walk.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Friday</div>
+        <div class="day-time">7:30 PM</div>
+        <div class="day-activity">Sarasota Opera or Asolo Rep</div>
+        <div class="day-where">The restored 1926 Sarasota Opera House downtown, or Asolo Repertory Theatre on the Ringling campus. Subscription season runs October through May. Dress is real — this isn't community theater.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Saturday</div>
+        <div class="day-time">7:00 AM</div>
+        <div class="day-activity">Downtown Farmers Market</div>
+        <div class="day-where">Lemon Avenue and Main Street, Saturdays year-round. Florida produce, baked goods, the social hub of the downtown weekend. Walk Main Street and Palm Avenue after.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Sunday</div>
+        <div class="day-time">2:00 PM</div>
+        <div class="day-activity">Van Wezel matinée</div>
+        <div class="day-where">The lavender bayfront performing-arts hall — designed by Frank Lloyd Wright's Taliesin Associates, painted purple at Olgivanna Lloyd Wright's suggestion. Sarasota Orchestra, Broadway tours, jazz. Walk the bayfront after.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Anytime</div>
+        <div class="day-time">—</div>
+        <div class="day-activity">Unconditional Surrender</div>
+        <div class="day-where">The 26-foot Seward Johnson statue on Sarasota's bayfront — a sculptural reproduction of the famous 1945 V-J Day kiss. Locals either love it or roll their eyes. Either way, it's a Sarasota landmark.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE BANNER -->
+<section class="lifestyle-banner">
+  <div class="lifestyle-banner-img"></div>
+  <div class="lifestyle-banner-content">
+    <div class="lifestyle-banner-eyebrow">Twenty minutes south</div>
+    <h2 class="lifestyle-banner-title">Siesta Key — the white quartz sand named the #1 beach in America, twenty minutes from the opera house.</h2>
+  </div>
+  <div class="lifestyle-banner-credit">Photo · Fred Hsu / Wikimedia</div>
+</section>
+
+<!-- NEIGHBORHOODS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Where to live</div>
+    <h2 class="section-title">Four <em>Sarasotas</em>, depending on you.</h2>
+    <p class="hoods-intro">
+      Sarasota proper is small, but the metro spreads across the barrier islands, the bayfront, and inland — and each neighborhood has a distinct character. The four below cover the most common retiree choices, with honest notes on flood exposure and seasonal density where relevant. <strong>Pricing reflects May 2026 estimates and varies meaningfully by lot, view, and elevation.</strong>
+    </p>
+
+    <div class="hoods-grid">
+      <div class="hood-card">
+        <div class="hood-name">Downtown Sarasota</div>
+        <div class="hood-vibe">Walkable · Premium · Cultural core</div>
+        <div class="hood-desc">The Main Street and Palm Avenue corridor — walkable, restaurant-dense, steps from Selby Gardens, the bayfront, the Opera House, and the Van Wezel. New-construction condos and historic Burns Court bungalows mix here. The most urban footprint Sarasota offers, and the priciest. <strong>Median: $700K–$1.2M+ for condos and townhomes.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">St. Armands / Lido Key</div>
+        <div class="hood-vibe">Barrier island · Premium · Beach</div>
+        <div class="hood-desc">Lido Key, just over the John Ringling Bridge from downtown — beach access, the St. Armands Circle shopping district, walking-distance Mediterranean Revival neighborhoods. The retirement-as-resort version of Sarasota. <strong>Worth knowing:</strong> barrier-island position carries real hurricane and flood exposure; insurance and elevation matter. <strong>Median: $900K–$2M+.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Palmer Ranch / South Sarasota</div>
+        <div class="hood-vibe">Suburban · Mid-tier · Master-planned</div>
+        <div class="hood-desc">Inland and south of the city — master-planned communities, golf, and the typical Sun Belt retirement infrastructure. Closer to Siesta Key (10 min) than to downtown (20 min). Quieter, gated-community-heavy, and a real step down in price from the bayfront or barrier-island neighborhoods. <strong>Median: $450K–$650K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Venice</div>
+        <div class="hood-vibe">Adjacent city · 20 min south · Value</div>
+        <div class="hood-desc">Twenty minutes south of Sarasota, Venice is a separate city with its own beach (famous for shark-tooth hunting), walkable historic downtown, and a longer-running retirement-community history. Lower median prices, slower pace, and easy access back to Sarasota's cultural infrastructure. <strong>Median: $400K–$600K.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTHCARE -->
+<section class="section" style="background: var(--cream); padding-bottom: 64px;">
+  <div class="wrap">
+    <div class="section-eyebrow">Healthcare — perfect federal rating, every year</div>
+    <h2 class="section-title">Sarasota Memorial — <em>a genuinely rare distinction</em>.</h2>
+
+    <div class="health-card">
+      <div class="health-icon">🏥</div>
+      <div>
+        <div class="health-name">Sarasota Memorial Hospital</div>
+        <div class="health-detail">The system's main campus is a Magnet-designated, 900+ bed teaching hospital with a Level II trauma center, a comprehensive cancer center, and a cardiovascular program with consistently strong outcomes. The headline distinction: <strong>a perfect 5-star rating from the Centers for Medicare &amp; Medicaid Services every year since the federal hospital rating system launched</strong> — a continuity held by only a handful of U.S. hospitals. The local culture treats the hospital's reputation as a public-good responsibility, not a marketing claim, and the system continues to expand campuses in Venice and Lakewood Ranch to keep up with metro growth. Healthcare scored 10 of 10 in our database — the maximum.</div>
+      </div>
+      <div class="health-grade">
+        <div class="health-grade-num">10<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+        <div class="health-grade-lbl">Healthcare Match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPEARS ON LISTS -->
+<section class="section lists-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Sarasota also appears on</div>
+    <h2 class="section-title">Two lists where <em>Sarasota earned its place.</em></h2>
+
+    <div class="lists-grid">
+      <a href="/top-cities-for-arts-lovers.html" class="list-card">
+        <div class="list-card-name">Top Cities for Arts Lovers</div>
+        <div class="list-card-tier">Ringling · Sarasota Opera · Asolo Rep · Sarasota Orchestra · Van Wezel</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+
+      <a href="/top-cities-for-healthcare.html" class="list-card">
+        <div class="list-card-name">Top Cities for Healthcare</div>
+        <div class="list-card-tier">Sarasota Memorial · perfect CMS 5-star every year</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Want a personalized match?</div>
+    <h2 class="cta-h2">Sarasota might fit. <em>Or it might not.</em></h2>
+    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you — not what's trending.</p>
+    <a href="/" class="cta-btn">
+      <span>Find My Match</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-wordmark">
+      <span class="retire">RETIREME</span><span class="here">HERE</span>
+    </div>
+    <div class="footer-credits">
+      Photos: Jeffrey Eisen (Unsplash), Wikimedia Commons (CC0), Fred Hsu (Wikimedia Commons).<br>
+      Sources: Zillow / Redfin (May 2026) · The John and Mable Ringling Museum of Art · Sarasota Memorial Health Care System · Centers for Medicare &amp; Medicaid Services hospital ratings · Sarasota Orchestra · U.S. Census metro estimates · Florida Department of Revenue.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
