@@ -530,9 +530,10 @@ body {
   background: linear-gradient(
     180deg,
     rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.10) 40%,
+    rgba(0,0,0,0.35) 65%,
     rgba(0,0,0,0.55) 90%,
-    rgba(0,0,0,0.75) 100%
+    rgba(0,0,0,0.65) 100%
   );
 }
 .lifestyle-banner-content {
@@ -545,22 +546,28 @@ body {
   margin: 0 auto;
 }
 .lifestyle-banner-eyebrow {
+  display: inline-block;
   font-family: 'DM Sans', sans-serif;
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 16px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
 }
 .lifestyle-banner-title {
   font-family: 'Fraunces', serif;
   font-weight: 500; font-style: italic;
-  font-size: clamp(26px, 3.6vw, 40px);
-  line-height: 1.15; letter-spacing: -0.015em;
+  font-size: clamp(22px, 2.8vw, 34px);
+  line-height: 1.2; letter-spacing: -0.015em;
   color: white;
   text-wrap: balance;
-  max-width: 720px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+  max-width: 680px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
 }
 .lifestyle-banner-credit {
   position: absolute;
@@ -960,11 +967,11 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>You want world-class art in an unlikely place.</strong> <strong>Crystal Bridges Museum of American Art</strong> — funded by Alice Walton, designed by Moshe Safdie, free to all visitors — is one of the more serious American art collections built in the last fifty years. The <strong>Momentary</strong>, its contemporary-art annex in a converted Kraft cheese plant, opened in 2020. Three blocks from the town square, the <strong>21c Museum Hotel</strong> rotates contemporary exhibitions. The density of museum-quality art in a town this size has no real American comparison.</span>
+            <span><strong>You want world-class art in an unlikely place.</strong> <strong>Crystal Bridges Museum of American Art</strong> — funded by Alice Walton, designed by Moshe Safdie, free to all visitors — is one of the more serious American art collections built in the last fifty years. <strong>The Momentary</strong>, its contemporary annex in a converted Kraft cheese plant, opened in 2020 — and is as much a music venue as an art space, with an outdoor Green amphitheater booking touring acts at ticket prices well below big-city rates. Three blocks from the town square, the <strong>21c Museum Hotel</strong> rotates contemporary exhibitions. The density of museum-quality art and live music in a town this size has no real American comparison.</span>
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>You ride.</strong> Bentonville calls itself the Mountain Biking Capital of the World and has earned the right to. <strong>130+ miles of purpose-built singletrack</strong> connect directly to downtown via the Razorback Greenway. IMBA awarded the area Silver-level Ride Center status. The new Coler Mountain Bike Preserve is a destination in itself. If you ride seriously, this is one of a handful of American towns where the trails are the infrastructure, not an amenity.</span>
+            <span><strong>You ride — and you like the energy that comes with that.</strong> Bentonville calls itself the Mountain Biking Capital of the World and has earned the right to. <strong>130+ miles of purpose-built singletrack</strong> connect directly to downtown via the Razorback Greenway. IMBA awarded the area Silver-level Ride Center status. The new Coler Mountain Bike Preserve is a destination in itself. Worth knowing: the biking community is huge here — scroll through almost any Bentonville VRBO and the listing leads with trail access. It gives the town an unusual energy for a retirement destination. A place you can feel young in without being surrounded by young hip people.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1014,7 +1021,7 @@ footer {
       <div class="character-body">
         <p><span class="dropcap">F</span>or most of the twentieth century Bentonville was a small Ozark town built around a square, with a single anchor: <strong>Walton's 5&amp;10</strong>, opened by Sam Walton in 1950 on the south side of the courthouse square. That store became Walmart, the corporate headquarters stayed in Bentonville as the company grew into the largest retailer in the world, and the town quietly grew with it — but slowly, and without much external attention. Through the 1990s and 2000s, Bentonville was a corporate company town with a small population, a regional airport (XNA), and the world's largest retailer in its backyard. The original 5&amp;10 is now the <strong>Walmart Museum</strong>, the Coca-Cola mural on its side a recognizable landmark on the rebuilt square.</p>
         <p>The transformation began in 2011. <strong>Alice Walton</strong>, Sam Walton's daughter and one of the most serious American art collectors of her generation, opened <strong>Crystal Bridges Museum of American Art</strong> on the wooded grounds north of downtown. Moshe Safdie designed it — a series of copper- and bronze-clad pavilions arranged around two spring-fed ponds, free admission in perpetuity. The collection is genuinely first-rate: Hudson River School, Asher B. Durand's <em>Kindred Spirits</em>, Norman Rockwell's <em>Rosie the Riveter</em>, contemporary American painting through the present. It is the kind of museum a city of three million might build. It sits in a town that, when ground broke, had under 30,000 people.</p>
-        <p>What followed is the part most retirement coverage gets wrong. Crystal Bridges did not just bring tourists — it triggered a fifteen-year recapitalization of the town. The <strong>Momentary</strong> opened in 2020 as a contemporary-art annex in a converted Kraft cheese plant. The trail network, originally a few local-favorite loops, grew into the 130+ mile singletrack network that earned IMBA Silver Ride Center status and made Bentonville a serious mountain-biking destination. The 21c Museum Hotel arrived. The Walton-funded restoration of the downtown square brought brick streets, restored storefronts, and a restaurant scene that now produces James Beard finalists. The population has more than doubled. The median home price has too.</p>
+        <p>What followed is the part most retirement coverage gets wrong. Crystal Bridges did not just bring tourists — it triggered a fifteen-year recapitalization of the town. The <strong>Momentary</strong> opened in 2020 as a contemporary-art annex in a converted Kraft cheese plant. The trail network, originally a few local-favorite loops, grew into the 130+ mile singletrack network that earned IMBA Silver Ride Center status and made Bentonville a serious mountain-biking destination. The 21c Museum Hotel arrived. The Walton-funded restoration of the downtown square brought brick streets, restored storefronts, and a restaurant scene that now produces James Beard finalists. The result is a deliberate mix of historic and modern — restored 1900s storefronts on the square sit next to glass-and-steel residential, the Momentary's industrial bones host contemporary exhibitions and live music, and the overall effect is decidedly not "old Midwest small town." The population has more than doubled. The median home price has too.</p>
       </div>
     </div>
 
@@ -1048,12 +1055,12 @@ footer {
 <section class="detail-section">
   <div class="detail-grid">
     <div class="detail-photo">
-      <div class="detail-photo-credit">Photo · Hill Country Camera / Unsplash</div>
+      <div class="detail-photo-credit">Photo · Karsten Winegeart / Unsplash</div>
     </div>
     <div class="detail-text">
       <div class="detail-quote-mark">"</div>
-      <p class="detail-quote">Crystal Bridges in autumn — Moshe Safdie's pavilions arranged around two spring-fed ponds, the Ozark forest closing in around them. The collection inside earned its place in fifteen years. The architecture earned its place the day it opened.</p>
-      <p class="detail-attribution">— On the museum that started it</p>
+      <p class="detail-quote">Cooper Chapel in Bella Vista — designed by E. Fay Jones (Frank Lloyd Wright apprentice, AIA Gold Medal) and finished in 1988. Wood, glass, and Ozark light, twelve minutes north of Bentonville. The kind of regional architecture you don't expect to find here, which is increasingly the point.</p>
+      <p class="detail-attribution">— On the chapel in the woods</p>
     </div>
   </div>
 </section>
@@ -1086,9 +1093,9 @@ footer {
       </div>
       <div class="day-card">
         <div class="day-name">Thursday</div>
-        <div class="day-time">2:00 PM</div>
-        <div class="day-activity">The Momentary</div>
-        <div class="day-where">Crystal Bridges' contemporary annex in a former Kraft cheese plant — rotating contemporary exhibitions, performance space, and the Tower Bar on the rooftop with the best view in town.</div>
+        <div class="day-time">7:00 PM</div>
+        <div class="day-activity">The Momentary — show on the Green</div>
+        <div class="day-where">Crystal Bridges' contemporary annex in a former Kraft cheese plant — outdoor amphitheater with lawn seating, touring music acts at ticket prices well below big-city rates, plus rotating contemporary exhibitions inside. The Tower Bar on the rooftop afterward.</div>
       </div>
       <div class="day-card">
         <div class="day-name">Friday</div>
@@ -1100,7 +1107,7 @@ footer {
         <div class="day-name">Saturday</div>
         <div class="day-time">8:00 AM</div>
         <div class="day-activity">Bentonville Farmers Market</div>
-        <div class="day-where">On the square, April through October. Among the best farmers markets in the South — Arkansas produce, baked goods, regional cheese, and the Saturday morning version of the town's whole social calendar.</div>
+        <div class="day-where">On the square, April through October. Among the South's most celebrated weekly markets — Arkansas produce, baked goods and cheese, plus vendors selling art, flowers, regional clothing, and live music throughout the morning. The Saturday version of the town's whole social calendar.</div>
       </div>
       <div class="day-card">
         <div class="day-name">Sunday</div>
@@ -1230,7 +1237,7 @@ footer {
       <span class="retire">RETIREME</span><span class="here">HERE</span>
     </div>
     <div class="footer-credits">
-      Photos: Charvex / Wikimedia Commons (CC0), Hill Country Camera (Unsplash), Sophorn Ratana (Unsplash).<br>
+      Photos: Charvex / Wikimedia Commons (CC0), Karsten Winegeart (Unsplash), Sophorn Ratana (Unsplash).<br>
       Sources: Zillow / Redfin (May 2026) · Crystal Bridges Museum of American Art · Walmart Museum · IMBA Ride Center designation · James Beard Foundation 2025 finalists · U.S. Census metro estimates · Arkansas Department of Finance and Administration.
     </div>
   </div>
