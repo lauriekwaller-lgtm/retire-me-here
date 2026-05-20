@@ -2228,11 +2228,11 @@ const CITIES = [
     setting: ["Forest / Green"],
     character: ["College Town", "Quiet & Residential", "Arts & Culture"],
     monthlyEst: "$3,200–$4,200/mo", medianHome: "$345,000", budgetRange: 2,
-    scores: { D1:5, D2:7, D3:7, D5:6, D6:6, D7:5, D8:6, D9:6, D10:8 },
+    scores: { D1:5, D2:7, D3:7, D5:6, D6:6, D7:6, D8:6, D9:6, D10:8 },
     climate: { W:3, H:7, M:5, HUM:7, HEAT:6 },
     highlight: "Indiana University anchors a vibrant arts and intellectual community. IU Health hospital excellent. Affordable college town with surprising cultural depth.",
     pros: ["IU Health hospital system — well-rated for city size","Vibrant arts, music, and intellectual community driven by Indiana University","Affordable — median home $345K, Range 2 budget","Strong community identity and welcoming college town culture"],
-    cons: ["Real winters — January average 28°F, significant snow","BMI airport regional only — Chicago or Indianapolis for major hub","Not widely known as a retirement destination — smaller 55+ infrastructure","Limited outdoor recreation compared to mountain or coastal peers"]
+    cons: ["Real winters — January average 28°F, significant snow","Nearest major airport is Indianapolis (IND) — about an hour's drive north","Not widely known as a retirement destination — smaller 55+ infrastructure","Solid four-season Midwest outdoor rec, but no mountains or coast"]
   },
   {
     name: "Knoxville", state: "TN", type: "College / Outdoor",
@@ -3707,27 +3707,28 @@ const CITY_ENRICHMENT = {
     sources: "Zillow/Redfin (2026) · Leapfrog Hospital Grades · CrimeGrade.org (2025) · SC Dept. of Revenue · NOAA Climate Normals · Hilton Head Monthly · Data current as of March 2026."
   },
   "Bloomington": {
-    hospitalRating: "IU Health Bloomington — well-rated regional system for city size",
+    hospitalRating: "IU Health Bloomington Hospital — High Performing (US News) for heart attack & maternity care",
     scoreNotes: {
-      D1: "BMI airport 3 min from city center — American, Delta, United nonstop to Chicago, Atlanta, Dallas. Surprisingly strong for a city of this size.",
-      D2: "Median home $345K. Monthly costs $3,200–$4,200. Affordable college town. Strong rental market given IU enrollment.",
-      D3: "IU Health Bloomington Hospital — solid regional system. Well-rated for city size. Indianapolis for major specialty care (50 miles).",
-      DW: "Jan avg 28°F — real Midwest winter. Significant snow. Chicago-like cold at times. Four distinct seasons.",
-      DH: "Summers warm — July avg 83°F. Warm and moderately humid. Less extreme than Gulf Coast. Manageable.",
-      DM: "Moderately humid — Indiana summers are warm and humid but less oppressive than the Southeast.",
-      D5: "Indiana flat income tax 3.15%. Social Security partially exempt for lower incomes. More favorable than many Midwest states.",
-      D6: "IU campus and Kirkwood Avenue area walkable. B-Line Trail good for cycling. Beyond campus core, car-dependent.",
-      D7: "Lake Monroe — Indiana's largest reservoir. Brown County State Park 30 min. IU campus grounds beautiful year-round.",
-      D8: "IU athletic culture and facilities. YMCA strong. Senior center well-equipped. College town fitness infrastructure above average.",
-      D9: "CrimeGrade C — 56th percentile. Better than national average. College town environment generally safe.",
-      D10: "IU Auditorium world-class performing arts. Jacobs School of Music exceptional. Thriving restaurant and arts scene for a small city."
+      D1: "Bloomington's own field (BMG) is general aviation only. Nearest commercial hub is Indianapolis International (IND), about an hour's drive north — a major airport with all big carriers and international service.",
+      D2: "Median home $345K (Redfin 2026). Monthly costs $3,200–$4,200. Cost of living near the national average. Affordable college-town pricing; strong rental market given IU enrollment.",
+      D3: "IU Health Bloomington Hospital — High Performing (US News 2025–26) for heart attack and maternity care, plus a Healthgrades joint-replacement excellence award. IU Health Medical Center in Indianapolis (~1 hr north) is the nationally ranked academic flagship for complex care.",
+      DW: "Jan avg high ~37°F, low ~22°F — a real Midwest winter, but ~17 in. of snow a year, well below the Great Lakes snowbelt. Four distinct seasons.",
+      DH: "Summers warm and humid — July avg high ~85°F. Less extreme than the Gulf Coast but genuinely warm June–September.",
+      DM: "Beautiful spring and fall. Humid-subtropical transitional climate; honest four-season weather without punishing extremes.",
+      D5: "Indiana flat income tax 2.95% (2026); Social Security FULLY exempt; owner-occupied property tax capped at 1% of assessed value. But pensions/401k/IRA are taxable and Monroe County's local income tax (~2%) sits on top — combined ~5% on retirement withdrawals. Mid-tier.",
+      D6: "Downtown around Kirkwood Ave and the courthouse square is very walkable (Walk Score high 80s) with the B-Line Trail through it. Gold-level Bicycle Friendly Community. Beyond the core, more car-dependent.",
+      D7: "Unglaciated hill country — genuinely scenic. Lake Monroe (Indiana's largest reservoir), Lake Griffy, Hoosier National Forest, and the Charles C. Deam Wilderness (Indiana's only designated wilderness). Strong cycling and trail-running culture. No mountains or coast; winter narrows the season Nov–Mar.",
+      D8: "IU rec facilities, strong YMCA, active parks system (31 parks), B-Line and trail network. College-town fitness infrastructure above average.",
+      D9: "CrimeGrade ~54th percentile. Violent crime below state and national averages; property crime elevated but concentrated in the downtown/campus core. Residential southeast neighborhoods are notably safer.",
+      D10: "Jacobs School of Music — 1,100+ performances/year (six operas, three ballets), among the top music schools nationally. IU Auditorium (Broadway tours), IU Cinema, free Eskenazi Museum of Art, Lotus World Music Festival, ~350 county restaurants. Indiana residents 60+ can take IU classes at greatly reduced tuition."
     },
     neighborhoods: [
-      { name: "Near Kirkwood / Downtown", vibe: "Walkable, vibrant, college energy", desc: "Kirkwood Avenue dining and shops. Close to IU campus. Most walkable area. Mix of long-term residents and university community." },
-      { name: "Southeast Side", vibe: "Established, quiet, affordable", desc: "Mature neighborhoods near Lake Monroe access. More affordable than near-campus. Popular with retirees who want quiet and nature access." },
-      { name: "Near Lake Monroe", vibe: "Outdoor, lake access, peaceful", desc: "South of the city toward Indiana's largest reservoir. Quiet, rural character. Boating and fishing culture. More affordable real estate." }
+      { name: "Elm Heights", vibe: "Historic, walkable, near campus", desc: "Locally designated historic district two blocks south of IU — limestone and brick homes, Walk Score high 70s, quarter-mile to Bryan Park. The premium walkable pick. Median ~$380K, up to $535K+ for larger historic homes." },
+      { name: "Bryan Park", vibe: "Central, green, best value near downtown", desc: "Leafy central neighborhood around a 33-acre park (pool, trails, courts). Mix of older homes and newer builds, on transit lines, close to downtown. More affordable than Elm Heights. Median ~$290K–$420K." },
+      { name: "Prospect Hill", vibe: "Historic, trail access, west of downtown", desc: "Historic district just west of downtown — early-1900s homes, active neighborhood association, direct B-Line Trail and farmers-market access. Widest price range of the four. Median ~$165K–$549K." },
+      { name: "Park Ridge / Park Ridge East", vibe: "Quiet, suburban, strong safety", desc: "East-side neighborhoods with landscaped streets and limestone-trimmed homes, the Polly Grimshaw Trail nearby, ~3 miles from campus near College Mall. Quieter and among the city's safest. Median ~$350K–$500K." }
     ],
-    sources: "Zillow/Redfin (2026) · IU Health rankings · CrimeGrade.org (2025) · Indiana Dept. of Revenue · NOAA Climate Normals · Herald-Times Bloomington · Data current as of March 2026."
+    sources: "Zillow/Redfin (2026) · IU Health & US News–World Report Best Hospitals 2025–26 · League of American Bicyclists · Indiana senior tuition statute · CrimeGrade.org (2025) · Indiana Dept. of Revenue & Monroe County local income tax · NOAA Climate Normals · Data current as of May 2026."
   },
   "Knoxville": {
     hospitalRating: "UT Medical Center — Level I trauma, nationally recognized",
@@ -7379,12 +7380,13 @@ function showCityDetail(cityName, cityState) {
     'St. George_UT': 'cities/st-george/profile.html',
     'Tampa_FL': 'cities/tampa/profile.html',
     'Bentonville_AR': 'cities/bentonville/profile.html',
-    'Sarasota_FL': 'cities/sarasota/profile.html'
+    'Sarasota_FL': 'cities/sarasota/profile.html',
+    'Bloomington_IN': 'cities/bloomington/profile.html'
   };
   const profileKey = cityName + '_' + cityState;
   if (PUBLISHED_PROFILES[profileKey]) {
     window.location.href = PUBLISHED_PROFILES[profileKey];
-    return;
+    return true;
   }
 
   const city = CITIES.find(c => c.name === cityName && c.state === cityState) ||
@@ -8003,7 +8005,7 @@ function closeReportModal(e) {
     closeCitySearch();
     lastMatchScore = null;
     lastDetailSource = 'screen-hero';
-    showCityDetail(name, state);
+    if (showCityDetail(name, state)) return;  // redirected to a full profile — don't show inline screen
     showScreen('screen-detail');
   }
 
