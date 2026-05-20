@@ -2605,14 +2605,14 @@ const CITIES = [
   },
   {
     name: "Charlottesville", state: "VA", type: "College / Historic",
-    setting: ["Lakeside"],
+    setting: ["Forest / Green"],
     character: ["Historic", "Arts & Culture", "Nature-Centric"],
-    monthlyEst: "$4,000–$5,500/mo", medianHome: "$460,000", budgetRange: 3,
+    monthlyEst: "$4,000–$5,500/mo", medianHome: "$510,000", budgetRange: 3,
     scores: { D1:4, D2:4, D3:9, D5:6, D6:7, D7:8, D8:5, D9:7, D10:8 },
     climate: { W:5, H:6, M:5, HUM:7, HEAT:6 },
     highlight: "UVA Health excellent — Level I trauma, nationally ranked. Monticello, Blue Ridge Parkway, Shenandoah all within reach. Exceptional intellectual and arts community.",
     pros: ["UVA Health — Level I trauma, nationally ranked, top academic medical center","Blue Ridge Mountains and Shenandoah Valley accessible within 30 min","University of Virginia drives extraordinary intellectual and arts culture","Walkable downtown mall — one of the best pedestrian streets in Virginia"],
-    cons: ["CHO airport small — Charlotte 2.5 hrs or Washington DC 2 hrs for major hub","Expensive for an inland VA city — $460K median","VA income tax up to 5.75%","Safety 68th percentile — better than average but some areas challenging"]
+    cons: ["CHO is a small regional airport — nonstops to a few hubs, but high fares and no hub of its own","Expensive for an inland VA city — ~$510K median and climbing","Pensions/401k/IRA taxable (VA up to 5.75%), though SS is exempt and there's a 65+ deduction","Small-city scale — nearest big metros (Richmond, DC) are a drive"]
   },
   {
     name: "Alexandria", state: "VA", type: "Historic / Urban / Waterfront",
@@ -4384,15 +4384,15 @@ const CITY_ENRICHMENT = {
   "Charlottesville": {
     hospitalRating: "UVA Health — nationally ranked, Level I trauma, academic medical center",
     scoreNotes: {
-      D1: "CHO (Charlottesville Albemarle) — American, Delta nonstop to Atlanta, Charlotte, Chicago, NYC, Washington DC. Small but well-connected for city size.",
-      D2: "Median home $460K. Monthly costs $4,000–$5,500. Range 3. Getting expensive driven by UVA demand and Blue Ridge lifestyle premium.",
+      D1: "CHO (Charlottesville-Albemarle), 8 mi north — daily nonstops on American/Delta/United to Atlanta, Charlotte, Chicago (ORD), New York (LGA), Washington-Dulles, and Philadelphia. Respectable for a small field, but it's a regional airport, not a hub, and fares run high. Larger DC airports ~2 hrs.",
+      D2: "Median home ~$510K (Redfin 2026, climbing). Monthly costs $4,000–$5,500. Range 3. Expensive for inland Virginia, driven by UVA demand and the Blue Ridge lifestyle premium.",
       D3: "UVA Health — University of Virginia affiliation, Level I trauma, nationally ranked. One of the best hospitals relative to city size in the database.",
       DW: "Jan avg 36°F — real Mid-Atlantic winter. Occasional snow and ice. Four distinct seasons with spectacular spring and fall.",
       DH: "Summers warm — July avg 87°F. Warm and moderately humid. Mountains nearby provide escape.",
       DM: "Moderately humid — Virginia Piedmont humidity present but less oppressive than coastal cities.",
-      D5: "Virginia income tax 2–5.75%. Age 65+ deduction of $12K. Better than most Mid-Atlantic states.",
+      D5: "Virginia income tax 2–5.75% graduated. Social Security FULLY exempt. Age 65+ deduction up to $12K (phases out above $50K single / $75K joint AGI). Pensions/401k/IRA taxable. Property tax low (~0.71% effective). Mid-tier overall.",
       D6: "Downtown Mall — one of the longest pedestrian malls in the US. Genuinely walkable. UVA Corner area walkable. Otherwise car-dependent.",
-      D7: "Shenandoah National Park and Blue Ridge Parkway 30 min. Appalachian Trail accessible. Monticello and historic sites. Wine Country.",
+      D7: "Shenandoah National Park and Blue Ridge Parkway ~30 min west. Appalachian Trail and Skyline Drive accessible. Rivanna Trail rings the city; reservoir and rivers for paddling. Monticello Wine Trail in the foothills. Strong four-season outdoor access — a real draw at 8/10.",
       D8: "UVA rec facilities excellent. Community fitness culture strong. Blue Ridge access for outdoor fitness.",
       D9: "CrimeGrade C+ — 68th percentile. Better than national average. Crozet and North Downtown areas very safe.",
       D10: "University of Virginia performing arts. Virginia Film Festival. Downtown Mall arts scene. Monticello. Wine country culture."
@@ -4402,7 +4402,7 @@ const CITY_ENRICHMENT = {
       { name: "North Downtown / Woolen Mills", vibe: "Historic, residential, walkable", desc: "Beautiful neighborhoods north of downtown. Historic homes. Rivanna Trail access. Walkable to downtown. Very desirable." },
       { name: "Crozet", vibe: "Small town, Blue Ridge access, safe", desc: "15 min west. Small town character with mountain views. Very safe. New construction available. Popular with those wanting space and nature access." }
     ],
-    sources: "Zillow/Redfin (2026) · US News Health — UVA Health · CrimeGrade.org (2025) · Virginia Dept. of Taxation · NOAA Climate Normals · Daily Progress · Data current as of March 2026."
+    sources: "Zillow/Redfin (2026) · UVA Health & Newsweek World's Best Hospitals 2025 · US News Best Hospitals 2025-26 · National Park Service · Charlottesville-Albemarle Airport · CrimeGrade.org (2025) · Virginia Dept. of Taxation · NOAA Climate Normals · Data current as of May 2026."
   },
     "Alexandria": {
     neighborhoods: [
@@ -7381,7 +7381,8 @@ function showCityDetail(cityName, cityState) {
     'Tampa_FL': 'cities/tampa/profile.html',
     'Bentonville_AR': 'cities/bentonville/profile.html',
     'Sarasota_FL': 'cities/sarasota/profile.html',
-    'Bloomington_IN': 'cities/bloomington/profile.html'
+    'Bloomington_IN': 'cities/bloomington/profile.html',
+    'Charlottesville_VA': 'cities/charlottesville/profile.html'
   };
   const profileKey = cityName + '_' + cityState;
   if (PUBLISHED_PROFILES[profileKey]) {
