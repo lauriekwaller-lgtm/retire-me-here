@@ -1,1 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloomington, Indiana — A Retirement City Profile | RetireMeHere</title>
+<meta name="description" content="An editorial profile of Bloomington, Indiana as a retirement destination. A limestone-and-tulip-tree college town anchored by Indiana University — 1,100+ music performances a year, free classes for residents 60+, national-champion Hoosier sports, hill-country trails, and Midwest pricing. What to know before you retire here.">
+<link rel="canonical" href="https://retiremehere.com/cities/bloomington/profile.html">
 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal: #2A5E5A;
+  --teal-mid: #3d7a75;
+  --teal-deep: #1f4744;
+  --terra: #C4724A;
+  --terra-soft: #E89F75;
+  --sand: #F7F3ED;
+  --cream: #FBF7F1;
+  --paper: #FFFCF5;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #8B867E;
+  --gold: #D4A84B;
+  --line: #ECE6DC;
+
+  --max-w: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--dark);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; }
+
+/* HEADER */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 252, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.18em;
+  text-decoration: none;
+}
+.header-wordmark .retire { color: var(--teal); }
+.header-wordmark .here { color: var(--terra); }
+.header-nav { display: flex; gap: 24px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+.header-nav a:hover { color: var(--teal); }
+.header-nav a.header-cta {
+  background: var(--teal-deep);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(28,26,24,0.25);
+  letter-spacing: 0.04em;
+  display: inline-block;
+  line-height: 1;
+}
+.header-nav a.header-cta:hover {
+  background: var(--teal);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(28,26,24,0.3);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  z-index: 1;
+}
+.hero-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.1) 30%,
+      rgba(0,0,0,0.1) 45%,
+      rgba(0,0,0,0.65) 75%,
+      rgba(0,0,0,0.88) 100%
+    );
+}
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 88px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(212, 168, 75, 0.6);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+}
+.hero-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: 0.92; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  color: white;
+  text-shadow:
+    0 2px 12px rgba(0,0,0,0.5),
+    0 8px 40px rgba(0,0,0,0.4);
+}
+.hero-state {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 300;
+  font-size: clamp(20px, 3vw, 30px);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(16px, 1.9vw, 20px);
+  max-width: 540px; line-height: 1.4;
+  color: white;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+.hero-photo-credit {
+  position: absolute;
+  bottom: 92px; right: 32px;
+  z-index: 4;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+/* STATS BAR */
+.stats-bar {
+  background: white;
+  max-width: var(--max-w);
+  margin: -56px auto 0;
+  position: relative;
+  z-index: 3;
+  border-radius: 4px;
+  box-shadow: 0 24px 80px rgba(28,26,24,0.18);
+  padding: 32px 44px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 0 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: none; }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { padding-right: 0; }
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px; line-height: 1.1;
+  color: var(--dark); letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.stat-value .small { font-size: 16px; color: var(--mid); }
+.stat-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--mid); line-height: 1.4;
+}
+
+/* SECTION SCAFFOLDING */
+.section { padding: 64px 0; }
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--dark);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.section-title em { font-style: italic; color: var(--teal); }
+
+/* FIT SECTION */
+.fit-section .fit-intro {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--mid);
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.fit-col-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.fit-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+  flex-shrink: 0;
+}
+.fit-icon.yes { background: var(--teal); color: white; }
+.fit-icon.no { background: var(--terra); color: white; }
+.fit-col-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+}
+.fit-col-title em { font-style: italic; color: var(--teal); }
+.fit-col.no .fit-col-title em { color: var(--terra); }
+.fit-list { list-style: none; padding: 0; }
+.fit-list li {
+  display: flex; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px; line-height: 1.55;
+  color: var(--mid);
+}
+.fit-list li:last-child { border-bottom: none; }
+.fit-list li strong { color: var(--dark); font-weight: 600; }
+.fit-list .marker {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 9px;
+}
+.fit-col.yes .fit-list .marker { background: var(--teal); }
+.fit-col.no .fit-list .marker { background: var(--terra); }
+
+/* CHARACTER */
+.character-section { background: var(--cream); padding-bottom: 48px; }
+.character-section .wrap {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.character-body p {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mid);
+  margin-bottom: 22px;
+}
+.character-body p:last-child { margin-bottom: 0; }
+.character-body strong { color: var(--dark); font-weight: 600; }
+.dropcap {
+  float: left;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 76px;
+  line-height: 0.85;
+  margin: 6px 12px 0 0;
+  color: var(--terra);
+}
+.aside-stack { display: flex; flex-direction: column; gap: 24px; }
+.pullquote {
+  background: var(--paper);
+  border-left: 3px solid var(--gold);
+  padding: 32px 32px 36px;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
+}
+.pullquote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 80px;
+  line-height: 0.6;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.pullquote-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+.pullquote-attr {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--mid);
+}
+.fast-facts {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 28px 32px 32px;
+  border-radius: 2px;
+}
+.fast-facts-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.fast-fact {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.fast-fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fast-fact:first-of-type { padding-top: 0; }
+.fast-fact-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fast-fact-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.45;
+}
+
+/* DETAIL PHOTO BREAK */
+.detail-section {
+  position: relative;
+  padding: 0;
+  background: var(--dark);
+  overflow: hidden;
+}
+.detail-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+.detail-photo {
+  position: relative;
+  background-image: url('detail.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.detail-photo-credit {
+  position: absolute;
+  bottom: 12px; right: 14px;
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.detail-text {
+  padding: 80px 60px;
+  background: var(--dark);
+  color: white;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.detail-quote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 90px; line-height: 0.7;
+  color: var(--gold);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.detail-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.4;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.detail-attribution {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* TYPICAL WEEK */
+.week-section { background: var(--sand); padding-top: 48px; }
+.week-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 680px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.day-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 22px;
+  transition: all 0.25s;
+}
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  border-color: var(--gold);
+}
+.day-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.day-time {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--light);
+  margin-bottom: 12px;
+}
+.day-activity {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.day-where { font-size: 13px; color: var(--mid); line-height: 1.5; }
+
+/* LIFESTYLE BANNER */
+.lifestyle-banner {
+  position: relative;
+  width: 100%;
+  height: 56vh;
+  min-height: 420px;
+  max-height: 580px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.lifestyle-banner-img {
+  position: absolute; inset: 0;
+  background-image: url('lifestyle.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+.lifestyle-banner-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.10) 40%,
+    rgba(0,0,0,0.35) 65%,
+    rgba(0,0,0,0.55) 90%,
+    rgba(0,0,0,0.65) 100%
+  );
+}
+.lifestyle-banner-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 56px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.lifestyle-banner-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+.lifestyle-banner-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500; font-style: italic;
+  font-size: clamp(22px, 2.8vw, 34px);
+  line-height: 1.2; letter-spacing: -0.015em;
+  color: white;
+  text-wrap: balance;
+  max-width: 680px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
+}
+.lifestyle-banner-credit {
+  position: absolute;
+  bottom: 14px; right: 24px;
+  z-index: 2;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* NEIGHBORHOODS */
+.hoods-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.hoods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.hood-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px 32px 36px;
+  transition: all 0.25s;
+}
+.hood-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+}
+.hood-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.hood-vibe {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 18px;
+}
+.hood-desc { font-size: 15px; color: var(--mid); line-height: 1.6; }
+.hood-desc strong { color: var(--dark); font-weight: 600; }
+
+/* HEALTHCARE */
+.health-card {
+  background: var(--dark);
+  color: white;
+  padding: 44px 48px;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 36px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.health-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 60%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.health-icon { font-size: 48px; z-index: 1; }
+.health-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: white;
+  z-index: 1; position: relative;
+}
+.health-detail {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  z-index: 1; position: relative;
+}
+.health-grade { text-align: center; z-index: 1; }
+.health-grade-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.health-grade-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* APPEARS ON LISTS */
+.lists-section { background: var(--cream); }
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+.lists-grid-two { grid-template-columns: repeat(2, 1fr); max-width: 760px; }
+.list-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 26px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.list-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.list-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.list-card-tier {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid);
+}
+.list-card-arrow {
+  position: absolute;
+  top: 24px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.list-card:hover .list-card-arrow { opacity: 1; transform: translateX(2px); }
+
+/* QUIZ CTA */
+.cta-section {
+  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: -10%;
+  width: 60%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 96px 48px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.cta-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cta-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(34px, 4.5vw, 50px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: white;
+  text-wrap: balance;
+}
+.cta-h2 em { font-style: italic; color: var(--gold); }
+.cta-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  text-wrap: balance;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 17px 36px;
+  border-radius: 100px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 168, 75, 0.4);
+}
+.cta-btn .arrow { font-size: 18px; transition: transform 0.25s; }
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  padding: 48px 48px 36px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.18em;
+}
+.footer-wordmark .retire { color: rgba(255,255,255,0.85); }
+.footer-wordmark .here { color: var(--terra-soft); }
+.footer-credits {
+  font-size: 11px; letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  text-align: right;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 880px) {
+  .site-header { padding: 12px 20px; }
+  .header-nav { gap: 14px; }
+  .header-nav a:not(.header-cta) { display: none; }
+  .wrap { padding: 0 24px; }
+  .section { padding: 56px 0; }
+
+  .hero { min-height: 540px; }
+  .hero-content { padding: 0 24px 96px; }
+  .hero-eyebrow {
+    font-size: 10px;
+    padding: 6px 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 14px;
+  }
+  .hero-name { font-size: 64px; line-height: 0.95; margin-bottom: 6px; }
+  .hero-state { font-size: 18px; margin-bottom: 14px; }
+  .hero-tagline { line-height: 1.5; max-width: 100%; }
+  .hero-photo-credit {
+    bottom: 56px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.4);
+  }
+
+  .stats-bar {
+    margin: -40px 20px 0;
+    padding: 24px 22px;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+  }
+  .stat { padding: 0 14px; border-right: none; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stat:first-child, .stat:nth-child(3) { padding-left: 0; }
+  .stat:nth-child(2), .stat:last-child { padding-right: 0; }
+  .stat:nth-child(1), .stat:nth-child(2) {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fit-grid { grid-template-columns: 1fr; gap: 56px; }
+  .character-section .wrap { grid-template-columns: 1fr; gap: 48px; }
+  .week-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .lifestyle-banner {
+    height: 50vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
+  .lifestyle-banner-content { padding: 0 24px 36px; }
+  .hoods-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; min-height: auto; }
+  .detail-photo { 
+    height: 75vw;
+    max-height: 480px;
+    min-height: 280px;
+    aspect-ratio: auto;
+  }
+  .detail-text { padding: 56px 28px; }
+  .health-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .health-icon { font-size: 40px; }
+  .lists-grid { grid-template-columns: 1fr; }
+  .lists-grid-two { grid-template-columns: 1fr; max-width: none; }
+  .cta-inner { padding: 72px 24px; }
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-credits { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="/" class="header-wordmark">
+    <span class="retire">RETIREME</span><span class="here">HERE</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/#explore">Top Cities For…</a>
+    <a href="/" class="header-cta">Find My Match</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">★ A Retirement City Profile</span>
+    <h1 class="hero-name">Bloomington.</h1>
+    <p class="hero-state">Indiana</p>
+    <p class="hero-tagline">A limestone college town with a world-class music school, free university classes for residents 60-plus, and hill-country trails just past the edge of campus — at Midwest prices.</p>
+  </div>
+  <div class="hero-photo-credit">Photo · Yahala / Wikimedia (CC BY-SA 3.0, cropped)</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-label">Median Home</div>
+    <div class="stat-value">$345<span class="small">K</span></div>
+    <div class="stat-sub">Affordable college-town pricing · below national</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Monthly Budget</div>
+    <div class="stat-value">$3.2–4.2<span class="small">K/mo</span></div>
+    <div class="stat-sub">Mid-range · cost of living near national average</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Community</div>
+    <div class="stat-value">8<span class="small">/10</span></div>
+    <div class="stat-sub">IU arts &amp; intellectual life · among our highest</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Healthcare</div>
+    <div class="stat-value">7<span class="small">/10</span></div>
+    <div class="stat-sub">Strong regional · academic care an hour north</div>
+  </div>
+</div>
+
+<!-- IS THIS FOR YOU? -->
+<section class="section fit-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Should you actually move here?</div>
+    <h2 class="section-title">Is Bloomington <em>for you</em>?</h2>
+    <p class="fit-intro">
+      Bloomington is a city of around 80,000 built around Indiana University and the limestone hills of southern Indiana. The university gives it cultural depth far beyond its size — a top-ranked music school, a free art museum, more than a thousand performances a year — and Indiana law lets retired residents 60 and older take IU classes at little or no tuition. The retirees who thrive here come for the intellectual and cultural life at a price point most college towns can't match. The ones who leave usually leave because of the winters, or because they wanted mountains and ocean that the Midwest simply doesn't have.
+    </p>
+
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <div class="fit-col-header">
+          <div class="fit-icon yes">✓</div>
+          <div class="fit-col-title">You'll <em>love</em> it here if&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want a serious cultural life without a big-city price tag.</strong> Indiana University's <strong>Jacobs School of Music</strong> — consistently ranked among the very best in the country — stages more than <strong>1,100 performances a year</strong>, including six operas and three ballets, most of them free or close to it. The <strong>IU Auditorium</strong> books Broadway tours and major touring acts; <strong>IU Cinema</strong> screens 100-plus films a semester; the <strong>Eskenazi Museum of Art</strong> is free; and the <strong>Lotus World Music &amp; Arts Festival</strong> brings the world to downtown every fall. This is the engine behind the city's 8-of-10 community score — one of the highest in our database.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You'd actually use a university.</strong> Under Indiana law, retired state residents <strong>60 and older can enroll in Indiana University courses at greatly reduced or waived tuition</strong> — real classes, real subjects, alongside degree students, on a space-available basis. For a retiree who wants to keep learning rather than just attend the occasional lecture, this is one of the most valuable amenities any college town offers, and it's built into state policy rather than dependent on a membership program.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want the outdoors woven into ordinary days.</strong> Bloomington sits in the unglaciated hill country of southern Indiana — genuinely scenic, and a surprise to anyone expecting the flat farmland of the upper half of the state. <strong>Lake Monroe</strong>, Indiana's largest reservoir, is twenty minutes south for boating, paddling, and fishing; <strong>Lake Griffy</strong> and <strong>Leonard Springs Nature Park</strong> sit right at the edge of town with quiet trails and good birding; the <strong>Hoosier National Forest</strong> and the <strong>Charles C. Deam Wilderness</strong> offer real hiking; and <strong>Brown County State Park</strong> — Indiana's largest, famous for its autumn color — is a half-hour east. Add the paved B-Line and rail trails in town, and you have hiking, walking, birding, and nature photography on tap most of the year. (It's also a Gold-level cycling town, if you ride.)</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want walkable charm and a real food scene at Midwest cost.</strong> Downtown around Kirkwood Avenue and the courthouse square has a Walk Score in the high 80s, the <strong>B-Line Trail</strong> running straight through it, and the kind of independent-restaurant density — roughly 350 restaurants in Monroe County — that earned Bloomington a national "best food town" nod years ago and still holds up. Median home prices around <strong>$345K</strong> and a cost of living near the national average make all of it genuinely affordable.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fit-col no">
+        <div class="fit-col-header">
+          <div class="fit-icon no">✗</div>
+          <div class="fit-col-title">Skip Bloomington <em>if</em>&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>You're done with winter.</strong> Bloomington has four real seasons, and that includes a genuine winter — January averages a high near 37°F and a low near 22°F, with around 17 inches of snow a year. That's milder than the Great Lakes snowbelt and far less than Buffalo or Minneapolis, but it is real cold and real gray. If your whole reason for moving is to never scrape a windshield again, the Sun Belt cities in our database will serve you better. The flip side: spring and fall here are genuinely beautiful.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want mountains or ocean.</strong> Outdoor recreation scored 6 of 10 — solid, varied four-season Midwest access, but not a destination-level draw. The hill country, lakes, and forests are genuinely scenic and close at hand, but there are no mountains and no coastline, and winter narrows the outdoor calendar from roughly November through March. If Western-mountain trails or coastal living are the point of retiring, look elsewhere in our database.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You need a major airport at your doorstep.</strong> Airport access scored 5 of 10. Bloomington's own field (BMG) is general aviation only. The nearest commercial hub is <strong>Indianapolis International (IND), about an hour's drive north</strong> — a real major airport with international service and all the big carriers, but it is an hour each way. That's comparable to several other college towns in our database, and manageable, but it's a drive, not a quick hop.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want the lowest-possible tax bill.</strong> Tax friendliness scored 6 of 10. Indiana fully exempts Social Security and caps owner-occupied property tax at 1% of assessed value — both genuine positives. But pensions, 401(k), and IRA withdrawals are taxable, and Monroe County's local income tax (raised in 2025) sits on top of the state rate, for a combined bite near 5% on retirement withdrawals. That's mid-tier — better than high-tax states, but not the no-income-tax deal you'd get in Florida, Texas, or Tennessee.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTER -->
+<section class="section character-section">
+  <div class="wrap">
+    <div>
+      <div class="section-eyebrow">The character of the place</div>
+      <h2 class="section-title">The town that <em>limestone built</em>.</h2>
+      <div class="character-body">
+        <p><span class="dropcap">B</span>loomington's identity is carved, almost literally, out of the ground beneath it. The hills of Monroe and Lawrence counties hold some of the finest building limestone in the world, and for more than a century it has been quarried here and shipped out to build the Empire State Building, the Pentagon, the National Cathedral, and much of official Washington. Closer to home, it built <strong>Indiana University</strong>: nearly every building on the historic Old Crescent is faced in local stone, including the 1906 <strong>Student Building</strong> with its limestone clock tower. The stone is why the town calls its sports teams and its civic memory back to the quarry workers — the "cutters" — and why <em>Breaking Away</em>, the Oscar-winning 1979 film about local kids racing in the Little 500, named its underdog team after them.</p>
+        <p>The university is the other half of the equation, and it's a big half. IU brings students from more than 170 countries, a top-ranked <strong>Jacobs School of Music</strong> that fills the city with concerts most nights of the week, the free <strong>Eskenazi Museum of Art</strong>, and a level of intellectual and artistic energy you would not otherwise find in a city of 80,000 in southern Indiana. It also brings big-time college sports. <strong>Hoosier basketball</strong> is one of the most storied programs in the game — five national titles, the banners hanging at Simon Skjodt Assembly Hall, an arena one broadcaster called "the Carnegie Hall of basketball." And in January 2026 the <strong>football</strong> team capped a perfect 16–0 season by winning the school's first national championship, with quarterback Fernando Mendoza taking home the program's first Heisman Trophy — a once-in-a-lifetime run that turned an ordinary fall into a citywide celebration. For a retiree who likes a Saturday in crimson, the calendar more or less fills itself.</p>
+        <p>What you get, day to day, is a place that punches far above its size culturally while staying affordable and human-scaled. Downtown is walkable and independent — Kirkwood Avenue running up to the <strong>Sample Gates</strong> of campus, the limestone courthouse square, the B-Line Trail threading through it, around 350 restaurants in the county, the Saturday farmers market, the Lotus Festival, the Buskirk-Chumley Theater. It is a college town in the fullest sense: energetic, intellectual, a little bohemian, proud of its quarry-and-classroom roots, and — for the right retiree — one of the most genuinely rich small cities in the country to grow older in.</p>
+      </div>
+    </div>
+
+    <div class="aside-stack">
+      <aside class="pullquote">
+        <div class="pullquote-mark">"</div>
+        <div class="pullquote-text">A limestone college town that delivers big-city culture — opera, ballet, world music, a free art museum — at a price an ordinary retirement budget can actually carry.</div>
+        <div class="pullquote-attr">— On the value proposition</div>
+      </aside>
+
+      <aside class="fast-facts">
+        <div class="fast-facts-label">Bloomington by the Numbers</div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">1,100+</div>
+          <div class="fast-fact-desc">Music performances staged at IU's Jacobs School each year — six operas and three ballets among them, most free or low-cost</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">60+</div>
+          <div class="fast-fact-desc">The age at which retired Indiana residents can enroll in IU courses at greatly reduced or waived tuition</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">6</div>
+          <div class="fast-fact-desc">National championships hanging over campus — five in men's basketball at Assembly Hall, plus the 2026 football title that capped a 16–0 season</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL PHOTO BREAK -->
+<section class="detail-section">
+  <div class="detail-grid">
+    <div class="detail-photo">
+      <div class="detail-photo-credit">Photo · Nyttend / Wikimedia (public domain)</div>
+    </div>
+    <div class="detail-text">
+      <div class="detail-quote-mark">"</div>
+      <p class="detail-quote">The Student Building's limestone clock tower, finished in 1906, anchors the Old Crescent — the oldest corner of Indiana University's campus and a National Register historic district. Nearly every building around it is faced in stone quarried from the hills just outside town. The architecture is the argument: this is a place that built itself out of what it had.</p>
+      <p class="detail-attribution">— On the Old Crescent</p>
+    </div>
+  </div>
+</section>
+
+<!-- TYPICAL WEEK -->
+<section class="section week-section">
+  <div class="wrap">
+    <div class="section-eyebrow">What life actually looks like</div>
+    <h2 class="section-title">A week in Bloomington, <em>roughly</em>.</h2>
+    <p class="week-intro">A composite week of what an engaged Bloomington retiree's days could look like — the campus-culture-and-trails rhythm that gives the city its character, drawn from the things locals actually fill their calendars with.</p>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-name">Monday</div>
+        <div class="day-time">10:00 AM</div>
+        <div class="day-activity">A class at IU</div>
+        <div class="day-where">Under Indiana's senior tuition benefit, residents 60+ can sit in on real university courses for little or nothing — history, literature, languages, music. Pick a subject you never had time for. Coffee on Kirkwood afterward.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Tuesday</div>
+        <div class="day-time">8:00 AM</div>
+        <div class="day-activity">Trails &amp; birding</div>
+        <div class="day-where">A morning walk at <strong>Leonard Springs Nature Park</strong> or around Lake Griffy — boardwalks, karst springs, herons and warblers, and the kind of quiet hill-country woods that reward a camera. The unglaciated terrain here is genuinely scenic, not the flat Indiana of the postcards.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Wednesday</div>
+        <div class="day-time">12:00 PM</div>
+        <div class="day-activity">Eskenazi Museum + the B-Line</div>
+        <div class="day-where">The free university art museum on campus, then a walk or ride down the B-Line Trail through downtown to Switchyard Park. Lunch at one of the 150-odd restaurants in the walkable core.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Thursday</div>
+        <div class="day-time">8:00 PM</div>
+        <div class="day-activity">Jacobs School concert</div>
+        <div class="day-where">One of the more than 1,100 performances IU stages each year — a recital, a chamber concert, an opera at the Musical Arts Center. Most are free or a few dollars. The deepest classical-music calendar of any small city in the country.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Friday</div>
+        <div class="day-time">7:00 PM</div>
+        <div class="day-activity">Dinner downtown</div>
+        <div class="day-where">The county's ~350 restaurants run from a Croatian-leaning steakhouse to global student favorites to farm-to-table. A show at the Buskirk-Chumley or the IU Auditorium — a Broadway tour, a touring act, a comedian — to follow.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Saturday</div>
+        <div class="day-time">8:00 AM</div>
+        <div class="day-activity">Farmers market on the square</div>
+        <div class="day-where">The Bloomington Community Farmers' Market at City Hall, April through November — one of the Midwest's best, and the de facto Saturday-morning social calendar. Local growers, prepared foods, and the farm-to-table supply line that feeds the city's restaurant scene.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Sunday</div>
+        <div class="day-time">11:00 AM</div>
+        <div class="day-activity">Lake Monroe</div>
+        <div class="day-where">Indiana's largest reservoir, 20 minutes south — a pontoon afternoon, a hike at Hardin Ridge, or a paddle into the Deam Wilderness shoreline. The Ozark-quiet kind of outdoor day the hills do well.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Fall Saturday</div>
+        <div class="day-time">3:30 PM</div>
+        <div class="day-activity">Game day in crimson</div>
+        <div class="day-where">Memorial Stadium on a football afternoon, or Assembly Hall once basketball tips off — student tailgates, the Marching Hundred, a downtown that empties into the bars afterward. After the 2026 national title, a Hoosier home game is the hottest ticket in southern Indiana.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE BANNER -->
+<section class="lifestyle-banner">
+  <div class="lifestyle-banner-img"></div>
+  <div class="lifestyle-banner-content">
+    <div class="lifestyle-banner-eyebrow">Out the back door</div>
+    <h2 class="lifestyle-banner-title">Rolling hill-country roads and a Gold-level cycling town — part of an outdoors that runs from the B-Line Trail to Lake Monroe and the Brown County woods.</h2>
+  </div>
+  <div class="lifestyle-banner-credit">Photo · Mark Stosberg / Unsplash</div>
+</section>
+
+<!-- NEIGHBORHOODS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Where to live</div>
+    <h2 class="section-title">Four <em>Bloomingtons</em>, depending on you.</h2>
+    <p class="hoods-intro">
+      Retirees in Bloomington tend to choose among a handful of established neighborhoods — historic and walkable near campus and downtown, or quieter and greener a few miles out. The cards below cover the most common picks, from the premium walkable historic districts to the calmer suburban east side. <strong>Pricing reflects 2026 estimates and varies meaningfully by block, build year, and condition.</strong>
+    </p>
+
+    <div class="hoods-grid">
+      <div class="hood-card">
+        <div class="hood-name">Elm Heights</div>
+        <div class="hood-vibe">Historic · Walkable · Near campus</div>
+        <div class="hood-desc">A locally designated historic district two blocks south of the IU campus — limestone, brick, tile, and slate homes on tree-lined streets, a Walk Score in the high 70s, and a quarter-mile to Bryan Park. The premium walkable choice: you can leave the car for most errands and walk to campus concerts. <strong>Median: roughly $380K, up to $535K+ for larger historic homes.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Bryan Park</div>
+        <div class="hood-vibe">Central · Green · Best value near downtown</div>
+        <div class="hood-desc">A leafy, central neighborhood built around its namesake 33-acre park — pool, trails, and courts at the center, a mix of cozy older homes and newer builds around it. Close to downtown and on transit lines, more affordable than Elm Heights, and a longtime favorite for faculty and families alike. <strong>Median: roughly $290K–$420K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Prospect Hill</div>
+        <div class="hood-vibe">Historic · Trail access · West of downtown</div>
+        <div class="hood-desc">A historic district just west of downtown with early-1900s homes (a few predating the Civil War), an active neighborhood association, and direct access to the B-Line Trail and the Saturday farmers market. The character-and-trails choice — walkable, close-knit, and the widest price range of the four. <strong>Median: roughly $165K–$549K depending on home.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Park Ridge / Park Ridge East</div>
+        <div class="hood-vibe">Quiet · Suburban · Strong safety</div>
+        <div class="hood-desc">East-side neighborhoods with landscaped streets, limestone-trimmed homes, a neighborhood park, and the Polly Grimshaw Trail nearby — about three miles from campus, close to College Mall. Quieter and more suburban than the historic districts, with some of the city's safest blocks. The calmer, drive-a-bit choice. <strong>Median: roughly $350K–$500K.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTHCARE -->
+<section class="section" style="background: var(--cream); padding-bottom: 64px;">
+  <div class="wrap">
+    <div class="section-eyebrow">Healthcare — strong regional, academic is a drive</div>
+    <h2 class="section-title">A capable local hospital — <em>with academic backup an hour north</em>.</h2>
+
+    <div class="health-card">
+      <div class="health-icon">🏥</div>
+      <div>
+        <div class="health-name">IU Health Bloomington</div>
+        <div class="health-detail"><strong>IU Health Bloomington Hospital</strong> is the city's main hospital — a modern facility on the east side that earns national "High Performing" ratings from U.S. News for heart attack and maternity care, and a Healthgrades excellence award for outpatient joint replacement. It's part of the statewide IU Health system, which means the academic flagship — <strong>IU Health Medical Center in Indianapolis</strong>, nationally ranked in nine adult conditions — is roughly an hour north for complex or specialty care. Together that earns a 7 of 10: capable, well-run local care, with a top-tier academic center within easy reach when you need it. For most routine and many specialty needs you stay in town; for the rare complex case, you drive to Indy.</div>
+      </div>
+      <div class="health-grade">
+        <div class="health-grade-num">7<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+        <div class="health-grade-lbl">Healthcare Match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPEARS ON LISTS -->
+<section class="section lists-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Bloomington also appears on</div>
+    <h2 class="section-title">Lists where <em>Bloomington earned its place.</em></h2>
+
+    <div class="lists-grid lists-grid-two">
+      <a href="/top-cities-for-arts-lovers.html" class="list-card">
+        <div class="list-card-name">Top Cities for Arts Lovers</div>
+        <div class="list-card-tier">Jacobs School of Music · Eskenazi Museum · Lotus Festival</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+
+      <a href="/top-cities-for-sports-fans.html" class="list-card">
+        <div class="list-card-name">Top Cities for Sports Fans</div>
+        <div class="list-card-tier">2026 football national champions · five basketball titles · Assembly Hall</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Want a personalized match?</div>
+    <h2 class="cta-h2">Bloomington might fit. <em>Or it might not.</em></h2>
+    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you — not what's trending.</p>
+    <a href="/" class="cta-btn">
+      <span>Find My Match</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-wordmark">
+      <span class="retire">RETIREME</span><span class="here">HERE</span>
+    </div>
+    <div class="footer-credits">
+      Photos: Yahala / Wikimedia Commons (CC BY-SA 3.0, cropped), Nyttend / Wikimedia Commons (public domain), Mark Stosberg (Unsplash).<br>
+      Sources: Zillow / Redfin (2026) · Indiana University · Jacobs School of Music · IU Health &amp; U.S. News–World Report Best Hospitals 2025–26 · League of American Bicyclists (Bicycle Friendly Community) · Indiana senior tuition statute · CrimeGrade.org · NOAA Climate Normals · Indiana Department of Revenue &amp; Monroe County local income tax.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
