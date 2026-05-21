@@ -626,11 +626,11 @@ body {
 .lifestyle-banner-title {
   font-family: 'Fraunces', serif;
   font-weight: 500; font-style: italic;
-  font-size: clamp(22px, 2.8vw, 34px);
-  line-height: 1.2; letter-spacing: -0.015em;
+  font-size: clamp(18px, 2.2vw, 27px);
+  line-height: 1.25; letter-spacing: -0.015em;
   color: white;
   text-wrap: balance;
-  max-width: 680px;
+  max-width: 600px;
   text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
 }
 .lifestyle-banner-credit {
@@ -743,11 +743,12 @@ body {
 .lists-section { background: var(--cream); }
 .lists-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
   gap: 18px;
   margin-top: 48px;
 }
-.lists-grid-two { grid-template-columns: repeat(2, 1fr); max-width: 760px; }
+.lists-grid-two { grid-template-columns: repeat(2, minmax(0, 340px)); }
 .list-card {
   background: white;
   border: 1px solid var(--line);
@@ -956,8 +957,8 @@ footer {
     text-align: center;
   }
   .health-icon { font-size: 40px; }
-  .lists-grid { grid-template-columns: 1fr; }
-  .lists-grid-two { grid-template-columns: 1fr; max-width: none; }
+  .lists-grid { grid-template-columns: minmax(0, 340px); }
+  .lists-grid-two { grid-template-columns: minmax(0, 340px); }
   .cta-inner { padding: 72px 24px; }
   footer { padding: 40px 24px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -1196,7 +1197,7 @@ footer {
   <div class="lifestyle-banner-img"></div>
   <div class="lifestyle-banner-content">
     <div class="lifestyle-banner-eyebrow">The Topiary Park</div>
-    <h2 class="lifestyle-banner-title">A downtown garden where Seurat's "Sunday Afternoon" is recreated entirely in trimmed shrubbery — the kind of quietly original thing Columbus does without making a fuss about it.</h2>
+    <h2 class="lifestyle-banner-title">A downtown garden where Seurat's "Sunday Afternoon" is recreated entirely in trimmed shrubbery — quietly original, the way Columbus likes it.</h2>
   </div>
   <div class="lifestyle-banner-credit">Photo · Topiary Park / Wikimedia Commons (CC0)</div>
 </section>
@@ -1261,7 +1262,7 @@ footer {
     <div class="section-eyebrow">Columbus also appears on</div>
     <h2 class="section-title">Lists where <em>Columbus earned its place.</em></h2>
 
-    <div class="lists-grid lists-grid-two">
+    <div class="lists-grid">
       <a href="/top-cities-for-healthcare.html" class="list-card">
         <div class="list-card-name">Top Cities for Healthcare</div>
         <div class="list-card-tier">Ohio State Wexner · The James · OhioHealth Riverside</div>
@@ -1277,12 +1278,6 @@ footer {
       <a href="/top-cities-for-sports-fans.html" class="list-card">
         <div class="list-card-name">Top Cities for Sports Fans</div>
         <div class="list-card-tier">Ohio State Buckeyes · Columbus Crew · Blue Jackets</div>
-        <span class="list-card-arrow">→</span>
-      </a>
-
-      <a href="/top-cities-for-active-retirees.html" class="list-card">
-        <div class="list-card-name">Top Cities for Active Retirees</div>
-        <div class="list-card-tier">Ohio Strength · top-rated gyms · OSU athletic culture</div>
         <span class="list-card-arrow">→</span>
       </a>
     </div>
