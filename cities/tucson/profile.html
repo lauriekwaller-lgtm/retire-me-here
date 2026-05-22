@@ -334,42 +334,12 @@ body {
 .dropcap {
   float: left;
   font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   font-size: 76px;
   line-height: 0.85;
   margin: 6px 12px 0 0;
-  color: var(--terra);
-}
-
-.pullquote {
-  background: var(--paper);
-  border-left: 3px solid var(--gold);
-  padding: 32px 32px 36px;
-  border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
-}
-.pullquote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 80px;
-  line-height: 0.6;
-  color: var(--gold);
-  margin-bottom: 16px;
-}
-.pullquote-text {
-  font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 400;
-  font-size: 20px;
-  line-height: 1.45;
   color: var(--dark);
-  margin-bottom: 20px;
-}
-.pullquote-attr {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--mid);
 }
 
 /* Aside container holds pull-quote + fast-facts */
@@ -638,30 +608,21 @@ body {
   color: white;
   display: flex; flex-direction: column; justify-content: center;
 }
-.detail-quote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 90px; line-height: 0.7;
+.detail-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 24px;
-  font-weight: 400;
+  margin-bottom: 20px;
 }
 .detail-quote {
   font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 500;
+  font-style: normal; font-weight: 400;
   font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.4;
-  color: rgba(255,255,255,0.95);
-  margin-bottom: 28px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
   text-wrap: balance;
 }
-.detail-attribution {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
-}
-
 /* ============================================
    HEALTHCARE DEEP-DIVE
    ============================================ */
@@ -1115,11 +1076,6 @@ footer {
     </div>
 
     <div class="aside-stack">
-      <aside class="pullquote">
-        <div class="pullquote-mark">"</div>
-        <div class="pullquote-text">The cactus that defines the American West, in popular imagination, is functionally just a Tucson plant — its full natural range barely extends beyond the Sonoran Desert.</div>
-        <div class="pullquote-attr">— On the saguaro and place</div>
-      </aside>
 
       <aside class="fast-facts">
         <div class="fast-facts-label">Tucson by the Numbers</div>
@@ -1147,9 +1103,8 @@ footer {
       <div class="detail-photo-credit">Photo · Jake Miller</div>
     </div>
     <div class="detail-text">
-      <div class="detail-quote-mark">"</div>
+      <p class="detail-eyebrow">On the foothills sunset hour</p>
       <p class="detail-quote">A single saguaro at sunset, a foothills golf green, the city lights coming on across the valley — the Tucson evening is its own argument for being here.</p>
-      <p class="detail-attribution">— On the foothills sunset hour</p>
     </div>
   </div>
 </section>
@@ -1158,7 +1113,7 @@ footer {
 <section class="section week-section">
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
-    <h2 class="section-title">A week in Tucson, <em>roughly</em>.</h2>
+    <h2 class="section-title">A week in Tucson, roughly.</h2>
     <p class="week-intro">A composite week of what an active Tucson retiree's days could look like — drawn from the early-morning-trail, late-afternoon-patio, mountain-meets-mission cadence locals describe when explaining why this city earns its outdoor scores. (This is the cool-season week. June–August looks different.)</p>
 
     <div class="week-grid">
@@ -1228,7 +1183,7 @@ footer {
 <section class="section">
   <div class="wrap">
     <div class="section-eyebrow">Where to live</div>
-    <h2 class="section-title">Four <em>Tucsons</em>, depending on you.</h2>
+    <h2 class="section-title">Four Tucsons, depending on you.</h2>
     <p class="hoods-intro">
       Tucson is sprawling — about 540,000 people in the city, 1.05 million in the metro — and the retiree picks vary widely by setting. The four below cover the spectrum from upscale-foothills to historic-walkable to active-adult master-planned. <strong>Pricing reflects May 2026 estimates and varies meaningfully by view, lot, and proximity to a specific peak.</strong>
     </p>
@@ -1262,7 +1217,7 @@ footer {
 <section class="section" style="background: var(--cream); padding-bottom: 64px;">
   <div class="wrap">
     <div class="section-eyebrow">Healthcare — academic system, regional referral hub</div>
-    <h2 class="section-title">Banner — University Medical Center, the <em>regional anchor</em>.</h2>
+    <h2 class="section-title">Banner — University Medical Center, the regional anchor.</h2>
 
     <div class="health-card">
       <div class="health-icon">🏥</div>
@@ -1282,7 +1237,7 @@ footer {
 <section class="section lists-section">
   <div class="wrap">
     <div class="section-eyebrow">Tucson also appears on</div>
-    <h2 class="section-title">Two lists where <em>Tucson earned its place.</em></h2>
+    <h2 class="section-title">Two lists where Tucson earned its place.</h2>
 
     <div class="lists-grid">
       <a href="/top-cities-for-hikers.html" class="list-card">
