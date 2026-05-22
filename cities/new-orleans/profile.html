@@ -747,6 +747,7 @@ body {
   margin-top: 48px;
 }
 .lists-grid-two { grid-template-columns: repeat(2, minmax(0, 340px)); }
+.lists-grid-four { grid-template-columns: repeat(2, minmax(0, 340px)); }
 .list-card {
   background: white;
   border: 1px solid var(--line);
@@ -957,6 +958,7 @@ footer {
   .health-icon { font-size: 40px; }
   .lists-grid { grid-template-columns: minmax(0, 340px); }
   .lists-grid-two { grid-template-columns: minmax(0, 340px); }
+  .lists-grid-four { grid-template-columns: minmax(0, 340px); }
   .cta-inner { padding: 72px 24px; }
   footer { padding: 40px 24px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -1260,7 +1262,13 @@ footer {
     <div class="section-eyebrow">New Orleans also appears on</div>
     <h2 class="section-title">Lists where <em>New Orleans earned its place.</em></h2>
 
-    <div class="lists-grid">
+    <div class="lists-grid lists-grid-four">
+      <a href="/top-cities-for-foodies.html" class="list-card">
+        <div class="list-card-name">Top Cities for Foodies</div>
+        <div class="list-card-tier">The most distinctive food city in America · Creole &amp; Cajun · Commander's Palace</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+
       <a href="/top-cities-for-arts-lovers.html" class="list-card">
         <div class="list-card-name">Top Cities for Arts Lovers</div>
         <div class="list-card-tier">Jazz Fest · French Quarter Fest · Preservation Hall · NOMA</div>
@@ -1273,9 +1281,9 @@ footer {
         <span class="list-card-arrow">→</span>
       </a>
 
-      <a href="/top-cities-for-sports-fans.html" class="list-card">
-        <div class="list-card-name">Top Cities for Sports Fans</div>
-        <div class="list-card-tier">Saints · Pelicans</div>
+      <a href="/top-cities-for-lgbtq-retirees.html" class="list-card">
+        <div class="list-card-name">Top Cities for LGBTQ Retirees</div>
+        <div class="list-card-tier">A long-welcoming city · the Marigny &amp; Frenchmen · an open, festive culture</div>
         <span class="list-card-arrow">→</span>
       </a>
     </div>
