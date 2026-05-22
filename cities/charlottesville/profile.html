@@ -319,43 +319,14 @@ body {
 .dropcap {
   float: left;
   font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   font-size: 76px;
   line-height: 0.85;
   margin: 6px 12px 0 0;
-  color: var(--terra);
+  color: var(--dark);
 }
 .aside-stack { display: flex; flex-direction: column; gap: 24px; }
-.pullquote {
-  background: var(--paper);
-  border-left: 3px solid var(--gold);
-  padding: 32px 32px 36px;
-  border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
-}
-.pullquote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 80px;
-  line-height: 0.6;
-  color: var(--gold);
-  margin-bottom: 16px;
-}
-.pullquote-text {
-  font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 400;
-  font-size: 20px;
-  line-height: 1.45;
-  color: var(--dark);
-  margin-bottom: 20px;
-}
-.pullquote-attr {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--mid);
-}
 .fast-facts {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -432,30 +403,21 @@ body {
   color: white;
   display: flex; flex-direction: column; justify-content: center;
 }
-.detail-quote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 90px; line-height: 0.7;
+.detail-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 24px;
-  font-weight: 400;
+  margin-bottom: 20px;
 }
 .detail-quote {
   font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 500;
+  font-style: normal; font-weight: 400;
   font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.4;
-  color: rgba(255,255,255,0.95);
-  margin-bottom: 28px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
   text-wrap: balance;
 }
-.detail-attribution {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
-}
-
 /* TYPICAL WEEK */
 .week-section { background: var(--sand); padding-top: 48px; }
 .week-intro {
@@ -1030,11 +992,6 @@ footer {
     </div>
 
     <div class="aside-stack">
-      <aside class="pullquote">
-        <div class="pullquote-mark">"</div>
-        <div class="pullquote-text">Virginia's #1 hospital, the Blue Ridge thirty minutes west, wine country in the hills, and Jefferson's university downtown — a small city that delivers what much larger ones can't.</div>
-        <div class="pullquote-attr">— On the whole package</div>
-      </aside>
 
       <aside class="fast-facts">
         <div class="fast-facts-label">Charlottesville by the Numbers</div>
@@ -1062,9 +1019,8 @@ footer {
       <div class="detail-photo-credit">Photo · Wcedmisten / Wikimedia (CC BY 4.0)</div>
     </div>
     <div class="detail-text">
-      <div class="detail-quote-mark">"</div>
+      <p class="detail-eyebrow">On the Downtown Mall</p>
       <p class="detail-quote">The Historic Downtown Mall runs eight blocks of brick and shade trees — one of the longest pedestrian streets in the country, closed to cars since 1976. Independent bookshops, sidewalk cafes, a concert pavilion at one end and the federal courthouse at the other. It has been the city's living room for half a century, and for a retiree it's the kind of downtown you can walk every day and never tire of.</p>
-      <p class="detail-attribution">— On the Downtown Mall</p>
     </div>
   </div>
 </section>
@@ -1073,7 +1029,7 @@ footer {
 <section class="section week-section">
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
-    <h2 class="section-title">A week in Charlottesville, <em>roughly</em>.</h2>
+    <h2 class="section-title">A week in Charlottesville, roughly.</h2>
     <p class="week-intro">A composite week of what an engaged Charlottesville retiree's days could look like — the mix of mountains, university culture, wine country, and a walkable downtown that gives the city its particular rhythm.</p>
 
     <div class="week-grid">
@@ -1143,7 +1099,7 @@ footer {
 <section class="section">
   <div class="wrap">
     <div class="section-eyebrow">Where to live</div>
-    <h2 class="section-title">Four <em>Charlottesvilles</em>, depending on you.</h2>
+    <h2 class="section-title">Four Charlottesvilles, depending on you.</h2>
     <p class="hoods-intro">
       Retirees here tend to choose among a handful of established areas — walkable and historic close to downtown, or quieter with mountain views a short drive out. The cards below cover the most common picks, from the premium walkable core to the small-town calm of Crozet. <strong>Pricing reflects 2026 estimates and varies meaningfully by block, build year, and condition.</strong>
     </p>
@@ -1197,7 +1153,7 @@ footer {
 <section class="section lists-section">
   <div class="wrap">
     <div class="section-eyebrow">Charlottesville also appears on</div>
-    <h2 class="section-title">Lists where <em>Charlottesville earned its place.</em></h2>
+    <h2 class="section-title">Lists where Charlottesville earned its place.</h2>
 
     <div class="lists-grid">
       <a href="/top-cities-for-healthcare.html" class="list-card">
