@@ -379,43 +379,14 @@ body {
 .dropcap {
   float: left;
   font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   font-size: 76px;
   line-height: 0.85;
   margin: 6px 12px 0 0;
-  color: var(--terra);
+  color: var(--dark);
 }
 .aside-stack { display: flex; flex-direction: column; gap: 24px; }
-.pullquote {
-  background: var(--paper);
-  border-left: 3px solid var(--gold);
-  padding: 32px 32px 36px;
-  border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
-}
-.pullquote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 80px;
-  line-height: 0.6;
-  color: var(--gold);
-  margin-bottom: 16px;
-}
-.pullquote-text {
-  font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 400;
-  font-size: 20px;
-  line-height: 1.45;
-  color: var(--dark);
-  margin-bottom: 20px;
-}
-.pullquote-attr {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--mid);
-}
 .fast-facts {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -492,30 +463,21 @@ body {
   color: white;
   display: flex; flex-direction: column; justify-content: center;
 }
-.detail-quote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 90px; line-height: 0.7;
+.detail-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 24px;
-  font-weight: 400;
+  margin-bottom: 20px;
 }
 .detail-quote {
   font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 500;
+  font-style: normal; font-weight: 400;
   font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.4;
-  color: rgba(255,255,255,0.95);
-  margin-bottom: 28px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
   text-wrap: balance;
 }
-.detail-attribution {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
-}
-
 /* TYPICAL WEEK */
 .week-section { background: var(--sand); padding-top: 48px; }
 .week-intro {
@@ -1091,11 +1053,6 @@ footer {
     </div>
 
     <div class="aside-stack">
-      <aside class="pullquote">
-        <div class="pullquote-mark">"</div>
-        <div class="pullquote-text">The tourists get Broadway. Residents get a leafy neighborhood ten minutes away, a world-class hospital, and no income-tax bill — and they'll tell you that's the real Nashville.</div>
-        <div class="pullquote-attr">— On the city behind the reputation</div>
-      </aside>
 
       <aside class="fast-facts">
         <div class="fast-facts-label">Nashville by the Numbers</div>
@@ -1123,9 +1080,8 @@ footer {
       <div class="detail-photo-credit">Photo · Stefan Maritz / Pexels</div>
     </div>
     <div class="detail-text">
-      <div class="detail-quote-mark">"</div>
+      <p class="detail-eyebrow">On the strip everyone knows</p>
       <p class="detail-quote">Lower Broadway at golden hour — the honky-tonk strip that gives Music City its postcard. It's loud, it's for the tourists, and locals mostly steer around it. But it's also proof that the music here isn't a museum piece: it spills onto the street, every night, all year.</p>
-      <p class="detail-attribution">— On the strip everyone knows</p>
     </div>
   </div>
 </section>
@@ -1134,7 +1090,7 @@ footer {
 <section class="section week-section">
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
-    <h2 class="section-title">A week in Nashville, <em>roughly</em>.</h2>
+    <h2 class="section-title">A week in Nashville, roughly.</h2>
     <p class="week-intro">What a typical week looks like for an engaged Nashville retiree — shaped by the neighborhood-music-and-food rhythm locals live by, with Broadway left to the tourists.</p>
 
     <div class="week-grid">
@@ -1204,7 +1160,7 @@ footer {
 <section class="section">
   <div class="wrap">
     <div class="section-eyebrow">Where to live</div>
-    <h2 class="section-title">Four <em>Nashvilles</em>, depending on you.</h2>
+    <h2 class="section-title">Four Nashvilles, depending on you.</h2>
     <p class="hoods-intro">
       Greater Nashville stretches across several counties, and where you land depends on the tradeoff you want: in-town walkability, an upscale established address, or small-town suburban quiet to the south. These are the areas retirees gravitate to most. <strong>Pricing reflects 2026 estimates and varies meaningfully by block, build year, and condition.</strong>
     </p>
@@ -1238,7 +1194,7 @@ footer {
 <section class="section" style="background: var(--cream); padding-bottom: 64px;">
   <div class="wrap">
     <div class="section-eyebrow">Healthcare — Music City's quiet advantage</div>
-    <h2 class="section-title">Vanderbilt makes this a <em>medical city</em>.</h2>
+    <h2 class="section-title">Vanderbilt makes this a medical city.</h2>
 
     <div class="health-card">
       <div class="health-icon">🏥</div>
@@ -1258,7 +1214,7 @@ footer {
 <section class="section lists-section">
   <div class="wrap">
     <div class="section-eyebrow">Nashville also appears on</div>
-    <h2 class="section-title">Lists where <em>Nashville earned its place.</em></h2>
+    <h2 class="section-title">Lists where Nashville earned its place.</h2>
 
     <div class="lists-grid">
       <a href="/top-cities-for-healthcare.html" class="list-card">
