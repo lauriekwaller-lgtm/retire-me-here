@@ -334,42 +334,12 @@ body {
 .dropcap {
   float: left;
   font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
   font-size: 76px;
   line-height: 0.85;
   margin: 6px 12px 0 0;
-  color: var(--terra);
-}
-
-.pullquote {
-  background: var(--paper);
-  border-left: 3px solid var(--gold);
-  padding: 32px 32px 36px;
-  border-radius: 2px;
-  box-shadow: 0 4px 16px rgba(28,26,24,0.05);
-}
-.pullquote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 80px;
-  line-height: 0.6;
-  color: var(--gold);
-  margin-bottom: 16px;
-}
-.pullquote-text {
-  font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 400;
-  font-size: 20px;
-  line-height: 1.45;
   color: var(--dark);
-  margin-bottom: 20px;
-}
-.pullquote-attr {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--mid);
 }
 
 /* Aside container holds pull-quote + fast-facts */
@@ -638,30 +608,21 @@ body {
   color: white;
   display: flex; flex-direction: column; justify-content: center;
 }
-.detail-quote-mark {
-  font-family: 'Fraunces', serif;
-  font-size: 90px; line-height: 0.7;
+.detail-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 24px;
-  font-weight: 400;
+  margin-bottom: 20px;
 }
 .detail-quote {
   font-family: 'Fraunces', serif;
-  font-style: italic; font-weight: 500;
+  font-style: normal; font-weight: 400;
   font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.4;
-  color: rgba(255,255,255,0.95);
-  margin-bottom: 28px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
   text-wrap: balance;
 }
-.detail-attribution {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
-}
-
 /* ============================================
    HEALTHCARE DEEP-DIVE
    ============================================ */
@@ -1114,11 +1075,6 @@ footer {
     </div>
 
     <div class="aside-stack">
-      <aside class="pullquote">
-        <div class="pullquote-mark">"</div>
-        <div class="pullquote-text">Drive ten minutes in any direction and the city becomes pasture: white fences, mares with foals, two-hundred-year-old oaks, and a stillness that's hard to describe to people who haven't seen it.</div>
-        <div class="pullquote-attr">— On Bluegrass country</div>
-      </aside>
 
       <aside class="fast-facts">
         <div class="fast-facts-label">Lexington by the Numbers</div>
@@ -1146,9 +1102,8 @@ footer {
       <div class="detail-photo-credit">Photo · Cristina Anne Costello / Unsplash</div>
     </div>
     <div class="detail-text">
-      <div class="detail-quote-mark">"</div>
+      <p class="detail-eyebrow">On racing as civic identity</p>
       <p class="detail-quote">The Thoroughbred Park sculptures don't just commemorate the racing tradition — they make it impossible to walk through downtown without remembering whose town this is.</p>
-      <p class="detail-attribution">— On racing as civic identity</p>
     </div>
   </div>
 </section>
@@ -1157,7 +1112,7 @@ footer {
 <section class="section week-section">
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
-    <h2 class="section-title">A week in Lexington, <em>roughly</em>.</h2>
+    <h2 class="section-title">A week in Lexington, roughly.</h2>
     <p class="week-intro">A composite week of what an active Lexington retiree's days could look like — drawn from the horse-farm, downtown, distillery-district cadence locals describe when explaining why mid-sized Bluegrass life works.</p>
 
     <div class="week-grid">
@@ -1227,7 +1182,7 @@ footer {
 <section class="section">
   <div class="wrap">
     <div class="section-eyebrow">Where to live</div>
-    <h2 class="section-title">Four <em>Lexingtons</em>, depending on you.</h2>
+    <h2 class="section-title">Four Lexingtons, depending on you.</h2>
     <p class="hoods-intro">
       Lexington is mid-sized — about 325,000 people in the city — but its neighborhoods feel distinct. The four below cover the spectrum from historic-walkable to country-club-suburban to newer-amenity-rich.
     </p>
@@ -1261,7 +1216,7 @@ footer {
 <section class="section" style="background: var(--cream); padding-bottom: 64px;">
   <div class="wrap">
     <div class="section-eyebrow">Healthcare — a flagship academic system in the middle of Kentucky</div>
-    <h2 class="section-title">UK HealthCare — <em>nationally ranked</em>, in town, no commute required.</h2>
+    <h2 class="section-title">UK HealthCare — nationally ranked, in town, no commute required.</h2>
 
     <div class="health-card">
       <div class="health-icon">🏥</div>
@@ -1281,7 +1236,7 @@ footer {
 <section class="section lists-section">
   <div class="wrap">
     <div class="section-eyebrow">Lexington also appears on</div>
-    <h2 class="section-title">Two lists where <em>Lexington earned its place.</em></h2>
+    <h2 class="section-title">Two lists where Lexington earned its place.</h2>
 
     <div class="lists-grid">
       <a href="/top-cities-for-healthcare.html" class="list-card">
