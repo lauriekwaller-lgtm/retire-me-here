@@ -1,1 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenville, South Carolina — A Retirement City Profile | RetireMeHere</title>
+<meta name="description" content="An editorial profile of Greenville, South Carolina as a retirement destination. Falls Park on the Reedy, a rebuilt downtown, two competing top-ranked hospital systems, the Swamp Rabbit Trail — and the honest truth about safety by neighborhood and the Blue Ridge at the doorstep.">
+<link rel="canonical" href="https://retiremehere.com/cities/greenville/profile.html">
 
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal: #2A5E5A;
+  --teal-mid: #3d7a75;
+  --teal-deep: #1f4744;
+  --terra: #C4724A;
+  --terra-soft: #E89F75;
+  --sand: #F7F3ED;
+  --cream: #FBF7F1;
+  --paper: #FFFCF5;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #8B867E;
+  --gold: #D4A84B;
+  --line: #ECE6DC;
+
+  --max-w: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--dark);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; }
+
+/* HEADER */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 252, 245, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.18em;
+  text-decoration: none;
+}
+.header-wordmark .retire { color: var(--teal); }
+.header-wordmark .here { color: var(--terra); }
+.header-nav { display: flex; gap: 24px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none;
+  font-weight: 500; transition: color 0.2s;
+}
+.header-nav a:hover { color: var(--teal); }
+.header-nav a.header-cta {
+  background: var(--teal-deep);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(28,26,24,0.25);
+  letter-spacing: 0.04em;
+  display: inline-block;
+  line-height: 1;
+}
+.header-nav a.header-cta:hover {
+  background: var(--teal);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(28,26,24,0.3);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-img {
+  position: absolute; inset: 0;
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center 55%;
+  z-index: 1;
+}
+.hero-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  /* Bright daytime Falls Park photo: deeper bottom + slight left darkening
+     so white hero text holds contrast over bright water and sky. */
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0) 55%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.32) 0%,
+      rgba(0,0,0,0.12) 28%,
+      rgba(0,0,0,0.18) 45%,
+      rgba(0,0,0,0.72) 72%,
+      rgba(0,0,0,0.93) 100%
+    );
+}
+.hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 88px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(212, 168, 75, 0.6);
+  padding: 7px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+}
+.hero-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: 0.92; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  color: white;
+  text-shadow:
+    0 2px 12px rgba(0,0,0,0.5),
+    0 8px 40px rgba(0,0,0,0.4);
+}
+.hero-state {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 300;
+  font-size: clamp(20px, 3vw, 30px);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic; font-weight: 500;
+  font-size: clamp(16px, 1.9vw, 20px);
+  max-width: 560px; line-height: 1.4;
+  color: white;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+.hero-photo-credit {
+  position: absolute;
+  bottom: 92px; right: 32px;
+  z-index: 4;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+/* ============================================
+   STATS BAR
+   ============================================ */
+.stats-bar {
+  background: white;
+  max-width: var(--max-w);
+  margin: -56px auto 0;
+  position: relative;
+  z-index: 3;
+  border-radius: 4px;
+  box-shadow: 0 24px 80px rgba(28,26,24,0.18);
+  padding: 32px 44px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 0 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: none; }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { padding-right: 0; }
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--light);
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px; line-height: 1.1;
+  color: var(--dark); letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.stat-value .small { font-size: 16px; color: var(--mid); }
+.stat-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--mid); line-height: 1.4;
+}
+
+/* ============================================
+   SECTION SCAFFOLDING
+   ============================================ */
+.section {
+  padding: 64px 0;
+}
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--dark);
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.section-title em {
+  font-style: italic; color: var(--teal);
+}
+
+/* ============================================
+   FIT SECTION
+   ============================================ */
+.fit-section .fit-intro {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--mid);
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.fit-col-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.fit-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+  flex-shrink: 0;
+}
+.fit-icon.yes { background: var(--teal); color: white; }
+.fit-icon.no { background: var(--terra); color: white; }
+.fit-col-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--dark);
+  letter-spacing: -0.005em;
+}
+.fit-col-title em { font-style: italic; color: var(--teal); }
+.fit-col.no .fit-col-title em { color: var(--terra); }
+
+.fit-list { list-style: none; padding: 0; }
+.fit-list li {
+  display: flex; gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px; line-height: 1.55;
+  color: var(--mid);
+}
+.fit-list li:last-child { border-bottom: none; }
+.fit-list li strong { color: var(--dark); font-weight: 600; }
+.fit-list .marker {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 9px;
+}
+.fit-col.yes .fit-list .marker { background: var(--teal); }
+.fit-col.no .fit-list .marker { background: var(--terra); }
+
+/* ============================================
+   CHARACTER
+   ============================================ */
+.character-section {
+  background: var(--cream);
+}
+.character-section .wrap {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.character-body p {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mid);
+  margin-bottom: 22px;
+}
+.character-body p:last-child { margin-bottom: 0; }
+.character-body strong { color: var(--dark); font-weight: 600; }
+.dropcap {
+  float: left;
+  font-family: 'Fraunces', serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 76px;
+  line-height: 0.85;
+  margin: 6px 12px 0 0;
+  color: var(--dark);
+}
+
+.aside-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.fast-facts {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 28px 32px 32px;
+  border-radius: 2px;
+}
+.fast-facts-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.fast-fact {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.fast-fact:last-child { border-bottom: none; padding-bottom: 0; }
+.fast-fact:first-of-type { padding-top: 0; }
+.fast-fact-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.fast-fact-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.45;
+}
+
+/* ============================================
+   SAMPLE WEEK
+   ============================================ */
+.week-section { background: var(--sand); }
+.week-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 680px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.day-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 22px;
+  transition: all 0.25s;
+}
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  border-color: var(--gold);
+}
+.day-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.day-time {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--light);
+  margin-bottom: 12px;
+}
+.day-activity {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.day-where {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+/* ============================================
+   NEIGHBORHOODS
+   ============================================ */
+.hoods-intro {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--mid);
+  font-size: 17px;
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.hoods-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.hood-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px 32px 36px;
+  transition: all 0.25s;
+}
+.hood-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+}
+.hood-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 26px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.hood-vibe {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 18px;
+}
+.hood-desc {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.hood-desc strong { color: var(--dark); font-weight: 600; }
+
+/* ============================================
+   LIFESTYLE PHOTO BANNER
+   ============================================ */
+.lifestyle-banner {
+  position: relative;
+  width: 100%;
+  height: 56vh;
+  min-height: 420px;
+  max-height: 580px;
+  overflow: hidden;
+  background: var(--dark);
+}
+.lifestyle-banner-img {
+  position: absolute; inset: 0;
+  background-image: url('lifestyle.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+.lifestyle-banner-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.55) 90%,
+    rgba(0,0,0,0.75) 100%
+  );
+}
+.lifestyle-banner-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 0 48px 56px;
+  color: white;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.lifestyle-banner-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.lifestyle-banner-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500; font-style: italic;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.15; letter-spacing: -0.015em;
+  color: white;
+  text-wrap: balance;
+  max-width: 720px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.lifestyle-banner-credit {
+  position: absolute;
+  bottom: 14px; right: 24px;
+  z-index: 2;
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+}
+
+/* ============================================
+   DETAIL PHOTO + CAPTION BREAK
+   ============================================ */
+.detail-section {
+  position: relative;
+  padding: 0;
+  background: var(--dark);
+  overflow: hidden;
+}
+.character-section { padding-bottom: 48px; }
+.section.week-section { padding-top: 48px; }
+
+.detail-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 480px;
+}
+.detail-photo {
+  position: relative;
+  background-image: url('detail.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.detail-photo-credit {
+  position: absolute;
+  bottom: 12px; right: 14px;
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.detail-text {
+  padding: 80px 60px;
+  background: var(--dark);
+  color: white;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.detail-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.detail-quote {
+  font-family: 'Fraunces', serif;
+  font-style: normal; font-weight: 400;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.92);
+  text-wrap: balance;
+}
+
+/* ============================================
+   HEALTHCARE
+   ============================================ */
+.health-card {
+  background: var(--dark);
+  color: white;
+  padding: 44px 48px;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 36px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.health-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 60%; height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.health-icon {
+  font-size: 48px;
+  z-index: 1;
+}
+.health-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: white;
+  z-index: 1; position: relative;
+}
+.health-detail {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+  z-index: 1; position: relative;
+}
+.health-grade {
+  text-align: center;
+  z-index: 1;
+}
+.health-grade-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.health-grade-lbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================================
+   APPEARS ON LISTS
+   ============================================ */
+.lists-section { background: var(--cream); }
+.lists-grid-one {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 420px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
+.list-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 26px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.list-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.list-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.list-card-tier {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid);
+}
+.list-card-arrow {
+  position: absolute;
+  top: 24px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.list-card:hover .list-card-arrow {
+  opacity: 1; transform: translateX(2px);
+}
+
+/* ============================================
+   QUIZ CTA
+   ============================================ */
+.cta-section {
+  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: -10%;
+  width: 60%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 96px 48px;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.cta-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cta-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(34px, 4.5vw, 50px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: white;
+  text-wrap: balance;
+}
+.cta-h2 em { font-style: italic; color: var(--gold); }
+.cta-tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  text-wrap: balance;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 17px 36px;
+  border-radius: 100px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 168, 75, 0.4);
+}
+.cta-btn .arrow { font-size: 18px; transition: transform 0.25s; }
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--dark);
+  padding: 48px 48px 36px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.18em;
+}
+.footer-wordmark .retire { color: rgba(255,255,255,0.85); }
+.footer-wordmark .here { color: var(--terra-soft); }
+.footer-credits {
+  font-size: 11px; letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  text-align: right;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 880px) {
+  .site-header { padding: 12px 20px; }
+  .header-nav { gap: 14px; }
+  .header-nav a:not(.header-cta) { display: none; }
+  .wrap { padding: 0 24px; }
+  .section { padding: 56px 0; }
+
+  .hero { min-height: 540px; }
+  .hero-content { padding: 0 24px 96px; }
+  .hero-eyebrow {
+    font-size: 10px;
+    padding: 6px 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 14px;
+  }
+  .hero-name { font-size: 64px; line-height: 0.95; margin-bottom: 6px; }
+  .hero-state { font-size: 18px; margin-bottom: 14px; }
+  .hero-tagline {
+    line-height: 1.5;
+    max-width: 100%;
+  }
+  .hero-photo-credit {
+    bottom: 56px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.4);
+  }
+
+  .stats-bar {
+    margin: -40px 20px 0;
+    padding: 24px 22px;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+  }
+  .stat { padding: 0 14px; border-right: none; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .stat:first-child, .stat:nth-child(3) { padding-left: 0; }
+  .stat:nth-child(2), .stat:last-child { padding-right: 0; }
+  .stat:nth-child(1), .stat:nth-child(2) {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fit-grid { grid-template-columns: 1fr; gap: 56px; }
+
+  .character-section .wrap {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .week-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  .lifestyle-banner {
+    height: 50vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
+  .lifestyle-banner-content {
+    padding: 0 24px 36px;
+  }
+
+  .hoods-grid { grid-template-columns: 1fr; }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .detail-photo {
+    height: 75vw;
+    max-height: 480px;
+    min-height: 280px;
+    aspect-ratio: auto;
+  }
+  .detail-text { padding: 56px 28px; }
+
+  .health-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .health-icon { font-size: 40px; }
+
+  .lists-grid-one { grid-template-columns: minmax(0, 420px); }
+
+  .cta-inner { padding: 72px 24px; }
+
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-credits { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="/" class="header-wordmark">
+    <span class="retire">RETIREME</span><span class="here">HERE</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/#explore">Top Cities For…</a>
+    <a href="/" class="header-cta">Find My Match</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">★ A Retirement City Profile</span>
+    <h1 class="hero-name">Greenville.</h1>
+    <p class="hero-state">South Carolina</p>
+    <p class="hero-tagline">The textile town that tore the parking deck off its own waterfall and rebuilt downtown around it — an Upstate small city where the Reedy River runs through the middle of Main Street.</p>
+  </div>
+  <div class="hero-photo-credit">Photo · Brad Shortridge / Unsplash</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-label">Median Home</div>
+    <div class="stat-value">$480<span class="small">K</span></div>
+    <div class="stat-sub">City median sale price</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Monthly Budget</div>
+    <div class="stat-value">$3.2–4.2K<span class="small">/mo</span></div>
+    <div class="stat-sub">Cost of living ~9% below U.S.</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Healthcare</div>
+    <div class="stat-value">8<span class="small">/10</span></div>
+    <div class="stat-sub">Two competing top-ranked systems</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Founded</div>
+    <div class="stat-value">1831</div>
+    <div class="stat-sub">Incorporated · Upstate SC, Blue Ridge foothills</div>
+  </div>
+</div>
+
+<!-- IS THIS FOR YOU? -->
+<section class="section fit-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Should you actually move here?</div>
+    <h2 class="section-title">Is Greenville <em>for you</em>?</h2>
+    <p class="fit-intro">
+      Greenville is the city that put a waterfall back at the center of its downtown — and then built one of the most-copied Main Streets in the South around it. For retirees it offers an unusual combination for the money: a genuinely walkable, lively core; two competing top-ranked hospital systems; the Blue Ridge thirty minutes up the road; and an overall cost of living that runs below the national average. The catch is that the city's safety record is uneven block to block, so where you land matters more here than the citywide picture suggests — and the most charming, walkable neighborhoods carry a real premium over Greenville's affordable reputation.
+    </p>
+
+    <div class="fit-grid">
+      <div class="fit-col yes">
+        <div class="fit-col-header">
+          <div class="fit-icon yes">✓</div>
+          <div class="fit-col-title">You'll <em>love</em> it here if&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want a real downtown you can walk.</strong> Main Street and the West End are the rare Sun Belt downtown that works on foot — tree-lined, full of independent restaurants and shops, anchored by Falls Park on the Reedy and the Liberty Bridge. The Saturday market, the Peace Center, the art museum, and the river are all within an easy stroll. Walkability scored 7 of 10 in our database — high for a small Southern city.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Healthcare access matters to you.</strong> Greenville is served by two large, competing systems — Prisma Health Greenville Memorial and Bon Secours St. Francis — both rated high-performing by U.S. News, and the competition between them tends to push quality up. For a metro this size, that's a strong position. Healthcare scored 8 of 10 in our database.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>Your money goes further — if you pick the right area.</strong> Greenville's overall cost of living runs about 9% below the U.S. average, and the metro is genuinely affordable by national standards. That said, the walkable, sought-after neighborhoods now sell at or above the national median, so the value is real but it lives in specific places. Budget scored 8 of 10 — and the trick is matching the neighborhood to the number (see "Where to live" below).</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want the mountains at your doorstep.</strong> The Swamp Rabbit Trail — a 22-plus-mile paved greenway — runs from downtown out to Travelers Rest, and the Blue Ridge Escarpment is roughly half an hour away: Caesars Head, waterfalls, and Paris Mountain State Park right inside the county. Outdoor recreation scored 7 of 10, with four real seasons and warm-not-brutal summers.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fit-col no">
+        <div class="fit-col-header">
+          <div class="fit-icon no">✗</div>
+          <div class="fit-col-title">Skip Greenville <em>if</em>&hellip;</div>
+        </div>
+        <ul class="fit-list">
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want to feel equally safe in every neighborhood.</strong> This is the honest knock. Greenville's citywide safety score is 4 of 10 — its crime numbers sit well below the national average across the city as a whole. The established residential areas retirees gravitate to — North Main, Five Forks, the Augusta Road side — are markedly safer than that citywide figure, but the spread is wide, and choosing the wrong block is a real risk. Neighborhood research isn't optional here.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You expected "affordable" to mean cheap everywhere.</strong> The metro is affordable, but the city's median sale price is about $480K and the most desirable walkable neighborhoods run higher. If your budget is built around Greenville's bargain reputation, you may find the specific neighborhood you want costs more than the headline suggests. The value is real — it's just not evenly distributed.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You need a major airport or nonstop everywhere.</strong> Greenville-Spartanburg (GSP) is a pleasant, easy regional airport with mainline service, but for the widest choice of nonstops you're looking at Charlotte, about 90 minutes northeast. Air access scored 6 of 10 — fine for most trips, a little limiting for frequent long-haul flyers.</span>
+          </li>
+          <li>
+            <span class="marker"></span>
+            <span><strong>You want winter gone entirely.</strong> Greenville has four genuine seasons. Winters are mild by Northern standards — January averages around the low 50s by day — but cold snaps and the occasional ice event do happen, and summers are warm and humid (July highs near 88°F), softened a little by the Upstate elevation. If you want frost-free, this isn't Florida.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTER -->
+<section class="section character-section">
+  <div class="wrap">
+    <div>
+      <div class="section-eyebrow">The character of the place</div>
+      <h2 class="section-title">The town that <em>rebuilt itself</em> on its own river.</h2>
+      <div class="character-body">
+        <p><span class="dropcap">G</span>reenville got rich on cloth. After the railroad reached town in 1853, mills began rising along the Reedy and the rivers around it — Camperdown Mill in the mid-1870s was the first of more than twenty — and by the 1920s Greenville County held more spindles than anywhere else in the state and the city was calling itself the "Textile Capital of the World." It was, for a stretch, the second-richest city in South Carolina. That old textile money is the quiet thing that explains everything you see downtown now.</p>
+        <p>Because the mills eventually left — the Southern textile industry collapsed through the 1970s — and Greenville did something most former mill towns didn't: it reinvented its economy rather than emptying out. <strong>BMW</strong> built its only U.S. assembly plant up the road in the early 1990s; <strong>Michelin</strong> had already planted its North American headquarters in the area in 1986; a wave of international manufacturing followed. The tax base that came with all that gave the city the means to make a remarkable bet on its own downtown.</p>
+        <p>The boldest move came in 2002, when the city <strong>tore down the four-lane Camperdown Bridge</strong> — a concrete deck that had hidden the natural falls on the Reedy for decades — and replaced it with the curving, single-suspension <strong>Liberty Bridge</strong>, opening Falls Park on the Reedy so the waterfall became the centerpiece of downtown instead of something buried under traffic. It worked. Main Street filled back in with restaurants and shops, the old mills became lofts and offices, and Greenville turned into the small city other small cities now study. The river that powered the mills is, once again, the center of town.</p>
+      </div>
+    </div>
+
+    <div class="aside-stack">
+      <aside class="fast-facts">
+        <div class="fast-facts-label">Greenville by the Numbers</div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">2002</div>
+          <div class="fast-fact-desc">Year the old vehicle bridge came down and the Liberty Bridge opened the falls at the heart of downtown</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">22+ mi</div>
+          <div class="fast-fact-desc">The Swamp Rabbit Trail — paved greenway from downtown out to Travelers Rest, on an old rail line</div>
+        </div>
+        <div class="fast-fact">
+          <div class="fast-fact-num">2 systems</div>
+          <div class="fast-fact-desc">Competing top-ranked hospital networks — Prisma Health and Bon Secours — both U.S. News high-performing</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL PHOTO BREAK -->
+<section class="detail-section">
+  <div class="detail-grid">
+    <div class="detail-photo">
+      <div class="detail-photo-credit">Photo · Ernest Roy / Pixabay</div>
+    </div>
+    <div class="detail-text">
+      <p class="detail-eyebrow">Across the Reedy</p>
+      <p class="detail-quote">The footbridges over the river are the small daily proof of what Greenville chose. Where a four-lane deck once carried cars over a hidden waterfall, people now walk — between the old brick mills on one bank and the restaurants on the other, with the falls running underneath.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TYPICAL WEEK -->
+<section class="section week-section">
+  <div class="wrap">
+    <div class="section-eyebrow">What life actually looks like</div>
+    <h2 class="section-title">A week in Greenville, roughly.</h2>
+    <p class="week-intro">A composite week of what an active Greenville retiree's days could look like — drawn from the downtown-river, Swamp-Rabbit-Trail, mountains-up-the-road rhythm locals describe when they explain why the city keeps landing on "best places" lists.</p>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-name">Monday</div>
+        <div class="day-time">9:00 AM</div>
+        <div class="day-activity">Falls Park &amp; the Liberty Bridge</div>
+        <div class="day-where">Start downtown at Falls Park on the Reedy — the waterfall, the gardens, and the curving Liberty Bridge over it. Grab ice cream at Spill the Beans by the park and watch the falls. Free, central, and the single best argument for why the city looks the way it does.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Tuesday</div>
+        <div class="day-time">8:30 AM</div>
+        <div class="day-activity">Ride the Swamp Rabbit Trail</div>
+        <div class="day-where">Bike or walk the paved greenway along the Reedy. The full route runs 22-plus miles out to Travelers Rest — a flat, car-free spine through old mill land that's become the city's outdoor living room.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Wednesday</div>
+        <div class="day-time">11:00 AM</div>
+        <div class="day-activity">Village of West Greenville</div>
+        <div class="day-where">The city's arts district in the old textile-village blocks west of downtown — studios, galleries, makers, and coffee. Time a May visit for Artisphere, Greenville's nationally ranked riverfront art festival. (The free Greenville County Museum of Art, with its Andrew Wyeth collection, is back near Main Street.)</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Thursday</div>
+        <div class="day-time">12:30 PM</div>
+        <div class="day-activity">Lunch &amp; dinner on Main Street</div>
+        <div class="day-where">The walkable heart of it all — sidewalk tables and independent kitchens. Soby's in the West End, The Lazy Goat and Jianna along the river for dinner. Park once and stay all afternoon; this is the stroll that made Greenville's reputation.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Friday</div>
+        <div class="day-time">7:30 PM</div>
+        <div class="day-activity">Peace Center &amp; a rooftop nightcap</div>
+        <div class="day-where">Greenville's performing-arts anchor on the river — touring Broadway, symphony, and concerts. In summer there's free live music down by the Reedy, and a handful of downtown rooftop bars for a nightcap over the lights of Main Street.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Saturday</div>
+        <div class="day-time">8:00 AM</div>
+        <div class="day-activity">TD Saturday Market</div>
+        <div class="day-where">May through October, Main Street fills with Upstate growers and makers. One of the better small-city markets in the Southeast, an easy walk from anywhere downtown.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Sunday</div>
+        <div class="day-time">10:00 AM</div>
+        <div class="day-activity">Up to the Blue Ridge</div>
+        <div class="day-where">Thirty-some minutes to Caesars Head and the escarpment waterfalls, or just minutes to Paris Mountain State Park inside the county. The mountains are why the outdoor score holds up.</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Anytime</div>
+        <div class="day-time">—</div>
+        <div class="day-activity">A game at Fluor Field</div>
+        <div class="day-where">The Greenville Drive (Red Sox Single-A) play in a downtown ballpark modeled on Fenway, walkable from the West End. Cheap seats, summer evenings, and a neighborhood that fills up around it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE PHOTO BANNER -->
+<section class="lifestyle-banner">
+  <div class="lifestyle-banner-img"></div>
+  <div class="lifestyle-banner-content">
+    <div class="lifestyle-banner-eyebrow">Where the mills used to be</div>
+    <h2 class="lifestyle-banner-title">A downtown river walk lined with restaurants on one bank and old brick mills on the other.</h2>
+  </div>
+  <div class="lifestyle-banner-credit">Photo · Ernest Roy / Pixabay</div>
+</section>
+
+<!-- NEIGHBORHOODS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Where to live</div>
+    <h2 class="section-title">Four ways to land in Greenville.</h2>
+    <p class="hoods-intro">
+      Greenville (~70,000 in the city, far more across the metro) gives retirees a real range — walkable-historic, newer-suburban with a yard, small-town-at-the-trailhead, and attainable-and-close-in. The four below span that range deliberately. <strong>Because the city's safety record varies block to block, every neighborhood here is one of the established, lower-risk areas retirees actually choose</strong> — and pricing reflects May 2026 estimates that vary by street, lot, and condition.
+    </p>
+
+    <div class="hoods-grid">
+      <div class="hood-card">
+        <div class="hood-name">North Main</div>
+        <div class="hood-vibe">Walkable · Historic · Premium</div>
+        <div class="hood-desc">The close-in favorite — leafy streets of 1920s–'40s homes just north of downtown, walkable to Main Street, and consistently among the city's safest areas. <strong>Worth knowing:</strong> demand is high and so are prices, with a neighborhood median around $465K. If you want the true prestige tier, the Augusta Road / Augusta Circle area on the south side runs well into seven figures. <strong>Median: ~$465K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Five Forks</div>
+        <div class="hood-vibe">Suburban · Space · Family-safe</div>
+        <div class="hood-desc">The more-house-for-the-money pick southeast of the city — a planned suburban community that consistently ranks as the area's top suburb for low crime and quiet streets. Newer construction, garages, yards, and easy highway access, at the cost of downtown walkability. <strong>The value-and-space option that the walkable neighborhoods can't match.</strong> <strong>Range: ~$350K–$700K.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Travelers Rest</div>
+        <div class="hood-vibe">Small-town · Outdoors · Trailhead</div>
+        <div class="hood-desc">"TR," the small town at the north end of the Swamp Rabbit Trail, in the foothills toward the Blue Ridge. A walkable little downtown of its own, mountain access out the back door, and a strong sense of community — popular with active retirees who want the trail and the hills more than nightlife. <strong>Median (single-family): ~$525K, with more modest options below.</strong></div>
+      </div>
+      <div class="hood-card">
+        <div class="hood-name">Overbrook</div>
+        <div class="hood-vibe">Historic · Close-in · Attainable</div>
+        <div class="hood-desc">One of Greenville's first streetcar suburbs, just east of downtown near Cleveland Park — 1920s bungalows with vintage character that sell quickly, an easy hop to the city and I-385. The more-attainable way into a walkable, established, close-in neighborhood without North Main's premium. <strong>Range: roughly $400K–$550K.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTHCARE -->
+<section class="section" style="background: var(--cream); padding-bottom: 64px;">
+  <div class="wrap">
+    <div class="section-eyebrow">Healthcare — two systems, and the competition helps</div>
+    <h2 class="section-title">Two top-ranked hospital networks, <em>competing for you</em>.</h2>
+
+    <div class="health-card">
+      <div class="health-icon">🏥</div>
+      <div>
+        <div class="health-name">Prisma Health Greenville Memorial · Bon Secours St. Francis</div>
+        <div class="health-detail">Greenville is served by two large, competing health systems: <strong>Prisma Health</strong>, anchored by Greenville Memorial — the largest hospital in South Carolina and a teaching hospital — and <strong>Bon Secours St. Francis</strong>, a separate network with its own downtown and eastside campuses. Both earn high-performing marks from U.S. News, and the rivalry between two well-funded systems in one mid-size metro tends to lift quality and access for patients. For a city this size, having two strong networks rather than one is a genuine advantage. Healthcare scored 8 of 10 in our database.</div>
+      </div>
+      <div class="health-grade">
+        <div class="health-grade-num">8<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+        <div class="health-grade-lbl">Healthcare Match</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPEARS ON LISTS -->
+<section class="section lists-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Greenville also appears on</div>
+    <h2 class="section-title">A list where Greenville earned its place.</h2>
+
+    <div class="lists-grid-one">
+      <a href="/top-cities-for-active-retirees.html" class="list-card">
+        <div class="list-card-name">Top Cities for Active Retirees</div>
+        <div class="list-card-tier">Swamp Rabbit Trail · Falls Park · Blue Ridge foothills · walkable downtown</div>
+        <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Want a personalized match?</div>
+    <h2 class="cta-h2">Greenville might fit. <em>Or it might not.</em></h2>
+    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you — not what's trending.</p>
+    <a href="/" class="cta-btn">
+      <span>Find My Match</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-wordmark">
+      <span class="retire">RETIREME</span><span class="here">HERE</span>
+    </div>
+    <div class="footer-credits">
+      Photos: Brad Shortridge (via Unsplash) and Ernest Roy (via Pixabay).<br>
+      Sources: Redfin / Zillow / Homes.com / Movoto (May 2026) · U.S. News Best Hospitals (Prisma Health Greenville Memorial, Bon Secours St. Francis) · CrimeGrade.org (2025) · Niche (Five Forks) · SC Department of Revenue · NOAA Climate Normals · VisitGreenvilleSC &amp; South Carolina Encyclopedia (city &amp; textile history). Data current as of May 2026.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
