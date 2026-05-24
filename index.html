@@ -1790,6 +1790,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .insight-label { color: var(--mid, #666); font-weight: 500; margin-right: 4px; }
 .insight-row strong { color: var(--ink, #1a1a1a); font-weight: 600; }
 .tradeoff-row strong { color: var(--terra, #c4724a); }
+.card-btn-sub {
+  margin: 8px 4px 2px; text-align: center;
+  font-size: 12px; line-height: 1.45; color: var(--light, #888);
+}
 </style>
 </head>
 <body>
@@ -6585,7 +6589,52 @@ function getTopStrengths(city) {
   const topScore = ranked[0].score;
   const tiedNear = ranked.filter(d => d.score >= topScore - 0).length; // same top score
   const peak = ranked.length === 1 || tiedNear === 1;
-  return { labels: ranked.slice(0, 3).map(d => d.label), peak };
+  return {
+    labels: ranked.slice(0, 3).map(d => d.label),
+    peak,
+    highCount: ranked.length,        // how many 8+ dimensions among user priorities
+    lead: ranked[0].label,           // the single strongest, user-weighted
+    topScore
+  };
+}
+
+// Builds ONE plain-language sentence describing this city's *character of fit*.
+// It varies on three axes — breadth, whether there's a real catch, and the lead
+// strength — so the SENTENCE SHAPE (not just the nouns) changes city to city.
+// This is the warmth layer that sits under the scannable strength/catch lines;
+// it must never read the same on two consecutive cards.
+function getFitCharacter(city, strengths, catchLabel) {
+  const name = city.name;
+  const lead = strengths.lead;
+  const broad = !strengths.peak && strengths.highCount >= 3;
+  const someBreadth = !strengths.peak && strengths.highCount === 2;
+
+  // Shape A — broad strength WITH a real catch: the "well-rounded but know this" story.
+  if (broad && catchLabel) {
+    return `${name} is a well-rounded fit — strong across several things you care about, with ${catchLabel.toLowerCase()} the one area to weigh.`;
+  }
+  // Shape B — broad strength, no meaningful catch: the "few compromises" story.
+  if (broad && !catchLabel) {
+    return `${name} fits unusually cleanly — it delivers on several of your priorities without an obvious compromise.`;
+  }
+  // Shape C — single standout WITH a catch: the "shines here, trades there" story.
+  if (strengths.peak && catchLabel) {
+    return `${name}'s pull is ${lead.toLowerCase()}, where it really shines — the trade is ${catchLabel.toLowerCase()}, so weigh how much that matters to you.`;
+  }
+  // Shape D — single standout, no catch: the "anchored by one strength" story.
+  if (strengths.peak && !catchLabel) {
+    return `${name} stands out for ${lead.toLowerCase()} above all — the strength that carries it to the top of your list.`;
+  }
+  // Shape E — two strengths with a catch: the "pair of strengths" story.
+  if (someBreadth && catchLabel) {
+    return `${name} pairs ${lead.toLowerCase()} with real strength elsewhere, balanced against ${catchLabel.toLowerCase()}.`;
+  }
+  // Shape F — two strengths, no catch.
+  if (someBreadth) {
+    return `${name} brings together a couple of the things you ranked highest, with no real drawback standing out.`;
+  }
+  // Shape G — modest profile (fallback): honest "solid, not spiky" framing.
+  return `${name} doesn't spike on any one thing, but lands as a steady, all-around fit for what you described.`;
 }
 
 function generateTradeoffs(city) {
@@ -6752,13 +6801,12 @@ function getRecommendedReports() {
 function buildCityCardHTML(city, i, rankLabels) {
   const cardId = 'card-' + city.name.replace(/[^a-zA-Z]/g, '-');
 
-  // Calculate budget indicator
-  let budgetClass = 'in-range';
-  let budgetLabel = 'in your range';
+  // Calculate budget indicator (plain-language label; no color-only dot)
+  let budgetLabel = 'in your budget';
   if (quizState.budget) {
     const diff = city.budgetRange - quizState.budget;
-    if (diff === 1) { budgetClass = 'over-1'; budgetLabel = '1 range over budget'; }
-    else if (diff >= 2) { budgetClass = 'over-2'; budgetLabel = 'over budget'; }
+    if (diff === 1) { budgetLabel = 'slightly over budget'; }
+    else if (diff >= 2) { budgetLabel = 'over budget'; }
   }
 
   // Genuine top strengths for THIS city, ranked by what the user cares about.
@@ -6789,8 +6837,9 @@ function buildCityCardHTML(city, i, rankLabels) {
         </div>
       </div>`;
   }
-  
+
   const region = getCityRegion(city.state);
+  const btnText = `See why you'll love ${city.name}`;
   return `<div class="city-card" id="${cardId}" style="--region-color: ${region.color};">
     <div class="card-region-bar"></div>
     <div class="card-header">
@@ -6800,16 +6849,17 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>
       <div class="card-rank">${rankLabels[i]} · ${region.label}</div>
       <div class="card-city-name">${city.name}, ${city.state}</div>
-      <div class="card-type">${city.type}${quizState.budget ? ` <span class="budget-indicator"><span class="budget-dot ${budgetClass}"></span>${city.monthlyEst || ''}</span>` : ''}</div>
+      <div class="card-type">${city.type}${quizState.budget ? ` <span class="budget-indicator">· ${city.monthlyEst || ''} · ${budgetLabel}</span>` : ''}</div>
     </div>
     <div class="card-body">
       <div class="card-insights">
         ${insightRows}
       </div>
       <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
-        <span>See why ${city.name} fits</span>
+        <span>${btnText}</span>
         <span class="arrow">→</span>
       </button>
+      <p class="card-btn-sub">Neighborhoods, the real pros and cons for you, and what a week here could look like.</p>
     </div>
   </div>`;
 } 
