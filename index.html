@@ -6007,6 +6007,7 @@ function renderPriorities(container) {
             <span class="climate-desc">${c.desc}</span>
           </button>`).join('')}
       </div>
+      <p style="font-size:12px;color:var(--light);font-style:italic;margin:8px 2px 0;">Pick the weather you'd genuinely love — we use it to rank your matches, so it's fine to choose something that's uncommon in the regions you picked.</p>
        <div class="climate-section-divider">Any climate dealbreakers?</div>
       <div class="climate-section-sub">Check anything that's a hard no — we'll remove those cities from your results.</div>
       ${DEAL_OPTIONS.map(d => `
@@ -6530,6 +6531,29 @@ function generateWhyMatch(city) {
   return parts.slice(0, 2).join(' ') || `${city.name} scored well across your priorities and is a strong fit for the retirement lifestyle you described.`;
 }
 
+// Returns the dimension LABEL of the card's lead tradeoff (e.g. "Healthcare Quality"),
+// mirroring generateTradeoffs' selection so the card teaser names what the profile explains.
+// Returns null if the only tradeoff is budget or generic, so the card falls back to neutral copy.
+function getTopTradeoffLabel(city) {
+  const topPrios = DIMENSIONS.filter(d =>
+    d.key !== 'DC' && (
+      quizState.priorities[d.key] === 'Must Have' ||
+      quizState.priorities[d.key] === 'Very Important'
+    )
+  );
+  // 1) A prioritized dimension the city scores poorly on (<=5) — same trigger as generateTradeoffs.
+  const weakPriority = topPrios
+    .filter(d => getCityScore(city, d.key) <= 5)
+    .sort((a, b) => getCityScore(city, a.key) - getCityScore(city, b.key))[0];
+  if (weakPriority) return weakPriority.label;
+  // 2) Otherwise the lowest-scoring non-prioritized dimension (the generic fallback path).
+  const lowest = [...DIMENSIONS]
+    .filter(d => d.key !== 'DC' && !topPrios.find(p => p.key === d.key))
+    .sort((a, b) => getCityScore(city, a.key) - getCityScore(city, b.key))[0];
+  if (lowest && getCityScore(city, lowest.key) <= 6) return lowest.label;
+  return null;
+}
+
 function generateTradeoffs(city) {
   const tradeoffs = [];
   const topPrios = DIMENSIONS.filter(d =>
@@ -6740,10 +6764,14 @@ function buildCityCardHTML(city, i, rankLabels) {
       </div>`;
   }
   if (tradeoffCount > 0) {
+    const topTradeoffLabel = getTopTradeoffLabel(city);
+    const teaseText = topTradeoffLabel
+      ? `<strong>${topTradeoffLabel}</strong> is worth a closer look here`
+      : `<strong>Tradeoffs worth a closer look</strong> before you commit`;
     insightRows += `
       <div class="insight-row tradeoff-row">
         <div class="insight-icon icon-warn">⚠</div>
-        <div><strong>Tradeoffs to know before you commit</strong></div>
+        <div>${teaseText}</div>
       </div>`;
   }
   
@@ -6763,7 +6791,7 @@ function buildCityCardHTML(city, i, rankLabels) {
       <div class="card-insights">
         ${insightRows}
       </div>
-      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
         <span>See the full breakdown</span>
         <span class="arrow">→</span>
       </button>
