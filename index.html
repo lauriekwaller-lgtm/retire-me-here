@@ -6007,6 +6007,7 @@ function renderPriorities(container) {
             <span class="climate-desc">${c.desc}</span>
           </button>`).join('')}
       </div>
+      <p style="font-size:12px;color:var(--light);font-style:italic;margin:8px 2px 0;">Pick the weather you'd genuinely love — we use it to rank your matches, so it's fine to choose something that's uncommon in the regions you picked.</p>
        <div class="climate-section-divider">Any climate dealbreakers?</div>
       <div class="climate-section-sub">Check anything that's a hard no — we'll remove those cities from your results.</div>
       ${DEAL_OPTIONS.map(d => `
@@ -6530,6 +6531,63 @@ function generateWhyMatch(city) {
   return parts.slice(0, 2).join(' ') || `${city.name} scored well across your priorities and is a strong fit for the retirement lifestyle you described.`;
 }
 
+// Returns the dimension LABEL of the card's lead tradeoff (e.g. "Healthcare Quality"),
+// mirroring generateTradeoffs' selection so the card teaser names what the profile explains.
+// Returns null if the only tradeoff is budget or generic, so the card falls back to neutral copy.
+function getTopTradeoffLabel(city) {
+  const topPrios = DIMENSIONS.filter(d =>
+    d.key !== 'DC' && (
+      quizState.priorities[d.key] === 'Must Have' ||
+      quizState.priorities[d.key] === 'Very Important'
+    )
+  );
+  // 1) A prioritized dimension the city scores poorly on (<=5) — same trigger as generateTradeoffs.
+  const weakPriority = topPrios
+    .filter(d => getCityScore(city, d.key) <= 5)
+    .sort((a, b) => getCityScore(city, a.key) - getCityScore(city, b.key))[0];
+  if (weakPriority) return weakPriority.label;
+  // 2) Otherwise the lowest-scoring non-prioritized dimension (the generic fallback path).
+  const lowest = [...DIMENSIONS]
+    .filter(d => d.key !== 'DC' && !topPrios.find(p => p.key === d.key))
+    .sort((a, b) => getCityScore(city, a.key) - getCityScore(city, b.key))[0];
+  if (lowest && getCityScore(city, lowest.key) <= 6) return lowest.label;
+  return null;
+}
+
+// Returns the city's genuine top strengths as { labels:[...], peak:bool }.
+// Ranks dimensions by score × the weight the USER gave them (mirroring the matching
+// engine), so the line reflects what actually drives this city's rank — and differs
+// city to city. peak=true means one clear standout; false means broad strength.
+function getTopStrengths(city) {
+  const ranked = DIMENSIONS
+    .filter(d => d.key !== 'DC')
+    .map(d => {
+      const priority = quizState.priorities[d.key];
+      const weight = (priority && priority !== 'Not Important') ? (PRIORITY_WEIGHTS[priority] || 1) : 1;
+      const score = getCityScore(city, d.key);
+      return { label: d.label, score, weight, contribution: score * weight };
+    })
+    // Only surface things that are genuinely good (8+), ordered by what matters to the user.
+    .filter(d => d.score >= 8)
+    .sort((a, b) => (b.contribution - a.contribution) || (b.score - a.score));
+
+  if (ranked.length === 0) {
+    // Fallback: no 8+ dimension — lead with the single best thing the city has.
+    const best = DIMENSIONS
+      .filter(d => d.key !== 'DC')
+      .map(d => ({ label: d.label, score: getCityScore(city, d.key) }))
+      .sort((a, b) => b.score - a.score)[0];
+    return { labels: best ? [best.label] : [], peak: true };
+  }
+
+  // A city is a "peak" (one standout) if its top score clearly leads the rest;
+  // otherwise it's "broad" — show up to three so breadth is visible.
+  const topScore = ranked[0].score;
+  const tiedNear = ranked.filter(d => d.score >= topScore - 0).length; // same top score
+  const peak = ranked.length === 1 || tiedNear === 1;
+  return { labels: ranked.slice(0, 3).map(d => d.label), peak };
+}
+
 function generateTradeoffs(city) {
   const tradeoffs = [];
   const topPrios = DIMENSIONS.filter(d =>
@@ -6703,47 +6761,32 @@ function buildCityCardHTML(city, i, rankLabels) {
     else if (diff >= 2) { budgetClass = 'over-2'; budgetLabel = 'over budget'; }
   }
 
-  // Find Must Haves this city meets (score >= MUST_HAVE_THRESHOLD)
-  const mustHavesMet = DIMENSIONS.filter(d => {
-    if (d.key === 'DC') return false;
-    return quizState.priorities[d.key] === 'Must Have' && getCityScore(city, d.key) >= MUST_HAVE_THRESHOLD;
-  }).map(d => d.label);
+  // Genuine top strengths for THIS city, ranked by what the user cares about.
+  const strengths = getTopStrengths(city);
 
-  // Find Strong Fits — Very Important dimensions where city scores 8+
-  const strongFits = DIMENSIONS.filter(d => {
-    if (d.key === 'DC') return false;
-    return quizState.priorities[d.key] === 'Very Important' && getCityScore(city, d.key) >= 8;
-  }).map(d => d.label).slice(0, 2);
-
-  // Count tradeoffs to tease
-  const tradeoffCount = generateTradeoffs(city).length;
+  // The lead weakness, named plainly (same dimension the profile then explains).
+  const topTradeoffLabel = getTopTradeoffLabel(city);
 
   let insightRows = '';
-  if (mustHavesMet.length > 0) {
+  if (strengths.labels.length > 0) {
+    const lead = strengths.peak ? 'Standout for' : 'Strong across';
     insightRows += `
       <div class="insight-row">
         <div class="insight-icon icon-check">✓</div>
         <div>
-          <span class="insight-label">Meets your must-haves:</span>
-          <strong>${mustHavesMet.join(', ')}</strong>
+          <span class="insight-label">${lead}</span>
+          <strong>${strengths.labels.join(', ')}</strong>
         </div>
       </div>`;
   }
-  if (strongFits.length > 0) {
-    insightRows += `
-      <div class="insight-row">
-        <div class="insight-icon icon-check">✓</div>
-        <div>
-          <span class="insight-label">Strong fit:</span>
-          <strong>${strongFits.join(', ')}</strong>
-        </div>
-      </div>`;
-  }
-  if (tradeoffCount > 0) {
+  if (topTradeoffLabel) {
     insightRows += `
       <div class="insight-row tradeoff-row">
         <div class="insight-icon icon-warn">⚠</div>
-        <div><strong>Tradeoffs to know before you commit</strong></div>
+        <div>
+          <span class="insight-label">Weigh this:</span>
+          <strong>${topTradeoffLabel}</strong> is on the lower side here
+        </div>
       </div>`;
   }
   
@@ -6763,8 +6806,8 @@ function buildCityCardHTML(city, i, rankLabels) {
       <div class="card-insights">
         ${insightRows}
       </div>
-      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
-        <span>See the full breakdown</span>
+      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
+        <span>See why ${city.name} fits</span>
         <span class="arrow">→</span>
       </button>
     </div>
