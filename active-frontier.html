@@ -34,7 +34,7 @@ ml('account', '2238788');
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -56,6 +56,11 @@ ml('account', '2238788');
   --white: #FFFFFF;
   --radius: 16px;
   --shadow: 0 4px 24px rgba(28,26,24,0.08);
+
+  /* Active Frontier accent (header band) */
+  --hdr-dark: #1e4d2b;
+  --hdr-mid: #2e7d52;
+  --hdr-accent: #e0a05a;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -178,54 +183,78 @@ button.header-quiz-btn:hover,
   .site-header { padding: 12px 16px; position: relative; }
 }
 
+/* ============ REPORT HEADER BAND ============ */
+.report-band {
+  background: var(--hdr-dark);
+  position: relative;
+  overflow: hidden;
+}
+.report-band-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 78% 20%, rgba(46,125,82,0.55) 0%, transparent 58%),
+    radial-gradient(ellipse at 20% 90%, rgba(212,168,75,0.15) 0%, transparent 55%);
+}
+.report-band-inner {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 52px 24px 48px;
+}
+.report-series {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 9px;
+}
+.report-series::before { content: '🏔'; font-size: 14px; }
+.report-band h1 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+.report-band h1 em {
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--hdr-accent);
+}
+.report-band-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 26px;
+}
+.report-band-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.meta-pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  display: flex; align-items: center; gap: 7px;
+}
+.meta-pill span { color: var(--hdr-accent); font-weight: 700; }
+@media (max-width: 540px) {
+  .report-band-inner { padding: 38px 18px 34px; }
+}
+
 /* ============ PAGE LAYOUT ============ */
 .page {
   max-width: 920px;
   margin: 0 auto;
-  padding: 56px 24px 80px;
+  padding: 48px 24px 80px;
 }
 @media (max-width: 760px) {
-  .page { padding: 36px 18px 60px; }
-}
-
-/* ============ HERO ============ */
-.hero { text-align: center; margin-bottom: 40px; }
-.hero-eyebrow {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--terra);
-  margin-bottom: 14px;
-}
-.hero-h1 {
-  text-wrap: balance;
-  font-family: 'Libre Franklin', sans-serif;
-  font-size: clamp(30px, 5vw, 46px);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--dark);
-  margin-bottom: 14px;
-  letter-spacing: -0.015em;
-}
-.hero-h1 .accent { font-weight: 800; color: var(--teal); }
-.hero-scope {
-  text-wrap: balance;
-  font-size: 13px;
-  color: var(--mid);
-  font-style: italic;
-  max-width: 600px;
-  margin: 14px auto 0;
-  line-height: 1.5;
-  opacity: 0.85;
-}
-.hero-tagline {
-  text-wrap: balance;
-  font-size: clamp(15px, 2vw, 17px);
-  color: var(--mid);
-  font-style: italic;
-  max-width: 640px;
-  margin: 0 auto;
-  line-height: 1.5;
+  .page { padding: 32px 18px 60px; }
 }
 
 /* ============ METHOD NOTE ============ */
@@ -254,7 +283,7 @@ button.header-quiz-btn:hover,
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--hdr-mid);
   margin-bottom: 6px;
 }
 .takeaways-h2 {
@@ -276,7 +305,7 @@ button.header-quiz-btn:hover,
   flex-shrink: 0;
   width: 26px; height: 26px;
   border-radius: 50%;
-  background: var(--teal);
+  background: var(--hdr-mid);
   color: var(--white);
   font-family: 'Libre Franklin', sans-serif;
   font-size: 13px;
@@ -465,12 +494,19 @@ button.header-quiz-btn:hover,
 /* ============ QUIZ CTA ============ */
 .quiz-cta {
   margin-top: 64px;
-  background: var(--teal);
+  background: var(--hdr-dark);
   border-radius: var(--radius);
   padding: 44px 36px;
   text-align: center;
   color: var(--white);
+  position: relative;
+  overflow: hidden;
 }
+.quiz-cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 75% 25%, rgba(46,125,82,0.5) 0%, transparent 55%);
+}
+.quiz-cta-inner { position: relative; }
 .quiz-cta-eyebrow {
   font-size: 11px;
   font-weight: 700;
@@ -489,7 +525,7 @@ button.header-quiz-btn:hover,
   letter-spacing: -0.005em;
   text-wrap: balance;
 }
-.quiz-cta-h3 .accent { font-weight: 800; color: var(--gold); }
+.quiz-cta-h3 .accent { font-weight: 800; color: var(--hdr-accent); }
 .quiz-cta-body {
   font-size: 14.5px;
   color: rgba(255,255,255,0.85);
@@ -505,8 +541,8 @@ a.quiz-cta-btn:visited,
 a.quiz-cta-btn:active,
 .quiz-cta-btn {
   background-color: #FFFFFF !important;
-  color: #2A5E5A !important;
-  -webkit-text-fill-color: #2A5E5A !important;
+  color: #1e4d2b !important;
+  -webkit-text-fill-color: #1e4d2b !important;
   border: 1px solid #FFFFFF !important;
   padding: 13px 30px;
   border-radius: 100px;
@@ -520,9 +556,9 @@ a.quiz-cta-btn:active,
 }
 a.quiz-cta-btn:hover,
 .quiz-cta-btn:hover {
-  background-color: #FAF1D9 !important;
-  color: #2A5E5A !important;
-  -webkit-text-fill-color: #2A5E5A !important;
+  background-color: #eaf5ef !important;
+  color: #1e4d2b !important;
+  -webkit-text-fill-color: #1e4d2b !important;
   transform: translateY(-1px);
 }
 
@@ -594,14 +630,22 @@ a.quiz-cta-btn:hover,
   </div>
 </header>
 
-<main class="page">
+<!-- ============ REPORT HEADER BAND ============ -->
+<div class="report-band">
+  <div class="report-band-bg"></div>
+  <div class="report-band-inner">
+    <div class="report-series">RetireMeHere Deep Dive Series</div>
+    <h1>The Active<em>Frontier</em></h1>
+    <p class="report-band-desc">For retirees who want their lifestyle defined by being outside — mountain or coast, summer or winter, hiking or pickleball. This guide ranks our database of 100 cities by the depth and year-round usability of their outdoor recreation.</p>
+    <div class="report-band-meta">
+      <div class="meta-pill">🏔 <span>100</span> Cities Scored</div>
+      <div class="meta-pill">🥾 <span>Trails · Water · Snow</span></div>
+      <div class="meta-pill">🗓 <span>May 2026</span></div>
+    </div>
+  </div>
+</div>
 
-  <section class="hero">
-    <p class="hero-eyebrow">The Active Frontier</p>
-    <h1 class="hero-h1">Where to retire if outdoor living is <span class="accent">your priority</span>.</h1>
-    <p class="hero-tagline">For retirees who want their lifestyle defined by being outside — mountain or coast, summer or winter, hiking or pickleball.</p>
-    <p class="hero-scope">From our curated database of 100 U.S. retirement cities. Cities appear in multiple sections — different lenses on the same place.</p>
-  </section>
+<main class="page">
 
   <div class="method-note">
     <strong>What we looked for:</strong> substantive outdoor recreation infrastructure (trails, parks, water access, ski terrain), real activity depth (hiking, cycling, water sports, golf and pickleball at scale), and year-round usability. Cities with strong indoor fitness scenes but thin outdoor recreation are covered in our companion report, the <em>Wellness Blueprint</em>, and on our <a href="top-cities-for-active-retirees.html">Top Cities for Active Retirees</a> page.
@@ -1290,10 +1334,13 @@ a.quiz-cta-btn:hover,
 
   <!-- ============ QUIZ CTA ============ -->
   <section class="quiz-cta">
-    <p class="quiz-cta-eyebrow">Want a personalized match?</p>
-    <h3 class="quiz-cta-h3">This report covered the cities that <span class="accent">define outdoor retirement living.</span></h3>
-    <p class="quiz-cta-body">Our database has 100. Take the 2-minute quiz to see how all 100 rank against your specific priorities — climate, budget, activity types, and the eight other dimensions that shape an outdoor retirement.</p>
-    <a href="index.html" class="quiz-cta-btn">Take the 2-minute quiz →</a>
+    <div class="quiz-cta-bg"></div>
+    <div class="quiz-cta-inner">
+      <p class="quiz-cta-eyebrow">Want a personalized match?</p>
+      <h3 class="quiz-cta-h3">This report covered the cities that <span class="accent">define outdoor retirement living.</span></h3>
+      <p class="quiz-cta-body">Our database has 100. Take the 2-minute quiz to see how all 100 rank against your specific priorities — climate, budget, activity types, and the other dimensions that shape an outdoor retirement.</p>
+      <a href="index.html" class="quiz-cta-btn">Take the 2-minute quiz →</a>
+    </div>
   </section>
 
 </main>

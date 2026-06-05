@@ -1,870 +1,1256 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BTL743DSJQ');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Wellness Blueprint — RetireMeHere</title>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<title>The Wellness Blueprint — Where to Retire if Healthcare is Your Priority | RetireMeHere</title>
+<meta name="description" content="A curated guide ranking US retirement cities by healthcare quality — hospital strength, specialty access, and what happens when you truly need serious care.">
+<link rel="canonical" href="https://retiremehere.com/wellness-blueprint.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Wellness Blueprint — Where to Retire if Healthcare is Your Priority">
+<meta property="og:description" content="A curated guide ranking US retirement cities by healthcare quality and access.">
+<meta property="og:url" content="https://retiremehere.com/wellness-blueprint.html">
+<meta property="og:site_name" content="RetireMeHere">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Wellness Blueprint — Where to Retire if Healthcare is Your Priority">
+<meta name="twitter:description" content="A curated guide ranking US retirement cities by healthcare quality and access.">
+
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2238788');
+</script>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --green-dark: #0d4f6b;
-  --green: #1278a0;
-  --green-mid: #2496c0;
-  --green-lt: #e0f3fa;
-  --gold: #d4a84b;
-  --gold-lt: #fdf6e8;
-  --sand: #f7f3ed;
-  --dark: #1c1a18;
-  --mid: #5c5852;
-  --light: #9a9490;
-  --white: #ffffff;
-  --amber: #c47a2a;
-  --amber-lt: #fdf3e8;
-  --red: #c0392b;
-  --red-lt: #fde8e8;
-  --sky: #2a7fc1;
-  --sky-lt: #e8f4fd;
+  --teal: #2A5E5A;
+  --teal-lt: #E8F4F3;
+  --teal-mid: #3d7a75;
+  --terra: #C4724A;
+  --terra-lt: #FDF0EA;
+  --gold: #D4A84B;
+  --gold-lt: #FAF1D9;
+  --gold-dk: #8B6914;
+  --sand: #F7F3ED;
+  --sand-dk: #EFE9DD;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #9A9490;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(28,26,24,0.08);
+
+  /* Wellness Blueprint accent (carried from prior report) */
+  --hdr-dark: #0d4f6b;
+  --hdr-mid: #1278a0;
+  --hdr-accent: #5fc4d8;
+  --tier-world: #1278a0;
+  --tier-strong: #2a7fc1;
+  --tier-solid: #c47a2a;
+  --tier-limited: #c0392b;
+  --solid-lt: #fdf3e8;
+  --limited-lt: #fde8e8;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--dark); max-width: 600px; margin: 0 auto; }
 
-/* HEADER */
-.header { background: var(–green-dark); padding: 0; position: relative; overflow: hidden; }
-.header-bg {
-position: absolute; inset: 0;
-background: radial-gradient(ellipse at 75% 25%, rgba(46,125,82,0.4) 0%, transparent 55%),
-radial-gradient(ellipse at 25% 75%, rgba(212,168,75,0.15) 0%, transparent 50%);
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--sand);
+  color: var(--dark);
+  min-height: 100vh;
+  line-height: 1.6;
 }
-.header-content { position: relative; padding: 40px 24px 36px; }
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { color: var(--teal-mid); }
+
+/* ============ HEADER (sticky nav) ============ */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid #e8e4de;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
+}
+.header-wordmark .hw-retire { color: var(--teal); }
+.header-wordmark .hw-here { color: var(--terra); }
+.header-nav { display: flex; gap: 20px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none; font-weight: 500;
+  transition: color 0.15s;
+}
+.header-nav a:hover { color: var(--teal); }
+
+a.header-quiz-btn,
+a.header-quiz-btn:link,
+a.header-quiz-btn:visited,
+a.header-quiz-btn:active,
+button.header-quiz-btn,
+.header-quiz-btn {
+  background-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2A5E5A !important;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: background-color 0.15s, border-color 0.15s;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+a.header-quiz-btn:hover,
+button.header-quiz-btn:hover,
+.header-quiz-btn:hover {
+  background-color: #3d7a75 !important;
+  border-color: #3d7a75 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.header-mobile-menu { display: none; gap: 10px; align-items: center; }
+.mobile-nav-btn {
+  background: transparent; border: 1px solid #e8e4de;
+  padding: 7px 14px; border-radius: 100px;
+  font-size: 13px; color: var(--mid); cursor: pointer; font-family: inherit;
+}
+.mobile-nav-dropdown {
+  display: none; position: absolute; top: 100%; right: 16px;
+  background: var(--white); border: 1px solid #e8e4de; border-radius: 12px;
+  padding: 8px; box-shadow: var(--shadow);
+  min-width: 200px;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-item {
+  display: block; padding: 10px 14px; font-size: 13px;
+  color: var(--dark); text-decoration: none; border-radius: 8px;
+}
+.mobile-nav-item:hover { background: var(--sand); }
+
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); font-weight: 500;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger:hover { color: var(--teal); }
+.nav-dropdown-trigger .nav-chev { font-size: 10px; transition: transform 0.15s; }
+.nav-dropdown.open .nav-dropdown-trigger .nav-chev { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute; top: 100%; right: 0; margin-top: 8px;
+  background: var(--white);
+  border: 1px solid #e8e4de; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 240px; padding: 6px; z-index: 500;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-item {
+  display: block; padding: 10px 14px;
+  font-size: 13px; font-weight: 500; color: var(--dark);
+  text-decoration: none; border-radius: 8px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.nav-dropdown-item:hover { background: var(--sand); color: var(--teal); }
+.nav-dropdown-divider { height: 1px; background: #f0ece6; margin: 6px 4px; }
+.nav-dropdown-item.more { color: var(--mid); font-style: italic; font-size: 12px; }
+@media (max-width: 760px) {
+  .header-nav { display: none; }
+  .header-mobile-menu { display: flex; }
+  .site-header { padding: 12px 16px; position: relative; }
+}
+
+/* ============ REPORT HEADER BAND ============ */
+.report-band {
+  background: var(--hdr-dark);
+  position: relative;
+  overflow: hidden;
+}
+.report-band-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 78% 20%, rgba(18,120,160,0.55) 0%, transparent 58%),
+    radial-gradient(ellipse at 20% 90%, rgba(95,196,216,0.18) 0%, transparent 55%);
+}
+.report-band-inner {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 52px 24px 48px;
+}
 .report-series {
-font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-color: var(–gold); margin-bottom: 6px;
-display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 9px;
 }
-.report-series::before { content: ‘🏥’; font-size: 12px; }
-.header h1 {
-font-family: ‘Libre Franklin’, sans-serif;
-font-size: clamp(28px, 6vw, 38px); font-weight: 800;
-color: var(–white); line-height: 1.1; margin-bottom: 14px;
+.report-series::before { content: '🏥'; font-size: 14px; }
+.report-band h1 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
 }
-.header h1 em { font-style: italic; color: var(–gold); font-weight: 300; }
-.header-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.header-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.report-band h1 em {
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--hdr-accent);
+}
+.report-band-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 26px;
+}
+.report-band-meta { display: flex; gap: 12px; flex-wrap: wrap; }
 .meta-pill {
-background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
-border-radius: 100px; padding: 5px 14px;
-font-size: 12px; color: rgba(255,255,255,0.75);
-display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  display: flex; align-items: center; gap: 7px;
 }
-.meta-pill span { color: var(–gold); font-weight: 600; }
-
-/* INTRO */
-.intro { padding: 24px 16px 0; }
-.intro-card {
-background: var(–white); border-radius: 14px; padding: 20px;
-border-left: 4px solid var(–green);
+.meta-pill span { color: var(--hdr-accent); font-weight: 700; }
+@media (max-width: 540px) {
+  .report-band-inner { padding: 38px 18px 34px; }
 }
-.intro-card h2 { font-family: ‘Libre Franklin’, sans-serif; font-size: 15px; font-weight: 700; color: var(–green-dark); margin-bottom: 8px; }
-.intro-card p { font-size: 13px; color: var(–mid); line-height: 1.7; }
-.intro-card p + p { margin-top: 8px; }
 
-/* WHAT WE MEASURE */
-.measures { padding: 20px 16px 0; }
-.measures-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(–light); margin-bottom: 10px; }
-.measures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.measure-item { background: var(–white); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; }
-.measure-icon { font-size: 18px; flex-shrink: 0; }
-.measure-text strong { font-size: 12px; font-weight: 700; color: var(–dark); display: block; margin-bottom: 2px; }
-.measure-text span { font-size: 11px; color: var(–mid); line-height: 1.4; }
+/* ============ PAGE LAYOUT ============ */
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+@media (max-width: 760px) {
+  .page { padding: 32px 18px 60px; }
+}
 
-/* LEGEND */
-.legend { padding: 20px 16px 0; }
-.legend-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(–light); margin-bottom: 10px; }
-.legend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-.legend-item { display: flex; align-items: center; gap: 10px; background: var(–white); border-radius: 10px; padding: 10px 12px; }
-.tier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.tier-dot.world { background: var(–green); }
-.tier-dot.strong { background: var(–sky); }
-.tier-dot.solid { background: var(–amber); }
-.tier-dot.limited { background: var(–red); }
-.legend-text { font-size: 11px; color: var(–mid); line-height: 1.4; }
-.legend-text strong { color: var(–dark); font-size: 12px; display: block; margin-bottom: 1px; }
+/* ============ METHOD NOTE ============ */
+.method-note {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: var(--radius);
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  font-size: 13.5px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.method-note strong { color: var(--dark); font-weight: 700; }
 
-/* INSIGHTS */
-.insights { padding: 24px 16px 0; }
-.insight-title { font-family: ‘Libre Franklin’, sans-serif; font-size: 17px; font-weight: 700; color: var(–dark); margin-bottom: 12px; }
-.insight-card { background: var(–white); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
-.insight-card h3 { font-size: 13px; font-weight: 700; color: var(–green-dark); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-.insight-card p { font-size: 13px; color: var(–mid); line-height: 1.65; }
+/* clarifying note distinguishing this report from the Top Cities page */
+.clarify-note {
+  background: var(--teal-lt);
+  border: 1px solid #cfe6e3;
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  margin-bottom: 32px;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.clarify-note strong { color: var(--teal); font-weight: 700; }
+.clarify-note a { font-weight: 600; }
 
-/* SECTION */
-.section { padding: 24px 16px 0; }
-.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-.section-icon.world { background: var(–green-lt); }
-.section-icon.strong { background: var(–sky-lt); }
-.section-icon.solid { background: var(–amber-lt); }
-.section-icon.limited { background: var(–red-lt); }
-.section-title h2 { font-family: ‘Libre Franklin’, sans-serif; font-size: 17px; font-weight: 700; color: var(–dark); margin-bottom: 2px; }
-.section-title p { font-size: 12px; color: var(–light); }
+/* ============ WHAT WE MEASURE ============ */
+.measures { margin-bottom: 32px; }
+.measures-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--light); margin-bottom: 12px;
+}
+.measures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.measure-item {
+  background: var(--white); border: 1px solid #ece6dc; border-radius: 12px;
+  padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+}
+.measure-icon { font-size: 19px; flex-shrink: 0; line-height: 1.2; }
+.measure-text strong { font-size: 12.5px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 3px; }
+.measure-text span { font-size: 11.5px; color: var(--mid); line-height: 1.45; }
+@media (max-width: 540px) { .measures-grid { grid-template-columns: 1fr; } }
 
-/* CITY ROW */
-.city-list { display: flex; flex-direction: column; gap: 10px; }
-.city-row { background: var(–white); border-radius: 12px; padding: 16px; border-left: 3px solid transparent; }
-.city-row.world { border-left-color: var(–green); }
-.city-row.strong { border-left-color: var(–sky); }
-.city-row.solid { border-left-color: var(–amber); }
-.city-row.limited { border-left-color: var(–red); }
-.city-row-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 8px; }
-.city-name-wrap { flex: 1; }
-.city-name { font-family: ‘Libre Franklin’, sans-serif; font-size: 16px; font-weight: 700; color: var(–dark); }
-.city-state { font-size: 12px; color: var(–light); margin-top: 1px; }
-.score-badge { display: flex; flex-direction: column; align-items: center; background: var(–sand); border-radius: 8px; padding: 6px 10px; flex-shrink: 0; }
-.score-num { font-family: ‘Libre Franklin’, sans-serif; font-size: 18px; font-weight: 800; line-height: 1; }
-.score-num.world { color: var(–green); }
-.score-num.strong { color: var(–sky); }
-.score-num.solid { color: var(–amber); }
-.score-num.limited { color: var(–red); }
-.score-lbl { font-size: 9px; color: var(–light); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
-.hospital-name { font-size: 12px; font-weight: 600; color: var(–dark); margin-bottom: 4px; }
-.hospital-note { font-size: 12px; color: var(–mid); line-height: 1.55; }
-.warning-tag { display: inline-block; background: var(–red-lt); color: var(–red); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
-.star-tag { display: inline-block; background: var(–green-lt); color: var(–green); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
+/* ============ KEY TAKEAWAYS ============ */
+.takeaways {
+  background: linear-gradient(135deg, var(--teal-lt) 0%, var(--sand) 100%);
+  border: 1px solid #d8e8e6;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+.takeaways-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 6px;
+}
+.takeaways-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px; font-weight: 700; color: var(--dark);
+  margin-bottom: 18px; letter-spacing: -0.01em;
+}
+.takeaway-item {
+  display: flex; gap: 14px; padding: 14px 0;
+  border-top: 1px solid rgba(42,94,90,0.12);
+}
+.takeaway-item:first-of-type { border-top: none; padding-top: 4px; }
+.takeaway-num {
+  flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--tier-world); color: var(--white);
+  font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+}
+.takeaway-body { flex: 1; font-size: 14px; color: var(--mid); line-height: 1.55; }
+.takeaway-body strong { color: var(--dark); font-weight: 700; }
+@media (max-width: 540px) {
+  .takeaways { padding: 22px 20px; }
+  .takeaway-body { font-size: 13.5px; }
+}
 
-/* CTA */
-.cta { margin: 24px 16px 0; background: var(–green-dark); border-radius: 16px; padding: 28px 20px; text-align: center; }
-.cta h2 { font-family: ‘Libre Franklin’, sans-serif; font-size: 20px; font-weight: 700; color: var(–white); margin-bottom: 10px; }
-.cta p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.cta-btn { display: inline-block; background: var(–gold); color: var(–green-dark); font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 700; padding: 14px 30px; border-radius: 100px; text-decoration: none; }
-.cta-fine { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 12px; }
+/* ============ SPOTLIGHT / TIER SECTIONS ============ */
+.bucket-section { margin-top: 48px; }
+.bucket-section:first-of-type { margin-top: 0; }
+.bucket-section-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--hdr-mid); margin-bottom: 6px;
+}
+.bucket-section-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 24px; font-weight: 700; color: var(--dark);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 13px;
+  letter-spacing: -0.01em;
+}
+.bucket-section-marker {
+  display: inline-block; width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+}
+.bucket-section-marker.world { background: var(--tier-world); }
+.bucket-section-marker.strong { background: var(--tier-strong); }
+.bucket-section-marker.solid { background: var(--tier-solid); }
+.bucket-section-marker.limited { background: var(--tier-limited); }
+.bucket-section-blurb {
+  font-size: 14px; color: var(--mid); margin-bottom: 22px; margin-left: 25px;
+  line-height: 1.6; max-width: 720px;
+}
 
-/* FOOTER */
-.footer { text-align: center; padding: 24px 16px 40px; }
-.footer p { font-size: 11px; color: var(–light); line-height: 1.8; }
-.footer a { color: var(–green); text-decoration: none; }
+/* ============ CITY CARDS ============ */
+.city-list { display: flex; flex-direction: column; gap: 8px; }
+.city-card {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--white); border: 1px solid #ece6dc; border-radius: 14px;
+  padding: 16px 20px; cursor: pointer; text-decoration: none; color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.city-card:hover {
+  transform: translateY(-1px); box-shadow: var(--shadow);
+  border-color: var(--teal-lt); color: inherit;
+}
+.city-info { flex: 1; min-width: 0; }
+.city-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 17px; font-weight: 700; color: var(--dark);
+  margin-bottom: 5px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+}
+.city-name .state-code { font-weight: 500; color: var(--mid); font-size: 14px; }
+.score-pill {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.02em;
+  padding: 2px 9px; border-radius: 100px;
+}
+.score-pill.world { background: var(--teal-lt); color: var(--tier-world); }
+.score-pill.strong { background: #e8f1fa; color: var(--tier-strong); }
+.score-pill.solid { background: var(--solid-lt); color: var(--tier-solid); }
+.score-pill.limited { background: var(--limited-lt); color: var(--tier-limited); }
+.city-teams { font-size: 12.5px; color: var(--mid); font-weight: 500; line-height: 1.5; }
+.city-teams strong { color: var(--dark); font-weight: 600; }
+.warn-tag, .star-tag {
+  display: inline-block; font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 100px; margin-right: 6px;
+  vertical-align: middle;
+}
+.star-tag { background: var(--teal-lt); color: var(--tier-world); }
+.warn-tag { background: var(--limited-lt); color: var(--tier-limited); }
+.city-arrow {
+  font-size: 16px; color: var(--light); font-weight: 600; margin-left: 4px;
+  flex-shrink: 0; transition: transform 0.15s, color 0.15s;
+}
+.city-card:hover .city-arrow { color: var(--teal); transform: translateX(3px); }
+@media (max-width: 540px) {
+  .city-card { padding: 14px 14px; gap: 12px; }
+  .city-name { font-size: 15px; }
+  .city-teams { font-size: 11.5px; }
+  .city-arrow { display: none; }
+}
+
+/* ============ QUIZ CTA ============ */
+.quiz-cta {
+  margin-top: 64px; background: var(--hdr-dark); border-radius: var(--radius);
+  padding: 44px 36px; text-align: center; color: var(--white);
+  position: relative; overflow: hidden;
+}
+.quiz-cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 75% 25%, rgba(18,120,160,0.5) 0%, transparent 55%);
+}
+.quiz-cta-inner { position: relative; }
+.quiz-cta-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px;
+}
+.quiz-cta-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(22px, 2.8vw, 28px); font-weight: 300; line-height: 1.25;
+  color: #FFFFFF; margin-bottom: 16px; letter-spacing: -0.005em; text-wrap: balance;
+}
+.quiz-cta-h3 .accent { font-weight: 800; color: var(--hdr-accent); }
+.quiz-cta-body {
+  font-size: 14.5px; color: rgba(255,255,255,0.85); max-width: 580px;
+  margin: 0 auto 22px; line-height: 1.6; text-wrap: balance;
+}
+a.quiz-cta-btn,
+a.quiz-cta-btn:link,
+a.quiz-cta-btn:visited,
+a.quiz-cta-btn:active,
+.quiz-cta-btn {
+  background-color: #FFFFFF !important;
+  color: #0d4f6b !important;
+  -webkit-text-fill-color: #0d4f6b !important;
+  border: 1px solid #FFFFFF !important;
+  padding: 13px 30px; border-radius: 100px;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; text-decoration: none !important; display: inline-block;
+  transition: background-color 0.15s, transform 0.15s;
+}
+a.quiz-cta-btn:hover,
+.quiz-cta-btn:hover {
+  background-color: #e0f3fa !important; color: #0d4f6b !important;
+  -webkit-text-fill-color: #0d4f6b !important; transform: translateY(-1px);
+}
+
+/* ============ FOOTER ============ */
+.site-footer {
+  background: var(--dark); color: rgba(255,255,255,0.6);
+  padding: 32px 24px 28px; text-align: center; margin-top: 64px; font-size: 12px;
+}
+.site-footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.site-footer-wordmark .sf-retire { color: var(--teal-lt); }
+.site-footer-wordmark .sf-here { color: var(--terra); }
+.site-footer a { color: rgba(255,255,255,0.7); margin: 0 12px; }
+.site-footer a:hover { color: var(--white); }
+.site-footer-copy { margin-top: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; }
 </style>
-
 </head>
 <body>
 
-<!-- HEADER -->
+<header class="site-header">
+  <div class="header-wordmark" onclick="window.location.href='index.html'">
+    <span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">🔍 Find a City</a>
+    <div class="nav-dropdown" id="topCitiesDropdown">
+      <button class="nav-dropdown-trigger" onclick="toggleTopCitiesDropdown(event)">
+        Top Cities For… <span class="nav-chev">▾</span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <a class="nav-dropdown-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-foodies.html">For Foodies</a>
+        <a class="nav-dropdown-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-hikers.html">For Hikers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item more" href="index.html#screen-explore">More topics →</a>
+      </div>
+    </div>
+    <a href="index.html" class="header-quiz-btn">Find My Match →</a>
+  </nav>
+  <div class="header-mobile-menu">
+    <button class="mobile-nav-btn" onclick="toggleMobileNav()">☰ Menu</button>
+    <a href="index.html" class="header-quiz-btn" style="font-size:12px;padding:7px 14px;">Quiz →</a>
+  </div>
+  <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+    <a class="mobile-nav-item" href="index.html">🔍 Find a City</a>
+    <a class="mobile-nav-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+    <a class="mobile-nav-item" href="top-cities-for-foodies.html">For Foodies</a>
+    <a class="mobile-nav-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-hikers.html">For Hikers</a>
+    <a class="mobile-nav-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+    <a class="mobile-nav-item" href="index.html#screen-explore" style="color:var(--terra);font-weight:600;">More topics →</a>
+  </div>
+</header>
 
-<div class="header" style="background:#0d4f6b">
-  <div class="header-bg"></div>
-  <div class="header-content" style="color:#ffffff">
-    <div class="report-series" style="color:rgba(255,255,255,0.7)">RetireMeHere Deep Dive Series</div>
-    <h1 style="color:#ffffff">The Wellness<br><em>Blueprint</em></h1>
-    <p class="header-desc">Healthcare quality is the dimension retirees most regret overlooking. We've ranked 50+ cities by hospital quality, specialty access, and what happens when you truly need serious care — not just routine checkups.</p>
-    <div class="header-meta">
-      <div class="meta-pill">🏥 <span>50+</span> Cities Ranked</div>
+<!-- ============ REPORT HEADER BAND ============ -->
+<div class="report-band">
+  <div class="report-band-bg"></div>
+  <div class="report-band-inner">
+    <div class="report-series">RetireMeHere Deep Dive Series</div>
+    <h1>The Wellness<em>Blueprint</em></h1>
+    <p class="report-band-desc">Healthcare quality is the dimension retirees most regret overlooking. This guide ranks our database of 100 cities by hospital quality, specialty access, and what happens when you truly need serious care — not just routine checkups.</p>
+    <div class="report-band-meta">
+      <div class="meta-pill">🏥 <span>100</span> Cities Scored</div>
       <div class="meta-pill">⭐ <span>CMS + Leapfrog</span> Data</div>
-      <div class="meta-pill">🗓 <span>March 2026</span></div>
+      <div class="meta-pill">🗓 <span>May 2026</span></div>
     </div>
   </div>
 </div>
 
-<!-- INTRO -->
+<main class="page">
 
-<div class="intro">
-  <div class="intro-card">
-    <h2>Why healthcare quality is the most underrated retirement factor</h2>
-    <p>Most retirees focus on cost of living, climate, and lifestyle when choosing where to retire. Healthcare quality rarely tops the list — until something goes wrong. A hospital 45 minutes away with a Leapfrog F grade is a fundamentally different retirement reality than a world-class academic medical center 10 minutes from your front door.</p>
-    <p>This report cuts through marketing claims to the data that matters: CMS star ratings, Leapfrog safety grades, US News hospital rankings, and the honest answer to the question every retiree should ask — what happens if I have a cardiac event or need cancer treatment in this city?</p>
-  </div>
-</div>
-
-<!-- WHAT WE MEASURE -->
-
-<div class="measures">
-  <div class="measures-title">What we evaluated</div>
-  <div class="measures-grid">
-    <div class="measure-item">
-      <div class="measure-icon">⭐</div>
-      <div class="measure-text"><strong>CMS Star Ratings</strong><span>Medicare's 1–5 star overall quality rating for every US hospital</span></div>
-    </div>
-    <div class="measure-item">
-      <div class="measure-icon">🛡️</div>
-      <div class="measure-text"><strong>Leapfrog Safety</strong><span>A–F safety grades from the independent Leapfrog Group</span></div>
-    </div>
-    <div class="measure-item">
-      <div class="measure-icon">🏆</div>
-      <div class="measure-text"><strong>US News Rankings</strong><span>National and regional hospital rankings and high-performing designations</span></div>
-    </div>
-    <div class="measure-item">
-      <div class="measure-icon">🚑</div>
-      <div class="measure-text"><strong>Specialty Access</strong><span>Distance to serious specialty care — cancer, cardiac, neurology</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- LEGEND -->
-
-<div class="legend">
-  <div class="legend-title">Score tiers</div>
-  <div class="legend-grid">
-    <div class="legend-item"><div class="tier-dot world"></div><div class="legend-text"><strong>World-Class (9–10)</strong>Nationally ranked or top regional — exceptional care on-site</div></div>
-    <div class="legend-item"><div class="tier-dot strong"></div><div class="legend-text"><strong>Strong (7–8)</strong>High-performing regional hospital — solid care with good backups</div></div>
-    <div class="legend-item"><div class="tier-dot solid"></div><div class="legend-text"><strong>Solid (5–6)</strong>Adequate local care — plan for specialty travel when needed</div></div>
-    <div class="legend-item"><div class="tier-dot limited"></div><div class="legend-text"><strong>Limited (3–4)</strong>Quality concerns or major gap — serious care requires significant travel</div></div>
-  </div>
-</div>
-
-<!-- KEY TAKEAWAYS -->
-
-<div class="insights">
-  <div class="insight-title">Key Takeaways — Before You Scroll</div>
-
-  <div class="insight-card">
-    <h3>🏆 Scottsdale Stands Alone</h3>
-    <p>No retirement city in the database matches Scottsdale for healthcare access. Mayo Clinic Arizona — consistently ranked top 3–5 nationally — is in north Scottsdale. You don't move near a hospital this good anywhere else on this list. It's the single most significant healthcare advantage in the entire database.</p>
+  <div class="method-note">
+    <strong>What we looked for:</strong> overall healthcare quality and access, scored 0–10 for every city in the database. The score weighs the strength of local hospitals (CMS star ratings, Leapfrog safety grades, U.S. News rankings), the depth of specialty care for the things that matter most in retirement — cardiac, cancer, neurology — and how far you'd realistically travel when a routine checkup turns into something serious. Scores come from the database; the hospital names and rankings in each card are supporting detail and worth re-verifying against current sources before any healthcare decision.
   </div>
 
-  <div class="insight-card">
-    <h3>⚠️ Florida's Hidden Healthcare Divide</h3>
-    <p>Florida dominates retirement lists but the healthcare picture is deeply uneven. Naples and Sarasota have genuinely exceptional hospitals. But Delray Beach's local hospital carries a Leapfrog F grade — one of the worst ratings in the database — and Asheville's Mission Hospital (now HCA-owned) has documented safety concerns. The state you're in matters far less than the specific hospital serving your zip code.</p>
+  <div class="clarify-note">
+    <strong>How this differs from our Top Cities for Healthcare page.</strong> This report tiers cities by their overall healthcare <em>quality score</em> — best care first. Our companion <a href="top-cities-for-healthcare.html">Top Cities for Healthcare-First Retirees</a> page sorts the same cities by <em>type of access</em> instead — whether the marquee hospital is in town, a regional hub, or a short drive away. Same underlying data, two different lenses, so a city can be World-Class here and sit in a different group there. Neither ranking contradicts the other.
   </div>
 
-  <div class="insight-card">
-    <h3>🏆 The Northeast Surprise: Philadelphia and Pittsburgh</h3>
-    <p>Both Philadelphia and Pittsburgh score 10/10 on healthcare — the maximum in the database — but what makes them remarkable is the price. Philadelphia's median home is $270K with Penn Medicine (#1 in Pennsylvania, 11 nationally ranked specialties) and Jefferson Health (6 nationally ranked specialties). Pittsburgh's median home is $265K with UPMC Presbyterian Shadyside (#2 in Pennsylvania, 9 nationally ranked specialties). These are not trade-offs — world-class academic medicine at Budget Range 2 prices, a combination found nowhere else in the database.</p>
-  </div>
-
-  <div class="insight-card">
-    <h3>🎓 The Academic Medical Center Advantage</h3>
-    <p>Cities with university-affiliated medical centers consistently outperform their size. Ann Arbor (Michigan Medicine), Charlottesville (UVA Health), Lexington (UK HealthCare), Madison (UW Health), and Raleigh (UNC Health) all offer nationally ranked academic care that small cities have no right to. If you're choosing between two otherwise similar cities and one has a university hospital, that's a meaningful tie-breaker.</p>
-  </div>
-
-  <div class="insight-card">
-    <h3>🏔️ The Mountain Trade-Off in Healthcare</h3>
-    <p>The mountain cities that score highest for outdoor recreation and scenery — Sedona, Durango, Jackson Hole, Flagstaff — score lowest for healthcare. Sedona has no hospital at all. Jackson Hole's nearest serious specialty care is Salt Lake City, 5 hours away. Durango's Mercy Regional is excellent for its size but it's the only facility for the entire Four Corners region. The beauty premium comes with a real healthcare cost.</p>
-  </div>
-</div>
-
-<!-- TIER 1: WORLD CLASS -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon world">🏆</div>
-    <div class="section-title">
-      <h2>World-Class Care — Scores 9–10</h2>
-      <p>Nationally ranked or top regional · Exceptional care available locally</p>
+  <div class="measures">
+    <div class="measures-title">What we evaluated</div>
+    <div class="measures-grid">
+      <div class="measure-item">
+        <div class="measure-icon">⭐</div>
+        <div class="measure-text"><strong>CMS Star Ratings</strong><span>Medicare's 1–5 star overall quality rating for every US hospital</span></div>
+      </div>
+      <div class="measure-item">
+        <div class="measure-icon">🛡️</div>
+        <div class="measure-text"><strong>Leapfrog Safety</strong><span>A–F safety grades from the independent Leapfrog Group</span></div>
+      </div>
+      <div class="measure-item">
+        <div class="measure-icon">🏆</div>
+        <div class="measure-text"><strong>US News Rankings</strong><span>National and regional hospital rankings and high-performing designations</span></div>
+      </div>
+      <div class="measure-item">
+        <div class="measure-icon">🚑</div>
+        <div class="measure-text"><strong>Specialty Access</strong><span>Distance to serious specialty care — cancer, cardiac, neurology</span></div>
+      </div>
     </div>
   </div>
-  <div class="city-list">
 
-```
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Scottsdale</div><div class="city-state">Arizona</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="star-tag">★ Best in Database</div>
-  <div class="hospital-name">Mayo Clinic Arizona</div>
-  <div class="hospital-note">Consistently ranked top 3–5 nationally by US News. Comprehensive cancer center, cardiac surgery, neurology — all world-class and located in north Scottsdale. No other retirement city in this database has access to a hospital of this caliber. If healthcare quality is your top priority, Scottsdale wins by a wide margin.</div>
-</div>
+  <section class="takeaways">
+    <p class="takeaways-eyebrow">Before You Scroll</p>
+    <h2 class="takeaways-h2">Four things to know about retirement healthcare.</h2>
 
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Naples</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="star-tag">★ Top 1% Nationally</div>
-  <div class="hospital-name">NCH Healthcare System</div>
-  <div class="hospital-note">#1 hospital in Florida multiple years running, top 1% nationally. NCH Baker Hospital and NCH North Collier Hospital — both high-performing in numerous procedures. CMS 5-star. Exceptional healthcare for a small coastal city. One of the most underappreciated medical assets in any retirement market.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Sarasota</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="star-tag">★ Perfect CMS Rating</div>
-  <div class="hospital-name">Sarasota Memorial Hospital</div>
-  <div class="hospital-note">The only Florida hospital to hold a perfect CMS 5-star rating every single year. Ranked #139 nationally by US News. High-performing in 14 procedures including cardiac, orthopedic, and cancer. 839-bed comprehensive medical center — exceptional for a city of 60,000.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Ann Arbor</div><div class="city-state">Michigan</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="star-tag">★ Top 10 Nationally</div>
-  <div class="hospital-name">Michigan Medicine (University of Michigan)</div>
-  <div class="hospital-note">Consistently ranked top 5–10 nationally. Comprehensive NCI-designated cancer center, world-class cardiac surgery, neurology, and orthopedics. One of the great academic medical centers in the world. The main trade-off for Ann Arbor retirees — outstanding healthcare in exchange for brutal winters and high housing costs.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Tampa</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Tampa General Hospital + Moffitt Cancer Center</div>
-  <div class="hospital-note">Tampa General nationally ranked, top 50 US News. Moffitt Cancer Center — NCI-designated comprehensive cancer center, top 10 nationally for cancer research and treatment. USF Health and AdventHealth Tampa round out one of the strongest healthcare ecosystems of any city in the database.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Raleigh</div><div class="city-state">North Carolina</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">WakeMed + UNC Health (Chapel Hill 30 min)</div>
-  <div class="hospital-note">WakeMed nationally recognized. UNC Hospitals — top 25 nationally, NCI cancer center, Level I trauma — only 30 min away in Chapel Hill. Duke University Medical Center 30 min in Durham — top 10 nationally. Raleigh sits in a triangle of three world-class academic medical systems.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">St. George</div><div class="city-state">Utah</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Intermountain Health St. George Regional</div>
-  <div class="hospital-note">Leapfrog A grade, #2 in Utah, CMS 5-star. Intermountain Health is one of the best health systems in the western US — their St. George facility punches well above its size. University of Utah Health (4 hrs) for complex specialty care. Excellent for a small desert city.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Charleston</div><div class="city-state">South Carolina</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">MUSC Health</div>
-  <div class="hospital-note">#1 in South Carolina 11 consecutive years. Top 13% nationally (US News). Level I trauma, NCI-designated cancer center, comprehensive specialty care. Medical University of South Carolina is one of the oldest and most respected academic medical centers in the South. A genuine healthcare asset.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Carlsbad</div><div class="city-state">California</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Scripps Health + Sharp HealthCare (30 min)</div>
-  <div class="hospital-note">Palomar Health and Tri-City Medical locally solid. Scripps Health and Sharp HealthCare — both nationally recognized, 30 min south in San Diego. Scripps Mercy and Sharp Memorial consistently ranked among California's best. Carlsbad benefits from San Diego's exceptional healthcare infrastructure.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">St. Paul</div><div class="city-state">Minnesota</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Regions Hospital + Mayo Clinic (90 min)</div>
-  <div class="hospital-note">Regions Hospital (Level I trauma), United Hospital, Allina Health — all strong. Mayo Clinic in Rochester 90 min south — the most renowned medical institution in the world for complex diagnosis and treatment. Living in St. Paul means access to both excellent local care and Mayo when it truly matters.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Fort Myers</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Lee Health System</div>
-  <div class="hospital-note">US News high-performing in 17 procedures — #12 in Florida. Lee Memorial, Gulf Coast Medical, Cape Coral Hospital — a full regional health system serving Southwest Florida. Strong oncology and cardiac programs. One of the most complete healthcare ecosystems in coastal Florida outside Tampa and Naples.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Lexington</div><div class="city-state">Kentucky</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">UK HealthCare (University of Kentucky)</div>
-  <div class="hospital-note">Nationally ranked academic medical center. UK Markey Cancer Center — NCI-designated. Comprehensive cardiac, neurology, and transplant programs. Exceptional for a mid-sized city. Louisville 80 min for additional world-class options at UofL Health and Norton Healthcare.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Portland</div><div class="city-state">Maine</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Maine Medical Center</div>
-  <div class="hospital-note">Level I trauma center, MaineHealth system, consistently ranked #1 in Maine. High-performing in multiple procedures. New England's academic medical network accessible — Mass General and Dana-Farber 2 hrs in Boston for complex cancer and specialty care.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Charlottesville</div><div class="city-state">Virginia</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">UVA Health</div>
-  <div class="hospital-note">University of Virginia academic medical center — nationally ranked, Level I trauma, NCI-designated cancer center. High-performing in 15+ procedures. One of the most underappreciated healthcare assets in the mid-Atlantic. DC and Johns Hopkins 2+ hrs for additional world-class options.</div>
-</div>
-```
-
-  </div>
-</div>
-
-```
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Alexandria</div><div class="city-state">Virginia</div></div>
-    <div class="score-badge"><span class="score-num world">9</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="health-note"><strong>Inova Alexandria Hospital — Leapfrog A, US News #7 in DC metro, high-performing in 9 procedures, Healthgrades America's 100 Best.</strong> Inova Fairfax (#1 in Virginia, 5 consecutive years) 8 miles away. Johns Hopkins and Georgetown University Hospital within 30 min. One of the strongest regional healthcare ecosystems of any city in the database.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Philadelphia</div><div class="city-state">Pennsylvania</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Penn Medicine + Jefferson Health</div>
-  <div class="star-tag">★ Among the Greatest Medical Concentrations in the Database</div>
-  <div class="health-note"><strong>Penn Medicine (HUP-Penn Presbyterian) — #1 in Pennsylvania, nationally ranked in 11 specialties.</strong> Jefferson Health nationally ranked in 6 specialties including #2 ophthalmology (Wills Eye). Children's Hospital of Philadelphia world-class. Temple Health, Drexel Medicine, Pennsylvania Hospital. For a city at Budget Range 2, this level of academic medical excellence is unmatched anywhere in the database.</div>
-</div>
-
-<div class="city-row world">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Pittsburgh</div><div class="city-state">Pennsylvania</div></div>
-    <div class="score-badge"><span class="score-num world">10</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">UPMC Presbyterian Shadyside</div>
-  <div class="star-tag">★ Best Healthcare Value in the Database</div>
-  <div class="health-note"><strong>UPMC Presbyterian Shadyside — #1 in Pittsburgh, #2 in Pennsylvania, nationally ranked in 9 specialties.</strong> Allegheny Health Network strong alternative. UPMC is one of the largest and most respected integrated health systems in America. World-class care at Budget Range 2 prices — median home $265K. The best healthcare-to-cost ratio of any city we score.</div>
-</div>
-```
-
-<!-- TIER 2: STRONG -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon strong">🏥</div>
-    <div class="section-title">
-      <h2>Strong Care — Scores 7–8</h2>
-      <p>High-performing regional hospitals · Solid care with good specialty access nearby</p>
+    <div class="takeaway-item">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-body"><strong>Scottsdale stands alone.</strong> Mayo Clinic Arizona — consistently ranked among the top hospitals in the country — sits in north Scottsdale. No other retirement city in the database offers on-site access to a hospital of that caliber. If healthcare is your single highest priority, it's the clearest answer on the list.</div>
     </div>
-  </div>
-  <div class="city-list">
 
-```
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Chattanooga</div><div class="city-state">Tennessee</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">CHI Memorial Hospital</div>
-  <div class="hospital-note">Named Best Regional Hospital in Tennessee by US News 11 consecutive years. High-performing in 10+ procedures. Erlanger Health System (Level I trauma) also in Chattanooga. Two competing strong hospital systems serving a mid-sized city — unusually good for its population.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Greenville</div><div class="city-state">South Carolina</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Prisma Health + Bon Secours</div>
-  <div class="hospital-note">Two competing hospital systems — Prisma Health Greenville Memorial and Bon Secours St. Francis — both high-performing. Prisma is the largest hospital system in SC. Strong cardiac and cancer programs. The competitive dynamic between the two systems benefits patients.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Virginia Beach</div><div class="city-state">Virginia</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Sentara Norfolk General</div>
-  <div class="hospital-note">US News high-performing in multiple procedures. Sentara is one of the strongest regional health systems in Virginia. Eastern Virginia Medical School affiliation adds academic depth. Sentara Healthcare serves the entire Hampton Roads region with strong cardiac and cancer programs.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Knoxville</div><div class="city-state">Tennessee</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">UT Medical Center</div>
-  <div class="hospital-note">Level I trauma center, University of Tennessee affiliation, nationally recognized in several specialties. High-performing in 10+ procedures. Vanderbilt University Medical Center in Nashville (3 hrs) for complex specialty care — one of the southeast's premier academic medical centers.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Tucson</div><div class="city-state">Arizona</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Banner University Medical Center</div>
-  <div class="hospital-note">University of Arizona affiliation, Level I trauma, nationally recognized in several specialties. High-performing in 12+ procedures. NCI-designated cancer center. Tucson benefits from a genuine academic medical center — far better healthcare than its reputation as a "budget retirement" city might suggest.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Nashua</div><div class="city-state">New Hampshire</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Southern NH Medical Center + Boston (45 min)</div>
-  <div class="hospital-note">Southern NH Medical Center well-rated locally. The real healthcare asset is proximity to Boston — Mass General, Dana-Farber, Brigham and Women's, and Boston Children's all within 45–55 minutes. Nashua retirees effectively have access to the greatest concentration of medical expertise in the world.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Spokane</div><div class="city-state">Washington</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Providence Sacred Heart Medical Center</div>
-  <div class="hospital-note">Well-rated regional hospital serving Eastern Washington and North Idaho. High-performing in multiple procedures. MultiCare Deaconess also in Spokane. Washington State University Elson Floyd College of Medicine adds academic infrastructure. Strong for an inland mid-sized city.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">San Antonio</div><div class="city-state">Texas</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">University Health System</div>
-  <div class="hospital-note">Nationally recognized Level I trauma center, UT Health San Antonio affiliation. Strong cardiac, cancer, and neurology programs. Methodist Healthcare System also strong. MD Anderson Cancer Center in Houston 3 hrs — the nation's premier cancer treatment center accessible for serious oncology needs.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Colorado Springs</div><div class="city-state">Colorado</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">UCHealth Memorial Hospital</div>
-  <div class="hospital-note">Level I trauma, UCHealth system — one of Colorado's strongest. High-performing in 8+ procedures. UCHealth University of Colorado Hospital in Denver (70 min) — nationally ranked, NCI cancer center — for complex specialty care. Strong regional system with excellent backup.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Madison</div><div class="city-state">Wisconsin</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">UW Health (University of Wisconsin)</div>
-  <div class="hospital-note">University of Wisconsin affiliation, nationally recognized academic medical center. High-performing in 15+ procedures. NCI-designated cancer center. For a mid-sized Midwest city, Madison's healthcare infrastructure is surprisingly strong — comparable to much larger metro areas.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Fort Worth</div><div class="city-state">Texas</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">JPS Health Network + Texas Health Resources</div>
-  <div class="hospital-note">JPS and Texas Health Harris Methodist — solid regional systems. UT Southwestern Medical Center in Dallas (35 min) — nationally ranked, NCI cancer center, top 25 nationally — is the real healthcare asset for Fort Worth retirees. One of America's great academic medical centers within easy reach.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Fayetteville</div><div class="city-state">Arkansas</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Washington Regional Medical Center</div>
-  <div class="hospital-note">Well-rated regional hospital — high-performing for its size. University of Arkansas for Medical Sciences (UAMS) in Little Rock 3 hrs for complex care. Surprising healthcare strength for a small Ozarks city, benefiting from university medical school infrastructure.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Bend</div><div class="city-state">Oregon</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">St. Charles Medical Center</div>
-  <div class="hospital-note">Well-rated, Level II trauma, high-performing in 18 procedures (US News 2025). The sole hospital for a large geographic area in Central Oregon. Oregon Health & Science University in Portland (3 hrs) for complex specialty and cancer care. Solid for its remote high-desert setting.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">St. Augustine</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Flagler Hospital + UF Health Jacksonville (45 min)</div>
-  <div class="hospital-note">Flagler Hospital well-rated local system with consistent patient satisfaction scores. UF Health Jacksonville (45 min) — University of Florida affiliation, Level I trauma, strong specialty programs — for serious care needs. Mayo Clinic Jacksonville (50 min) provides world-class backup.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Santa Fe</div><div class="city-state">New Mexico</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Christus St. Vincent Regional</div>
-  <div class="hospital-note">US News high-performing in several procedures. Well-regarded for a small state capital. University of New Mexico Hospital in Albuquerque 65 min — Level I trauma, NCI cancer center — for complex care. Reasonable healthcare access given Santa Fe's small size.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Bloomington</div><div class="city-state">Indiana</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">IU Health Bloomington</div>
-  <div class="hospital-note">Solid regional system — Indiana University affiliation adds medical school depth. Well-rated for routine and intermediate care. IU Health University Hospital in Indianapolis (55 min) — nationally ranked academic medical center — for specialty and complex care.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Eugene</div><div class="city-state">Oregon</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">PeaceHealth Sacred Heart Medical Center</div>
-  <div class="hospital-note">Well-rated, Level II trauma, PeaceHealth system. University of Oregon medical infrastructure adds some depth. OHSU in Portland (2 hrs) for complex specialty care. Solid for a mid-sized university city, though complex care requires planning.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Boise</div><div class="city-state">Idaho</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">St. Luke's Health System</div>
-  <div class="hospital-note">Well-rated regional hospital — St. Luke's and St. Alphonsus Regional Medical Center both serve Boise. High-performing in several procedures. University of Washington Medical Center in Seattle (7 hrs) for complex care. Reasonable for a rapidly growing mid-sized western city.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Annapolis</div><div class="city-state">Maryland</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Anne Arundel Medical Center + Johns Hopkins (30 min)</div>
-  <div class="hospital-note">Anne Arundel Medical Center well-rated locally. The defining healthcare asset is proximity: Johns Hopkins Hospital in Baltimore (30 min) — consistently #1 or #2 nationally — and University of Maryland Medical Center (35 min). Annapolis retirees have access to two of America's greatest hospitals within half an hour.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Pensacola</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Baptist Hospital Pensacola</div>
-  <div class="hospital-note">Well-rated regional system — Baptist Health Care and Sacred Heart Hospital both serve Pensacola. High-performing in several procedures. UAB Medicine in Birmingham 3.5 hrs — one of the South's premier academic medical centers — for serious specialty care.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Santa Barbara</div><div class="city-state">California</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Cottage Health System</div>
-  <div class="hospital-note">Well-rated regional system — Santa Barbara Cottage Hospital consistently high-performing. Sansum Clinic nationally recognized for primary care. UCLA Medical Center (90 min) and Cedars-Sinai (90 min) for complex specialty care. Strong local system with world-class backup within reasonable distance.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Park City</div><div class="city-state">Utah</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Intermountain Park City Hospital + U of Utah (35 min)</div>
-  <div class="hospital-note">Top 100 Rural Hospital, 92% patient recommendation, Leapfrog recognized. Complex specialty care at University of Utah Health (35 min) — nationally ranked, NCI cancer center. Intermountain Health system is one of the best in the western US. Surprisingly strong healthcare given the mountain resort setting.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Missoula</div><div class="city-state">Montana</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="star-tag">★ #1 in Montana</div>
-  <div class="hospital-name">Providence St. Patrick Hospital</div>
-  <div class="hospital-note">#1 in Montana (US News), 15 consecutive CMS 5-star ratings, Leapfrog A grade, high-performing in 14 adult procedures. Magnet nursing designation. The best small-city hospital in this report relative to its location — Missoula's most significant advantage over other Montana cities.</div>
-</div>
-
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Hilton Head</div><div class="city-state">South Carolina</div></div>
-    <div class="score-badge"><span class="score-num strong">7</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Hilton Head Hospital + MUSC Savannah (45 min)</div>
-  <div class="hospital-note">Hilton Head Hospital Leapfrog B grade — adequate for routine care. MUSC Savannah (45 min) and the full MUSC Health system (1.5 hrs) for serious care. The healthcare picture depends heavily on willingness to drive for anything beyond routine treatment.</div>
-</div>
-```
-
-  </div>
-</div>
-
-```
-<div class="city-row strong">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Silver Spring</div><div class="city-state">Maryland</div></div>
-    <div class="score-badge"><span class="score-num strong">8</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="health-note"><strong>Holy Cross Hospital well-rated locally. Adventist HealthCare strong.</strong> The real asset is the regional ecosystem: Johns Hopkins 30 min, NIH Clinical Center 15 min (Bethesda), Suburban Hospital 15 min. For a suburban community, the medical access is exceptional. NIH proximity means cutting-edge clinical trials and research medicine within a short drive.</div>
-</div>
-```
-
-<!-- TIER 3: SOLID -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon solid">🏨</div>
-    <div class="section-title">
-      <h2>Solid Care — Scores 5–6</h2>
-      <p>Adequate local hospitals · Major specialty care requires travel · Plan ahead</p>
+    <div class="takeaway-item">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-body"><strong>Florida's healthcare picture is wildly uneven.</strong> Naples, Sarasota, and Tampa score a perfect 10 — genuinely exceptional hospitals. But elsewhere in the state, the local hospital can carry a failing safety grade. The state you retire to matters far less than the specific hospital serving your zip code, and Florida proves it more than anywhere.</div>
     </div>
-  </div>
-  <div class="city-list">
 
-```
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Savannah</div><div class="city-state">Georgia</div></div>
-    <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Memorial Health University Medical Center</div>
-  <div class="hospital-note">Level I trauma, mixed Leapfrog grades — quality inconsistent. For serious specialty care, Emory University Hospital in Atlanta (4 hrs) or MUSC in Charleston (2 hrs) are the better options. Routine care available locally but significant limitations for complex treatment.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Fairhope</div><div class="city-state">Alabama</div></div>
-    <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Thomas Hospital + University of South Alabama (45 min)</div>
-  <div class="hospital-note">Thomas Hospital in Fairhope adequate for routine care. University of South Alabama Medical Center (45 min in Mobile) for intermediate specialty care. UAB Medicine in Birmingham (3.5 hrs) — one of the nation's top academic medical centers — for complex care. Workable but requires planning.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Henderson</div><div class="city-state">Nevada</div></div>
-    <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">St. Rose Dominican (Siena Campus)</div>
-  <div class="hospital-note">#2 in Nevada, high-performing in 10+ procedures. University Medical Center in Las Vegas (Level I trauma) 20 min for serious emergencies. Renown Health in Reno for additional options. Adequate but Nevada lacks the depth of California or Texas healthcare systems — plan for travel for complex specialty care.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Saratoga Springs</div><div class="city-state">New York</div></div>
-    <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Saratoga Hospital + Albany Medical Center (30 min)</div>
-  <div class="hospital-note">Saratoga Hospital well-rated local system. Albany Medical Center (30 min) — Level I trauma, academic medical center — for serious care. NYC's world-class hospitals 3 hrs for complex specialty needs. Solid overall picture given proximity to Albany's capabilities.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Georgetown</div><div class="city-state">Texas</div></div>
-    <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Williamson Medical Center + Austin Medical District (30 min)</div>
-  <div class="hospital-note">Williamson Medical Center adequate for routine care. St. David's Medical Center, Ascension Seton, and Dell Seton at UT Austin — all 30 min south in Austin — provide strong intermediate care. MD Anderson in Houston (2.5 hrs) for cancer treatment. Workable picture with Austin as your real healthcare hub.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Bozeman</div><div class="city-state">Montana</div></div>
-    <div class="score-badge"><span class="score-num solid">6</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Bozeman Health Deaconess Regional</div>
-  <div class="hospital-note">Leapfrog A grade, CMS 5-star, Top 100 Rural Hospital — excellent quality for its size. But it's the only hospital in the region with no competitive backup. Complex specialty care requires Billings (140 miles) or Salt Lake City (340 miles). The quality is there; the depth and backup are not.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Wilmington</div><div class="city-state">North Carolina</div></div>
-    <div class="score-badge"><span class="score-num solid">5</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">New Hanover Regional Medical Center</div>
-  <div class="hospital-note">Improving but below top tier — now part of Novant Health system which is working to raise standards. For serious specialty care, UNC Health in Chapel Hill (2.5 hrs) or Duke University Medical Center (2.5 hrs). The improving trajectory is positive but Wilmington retirees should have a plan for serious care.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Corpus Christi</div><div class="city-state">Texas</div></div>
-    <div class="score-badge"><span class="score-num solid">5</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Christus Spohn Health System</div>
-  <div class="hospital-note">Adequate regional system for routine and intermediate care. Limited specialty depth. San Antonio (2.5 hrs) for University Health System. MD Anderson in Houston (4 hrs) for cancer. One of the more medically isolated cities in the database — requires substantial travel planning for any serious healthcare needs.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Prescott</div><div class="city-state">Arizona</div></div>
-    <div class="score-badge"><span class="score-num solid">5</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Yavapai Regional Medical Center</div>
-  <div class="hospital-note">Adequate for routine care — well-regarded locally. For specialty care, Phoenix (90 min) with Mayo Clinic, Banner University, and Honor Health. The drive to Phoenix is manageable but becomes significant for frequent medical appointments. Altitude (5,400 ft) is a health consideration for cardiovascular conditions.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Durango</div><div class="city-state">Colorado</div></div>
-    <div class="score-badge"><span class="score-num solid">5</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Mercy Regional Medical Center</div>
-  <div class="hospital-note">CMS 5-star (6 consecutive), Leapfrog Top Hospital 2025 — genuinely excellent quality for 82 beds. But it's the only hospital serving the entire Four Corners region. Complex specialty care requires Albuquerque (3.5 hrs) or Denver (6 hrs). Altitude (6,512 ft) can stress cardiac and respiratory conditions. Quality is there; backup is not.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Asheville</div><div class="city-state">North Carolina</div></div>
-    <div class="score-badge"><span class="score-num solid">5</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="warning-tag">⚠ Quality Concerns</div>
-  <div class="hospital-name">Mission Hospital (HCA-owned)</div>
-  <div class="hospital-note">Mission Hospital under HCA since 2019 has documented safety concerns from Joint Commission inspections and multiple investigative reports. Staffing and quality metrics declined post-acquisition. Charlotte (2 hrs) for Atrium Health and Carolinas Medical Center. If considering Asheville, plan to use Charlotte as your primary medical hub for anything serious.</div>
-</div>
-
-<div class="city-row solid">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Delray Beach</div><div class="city-state">Florida</div></div>
-    <div class="score-badge"><span class="score-num solid">5</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="warning-tag">⚠ Local Hospital: F Grade</div>
-  <div class="hospital-name">Delray Medical Center (F) → Use Boca Raton Regional (15 min)</div>
-  <div class="hospital-note">Delray Medical Center carries a Leapfrog F grade — avoid for any serious care. Boca Raton Regional Hospital (15 min) is significantly better rated and should be your designated hospital. Cleveland Clinic Florida (30 min) and Memorial Regional in Hollywood (40 min) for complex specialty care. The picture is workable but requires knowing where NOT to go.</div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- TIER 4: LIMITED -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon limited">⚠️</div>
-    <div class="section-title">
-      <h2>Limited Care — Scores 3–4</h2>
-      <p>Quality concerns or major geographic gap · Serious care requires significant travel · Know before you commit</p>
+    <div class="takeaway-item">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-body"><strong>The Northeast surprise is value, not quality.</strong> Philadelphia and Pittsburgh both score a perfect 10 on healthcare, anchored by Penn Medicine and UPMC — and they do it at some of the lowest housing costs of any major city in the database. World-class academic medicine without the coastal price tag is a combination almost nothing else on the list matches.</div>
     </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-body"><strong>The mountain trade-off is real.</strong> The cities that score highest for scenery and outdoor recreation — Sedona, Jackson Hole, Flagstaff — score lowest for healthcare. Sedona has no hospital at all; Jackson Hole's nearest serious specialty care is hours away over mountain passes that close in winter. The beauty premium comes with a genuine healthcare cost that retirees should accept consciously.</div>
+    </div>
+  </section>
+
+  <!-- ============ TIER 1 — WORLD-CLASS (D3 9–10) ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Tier 1</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker world"></span>World-Class Care — Scores 9–10</h3>
+    <p class="bucket-section-blurb">Nationally ranked or top-regional hospitals, with exceptional specialty care available locally or within an easy drive. These are the cities where serious care — cardiac, cancer, neurology — is built in rather than something you travel for.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Scottsdale&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Scottsdale<span class="state-code">AZ</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><span class="star-tag">★ Best in Database</span><strong>Mayo Clinic Arizona</strong> — among the top hospitals nationally, in north Scottsdale. Comprehensive cancer, cardiac, and neurology, all on-site. The single strongest healthcare advantage of any city here.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Naples&state=FL">
+        <div class="city-info">
+          <div class="city-name">Naples<span class="state-code">FL</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><span class="star-tag">★ Top 1% Nationally</span><strong>NCH Healthcare System</strong> — #1 in Florida multiple years, top 1% nationally, CMS 5-star. Exceptional care for a small coastal city and one of the most underappreciated medical assets in any retirement market.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sarasota&state=FL">
+        <div class="city-info">
+          <div class="city-name">Sarasota<span class="state-code">FL</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><span class="star-tag">★ Perfect CMS Rating</span><strong>Sarasota Memorial Hospital</strong> — the only Florida hospital to hold a perfect CMS 5-star rating every year. High-performing across cardiac, orthopedic, and cancer care. Exceptional depth for a city this size.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Tampa&state=FL">
+        <div class="city-info">
+          <div class="city-name">Tampa<span class="state-code">FL</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><strong>Tampa General + Moffitt Cancer Center</strong> — Tampa General nationally ranked; Moffitt an NCI-designated comprehensive cancer center among the country's best. USF Health rounds out one of the strongest healthcare ecosystems in the database.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Raleigh&state=NC">
+        <div class="city-info">
+          <div class="city-name">Raleigh<span class="state-code">NC</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><strong>WakeMed + UNC and Duke nearby</strong> — Raleigh sits inside a triangle of three world-class academic systems. UNC (Chapel Hill) and Duke (Durham) are each about 30 minutes away, both nationally ranked with NCI cancer centers.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Salt Lake City&state=UT">
+        <div class="city-info">
+          <div class="city-name">Salt Lake City<span class="state-code">UT</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><strong>University of Utah Health + Huntsman Cancer Institute</strong> — #1 in Utah for over a decade, the academic medical hub for the entire Intermountain West. Genuine world-class care with wilderness fifteen minutes away.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Ann Arbor&state=MI">
+        <div class="city-info">
+          <div class="city-name">Ann Arbor<span class="state-code">MI</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><strong>Michigan Medicine (University of Michigan)</strong> — U.S. News Honor Roll, NCI-designated cancer center, world-class cardiac and neurology. One of the great academic medical centers anywhere; the trade is brutal winters and high housing cost.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. Louis&state=MO">
+        <div class="city-info">
+          <div class="city-name">St. Louis<span class="state-code">MO</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><strong>Barnes-Jewish / Washington University</strong> — #1 in Missouri, nationally ranked, with the Siteman Cancer Center. Major-metro academic medicine at Midwest housing prices.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Philadelphia&state=PA">
+        <div class="city-info">
+          <div class="city-name">Philadelphia<span class="state-code">PA</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><span class="star-tag">★ World-Class at Low Cost</span><strong>Penn Medicine + Jefferson Health</strong> — Penn on the U.S. News Honor Roll, Jefferson nationally ranked in multiple specialties (including Wills Eye for ophthalmology). Academic medicine this deep at this housing cost is nearly unmatched.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Pittsburgh&state=PA">
+        <div class="city-info">
+          <div class="city-name">Pittsburgh<span class="state-code">PA</span> <span class="score-pill world">10/10</span></div>
+          <div class="city-teams"><span class="star-tag">★ Best Healthcare Value</span><strong>UPMC Presbyterian Shadyside</strong> — #1 in Pittsburgh, nationally ranked in 9 specialties, with the UPMC Hillman Cancer Center. One of America's largest integrated systems — at among the lowest major-city home prices in the database.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. George&state=UT">
+        <div class="city-info">
+          <div class="city-name">St. George<span class="state-code">UT</span> <span class="score-pill world">10/10</span></div>
+          <!-- REVIEW FLAG: DB scores this a 10, placing it in World-Class. Old report tone was more modest ("excellent for a small desert city," U of Utah 4 hrs for complex care). Consider whether card prose should reflect the full 10 or note the travel caveat. -->
+          <div class="city-teams"><strong>Intermountain Health St. George Regional</strong> — Leapfrog A, CMS 5-star, #2 in Utah. Intermountain is one of the best systems in the western US and this facility punches well above its size; University of Utah Health for the most complex specialty needs.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charleston&state=SC">
+        <div class="city-info">
+          <div class="city-name">Charleston<span class="state-code">SC</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>MUSC Health</strong> — #1 in South Carolina for over a decade, top regional nationally, with Level I trauma and an NCI-designated cancer center. One of the oldest, most respected academic medical centers in the South.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Carlsbad&state=CA">
+        <div class="city-info">
+          <div class="city-name">Carlsbad<span class="state-code">CA</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Scripps + Sharp + UC San Diego (30 min)</strong> — solid local hospitals plus San Diego's nationally recognized systems half an hour south. Carlsbad rides on one of California's strongest healthcare regions.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charlottesville&state=VA">
+        <div class="city-info">
+          <div class="city-name">Charlottesville<span class="state-code">VA</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>UVA Health</strong> — University of Virginia academic medical center, #1 in the state for multiple specialties, Level I trauma, NCI-designated cancer center. One of the most underappreciated healthcare assets in the mid-Atlantic.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Alexandria&state=VA">
+        <div class="city-info">
+          <div class="city-name">Alexandria<span class="state-code">VA</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Inova Fairfax + DC academic centers</strong> — Inova Fairfax (#1 in Virginia) about 15 minutes away, with Johns Hopkins and Georgetown within reach. One of the strongest regional healthcare ecosystems of any city here.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Lexington&state=KY">
+        <div class="city-info">
+          <div class="city-name">Lexington<span class="state-code">KY</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>UK HealthCare</strong> — nationally ranked academic medical center with the NCI-designated Markey Cancer Center, plus comprehensive cardiac and transplant programs. Exceptional for a mid-sized city.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Iowa City&state=IA">
+        <div class="city-info">
+          <div class="city-name">Iowa City<span class="state-code">IA</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>University of Iowa Hospitals</strong> — #1 in Iowa, nationally ranked in several specialties including top-tier ophthalmology. A full academic medical center anchoring a small, affordable university city.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Columbus&state=OH">
+        <div class="city-info">
+          <div class="city-name">Columbus<span class="state-code">OH</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>OSU Wexner Medical Center + James Cancer Hospital</strong> — Ohio State's academic system with a dedicated NCI cancer hospital, plus OhioHealth Riverside. Deep specialty care at a low-cost metro.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Nashville&state=TN">
+        <div class="city-info">
+          <div class="city-name">Nashville<span class="state-code">TN</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Vanderbilt University Medical Center</strong> — nationally ranked, #1 in Tennessee, with the Vanderbilt-Ingram Cancer Center. One of the Southeast's premier academic medical centers.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=New Orleans&state=LA">
+        <div class="city-info">
+          <div class="city-name">New Orleans<span class="state-code">LA</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Ochsner Health</strong> — #1 in Louisiana for well over a decade, with geriatrics in the nation's top tier — one of the strongest geriatric signals of any city in the database.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Miami&state=FL">
+        <div class="city-info">
+          <div class="city-name">Miami<span class="state-code">FL</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>UM-Sylvester + Jackson Memorial + Mount Sinai</strong> — an NCI-designated cancer center plus multiple major systems, giving real diversity of specialty access. Big-city medical depth on the water.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Fort Myers&state=FL">
+        <div class="city-info">
+          <div class="city-name">Fort Myers<span class="state-code">FL</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Lee Health System</strong> — a full regional system serving Southwest Florida's large retiree population, high-performing across many procedures with strong oncology and cardiac programs. More affordable than Naples.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=La Crosse&state=WI">
+        <div class="city-info">
+          <div class="city-name">La Crosse<span class="state-code">WI</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Gundersen Health + Mayo Clinic Health System</strong> — two top-tier teaching hospitals in a city of 50,000, with Mayo Rochester about two hours away. A rare concentration of quality care at low cost.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Memphis&state=TN">
+        <div class="city-info">
+          <div class="city-name">Memphis<span class="state-code">TN</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Methodist University + Baptist Memorial + St. Jude</strong> — a deep regional system plus the world-renowned St. Jude. Strong specialty access at very affordable housing prices.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Portland&state=ME">
+        <div class="city-info">
+          <div class="city-name">Portland<span class="state-code">ME</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Maine Medical Center</strong> — Level I trauma, #1 in Maine, the MaineHealth flagship. Boston's academic network (Mass General, Dana-Farber) about two hours south for the most complex needs.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. Paul&state=MN">
+        <div class="city-info">
+          <div class="city-name">St. Paul<span class="state-code">MN</span> <span class="score-pill world">9/10</span></div>
+          <div class="city-teams"><strong>Regions Hospital + M Health Fairview + Mayo (90 min)</strong> — strong local Level I trauma care, with the University of Minnesota system across the river and Mayo Clinic Rochester ninety minutes away when it truly matters.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=The Woodlands&state=TX">
+        <div class="city-info">
+          <div class="city-name">The Woodlands<span class="state-code">TX</span> <span class="score-pill world">9/10</span></div>
+          <!-- REVIEW FLAG: DB scores this a 9 (World-Class here), but the Top Cities page files it under "proximity play" (Tier 3). The clarify-note at the top explains the lens difference, but you may want the prose to lean on the in-town Houston Methodist The Woodlands facility to justify the 9. -->
+          <div class="city-teams"><strong>Houston Methodist The Woodlands + MD Anderson (40 min)</strong> — a strong local Houston Methodist facility, with the Texas Medical Center and MD Anderson cancer care a short drive south. No state income tax sweetens the picture.</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ TIER 2 — STRONG (D3 7–8) ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Tier 2</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker strong"></span>Strong Care — Scores 7–8</h3>
+    <p class="bucket-section-blurb">High-performing regional hospitals with solid local care and good specialty access — sometimes on-site, sometimes a manageable drive away. Dependable everyday medicine, with a plan needed for the most complex cases.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Chattanooga&state=TN">
+        <div class="city-info">
+          <div class="city-name">Chattanooga<span class="state-code">TN</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">CHI Memorial named best regional hospital in TN many years running · Erlanger (Level I trauma) also in town · two strong competing systems for a mid-sized city</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Knoxville&state=TN">
+        <div class="city-info">
+          <div class="city-name">Knoxville<span class="state-code">TN</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">UT Medical Center · Level I trauma, University of Tennessee affiliation · Vanderbilt (3 hrs) for the most complex specialty care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Tucson&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Tucson<span class="state-code">AZ</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Banner University Medical Center · University of Arizona affiliation, Level I trauma, NCI cancer center · far better healthcare than its "budget retirement" reputation suggests</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Madison&state=WI">
+        <div class="city-info">
+          <div class="city-name">Madison<span class="state-code">WI</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">UW Health · #1 in Wisconsin, NCI-designated Carbone Cancer Center · academic infrastructure comparable to far larger metros</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=San Antonio&state=TX">
+        <div class="city-info">
+          <div class="city-name">San Antonio<span class="state-code">TX</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">University Health + UT Health San Antonio · Level I trauma, strong cardiac and cancer programs · MD Anderson Houston (3 hrs) for serious oncology</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Indianapolis&state=IN">
+        <div class="city-info">
+          <div class="city-name">Indianapolis<span class="state-code">IN</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">IU Health Methodist · the state's largest academic medical center, IU School of Medicine · deep specialty care at low metro cost</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Colorado Springs&state=CO">
+        <div class="city-info">
+          <div class="city-name">Colorado Springs<span class="state-code">CO</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">UCHealth Memorial · Level I trauma, one of Colorado's strongest systems · UCHealth University Hospital in Denver (70 min) for complex care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Fort Worth&state=TX">
+        <div class="city-info">
+          <div class="city-name">Fort Worth<span class="state-code">TX</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Texas Health Harris Methodist + JPS · solid regional systems · UT Southwestern in Dallas (35 min) — nationally ranked, NCI cancer center — is the real asset</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Spokane&state=WA">
+        <div class="city-info">
+          <div class="city-name">Spokane<span class="state-code">WA</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Providence Sacred Heart · serves Eastern WA and North Idaho, high-performing across procedures · WSU medical school adds depth</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Greenville&state=SC">
+        <div class="city-info">
+          <div class="city-name">Greenville<span class="state-code">SC</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Prisma Health (largest system in SC) + Bon Secours St. Francis · two competing systems with strong cardiac and cancer care benefit patients</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Virginia Beach&state=VA">
+        <div class="city-info">
+          <div class="city-name">Virginia Beach<span class="state-code">VA</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Sentara Norfolk General · one of Virginia's strongest regional systems, EVMS affiliation · strong cardiac and cancer programs across Hampton Roads</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Silver Spring&state=MD">
+        <div class="city-info">
+          <div class="city-name">Silver Spring<span class="state-code">MD</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Holy Cross + Adventist HealthCare locally · the real asset is the ecosystem: Johns Hopkins 30 min, NIH Clinical Center 15 min in Bethesda · cutting-edge trials within a short drive</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. Augustine&state=FL">
+        <div class="city-info">
+          <div class="city-name">St. Augustine<span class="state-code">FL</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Flagler Hospital locally · UF Health Jacksonville and Mayo Clinic Jacksonville both around 45–50 min for serious and complex care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Fayetteville&state=AR">
+        <div class="city-info">
+          <div class="city-name">Fayetteville<span class="state-code">AR</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Washington Regional Medical Center · well-rated for its size, university medical infrastructure · UAMS in Little Rock (3 hrs) for complex care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bend&state=OR">
+        <div class="city-info">
+          <div class="city-name">Bend<span class="state-code">OR</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">St. Charles Medical Center · Level II trauma, high-performing in many procedures, the sole hospital for a large Central Oregon area · OHSU Portland (3 hrs) for complex care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Nashua&state=NH">
+        <div class="city-info">
+          <div class="city-name">Nashua<span class="state-code">NH</span> <span class="score-pill strong">8/10</span></div>
+          <div class="city-teams">Southern NH Medical Center locally · the real asset is Boston — Mass General, Dana-Farber, Brigham within 45–55 min · effectively the world's greatest concentration of medical expertise</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Missoula&state=MT">
+        <div class="city-info">
+          <div class="city-name">Missoula<span class="state-code">MT</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams"><span class="star-tag">★ #1 in Montana</span>Providence St. Patrick · #1 in Montana, long CMS 5-star streak, Leapfrog A · the best small-city hospital relative to its location in this report</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Park City&state=UT">
+        <div class="city-info">
+          <div class="city-name">Park City<span class="state-code">UT</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">Intermountain Park City Hospital · Top 100 Rural Hospital, high patient recommendation · University of Utah Health (35 min) for complex care · surprisingly strong for a resort town</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Santa Barbara&state=CA">
+        <div class="city-info">
+          <div class="city-name">Santa Barbara<span class="state-code">CA</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">Cottage Health · consistently high-performing regional system · UCLA and Cedars-Sinai (about 90 min) for complex specialty care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Annapolis&state=MD">
+        <div class="city-info">
+          <div class="city-name">Annapolis<span class="state-code">MD</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">Luminis Health Anne Arundel locally · the defining asset is proximity: Johns Hopkins about 30–40 min, University of Maryland Medical Center close behind</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Pensacola&state=FL">
+        <div class="city-info">
+          <div class="city-name">Pensacola<span class="state-code">FL</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">Baptist Hospital + Ascension Sacred Heart · well-rated regional systems · UAB Medicine in Birmingham (3.5 hrs) for serious specialty care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Santa Fe&state=NM">
+        <div class="city-info">
+          <div class="city-name">Santa Fe<span class="state-code">NM</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">Christus St. Vincent Regional · well-regarded for a small state capital · University of New Mexico Hospital in Albuquerque (65 min, Level I trauma, NCI center) for complex care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bloomington&state=IN">
+        <div class="city-info">
+          <div class="city-name">Bloomington<span class="state-code">IN</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">IU Health Bloomington · solid regional system with IU medical-school depth · IU Health University Hospital in Indianapolis (55 min) for specialty care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Boise&state=ID">
+        <div class="city-info">
+          <div class="city-name">Boise<span class="state-code">ID</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">St. Luke's + St. Alphonsus · two regional systems, high-performing in several procedures · reasonable for a fast-growing western metro</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Eugene&state=OR">
+        <div class="city-info">
+          <div class="city-name">Eugene<span class="state-code">OR</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">PeaceHealth Sacred Heart · Level II trauma, solid for a mid-sized university city · OHSU Portland (2 hrs) for complex specialty care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Hilton Head&state=SC">
+        <div class="city-info">
+          <div class="city-name">Hilton Head<span class="state-code">SC</span> <span class="score-pill strong">7/10</span></div>
+          <div class="city-teams">Hilton Head Hospital (Leapfrog B) adequate for routine care · MUSC Savannah (45 min) and the full MUSC system (1.5 hrs) for serious care · picture depends on willingness to drive</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ TIER 3 — SOLID (D3 5–6) ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Tier 3</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker solid"></span>Solid Care — Scores 5–6</h3>
+    <p class="bucket-section-blurb">Adequate local hospitals for routine and intermediate care, but major specialty treatment means travel. Workable for many retirees — provided you go in knowing where to go, and where not to.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Henderson&state=NV">
+        <div class="city-info">
+          <div class="city-name">Henderson<span class="state-code">NV</span> <span class="score-pill solid">6/10</span></div>
+          <div class="city-teams">St. Rose Dominican (Siena) · #2 in Nevada, high-performing in many procedures · UMC Las Vegas (Level I trauma) 20 min · plan to travel for the most complex care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Savannah&state=GA">
+        <div class="city-info">
+          <div class="city-name">Savannah<span class="state-code">GA</span> <span class="score-pill solid">6/10</span></div>
+          <div class="city-teams">Memorial Health University Medical Center · Level I trauma but inconsistent safety grades · MUSC Charleston (2 hrs) or Emory Atlanta (4 hrs) for serious specialty care</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Saratoga Springs&state=NY">
+        <div class="city-info">
+          <div class="city-name">Saratoga Springs<span class="state-code">NY</span> <span class="score-pill solid">6/10</span></div>
+          <div class="city-teams">Saratoga Hospital locally · Albany Medical Center (30 min, Level I trauma, academic) for serious care · solid overall given Albany's capabilities</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Fairhope&state=AL">
+        <div class="city-info">
+          <div class="city-name">Fairhope<span class="state-code">AL</span> <span class="score-pill solid">6/10</span></div>
+          <div class="city-teams">Thomas Hospital adequate for routine care · USA Medical Center in Mobile (45 min) · UAB Birmingham (3.5 hrs) for complex care · workable with planning</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Georgetown&state=TX">
+        <div class="city-info">
+          <div class="city-name">Georgetown<span class="state-code">TX</span> <span class="score-pill solid">6/10</span></div>
+          <div class="city-teams">Williamson Medical adequate locally · Austin's medical district (30 min) for strong intermediate care · MD Anderson Houston (2.5 hrs) for cancer · Austin is the real hub</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bozeman&state=MT">
+        <div class="city-info">
+          <div class="city-name">Bozeman<span class="state-code">MT</span> <span class="score-pill solid">6/10</span></div>
+          <div class="city-teams">Bozeman Health Deaconess · Leapfrog A, CMS 5-star, excellent quality for its size · but the only hospital around — complex care means Billings (140 mi) or Salt Lake City</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Durango&state=CO">
+        <div class="city-info">
+          <div class="city-name">Durango<span class="state-code">CO</span> <span class="score-pill solid">5/10</span></div>
+          <div class="city-teams">Mercy Regional · CMS 5-star, Leapfrog recognition — genuinely excellent for 82 beds · but the only hospital for the Four Corners; complex care means Albuquerque (3.5 hrs) or Denver</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Wilmington&state=NC">
+        <div class="city-info">
+          <div class="city-name">Wilmington<span class="state-code">NC</span> <span class="score-pill solid">5/10</span></div>
+          <!-- REVIEW FLAG: This is Wilmington NC (New Hanover Regional, D3=5) — NOT Wilmington DE (D3=8), which appears on the Top Cities page. Keep them distinct; don't merge. -->
+          <div class="city-teams">New Hanover Regional (Novant) · improving but below top tier · UNC Chapel Hill or Duke (about 2.5 hrs) for serious specialty care · have a plan for complex needs</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Corpus Christi&state=TX">
+        <div class="city-info">
+          <div class="city-name">Corpus Christi<span class="state-code">TX</span> <span class="score-pill solid">5/10</span></div>
+          <div class="city-teams">Christus Spohn · adequate for routine and intermediate care, limited specialty depth · San Antonio (2.5 hrs) and MD Anderson Houston (4 hrs) · among the more medically isolated cities here</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Prescott&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Prescott<span class="state-code">AZ</span> <span class="score-pill solid">5/10</span></div>
+          <div class="city-teams">Yavapai Regional adequate locally · Phoenix (90 min) for specialty care (Mayo, Banner University) · altitude is a cardiovascular consideration · manageable but plan for the drive</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Asheville&state=NC">
+        <div class="city-info">
+          <div class="city-name">Asheville<span class="state-code">NC</span> <span class="score-pill solid">5/10</span></div>
+          <div class="city-teams"><span class="warn-tag">⚠ Quality Concerns</span>Mission Hospital (HCA) · documented safety concerns since the 2019 acquisition · plan on Charlotte (2 hrs, Atrium Health) as your hub for anything serious</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Delray Beach&state=FL">
+        <div class="city-info">
+          <div class="city-name">Delray Beach<span class="state-code">FL</span> <span class="score-pill solid">5/10</span></div>
+          <div class="city-teams"><span class="warn-tag">⚠ Local Hospital: F Grade</span>Use Boca Raton Regional (15 min) instead · Cleveland Clinic Florida (30 min) for complex care · workable, but know where not to go</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ TIER 4 — LIMITED (D3 3–4) ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Tier 4</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker limited"></span>Limited Care — Scores 3–4</h3>
+    <p class="bucket-section-blurb">Documented quality concerns or a major geographic gap. The scenery and lifestyle can be extraordinary, but serious care requires significant travel — a trade-off to accept consciously, not discover later.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Palm Springs&state=CA">
+        <div class="city-info">
+          <div class="city-name">Palm Springs<span class="state-code">CA</span> <span class="score-pill limited">4/10</span></div>
+          <div class="city-teams">Desert Regional (Level I trauma designation) but high-performing in limited procedures · Loma Linda (60 min) and LA hospitals (2 hrs) for serious care · desert heat complicates some conditions</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Flagstaff&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Flagstaff<span class="state-code">AZ</span> <span class="score-pill limited">4/10</span></div>
+          <div class="city-teams"><span class="warn-tag">⚠ Quality Concerns</span>Flagstaff Medical Center · inconsistent grades · Phoenix (2 hrs) for serious or complex care · 7,000 ft elevation stresses cardiovascular and respiratory conditions</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Jackson Hole&state=WY">
+        <div class="city-info">
+          <div class="city-name">Jackson Hole<span class="state-code">WY</span> <span class="score-pill limited">4/10</span></div>
+          <div class="city-teams">St. John's Health adequate for emergencies and routine care · serious specialty care means Salt Lake City or Boise (~5 hrs) over passes that close in winter · a genuine trade for the setting</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sedona&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Sedona<span class="state-code">AZ</span> <span class="score-pill limited">4/10</span></div>
+          <div class="city-teams">No hospital in Sedona · Verde Valley (25 min) and Flagstaff (50 min) are the nearest facilities · Phoenix (2 hrs) for any serious care · a real limitation for aging retirees</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Johnson City&state=TN">
+        <div class="city-info">
+          <div class="city-name">Johnson City<span class="state-code">TN</span> <span class="score-pill limited">3/10</span></div>
+          <div class="city-teams"><span class="warn-tag">⚠ Quality Concerns Documented</span>Ballad Health · concerns tied to a controversial monopoly merger · Vanderbilt Nashville (3 hrs) or Duke (4 hrs) for serious care · one of the database's clearest healthcare limitations</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ QUIZ CTA ============ -->
+  <section class="quiz-cta">
+    <div class="quiz-cta-bg"></div>
+    <div class="quiz-cta-inner">
+      <p class="quiz-cta-eyebrow">Want a personalized match?</p>
+      <h3 class="quiz-cta-h3">This report ranked the cities where <span class="accent">serious care is built in.</span></h3>
+      <p class="quiz-cta-body">Our database has 100. Take the 2-minute quiz to see how all 100 rank against your specific priorities — healthcare alongside the nine other dimensions that shape where you should retire.</p>
+      <a href="index.html" class="quiz-cta-btn">Take the 2-minute quiz →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-wordmark"><span class="sf-retire">RETIREME</span><span class="sf-here">HERE</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="index.html">Take the Quiz</a>
   </div>
-  <div class="city-list">
-
-```
-<div class="city-row limited">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Palm Springs</div><div class="city-state">California</div></div>
-    <div class="score-badge"><span class="score-num limited">4</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">Desert Regional Medical Center</div>
-  <div class="hospital-note">Level I trauma designation but rated high-performing only in limited procedures. Loma Linda University Medical Center (60 min) for serious specialty care. Los Angeles hospitals 2 hrs for world-class care. The desert heat can also complicate certain health conditions — a real consideration for older retirees.</div>
-</div>
-
-<div class="city-row limited">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Flagstaff</div><div class="city-state">Arizona</div></div>
-    <div class="score-badge"><span class="score-num limited">4</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="warning-tag">⚠ Quality Concerns</div>
-  <div class="hospital-name">Flagstaff Medical Center</div>
-  <div class="hospital-note">Quality concerns documented — Leapfrog grades have been inconsistent. For serious or complex care, Phoenix (2 hrs) with Banner University, Mayo Clinic, and Honor Health. The 7,000 ft elevation at Flagstaff is a genuine health consideration — can significantly stress cardiovascular and respiratory conditions.</div>
-</div>
-
-<div class="city-row limited">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Jackson Hole</div><div class="city-state">Wyoming</div></div>
-    <div class="score-badge"><span class="score-num limited">4</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">St. John's Medical Center</div>
-  <div class="hospital-note">Adequate for emergencies and routine care — well-regarded locally for its size. But serious specialty care requires Salt Lake City (5 hrs) or Boise (5 hrs) — both involve mountain passes that can be closed by winter weather. Jackson Hole's extraordinary beauty comes with a genuine healthcare trade-off that retirees must consciously accept.</div>
-</div>
-
-<div class="city-row limited">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Sedona</div><div class="city-state">Arizona</div></div>
-    <div class="score-badge"><span class="score-num limited">4</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="hospital-name">No hospital in Sedona → Verde Valley (25 min) or Flagstaff (50 min)</div>
-  <div class="hospital-note">Sedona has no hospital at all. Verde Valley Medical Center (Cottonwood, 25 min) and Flagstaff Medical Center (50 min) are the nearest facilities — both earn Leapfrog A grades but are not major medical centers. Phoenix (2 hrs) for Mayo Clinic and Banner University for any serious care. A genuine limitation for aging retirees.</div>
-</div>
-
-<div class="city-row limited">
-  <div class="city-row-top">
-    <div class="city-name-wrap"><div class="city-name">Johnson City</div><div class="city-state">Tennessee</div></div>
-    <div class="score-badge"><span class="score-num limited">3</span><span class="score-lbl">/ 10</span></div>
-  </div>
-  <div class="warning-tag">⚠ Quality Concerns Documented</div>
-  <div class="hospital-name">Ballad Health (Mountain States Health Alliance merger)</div>
-  <div class="hospital-note">Ballad Health formed from a controversial hospital merger granted an antitrust exemption — quality concerns have been documented by state health officials and investigative reporting. The lack of competitive pressure has impacted standards. For serious care, plan on Vanderbilt University Medical Center in Nashville (3 hrs) or Duke University Medical Center (4 hrs). One of the database's clearest healthcare limitations.</div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- CTA -->
-
-<div class="cta">
-  <h2>Ready to find your best match?</h2>
-  <p>Take our free quiz and get matched to your top retirement cities — scored across 9 dimensions with real data and honest tradeoffs.</p>
-  <a href="https://retiremehere.com" class="cta-btn">Take the Quiz →</a>
-  <div class="cta-fine">retiremehere.com · Free · No account required<br>Questions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7d0f1809140f18101815180f183d1a101c1411531e1210">[email&#160;protected]</a></div>
-</div>
-
-<div class="footer">
-  <p>
-    A RetireMeHere Intelligence Report · March 2026<br>
+  <p class="site-footer-copy">
+    A RetireMeHere Deep Dive Report · May 2026<br>
     Data: CMS Hospital Compare · Leapfrog Group · US News Best Hospitals · Medicare.gov<br>
     Hospital ratings current as of early 2026 — always verify with current sources before making healthcare decisions.<br>
-    <a href="https://retiremehere.co
+    © RetireMeHere · Real data, honest tradeoffs.
+  </p>
+</footer>
+
+<script>
+function toggleMobileNav() {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+function toggleTopCitiesDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd && dd.classList.contains('open')) {
+    if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
+      dd.classList.remove('open');
+    }
+  }
+  var tc = document.getElementById('topCitiesDropdown');
+  if (tc && tc.classList.contains('open')) {
+    if (!e.target.closest('#topCitiesDropdown')) {
+      tc.classList.remove('open');
+    }
+  }
+});
+</script>
+
+</body>
+</html>

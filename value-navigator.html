@@ -1,816 +1,1280 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BTL743DSJQ');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Value Navigator — RetireMeHere</title>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<title>The Value Navigator — Where Your Retirement Dollar Goes Furthest | RetireMeHere</title>
+<meta name="description" content="A curated guide to the best-value US cities to retire — ranked by budget range, tax friendliness, and what your retirement income actually buys.">
+<link rel="canonical" href="https://retiremehere.com/value-navigator.html">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Value Navigator — Where Your Retirement Dollar Goes Furthest">
+<meta property="og:description" content="A curated guide to the best-value US cities to retire — budget, taxes, and what your income actually buys.">
+<meta property="og:url" content="https://retiremehere.com/value-navigator.html">
+<meta property="og:site_name" content="RetireMeHere">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Value Navigator — Where Your Retirement Dollar Goes Furthest">
+<meta name="twitter:description" content="A curated guide to the best-value US cities to retire.">
+
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2238788');
+</script>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --gold-dark: #8a6520;
-  --gold: #c47a2a;
-  --gold-mid: #d4943a;
-  --gold-lt: #fdf3e3;
-  --teal: #2e5d8b;
-  --teal-lt: #e8f0f8;
-  --terra: #c4724a;
-  --terra-lt: #fdf0ea;
-  --sand: #f7f3ed;
-  --dark: #1c1a18;
-  --mid: #5c5852;
-  --light: #9a9490;
-  --white: #ffffff;
+  --teal: #2A5E5A;
+  --teal-lt: #E8F4F3;
+  --teal-mid: #3d7a75;
+  --terra: #C4724A;
+  --terra-lt: #FDF0EA;
+  --gold: #D4A84B;
+  --gold-lt: #FAF1D9;
+  --gold-dk: #8B6914;
   --green: #2e7d52;
   --green-lt: #eaf5ef;
+  --sky: #2a7fc1;
   --red: #c0392b;
   --red-lt: #fde8e8;
+  --sand: #F7F3ED;
+  --sand-dk: #EFE9DD;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #9A9490;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(28,26,24,0.08);
+
+  /* Value Navigator accent (header band) */
+  --hdr-dark: #6e4d12;
+  --hdr-mid: #a87c20;
+  --hdr-accent: #e6c267;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--dark); max-width: 600px; margin: 0 auto; }
-.header { background: var(--gold-dark); padding: 0; position: relative; overflow: hidden; }
-.header-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 75% 25%, rgba(196,122,42,0.4) 0%, transparent 55%); }
-.header-content { position: relative; padding: 40px 24px 36px; }
-.report-series { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-mid); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-.report-series::before { content: '💰'; font-size: 12px; }
-.header h1 { font-family: 'Libre Franklin', sans-serif; font-size: clamp(28px, 6vw, 38px); font-weight: 800; color: var(--white); line-height: 1.1; margin-bottom: 14px; }
-.header h1 em { font-style: italic; color: var(--gold-mid); font-weight: 300; }
-.header-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.header-meta { display: flex; gap: 12px; flex-wrap: wrap; }
-.meta-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 6px; }
-.meta-pill span { color: var(--gold-mid); font-weight: 600; }
-.intro { padding: 24px 16px 0; }
-.intro-card { background: var(--white); border-radius: 14px; padding: 20px; border-left: 4px solid var(--gold); }
-.intro-card h2 { font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700; color: var(--gold-dark); margin-bottom: 8px; }
-.intro-card p { font-size: 13px; color: var(--mid); line-height: 1.7; }
-.intro-card p + p { margin-top: 8px; }
-.insights { padding: 24px 16px 0; }
-.insight-title { font-family: 'Libre Franklin', sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
-.insight-card { background: var(--white); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
-.insight-card h3 { font-size: 13px; font-weight: 700; color: var(--gold-dark); margin-bottom: 6px; }
-.insight-card p { font-size: 13px; color: var(--mid); line-height: 1.65; }
-.section { padding: 24px 16px 0; }
-.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-.section-icon.best { background: var(--green-lt); }
-.section-icon.good { background: var(--teal-lt); }
-.section-icon.moderate { background: var(--gold-lt); }
-.section-icon.premium { background: var(--red-lt); }
-.section-title h2 { font-family: 'Libre Franklin', sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
-.section-title p { font-size: 12px; color: var(--light); }
-.city-list { display: flex; flex-direction: column; gap: 10px; }
-.city-row { background: var(--white); border-radius: 12px; padding: 16px; border-left: 3px solid transparent; }
-.city-row.best { border-left-color: var(--green); }
-.city-row.good { border-left-color: var(--teal); }
-.city-row.moderate { border-left-color: var(--gold); }
-.city-row.premium { border-left-color: var(--red); }
-.city-row-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
-.city-name-wrap { flex: 1; }
-.city-name { font-family: 'Libre Franklin', sans-serif; font-size: 16px; font-weight: 700; color: var(--dark); }
-.city-state { font-size: 12px; color: var(--light); margin-top: 1px; }
-.badges { display: flex; gap: 6px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
-.budget-badge { background: var(--sand); border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--mid); }
-.tax-badge { border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 700; }
-.tax-badge.best { background: var(--green-lt); color: var(--green); }
-.tax-badge.good { background: var(--teal-lt); color: var(--teal); }
-.tax-badge.moderate { background: var(--gold-lt); color: var(--gold-dark); }
-.tax-badge.poor { background: var(--red-lt); color: var(--red); }
-.value-note { font-size: 12px; color: var(--mid); line-height: 1.55; }
-.value-note strong { color: var(--dark); }
-.warning-tag { display: inline-block; background: var(--red-lt); color: var(--red); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
-.star-tag { display: inline-block; background: var(--green-lt); color: var(--green); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 6px; }
-.cta { margin: 24px 16px 0; background: var(--gold-dark); border-radius: 16px; padding: 28px 20px; text-align: center; }
-.cta h2 { font-family: 'Libre Franklin', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-.cta p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
-.cta-btn { display: inline-block; background: var(--gold-mid); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; padding: 14px 30px; border-radius: 100px; text-decoration: none; }
-.cta-fine { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 12px; }
-.footer { text-align: center; padding: 24px 16px 40px; }
-.footer p { font-size: 11px; color: var(--light); line-height: 1.8; }
-.footer a { color: var(--gold); text-decoration: none; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--sand);
+  color: var(--dark);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { color: var(--teal-mid); }
+
+/* ============ HEADER ============ */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid #e8e4de;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
+}
+.header-wordmark .hw-retire { color: var(--teal); }
+.header-wordmark .hw-here { color: var(--terra); }
+.header-nav { display: flex; gap: 20px; align-items: center; }
+.header-nav a {
+  font-size: 13px; color: var(--mid); text-decoration: none; font-weight: 500;
+  transition: color 0.15s;
+}
+.header-nav a:hover { color: var(--teal); }
+
+a.header-quiz-btn,
+a.header-quiz-btn:link,
+a.header-quiz-btn:visited,
+a.header-quiz-btn:active,
+button.header-quiz-btn,
+.header-quiz-btn {
+  background-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2A5E5A !important;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: background-color 0.15s, border-color 0.15s;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+a.header-quiz-btn:hover,
+button.header-quiz-btn:hover,
+.header-quiz-btn:hover {
+  background-color: #3d7a75 !important;
+  border-color: #3d7a75 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.header-mobile-menu { display: none; gap: 10px; align-items: center; }
+.mobile-nav-btn {
+  background: transparent; border: 1px solid #e8e4de;
+  padding: 7px 14px; border-radius: 100px;
+  font-size: 13px; color: var(--mid); cursor: pointer; font-family: inherit;
+}
+.mobile-nav-dropdown {
+  display: none; position: absolute; top: 100%; right: 16px;
+  background: var(--white); border: 1px solid #e8e4de; border-radius: 12px;
+  padding: 8px; box-shadow: var(--shadow);
+  min-width: 200px;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-item {
+  display: block; padding: 10px 14px; font-size: 13px;
+  color: var(--dark); text-decoration: none; border-radius: 8px;
+}
+.mobile-nav-item:hover { background: var(--sand); }
+
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); font-weight: 500;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger:hover { color: var(--teal); }
+.nav-dropdown-trigger .nav-chev { font-size: 10px; transition: transform 0.15s; }
+.nav-dropdown.open .nav-dropdown-trigger .nav-chev { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute; top: 100%; right: 0; margin-top: 8px;
+  background: var(--white);
+  border: 1px solid #e8e4de; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 240px; padding: 6px; z-index: 500;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-item {
+  display: block; padding: 10px 14px;
+  font-size: 13px; font-weight: 500; color: var(--dark);
+  text-decoration: none; border-radius: 8px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.nav-dropdown-item:hover { background: var(--sand); color: var(--teal); }
+.nav-dropdown-divider { height: 1px; background: #f0ece6; margin: 6px 4px; }
+.nav-dropdown-item.more { color: var(--mid); font-style: italic; font-size: 12px; }
+@media (max-width: 760px) {
+  .header-nav { display: none; }
+  .header-mobile-menu { display: flex; }
+  .site-header { padding: 12px 16px; position: relative; }
+}
+
+/* ============ REPORT HEADER BAND ============ */
+.report-band {
+  background: var(--hdr-dark);
+  position: relative;
+  overflow: hidden;
+}
+.report-band-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 78% 20%, rgba(168,124,32,0.55) 0%, transparent 58%),
+    radial-gradient(ellipse at 20% 90%, rgba(230,194,103,0.15) 0%, transparent 55%);
+}
+.report-band-inner {
+  position: relative;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 52px 24px 48px;
+}
+.report-series {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 9px;
+}
+.report-series::before { content: '💰'; font-size: 14px; }
+.report-band h1 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+.report-band h1 em {
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--hdr-accent);
+}
+.report-band-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 26px;
+}
+.report-band-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.meta-pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  display: flex; align-items: center; gap: 7px;
+}
+.meta-pill span { color: var(--hdr-accent); font-weight: 700; }
+@media (max-width: 540px) {
+  .report-band-inner { padding: 38px 18px 34px; }
+}
+
+/* ============ PAGE LAYOUT ============ */
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+@media (max-width: 760px) {
+  .page { padding: 36px 18px 60px; }
+}
+
+/* ============ HERO (removed — replaced by report band) ============ */
+
+/* ============ METHOD NOTE ============ */
+.method-note {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: var(--radius);
+  padding: 22px 28px;
+  margin-bottom: 32px;
+  font-size: 13.5px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.method-note strong { color: var(--dark); font-weight: 700; }
+
+/* ============ KEY TAKEAWAYS ============ */
+.takeaways {
+  background: linear-gradient(135deg, var(--teal-lt) 0%, var(--sand) 100%);
+  border: 1px solid #d8e8e6;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+.takeaways-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hdr-mid);
+  margin-bottom: 6px;
+}
+.takeaways-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+.takeaway-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(42,94,90,0.12);
+}
+.takeaway-item:first-of-type { border-top: none; padding-top: 4px; }
+.takeaway-num {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--hdr-mid);
+  color: var(--white);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.takeaway-body { flex: 1; font-size: 14px; color: var(--mid); line-height: 1.55; }
+.takeaway-body strong { color: var(--dark); font-weight: 700; }
+@media (max-width: 540px) {
+  .takeaways { padding: 22px 20px; }
+  .takeaway-body { font-size: 13.5px; }
+}
+
+/* ============ SPOTLIGHT SECTIONS ============ */
+.bucket-section { margin-top: 48px; }
+.bucket-section:first-of-type { margin-top: 0; }
+.bucket-section-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.bucket-section-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  letter-spacing: -0.01em;
+}
+.bucket-section-marker {
+  display: inline-block;
+  width: 12px; height: 12px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.bucket-section-marker.spot1 { background: var(--green); }
+.bucket-section-marker.spot2 { background: var(--teal); }
+.bucket-section-marker.spot3 { background: var(--sky); }
+.bucket-section-marker.spot4 { background: var(--gold); }
+.bucket-section-marker.spot5 { background: var(--terra); }
+.bucket-section-marker.spot6 { background: var(--red); }
+
+.bucket-section-blurb {
+  font-size: 14px;
+  color: var(--mid);
+  margin-bottom: 22px;
+  margin-left: 25px;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+/* ============ CITY CARDS — STANDARD ============ */
+.city-list { display: flex; flex-direction: column; gap: 8px; }
+.city-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.city-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+  border-color: var(--teal-lt);
+  color: inherit;
+}
+.city-info { flex: 1; min-width: 0; }
+.city-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.city-name .state-code {
+  font-weight: 500;
+  color: var(--mid);
+  font-size: 14px;
+}
+.city-badges { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.b-budget {
+  background: var(--sand-dk);
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--mid);
+  letter-spacing: 0.01em;
+}
+.b-tax {
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.b-tax.t-best { background: var(--green-lt); color: var(--green); }
+.b-tax.t-good { background: var(--teal-lt); color: var(--teal); }
+.b-tax.t-mod { background: var(--gold-lt); color: var(--gold-dk); }
+.b-tax.t-poor { background: var(--red-lt); color: var(--red); }
+.city-teams {
+  font-size: 12.5px;
+  color: var(--mid);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.city-teams strong { color: var(--dark); font-weight: 600; }
+.city-arrow {
+  font-size: 16px;
+  color: var(--light);
+  font-weight: 600;
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition: transform 0.15s, color 0.15s;
+}
+.city-card:hover .city-arrow {
+  color: var(--teal);
+  transform: translateX(3px);
+}
+
+/* ============ CITY CARDS — FEATURED (Best Value) ============ */
+.city-featured {
+  display: block;
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+}
+.city-featured:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--teal-lt);
+  color: inherit;
+}
+.city-featured-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.city-featured-rank {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--terra);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+.city-featured-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.city-featured-name .state-code {
+  font-weight: 500;
+  color: var(--mid);
+  font-size: 16px;
+  margin-left: 6px;
+}
+.city-featured-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+.city-featured-prose {
+  font-size: 14.5px;
+  color: var(--mid);
+  line-height: 1.65;
+  margin-left: 50px;
+}
+.city-featured-prose strong { color: var(--dark); font-weight: 600; }
+.star-tag {
+  display: inline-block;
+  background: var(--green-lt);
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-left: 50px;
+  margin-bottom: 8px;
+}
+@media (max-width: 540px) {
+  .city-featured { padding: 18px 18px; }
+  .city-featured-rank { font-size: 24px; }
+  .city-featured-name { font-size: 19px; }
+  .city-featured-prose, .city-featured-badges, .star-tag { margin-left: 0; }
+  .city-featured-prose { font-size: 14px; margin-top: 4px; }
+  .city-featured-header { flex-wrap: wrap; gap: 10px; }
+}
+
+@media (max-width: 540px) {
+  .city-card { padding: 14px 14px; gap: 12px; }
+  .city-name { font-size: 15px; }
+  .city-teams { font-size: 11.5px; }
+  .city-arrow { display: none; }
+}
+
+/* ============ QUIZ CTA ============ */
+.quiz-cta {
+  margin-top: 64px;
+  background: var(--hdr-dark);
+  border-radius: var(--radius);
+  padding: 44px 36px;
+  text-align: center;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.quiz-cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 75% 25%, rgba(168,124,32,0.5) 0%, transparent 55%);
+}
+.quiz-cta-inner { position: relative; }
+.quiz-cta-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 12px;
+}
+.quiz-cta-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(22px, 2.8vw, 28px);
+  font-weight: 300;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.quiz-cta-h3 .accent { font-weight: 800; color: var(--hdr-accent); }
+.quiz-cta-body {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.85);
+  max-width: 580px;
+  margin: 0 auto 22px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+a.quiz-cta-btn,
+a.quiz-cta-btn:link,
+a.quiz-cta-btn:visited,
+a.quiz-cta-btn:active,
+.quiz-cta-btn {
+  background-color: #FFFFFF !important;
+  color: #6e4d12 !important;
+  -webkit-text-fill-color: #6e4d12 !important;
+  border: 1px solid #FFFFFF !important;
+  padding: 13px 30px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: background-color 0.15s, transform 0.15s;
+}
+a.quiz-cta-btn:hover,
+.quiz-cta-btn:hover {
+  background-color: #FAF1D9 !important;
+  color: #6e4d12 !important;
+  -webkit-text-fill-color: #6e4d12 !important;
+  transform: translateY(-1px);
+}
+
+/* ============ FOOTER ============ */
+.site-footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.6);
+  padding: 32px 24px 28px;
+  text-align: center;
+  margin-top: 64px;
+  font-size: 12px;
+}
+.site-footer-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.site-footer-wordmark .sf-retire { color: var(--teal-lt); }
+.site-footer-wordmark .sf-here { color: var(--terra); }
+.site-footer a {
+  color: rgba(255,255,255,0.7);
+  margin: 0 12px;
+}
+.site-footer a:hover { color: var(--white); }
+.site-footer-copy { margin-top: 14px; color: rgba(255,255,255,0.4); }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-bg"></div>
-  <div class="header-content">
+<header class="site-header">
+  <div class="header-wordmark" onclick="window.location.href='index.html'">
+    <span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">🔍 Find a City</a>
+    <div class="nav-dropdown" id="topCitiesDropdown">
+      <button class="nav-dropdown-trigger" onclick="toggleTopCitiesDropdown(event)">
+        Top Cities For… <span class="nav-chev">▾</span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <a class="nav-dropdown-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-foodies.html">For Foodies</a>
+        <a class="nav-dropdown-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-hikers.html">For Hikers</a>
+        <a class="nav-dropdown-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+        <a class="nav-dropdown-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+        <div class="nav-dropdown-divider"></div>
+        <a class="nav-dropdown-item more" href="index.html#screen-explore">More topics →</a>
+      </div>
+    </div>
+    <a href="index.html" class="header-quiz-btn">Find My Match →</a>
+  </nav>
+  <div class="header-mobile-menu">
+    <button class="mobile-nav-btn" onclick="toggleMobileNav()">☰ Menu</button>
+    <a href="index.html" class="header-quiz-btn" style="font-size:12px;padding:7px 14px;">Quiz →</a>
+  </div>
+  <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+    <a class="mobile-nav-item" href="index.html">🔍 Find a City</a>
+    <a class="mobile-nav-item" href="top-cities-for-active-retirees.html">For Active Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-arts-lovers.html">For Arts Lovers</a>
+    <a class="mobile-nav-item" href="top-cities-for-foodies.html">For Foodies</a>
+    <a class="mobile-nav-item" href="top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-hikers.html">For Hikers</a>
+    <a class="mobile-nav-item" href="top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+    <a class="mobile-nav-item" href="top-cities-for-sports-fans.html">For Sports Fans</a>
+    <a class="mobile-nav-item" href="index.html#screen-explore" style="color:var(--terra);font-weight:600;">More topics →</a>
+  </div>
+</header>
+
+<!-- ============ REPORT HEADER BAND ============ -->
+<div class="report-band">
+  <div class="report-band-bg"></div>
+  <div class="report-band-inner">
     <div class="report-series">RetireMeHere Deep Dive Series</div>
-    <h1>The Value<br><em>Navigator</em></h1>
-    <p class="header-desc">Where does your retirement dollar go furthest? We've ranked 50+ cities by budget range, tax friendliness, and real cost of living — so you can see exactly what your income buys in each market.</p>
-    <div class="header-meta">
-      <div class="meta-pill">💰 <span>50+</span> Cities Ranked</div>
-      <div class="meta-pill">🏠 <span>5</span> Budget Tiers</div>
-      <div class="meta-pill">🗓 <span>March 2026</span></div>
+    <h1>The Value<em>Navigator</em></h1>
+    <p class="report-band-desc">For retirees who want to know exactly what their income buys — low cost of living, favorable taxes, and housing that doesn't swallow the budget. This guide ranks our database of 100 cities by budget and tax friendliness, scored separately.</p>
+    <div class="report-band-meta">
+      <div class="meta-pill">💰 <span>100</span> Cities Scored</div>
+      <div class="meta-pill">🏠 <span>Budget + Tax</span></div>
+      <div class="meta-pill">🗓 <span>May 2026</span></div>
     </div>
   </div>
 </div>
 
-<div class="intro">
-  <div class="intro-card">
-    <h2>How we evaluate budget and value</h2>
-    <p>Each city is assigned a budget range based on what a comfortable retirement realistically costs — housing, healthcare, utilities, food, and lifestyle. We then score tax friendliness separately, because a city can have low housing costs but punishing taxes on your retirement income, or vice versa.</p>
-    <p>The real insight is the combination: a city with a budget score of 9 and a tax score of 10 is a fundamentally different retirement proposition than a city with the same scores reversed. Both dimensions together tell you what your money actually buys.</p>
-  </div>
-</div>
+<main class="page">
 
-<div class="insights">
-  <div class="insight-title">Key Takeaways — Before You Scroll</div>
-
-  <div class="insight-card">
-    <h3>🏆 The Best Pure Value Play: Tennessee Cities</h3>
-    <p>Chattanooga and Johnson City are the strongest pure value cities in the database — Budget Range 1 (under $3,500/month) combined with a tax score of 10 (no Tennessee income tax on any retirement income). You get a low cost of living AND keep every dollar of your Social Security, pension, and IRA.</p>
+  <div class="method-note">
+    <strong>What we looked for:</strong> two things, scored separately. <strong>Budget</strong> is what a comfortable retirement realistically costs each month — housing, healthcare, utilities, food, lifestyle — expressed as a 1–5 range and a monthly estimate. <strong>Tax friendliness</strong> is scored on its own, because a city can have cheap housing but punishing taxes on retirement income, or the reverse. The real signal is the combination. Every dollar figure, budget range, and tax score here comes straight from our city database, not from listing-site estimates.
   </div>
 
-  <div class="insight-card">
-    <h3>💡 The "Sweet Spot" Cities</h3>
-    <p>Several cities combine Budget Range 2 ($3,500–5,000/mo) with tax scores of 8–9: Corpus Christi TX, San Antonio TX, Knoxville TN, Spokane WA, Tucson AZ, and Fort Worth TX. These are cities where a moderate retirement income goes a genuinely long way.</p>
+  <section class="takeaways">
+    <p class="takeaways-eyebrow">Before You Scroll</p>
+    <h2 class="takeaways-h2">Four things to know about retirement value.</h2>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">1</div>
+      <div class="takeaway-body"><strong>Budget and taxes are different questions.</strong> A city can be cheap to live in and still tax your retirement income hard, or be pricey but tax-free. Chattanooga and Casper score the maximum on both — low monthly cost <em>and</em> zero state income tax. St. Paul has genuinely affordable housing but one of the heaviest tax loads in the database. Always read the two together.</div>
+    </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">2</div>
+      <div class="takeaway-body"><strong>The deepest value clusters in the South and Mountain West.</strong> Tennessee, Texas, and Wyoming pair low costs with no state income tax. Chattanooga, Johnson City, Corpus Christi, Fort Worth, and Casper all land in the two cheapest budget ranges with strong tax scores. The Southeast's smaller cities — Greenville, Knoxville, Fayetteville — deliver similar value at modest housing prices.</div>
+    </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">3</div>
+      <div class="takeaway-body"><strong>The Northeast isn't automatically expensive.</strong> Pittsburgh ($425K–$700K) and Philadelphia ($475K–$975K) are the surprises — major-metro healthcare and culture at prices that undercut much of the Sun Belt. Pennsylvania's flat income tax is among the lowest, and Social Security is exempt. The catch is local wage and property taxes, so the picture is good rather than spectacular.</div>
+    </div>
+
+    <div class="takeaway-item">
+      <div class="takeaway-num">4</div>
+      <div class="takeaway-body"><strong>California, New York, and the resort towns carry a double premium.</strong> Carlsbad, Santa Barbara, Carmel, Napa, Palm Springs, and Saratoga Springs combine the highest budget ranges with the worst tax scores — premium housing prices <em>and</em> a large bite out of retirement income. The mountain-luxury tier (Jackson Hole, Park City, Vail, Sun Valley) is just as costly, though Wyoming's zero income tax softens Jackson Hole.</div>
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 1 — BEST PURE VALUE (FEATURED TOP 10) ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 1</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot1"></span>Best Pure Value — Top 10</h3>
+    <p class="bucket-section-blurb">The strongest combinations of low cost of living and favorable tax treatment in the database. These cities score highest on affordability and back it up with light or zero taxes on retirement income — the places where a modest income stretches the furthest.</p>
+
+    <div class="city-list">
+
+      <a class="city-featured" href="index.html?city=Chattanooga&state=TN">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">1</div>
+          <div class="city-featured-name">Chattanooga<span class="state-code">TN</span></div>
+        </div>
+        <div class="star-tag">★ Best Value in Database</div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 1 · $3,000–$4,000/mo</span>
+          <span class="b-tax t-best">Tax 10/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $314K.</strong> Among the most affordable cities in the Southeast, paired with no Tennessee income tax on any retirement income — Social Security, pension, and IRA withdrawals all untouched. Real healthcare and serious outdoor recreation on top. The cleanest budget-plus-tax combination we found.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Casper&state=WY">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">2</div>
+          <div class="city-featured-name">Casper<span class="state-code">WY</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 1 · $2,800–$3,800/mo</span>
+          <span class="b-tax t-best">Tax 10/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $275K.</strong> Wyoming levies no income tax of any kind — zero on Social Security, pension, and investment income. Combine that with a low monthly cost and Casper becomes the best value in the database for tax-motivated retirees willing to trade big-city amenities for plains-and-mountains quiet.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Corpus Christi&state=TX">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">3</div>
+          <div class="city-featured-name">Corpus Christi<span class="state-code">TX</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 2 · $3,000–$4,000/mo</span>
+          <span class="b-tax t-good">Tax 9/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $214K — the lowest of any coastal city in the database.</strong> Gulf beach access at a price that undercuts every Florida beach town by a wide margin. No Texas income tax amplifies the advantage. Property taxes are the trade-off Texas always carries, but the entry price is hard to beat on the water.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Johnson City&state=TN">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">4</div>
+          <div class="city-featured-name">Johnson City<span class="state-code">TN</span></div>
+        </div>
+        <div class="star-tag">★ Most Affordable City in Database</div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 1 · $2,500–$3,200/mo</span>
+          <span class="b-tax t-good">Tax 8/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $285K, monthly cost from $2,500.</strong> The lowest monthly estimate of any city we scored — a genuinely comfortable retirement is possible on a modest fixed income here. No Tennessee income tax, Appalachian mountain access, and a small-city pace. Healthcare depth is the main thing to check against your own needs.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Sioux Falls&state=SD">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">5</div>
+          <div class="city-featured-name">Sioux Falls<span class="state-code">SD</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 2 · $3,000–$4,000/mo</span>
+          <span class="b-tax t-best">Tax 10/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $285K.</strong> South Dakota has no state income tax, and Sioux Falls anchors it with a surprisingly deep regional healthcare presence for its size. Low monthly costs and a stable small-metro economy. Winters are the real trade — but the financial case is among the strongest anywhere.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Knoxville&state=TN">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">6</div>
+          <div class="city-featured-name">Knoxville<span class="state-code">TN</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 2 · $3,200–$4,200/mo</span>
+          <span class="b-tax t-good">Tax 9/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $327K.</strong> No Tennessee income tax, Great Smoky Mountains 30 minutes away, and a university-town energy that keeps culture and healthcare strong. One of the best value propositions in a city with genuine depth rather than just a low price tag.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Spokane&state=WA">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">7</div>
+          <div class="city-featured-name">Spokane<span class="state-code">WA</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 2 · $3,200–$4,500/mo</span>
+          <span class="b-tax t-good">Tax 9/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $385K.</strong> Affordable Pacific Northwest — substantially cheaper than Seattle, Portland, or Bend for similar inland-outdoor access. Washington has no income tax on wages or retirement income. The most accessible way into the PNW lifestyle without the coastal price tag.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Tucson&state=AZ">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">8</div>
+          <div class="city-featured-name">Tucson<span class="state-code">AZ</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 2 · $3,200–$4,200/mo</span>
+          <span class="b-tax t-good">Tax 8/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $315K.</strong> Real university culture, Saguaro National Park at the edge of town, and Arizona's flat 2.5% income tax — one of the lowest rates among states that tax income at all. Far more affordable than Scottsdale or Sedona for the same desert-Southwest base.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Fort Worth&state=TX">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">9</div>
+          <div class="city-featured-name">Fort Worth<span class="state-code">TX</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 2 · $3,000–$4,200/mo</span>
+          <span class="b-tax t-good">Tax 8/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $340K.</strong> A major Texas metro — full airport, healthcare, and cultural infrastructure — at a monthly cost most big cities can't touch. No Texas income tax. Property taxes run high, the standing Texas trade-off, but the overall value for a metro this size is strong.</div>
+      </a>
+
+      <a class="city-featured" href="index.html?city=Fayetteville&state=AR">
+        <div class="city-featured-header">
+          <div class="city-featured-rank">10</div>
+          <div class="city-featured-name">Fayetteville<span class="state-code">AR</span></div>
+        </div>
+        <div class="city-featured-badges">
+          <span class="b-budget">Range 1 · $2,800–$3,800/mo</span>
+          <span class="b-tax t-good">Tax 7/10</span>
+        </div>
+        <div class="city-featured-prose"><strong>Median home $350K.</strong> The best-value college town in the database — University of Arkansas energy, Ozark trails, and a Razorback Greenway, all on a Range 1 budget. Arkansas taxes income modestly but exempts a meaningful share of retirement income. Outstanding value most lists overlook.</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 2 — SWEET SPOT ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 2</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot2"></span>The Sweet-Spot Cities</h3>
+    <p class="bucket-section-blurb">Range 2 budgets ($3,500–$5,000/mo) paired with strong tax treatment — the cities where a moderate retirement income goes a genuinely long way without dropping to the smallest towns. The broad middle of the value market, and where most retirees actually land.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Tampa&state=FL">
+        <div class="city-info">
+          <div class="city-name">Tampa<span class="state-code">FL</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,500–$5,000</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$400K</strong> · more affordable than Sarasota or Naples · no Florida income tax · strong value for a major Gulf-coast metro with deep healthcare</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Pensacola&state=FL">
+        <div class="city-info">
+          <div class="city-name">Pensacola<span class="state-code">FL</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,000–$4,200</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$340K</strong> · among the most affordable Florida beach cities · no state income tax · Gulf access at a fraction of the Naples premium</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Georgetown&state=TX">
+        <div class="city-info">
+          <div class="city-name">Georgetown<span class="state-code">TX</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,200–$4,500</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$450K</strong> · Sun City Texas active-adult hub · Austin-area access without Austin prices · no Texas income tax</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. Augustine&state=FL">
+        <div class="city-info">
+          <div class="city-name">St. Augustine<span class="state-code">FL</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,500–$5,000</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$425K</strong> · the nation's oldest city, on the water · no Florida income tax · historic-coastal character at a Range 2 cost</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Lexington&state=KY">
+        <div class="city-info">
+          <div class="city-name">Lexington<span class="state-code">KY</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,200–$4,200</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$330K</strong> · horse-country culture · top-tier healthcare for its size · Kentucky's flat income tax exempts a chunk of retirement income</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Bloomington&state=IN">
+        <div class="city-info">
+          <div class="city-name">Bloomington<span class="state-code">IN</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,200–$4,200</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$345K</strong> · IU college-town culture and recreation · affordable Midwest base · low flat state income tax</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Savannah&state=GA">
+        <div class="city-info">
+          <div class="city-name">Savannah<span class="state-code">GA</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,800–$4,200</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$377K</strong> · significantly cheaper than Florida coastal peers · Georgia exempts substantial retirement income for those 65+</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Virginia Beach&state=VA">
+        <div class="city-info">
+          <div class="city-name">Virginia Beach<span class="state-code">VA</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,800–$4,500</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$405K</strong> · more affordable than comparable Florida beach cities · Atlantic access plus military-town infrastructure</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Wilmington&state=NC">
+        <div class="city-info">
+          <div class="city-name">Wilmington<span class="state-code">NC</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,200–$4,500</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$420K</strong> · coastal North Carolina at a discount to comparable beach markets · historic downtown on the Cape Fear River</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 3 — HIDDEN VALUE ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 3</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot3"></span>Hidden Value — Cheaper Than You'd Guess</h3>
+    <p class="bucket-section-blurb">Cities with surprisingly low housing costs that rarely make the standard "cheapest places to retire" lists — small metros, river towns, and overlooked mid-sized cities where the median home sits well below $300K.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Paducah&state=KY">
+        <div class="city-info">
+          <div class="city-name">Paducah<span class="state-code">KY</span> <span class="city-badges"><span class="b-budget">Range 1 · $2,500–$3,500</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$160K — the lowest home price of any city we scored</strong> · UNESCO Creative City for crafts · river-town arts scene · the single most affordable entry point we found</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Corpus Christi&state=TX">
+        <div class="city-info">
+          <div class="city-name">Corpus Christi<span class="state-code">TX</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,000–$4,000</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$214K</strong> · cheapest beach city anywhere in the database · no Texas income tax · Gulf access most coastal towns can't price near</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Roanoke&state=VA">
+        <div class="city-info">
+          <div class="city-name">Roanoke<span class="state-code">VA</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,200–$4,500</span><span class="b-tax t-mod">Tax 5</span></span></div>
+          <div class="city-teams">Median home <strong>$229K</strong> · genuine Blue Ridge mountain access — Appalachian Trail and Parkway in the backyard — at one of the lowest home prices of any outdoor city</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Des Moines&state=IA">
+        <div class="city-info">
+          <div class="city-name">Des Moines<span class="state-code">IA</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,200–$4,200</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$230K</strong> · stable capital-city economy · Iowa now exempts retirement income for those 55+ · strong value for a real metro</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Kansas City&state=MO">
+        <div class="city-info">
+          <div class="city-name">Kansas City<span class="state-code">MO</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,500–$4,800</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$252K</strong> · major metro — sports, arts, healthcare, airport — at small-city housing prices · Missouri now exempts Social Security from state tax</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=La Crosse&state=WI">
+        <div class="city-info">
+          <div class="city-name">La Crosse<span class="state-code">WI</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,400–$4,000</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$258K</strong> · two top-tier teaching hospitals in a city of 50K · Driftless Region bluffs · rare combination of low cost and serious healthcare</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Hot Springs&state=AR">
+        <div class="city-info">
+          <div class="city-name">Hot Springs<span class="state-code">AR</span> <span class="city-badges"><span class="b-budget">Range 1 · $2,800–$3,800</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$235K</strong> · historic spa town wrapped around a national park · lakes and bathhouse district · Range 1 cost with genuine character</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Greenville&state=SC">
+        <div class="city-info">
+          <div class="city-name">Greenville<span class="state-code">SC</span> <span class="city-badges"><span class="b-budget">Range 1 · $3,200–$4,200</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$335K</strong> · revitalized walkable downtown with the Swamp Rabbit Trail · Blue Ridge 30 min · South Carolina's homestead exemption keeps property taxes low</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 4 — NORTHEAST & METRO SURPRISES ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 4</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot4"></span>Big-City Value — The Metro Surprises</h3>
+    <p class="bucket-section-blurb">Major cities most people assume are out of reach — but where the numbers say otherwise. Full metro infrastructure, world-class healthcare, and walkable cores at prices that undercut much smaller places. The Northeast names here defy the "Northeast equals expensive" reflex entirely.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Pittsburgh&state=PA">
+        <div class="city-info">
+          <div class="city-name">Pittsburgh<span class="state-code">PA</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,500–$6,500</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$425K–$700K</strong> · among the most affordable major cities in the database · world-class healthcare (UPMC) · PA's low flat income tax, Social Security exempt</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Philadelphia&state=PA">
+        <div class="city-info">
+          <div class="city-name">Philadelphia<span class="state-code">PA</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,500–$7,000</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$475K–$975K</strong> · a major East-Coast city at near-national-average cost of living · PA exempts retirement income, though the city wage tax applies to earned income</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. Louis&state=MO">
+        <div class="city-info">
+          <div class="city-name">St. Louis<span class="state-code">MO</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,500–$4,800</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$350K–$500K</strong> · big-metro culture, healthcare, and sports at Range 2 prices · Missouri now exempts Social Security from state tax</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=San Antonio&state=TX">
+        <div class="city-info">
+          <div class="city-name">San Antonio<span class="state-code">TX</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,200–$6,000</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$475K–$900K</strong> · major Texas metro with a deep military-medical complex · no state income tax · strong value at the top of Range 2 into Range 3</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Columbus&state=OH">
+        <div class="city-info">
+          <div class="city-name">Columbus<span class="state-code">OH</span> <span class="city-badges"><span class="b-budget">Range 2 · $3,500–$4,500</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$260K</strong> · state-capital and Big Ten college-town energy · diversified economy · genuinely low housing for a metro this size</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Las Vegas&state=NV">
+        <div class="city-info">
+          <div class="city-name">Las Vegas<span class="state-code">NV</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,500–$5,500</span><span class="b-tax t-best">Tax 10</span></span></div>
+          <div class="city-teams">Median home <strong>$430K</strong> · no Nevada income tax · major-metro entertainment, airport, and healthcare · the tax-free metro option in the desert Southwest</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 5 — PAY-MORE-BUT-WORTH-IT ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 5</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot5"></span>Worth the Premium — Where the Money Goes Somewhere</h3>
+    <p class="bucket-section-blurb">Range 3–4 cities that aren't cheap, but where the higher cost buys something specific and real — favorable taxes, exceptional setting, or amenities that justify the spend. Pricier than the value tier, but not the blind premium of the luxury markets.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Henderson&state=NV">
+        <div class="city-info">
+          <div class="city-name">Henderson<span class="state-code">NV</span> <span class="city-badges"><span class="b-budget">Range 3 · $3,800–$5,200</span><span class="b-tax t-best">Tax 10</span></span></div>
+          <div class="city-teams">Median home <strong>$465K</strong> · no Nevada income tax · Sun City Anthem and elite active-adult infrastructure · the tax-free dollar stretches over master-planned amenities</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=The Woodlands&state=TX">
+        <div class="city-info">
+          <div class="city-name">The Woodlands<span class="state-code">TX</span> <span class="city-badges"><span class="b-budget">Range 4 · $5,500–$7,500</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$474K</strong> · unusually low home price for a Range 4 city · master-planned trails and amenities · no Texas income tax · Houston medical complex 40 min</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Naples&state=FL">
+        <div class="city-info">
+          <div class="city-name">Naples<span class="state-code">FL</span> <span class="city-badges"><span class="b-budget">Range 4 · $6,500–$7,500</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$675K</strong> · the most complete 55+ active-adult ecosystem in Florida · no state income tax softens the premium · HOA fees common in gated communities</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Scottsdale&state=AZ">
+        <div class="city-info">
+          <div class="city-name">Scottsdale<span class="state-code">AZ</span> <span class="city-badges"><span class="b-budget">Range 4 · $6,500–$8,500</span><span class="b-tax t-good">Tax 8</span></span></div>
+          <div class="city-teams">Median home <strong>$875K</strong> · 20%+ above national cost of living · resort-grade golf and pickleball · Arizona's low flat tax · summer AC bills are the recurring cost</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Durango&state=CO">
+        <div class="city-info">
+          <div class="city-name">Durango<span class="state-code">CO</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,500–$6,000</span><span class="b-tax t-good">Tax 8</span></span></div>
+          <div class="city-teams">County median <strong>$682K</strong> · the most accessible true mountain town in the database · Colorado's senior retirement-income deduction is among the best · still steep for a remote small town</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sarasota&state=FL">
+        <div class="city-info">
+          <div class="city-name">Sarasota<span class="state-code">FL</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,800–$6,200</span><span class="b-tax t-good">Tax 9</span></span></div>
+          <div class="city-teams">Median home <strong>$538K</strong> · Siesta Key and a strong arts scene · no Florida income tax · getting expensive — inland Palmer Ranch and North Port are cheaper entry points</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Charleston&state=SC">
+        <div class="city-info">
+          <div class="city-name">Charleston<span class="state-code">SC</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,800–$5,800</span><span class="b-tax t-mod">Tax 6</span></span></div>
+          <div class="city-teams">Median home <strong>$523K</strong> · rising fast · historic-coastal character few cities match · Johns Island and Summerville offer cheaper ways in</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=St. George&state=UT">
+        <div class="city-info">
+          <div class="city-name">St. George<span class="state-code">UT</span> <span class="city-badges"><span class="b-budget">Range 3 · $4,500–$6,000</span><span class="b-tax t-mod">Tax 5</span></span></div>
+          <div class="city-teams">Median home <strong>$530K</strong> — up sharply since 2020 · red-rock setting with Zion and Snow Canyon access · year-round outdoor season is the draw at the higher cost</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT 6 — KNOW WHAT YOU'RE PAYING ============ -->
+  <section class="bucket-section">
+    <p class="bucket-section-h2">Spotlight 6</p>
+    <h3 class="bucket-section-h3"><span class="bucket-section-marker spot6"></span>The Premium Tier — Know What You're Paying</h3>
+    <p class="bucket-section-blurb">The most expensive cities in the database — and, in several cases, the worst tax treatment too. The lifestyle premium is real, but so is the cost. These require a solid retirement income, and the California, New York, and resort-luxury markets layer high taxes on top of high prices.</p>
+
+    <div class="city-list">
+
+      <a class="city-card" href="index.html?city=Jackson Hole&state=WY">
+        <div class="city-info">
+          <div class="city-name">Jackson Hole<span class="state-code">WY</span> <span class="city-badges"><span class="b-budget">Range 5 · $8,000–$15,000+</span><span class="b-tax t-best">Tax 10</span></span></div>
+          <div class="city-teams">Median home <strong>$1.85M</strong> · among the priciest real estate in America · the one luxury market with zero state income tax, which is precisely why the wealthy cluster here</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Vail&state=CO">
+        <div class="city-info">
+          <div class="city-name">Vail<span class="state-code">CO</span> <span class="city-badges"><span class="b-budget">Range 5 · $10,000–$15,000</span><span class="b-tax t-mod">Tax 5</span></span></div>
+          <div class="city-teams">Median home <strong>$3.1M</strong> · gold-standard mountain resort · world-class skiing and a European-style village · resort pricing on essentially everything</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Park City&state=UT">
+        <div class="city-info">
+          <div class="city-name">Park City<span class="state-code">UT</span> <span class="city-badges"><span class="b-budget">Range 5 · $8,000+</span><span class="b-tax t-poor">Tax 4</span></span></div>
+          <div class="city-teams">Median home <strong>$1.52M</strong> · two world-class ski resorts in the backyard · highest sales tax in Utah · SLC airport 35 min · resort-town pricing throughout</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Carlsbad&state=CA">
+        <div class="city-info">
+          <div class="city-name">Carlsbad<span class="state-code">CA</span> <span class="city-badges"><span class="b-budget">Range 5 · $10,000–$12,000</span><span class="b-tax t-poor">Tax 2</span></span></div>
+          <div class="city-teams">Median home <strong>$1.45M</strong> · perfect coastal climate · California income tax reaches 13.3% · premium housing <em>and</em> a heavy tax bite — the double premium in full</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Santa Barbara&state=CA">
+        <div class="city-info">
+          <div class="city-name">Santa Barbara<span class="state-code">CA</span> <span class="city-badges"><span class="b-budget">Range 5 · $8,000–$14,000+</span><span class="b-tax t-poor">Tax 2</span></span></div>
+          <div class="city-teams">Median home <strong>$1.85M</strong> · the American Riviera · extremely limited housing supply · high California taxes on top of luxury prices</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Palm Springs&state=CA">
+        <div class="city-info">
+          <div class="city-name">Palm Springs<span class="state-code">CA</span> <span class="city-badges"><span class="b-budget">Range 4 · $6,000–$8,000</span><span class="b-tax t-poor">Tax 2</span></span></div>
+          <div class="city-teams">Median home <strong>$662K</strong> · the most accessible California luxury option · still high taxes · summer AC bills and some land-lease fees add up</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Saratoga Springs&state=NY">
+        <div class="city-info">
+          <div class="city-name">Saratoga Springs<span class="state-code">NY</span> <span class="city-badges"><span class="b-budget">Range 4 · $5,000–$7,000</span><span class="b-tax t-poor">Tax 2</span></span></div>
+          <div class="city-teams">Median home <strong>$500K</strong> · historic spa-and-racing town · New York income tax tops 10.9% · the premium here is taxes more than housing</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+      <a class="city-card" href="index.html?city=Sun Valley&state=ID">
+        <div class="city-info">
+          <div class="city-name">Sun Valley<span class="state-code">ID</span> <span class="city-badges"><span class="b-budget">Range 5 · $7,500–$10,000</span><span class="b-tax t-good">Tax 7</span></span></div>
+          <div class="city-teams">Median home <strong>$1.35M</strong> · America's original destination ski resort · Idaho's flat tax is relatively friendly · the cost is the setting, not the tax</div>
+        </div>
+        <span class="city-arrow">→</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ QUIZ CTA ============ -->
+  <section class="quiz-cta">
+    <div class="quiz-cta-bg"></div>
+    <div class="quiz-cta-inner">
+      <p class="quiz-cta-eyebrow">Want a personalized match?</p>
+      <h3 class="quiz-cta-h3">This report covered the cities where your <span class="accent">money goes furthest.</span></h3>
+      <p class="quiz-cta-body">Our database has 100. Take the 2-minute quiz to see how all 100 rank against your specific priorities — budget and taxes alongside the nine other dimensions that shape where you should retire.</p>
+      <a href="index.html" class="quiz-cta-btn">Take the 2-minute quiz →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-wordmark"><span class="sf-retire">RETIREME</span><span class="sf-here">HERE</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="index.html">Take the Quiz</a>
   </div>
+  <p class="site-footer-copy">© RetireMeHere · Real data, honest tradeoffs.</p>
+</footer>
 
-  <div class="insight-card">
-    <h3>🏙️ The Northeast Surprise: Philly and Pittsburgh</h3>
-    <p>Most people assume Northeast automatically means expensive. Philadelphia and Pittsburgh break that assumption completely. Philadelphia's median home is $270K — comparable to San Antonio TX — with cost of living only 4–10% above national average. Pittsburgh's median home is $265K, the lowest of any major city in the database. Both cities sit in Budget Range 2. Both have world-class healthcare scoring 10/10. Pennsylvania's flat 3.07% income tax is the lowest flat rate nationally, and Social Security is exempt.</p>
-  </div>
+<script>
+function toggleMobileNav() {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+function toggleTopCitiesDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd && dd.classList.contains('open')) {
+    if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
+      dd.classList.remove('open');
+    }
+  }
+  var tc = document.getElementById('topCitiesDropdown');
+  if (tc && tc.classList.contains('open')) {
+    if (!e.target.closest('#topCitiesDropdown')) {
+      tc.classList.remove('open');
+    }
+  }
+});
+</script>
 
-  <div class="insight-card">
-    <h3>⚠️ The California and New York Premium</h3>
-    <p>Carlsbad, Santa Barbara, Palm Springs, and Saratoga Springs sit in Budget Range 4–5 with tax scores of 2 — the worst combination in the database. California's income tax reaches 13.3% on retirement income. New York tops 10.9%. You're paying premium housing prices AND handing a significant portion of your retirement income to the state.</p>
-  </div>
-
-  <div class="insight-card">
-    <h3>🔍 Hidden Value: The "Afford More Than You Think" Cities</h3>
-    <p>Fayetteville AR (Budget Range 1, tax score 7), Greenville SC (Range 1, tax score 6), and St. Paul MN (Range 2, tax score 3) all offer surprisingly low housing costs. St. Paul's strong value on housing is offset by Minnesota's aggressive income tax — but Fayetteville and Greenville deliver genuine budget-friendly options that most lists overlook.</p>
-  </div>
-
-  <div class="insight-card">
-    <h3>🏔️ The Mountain Premium</h3>
-    <p>The most scenic mountain cities carry steep price tags. Park City (Budget Range 5, $1.5M+ median home), Jackson Hole (Range 5, $1.85M median), Sedona (Range 4, $930K median), and Bozeman (Range 4, $700K+) are gorgeous but financially demanding. Durango CO and Missoula MT are the most accessible mountain options.</p>
-  </div>
-
-</div>
-
-<!-- SECTION: BEST -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon best">🏆</div>
-    <div class="section-title">
-      <h2>Best Value — Budget Range 1–2, Tax Score 8–10</h2>
-      <p>Affordable cost of living + favorable tax treatment · Your dollar goes furthest here</p>
-    </div>
-  </div>
-  <div class="city-list">
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Chattanooga</div><div class="city-state">TN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge best">Tax 10/10</span>
-        </div>
-      </div>
-      <div class="star-tag">★ Best Value in Database</div>
-      <div class="value-note">Median home $314K. Monthly costs $3,000–$4,000. Among the most affordable in the Southeast. Exceptional value.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Corpus Christi</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $214K — most affordable Gulf Coast beach city in the database. Monthly costs $3,000–$4,000. No Texas income tax amplifies value.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">San Antonio</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $260K. Monthly costs $2,800–$3,800. Range 2. Best value major city in the database. No Texas income tax amplifies the advantage.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Knoxville</div><div class="city-state">TN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $327K. Monthly costs $3,200–$4,200. Range 2. Excellent value in a city with real healthcare and outdoor recreation.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Spokane</div><div class="city-state">WA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $385K. Monthly costs $3,200–$4,500. Affordable Pacific Northwest. Much less expensive than Seattle, Portland, or Bend.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fort Myers</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $343K — more affordable than Naples or Sarasota for similar Gulf Coast access. Hurricane Ian insurance costs significant.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Pensacola</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $340K. Monthly costs $3,000–$4,200. Range 2. More affordable than most FL beach cities. Good value.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Johnson City</div><div class="city-state">TN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="star-tag">★ Most Affordable City in Database</div>
-      <div class="value-note">Median home $285K. Monthly costs $2,500–$3,200. Range 1. The most affordable city in the database. Comfortable retirement on modest income.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Tucson</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $315K. Monthly costs $3,200–$4,200. Range 2. Excellent value — affordable with real university culture and outdoor access.</div>
-    </div>
-    <div class="city-row best">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fort Worth</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $340K. Monthly costs $3,000–$4,200. Range 2. Strong value for a major Texas metro with no income tax.</div>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION: GOOD -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon good">👍</div>
-    <div class="section-title">
-      <h2>Good Value — Range 2–3, Tax Score 6–9</h2>
-      <p>Solid value proposition · Moderate costs with reasonable tax treatment</p>
-    </div>
-  </div>
-  <div class="city-list">
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Henderson</div><div class="city-state">NV</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 10/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $465K. Monthly costs $3,800–$5,200. Range 3. No Nevada income tax amplifies value.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Tampa</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $400K. Monthly costs $3,500–$5,000. More affordable than Sarasota or Naples. Range 2. Strong value for a major FL metro.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Georgetown</div><div class="city-state">TX</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $450K. Monthly costs $3,200–$4,500. Range 2. Good value for Austin-area access with no state income tax.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Sarasota</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $538K. Monthly costs $4,800–$6,200. Getting expensive. Palmer Ranch and North Port offer more affordable alternatives.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. Augustine</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $425K. Monthly costs $3,500–$5,000. Getting expensive for historic FL city. Range 2.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Delray Beach</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $500K. Monthly costs $5,000–$6,500. 21% above national average. Century Village offers more affordable 55+ entry points.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Nashua</div><div class="city-state">NH</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $490K. Monthly costs $4,500–$6,000. Elevated for a NH city. Boston proximity drives prices.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Pittsburgh</div><div class="city-state">PA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="star-tag">★ Best Budget + Healthcare Combination in the Database</div>
-      <div class="value-note">Median home ~$265K — most affordable major city in the entire database. Monthly costs $3,200–$4,500. Cost of living near the national average. The best budget + healthcare combination of any city we s</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fayetteville</div><div class="city-state">AR</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $350K. Monthly costs $2,800–$3,800. Range 1. Outstanding value — affordable with genuine university culture and outdoor access.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Savannah</div><div class="city-state">GA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $377K — significantly more affordable than FL coastal peers. Monthly costs $3,800–$4,200.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Virginia Beach</div><div class="city-state">VA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $405K. Monthly costs $3,800–$4,500. More affordable than comparable FL beach cities.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Wilmington</div><div class="city-state">NC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $420K. Monthly costs $3,200–$4,500. More affordable than comparable coastal NC markets. Range 2.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Raleigh</div><div class="city-state">NC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $445K. Monthly costs $3,500–$4,800. Range 3. Getting more expensive but reasonable for the healthcare and airport access.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Fairhope</div><div class="city-state">AL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $480K — high for a small Alabama town. Reflects the desirability and limited supply. Monthly costs $3,200–$4,500.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Colorado Springs</div><div class="city-state">CO</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $445K. Monthly costs $3,800–$5,000. Range 3. Reasonable value for the outdoor recreation and healthcare access.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Greenville</div><div class="city-state">SC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 1 · <$3,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $335K — 27% below national average. Monthly costs $3,200–$4,200. Outstanding value. SC primary residence exemption keeps property taxes very low.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Lexington</div><div class="city-state">KY</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $330K. Monthly costs $3,200–$4,200. Range 2. Good value in a city with genuine culture and top-tier healthcare.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bloomington</div><div class="city-state">IN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $345K. Monthly costs $3,200–$4,200. Affordable college town. Strong rental market given IU enrollment.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Philadelphia</div><div class="city-state">PA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="star-tag">★ Northeast Surprise — Major City at Midwest Prices</div>
-      <div class="value-note">Median home ~$270K — extraordinary for a major East Coast city. Monthly costs $3,500–$5,000. Cost of living only 4–10% above national average. Note: Philadelphia city wage tax (3.74%) applies to earne</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Charleston</div><div class="city-state">SC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $523K. Monthly costs $4,800–$5,800. Rising rapidly. Johns Island and Summerville offer more affordable alternatives.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Asheville</div><div class="city-state">NC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $465K. Above expectations for an inland mountain city. Hurricane Helene (2024) disrupted some areas. Monthly costs $4,200–$5,500.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Ann Arbor</div><div class="city-state">MI</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $425K. Monthly costs $3,800–$5,200. Getting expensive for a Midwest college town. Range 3.</div>
-    </div>
-    <div class="city-row good">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. Paul</div><div class="city-state">MN</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 2 · $3,500–5,000/mo</span>
-          <span class="tax-badge poor">Tax 3/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $280K. Monthly costs $3,200–$3,800. Heating bills significant in winter. Among the most affordable metros in the database.</div>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION: MODERATE -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon moderate">⚖️</div>
-    <div class="section-title">
-      <h2>Moderate Value — Range 3–4, Mixed Tax</h2>
-      <p>Above average costs · Value depends on lifestyle fit and income situation</p>
-    </div>
-  </div>
-  <div class="city-list">
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Naples</div><div class="city-state">FL</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge best">Tax 9/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $675K. Monthly costs $6,500–$7,500. Most expensive city in the database. HOA fees $300–$800/mo common in gated communities.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Prescott</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $525K. Monthly costs $4,000–$5,500. Range 3. Getting expensive — retiree demand has driven prices well above regional norms.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Scottsdale</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $875K. Monthly costs $6,500–$8,500. 20%+ above national average. Summer utility bills spike $400–$600+/mo for AC.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Flagstaff</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $650K. Monthly costs $5,000–$7,000. Expensive for an inland AZ city. Premium driven by lifestyle and limited supply.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Durango</div><div class="city-state">CO</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Cost of living 18% above national average. County median $682K; in-town Durango ~$847K. More affordable than Park City or Sedona but expensive for a remote small town.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Sedona</div><div class="city-state">AZ</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge good">Tax 8/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home ~$930K. Average SFH sale price $1.32M. Cost of living 17-33% above national average. Entry-level condos in Village of Oak Creek start ~$300K.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Hilton Head</div><div class="city-state">SC</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge good">Tax 7/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $800K. Monthly costs $4,500–$5,500. Island premium significant. HOA fees $300–$700/mo common in plantation communities.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Boise</div><div class="city-state">ID</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $500K. Monthly costs $3,800–$5,200. Up significantly since 2020. Range 3.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Charlottesville</div><div class="city-state">VA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $460K. Monthly costs $4,000–$5,500. Range 3. Getting expensive driven by UVA demand and Blue Ridge lifestyle premium.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bend</div><div class="city-state">OR</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $800K. Monthly costs $4,500–$6,000. Range 3. Has surged dramatically — Bend is now unaffordable relative to where it was.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Alexandria</div><div class="city-state">VA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge moderate">Tax 6/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home ~$970K. Monthly costs $6,500–$9,000+. Cost of living 40%+ above national average. One of the most expensive cities in the database alongside Scottsdale, Park City, and Santa Barbara.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Santa Fe</div><div class="city-state">NM</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $520K — expensive relative to region and city size. Art-city pricing premium. More affordable than coastal peers.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Madison</div><div class="city-state">WI</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $375K. Monthly costs $3,800–$5,000. Getting expensive — demand driven by strong economy and quality of life.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">St. George</div><div class="city-state">UT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $530K — up 40%+ since 2020. Monthly costs $4,500–$6,000. Above expectations for an inland desert city.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Bozeman</div><div class="city-state">MT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge moderate">Tax 5/10</span>
-        </div>
-      </div>
-      <div class="value-note">Cost of living 29-30% above national average. Median home ~$700K (SFH ~$875K). Housing 48-55% above national average.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Silver Spring</div><div class="city-state">MD</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home ~$630K. Monthly costs $5,000–$6,500. Expensive for a suburb but notably cheaper than DC proper, Bethesda, or Alexandria. Better value proposition for DC metro access.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Missoula</div><div class="city-state">MT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $550K — most affordable of the 5 new mountain cities. Housing market softening for first time in 15 years.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Portland</div><div class="city-state">ME</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $545K. Monthly costs $5,000–$7,000. Getting expensive — Boston commuter demand driving prices. Range 4.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Annapolis</div><div class="city-state">MD</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $655K. Monthly costs $5,500–$7,500. Range 4. Getting very expensive. Naval Academy and DC proximity drive prices.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Eugene</div><div class="city-state">OR</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 3 · $5,000–6,500/mo</span>
-          <span class="tax-badge poor">Tax 3/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $460K. Monthly costs $4,200–$5,500. Getting expensive for a college town. Range 3.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Palm Springs</div><div class="city-state">CA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
-        </div>
-      </div>
-      <div class="warning-tag">⚠️ High Tax + High Cost</div>
-      <div class="value-note">Median home $662K. Monthly costs $6,000–$8,000. Summer utilities spike $300–$500/mo for AC. Many properties carry Agua Caliente land lease fees.</div>
-    </div>
-    <div class="city-row moderate">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Saratoga Springs</div><div class="city-state">NY</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 4 · $6,500–8,000/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $500K. Monthly costs $5,000–$7,000. Range 4. Getting expensive — Boston-NYC weekend destination drives prices.</div>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION: PREMIUM -->
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-icon premium">💎</div>
-    <div class="section-title">
-      <h2>Premium Tier — Range 4–5, Know What You're Paying</h2>
-      <p>High cost of living · Requires solid retirement income · Lifestyle premium is real</p>
-    </div>
-  </div>
-  <div class="city-list">
-    <div class="city-row premium">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Jackson Hole</div><div class="city-state">WY</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge best">Tax 10/10</span>
-        </div>
-      </div>
-      <div class="warning-tag">⚠️ Elite Lifestyle Premium</div>
-      <div class="value-note">Median home $1.85M. Monthly costs $8,000–$15,000+. Range 5. Most expensive city in the database. Real estate among the most expensive in America.</div>
-    </div>
-    <div class="city-row premium">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Park City</div><div class="city-state">UT</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge poor">Tax 4/10</span>
-        </div>
-      </div>
-      <div class="value-note">Median home $1.5M+. Cost of living index 213 vs. national 100. Sales tax 9.05% — highest in Utah. Resort-town pricing throughout.</div>
-    </div>
-    <div class="city-row premium">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Carlsbad</div><div class="city-state">CA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
-        </div>
-      </div>
-      <div class="warning-tag">⚠️ Highest Cost in Database</div>
-      <div class="value-note">Median home $1.45M+. Monthly costs $10,000–$12,000+. The least affordable city in the database by a significant margin.</div>
-    </div>
-    <div class="city-row premium">
-      <div class="city-row-top">
-        <div class="city-name-wrap"><div class="city-name">Santa Barbara</div><div class="city-state">CA</div></div>
-        <div class="badges">
-          <span class="budget-badge">Range 5 · $8,000+/mo</span>
-          <span class="tax-badge poor">Tax 2/10</span>
-        </div>
-      </div>
-      <div class="warning-tag">⚠️ Luxury Tier</div>
-      <div class="value-note">Median home $1.85M. Monthly costs $8,000–$14,000+. Range 5. Among the most expensive cities in the database. Very limited housing supply.</div>
-    </div>
-  </div>
-</div>
-
-<div class="cta">
-  <h2>Ready to find your best match?</h2>
-  <p>Take our free quiz and get matched to your top retirement cities — scored across 10 dimensions with real data and honest tradeoffs.</p>
-  <a href="https://retiremehere.com" class="cta-btn">Take the Quiz →</a>
-  <div class="cta-fine">retiremehere.com · Free · No account required<br>Questions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="017364756873646c646964736441666c60686d2f626e6c">[email&#160;protected]</a></div>
-</div>
-
-<div class="footer">
-  <p>
-    A RetireMeHere Deep Dive Report · March 2026<br>
-    Data: Zillow · BLS Consumer Expenditure Survey · Tax Foundation · State revenue departments<br>
-    <a href="https://retiremehere.c
+</body>
+</html>
