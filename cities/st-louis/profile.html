@@ -923,6 +923,41 @@ footer {
   gap: 10px;
   flex-wrap: wrap;
 }
+.guide-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.guide-chip {
+  padding: 10px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.92);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.guide-chip:hover {
+  border-color: var(--gold);
+  background: rgba(212, 168, 75, 0.15);
+}
+.guide-chip.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--dark);
+}
+.guide-form-area {
+  background: rgba(255,255,255,0.96);
+  border-radius: 8px;
+}
+.guide-form-area:has(.ml-form-wrap[style*="block"]) {
+  padding: 6px 10px;
+  margin-bottom: 4px;
+}
 .capture-form input[type="email"] {
   flex: 1 1 240px;
   padding: 15px 20px;
@@ -1297,44 +1332,34 @@ footer {
       <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists — starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
     </div>
     <div>
-      <!-- Capture wiring matches index.html's proven pattern:
-           Netlify Forms backup POST + MailerLite popup + GA event.
-           ML form ID 'ETbvqw' = Quiz Results group (reused for now).
-           To track profile signups separately later: create a new ML form,
-           swap the ID below, no other changes needed. -->
-      <form class="capture-form" id="profileCaptureForm" onsubmit="submitProfileCapture(event)">
-        <input type="email" id="profileCaptureEmail" placeholder="Your email address" required aria-label="Email address">
-        <button type="submit">Send My Report</button>
-      </form>
-      <p class="capture-micro" id="profileCaptureMicro">We send city insights a couple of times a month. No selling your address, ever.</p>
+      <!-- Guide picker: each chip reveals that report's MailerLite embedded form.
+           Forms render hidden at page load; chips toggle visibility.
+           IDs match the embedded forms in MailerLite (account 2238788). -->
+      <div class="guide-chips" id="guideChips">
+        <button class="guide-chip" onclick="pickGuide('fwB9NA', this)">✈️ Globetrotter Guide</button>
+        <button class="guide-chip" onclick="pickGuide('f03tJB', this)">🏥 Wellness Blueprint</button>
+        <button class="guide-chip" onclick="pickGuide('W6rMh2', this)">💰 Value Navigator</button>
+        <button class="guide-chip" onclick="pickGuide('dJJ40D', this)">🚶 Urban Walkabout</button>
+        <button class="guide-chip" onclick="pickGuide('g4M1M8', this)">🏔️ Active Frontier</button>
+      </div>
+      <div class="guide-form-area">
+        <div class="ml-form-wrap" id="mlwrap-fwB9NA" style="display:none"><div class="ml-embedded" data-form="fwB9NA"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-f03tJB" style="display:none"><div class="ml-embedded" data-form="f03tJB"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-W6rMh2" style="display:none"><div class="ml-embedded" data-form="W6rMh2"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-dJJ40D" style="display:none"><div class="ml-embedded" data-form="dJJ40D"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-g4M1M8" style="display:none"><div class="ml-embedded" data-form="g4M1M8"></div></div>
+      </div>
+      <p class="capture-micro">Pick a guide, enter your email, and it's on its way. No selling your address, ever.</p>
       <script>
-      function submitProfileCapture(e) {
-        e.preventDefault();
-        var emailEl = document.getElementById('profileCaptureEmail');
-        var email = emailEl ? emailEl.value.trim() : '';
-        if (!email || email.indexOf('@') === -1) {
-          if (emailEl) { emailEl.focus(); emailEl.style.outline = '2px solid var(--terra)'; }
-          return;
-        }
-        var data = new URLSearchParams({
-          'form-name': 'quiz-results',
-          'email': email,
-          'city': 'St. Louis (profile page)',
-          'bot-field': ''
-        });
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: data.toString()
-        }).catch(function() {});
-        try { ml('show', 'ETbvqw', true); } catch (err) {}
+      function pickGuide(formId, btn) {
+        document.querySelectorAll('.guide-form-area .ml-form-wrap').forEach(function(w) { w.style.display = 'none'; });
+        document.querySelectorAll('.guide-chip').forEach(function(c) { c.classList.remove('active'); });
+        var wrap = document.getElementById('mlwrap-' + formId);
+        if (wrap) { wrap.style.display = 'block'; }
+        if (btn) { btn.classList.add('active'); }
         if (typeof gtag !== 'undefined') {
-          gtag('event', 'profile_capture', { event_category: 'Engagement', event_label: 'St. Louis (profile page)' });
+          gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (St. Louis profile)' });
         }
-        var form = document.getElementById('profileCaptureForm');
-        var micro = document.getElementById('profileCaptureMicro');
-        if (form) { form.style.display = 'none'; }
-        if (micro) { micro.innerHTML = '<strong style="color: var(--gold);">✓ On its way!</strong> Check your inbox — and the popup, if it appeared, finishes your signup.'; }
       }
       </script>
     </div>
