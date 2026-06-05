@@ -7,6 +7,12 @@
 <meta name="description" content="An editorial profile of St. Louis, Missouri as a retirement destination. Barnes-Jewish on the U.S. News Honor Roll, Forest Park larger than Central Park, free world-class culture, Midwest prices. The honest tradeoffs.">
 <link rel="canonical" href="https://retiremehere.com/cities/st-louis/profile.html">
 
+<!-- MailerLite Universal -->
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2238788');
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -703,7 +709,8 @@ body {
 .lists-section { background: var(--cream); }
 .lists-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
   gap: 18px;
   margin-top: 48px;
 }
@@ -862,6 +869,204 @@ footer {
 }
 
 /* ============================================
+   EMAIL CAPTURE
+   ============================================ */
+.capture-section {
+  background: var(--teal-deep);
+  position: relative;
+  overflow: hidden;
+}
+.capture-section::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: -10%;
+  width: 50%; height: 180%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.14) 0%, transparent 60%);
+  pointer-events: none;
+}
+.capture-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 72px 48px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 56px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.capture-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.capture-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: white;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+.capture-h2 em { font-style: italic; color: var(--gold); }
+.capture-sub {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.78);
+  max-width: 480px;
+}
+.capture-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.capture-form input[type="email"] {
+  flex: 1 1 240px;
+  padding: 15px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.96);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--dark);
+  outline: none;
+}
+.capture-form input[type="email"]:focus { border-color: var(--gold); }
+.capture-form button {
+  padding: 15px 30px;
+  border-radius: 100px;
+  border: none;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.capture-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(212, 168, 75, 0.4);
+}
+.capture-micro {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 12px;
+}
+
+/* ============================================
+   PLAN YOUR MOVE — services slot
+   ============================================ */
+.services-section { background: var(--sand); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
+.service-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 30px 28px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 8px;
+  position: relative;
+}
+.service-card:hover {
+  border-color: var(--terra);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.service-card-kicker {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--terra);
+}
+.service-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.service-card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); line-height: 1.5;
+}
+.service-card-arrow {
+  position: absolute;
+  top: 26px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.service-card:hover .service-card-arrow { opacity: 1; transform: translateX(2px); }
+
+/* ============================================
+   RELATED CITIES
+   ============================================ */
+.related-section { background: var(--paper); }
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
+.related-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 30px 28px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.related-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.related-card-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.related-card-state {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.related-card-why {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); line-height: 1.5;
+}
+.related-card-arrow {
+  position: absolute;
+  top: 28px; right: 22px;
+  font-size: 18px;
+  color: var(--teal);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.related-card:hover .related-card-arrow { opacity: 1; transform: translateX(2px); }
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 880px) {
@@ -952,7 +1157,15 @@ footer {
   }
   .health-icon { font-size: 40px; }
 
-  .lists-grid { grid-template-columns: 1fr; }
+  .lists-grid { grid-template-columns: minmax(0, 340px); }
+
+  .capture-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 56px 24px;
+  }
+  .services-grid { grid-template-columns: minmax(0, 340px); }
+  .related-grid { grid-template-columns: minmax(0, 340px); }
 
   .cta-inner { padding: 72px 24px; }
 
@@ -1071,6 +1284,59 @@ footer {
           </li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE -->
+<section class="capture-section">
+  <div class="capture-inner">
+    <div>
+      <div class="capture-eyebrow">Free Deep Dive Reports</div>
+      <h2 class="capture-h2">Like how we look at cities? <em>Get the reports.</em></h2>
+      <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists — starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
+    </div>
+    <div>
+      <!-- Capture wiring matches index.html's proven pattern:
+           Netlify Forms backup POST + MailerLite popup + GA event.
+           ML form ID 'ETbvqw' = Quiz Results group (reused for now).
+           To track profile signups separately later: create a new ML form,
+           swap the ID below, no other changes needed. -->
+      <form class="capture-form" id="profileCaptureForm" onsubmit="submitProfileCapture(event)">
+        <input type="email" id="profileCaptureEmail" placeholder="Your email address" required aria-label="Email address">
+        <button type="submit">Send My Report</button>
+      </form>
+      <p class="capture-micro" id="profileCaptureMicro">We send city insights a couple of times a month. No selling your address, ever.</p>
+      <script>
+      function submitProfileCapture(e) {
+        e.preventDefault();
+        var emailEl = document.getElementById('profileCaptureEmail');
+        var email = emailEl ? emailEl.value.trim() : '';
+        if (!email || email.indexOf('@') === -1) {
+          if (emailEl) { emailEl.focus(); emailEl.style.outline = '2px solid var(--terra)'; }
+          return;
+        }
+        var data = new URLSearchParams({
+          'form-name': 'quiz-results',
+          'email': email,
+          'city': 'St. Louis (profile page)',
+          'bot-field': ''
+        });
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: data.toString()
+        }).catch(function() {});
+        try { ml('show', 'ETbvqw', true); } catch (err) {}
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'profile_capture', { event_category: 'Engagement', event_label: 'St. Louis (profile page)' });
+        }
+        var form = document.getElementById('profileCaptureForm');
+        var micro = document.getElementById('profileCaptureMicro');
+        if (form) { form.style.display = 'none'; }
+        if (micro) { micro.innerHTML = '<strong style="color: var(--gold);">✓ On its way!</strong> Check your inbox — and the popup, if it appeared, finishes your signup.'; }
+      }
+      </script>
     </div>
   </div>
 </section>
@@ -1250,6 +1516,39 @@ footer {
   </div>
 </section>
 
+<!-- PLAN YOUR MOVE — services slot
+     AFFILIATE-SLOT: these three cards currently hold internal links.
+     At affiliate activation (Month 3), swap card contents for partner placements
+     (moving services, senior-living search, insurance comparison) and add
+     FTC disclosure line below the grid. Structure/classes stay identical. -->
+<section class="section services-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Planning a move?</div>
+    <h2 class="section-title">Next steps if St. Louis is <em>on your shortlist</em>.</h2>
+
+    <div class="services-grid">
+      <a href="/" class="service-card">
+        <div class="service-card-kicker">Step 1 · Match</div>
+        <div class="service-card-name">Take the 7-question quiz</div>
+        <div class="service-card-desc">See how St. Louis scores against your actual priorities — and which cities beat it for you.</div>
+        <span class="service-card-arrow">→</span>
+      </a>
+      <a href="/top-cities-for-healthcare.html" class="service-card">
+        <div class="service-card-kicker">Step 2 · Compare</div>
+        <div class="service-card-name">See the healthcare leaders</div>
+        <div class="service-card-desc">St. Louis earns a 10/10 here — see every city in our database that competes on care.</div>
+        <span class="service-card-arrow">→</span>
+      </a>
+      <a href="/#reports" class="service-card">
+        <div class="service-card-kicker">Step 3 · Go deeper</div>
+        <div class="service-card-name">Get the Deep Dive reports</div>
+        <div class="service-card-desc">Themed shortlists built on the same scoring — free by email, starting with Active Frontier.</div>
+        <span class="service-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- APPEARS ON LISTS -->
 <section class="section lists-section">
   <div class="wrap">
@@ -1273,6 +1572,38 @@ footer {
         <div class="list-card-name">Top Cities for Sports Fans</div>
         <div class="list-card-tier">Cardinals · Blues · St. Louis City SC</div>
         <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED CITIES
+     Picks derived from CityDatabase May 19 v11: same budget tier as St. Louis,
+     closest D1–D10 dimension vector. (Kansas City chosen over Des Moines for
+     the same-state comparison readers naturally weigh.) -->
+<section class="section related-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Weighing your options</div>
+    <h2 class="section-title">Considering St. Louis? <em>Compare these.</em></h2>
+
+    <div class="related-grid">
+      <a href="/index.html?city=Columbus&state=OH" class="related-card">
+        <div class="related-card-name">Columbus</div>
+        <div class="related-card-state">Ohio</div>
+        <div class="related-card-why">The closest overall match in our database — major-metro culture, strong healthcare, same budget tier.</div>
+        <span class="related-card-arrow">→</span>
+      </a>
+      <a href="/index.html?city=Kansas+City&state=MO" class="related-card">
+        <div class="related-card-name">Kansas City</div>
+        <div class="related-card-state">Missouri</div>
+        <div class="related-card-why">The in-state comparison — similar budget and urban-cultural profile on the other side of Missouri.</div>
+        <span class="related-card-arrow">→</span>
+      </a>
+      <a href="/index.html?city=Lexington&state=KY" class="related-card">
+        <div class="related-card-name">Lexington</div>
+        <div class="related-card-state">Kentucky</div>
+        <div class="related-card-why">Strong healthcare and walkable college-town energy at a slightly gentler monthly budget.</div>
+        <span class="related-card-arrow">→</span>
       </a>
     </div>
   </div>
