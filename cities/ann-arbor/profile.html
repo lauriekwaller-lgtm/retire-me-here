@@ -3,12 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BTL743DSJQ');
+</script>
+
 <title>Ann Arbor, Michigan — A Retirement City Profile | RetireMeHere</title>
 <meta name="description" content="An editorial profile of Ann Arbor, Michigan as a retirement destination. Michigan Medicine (top-10 hospital), the University of Michigan, genuinely walkable downtown, Huron River corridor, DTW thirty minutes east — and a real Michigan winter as the honest tradeoff.">
 <link rel="canonical" href="https://retiremehere.com/cities/ann-arbor/profile.html">
 
+<!-- MailerLite Universal -->
+<script>
+(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+ml('account', '2238788');
+</script>
+
+
 
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Open Graph / social -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ann Arbor, Michigan — A Retirement City Profile">
+<meta property="og:description" content="Michigan Medicine (top-10 hospital), the University of Michigan, genuinely walkable downtown, Huron River corridor, DTW thirty minutes east — and a real Michigan winter as the honest tradeoff.">
+<meta property="og:url" content="https://retiremehere.com/cities/ann-arbor/profile.html">
+<meta property="og:image" content="https://retiremehere.com/cities/ann-arbor/hero.jpg">
+<meta property="og:site_name" content="RetireMeHere">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Structured data: Article + FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Ann Arbor, Michigan — A Retirement City Profile",
+      "description": "An editorial profile of Ann Arbor, Michigan as a retirement destination. Michigan Medicine (top-10 hospital), the University of Michigan, genuinely walkable downtown, Huron River corridor, DTW thirty minutes east — and a real Michigan winter as the honest tradeoff.",
+      "about": {
+        "@type": "City",
+        "name": "Ann Arbor",
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "MI",
+          "addressCountry": "US"
+        }
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "RetireMeHere",
+        "url": "https://retiremehere.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "RetireMeHere",
+        "url": "https://retiremehere.com/"
+      },
+      "mainEntityOfPage": "https://retiremehere.com/cities/ann-arbor/profile.html"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Ann Arbor, Michigan a good place to retire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ann Arbor is a strong fit for retirees who prioritize healthcare and a genuinely walkable downtown. It is a small city built around the University of Michigan, with an outsized medical campus and Big Ten cultural energy, scoring a perfect 10 for healthcare and an 8 for walkability — among the highest we score."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does it cost to retire in Ann Arbor, Michigan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As of 2026, the typical home value is around $532,000, with a typical retiree monthly budget of roughly $3,800 to $5,200 — a relative value for a walkable Big Ten city with top-tier medicine."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is healthcare like in Ann Arbor for retirees?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Healthcare is the standout, scoring 10 of 10. Michigan Medicine, the University of Michigan's academic system, ranks among the top-10 hospitals nationally, with the NCI-designated Rogel Cancer Center and a large medical campus. Trinity Health Ann Arbor adds a strong second system."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the downsides of retiring in Ann Arbor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The biggest is winter: December through March is long and cold. Outdoor recreation centers on the Huron River corridor rather than mountains or coast, football Saturdays bring 107,000-plus fans to town, and Ann Arbor is a real working university city rather than a quiet, small retirement town."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 
 <style>
 :root {
@@ -689,7 +785,8 @@ body {
 .lists-section { background: var(--cream); }
 .lists-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
   gap: 18px;
   margin-top: 48px;
 }
@@ -938,13 +1035,299 @@ footer {
   }
   .health-icon { font-size: 40px; }
 
-  .lists-grid { grid-template-columns: 1fr; }
+  .lists-grid { grid-template-columns: minmax(0, 340px); }
 
   .cta-inner { padding: 72px 24px; }
 
   footer { padding: 40px 24px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .footer-credits { text-align: left; }
+}
+
+/* ============================================
+   DISPLAY-AD SLOT (reserved; hidden until ads phase)
+   Activate by removing 'hidden' and dropping the ad unit inside .ad-slot-inner.
+   ============================================ */
+.ad-slot { background: var(--cream); padding: 24px 0; }
+.ad-slot[hidden] { display: none; }
+.ad-slot-inner {
+  max-width: 970px; margin: 0 auto; min-height: 250px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px dashed var(--line); border-radius: 6px;
+  color: var(--light); font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+}
+@media (max-width: 880px){ .ad-slot-inner{ min-height: 100px; } }
+</style>
+
+<style>
+/* === Batch additions: capture, cost strip, services, related === */
+/* COST REALITY STRIP — values from CityDatabase (state-level) */
+.cost-strip {
+  max-width: var(--max-w);
+  margin: 16px auto 0;
+  padding: 0 44px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 36px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  text-align: center;
+}
+.cost-strip strong { color: var(--dark); font-weight: 600; }
+.cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+
+/* ============================================
+   EMAIL CAPTURE
+   ============================================ */
+.capture-section {
+  background: var(--teal-deep);
+  position: relative;
+  overflow: hidden;
+}
+.capture-section::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: -10%;
+  width: 50%; height: 180%;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.14) 0%, transparent 60%);
+  pointer-events: none;
+}
+.capture-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 78px 48px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.capture-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.capture-h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: white;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+.capture-h2 em { font-style: italic; color: var(--gold); }
+.capture-sub {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.78);
+  max-width: 540px;
+  margin: 0 auto;
+}
+.capture-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.guide-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 680px;
+  margin: 34px auto 0;
+}
+.guide-chip {
+  padding: 13px 22px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.14);
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.guide-chip:hover {
+  border-color: var(--gold);
+  background: rgba(212, 168, 75, 0.22);
+  transform: translateY(-1px);
+}
+.guide-chip.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--dark);
+  box-shadow: 0 6px 18px rgba(212, 168, 75, 0.35);
+}
+.guide-form-area {
+  max-width: 560px;
+  margin: 24px auto 0;
+  background: rgba(255,255,255,0.97);
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+}
+.guide-form-area:empty,
+.guide-form-area:not(:has(.ml-form-wrap[style*="block"])) {
+  background: transparent;
+  box-shadow: none;
+}
+.capture-form input[type="email"] {
+  flex: 1 1 240px;
+  padding: 15px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.96);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--dark);
+  outline: none;
+}
+.capture-form input[type="email"]:focus { border-color: var(--gold); }
+.capture-form button {
+  padding: 15px 30px;
+  border-radius: 100px;
+  border: none;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 8px 24px rgba(212, 168, 75, 0.3);
+}
+.capture-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(212, 168, 75, 0.4);
+}
+.capture-micro {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 12px;
+}
+
+/* ============================================
+   PLAN YOUR MOVE — services slot
+   ============================================ */
+.services-section { background: var(--sand); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
+.service-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 30px 28px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 8px;
+  position: relative;
+}
+.service-card:hover {
+  border-color: var(--terra);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.service-card-kicker {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--terra);
+}
+.service-card-name {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+}
+.service-card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); line-height: 1.5;
+}
+.service-card-arrow {
+  position: absolute;
+  top: 26px; right: 22px;
+  font-size: 18px;
+  color: var(--terra);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.service-card:hover .service-card-arrow { opacity: 1; transform: translateX(2px); }
+
+/* ============================================
+   RELATED CITIES
+   ============================================ */
+.related-section { background: var(--paper); }
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 340px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
+.related-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 30px 28px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.25s;
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.related-card:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(28,26,24,0.08);
+}
+.related-card-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.related-card-state {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.related-card-why {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); line-height: 1.5;
+}
+.related-card-arrow {
+  position: absolute;
+  top: 28px; right: 22px;
+  font-size: 18px;
+  color: var(--teal);
+  opacity: 0.5;
+  transition: all 0.2s;
+}
+.related-card:hover .related-card-arrow { opacity: 1; transform: translateX(2px); }
+
+
+@media (max-width: 880px) {
+  .capture-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 56px 24px;
+  }
+  .services-grid { grid-template-columns: minmax(0, 340px); }
+  .related-grid { grid-template-columns: minmax(0, 340px); }
 }
 </style>
 </head>
@@ -977,9 +1360,9 @@ footer {
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stat">
-    <div class="stat-label">Median Home</div>
-    <div class="stat-value">$425<span class="small">K</span></div>
-    <div class="stat-sub">Above national average</div>
+    <div class="stat-label">Typical Home Value</div>
+    <div class="stat-value">$532<span class="small">K</span></div>
+    <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
@@ -998,13 +1381,21 @@ footer {
   </div>
 </div>
 
+<!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Michigan).
+     Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
+<div class="cost-strip">
+  <span class="cost-item">Property tax: <strong>1.19%</strong> effective (≈$3,570/yr on a $300K home)</span>
+  <span class="cost-item">Home insurance: <strong>≈$2,924/yr</strong> ($300K dwelling, MI average)</span>
+  <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
+</div>
+
 <!-- IS THIS FOR YOU? -->
 <section class="section fit-section">
   <div class="wrap">
     <div class="section-eyebrow">Should you actually move here?</div>
     <h2 class="section-title">Is Ann Arbor <em>for you</em>?</h2>
     <p class="fit-intro">
-      Ann Arbor is a small city built around a flagship public university, with an outsized medical campus and a downtown that's stayed walkable as the metro has grown. Retirees come for Michigan Medicine, the cultural calendar, and the cost-tier sweet spot — a $425K median home that buys real walkability and top-10 healthcare. The ones who leave usually leave because of Michigan winters, summer humidity, or because they wanted more outdoor variety than the Lower Peninsula offers.
+      Ann Arbor is a small city built around a flagship public university, with an outsized medical campus and a downtown that's stayed walkable as the metro has grown. Retirees come for Michigan Medicine, the cultural calendar, and the cost-tier sweet spot — a $532K typical home value that buys real walkability and top-10 healthcare. The ones who leave usually leave because of Michigan winters, summer humidity, or because they wanted more outdoor variety than the Lower Peninsula offers.
     </p>
 
     <div class="fit-grid">
@@ -1024,7 +1415,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>The math works.</strong> Median home around $425K, monthly costs of $3,800–$5,200 for a couple. That's tier 3 — meaningfully below Boulder, Madison, and Charleston for a city with comparable healthcare and culture. Michigan doesn't tax Social Security and has a flat state income tax. The cost-tier sweet spot for a walkable Big Ten city is unusually rare in the database.</span>
+            <span><strong>The math works.</strong> Typical home value around $532K, monthly costs of $3,800–$5,200 for a couple. That's tier 3 — meaningfully below Boulder, Madison, and Charleston for a city with comparable healthcare and culture. Michigan doesn't tax Social Security and has a flat state income tax. The cost-tier sweet spot for a walkable Big Ten city is unusually rare in the database.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1061,6 +1452,53 @@ footer {
   </div>
 </section>
 
+<!-- EMAIL CAPTURE -->
+<section class="capture-section" id="deep-dive-reports">
+  <div class="capture-inner">
+    <div>
+      <div class="capture-eyebrow">Free Deep Dive Reports</div>
+      <h2 class="capture-h2">Like how we look at cities? <em>Get the reports.</em></h2>
+      <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists — starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
+    </div>
+    <div>
+      <!-- Guide picker: each chip reveals that report's MailerLite embedded form.
+           Forms render hidden at page load; chips toggle visibility.
+           IDs match the embedded forms in MailerLite (account 2238788). -->
+      <div class="guide-chips" id="guideChips">
+        <button class="guide-chip" onclick="pickGuide('fwB9NA', this)">✈️ Globetrotter Guide</button>
+        <button class="guide-chip" id="chip-f03tJB" onclick="pickGuide('f03tJB', this)">🏥 Wellness Blueprint</button>
+        <button class="guide-chip" onclick="pickGuide('W6rMh2', this)">💰 Value Navigator</button>
+        <button class="guide-chip" onclick="pickGuide('dJJ40D', this)">🚶 Urban Walkabout</button>
+        <button class="guide-chip" onclick="pickGuide('g4M1M8', this)">🏔️ Active Frontier</button>
+      </div>
+      <div class="guide-form-area">
+        <div class="ml-form-wrap" id="mlwrap-fwB9NA" style="display:none"><div class="ml-embedded" data-form="fwB9NA"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-f03tJB" style="display:none"><div class="ml-embedded" data-form="f03tJB"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-W6rMh2" style="display:none"><div class="ml-embedded" data-form="W6rMh2"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-dJJ40D" style="display:none"><div class="ml-embedded" data-form="dJJ40D"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-g4M1M8" style="display:none"><div class="ml-embedded" data-form="g4M1M8"></div></div>
+      </div>
+      <p class="capture-micro">Pick a guide, enter your email, and it's on its way. No selling your address, ever.</p>
+      <script>
+      function pickGuide(formId, btn, auto) {
+        document.querySelectorAll('.guide-form-area .ml-form-wrap').forEach(function(w) { w.style.display = 'none'; });
+        document.querySelectorAll('.guide-chip').forEach(function(c) { c.classList.remove('active'); });
+        var wrap = document.getElementById('mlwrap-' + formId);
+        if (wrap) { wrap.style.display = 'block'; }
+        if (btn) { btn.classList.add('active'); }
+        if (!auto && typeof gtag !== 'undefined') {
+          gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (Ann Arbor profile)' });
+        }
+      }
+      // Default-open the city's strongest-fit guide (Ann Arbor: Health 10/10 -> Wellness Blueprint).
+      document.addEventListener('DOMContentLoaded', function() {
+        pickGuide('f03tJB', document.getElementById('chip-f03tJB'), true);
+      });
+      </script>
+    </div>
+  </div>
+</section>
+
 <!-- CHARACTER -->
 <section class="section character-section">
   <div class="wrap">
@@ -1069,7 +1507,7 @@ footer {
       <h2 class="section-title">A college town that <em>kept growing into a city</em>.</h2>
       <div class="character-body">
         <p><span class="dropcap">A</span>nn Arbor was founded in 1824 as a speculative land claim on the Huron River, named — depending on which origin story you believe — for the wives of the two co-founders (both named Ann) and the burr oak groves they camped under. It might have stayed a county-seat farm town if the University of Michigan hadn't relocated there from Detroit in 1837. Almost everything that followed traces back to that decision. The university grew, the city grew with it, and by the late nineteenth century Ann Arbor was already a research-and-medicine town — the U-M Hospital had been operating since 1869, one of the first university-owned teaching hospitals in the country.</p>
-        <p>What makes Ann Arbor unusual is that the working city and the university never separated. Downtown Ann Arbor and Central Campus run into each other along State Street and South University. The Diag — U-M's central quadrangle — is half a mile from the Michigan Theater and the Farmers Market. Burton Tower, the Law Quad's Gothic stone, and Hill Auditorium's 1913 acoustics aren't on a separate campus across town; they're embedded in the downtown grid. Michigan Medicine occupies a roughly 175-acre medical campus on the city's north and east sides, a short drive from the same downtown. That density is the city's defining feature, and it's what makes a $425K home buy something rare: walkable access to a top-10 hospital and a Big Ten cultural calendar.</p>
+        <p>What makes Ann Arbor unusual is that the working city and the university never separated. Downtown Ann Arbor and Central Campus run into each other along State Street and South University. The Diag — U-M's central quadrangle — is half a mile from the Michigan Theater and the Farmers Market. Burton Tower, the Law Quad's Gothic stone, and Hill Auditorium's 1913 acoustics aren't on a separate campus across town; they're embedded in the downtown grid. Michigan Medicine occupies a roughly 175-acre medical campus on the city's north and east sides, a short drive from the same downtown. That density is the city's defining feature, and it's what makes a $532K home buy something rare: walkable access to a top-10 hospital and a Big Ten cultural calendar.</p>
         <p>The trade-off is climate and topography. Ann Arbor sits at about 840 feet of elevation in southeast Michigan — gently rolling, generally green, and very flat by Western standards. The Huron River runs through the city and provides the outdoor backbone: kayaking, the Border-to-Border Trail (35 miles when complete), and Gallup, Bandemer, and Argo parks along the water. But the real story is the seasons. Fall is glorious. Summer is warm and humid. Winter is genuinely cold, often cloudy, and runs from December into March. Spring is unreliable. Retirees who do well here either embrace four real seasons or become snowbirds — the latter has gotten more common as Florida and Arizona drive times became drives to DTW instead.</p>
       </div>
     </div>
@@ -1182,7 +1620,7 @@ footer {
 <section class="section">
   <div class="wrap">
     <div class="section-eyebrow">Where to live</div>
-    <h2 class="section-title">Four Ann Arbors, depending on you.</h2>
+    <h2 class="section-title">Where to settle in <em>Ann Arbor.</em></h2>
     <p class="hoods-intro">
       Ann Arbor is small — about 120,000 residents — but the neighborhoods feel meaningfully different by walkability, era of construction, and distance from campus and Michigan Medicine. The four below cover the spectrum from walkable-historic to leafy-residential to newer-construction-and-condo. <strong>Pricing reflects May 2026 estimates and varies meaningfully by school district and proximity to campus.</strong>
     </p>
@@ -1201,7 +1639,7 @@ footer {
       <div class="hood-card">
         <div class="hood-name">Downtown / Kerrytown</div>
         <div class="hood-vibe">Walkable · Condo · Lock-and-leave</div>
-        <div class="hood-desc">Mid-rise condos and lofts in and around the Kerrytown district and Main Street. Walking distance to the Farmers Market, the Michigan Theater, restaurants, and UMS performances. The lock-and-leave option for retirees ready to give up the house, and the strongest fit for retirees splitting the year with a warmer second home. <strong>Median: $425K–$725K.</strong></div>
+        <div class="hood-desc">Mid-rise condos and lofts in and around the Kerrytown district and Main Street. Walking distance to the Farmers Market, the Michigan Theater, restaurants, and UMS performances. The lock-and-leave option for retirees ready to give up the house, and the strongest fit for retirees splitting the year with a warmer second home. <strong>Median: $532K–$725K.</strong></div>
       </div>
       <div class="hood-card">
         <div class="hood-name">North Campus / Plymouth Road</div>
@@ -1225,12 +1663,51 @@ footer {
         <div class="health-detail">Michigan Medicine ranks among U.S. News &amp; World Report's top-10 hospitals nationally — the University of Michigan's academic medical system. The University Hospital, C.S. Mott Children's Hospital, Von Voigtlander Women's Hospital, and the Frankel Cardiovascular Center share a roughly 175-acre medical campus on the city's north and east sides. The <strong>Rogel Cancer Center</strong> is NCI-designated and runs one of the country's larger clinical-trial programs. For complex cardiology, oncology, neurology, transplant, and orthopedics, Ann Arbor residents have access usually associated with major coastal cities. Trinity Health Ann Arbor (formerly St. Joseph Mercy) covers community needs as a strong second system.</div>
       </div>
       <div class="health-grade">
-        <div class="health-grade-num" style="font-size:36px;">Top<br>10</div>
-        <div class="health-grade-lbl">U.S. News National</div>
+        <div class="health-grade-num">10<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
+        <div class="health-grade-lbl">Healthcare Match</div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- PLAN YOUR MOVE — services slot
+     AFFILIATE-SLOT: these three cards currently hold internal links.
+     At affiliate activation (Month 3), swap card contents for partner placements
+     (moving services, senior-living search, insurance comparison) and add
+     FTC disclosure line below the grid. Structure/classes stay identical. -->
+<section class="section services-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Planning a move?</div>
+    <h2 class="section-title">Next steps if Ann Arbor is <em>on your shortlist</em>.</h2>
+
+    <div class="services-grid">
+      <a href="/" class="service-card">
+        <div class="service-card-kicker">Step 1 · Match</div>
+        <div class="service-card-name">Take the 7-question quiz</div>
+        <div class="service-card-desc">See how Ann Arbor scores against your actual priorities — and which cities beat it for you.</div>
+        <span class="service-card-arrow">→</span>
+      </a>
+      <a href="/top-cities-for-active-retirees.html" class="service-card">
+        <div class="service-card-kicker">Step 2 · Compare</div>
+        <div class="service-card-name">Top Cities for Active Retirees</div>
+        <div class="service-card-desc">Ann Arbor earned its place here — see every city in our database that competes.</div>
+        <span class="service-card-arrow">→</span>
+      </a>
+      <a href="#deep-dive-reports" class="service-card">
+        <div class="service-card-kicker">Step 3 · Go deeper</div>
+        <div class="service-card-name">Get the Deep Dive reports</div>
+        <div class="service-card-desc">Themed shortlists built on the same scoring — pick your free guide right on this page.</div>
+        <span class="service-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- DISPLAY-AD SLOT: reserved placement (Month-? ads phase). Remove 'hidden' to activate. -->
+<aside class="ad-slot" hidden aria-hidden="true">
+  <div class="ad-slot-inner">Advertisement</div>
+</aside>
 
 <!-- APPEARS ON LISTS -->
 <section class="section lists-section">
@@ -1255,6 +1732,36 @@ footer {
         <div class="list-card-name">Top Cities for Healthcare</div>
         <div class="list-card-tier">Michigan Medicine · 2025–26 U.S. News Honor Roll · top-10 nationally</div>
         <span class="list-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED CITIES
+     Picks derived from CityDatabase May 19 v11: same budget tier as Ann Arbor, closest D1–D10 dimension vector.) -->
+<section class="section related-section">
+  <div class="wrap">
+    <div class="section-eyebrow">Weighing your options</div>
+    <h2 class="section-title">Considering Ann Arbor? <em>Compare these.</em></h2>
+
+    <div class="related-grid">
+      <a href="/index.html?city=Pittsburgh&state=PA" class="related-card">
+        <div class="related-card-name">Pittsburgh</div>
+        <div class="related-card-state">Pennsylvania</div>
+        <div class="related-card-why">The closest overall match in our database — similar scores across the board at the same budget tier.</div>
+        <span class="related-card-arrow">→</span>
+      </a>
+      <a href="/index.html?city=Philadelphia&state=PA" class="related-card">
+        <div class="related-card-name">Philadelphia</div>
+        <div class="related-card-state">Pennsylvania</div>
+        <div class="related-card-why">Strong healthcare at a similar budget tier and overall profile.</div>
+        <span class="related-card-arrow">→</span>
+      </a>
+      <a href="/index.html?city=Traverse+City&state=MI" class="related-card">
+        <div class="related-card-name">Traverse City</div>
+        <div class="related-card-state">Michigan</div>
+        <div class="related-card-why">The in-state comparison — a similar budget and profile without leaving Michigan.</div>
+        <span class="related-card-arrow">→</span>
       </a>
     </div>
   </div>
