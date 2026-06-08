@@ -1,0 +1,37 @@
+# netlify.toml — RetireMeHere.com
+# Goal: keep internal markdown (methodology, scoring analysis, session logs)
+# in the GitHub repo and versioned, but NOT reachable on the public site.
+#
+# Convention: put every internal .md file under /docs in the repo.
+#   /docs/GUIDE-METHODOLOGY-DECISIONS.md
+#   /docs/healthcare-cities-scoring-analysis.md
+#   /docs/SESSION-LOG-2026-06-07.md   ... etc.
+#
+# The redirect below intercepts any request to /docs/* and returns the 404
+# page before the file is served. force = true makes it win even though the
+# file physically exists in the publish output.
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# If you ever keep a stray .md at the repo root instead of /docs, this second
+# rule blocks markdown anywhere. (Safe to keep both.)
+[[redirects]]
+  from = "/*.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# --- Notes ---
+# 1. This hides the files from normal web access. It is not encryption; the
+#    repo itself is where access control lives (keep the repo private if the
+#    docs are sensitive).
+# 2. Requires a /404.html in your publish directory. If you don't have one,
+#    Netlify serves its default 404, which also works — you can change `to`
+#    to any existing page.
+# 3. If you already have a netlify.toml, merge just the [[redirects]] blocks
+#    above into it rather than replacing your file (don't lose existing
+#    build/headers settings).
