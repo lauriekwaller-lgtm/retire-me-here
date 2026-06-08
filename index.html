@@ -2937,7 +2937,7 @@ const CITIES = [
     monthlyEst: "$3,500–$4,800/mo", medianHome: "$350,000–$500,000", budgetRange: 2,
     scores: { D1:8, D2:8, D3:10, D5:6, D6:6, D7:6, D8:7, D9:5, D10:8 },
     climate: { W:4, H:7, M:5, HUM:8, HEAT:8 },
-    highlight: "Barnes-Jewish Hospital — #1 in Missouri, nationally ranked in 11 specialties, US News Honor Roll. Forest Park is larger than Central Park. Free world-class art museum. Citywide median home $250K but retirees target Chesterfield, Kirkwood, Webster Groves ($350K–$500K). Extraordinary value for healthcare quality.",
+    highlight: "Barnes-Jewish Hospital — #1 in Missouri, nationally ranked in 11 specialties, US News Honor Roll. Forest Park is larger than Central Park. Free world-class art museum. Typical home value $250K citywide but retirees target Chesterfield, Kirkwood, Webster Groves ($350K–$500K). Extraordinary value for healthcare quality.",
     neighborhoods: [
       { name: "Chesterfield", vibe: "Affluent, suburban, safe", desc: "Premier west-county suburb. Jordan Creek shopping, excellent restaurants, strong healthcare access. Most popular with retirees seeking amenity-rich suburban lifestyle. Typical home value $400K–$500K." },
       { name: "Kirkwood / Webster Groves", vibe: "Historic, walkable, charming", desc: "Two of St. Louis's most beloved historic suburbs. Tree-lined streets, brick homes, walkable downtowns, excellent restaurants. Kirkwood School District highly rated. Typical home value $350K–$450K." },
@@ -3301,7 +3301,7 @@ const CITIES = [
     scores: { D1:7, D2:7, D3:8, D5:7, D6:5, D7:5, D8:6, D9:7, D10:8 },
     climate: { W:5, H:3, M:5, HUM:7, HEAT:8 },
     highlight: "Tulsa Arts District punches well above its size — Bob Dylan Center, Woody Guthrie Center, Philbrook Museum, plus the $465M Gathering Place (USA Today's \"Best City Park\"). Saint Francis Hospital #1 in Oklahoma with 19 high-performing procedures. Cost of living index ~85, one of the lowest nationally. Citywide median $245K but target neighborhoods (Brookside, Maple Ridge, South Tulsa, Bixby, Jenks) range $300K–$500K. Tornado risk and citywide crime are the trade-offs.",
-    pros: ["Outsized cultural infrastructure for a 400K city — Bob Dylan Center, Woody Guthrie Center, Philbrook Museum (1920s villa), Tulsa Arts District, Cain's Ballroom, plus the $465M Gathering Place (USA Today's \"Best City Park\")", "Top-tier regional healthcare — Saint Francis Hospital #1 in Oklahoma with 19 high-performing procedures (1,112 beds, largest in OK, 11th largest in nation); Saint Francis Health System named Top 15 Health System in nation 2025 by Premier; Level 1 Trauma at Ascension St. John", "Exceptional value — COL index ~85 (among the lowest nationally), typical home value $220K, very low property taxes (median bill $1,672/year, 0.77% effective rate)", "Retirement-friendly tax structure — Oklahoma exempts Social Security, military and railroad retirement; $10K annual retirement income deduction at 65+; income tax in gradual phase-out toward zero; no estate or inheritance tax; senior valuation freeze available"],
+    pros: ["Outsized cultural infrastructure for a 400K city — Bob Dylan Center, Woody Guthrie Center, Philbrook Museum (1920s villa), Tulsa Arts District, Cain's Ballroom, plus the $465M Gathering Place (USA Today's \"Best City Park\")", "Top-tier regional healthcare — Saint Francis Hospital #1 in Oklahoma with 19 high-performing procedures (1,112 beds, largest in OK, 11th largest in nation); Saint Francis Health System named Top 15 Health System in nation 2025 by Premier; Level 1 Trauma at Ascension St. John", "Exceptional value — COL index ~85 (among the lowest nationally), citywide median home $220K, very low property taxes (median bill $1,672/year, 0.77% effective rate)", "Retirement-friendly tax structure — Oklahoma exempts Social Security, military and railroad retirement; $10K annual retirement income deduction at 65+; income tax in gradual phase-out toward zero; no estate or inheritance tax; senior valuation freeze available"],
     cons: ["High citywide crime (19th percentile, D-grade); neighborhood selection critical — premium areas (Maple Ridge, Brookside, South Tulsa) and suburbs (Bixby, Jenks) sit 60–95th percentile and are meaningfully safer", "Tornado Alley — Tulsa is in the heart of severe weather country; tornadoes, hail, ice storms, and high winds are real annual considerations and insurance costs reflect this", "Hot humid summers — July averages 93°F high, August can be brutal; outdoor activity moves indoors much of the summer", "Limited outdoor recreation variety — Gathering Place and Turkey Mountain are bright spots, but flat plains terrain means no mountains, coast, or extensive trail networks; not a destination for outdoor-first retirees"]
   },
   {
@@ -6076,7 +6076,7 @@ function renderReportIcons(containerId, panelSuffix) {
       </div>
       <div class="report-row-actions">
         <button class="btn-rr-preview" onclick="openReportModal('${r.key}')">Preview</button>
-        <button class="btn-rr-get ml-onclick-form" onclick="ml('show', '${r.mlId}', true)">Get Free</button>
+        <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('${r.key}')">Get Free</button>
       </div>
     </div>`;
   }).join('');
@@ -6995,8 +6995,8 @@ function submitProfileCapture(e, cityName) {
     body: data.toString()
   }).catch(() => {});
 
-  // MailerLite — Quiz Results group
-  try { ml('show', 'ETbvqw', true); } catch(e) {}
+  // Open the Value Navigator signup (MailerLite embedded form) to complete delivery
+  openSignupModal('value');
 
   // GA event
   if (typeof gtag !== 'undefined') {
@@ -7007,8 +7007,8 @@ function submitProfileCapture(e, cityName) {
   const capture = document.getElementById(`profileCapture-${cityName.replace(/\s/g,'-')}`);
   if (capture) {
     capture.innerHTML = `<div class="capture-success">
-      <strong>✓ On its way!</strong>
-      Check your inbox for the Value Navigator guide. And remember — you can retake the quiz anytime at retiremehere.com if you want to try different priorities.
+      <strong>✓ Almost there!</strong>
+      Enter your email in the form that just opened and the Value Navigator guide will be on its way to your inbox.
     </div>`;
   }
 }
@@ -7910,6 +7910,7 @@ const REPORT_MODAL_DATA = {
 function openReportModal(key) {
   const r = REPORT_MODAL_DATA[key];
   if (!r) return;
+  returnMlForms();
   const box = document.getElementById('rrModalBox');
   box.innerHTML = `
     <div class="rr-modal-header">
@@ -7938,22 +7939,51 @@ function openReportModal(key) {
   document.body.style.overflow = 'hidden';
 }
 
+function returnMlForms() {
+  // Move any MailerLite form wrappers back to the hidden vault before the
+  // modal's innerHTML is rewritten (rewriting would destroy rendered forms).
+  const vault = document.getElementById('mlFormVault');
+  if (!vault) return;
+  document.querySelectorAll('#rrModalBox .ml-form-wrap').forEach(w => vault.appendChild(w));
+}
+
 function openSignupModal(key) {
   const r = REPORT_MODAL_DATA[key];
   if (!r) return;
   if (typeof gtag !== 'undefined') {
     gtag('event', 'report_request', {event_category: 'Reports', event_label: r.title});
   }
-  try {
-    ml('show', r.mlId, true);
-  } catch(e) {
+  returnMlForms();
+  returnMlForms();
+  const box = document.getElementById('rrModalBox');
+  box.innerHTML = `
+    <div class="rr-modal-header">
+      <button class="rr-modal-close" onclick="closeReportModal()">✕</button>
+      <div class="rr-modal-series">Free — Delivered Instantly</div>
+      <div class="rr-modal-title">${r.icon} ${r.title}</div>
+      <div class="rr-modal-desc">Enter your email below and we'll send it right to your inbox.</div>
+    </div>
+    <div class="rr-modal-body">
+      <div class="ml-form-slot" id="mlFormSlot"></div>
+      <div class="rr-modal-free">Free. No spam. Unsubscribe anytime.</div>
+      <div class="rr-modal-switch" onclick="openReportModal('${key}')">← Back to preview</div>
+    </div>
+  `;
+  const wrap = document.getElementById('mlwrap-' + r.mlId);
+  if (wrap) {
+    document.getElementById('mlFormSlot').appendChild(wrap);
+  } else {
     showEmailFallbackModal(key);
+    return;
   }
+  document.getElementById('rrModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 function showEmailFallbackModal(key) {
   const r = REPORT_MODAL_DATA[key];
   if (!r) return;
+  returnMlForms();
   const box = document.getElementById('rrModalBox');
   box.innerHTML = `
     <div class="rr-modal-header">
@@ -8008,6 +8038,7 @@ function submitSignupModal(key, reportTitle) {
 
 function closeReportModal(e) {
   if (!e || e.target === document.getElementById('rrModalOverlay')) {
+    returnMlForms();
     document.getElementById('rrModalOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
@@ -8121,3 +8152,20 @@ function closeReportModal(e) {
     var u = 'info'; var d = 'retiremehere.com';
     document.getElementById('contact-email').innerHTML = '<a href="mailto:' + u + '@' + d + '">' + u + '@' + d + '</a>';
   </script>
+
+  <!-- REPORT SIGNUP MODAL (restored — was missing, breaking Preview & Get Free)
+       + MailerLite embedded-form vault. Forms render hidden at page load;
+       openSignupModal moves the chosen one into the modal. -->
+  <div class="rr-modal-overlay" id="rrModalOverlay" onclick="closeReportModal(event)">
+    <div class="rr-modal-box" id="rrModalBox"></div>
+  </div>
+  <div id="mlFormVault" style="display:none" aria-hidden="true">
+    <div class="ml-form-wrap" id="mlwrap-fwB9NA"><div class="ml-embedded" data-form="fwB9NA"></div></div>
+    <div class="ml-form-wrap" id="mlwrap-f03tJB"><div class="ml-embedded" data-form="f03tJB"></div></div>
+    <div class="ml-form-wrap" id="mlwrap-W6rMh2"><div class="ml-embedded" data-form="W6rMh2"></div></div>
+    <div class="ml-form-wrap" id="mlwrap-dJJ40D"><div class="ml-embedded" data-form="dJJ40D"></div></div>
+    <div class="ml-form-wrap" id="mlwrap-g4M1M8"><div class="ml-embedded" data-form="g4M1M8"></div></div>
+  </div>
+
+</body>
+</html>
