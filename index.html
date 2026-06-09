@@ -6289,58 +6289,24 @@ function calculateResults() {
 
 function getCityScore(city, dimKey) {
   if (dimKey === 'DC') {
-    const W = city.climate ? city.climate.W : 5;
-    const H = city.climate ? city.climate.H : 5;
-    const M = city.climate ? city.climate.M : 5;
-    if (!quizState.climateChoice) return 5;
+    var cl   = city.climate || {};
+    var W    = cl.W    !== undefined ? cl.W    : 5;   // warm winter   (10 = warmest)
+    var M    = cl.M    !== undefined ? cl.M    : 5;   // sunshine/dry  (10 = sunniest/driest)
+    var HUM  = cl.HUM  !== undefined ? cl.HUM  : 5;   // humidity      (10 = most humid)
+    var HEAT = cl.HEAT !== undefined ? cl.HEAT : 5;   // extreme heat  (10 = most 100F+ days)
+    if (!quizState.climateChoice || quizState.climateChoice === 'none') return 7;
+    var clamp = function(v){ return Math.max(1, Math.min(10, Math.round(v))); };
 
-    if (quizState.climateChoice === 'mild') {
-      
-      
-      
-      
-      const winterScore = W;         
-      const summerScore = H;         
-      const humidScore = M;          
-      return Math.round((winterScore * 0.4 + summerScore * 0.35 + humidScore * 0.25));
-    }
-
-    if (quizState.climateChoice === 'warm_dry') {
-      // Warm winters + low humidity — penalise humid cities heavily
-      return Math.round((W * 0.4) + (M * 0.4) + (H * 0.2));
-    }
-
-    if (quizState.climateChoice === 'warm') {
-      
-      
-      return W; 
-    }
-
-    if (quizState.climateChoice === 'seasons') {
-      
-      
-      
-      
-      
-      
-      
-      
-      if (W <= 3) return 8;               
-      if (W >= 4 && W <= 6) return 9;     
-      if (W === 7) return 6;              
-      return Math.max(1, 10 - W);         
-    }
-    if (quizState.climateChoice === 'cool') {
-      // Cool/mountain — prefers cooler temps, penalise very warm winters
-      return Math.round((M * 0.4) + (10 - H) * 0.3 + (10 - W) * 0.3);
-    }
-    if (quizState.climateChoice === 'none') {
-      return 7; // neutral score for no preference
-    }
+    if (quizState.climateChoice === 'warm')     return W;                                                 // Warm & Humid
+    if (quizState.climateChoice === 'warm_dry') return clamp(0.45*W + 0.55*(10 - HUM));                    // Warm & Dry
+    if (quizState.climateChoice === 'mild')     return clamp(0.40*W + 0.40*(10 - HEAT) + 0.20*(10 - HUM)); // Mild Year-Round
+    if (quizState.climateChoice === 'seasons')  return clamp(10 - Math.abs(W - 3)*1.1 - Math.abs(HEAT - 5)*0.9); // Four Seasons
+    if (quizState.climateChoice === 'cool')     return clamp(0.40*(10 - HEAT) + 0.30*M + 0.30*(10 - W));   // Cool / Mountain
     return 5;
   }
   return city.scores[dimKey] || 5;
 }
+
 
 function runMatchingEngine() {
   let candidates = [...CITIES];
