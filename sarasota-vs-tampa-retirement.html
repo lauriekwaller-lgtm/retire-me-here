@@ -22,9 +22,11 @@
 <meta property="og:description" content="Sarasota vs. Tampa, Florida for retirement, a data-driven comparison of cost, healthcare, airport access, arts, and hurricane and insurance risk, scored across the same 10 dimensions.">
 <meta property="og:url" content="https://retiremehere.com/sarasota-vs-tampa-retirement.html">
 <meta property="og:site_name" content="RetireMeHere">
+<meta property="og:image" content="https://retiremehere.com/cities/sarasota/hero.jpg">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sarasota vs. Tampa for Retirement">
+<meta name="twitter:image" content="https://retiremehere.com/cities/sarasota/hero.jpg">
 <meta name="twitter:description" content="Sarasota vs. Tampa, Florida for retirement, scored across the same 10 dimensions.">
 
 <script>
@@ -45,14 +47,36 @@ ml('account', '2238788');
       "@id": "https://retiremehere.com/sarasota-vs-tampa-retirement.html#article",
       "headline": "Sarasota vs. Tampa for Retirement",
       "description": "Sarasota vs. Tampa, Florida for retirement: a data-driven comparison of cost, healthcare, airport access, arts, and hurricane and insurance risk, scored across the same 10 dimensions.",
-      "author": { "@type": "Organization", "name": "RetireMeHere", "url": "https://retiremehere.com" },
-      "publisher": { "@type": "Organization", "name": "RetireMeHere", "url": "https://retiremehere.com" },
+      "author": {
+        "@type": "Organization",
+        "name": "RetireMeHere",
+        "url": "https://retiremehere.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "RetireMeHere",
+        "url": "https://retiremehere.com"
+      },
       "datePublished": "2026-06-10",
       "dateModified": "2026-06-10",
       "mainEntityOfPage": "https://retiremehere.com/sarasota-vs-tampa-retirement.html",
       "about": [
-        { "@type": "Place", "name": "Sarasota, Florida" },
-        { "@type": "Place", "name": "Tampa, Florida" }
+        {
+          "@type": "City",
+          "name": "Sarasota",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Florida"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Tampa",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Florida"
+          }
+        }
       ]
     },
     {
@@ -309,7 +333,7 @@ button.header-quiz-btn:hover,
   margin-bottom: 8px;
 }
 .verdict p { margin: 0; }
-.verdict strong { color: var(--teal); font-weight: 700; }
+.verdict strong { color: var(--dark); font-weight: 700; }
 
 /* ── COMPARE TABLE ── */
 .compare-wrap {
@@ -423,7 +447,7 @@ button.header-quiz-btn:hover,
   line-height: 1.65;
   margin-bottom: 8px;
 }
-.tradeoff-p strong { color: var(--teal); font-weight: 700; }
+.tradeoff-p strong { color: var(--dark); font-weight: 700; }
 
 /* ── RECIPROCAL PROFILE CARDS ── */
 .profile-cards-wrap { margin: 48px 0 16px; }
@@ -610,6 +634,27 @@ a.quiz-cta-btn:hover,
 }
 .site-footer a:hover { color: var(--white); }
 .site-footer-copy { margin-top: 14px; color: rgba(255,255,255,0.4); }
+
+.profile-card { overflow: hidden; }
+.profile-card-img {
+  display: block;
+  width: calc(100% + 48px);
+  margin: -22px -24px 16px;
+  height: 160px;
+  object-fit: cover;
+}
+.more-matchups { max-width: 760px; margin: 48px auto 0; text-align: center; }
+.more-matchups-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 14px;
+}
+.matchup-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.matchup-link {
+  display: inline-block; background: var(--white); border: 1px solid #ece6dc;
+  border-radius: 100px; padding: 9px 18px; font-size: 13px; font-weight: 600;
+  color: var(--teal); text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.matchup-link:hover { border-color: var(--teal); box-shadow: var(--shadow); color: var(--teal); }
 </style>
 </head>
 <body>
@@ -670,7 +715,7 @@ a.quiz-cta-btn:hover,
 
   <section class="compare-wrap">
     <h2 class="compare-h2">Side by side, scored.</h2>
-    <p class="compare-sub">The shaded cell on each row is the stronger one. Ties are left unmarked.</p>
+    <p class="compare-sub">The shaded, checkmarked cell on each row is the stronger one. Ties are left unmarked.</p>
 
     <table class="compare-table">
       <thead>
@@ -692,17 +737,17 @@ a.quiz-cta-btn:hover,
         <tr>
           <td class="metric">Typical home value</td>
           <td class="value">$413,000</td>
-          <td class="value winner">$377,000</td>
+          <td class="value winner">$377,000 ✓</td>
         </tr>
         <tr>
           <td class="metric">Estimated retiree budget</td>
           <td class="value">$4,800–$6,200/mo</td>
-          <td class="value winner">$3,500–$5,000/mo</td>
+          <td class="value winner">$3,500–$5,000/mo ✓</td>
         </tr>
         <tr>
-          <td class="metric">Budget tier (1=lowest, 4=highest)</td>
-          <td class="value">3</td>
-          <td class="value winner">2</td>
+          <td class="metric">Budget tier (1 = least expensive)</td>
+          <td class="value">3 of 5</td>
+          <td class="value winner">2 of 5 ✓</td>
         </tr>
         <tr>
           <td class="metric">Property tax rate</td>
@@ -719,12 +764,12 @@ a.quiz-cta-btn:hover,
         <tr>
           <td class="metric">D1 Airport access</td>
           <td class="value">7/10</td>
-          <td class="value winner">10/10</td>
+          <td class="value winner">10/10 ✓</td>
         </tr>
         <tr>
           <td class="metric">D2 Budget</td>
           <td class="value">5/10</td>
-          <td class="value winner">6/10</td>
+          <td class="value winner">6/10 ✓</td>
         </tr>
         <tr>
           <td class="metric">D3 Healthcare</td>
@@ -753,40 +798,40 @@ a.quiz-cta-btn:hover,
         </tr>
         <tr>
           <td class="metric">D8 Active wellness</td>
-          <td class="value winner">9/10</td>
+          <td class="value winner">9/10 ✓</td>
           <td class="value">7/10</td>
         </tr>
         <tr>
           <td class="metric">D9 Safety</td>
           <td class="value">5/10</td>
-          <td class="value winner">6/10</td>
+          <td class="value winner">6/10 ✓</td>
         </tr>
         <tr>
           <td class="metric">D10 Community &amp; culture</td>
-          <td class="value winner">9/10</td>
+          <td class="value winner">9/10 ✓</td>
           <td class="value">8/10</td>
         </tr>
 
         <tr class="section-row"><td colspan="3">Climate</td></tr>
         <tr>
-          <td class="metric">Warm winter score</td>
-          <td class="value winner">10/10</td>
-          <td class="value">9/10</td>
+          <td class="metric">Winters</td>
+          <td class="value">Warm, sunny (10/10)</td>
+          <td class="value">Warm, sunny (9/10)</td>
         </tr>
         <tr>
           <td class="metric">Summer heat severity (10 = worst)</td>
-          <td class="value">7/10</td>
-          <td class="value">7/10</td>
+          <td class="value">7/10, hot Gulf summers</td>
+          <td class="value">7/10, hot Gulf summers</td>
         </tr>
         <tr>
           <td class="metric">Summer humidity (10 = worst)</td>
-          <td class="value">9/10</td>
-          <td class="value">9/10</td>
+          <td class="value">9/10, very humid</td>
+          <td class="value">9/10, very humid</td>
         </tr>
 
       </tbody>
     </table>
-    <p class="compare-caption">Scored 0–10 against the 100 cities in our database; higher is better (except where noted).</p>
+    <p class="compare-caption">Scored 0–10 against the 100 cities in our database; higher is better (except where noted). Checkmarks mark the stronger city in each row; ties are left unmarked. Data: RetireMeHere city database, June 2026.</p>
   </section>
 
   <section class="tradeoffs">
@@ -798,17 +843,17 @@ a.quiz-cta-btn:hover,
 
     <div class="tradeoff-block">
       <h3 class="tradeoff-h3">Money: Tampa is the better value</h3>
-      <p class="tradeoff-p">Tampa sits a full budget tier below Sarasota, with a typical home around $377,000 against $413,000 and a monthly retiree budget of roughly $3,500 to $5,000 versus $4,800 to $6,200. For the same Gulf Coast lifestyle, Tampa simply costs less, which is why our notes flag it as the best value in Florida.</p>
+      <p class="tradeoff-p">Tampa sits a full budget tier below Sarasota, with a typical home around <strong>$377,000</strong> against <strong>$413,000</strong> and a monthly retiree budget of roughly $3,500 to $5,000 versus $4,800 to $6,200. For the same Gulf Coast lifestyle, Tampa simply costs less, which is why our notes flag it as the best value in Florida.</p>
     </div>
 
     <div class="tradeoff-block">
       <h3 class="tradeoff-h3">The airport gap is real</h3>
-      <p class="tradeoff-p">Tampa International is a perfect-10 major hub with broad nonstop service; Sarasota's airport scores a 7 and is far smaller. If you travel often or expect family to fly in regularly, that difference shows up several times a year, and it is the clearest practical edge Tampa holds.</p>
+      <p class="tradeoff-p"><strong>Tampa International</strong> is a perfect-10 major hub with broad nonstop service; Sarasota's airport scores a 7 and is far smaller. If you travel often or expect family to fly in regularly, that difference shows up several times a year, and it is the clearest practical edge Tampa holds.</p>
     </div>
 
     <div class="tradeoff-block">
       <h3 class="tradeoff-h3">Sarasota's draw: beaches and the arts</h3>
-      <p class="tradeoff-p">This is where Sarasota earns its premium. It scores a 9 for arts and community and a 9 for wellness, with the opera, ballet, symphony, and Ringling Museum anchoring the cultural side, and Siesta Key's top-ranked beach minutes away. Tampa is the bigger, busier metro, but it is less of a cultural enclave, scoring an 8 on community and a 7 on wellness.</p>
+      <p class="tradeoff-p">This is where Sarasota earns its premium. <strong>It scores a 9 for arts and community and a 9 for wellness</strong>, with the opera, ballet, symphony, and Ringling Museum anchoring the cultural side, and Siesta Key's top-ranked beach minutes away. Tampa is the bigger, busier metro, but it is less of a cultural enclave, scoring an 8 on community and a 7 on wellness.</p>
     </div>
 
     <div class="tradeoff-block">
@@ -824,6 +869,7 @@ a.quiz-cta-btn:hover,
     <div class="profile-cards">
 
       <a class="profile-card" href="cities/sarasota/profile.html">
+        <img class="profile-card-img" src="cities/sarasota/hero.jpg" alt="Sarasota, Florida Gulf Coast beach and skyline" loading="lazy" width="1600" height="899">
         <div class="profile-card-eyebrow">Sarasota Profile</div>
         <div class="profile-card-name">Sarasota<span class="profile-card-state">FL</span></div>
         <p class="profile-card-desc">Beach and arts city with perfect-10 healthcare, Siesta Key minutes away, and the opera, ballet, symphony, and Ringling Museum at its core.</p>
@@ -831,6 +877,7 @@ a.quiz-cta-btn:hover,
       </a>
 
       <a class="profile-card terra" href="cities/tampa/profile.html">
+        <img class="profile-card-img" src="cities/tampa/hero.jpg" alt="Tampa, Florida skyline on the bay" loading="lazy" width="1600" height="899">
         <div class="profile-card-eyebrow">Tampa Profile</div>
         <div class="profile-card-name">Tampa<span class="profile-card-state">FL</span></div>
         <p class="profile-card-desc">Best value in Florida, with a perfect-10 airport, perfect-10 healthcare anchored by Tampa General, and the broadest metro amenities on the Gulf.</p>
@@ -850,7 +897,7 @@ a.quiz-cta-btn:hover,
 
     <div class="faq-item">
       <p class="faq-q">Which is cheaper, Sarasota or Tampa?</p>
-      <p class="faq-a">Tampa. It sits a budget tier lower, with a typical home value around $377,000 and a retiree budget of roughly $3,500 to $5,000 a month. Sarasota runs higher, around $413,000 and $4,800 to $6,200 a month, reflecting its beach-and-arts premium. Property taxes and insurance are similar in both.</p>
+      <p class="faq-a"><strong>Tampa.</strong> It sits a budget tier lower, with a typical home value around $377,000 and a retiree budget of roughly $3,500 to $5,000 a month. Sarasota runs higher, around $413,000 and $4,800 to $6,200 a month, reflecting its beach-and-arts premium. Property taxes and insurance are similar in both.</p>
     </div>
 
     <div class="faq-item">
@@ -865,9 +912,17 @@ a.quiz-cta-btn:hover,
 
     <div class="faq-item">
       <p class="faq-q">Which has the better airport, Sarasota or Tampa?</p>
-      <p class="faq-a">Tampa, decisively. Tampa International is a perfect-10 major hub with wide nonstop service, while Sarasota's airport is smaller and scores a 7. If you travel often or expect family to visit, that gap matters.</p>
+      <p class="faq-a"><strong>Tampa, decisively.</strong> Tampa International is a perfect-10 major hub with wide nonstop service, while Sarasota's airport is smaller and scores a 7. If you travel often or expect family to visit, that gap matters.</p>
     </div>
 
+  </section>
+
+  <section class="more-matchups">
+    <h2 class="more-matchups-h2">More city matchups</h2>
+    <div class="matchup-links">
+      <a class="matchup-link" href="asheville-vs-greenville-retirement.html">Asheville vs. Greenville for retirement →</a>
+      <a class="matchup-link" href="scottsdale-vs-tucson-retirement.html">Scottsdale vs. Tucson for retirement →</a>
+    </div>
   </section>
 
   <section class="quiz-cta">
