@@ -6285,7 +6285,9 @@ function calculateResults() {
     const results = runMatchingEngine();
     renderResults(results);
     showScreen('screen-results');
-    
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'quiz_complete', { event_category: 'Quiz', event_label: 'results_shown' });
+    }
     renderReportIcons('results-reports-icons', 'results');
     window.scrollTo(0, 0);
   }, 1800);
