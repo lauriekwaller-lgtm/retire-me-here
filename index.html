@@ -5854,6 +5854,9 @@ const STEPS = [
 function startQuiz() {
   quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
   DIMENSIONS.forEach(d => { quizState.priorities[d.key] = null; });
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'quiz_start', { event_category: 'Quiz', event_label: document.referrer || 'direct' });
+}  
   showScreen('screen-quiz');
   renderStep();
 }
