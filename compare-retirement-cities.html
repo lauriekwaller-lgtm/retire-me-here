@@ -61,20 +61,20 @@ ml('account', '2238788');
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "Scottsdale vs. Tucson for Retirement",
-          "url": "https://retiremehere.com/scottsdale-vs-tucson-retirement.html"
+          "name": "Tampa vs. St. Petersburg for Retirement",
+          "url": "https://retiremehere.com/tampa-vs-st-petersburg-retirement.html"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Santa Fe vs. Tucson for Retirement",
-          "url": "https://retiremehere.com/santa-fe-vs-tucson-retirement.html"
+          "name": "Naples vs. Fort Myers for Retirement",
+          "url": "https://retiremehere.com/naples-vs-fort-myers-retirement.html"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Asheville vs. Greenville for Retirement",
-          "url": "https://retiremehere.com/asheville-vs-greenville-retirement.html"
+          "name": "Naples vs. Sarasota for Retirement",
+          "url": "https://retiremehere.com/naples-vs-sarasota-retirement.html"
         },
         {
           "@type": "ListItem",
@@ -85,18 +85,24 @@ ml('account', '2238788');
         {
           "@type": "ListItem",
           "position": 5,
-          "name": "Naples vs. Sarasota for Retirement",
-          "url": "https://retiremehere.com/naples-vs-sarasota-retirement.html"
+          "name": "Scottsdale vs. Tucson for Retirement",
+          "url": "https://retiremehere.com/scottsdale-vs-tucson-retirement.html"
         },
         {
           "@type": "ListItem",
           "position": 6,
-          "name": "Tampa vs. St. Petersburg for Retirement",
-          "url": "https://retiremehere.com/tampa-vs-st-petersburg-retirement.html"
+          "name": "Santa Fe vs. Tucson for Retirement",
+          "url": "https://retiremehere.com/santa-fe-vs-tucson-retirement.html"
         },
         {
           "@type": "ListItem",
           "position": 7,
+          "name": "Asheville vs. Greenville for Retirement",
+          "url": "https://retiremehere.com/asheville-vs-greenville-retirement.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
           "name": "Madison vs. Ann Arbor for Retirement",
           "url": "https://retiremehere.com/madison-vs-ann-arbor-retirement.html"
         }
@@ -634,7 +640,7 @@ a.quiz-cta-btn:hover,
   object-fit: cover;
 }
 
-.hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 380px)); justify-content: center; gap: 18px; margin: 36px auto 0; }
+.hub-grid { display: grid; grid-template-columns: repeat(auto-fit, 380px); justify-content: center; gap: 18px; margin: 36px auto 0; }
 @media (max-width: 700px) { .hub-grid { grid-template-columns: 1fr; } }
 .hub-card { display: block; background: var(--white); border: 1px solid #ece6dc; border-radius: var(--radius); padding: 22px 24px; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; }
 .hub-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); color: inherit; }
@@ -644,6 +650,11 @@ a.quiz-cta-btn:hover,
 .hub-card-teaser { font-size: 14px; color: var(--mid); line-height: 1.55; margin-bottom: 12px; }
 .hub-card-link { font-size: 14px; font-weight: 700; color: var(--teal); }
 .hub-method { max-width: 640px; margin: 14px auto 0; font-size: 14px; color: var(--mid); line-height: 1.6; text-align: center; }
+
+.hub-region { margin-top: 44px; }
+.hub-region:first-of-type { margin-top: 8px; }
+.hub-region-h { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); text-align: center; margin: 0 0 4px; }
+.hub-region .hub-grid { margin-top: 18px; }
 </style>
 </head>
 <body>
@@ -701,8 +712,42 @@ a.quiz-cta-btn:hover,
 
   <p class="hub-method">These are decision pages, not rankings. Each one pulls both cities' real numbers from our database (cost, healthcare, taxes, climate, and more), marks the stronger city row by row, and tells you honestly who each city is for, including the catches they share.</p>
 
-  <div class="hub-grid">
+    <section class="hub-region">
+    <h2 class="hub-region-h">Florida Gulf Coast</h2>
+    <div class="hub-grid">
+    <a class="hub-card" href="tampa-vs-st-petersburg-retirement.html">
+      <div class="hub-card-region">Tampa Bay</div>
+      <div class="hub-card-title">Tampa <span class="hv">vs.</span> St. Petersburg</div>
+      <p class="hub-card-teaser">The Bay area's defining decision: two perfect 10s for airport and healthcare, or Florida's most walkable downtown and the deeper arts scene, on the same surge-prone bay.</p>
+      <span class="hub-card-link">Read the comparison →</span>
+    </a>
 
+    <a class="hub-card" href="naples-vs-fort-myers-retirement.html">
+      <div class="hub-card-region">Florida Gulf Coast</div>
+      <div class="hub-card-title">Naples <span class="hv">vs.</span> Fort Myers</div>
+      <p class="hub-card-teaser">The famous-versus-affordable decision: a $237,000 gap, near-identical healthcare scores, and what the Naples polish actually buys, forty minutes apart on Ian's coast.</p>
+      <span class="hub-card-link">Read the comparison →</span>
+    </a>
+
+    <a class="hub-card" href="naples-vs-sarasota-retirement.html">
+      <div class="hub-card-region">Florida Gulf Coast</div>
+      <div class="hub-card-title">Naples <span class="hv">vs.</span> Sarasota</div>
+      <p class="hub-card-teaser">Gulf Coast twins with identical perfect healthcare scores and a $136,000 gap: resort polish and 97th-percentile safety, or the deeper arts scene at the lower buy-in.</p>
+      <span class="hub-card-link">Read the comparison →</span>
+    </a>
+
+    <a class="hub-card" href="sarasota-vs-tampa-retirement.html">
+      <div class="hub-card-region">Florida Gulf Coast</div>
+      <div class="hub-card-title">Sarasota <span class="hv">vs.</span> Tampa</div>
+      <p class="hub-card-teaser">Gulf Coast neighbors about an hour apart: beaches and a deeper arts scene, or better value and the best airport in Florida, with the hurricane catch they share.</p>
+      <span class="hub-card-link">Read the comparison →</span>
+    </a>
+    </div>
+  </section>
+
+  <section class="hub-region">
+    <h2 class="hub-region-h">Desert Southwest</h2>
+    <div class="hub-grid">
     <a class="hub-card" href="scottsdale-vs-tucson-retirement.html">
       <div class="hub-card-region">Arizona</div>
       <div class="hub-card-title">Scottsdale <span class="hv">vs.</span> Tucson</div>
@@ -716,43 +761,32 @@ a.quiz-cta-btn:hover,
       <p class="hub-card-teaser">The Southwest's art capital at 7,000 feet against the value desert town: two altitudes, two price points, and opposite answers to summer.</p>
       <span class="hub-card-link">Read the comparison →</span>
     </a>
+    </div>
+  </section>
 
+  <section class="hub-region">
+    <h2 class="hub-region-h">Southeast</h2>
+    <div class="hub-grid">
     <a class="hub-card" href="asheville-vs-greenville-retirement.html">
       <div class="hub-card-region">Blue Ridge</div>
       <div class="hub-card-title">Asheville <span class="hv">vs.</span> Greenville</div>
       <p class="hub-card-teaser">Two Blue Ridge cities 60 miles apart, priced and built very differently: cooler mountain summers and a deep arts scene, or healthcare, value, and everyday practicality.</p>
       <span class="hub-card-link">Read the comparison →</span>
     </a>
+    </div>
+  </section>
 
-    <a class="hub-card" href="sarasota-vs-tampa-retirement.html">
-      <div class="hub-card-region">Florida Gulf Coast</div>
-      <div class="hub-card-title">Sarasota <span class="hv">vs.</span> Tampa</div>
-      <p class="hub-card-teaser">Gulf Coast neighbors about an hour apart: beaches and a deeper arts scene, or better value and the best airport in Florida, with the hurricane catch they share.</p>
-      <span class="hub-card-link">Read the comparison →</span>
-    </a>
-
-    <a class="hub-card" href="naples-vs-sarasota-retirement.html">
-      <div class="hub-card-region">Florida Gulf Coast</div>
-      <div class="hub-card-title">Naples <span class="hv">vs.</span> Sarasota</div>
-      <p class="hub-card-teaser">Gulf Coast twins with identical perfect healthcare scores and a $136,000 gap: resort polish and 97th-percentile safety, or the deeper arts scene at the lower buy-in.</p>
-      <span class="hub-card-link">Read the comparison →</span>
-    </a>
-
-    <a class="hub-card" href="tampa-vs-st-petersburg-retirement.html">
-      <div class="hub-card-region">Tampa Bay</div>
-      <div class="hub-card-title">Tampa <span class="hv">vs.</span> St. Petersburg</div>
-      <p class="hub-card-teaser">The Bay area's defining decision: two perfect 10s for airport and healthcare, or Florida's most walkable downtown and the deeper arts scene, on the same surge-prone bay.</p>
-      <span class="hub-card-link">Read the comparison →</span>
-    </a>
-
+  <section class="hub-region">
+    <h2 class="hub-region-h">Midwest</h2>
+    <div class="hub-grid">
     <a class="hub-card" href="madison-vs-ann-arbor-retirement.html">
       <div class="hub-card-region">Big Ten Midwest</div>
       <div class="hub-card-title">Madison <span class="hv">vs.</span> Ann Arbor</div>
       <p class="hub-card-teaser">Two Big Ten college towns with the same winters and a $103,000 housing gap: elite healthcare and walkability, or lake life at a lower buy-in.</p>
       <span class="hub-card-link">Read the comparison →</span>
     </a>
-
-  </div>
+    </div>
+  </section>
 
   <p class="hub-method">New matchups are added regularly. Want two specific cities compared? The quiz scores all 100 against what matters to you.</p>
 
