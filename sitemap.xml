@@ -191,6 +191,13 @@
   </url>
 
   <url>
+    <loc>https://retiremehere.com/cities/st-petersburg/profile.html</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://retiremehere.com/cities/bentonville/profile.html</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
@@ -312,6 +319,13 @@
   <url>
     <loc>https://retiremehere.com/naples-vs-sarasota-retirement.html</loc>
     <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://retiremehere.com/tampa-vs-st-petersburg-retirement.html</loc>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
