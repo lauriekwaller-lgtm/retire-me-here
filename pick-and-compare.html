@@ -330,31 +330,73 @@ button.header-quiz-btn:hover,
 }
 
 /* ── LENS PICKER ── */
-.lens-tabs {
+/* ── QUICK PICKS BAR ── */
+.quick-picks {
+  background: var(--terra-lt);
+  border: 1px solid #f4d8c4;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.quick-picks-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.quick-pick-row {
   display: flex;
-  gap: 6px;
-  margin-bottom: 18px;
-  background: var(--sand);
-  padding: 4px;
-  border-radius: 100px;
-  width: fit-content;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.lens-tab {
-  background: none;
-  border: none;
-  padding: 8px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--mid);
-  cursor: pointer;
-  border-radius: 100px;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
-}
-.lens-tab.active {
+.quick-pick {
   background: var(--white);
+  color: var(--mid);
+  border: 1px solid #e8e4de;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.quick-pick:hover {
+  border-color: var(--terra);
+  color: var(--terra);
+}
+.quick-pick.active {
+  background: var(--terra);
+  color: var(--white);
+  border-color: var(--terra);
+}
+
+/* ── HELPER BAR (shown after a quick-pick is chosen, or when dims are set) ── */
+.dim-helper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--teal-lt);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.dim-helper.hidden { display: none; }
+.dim-helper .check {
   color: var(--teal);
-  box-shadow: 0 2px 6px rgba(28,26,24,0.06);
+  font-weight: 700;
+}
+.dim-helper .helper-main {
+  color: var(--teal);
+  font-weight: 600;
+}
+.dim-helper .helper-sub {
+  color: var(--mid);
+  font-weight: 500;
 }
 
 .dim-grid {
@@ -398,44 +440,6 @@ button.header-quiz-btn:hover,
   margin-top: 2px;
   line-height: 1.4;
 }
-
-.persona-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-}
-.persona-option {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 16px;
-  border: 1px solid #e8e4de;
-  border-radius: 10px;
-  cursor: pointer;
-  background: var(--white);
-  transition: border-color 0.15s, background 0.15s;
-  text-align: left;
-  font-family: 'DM Sans', sans-serif;
-}
-.persona-option:hover { border-color: var(--terra); }
-.persona-option.selected {
-  border-color: var(--terra);
-  background: var(--terra-lt);
-}
-.persona-name {
-  font-family: 'Libre Franklin', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--dark);
-}
-.persona-dims {
-  font-size: 12px;
-  color: var(--mid);
-  line-height: 1.4;
-}
-
-.lens-pane { display: none; }
-.lens-pane.active { display: block; }
 
 /* ── COMPARE BUTTON ── */
 .compare-btn-wrap { text-align: center; margin: 8px 0 32px; }
@@ -666,6 +670,49 @@ button.header-quiz-btn:hover,
   line-height: 1.5;
 }
 
+/* ── "ABOUT THESE NUMBERS" DISCLOSURE ── */
+.about-numbers {
+  margin-top: 18px;
+  background: var(--sand);
+  border: 1px solid #ece6dc;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.55;
+}
+.about-numbers summary {
+  cursor: pointer;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+.about-numbers summary::-webkit-details-marker { display: none; }
+.about-numbers summary::before {
+  content: "▸";
+  font-size: 10px;
+  transition: transform 0.15s;
+  color: var(--terra);
+}
+.about-numbers[open] summary::before { transform: rotate(90deg); }
+.about-numbers-body {
+  padding: 0 18px 16px;
+}
+.about-numbers-body p {
+  margin-bottom: 10px;
+}
+.about-numbers-body p:last-child { margin-bottom: 0; }
+.about-numbers-body strong {
+  color: var(--dark);
+  font-weight: 700;
+}
+
 /* ── FOOTER CTA ── */
 .cta-block {
   background: var(--teal);
@@ -809,24 +856,24 @@ button.header-quiz-btn:hover,
     <p class="picker-hint" id="pickerHint">No cities picked yet. Add at least 2 to compare.</p>
   </section>
 
-  <!-- STEP 2: PICK LENS -->
+  <!-- STEP 2: PICK DIMENSIONS -->
   <section class="step">
     <p class="step-eyebrow">Step 2</p>
     <h2 class="step-title">Choose what matters</h2>
-    <p class="step-sub">Cost figures are always shown. Pick the dimensions to add, or start from a persona.</p>
+    <p class="step-sub">Cost figures are always shown. Start with a quick pick, or check dimensions directly below.</p>
 
-    <div class="lens-tabs">
-      <button class="lens-tab active" data-lens="dim" onclick="setLens('dim')">By dimension</button>
-      <button class="lens-tab" data-lens="persona" onclick="setLens('persona')">By persona</button>
+    <div class="quick-picks">
+      <div class="quick-picks-label">Quick picks (optional)</div>
+      <div class="quick-pick-row" id="quickPickRow"></div>
     </div>
 
-    <div class="lens-pane active" id="lensDim">
-      <div class="dim-grid" id="dimGrid"></div>
+    <div class="dim-helper hidden" id="dimHelper">
+      <span class="check">✓</span>
+      <span class="helper-main" id="dimHelperMain"></span>
+      <span class="helper-sub" id="dimHelperSub">Tick or untick any below to customize.</span>
     </div>
 
-    <div class="lens-pane" id="lensPersona">
-      <div class="persona-grid" id="personaGrid"></div>
-    </div>
+    <div class="dim-grid" id="dimGrid"></div>
   </section>
 
   <div class="compare-btn-wrap">
@@ -844,6 +891,16 @@ button.header-quiz-btn:hover,
     <div class="stacked-results" id="stackedResults"></div>
 
     <p class="results-note">Scores are 1 to 10 from the RetireMeHere 100-city database (v14). Highlighted cells mark the stronger city on that row. Ties highlight all winners. For cost and budget tier, lower is better. <a href="index.html">Find a city</a> | <a href="compare-retirement-cities.html">See editor-written comparisons</a></p>
+
+    <details class="about-numbers">
+      <summary>About these numbers</summary>
+      <div class="about-numbers-body">
+        <p><strong>Median home values</strong> are Zillow Home Value Index (ZHVI) typical-value estimates. Eight cities (Indianapolis, Memphis, Philadelphia, Pittsburgh, San Antonio, St. Louis, St. Paul, and Wilmington DE) use retiree-target neighborhood data rather than citywide figures and are shown as ranges.</p>
+        <p><strong>Monthly cost bands</strong> are directional composite estimates drawn from multiple cost-of-living sources. Use them as a gauge for relative differences between cities, not as a personal budget. Verify with your own research before relocating.</p>
+        <p><strong>Budget tier</strong> is our 1-of-5 classification: 1 means lowest cost of living in our 100-city database, 5 means highest.</p>
+        <p><strong>Dimension scores (1 to 10)</strong> are RetireMeHere's proprietary scoring across our 100-city database, drawing on sources like US News hospital rankings, FlightConnections airport route data, BestPlaces and ERI cost data, state revenue departments for tax friendliness, county property tax records, FBI/ERI crime data, and editorial research on walkability, outdoor recreation, and community character.</p>
+      </div>
+    </details>
   </section>
 
   <section class="cta-block">
@@ -949,13 +1006,14 @@ const DIMS = [
   { key: 'd10', name: 'D10 Community',       desc: 'Arts, culture, social fabric.' }
 ];
 
-// Personas auto-select dimensions matching the existing site personas.
+// Quick-pick presets. Each preset is a 1-click shortcut that auto-fills the
+// dimension checkboxes. The user can then customize freely from there.
 const PERSONAS = [
-  { id: 'value',     name: 'Value Navigator',    dims: ['d2','d5','d3'],  blurb: 'Budget, taxes, healthcare' },
-  { id: 'wellness',  name: 'Wellness Blueprint', dims: ['d3','d8','d9'],  blurb: 'Healthcare, active wellness, safety' },
-  { id: 'globe',     name: 'Globetrotter',       dims: ['d1','d10','d2'], blurb: 'Airport, community, budget' },
-  { id: 'frontier',  name: 'Active Frontier',    dims: ['d7','d8','d4'],  blurb: 'Outdoor, wellness, climate resilience' },
-  { id: 'urban',     name: 'Urban Walkabout',    dims: ['d6','d10','d1'], blurb: 'Walkability, community, airport' }
+  { id: 'value',     name: 'Cost-conscious',     dims: ['d2','d5','d3'],  blurb: 'Budget, taxes, healthcare' },
+  { id: 'wellness',  name: 'Health & wellness',  dims: ['d3','d8','d9'],  blurb: 'Healthcare, active wellness, safety' },
+  { id: 'globe',     name: 'Travel hub',         dims: ['d1','d10','d2'], blurb: 'Airport, community, budget' },
+  { id: 'frontier',  name: 'Outdoor adventure',  dims: ['d7','d8','d4'],  blurb: 'Outdoor, wellness, climate resilience' },
+  { id: 'urban',     name: 'Walkable urban',     dims: ['d6','d10','d1'], blurb: 'Walkability, community, airport' }
 ];
 
 const MAX_CITIES = 4;
@@ -963,16 +1021,16 @@ const MIN_CITIES = 2;
 
 // State
 let selected = [];        // array of {city, state} from CITIES
-let activeLens = 'dim';
-let selectedDims = ['d2','d3'];  // sensible default
-let selectedPersona = null;
+let selectedDims = [];    // dimensions currently checked (none by default)
+let activePreset = null;  // id of the quick-pick currently active, or null if customized/none
 
 // ── INITIAL RENDER ──────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   renderDimOptions();
-  renderPersonaOptions();
+  renderQuickPicks();
   renderSelected();
   wireSearch();
+  updateHelperBar();
   // ?cities=Tampa-FL,Naples-FL deep link (optional)
   applyDeepLink();
 });
@@ -1021,48 +1079,67 @@ function renderDimOptions() {
       } else {
         selectedDims = selectedDims.filter(x => x !== k);
       }
-      // Clear persona selection if user is hand-picking dims
-      selectedPersona = null;
-      renderPersonaOptions();
+      // Manual edit means the preset (if any) is no longer the source of truth.
+      // Keep the dims, but mark the preset as "customized" by clearing activePreset.
+      activePreset = null;
+      renderQuickPicks();
       // Sync card highlight
       const card = e.target.closest('.dim-option');
       if (e.target.checked) card.classList.add('selected'); else card.classList.remove('selected');
+      updateHelperBar();
       updateCompareBtn();
     });
   });
 }
 
-// ── PERSONA OPTIONS ────────────────────────────────────────
-function renderPersonaOptions() {
-  const grid = document.getElementById('personaGrid');
-  grid.innerHTML = PERSONAS.map(p => `
-    <button class="persona-option ${selectedPersona === p.id ? 'selected' : ''}" data-persona="${p.id}" type="button">
-      <span class="persona-name">${p.name}</span>
-      <span class="persona-dims">${p.blurb}</span>
+// ── QUICK PICKS ────────────────────────────────────────────
+function renderQuickPicks() {
+  const row = document.getElementById('quickPickRow');
+  row.innerHTML = PERSONAS.map(p => `
+    <button class="quick-pick ${activePreset === p.id ? 'active' : ''}" data-preset="${p.id}" type="button">
+      ${p.name}${activePreset === p.id ? ' ✓' : ''}
     </button>
   `).join('');
-  grid.querySelectorAll('button[data-persona]').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const id = btn.getAttribute('data-persona');
+  row.querySelectorAll('button[data-preset]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-preset');
       const p = PERSONAS.find(x => x.id === id);
       if (!p) return;
-      selectedPersona = id;
-      selectedDims = [...p.dims];
-      renderPersonaOptions();
-      renderDimOptions(); // keep dim view in sync
+      // Toggle: clicking the active preset clears it
+      if (activePreset === id) {
+        activePreset = null;
+        selectedDims = [];
+      } else {
+        activePreset = id;
+        selectedDims = [...p.dims];
+      }
+      renderQuickPicks();
+      renderDimOptions(); // keep dim checkboxes in sync
+      updateHelperBar();
       updateCompareBtn();
     });
   });
 }
 
-// ── LENS TABS ──────────────────────────────────────────────
-function setLens(name) {
-  activeLens = name;
-  document.querySelectorAll('.lens-tab').forEach(t => {
-    t.classList.toggle('active', t.getAttribute('data-lens') === name);
-  });
-  document.getElementById('lensDim').classList.toggle('active', name === 'dim');
-  document.getElementById('lensPersona').classList.toggle('active', name === 'persona');
+// ── HELPER BAR ─────────────────────────────────────────────
+function updateHelperBar() {
+  const bar = document.getElementById('dimHelper');
+  const main = document.getElementById('dimHelperMain');
+  const sub = document.getElementById('dimHelperSub');
+  const n = selectedDims.length;
+  if (n === 0) {
+    bar.classList.add('hidden');
+    return;
+  }
+  bar.classList.remove('hidden');
+  if (activePreset) {
+    const p = PERSONAS.find(x => x.id === activePreset);
+    main.textContent = `${n} dimension${n === 1 ? '' : 's'} added from ${p ? p.name : 'preset'}.`;
+    sub.textContent = 'Tick or untick any below to customize.';
+  } else {
+    main.textContent = `${n} dimension${n === 1 ? '' : 's'} selected.`;
+    sub.textContent = 'Click a quick pick above or check more below.';
+  }
 }
 
 // ── CITY SEARCH ────────────────────────────────────────────
@@ -1194,7 +1271,7 @@ function runCompare() {
       gtag('event', 'pick_compare_run', {
         cities: selected.map(c => c.city + '_' + c.state).join(','),
         dims: selectedDims.join(','),
-        persona: selectedPersona || ''
+        preset: activePreset || ''
       });
     }
   } catch (e) {}
@@ -1208,9 +1285,9 @@ function runCompare() {
   let sub = 'Cost figures plus ';
   if (selectedDims.length === 0) {
     sub = 'Cost figures only. Add dimensions above to compare on more.';
-  } else if (selectedPersona) {
-    const p = PERSONAS.find(x => x.id === selectedPersona);
-    sub += `${selectedDims.length} dimensions from the ${p ? p.name : ''} lens.`;
+  } else if (activePreset) {
+    const p = PERSONAS.find(x => x.id === activePreset);
+    sub += `${selectedDims.length} dimensions from the ${p ? p.name : ''} quick pick.`;
   } else {
     sub += `${selectedDims.length} ${selectedDims.length === 1 ? 'dimension' : 'dimensions'} you picked.`;
   }
@@ -1249,7 +1326,7 @@ function buildTable() {
   })), 'low');
 
   // Monthly estimate (lower is better)
-  html += renderRow('Monthly estimate', cities.map(c => ({
+  html += renderRow('Monthly cost band (estimate)', cities.map(c => ({
     display: c.monthlyEst || 'n/a',
     compare: c.monthlyMid
   })), 'low');
@@ -1329,7 +1406,7 @@ function buildStacked() {
   // Precompute winners per metric for highlighting in stacked view
   const rows = [];
   rows.push({ label: 'Budget tier', get: c => c.budgetTier !== null ? `${c.budgetTier} of 5` : 'n/a', cmp: c => c.budgetTier, dir: 'low', section: 'Cost basics' });
-  rows.push({ label: 'Monthly estimate', get: c => c.monthlyEst || 'n/a', cmp: c => c.monthlyMid, dir: 'low' });
+  rows.push({ label: 'Monthly cost band (est.)', get: c => c.monthlyEst || 'n/a', cmp: c => c.monthlyMid, dir: 'low' });
   rows.push({ label: 'Median home', get: c => c.medianHome || 'n/a', cmp: c => c.medianHomeMid, dir: 'low' });
   if (selectedDims.length > 0) {
     selectedDims.forEach(k => {
