@@ -1181,6 +1181,7 @@ function renderSearch(query) {
   const results = document.getElementById('citySearchResults');
   const q = (query || '').trim().toLowerCase();
   let pool = CITIES;
+  let limit = 100;  // empty query: show all 100 cities so the dropdown is truly browsable
 
   if (q.length === 2 && /^[a-z]{2}$/.test(q)) {
     // State abbreviation shortcut
@@ -1192,8 +1193,10 @@ function renderSearch(query) {
       (c.type || '').toLowerCase().includes(q) ||
       (c.highlight || '').toLowerCase().includes(q)
     );
+    limit = 25;  // typed query: cap at 25 so the user sees the strongest matches
   }
-  pool = pool.slice(0, 25);
+  // Alphabetize so browsing the empty dropdown is predictable.
+  pool = pool.slice().sort((a, b) => a.city.localeCompare(b.city)).slice(0, limit);
 
   if (!pool.length) {
     results.innerHTML = '<div class="city-result disabled">No matches.</div>';
@@ -1234,9 +1237,13 @@ function renderSearch(query) {
       selected.push(city);
       renderSelected();
       updateCompareBtn();
-      document.getElementById('citySearchInput').value = '';
-      results.classList.remove('open');
-      document.getElementById('citySearchInput').focus();
+      const input = document.getElementById('citySearchInput');
+      input.value = '';
+      input.focus();
+      // Re-render the dropdown directly. We can't rely on the focus event
+      // refiring (mousedown.preventDefault kept the input focused through
+      // the click), so the dropdown would otherwise stay closed.
+      renderSearch('');
     });
   });
 }
@@ -1374,12 +1381,13 @@ function buildTable() {
       })), 'high');
     });
 
-    // Summary average
+    // Summary average. Format consistently with the individual rows above:
+    // whole numbers show without a decimal ("7/10"), fractional show one place ("7.3/10").
     const avgs = cities.map(c => {
       const vals = selectedDims.map(k => c[k]).filter(v => typeof v === 'number');
       if (!vals.length) return null;
       const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-      return { display: avg.toFixed(1) + '/10', compare: avg };
+      return { display: formatScore(avg), compare: avg };
     });
     html += renderRow('Average of selected dimensions', avgs, 'high', 'summary-row');
   }
@@ -1458,7 +1466,8 @@ function buildStacked() {
       label: 'Average of selected dims',
       get: c => {
         const vals = selectedDims.map(k => c[k]).filter(v => typeof v === 'number');
-        return vals.length ? (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1) + '/10' : 'n/a';
+        if (!vals.length) return 'n/a';
+        return formatScore(vals.reduce((a, b) => a + b, 0) / vals.length);
       },
       cmp: c => {
         const vals = selectedDims.map(k => c[k]).filter(v => typeof v === 'number');
@@ -1514,6 +1523,15 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 function escapeAttr(s) { return escapeHtml(s); }
+
+// Format a score so whole numbers show without a decimal ("7/10") and
+// fractional values show one decimal place ("7.3/10"). Used for the
+// "Average of selected dimensions" row so it doesn't clash visually with
+// the integer dimension scores above.
+function formatScore(n) {
+  const rounded = Math.round(n * 10) / 10;
+  return (rounded % 1 === 0 ? rounded.toString() : rounded.toFixed(1)) + '/10';
+}
 
 </script>
 
