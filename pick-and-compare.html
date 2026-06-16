@@ -592,6 +592,26 @@ button.header-quiz-btn:hover,
   color: var(--white);
 }
 
+/* Grey text for cities without a live profile (honest, no broken CTA) */
+.action-note {
+  display: inline-block;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--light);
+  padding: 7px 4px;
+}
+
+/* Small caption shown under a value (used for the median-home neighborhood note) */
+.cell-caption {
+  display: block;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--mid);
+  font-weight: 400;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
 /* ── NARROW SCREEN: STACKED CARDS ── */
 @media (max-width: 700px) {
   .compare-table-wrap { display: none; }
@@ -893,7 +913,7 @@ button.header-quiz-btn:hover,
     <p class="results-note">Scores are 1 to 10 from the RetireMeHere 100-city database (v14). Highlighted cells mark the stronger city on that row. Ties highlight all winners. For cost and budget tier, lower is better. <a href="index.html">Find a city</a> | <a href="compare-retirement-cities.html">See editor-written comparisons</a></p>
 
     <details class="about-numbers">
-      <summary>About these numbers</summary>
+      <summary>Methodology &amp; sources</summary>
       <div class="about-numbers-body">
         <p><strong>Median home values</strong> are Zillow Home Value Index (ZHVI) typical-value estimates. Eight cities (Indianapolis, Memphis, Philadelphia, Pittsburgh, San Antonio, St. Louis, St. Paul, and Wilmington DE) use retiree-target neighborhood data rather than citywide figures and are shown as ranges.</p>
         <p><strong>Monthly cost bands</strong> are directional composite estimates drawn from multiple cost-of-living sources. Use them as a gauge for relative differences between cities, not as a personal budget. Verify with your own research before relocating.</p>
@@ -1331,11 +1351,16 @@ function buildTable() {
     compare: c.monthlyMid
   })), 'low');
 
-  // Median home (lower is better)
-  html += renderRow('Median home (ZHVI)', cities.map(c => ({
-    display: c.medianHome || 'n/a',
-    compare: c.medianHomeMid
-  })), 'low');
+  // Median home (lower is better). Range values (8 retiree-target neighborhood
+  // cities) get an inline caption so the contrast with citywide values makes sense.
+  html += renderRow('Median home value', cities.map(c => {
+    const isRange = c.medianHome && /[\u2013\u2014\-].*\$/.test(c.medianHome);
+    return {
+      display: c.medianHome || 'n/a',
+      compare: c.medianHomeMid,
+      caption: isRange ? 'retiree-area neighborhoods' : ''
+    };
+  }), 'low');
 
   // SECTION: Selected dimensions
   if (selectedDims.length > 0) {
@@ -1359,16 +1384,18 @@ function buildTable() {
     html += renderRow('Average of selected dimensions', avgs, 'high', 'summary-row');
   }
 
-  // Action row
+  // Action row. Cities with live profiles get a button to that profile,
+  // labeled with the city name so it's unambiguous. Cities without a profile
+  // get a small grey "Profile coming soon" note (no CTA, since the previous
+  // ?prefill_city query string had no handler on index.html).
   html += '<tr class="action-row"><td></td>';
   cities.forEach(c => {
     const key = c.city + '_' + c.state;
     const profile = PUBLISHED_PROFILES[key];
     if (profile) {
-      html += `<td><a class="action-link" href="${profile}">Full profile →</a></td>`;
+      html += `<td><a class="action-link" href="${profile}">${escapeHtml(c.city)} profile &rarr;</a></td>`;
     } else {
-      const params = `?prefill_city=${encodeURIComponent(c.city)}&prefill_state=${encodeURIComponent(c.state)}`;
-      html += `<td><a class="action-link quiz" href="index.html${params}">Match me to this →</a></td>`;
+      html += `<td><span class="action-note">Profile coming soon</span></td>`;
     }
   });
   html += '</tr>';
@@ -1392,7 +1419,8 @@ function renderRow(metric, cells, direction, extraRowClass) {
   cells.forEach((c, i) => {
     const isWinner = winnerVal !== null && c.compare === winnerVal && valid.length > 1
                      && !cells.every(x => x.compare === winnerVal); // suppress highlight if all equal
-    cellsHtml += `<td class="value${isWinner ? ' winner' : ''}">${c.display}</td>`;
+    const captionHtml = c.caption ? `<div class="cell-caption">${escapeHtml(c.caption)}</div>` : '';
+    cellsHtml += `<td class="value${isWinner ? ' winner' : ''}">${c.display}${captionHtml}</td>`;
   });
   const cls = extraRowClass ? ` class="${extraRowClass}"` : '';
   return `<tr${cls}><td class="metric">${metric}</td>${cellsHtml}</tr>`;
@@ -1407,7 +1435,7 @@ function buildStacked() {
   const rows = [];
   rows.push({ label: 'Budget tier', get: c => c.budgetTier !== null ? `${c.budgetTier} of 5` : 'n/a', cmp: c => c.budgetTier, dir: 'low', section: 'Cost basics' });
   rows.push({ label: 'Monthly cost band (est.)', get: c => c.monthlyEst || 'n/a', cmp: c => c.monthlyMid, dir: 'low' });
-  rows.push({ label: 'Median home', get: c => c.medianHome || 'n/a', cmp: c => c.medianHomeMid, dir: 'low' });
+  rows.push({ label: 'Median home value', get: c => c.medianHome || 'n/a', cmp: c => c.medianHomeMid, dir: 'low', caption: c => (c.medianHome && /[\u2013\u2014\-].*\$/.test(c.medianHome)) ? 'retiree-area neighborhoods' : '' });
   if (selectedDims.length > 0) {
     selectedDims.forEach(k => {
       const d = DIMS.find(x => x.key === k);
@@ -1462,17 +1490,18 @@ function buildStacked() {
       }
       const val = r.cmp(c);
       const isWinner = winnerMap[i] !== null && val === winnerMap[i];
+      const caption = (typeof r.caption === 'function') ? r.caption(c) : '';
+      const captionHtml = caption ? `<div class="cell-caption">${escapeHtml(caption)}</div>` : '';
       html += `<div class="stacked-row${r.summary ? ' summary' : ''}">
         <span class="metric">${r.label}</span>
-        <span class="value${isWinner ? ' winner' : ''}">${r.get(c)}</span>
+        <span class="value${isWinner ? ' winner' : ''}">${r.get(c)}${captionHtml}</span>
       </div>`;
     });
     html += `<div class="stacked-action">`;
     if (profile) {
-      html += `<a class="action-link" href="${profile}">Full profile →</a>`;
+      html += `<a class="action-link" href="${profile}">${escapeHtml(c.city)} profile &rarr;</a>`;
     } else {
-      const params = `?prefill_city=${encodeURIComponent(c.city)}&prefill_state=${encodeURIComponent(c.state)}`;
-      html += `<a class="action-link quiz" href="index.html${params}">Match me to this →</a>`;
+      html += `<span class="action-note">Profile coming soon</span>`;
     }
     html += `</div></div>`;
   });
