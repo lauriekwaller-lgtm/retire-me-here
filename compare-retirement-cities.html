@@ -679,6 +679,65 @@ a.quiz-cta-btn:hover,
 .hub-region:first-of-type { margin-top: 8px; }
 .hub-region-h { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); text-align: center; margin: 0 0 4px; }
 .hub-region .hub-grid { margin-top: 18px; }
+
+/* ── BUILD-YOUR-OWN CALLOUT ── */
+.build-callout {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-left: 4px solid var(--terra);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 28px 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: var(--shadow);
+}
+.build-callout-text { flex: 1; min-width: 0; }
+.build-callout-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.build-callout-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+  letter-spacing: -0.005em;
+}
+.build-callout-p {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.55;
+}
+.build-callout-btn {
+  background: var(--terra);
+  color: var(--white) !important;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 11px 22px;
+  border-radius: 100px;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+.build-callout-btn:hover {
+  background: #b06440;
+  transform: translateY(-1px);
+  color: var(--white) !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+@media (max-width: 640px) {
+  .build-callout { flex-direction: column; align-items: flex-start; gap: 14px; padding: 22px 22px; }
+  .build-callout-btn { width: 100%; text-align: center; }
+}
 </style>
 </head>
 <body>
@@ -735,6 +794,15 @@ a.quiz-cta-btn:hover,
   </section>
 
   <p class="hub-method">These are decision pages, not rankings. Each one pulls both cities' real numbers from our database (cost, healthcare, taxes, climate, and more), marks the stronger city row by row, and tells you honestly who each city is for, including the catches they share.</p>
+
+  <section class="build-callout">
+    <div class="build-callout-text">
+      <p class="build-callout-eyebrow">Build your own</p>
+      <h3 class="build-callout-h3">Don't see your pairing? Pick any 2 to 4 cities yourself.</h3>
+      <p class="build-callout-p">Same database, same scores. Pick the dimensions that matter to you, and see your shortlist side by side with the stronger city marked on every row.</p>
+    </div>
+    <a href="pick-and-compare.html" class="build-callout-btn">Open the tool →</a>
+  </section>
 
     <section class="hub-region">
     <h2 class="hub-region-h">Florida Gulf Coast</h2>
@@ -839,7 +907,7 @@ a.quiz-cta-btn:hover,
     </div>
   </section>
 
-  <p class="hub-method">New matchups are added regularly. Want two specific cities compared? The quiz scores all 100 against what matters to you.</p>
+  <p class="hub-method">New matchups are added regularly. Want two specific cities compared? <a href="pick-and-compare.html">Pick any 2 to 4 yourself</a>, or let the quiz score all 100 against what matters to you.</p>
 
   <section class="quiz-cta">
     <p class="quiz-cta-eyebrow">Want a personalized match?</p>
