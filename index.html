@@ -2770,17 +2770,6 @@ const CITIES = [
     cons: ["Four seasons with real winters — January average 36°F","XNA airport regional; Dallas or Little Rock for major hub","Safety 68th percentile — above average but some areas require awareness","Less name recognition as a retirement destination"]
   },
   {
-    name: "Henderson", state: "NV", type: "Desert / Active Adult",
-    setting: ["Desert"],
-    character: ["Quiet & Residential"],
-    monthlyEst: "$3,800–$5,200/mo", medianHome: "$487,000", budgetRange: 3,
-    scores: { D1:9, D2:5, D3:6, D4:5, D5:10, D6:3, D7:4, D8:8, D9:9, D10:5 },
-    climate: { W:8, H:1, M:10, HUM:1, HEAT:10 },
-    highlight: "Sun City Anthem — three rec centers, 100+ clubs, world-class 55+ infrastructure. No Nevada income tax. LAS airport 20 min. 83rd percentile safety.",
-    pros: ["Sun City Anthem — exceptional 55+ infrastructure, three rec centers, 100+ clubs","No Nevada income tax on any retirement income","LAS airport 20 min — one of the world's great hubs","83rd percentile safety — one of the safer cities in the database"],
-    cons: ["Summers brutal — 104°F+ routinely June through September","Fully car-dependent — everything requires driving","Hospital D3 score 6 — St. Rose Dominican adequate but not exceptional","Suburban character — limited cultural depth beyond 55+ amenities"]
-  },
-  {
     name: "Johnson City", state: "TN", type: "Mountain / Affordable",
     setting: ["Lakeside"],
     character: ["Historic", "Nature-Centric"],
@@ -4596,29 +4585,6 @@ const CITY_ENRICHMENT = {
     ],
     sources: "Zillow/Redfin (2026) · Washington Regional Medical ratings · CrimeGrade.org (2025) · Arkansas Dept. of Finance · NOAA Climate Normals · Northwest Arkansas Democrat-Gazette · Data current as of March 2026."
   },
-  "Henderson": {
-    hospitalRating: "St. Rose Dominican (Siena Campus) — #2 in Nevada, high-performing in 10 procedures",
-    scoreNotes: {
-      D1: "LAS (Harry Reid International) 20 min — one of the world's great airports. Every major airline. Outstanding national connections.",
-      D2: "Typical home value $465K. Monthly costs $3,800–$5,200. Range 3. No Nevada income tax amplifies value.",
-      D3: "St. Rose Dominican Siena Campus — #2 in Nevada, high-performing in 10 procedures. Dignity Health system. Las Vegas medical district accessible.",
-      DW: "Jan avg 47°F with lows to 30°F — warm sunny days, cold nights. 294 sunny days. Excellent winter weather for outdoor activity.",
-      DH: "Summers extreme — July avg 104°F, routinely 108–112°F. The Mojave Desert heat is severe. Many retirees stay indoors June–September.",
-      DM: "Extremely dry — Mojave Desert humidity is minimal. Dry heat at 104°F is a very different experience than humid heat.",
-      D5: "No Nevada income tax on any retirement income. Property tax ~0.6% (Clark Co.) — very low. Excellent overall tax situation.",
-      D6: "Car-dependent throughout. Green Valley Ranch area has some walkable mixed-use. Otherwise everything requires driving.",
-      D7: "Lake Mead National Recreation Area. Red Rock Canyon 30 min. Valley of Fire State Park. Hoover Dam. Sloan Canyon petroglyphs.",
-      D8: "Sun City Anthem — three recreation centers, 8 pools, 100+ clubs. Exceptional 55+ infrastructure. Perfect 10.",
-      D9: "CrimeGrade B- — 83rd percentile. One of the safer cities in the database. Henderson consistently outperforms Las Vegas proper on safety.",
-      D10: "Green Valley Ranch resort. Las Vegas cultural amenities 20 min. Strong 55+ social calendar through Sun City. Henderson Symphony Orchestra."
-    },
-    neighborhoods: [
-      { name: "Sun City Anthem", vibe: "Active adult 55+, world-class amenities", desc: "The signature Henderson 55+ community. Three rec centers, 8 pools, 100+ clubs, golf. The standard by which all active adult communities are judged." },
-      { name: "Green Valley / Green Valley Ranch", vibe: "Established, resort feel, walkable area", desc: "Henderson's most established and desirable non-55+ area. Green Valley Ranch resort, walkable Town Square area. Very safe." },
-      { name: "MacDonald Ranch / Seven Hills", vibe: "Upscale, golf, views", desc: "Elevated with Strip views. Golf communities. Gated options. Premium pricing for Henderson. Very safe." }
-    ],
-    sources: "Zillow/Redfin (2026) · US News Health — St. Rose Dominican · CrimeGrade.org (2025) · Nevada Dept. of Taxation (no income tax) · NOAA Climate Normals · Las Vegas Review-Journal · Data current as of March 2026."
-  },
   "Johnson City": {
     hospitalRating: "Ballad Health — quality concerns; Holston Valley Medical (Kingsport) stronger",
     scoreNotes: {
@@ -5519,7 +5485,7 @@ const CITY_ENRICHMENT = {
       D6: "Pinehurst Village historic core walkable — small downtown, library, shops, dining accessible on foot. Density 1,008/sq mi (high for a village). Broader community is suburban/golf-community sprawl requiring a car.",
       D7: "Sandhills region — pine forests, gentle rolling terrain. Weymouth Woods Sandhills Nature Preserve, Reservoir Park, Uwharrie National Forest 30 min. No bluffs or mountains; flat-to-rolling terrain limits hiking variety.",
       D8: "Home of American Golf — Pinehurst Resort 10 courses (including #2, Donald Ross masterpiece, US Open anchor site, with #11 opening 2027). 16 of NC's Top 100 courses in Pinehurst/Southern Pines. Tennis, croquet, equestrian (Pinehurst Harness Track) developed. Spa at Pinehurst, 24/7 fitness center.",
-      D9: "Multiple sources cite \"extraordinarily low\" crime. Affluent village, Moore County 90th+ percentile per CrimeGrade. Sits with Naples, Henderson, Georgetown, St. George.",
+      D9: "Multiple sources cite \"extraordinarily low\" crime. Affluent village, Moore County 90th+ percentile per CrimeGrade. Sits with Naples, Georgetown, and St. George.",
       D10: "World-class golf events (US Open anchor), Pinehurst Resort dining, Sandhills Community College, Weymouth Center for Arts & Humanities (Southern Pines), Olmsted-designed village layout, equestrian culture."
     },
     neighborhoods: [
@@ -7664,7 +7630,7 @@ const EXPLORE_PRESETS = {
       { name: 'Santa Barbara', state: 'CA', type: 'Small City / Coastal', s1: 10, s2: 7 },
       { name: 'St. Augustine', state: 'FL', type: 'Historic / Beach Town', s1: 8, s2: 8 },
       { name: 'Delray Beach', state: 'FL', type: 'Beach Town', s1: 9, s2: 7 },
-      { name: 'Henderson', state: 'NV', type: 'Major Metro / Desert', s1: 7, s2: 9 },
+      { name: 'Georgetown', state: 'TX', type: 'Active Adult / Suburban', s1: 9, s2: 9 },
     ]
   },
   healthcare_affordable: {
