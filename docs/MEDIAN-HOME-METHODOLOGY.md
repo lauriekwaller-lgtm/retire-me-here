@@ -1,147 +1,79 @@
 # RetireMeHere Median Home Methodology
-**Established:** June 17, 2026
-**Applies to:** Median Home column in CityDatabase, and the derived Monthly Est via BUDGET-METHODOLOGY.md
-**Companion docs:** BUDGET-METHODOLOGY.md, SITE-OPERATIONS-LOG.md
+
+**Version:** 1.1
+**Established:** June 19, 2026
+**Supersedes:** Multi-basis approach (Citywide / Archetype / Neighborhood), v1.0
+**Database:** CityDatabase_Jun_19_v15_1.xlsx onward
 
 ---
 
-## 1. The principle
+## 1. Why this document exists
 
-**The Median Home value for each city represents what a financially-secure relocating retiree would actually pay across the realistic spectrum of submarkets they would consider in that metro.**
+The previous methodology (v1.0) used three bases — Citywide ZHVI, Archetype basket, and Neighborhood — chosen city by city based on whether the citywide median appeared to misrepresent retiree-target neighborhoods. After auditing all 99 cities, the multi-basis approach proved harder to defend than the problem it solved. Archetype basket composition was prone to over-premium-weighting and inadvertent inclusion of out-of-city neighborhoods. The single-MEAN output for cities with genuine geographic income polarization (Memphis, Philadelphia, Pittsburgh, St. Louis) compressed a real range into a single point that misled in the opposite direction.
 
-The audience this serves: a relocator with $300K to $1M+ in proceeds from a prior home, choosing a destination, prioritizing safety, livability, and value. Not a luxury buyer at the top; not a budget buyer at the bottom; the realistic spread across both.
+This document replaces v1.0 with a simpler default and a profile-copy discipline rule.
 
-Citywide statistical medians often misrepresent this number, particularly in large metros where distressed neighborhoods drag the average below anything a relocating retiree would buy. The methodology below corrects for that systematically and consistently.
+## 2. The rule
 
-## 2. Two valid bases
+**Default:** Every city's Median Home is its citywide Zillow ZHVI (City geography, All Homes SFR+Condo, Smoothed & Seasonally Adjusted). One source, one number, consistently applied.
 
-Every city in the database uses one of two bases:
+**Two exceptions:** St. Paul MN and Wilmington DE retain a published range. Their profile pages are already built around the range framing and the original neighborhood-basis decisions remain documented. These two stay as range cities for historical-continuity reasons only; no new cities will be added to this exception list.
 
-**Citywide.** The citywide median accurately represents the retiree experience. Used for small towns, explicit retiree destinations, and cities without significant internal price variation. Examples: Naples, Bend, Asheville, Carmel, Vail, Park City, Sarasota, Sun Valley.
+**The Median Honesty Rule.** When a city's citywide ZHVI is significantly dragged below the price of any neighborhood a retiree would realistically target — typically because of distressed-core areas that are not safe retirement options — the profile must carry a visible **Neighborhood Reality Check** callout, above the fold, anchoring the reader before they reach the stat card numbers. The callout names retiree-target neighborhoods and their typical price range. It applies equally to Median Home and Monthly Budget framing, since the budget formula propagates from Median Home.
 
-**Archetype basket.** The citywide median is misleading because the metro has significant internal price variation by neighborhood. A weighted basket of representative submarkets is used instead. Examples: Miami, St. Louis, Phoenix, Atlanta, Dallas, Houston, Cleveland.
+**Trigger threshold:** retiree-target neighborhoods (documented in the audit log) typically priced **more than 50% above** the citywide median.
 
-The Median Home Basis column in the database records which is used.
+**Editorial constraint:** cities meeting the criterion must not be described as "affordable" — in profile copy, comparison pages, landing-page cards, Pinterest pins, or quiz results — without the Neighborhood Reality Check context attached. Their R1 or R2 budget-tier badges must carry a contextual qualifier on the surface where they appear.
 
-## 3. The archetype framework
+## 3. Cities requiring the Neighborhood Reality Check callout
 
-When a city uses the archetype basket, the basket is constructed from these archetypes:
+As of v15.1 generation, eight cities meet the trigger threshold:
 
-| Archetype | Description |
-|---|---|
-| Urban walkable | Dense, walkable neighborhood (city proper or close-in). Condos and small SFHs typical. For retirees who want to reduce car dependence. |
-| Established premium suburb | Mature, leafy suburb with a walkable village center. Older housing stock. Highest tier of the basket. |
-| Newer amenity-rich suburb | Newer construction, planned or master-planned feel. Conveniences nearby. Mid-to-upper tier of the basket. |
-| Value/entry-level option | Farther out or smaller-scale. Same metro, lower price point. Entry tier of the basket. |
-| Active-adult community (55+) | Only included for cities with an iconic 55+ example (Sun City Phoenix, The Villages, Robson communities). Skipped otherwise. |
-| **City-specific archetype** | A maximum of one additional archetype where the city has a genuinely distinct local pattern not captured by the standard menu (e.g., Miami's coastal/island, New Orleans' historic core). Must be documented and defended. |
+| City | Citywide median | Retiree-target range | Gap | v15.1 tier |
+|---|---|---|---|---|
+| Memphis, TN | $195K | ~$408K | +109% | R1 |
+| Philadelphia, PA | $240K | ~$684K | +185% | R1 |
+| Pittsburgh, PA | $240K | ~$526K | +119% | R1 |
+| St. Louis, MO | $235K | ~$494K | +110% | R1 |
+| New Orleans, LA | $250K | ~$532K | +113% | R1 |
+| Columbus, OH | $235K | ~$493K | +110% | R1 |
+| Kansas City, MO | $250K | ~$466K | +86% | R1 |
+| Tampa, FL | $400K | ~$569K | +42% | R2 (included as borderline; review during profile pass) |
 
-The basket includes **one representative submarket per archetype**, not multiple. If a city has both Kirkwood and Webster Groves as candidates for "established premium suburb," you pick one. The other is implicitly represented. The total basket has 3 to 5 picks. Five is the absolute maximum.
+The Tampa inclusion is borderline (42% gap, below the 50% trigger). It was included because Tampa's archetype-research findings during the v15 audit showed retiree-target neighborhoods consistently above citywide. Reviewer judgment during the profile copy pass: keep the callout if the gap reads as misleading, drop it if the citywide of $400K reads as a fair midpoint.
 
-## 4. The five-question inclusion test
+## 4. The retiree-target neighborhood research is preserved
 
-Each candidate submarket must pass all five to be included in the basket:
+The v15 audit work (Batches 1–4 plus revisions) identified retiree-target neighborhoods for every city, with documented Zillow ZHVI or proxy values. That research is not discarded with this methodology revision. It becomes the **authoritative editorial reference** for the Neighborhood Reality Check callouts, for comparison-page neighborhood notes, and for any future profile-copy revision that benefits from neighborhood-level color.
 
-1. **Safety.** Crime at or near metro median. Would not require active avoidance by a security-conscious buyer with choices.
-2. **Quality.** Housing stock maintained, infrastructure intact, no significant disinvestment trajectory. Stable or appreciating.
-3. **Amenity access.** Grocery, healthcare, restaurants within practical reach. Walking distance is a plus, not required.
-4. **Retiree-realistic.** Not student-dominated, not exclusively young-family, not transient/nightlife-dominated.
-5. **Editorial credibility.** Would appear in a legitimate "best places to retire in [city]" article or in a relocation realtor's materials for retirees.
+See `MedianHomeAuditMASTER.xlsx` City Details sheet for the per-city basket research.
 
-If a candidate fails any one of the five, it is excluded. No negotiation, no editorial fudge.
+## 5. Refresh cadence
 
-## 5. Selecting between candidates within an archetype
+Citywide Zillow ZHVI snapshots refresh monthly. A full database refresh is justified annually, or sooner if the rate environment moves significantly enough to warrant a Monthly Est rebuild (per BUDGET-METHODOLOGY.md Section 11).
 
-When multiple submarkets pass the five tests for the same archetype, apply these tiebreakers in order:
+## 6. What the Neighborhood Reality Check callout looks like
 
-1. **National recognition.** A submarket commonly named in national retirement coverage wins over a hyperlocal favorite. Reduces dependence on the editor's personal knowledge.
-2. **Centrality within the metro.** A submarket closer to the metro core wins over one farther out, when other factors are equal. The retiree relocating from out-of-state will weight central submarkets more heavily.
-3. **Price representativeness.** If two candidates are equally valid, pick the one whose median sits closer to the middle of the archetype's typical price band, not the extreme.
-4. **Editorial judgment.** When tied on all three above, choose and document the reasoning.
+The callout sits above the stat card in profile pages. Suggested template:
 
-The chosen submarket is the representative. The submarkets not chosen are NOT excluded from the city's appeal; they are implicitly represented by their archetype peer. The basket is a sampling frame, not an exhaustive list.
+> **A note on the citywide median.** The citywide figure of $X reflects significant neighborhood variation across [City]. Retiree-target neighborhoods like [A], [B], and [C] typically run $Y to $Z. Use the citywide number as a starting reference; the realistic budget for relocating retirees depends on neighborhood choice.
 
-## 6. Computation
+Each callout city's specific neighborhoods are listed in `v14-to-v15_1-audit-log.xlsx` (Callout Cities sheet).
 
-The Median Home value is the **simple arithmetic mean** of the chosen submarkets' median home values (sourced from Zillow ZHVI at neighborhood/ZIP level where available, or the closest analog).
+## 7. Relationship to BUDGET-METHODOLOGY.md
 
-Simple mean is used rather than weighted mean for three reasons: it requires no defensible weighting scheme (and any scheme would be debated forever), it is transparent and reproducible by any future operator, and across a basket of 3-5 picks the difference between mean and weighted-mean is rarely material.
+This methodology produces the Median Home value that feeds BUDGET-METHODOLOGY.md as a key input. The budget formula does not need to change — it applies the same arithmetic to whatever Median Home value is stored. When this methodology revision is applied, every city's Monthly Est is recomputed against its citywide-based Median Home, and tier assignments follow.
 
-The Monthly Est figure derives from this Median Home value via the BUDGET-METHODOLOGY.md formula, unchanged.
+The Neighborhood Reality Check callout therefore acknowledges that BOTH the published Median Home AND the published Monthly Est are honest representations of a city's citywide statistics, while the realistic retiree experience may be measurably different — and the profile reader needs that context before drawing conclusions from the stat card.
 
-## 7. Documentation requirement
+## 8. Cities affected by this revision
 
-Every city in the database carries two columns:
+The v14 → v15.1 transition moved 18 cities from Archetype basis or Neighborhood-range basis back to Citywide. Each of those cities is documented in the audit log with v14 value, v15.1 value, delta, and audit basis history.
 
-**Median Home Basis** — either "Citywide" or "Archetype basket"
-
-**Median Home Source** — for Citywide: "Zillow ZHVI [snapshot date]". For Archetype basket: a comma-separated list of the representative submarkets, e.g., "Central West End, Clayton, Chesterfield, Sunset Hills"
-
-This makes every Median Home value auditable by anyone reading the database. A future operator (or a skeptical reader) can see immediately how the number was constructed and challenge it on the methodology, not on opaque editorial choice.
-
-## 8. Worked examples
-
-### Example A: St. Louis (archetype basket)
-
-| Archetype | Representative | Notes |
-|---|---|---|
-| Urban walkable | Central West End | Healthcare-adjacent, walkable, condo-rich; the cleanest "urban walkable" archetype representative in the metro |
-| Established premium suburb | Clayton | National recognition; the metro's premier address; Kirkwood/Webster Groves/Ladue are implicitly represented |
-| Newer amenity-rich suburb | Chesterfield | More central than Wildwood; stronger amenity profile for retirees |
-| Value/entry-level | Sunset Hills (South County) | Closer to metro core than Cottleville; common retiree choice |
-
-Active-adult: skipped (no iconic 55+ community at national stature in this metro).
-City-specific: none.
-
-Submarkets implicitly represented (not in basket but covered by archetype peer): Ladue, Kirkwood, Webster Groves, Wildwood, Cottleville, Affton, Crestwood, Olivette.
-
-### Example B: Miami (archetype basket, with city-specific addition)
-
-| Archetype | Representative | Notes |
-|---|---|---|
-| Established premium suburb | Coral Gables | Mediterranean Revival, walkable Miracle Mile, UM-adjacent; the obvious premier choice |
-| Newer amenity-rich suburb | Pinecrest | Master-planned feel, amenity-rich, secure |
-| Value/entry-level | Aventura | The "most affordable retiree-target" by the profile's own framing; condos at $354K-$500K |
-| City-specific: bohemian/character | Coconut Grove | Distinct enough from the suburb archetypes to warrant its own slot; tree canopy, marinas, mid-premium |
-| City-specific: coastal/island | Key Biscayne | Causeway island; security profile and home values both genuinely distinctive |
-
-Note: Miami uses both city-specific archetype slots (bohemian and coastal). The methodology caps city-specific archetypes at one per city as a general rule. Miami is the documented exception because both archetypes pass the five-test and the profile content already names them.
-
-This is the kind of exception that must be documented (here, in the change log, and in the database) rather than tacit.
-
-### Example C: Naples, FL (citywide)
-
-Citywide median represents retiree experience accurately. The city is small enough and explicitly retiree-oriented enough that no archetype basket adds value. Median Home value = Zillow ZHVI citywide, current snapshot.
-
-## 9. Cities where the basis may shift over time
-
-For some cities, the basis can change as the market evolves. A city currently best served by Citywide may need to shift to Archetype basket if neighborhood-level price divergence grows. The annual rebuild (June, per SITE-OPERATIONS-LOG.md) is the natural moment to review.
-
-Two cities to flag for review at the next rebuild:
-- **Tampa.** Currently citywide-leaning, but Hyde Park, South Tampa, and Westchase may justify an archetype basket as the metro continues to bifurcate.
-- **Charleston, SC.** Mount Pleasant, Daniel Island, and West Ashley may warrant archetype treatment if Charleston proper continues to outpace.
-
-Adding these to the open items list in SITE-OPERATIONS-LOG.md.
-
-## 10. The discipline that makes this work
-
-Two habits are non-negotiable for this methodology to deliver:
-
-1. **Run the five-question test on each candidate, not on the basket as a whole.** Editorial drift starts when you let a borderline candidate slide because the basket as a whole "feels right."
-2. **Cap the basket at 5 picks.** When you find yourself wanting a sixth, it means you have an archetype overlap. Resolve it by collapsing two picks into one. The point of the framework is that it forces this discipline.
-
-If you can do both, the methodology runs itself.
-
-## 11. Refresh cadence
-
-Median Home values refresh annually with the database rebuild (June). The basis (Citywide vs Archetype basket) is reviewed at the same time but rarely changes. The Zillow ZHVI snapshot date is recorded in the database header note.
-
-Out-of-cycle refresh is triggered by any of the following:
-- A Zillow methodology change affecting ZHVI computation
-- A submarket's identity changing materially (gentrification flip, major disinvestment)
-- A reader-credibility event where a published number is challenged and the audit reveals a basis problem
+Going forward, no new city enters the Archetype or Neighborhood-range pathway. All new additions to the database use Citywide ZHVI from the day they are added.
 
 ---
 
-*Median Home Methodology v1.0 — June 17, 2026*
-*Companion docs: BUDGET-METHODOLOGY.md (v1.0), SITE-OPERATIONS-LOG.md (v1.0)*
+*Methodology v1.1 — June 19, 2026*
+*Replaces:* MEDIAN-HOME-METHODOLOGY.md v1.0 and MEDIAN-HOME-AUDIT-REFERENCE.md (12 refinements)
+*Audit reference:* MedianHomeAuditMASTER.xlsx, v14-to-v15_1-audit-log.xlsx
