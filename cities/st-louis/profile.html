@@ -342,6 +342,33 @@ body {
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
 
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
+
 /* ============================================
    SECTION SCAFFOLDING
    ============================================ */
@@ -1358,12 +1385,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Median Home</div>
-    <div class="stat-value">$250<span class="small">K</span></div>
+    <div class="stat-value">$235<span class="small">K</span></div>
     <div class="stat-sub">City-limits median · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.5–4.8K<span class="small">/mo</span></div>
+    <div class="stat-value">$4.4–5.4K<span class="small">/mo</span></div>
     <div class="stat-sub">Below national average</div>
   </div>
   <div class="stat">
@@ -1377,6 +1404,14 @@ footer {
     <div class="stat-sub">U.S. News Honor Roll · 11 specialties</div>
   </div>
 </div>
+
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $235K citywide median reflects significant variation across St. Louis. The neighborhoods retirees typically target in the city &mdash; <strong>Tower Grove South</strong>, <strong>Central West End</strong>, <strong>Soulard</strong>, <strong>Lafayette Square</strong> &mdash; run roughly <strong>$420K&ndash;$575K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
 
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Missouri).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
