@@ -2,7 +2,7 @@
 **Purpose:** Single source of truth for what gets reviewed, updated, and refreshed across the site. Forward-looking calendar plus backward-looking change log. Written to be handover-ready, not personal shorthand.
 **Owner:** Laurie Waller (solo founder/operator)
 **Created:** June 17, 2026
-**Last full review:** June 17, 2026
+**Last full review:** June 19, 2026
 
 ---
 
@@ -129,6 +129,27 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 Reverse chronological. Add to the top of this list as work happens.
 
+### 2026-06-19 — Median Home methodology v1.1 + v15.1 database transition
+**What:** Replaced multi-basis Median Home methodology (Citywide / Archetype / Neighborhood) with citywide-default + Median Honesty Rule. Generated CityDatabase_Jun_19_v15_1.xlsx with citywide medians for 97 cities and 2 range exceptions (Wilmington DE, St. Paul MN). Recomputed Monthly Est for all 99 cities. Updated index.html with new BUDGET_OPTIONS boundaries and refreshed all 99 city card data fields.
+**Why:** The v1.0 multi-basis methodology proved harder to defend than the problem it solved. Archetype basket composition was prone to over-premium-weighting (Tampa basket included Brandon/Riverview, which are separate municipalities) and inadvertent skew. Single-MEAN output for cities with genuine geographic income polarization (Memphis, Philadelphia, Pittsburgh, St. Louis) compressed real ranges into single points that misled in the opposite direction. Citywide + visible callouts is the simpler, defensible answer.
+**Files updated:**
+- MEDIAN-HOME-METHODOLOGY.md → v1.1 (citywide-default, Median Honesty Rule, 8 callout cities listed)
+- CityDatabase_Jun_19_v15_1.xlsx (replaces v14; 99 cities, Henderson NV collapsed into Las Vegas)
+- index.html (BUDGET_OPTIONS, BUDGET_LABELS, budgetLabels, quiz subtitle PITI framing, console.log, 99 city data fields, 7 Range-number prose fixes)
+**Files added:**
+- v14-to-v15_1-audit-log.xlsx (per-city delta log + tier distribution + callout cities reference)
+- V15_1-TRANSITION-CHECKLIST.xlsx (tracking artifact for outstanding work; delete when all rows ✅)
+**Files retired:**
+- MEDIAN-HOME-METHODOLOGY.md v1.0 (replaced)
+- MEDIAN-HOME-AUDIT-REFERENCE.md (12 refinements specific to v1.0 multi-basis approach; obsolete)
+- MEDIAN-HOME-LABEL-CONVENTIONS.md (basis labeling no longer applicable under v1.1)
+**Tier boundaries (v15.1 final, applied to index.html quiz):** R1 Under $5,500/mo | R2 $5,500–$6,499 | R3 $6,500–$7,499 | R4 $7,500–$8,999 | R5 $9,000+. Distribution: 30 / 31 / 20 / 10 / 8 = 99.
+**Median Honesty Rule (new):** 8 cities (Memphis, Philadelphia, Pittsburgh, St. Louis, New Orleans, Columbus, Kansas City, Tampa) require above-fold Neighborhood Reality Check callout because retiree-target neighborhoods run >50% above citywide median. These cities must not be described as "affordable" in any site copy without the callout context attached.
+**Quiz subtitle reframed:** "Total monthly cost for a couple — housing (mortgage, property taxes, homeowners insurance), healthcare, utilities, food, transportation, and lifestyle." Replaces incomplete 4-category framing.
+**Henderson NV collapsed into Las Vegas:** Henderson row removed from database; Las Vegas profile narrative absorbs the Henderson context. Database sits at 99 cities.
+**Outstanding work:** Profile copy pass (35 live profiles), Neighborhood Reality Check callouts (8 cities), index.html prose review (60 tier-shift cities), thematic landing page copy review, value-navigator.html review, comparison pages, Pinterest pin review. Tracked in V15_1-TRANSITION-CHECKLIST.xlsx.
+**Future methodology items deferred:** HOA fees in budget formula, home maintenance line, range-city midpoint documentation. Tracked in checklist sheet 6.
+
 ### 2026-06-17 — Median Home methodology v1.0 established
 **What:** Established the canonical methodology for Median Home values across all 100 cities. Introduced the archetype framework, five-question inclusion test, and per-city basis documentation requirement.
 **Why:** The June 16 budget methodology audit surfaced a deeper inconsistency. Eight cities used a retiree-target neighborhood basis (per Scoring Rubric v3.2) while the other 92 used citywide medians, even where the citywide figure misrepresents the retiree experience (Miami being the obvious example). The methodology was inconsistent and editorially debatable on a city-by-city basis, which is unsustainable for a credibility-first brand. Standardizing the framework now, before traffic scales, was the right window.
@@ -160,11 +181,11 @@ Not commitments. Things worth doing when time and traffic justify.
 
 | Item | Priority | Trigger to start | Notes |
 |---|---|---|---|
-| Median Home audit pass (all 100 cities) | High | Now (gates v15) | Apply MEDIAN-HOME-METHODOLOGY.md framework across full database. Worksheet for review before any database changes. v15 budget recompute waits on this. |
+| Median Home audit pass (all 100 cities) | ~~High~~ ✅ | ~~Now (gates v15)~~ Done 2026-06-19 | Completed and superseded. Methodology shifted to citywide-default (v1.1). v15.1 database deployed. |
 | Publish Pensacola profile | High | Now | Built but not yet live. Add to sitemap and PUBLISHED_PROFILES. Do not pin until published. |
-| Quiz BUDGET_OPTIONS update | High | With v15 deploy | Aligns quiz tier boundaries with new methodology |
-| Page copy diff (value-navigator, affected profiles) | High | With v15 deploy | List of every page that quotes specific budget numbers or "most affordable" framing |
-| Tampa Median Home basis review | Medium | Next annual rebuild (June) | Candidate to shift Citywide → Archetype basket. Hyde Park, South Tampa, Westchase increasingly divergent from citywide. |
+| Quiz BUDGET_OPTIONS update | ~~High~~ ✅ | ~~With v15 deploy~~ Done 2026-06-19 | Updated in v15.1 transition. Quiz boundaries now $5,500 / $6,500 / $7,500 / $9,000. |
+| Page copy diff (value-navigator, affected profiles) | High | In progress | Tracked in V15_1-TRANSITION-CHECKLIST.xlsx. Profile copy pass + thematic landing pages outstanding. |
+| Tampa Median Home basis review | ~~Medium~~ ✅ | ~~Next annual rebuild~~ Done 2026-06-19 | Reviewed during v15 audit. Archetype basket considered then rejected; Tampa stays Citywide with Neighborhood Reality Check callout (43% gap, borderline). |
 | Charleston SC Median Home basis review | Medium | Next annual rebuild (June) | Candidate to shift Citywide → Archetype basket. Mount Pleasant, Daniel Island, West Ashley diverging from Charleston proper. |
 | Florida hub cluster | Medium | After v15 deploys cleanly | Previously identified as high-traffic opportunity |
 | Cash-buyer toggle / page | Low | Traffic signal or affiliate ask | Adds reach to readers funding moves from prior home sale |
