@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -116,7 +117,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -649,9 +650,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -975,15 +978,42 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
 
 
 /* ============================================
@@ -1267,12 +1297,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$249<span class="small">K</span></div>
+    <div class="stat-value">$235<span class="small">K</span></div>
     <div class="stat-sub">Well below national average · condos from ~$250K</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.5–4.5<span class="small">K/mo</span></div>
+    <div class="stat-value">$4.4–5.5<span class="small">K/mo</span></div>
     <div class="stat-sub">Affordable metro · ~7% below U.S. average</div>
   </div>
   <div class="stat">
@@ -1287,11 +1317,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $235K citywide median reflects significant variation across Columbus. The neighborhoods retirees typically target in the city &mdash; <strong>Clintonville</strong>, <strong>German Village</strong>, <strong>Italian Village</strong>, <strong>Victorian Village</strong> &mdash; run roughly <strong>$400K&ndash;$575K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Ohio).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>1.36%</strong> effective (≈$4,080/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,118/yr</strong> ($300K dwelling, OH average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 1.36% effective (≈$4,080/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,118/yr ($300K dwelling, OH average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1412,9 +1450,9 @@ footer {
       <div class="section-eyebrow">The character of the place</div>
       <h2 class="section-title">The quiet city that <em>kept growing</em>.</h2>
       <div class="character-body">
-        <p><span class="dropcap">F</span>or most of the twentieth century, Columbus was the Ohio city people overlooked — not the industrial muscle of Cleveland, not the river-town history of Cincinnati, just the flat capital in the middle with the big university and the state government. That underestimation turned out to be its advantage. While Ohio's older industrial cities shrank, Columbus quietly did the opposite: it diversified into insurance, banking, retail, and research, anchored by <strong>Ohio State</strong>, the statehouse, and the headquarters of companies like Nationwide, JPMorgan Chase's largest operations, and a string of national retail brands. Today it is <strong>the largest city in Ohio</strong>, still growing, drawing in-migration from pricier coastal metros and other Ohio towns alike.</p>
-        <p>What that steady growth bought, over time, was a real city's worth of culture without a big city's price tag. The <strong>Short North</strong> — once a rough stretch of High Street between downtown and the university — was revitalized into one of the Midwest's better arts districts, its arches lit over a corridor of galleries and restaurants. <strong>German Village</strong>, just south of downtown, preserved its 1800s brick streets and worker cottages into one of the country's largest privately restored historic districts, home to the famous 32-room <strong>Book Loft</strong> and the leafy calm of Schiller Park. The <strong>Scioto Mile</strong> reclaimed the downtown riverfront as a chain of parks and fountains. None of it is loud. All of it is real.</p>
-        <p>And running underneath everything is the medical engine. Ohio State's <strong>Wexner Medical Center</strong> and the <strong>James Cancer Hospital</strong> are not just good regional hospitals — they're a research-and-care complex of national stature, drawing patients and physicians from across the Midwest. For a retirement city, that's the rare amenity that grows more valuable with every passing year. Columbus's whole personality, in the end, is that of a place that bet on substance — health, education, steady work, real neighborhoods — and let the scenery be someone else's selling point.</p>
+        <p><span class="dropcap">F</span>or most of the twentieth century, Columbus was the Ohio city people overlooked — not the industrial muscle of Cleveland, not the river-town history of Cincinnati, just the flat capital in the middle with the big university and the state government. That underestimation turned out to be its advantage. While Ohio's older industrial cities shrank, Columbus quietly did the opposite: it diversified into insurance, banking, retail, and research, anchored by Ohio State, the statehouse, and the headquarters of companies like Nationwide, JPMorgan Chase's largest operations, and a string of national retail brands. Today it is the largest city in Ohio, still growing, drawing in-migration from pricier coastal metros and other Ohio towns alike.</p>
+        <p><strong>What that steady growth bought, over time, was a real city's worth of culture without a big city's price tag.</strong> The Short North — once a rough stretch of High Street between downtown and the university — was revitalized into one of the Midwest's better arts districts, its arches lit over a corridor of galleries and restaurants. German Village, just south of downtown, preserved its 1800s brick streets and worker cottages into one of the country's largest privately restored historic districts, home to the famous 32-room Book Loft and the leafy calm of Schiller Park. The Scioto Mile reclaimed the downtown riverfront as a chain of parks and fountains. None of it is loud. All of it is real.</p>
+        <p><strong>And running underneath everything is the medical engine.</strong> Ohio State's Wexner Medical Center and the James Cancer Hospital are not just good regional hospitals — they're a research-and-care complex of national stature, drawing patients and physicians from across the Midwest. For a retirement city, that's the rare amenity that grows more valuable with every passing year. Columbus's whole personality, in the end, is that of a place that bet on substance — health, education, steady work, real neighborhoods — and let the scenery be someone else's selling point.</p>
       </div>
     </div>
 
@@ -1457,7 +1495,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Columbus, roughly.</h2>
-    <p class="week-intro">A composite week of what an engaged Columbus retiree's days could look like — drawn from the river-trails, Short-North, Ohio-State cadence locals describe, with the gray months spent indoors where the city's culture lives.</p>
 
     <div class="week-grid">
       <div class="day-card">
