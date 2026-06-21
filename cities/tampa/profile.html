@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1083,15 +1086,42 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
 
 
 /* ============================================
@@ -1375,12 +1405,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$377<span class="small">K</span></div>
+    <div class="stat-value">$400<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.5–5<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.5–6.8<span class="small">K/mo</span></div>
     <div class="stat-sub">Below most coastal urban averages</div>
   </div>
   <div class="stat">
@@ -1395,11 +1425,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $400K citywide median reflects significant variation across Tampa. The neighborhoods retirees typically target in the city &mdash; <strong>South Tampa (Hyde Park, Davis Islands)</strong>, <strong>Tampa Palms</strong>, <strong>Carrollwood Village</strong>, <strong>Seminole Heights</strong> &mdash; run roughly <strong>$450K&ndash;$750K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Florida).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$7,136/yr</strong> ($300K dwelling, FL average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$7,136/yr ($300K dwelling, FL average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal far above state avg; inland below</span>
 </div>
 
@@ -1520,9 +1558,9 @@ footer {
       <div class="section-eyebrow">The character of the place</div>
       <h2 class="section-title">A working port that <em>kept building</em>.</h2>
       <div class="character-body">
-        <p><span class="dropcap">T</span>ampa was a sleepy Gulf Coast town of a few hundred people until 1884, when <strong>Henry B. Plant</strong> ran his railroad south to the bay and decided to build a destination at the end of the line. The Tampa Bay Hotel — silver onion domes, horseshoe arches, six minarets rising above three domes and four finials — opened in 1891, a Moorish revival fever-dream designed to lure New York's wealthy down by rail for the winter season. The hotel never quite worked as a luxury resort. The rooftop stayed. Today the building is the heart of the University of Tampa campus, and those silver domes and minarets remain the most distinctive element of Tampa's skyline — more enduring than any tower of glass downtown.</p>
-        <p>The other Tampa origin story is <strong>Ybor City</strong>, founded in 1885 as an independent town by a group of cigar manufacturers led by Vicente Martinez-Ybor, and annexed by Tampa two years later. At its peak, Ybor was the cigar capital of the world, with a working-class Cuban, Spanish, and Italian population that made Tampa a genuinely multicultural city long before the rest of Florida caught up. The cigars are mostly gone. The brick streets, the Columbia Restaurant (founded 1905, still operating), and the Cuban sandwich are still here.</p>
-        <p>What makes modern Tampa different from the rest of Florida's Gulf Coast is the density of the working city. The Vinik family's <strong>Water Street</strong> development — billions of dollars of new hotels, residential towers, offices, and restaurants — has transformed the southeast quadrant of downtown into a walkable district anchored by Amalie Arena. Tampa General sits on Davis Islands. The University of Tampa anchors the river. The Riverwalk now connects most of it. Tampa is rated Community 8 of 10 in our database, but its real distinction is that it's one of the few Florida cities that functions as a real city — not just a retirement market.</p>
+        <p><span class="dropcap">T</span>ampa was a sleepy Gulf Coast town of a few hundred people until 1884, when Henry B. Plant ran his railroad south to the bay and decided to build a destination at the end of the line. The Tampa Bay Hotel — silver onion domes, horseshoe arches, six minarets rising above three domes and four finials — opened in 1891, a Moorish revival fever-dream designed to lure New York's wealthy down by rail for the winter season. The hotel never quite worked as a luxury resort. The rooftop stayed. Today the building is the heart of the University of Tampa campus, and those silver domes and minarets remain the most distinctive element of Tampa's skyline — more enduring than any tower of glass downtown.</p>
+        <p><strong>The other Tampa origin story is Ybor City</strong>, founded in 1885 as an independent town by a group of cigar manufacturers led by Vicente Martinez-Ybor, and annexed by Tampa two years later. At its peak, Ybor was the cigar capital of the world, with a working-class Cuban, Spanish, and Italian population that made Tampa a genuinely multicultural city long before the rest of Florida caught up. The cigars are mostly gone. The brick streets, the Columbia Restaurant (founded 1905, still operating), and the Cuban sandwich are still here.</p>
+        <p><strong>What makes modern Tampa different from the rest of Florida's Gulf Coast is the density of the working city.</strong> The Vinik family's Water Street development — billions of dollars of new hotels, residential towers, offices, and restaurants — has transformed the southeast quadrant of downtown into a walkable district anchored by Amalie Arena. Tampa General sits on Davis Islands. The University of Tampa anchors the river. The Riverwalk now connects most of it. Tampa is rated Community 8 of 10 in our database, but its real distinction is that it's one of the few Florida cities that functions as a real city — not just a retirement market.</p>
       </div>
     </div>
 
@@ -1565,7 +1603,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Tampa, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Tampa retiree's days could look like — drawn from the river-and-bay, Ybor-and-Hyde-Park, beach-as-day-trip cadence locals describe when they explain how this city earns its reputation.</p>
 
     <div class="week-grid">
       <div class="day-card">
