@@ -267,6 +267,52 @@ button.header-quiz-btn:hover,
   max-width: 720px;
 }
 
+/* Methodology block — collapsible disclosure of the scoring rubric. Closed by default. */
+.methodology-block {
+  background: var(--teal-lt);
+  border-radius: 12px;
+  margin: 0 auto 40px auto;
+  max-width: 760px;
+  overflow: hidden;
+}
+.methodology-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.methodology-summary::-webkit-details-marker { display: none; }
+.methodology-summary::marker { content: ""; }
+.methodology-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.methodology-chevron {
+  color: var(--teal);
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+.methodology-block[open] .methodology-chevron {
+  transform: rotate(180deg);
+}
+.methodology-body {
+  font-size: 15px;
+  color: var(--dark);
+  line-height: 1.6;
+  margin: 0;
+  padding: 4px 24px 22px 24px;
+}
+.methodology-body strong {
+  color: var(--teal);
+  font-weight: 700;
+}
+
 .city-list { display: flex; flex-direction: column; gap: 8px; }
 .city-card {
   display: flex;
@@ -475,6 +521,14 @@ a.quiz-cta-btn:hover,
     <p class="hero-tagline">Cities anchored by top-ranked hospitals — where access to specialists, research, and quality care is built in.</p>
   </section>
 
+  <details class="methodology-block">
+    <summary class="methodology-summary">
+      <span class="methodology-eyebrow">How this list was built</span>
+      <span class="methodology-chevron" aria-hidden="true">▾</span>
+    </summary>
+    <p class="methodology-body">Every city was scored on the <strong>Healthcare Confidence Index</strong>, our 3-dimension rubric weighted by what actually matters as medical needs become more complex with age: <strong>Hospital Quality (40%)</strong> for the presence of academically-ranked anchor hospitals and multi-specialty depth, <strong>Specialist Access (30%)</strong> for the diversity of subspecialties available locally, and <strong>Geriatric Care Depth (30%)</strong> for dedicated geriatric programs, memory care, and age-relevant specialty volume. Tier placement follows the score, not editorial preference. Cities anchored by a nationally-ranked top-tier hospital sit in Tier 1; cities with strong regional hubs sit in Tier 2; cities within a short drive of a top hospital sit in Tier 3.</p>
+  </details>
+
   <section>
 
     <div class="bucket-section">
@@ -527,8 +581,17 @@ a.quiz-cta-btn:hover,
           <span class="city-arrow">→</span>
         </a>
 
-        <a class="city-card" href="index.html?city=Nashville&state=TN">
+        <a class="city-card" href="cities/kansas-city/profile.html">
           <div class="city-rank">6</div>
+          <div class="city-info">
+            <div class="city-name">Kansas City<span class="state-code">MO</span></div>
+            <div class="city-teams">University of Kansas Health System, a major academic medical center · NCI-designated University of Kansas Cancer Center · Saint Luke's Mid-America Heart Institute nationally recognized in cardiology · multi-system depth with Children's Mercy adding pediatric specialty care</div>
+          </div>
+          <span class="city-arrow">→</span>
+        </a>
+
+        <a class="city-card" href="index.html?city=Nashville&state=TN">
+          <div class="city-rank">7</div>
           <div class="city-info">
             <div class="city-name">Nashville<span class="state-code">TN</span></div>
             <div class="city-teams">Vanderbilt University Medical Center (nationally ranked, #1 in Tennessee) · Vanderbilt-Ingram Cancer Center · St. Thomas Health</div>
@@ -537,7 +600,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="index.html?city=New Orleans&state=LA">
-          <div class="city-rank">7</div>
+          <div class="city-rank">8</div>
           <div class="city-info">
             <div class="city-name">New Orleans<span class="state-code">LA</span></div>
             <div class="city-teams">Ochsner Health (#1 in Louisiana for 14 years running) · geriatrics in nation's top 10% — strongest geriatric signal on this list</div>
@@ -546,7 +609,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="index.html?city=Philadelphia&state=PA">
-          <div class="city-rank">8</div>
+          <div class="city-rank">9</div>
           <div class="city-info">
             <div class="city-name">Philadelphia<span class="state-code">PA</span></div>
             <div class="city-teams">Hospitals of UPenn-Penn Presbyterian (2025-26 U.S. News Honor Roll) · Thomas Jefferson University Hospital · Children's Hospital of Philadelphia</div>
@@ -555,7 +618,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="cities/pittsburgh/profile.html">
-          <div class="city-rank">9</div>
+          <div class="city-rank">10</div>
           <div class="city-info">
             <div class="city-name">Pittsburgh<span class="state-code">PA</span></div>
             <div class="city-teams">UPMC Presbyterian Shadyside (nationally ranked, #1 in Pennsylvania outside Philly) · UPMC Hillman Cancer Center · Allegheny Health Network</div>
@@ -564,7 +627,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="index.html?city=Raleigh&state=NC">
-          <div class="city-rank">10</div>
+          <div class="city-rank">11</div>
           <div class="city-info">
             <div class="city-name">Raleigh<span class="state-code">NC</span></div>
             <div class="city-teams">Duke University Hospital (nationally ranked, #1 in North Carolina) ~30 min · UNC Medical Center ~30 min · WakeMed and Rex Hospital locally</div>
@@ -573,7 +636,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="index.html?city=Salt Lake City&state=UT">
-          <div class="city-rank">11</div>
+          <div class="city-rank">12</div>
           <div class="city-info">
             <div class="city-name">Salt Lake City<span class="state-code">UT</span></div>
             <div class="city-teams">University of Utah Hospital (#1 in Utah for 12 consecutive years) · Huntsman Cancer Institute · academic medical center serving the Intermountain West</div>
@@ -582,7 +645,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="cities/scottsdale/profile.html">
-          <div class="city-rank">12</div>
+          <div class="city-rank">13</div>
           <div class="city-info">
             <div class="city-name">Scottsdale<span class="state-code">AZ</span></div>
             <div class="city-teams">Mayo Clinic Arizona (2025-26 U.S. News Honor Roll) ~15 min · HonorHealth network locally · Banner MD Anderson Cancer Center nearby</div>
@@ -591,7 +654,7 @@ a.quiz-cta-btn:hover,
         </a>
 
         <a class="city-card" href="cities/st-louis/profile.html">
-          <div class="city-rank">13</div>
+          <div class="city-rank">14</div>
           <div class="city-info">
             <div class="city-name">St. Louis<span class="state-code">MO</span></div>
             <div class="city-teams">Barnes-Jewish Hospital / Washington University (nationally ranked, #1 in Missouri) · Siteman Cancer Center · St. Luke's Hospital</div>
