@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1074,15 +1077,42 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
 
 
 /* ============================================
@@ -1366,12 +1396,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$241<span class="small">K</span></div>
+    <div class="stat-value">$240<span class="small">K</span></div>
     <div class="stat-sub">City-limits value · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.5–6.5K<span class="small">/mo</span></div>
+    <div class="stat-value">$4.3–5.4K<span class="small">/mo</span></div>
     <div class="stat-sub">Strong value for the Northeast</div>
   </div>
   <div class="stat">
@@ -1386,11 +1416,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $240K citywide median reflects significant variation across Pittsburgh. The neighborhoods retirees typically target in the city &mdash; <strong>Squirrel Hill</strong>, <strong>Shadyside</strong>, <strong>Point Breeze</strong>, <strong>Highland Park</strong> &mdash; run roughly <strong>$400K&ndash;$650K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Pennsylvania).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>1.26%</strong> effective (≈$3,780/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$1,529/yr</strong> ($300K dwelling, PA average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 1.26% effective (≈$3,780/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$1,529/yr ($300K dwelling, PA average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1512,8 +1550,8 @@ footer {
       <h2 class="section-title">A great American city, <em>under-priced.</em></h2>
       <div class="character-body">
         <p><span class="dropcap">P</span>ittsburgh used to mean steel. Now it means hospitals, universities, and a quietly extraordinary culture scene that gets noticed by everyone who shows up and almost no one who hasn't. The rivers — three of them, meeting at the Point — define the city's geography. The bridges — 446 of them inside city limits, more than any city in the world — define its character. So do the hills, which separate one neighborhood from the next so completely that "I live in Squirrel Hill" and "I live in Lawrenceville" are practically different cities.</p>
-        <p>The healthcare story is what brings most retirees here. <strong>UPMC Presbyterian Shadyside is nationally ranked in 9 specialties</strong> — #2 in Pennsylvania, behind only the Hospital of the University of Pennsylvania in Philadelphia. The University of Pittsburgh and Carnegie Mellon anchor a research-driven academic culture that gives the place real intellectual weight. The Carnegie Museums, the Andy Warhol Museum, the Frick, the Heinz History Center — these aren't tourist attractions. They're part of how Pittsburghers spend Saturday afternoons.</p>
-        <p>What's surprising is the math. A renovated brick rowhouse in Squirrel Hill or Shadyside, walking distance to UPMC and the Carnegie Museum, runs $500K–$700K. The same square footage in any comparable East Coast city — Boston, Philadelphia, even Baltimore — costs nearly twice that. Pennsylvania exempts Social Security entirely and taxes other retirement income at a flat 3.07%. The retirees who land in Pittsburgh and stay are the ones who did the arithmetic and stopped looking.</p>
+        <p><strong>The healthcare story is what brings most retirees here.</strong> UPMC Presbyterian Shadyside is nationally ranked in 9 specialties — #2 in Pennsylvania, behind only the Hospital of the University of Pennsylvania in Philadelphia. The University of Pittsburgh and Carnegie Mellon anchor a research-driven academic culture that gives the place real intellectual weight. The Carnegie Museums, the Andy Warhol Museum, the Frick, the Heinz History Center — these aren't tourist attractions. They're part of how Pittsburghers spend Saturday afternoons.</p>
+        <p><strong>What's surprising is the math.</strong> A renovated brick rowhouse in Squirrel Hill or Shadyside, walking distance to UPMC and the Carnegie Museum, runs $500K–$700K. The same square footage in any comparable East Coast city — Boston, Philadelphia, even Baltimore — costs nearly twice that. Pennsylvania exempts Social Security entirely and taxes other retirement income at a flat 3.07%. The retirees who land in Pittsburgh and stay are the ones who did the arithmetic and stopped looking.</p>
       </div>
     </div>
 
@@ -1556,7 +1594,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Pittsburgh, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Pittsburgh retiree's days could look like — drawn from the rhythms of Squirrel Hill and Shadyside, the year-round cultural calendar, and the museum-by-morning, ballgame-by-night cadence locals describe when they say "Pittsburgh fits more in a week than people expect."</p>
 
     <div class="week-grid">
       <div class="day-card">
