@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1069,6 +1072,34 @@ footer {
 
 <style>
 /* === Batch additions: capture, cost strip, services, related === */
+
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
+
 /* COST REALITY STRIP — values from CityDatabase (state-level) */
 .cost-strip {
   max-width: var(--max-w);
@@ -1076,12 +1107,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1388,11 +1419,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $253K citywide median is the Kansas City, Missouri figure. Retiree-target neighborhoods — <strong>the Plaza</strong>, <strong>Brookside</strong>, <strong>Waldo</strong>, and the Kansas suburbs (<strong>Mission Hills</strong>, <strong>Leawood</strong>, <strong>Overland Park</strong>) — run <strong>$300K–$900K</strong>, with premier Kansas enclaves into seven figures. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v15 (Missouri).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.89%</strong> effective (≈$2,670/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$3,979/yr</strong> ($300K dwelling, MO average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.89% effective (≈$2,670/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$3,979/yr ($300K dwelling, MO average)</span>
   <span class="cost-qualifier">State averages; local rates and exemptions vary, and hail and tornado claims push regional premiums up</span>
 </div>
 
@@ -1513,9 +1552,9 @@ footer {
       <div class="section-eyebrow">The character of the place</div>
       <h2 class="section-title">A major American city, hiding in plain sight in <em>the middle</em>.</h2>
       <div class="character-body">
-        <p><span class="dropcap">K</span>ansas City is the great American city retirees keep missing because the brochures lead with the coasts. The metro is the <strong>31st-largest in the country</strong>, with two and a half million people across both sides of the state line. The cultural infrastructure is, frankly, ridiculous for the price. The Nelson-Atkins Museum of Art opened in 1933 with one of the country's first encyclopedic public collections, sits on a free 22-acre sculpture park, and has been <strong>free to enter every day for nearly a century</strong>. The Kauffman Center for the Performing Arts is a Moshe Safdie-designed concert hall that became an instant architectural landmark when it opened in 2011. The Crossroads Arts District does First Friday gallery walks; the American Jazz Museum and the Negro Leagues Baseball Museum anchor the 18th &amp; Vine historic district. None of this is regional. It is national.</p>
-        <p>Sitting next to all that culture is a city that calls itself the City of Fountains and means it: <strong>more than 200 working fountains, second only to Rome</strong> by most counts. The Country Club Plaza, opened in 1923, was the first shopping district in America designed for the automobile, modeled on Seville and built in Spanish Baroque style with red-tile roofs, ornate ironwork, and a Giralda Tower replica. It is still a working neighborhood, not a museum. Add a barbecue tradition defining enough to have invented its own cut of meat (<strong>burnt ends, at Arthur Bryant's in the 1940s</strong>), and a sports culture organized around the Chiefs and Royals that gives the calendar real rhythm.</p>
-        <p>The retirement pitch is honest: a <strong>$253K citywide typical home value</strong> puts a serious house in a Northeast or South KC neighborhood within easy reach; the Plaza, Brookside, Waldo, Westwood Hills, and the Kansas suburbs (Mission Hills, Leawood, Overland Park) run higher but are where most relocating retirees actually end up. Saint Luke's and Mid-America Heart Institute anchor strong specialty care. MCI's brand-new $1.5 billion terminal (opened 2023) gives KC genuine direct-flight reach. The whole package is what a major coastal metro costs minus the coast.</p>
+        <p><span class="dropcap">K</span>ansas City is the great American city retirees keep missing because the brochures lead with the coasts. The metro is the 31st-largest in the country, with two and a half million people across both sides of the state line. The cultural infrastructure is, frankly, ridiculous for the price. The Nelson-Atkins Museum of Art opened in 1933 with one of the country's first encyclopedic public collections, sits on a free 22-acre sculpture park, and has been free to enter every day for nearly a century. The Kauffman Center for the Performing Arts is a Moshe Safdie-designed concert hall that became an instant architectural landmark when it opened in 2011. The Crossroads Arts District does First Friday gallery walks; the American Jazz Museum and the Negro Leagues Baseball Museum anchor the 18th &amp; Vine historic district. None of this is regional. It is national.</p>
+        <p>Sitting next to all that culture is a city that calls itself the City of Fountains and means it: more than 200 working fountains, second only to Rome by most counts. The Country Club Plaza, opened in 1923, was the first shopping district in America designed for the automobile, modeled on Seville and built in Spanish Baroque style with red-tile roofs, ornate ironwork, and a Giralda Tower replica. It is still a working neighborhood, not a museum. Add a barbecue tradition defining enough to have invented its own cut of meat (burnt ends, at Arthur Bryant's in the 1940s), and a sports culture organized around the Chiefs and Royals that gives the calendar real rhythm.</p>
+        <p>The retirement pitch is honest: a $253K citywide typical home value puts a serious house in a Northeast or South KC neighborhood within easy reach; the Plaza, Brookside, Waldo, Westwood Hills, and the Kansas suburbs (Mission Hills, Leawood, Overland Park) run higher but are where most relocating retirees actually end up. Saint Luke's and Mid-America Heart Institute anchor strong specialty care. MCI's brand-new $1.5 billion terminal (opened 2023) gives KC genuine direct-flight reach. <strong>The whole package is what a major coastal metro costs minus the coast.</strong></p>
       </div>
     </div>
 
@@ -1558,7 +1597,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Kansas City, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Kansas City retiree's days could look like, drawn from the Plaza-Crossroads-Westport rhythm locals describe when explaining why the underrated-major-metro pitch actually works.</p>
 
     <div class="week-grid">
       <div class="day-card">
@@ -1667,7 +1705,7 @@ footer {
       <div class="health-icon">🏥</div>
       <div>
         <div class="health-name">Saint Luke's Hospital · Mid-America Heart Institute · University of Kansas Health System</div>
-        <div class="health-detail">Saint Luke's Hospital of Kansas City, the flagship of Saint Luke's Health System, has been the city's premier private hospital since 1903. Its <strong>Mid-America Heart Institute</strong> is nationally recognized for cardiology and cardiac surgery, and was the regional pioneer for many advanced cardiac procedures. Across the state line, the <strong>University of Kansas Health System</strong> in Kansas City, Kansas serves as the region's academic medical center, with a nationally ranked cancer program. Children's Mercy Hospital and the Center for Practical Bioethics round out a medical bench unusually deep for a city this size, and unlike comparable academic systems in larger metros, you don't have to navigate a sprawling city to reach them.</div>
+        <div class="health-detail">Saint Luke's Hospital of Kansas City, the flagship of Saint Luke's Health System, has been the city's premier private hospital since 1903. Its Mid-America Heart Institute is nationally recognized for cardiology and cardiac surgery, and was the regional pioneer for many advanced cardiac procedures. Across the state line, the University of Kansas Health System in Kansas City, Kansas serves as the region's academic medical center, with a nationally ranked cancer program. Children's Mercy Hospital and the Center for Practical Bioethics round out a medical bench unusually deep for a city this size, and unlike comparable academic systems in larger metros, you don't have to navigate a sprawling city to reach them.</div>
       </div>
       <div class="health-grade">
         <div class="health-grade-num">8<span style="font-size:18px;color:rgba(255,255,255,0.6);">/10</span></div>
