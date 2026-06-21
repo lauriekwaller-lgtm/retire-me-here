@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -130,7 +131,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -332,12 +333,12 @@ body {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -633,9 +634,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1416,8 +1419,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Missouri).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.89%</strong> effective (≈$2,670/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$3,979/yr</strong> ($300K dwelling, MO average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.89% effective (≈$2,670/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$3,979/yr ($300K dwelling, MO average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1540,8 +1543,8 @@ footer {
       <h2 class="section-title">A great American city, <em>under-priced</em>.</h2>
       <div class="character-body">
         <p><span class="dropcap">S</span>t. Louis was once the fourth-largest city in America. The 1904 World's Fair happened here. So did the first Olympics on American soil, the invention of the ice cream cone, and a hundred other small civic firsts. Then the city did what so many great American cities did between 1950 and now: it lost half its population to the suburbs, and the brick streets emptied out. What's left is more interesting than the headlines suggest.</p>
-        <p>The metro is structured by an emphatic City–County divide. The City of St. Louis covers sixty-one square miles, holds about 280,000 people, and contains both genuine urban gems — the Central West End, Lafayette Square, Tower Grove — and serious safety challenges. The County, the suburban donut around it, holds another million people across dozens of independent municipalities. That's where retirees actually live. Kirkwood has a Norman Rockwell main street. Webster Groves has the brick bungalows. Clayton has the walkable downtown. Chesterfield has the Whole Foods and the surgical specialists.</p>
-        <p>What unites all of them is Forest Park — 1,300 acres in the geographic center of the metro, larger than Central Park, free in every meaningful sense. The art museum is free. The zoo is free. The history museum is free. The science center is free. Just south of the park, the Missouri Botanical Garden — one of the country's oldest and most respected — is a separate institution but part of the same fabric. There is no other major American city where a retiree of modest means has access to this much culture without writing a check. That, more than anything, is the St. Louis pitch.</p>
+        <p><strong>The metro is structured by an emphatic City&ndash;County divide.</strong> The City of St. Louis covers sixty-one square miles, holds about 280,000 people, and contains both genuine urban gems — the Central West End, Lafayette Square, Tower Grove — and serious safety challenges. The County, the suburban donut around it, holds another million people across dozens of independent municipalities. That's where retirees actually live. Kirkwood has a Norman Rockwell main street. Webster Groves has the brick bungalows. Clayton has the walkable downtown. Chesterfield has the Whole Foods and the surgical specialists.</p>
+        <p><strong>What unites all of them is Forest Park</strong> — 1,300 acres in the geographic center of the metro, larger than Central Park, free in every meaningful sense. The art museum is free. The zoo is free. The history museum is free. The science center is free. Just south of the park, the Missouri Botanical Garden — one of the country's oldest and most respected — is a separate institution but part of the same fabric. There is no other major American city where a retiree of modest means has access to this much culture without writing a check. That, more than anything, is the St. Louis pitch.</p>
       </div>
     </div>
 
@@ -1584,7 +1587,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in St. Louis, roughly.</h2>
-    <p class="week-intro">A composite week of what an active St. Louis retiree's days could look like — drawn from the free-museum, Cardinals-game, brick-suburbs cadence locals describe when they say the city "punches above its weight." Most of these are western-suburbs rituals, since that's where the retiree story lives.</p>
 
     <div class="week-grid">
       <div class="day-card">
