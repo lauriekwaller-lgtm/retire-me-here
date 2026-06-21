@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -114,7 +115,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -647,9 +648,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -975,15 +978,42 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
 
 
 /* ============================================
@@ -1267,12 +1297,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$246<span class="small">K</span></div>
+    <div class="stat-value">$250<span class="small">K</span></div>
     <div class="stat-sub">Citywide · historic neighborhoods pricier</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.5–6<span class="small">K/mo</span></div>
+    <div class="stat-value">$4.3–5.4<span class="small">K/mo</span></div>
     <div class="stat-sub">SS &amp; most pensions exempt from state tax</div>
   </div>
   <div class="stat">
@@ -1287,11 +1317,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $250K citywide median reflects significant variation across New Orleans. The neighborhoods retirees typically target in the city &mdash; <strong>Lakeview</strong>, <strong>Uptown</strong>, <strong>Mid-City</strong>, <strong>Marigny</strong> &mdash; run roughly <strong>$425K&ndash;$650K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Louisiana).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.55%</strong> effective (≈$1,650/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$5,986/yr</strong> ($300K dwelling, LA average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.55% effective (≈$1,650/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$5,986/yr ($300K dwelling, LA average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal well above avg; flood insurance separate</span>
 </div>
 
@@ -1412,9 +1450,9 @@ footer {
       <div class="section-eyebrow">The character of the place</div>
       <h2 class="section-title">An American city unlike <em>any other</em>.</h2>
       <div class="character-body">
-        <p><span class="dropcap">N</span>ew Orleans was founded by the French in 1718, ruled by the Spanish, shaped by enslaved and free Africans and Caribbean émigrés, and folded into the United States by the Louisiana Purchase — and every one of those layers is still legible in the city today. The result is the most culturally distinct place in America: a city with its own architecture (the Creole cottage, the shotgun house, the iron-laced French Quarter balcony), its own food (gumbo, jambalaya, the po'boy, beignets at dawn), its own music (the birthplace of jazz), and its own calendar, organized around <strong>Mardi Gras</strong>, <strong>Jazz Fest</strong>, and a year-round procession of festivals and second-lines.</p>
-        <p>What pulls it together, for someone considering retirement here, is that the culture isn't a tourist performance — it's how people actually live. Live music is a Tuesday-night neighborhood event, not a special occasion. Food is a civic obsession discussed with religious seriousness. Strangers talk to each other; the pace is slow and conversational; the architecture rewards a daily walk. The <strong>St. Charles streetcar</strong> still rumbles under the live oaks of <strong>Uptown</strong>, past the mansions of the <strong>Garden District</strong>, exactly as it has for over a century. For someone whose ideal retirement is rich in beauty, sociability, and sensory pleasure, few places on earth deliver like this one.</p>
-        <p>And yet New Orleans asks for clear eyes. This is a city that has survived catastrophe — <strong>Hurricane Katrina</strong> in 2005 nearly ended it, and the recovery reshaped everything from the levees to the neighborhoods to the population. It carries real, persistent challenges: crime, heat, infrastructure, and an existential relationship with water that no amount of charm erases. The retirees who flourish here are the ones who weigh all of that honestly and decide that the music, the food, the architecture, and the singular daily texture are simply worth it. For the right person, nowhere else will do.</p>
+        <p><span class="dropcap">N</span>ew Orleans was founded by the French in 1718, ruled by the Spanish, shaped by enslaved and free Africans and Caribbean émigrés, and folded into the United States by the Louisiana Purchase — and every one of those layers is still legible in the city today. The result is the most culturally distinct place in America: a city with its own architecture (the Creole cottage, the shotgun house, the iron-laced French Quarter balcony), its own food (gumbo, jambalaya, the po'boy, beignets at dawn), its own music (the birthplace of jazz), and its own calendar, organized around Mardi Gras, Jazz Fest, and a year-round procession of festivals and second-lines.</p>
+        <p><strong>What pulls it together, for someone considering retirement here, is that the culture isn't a tourist performance — it's how people actually live.</strong> Live music is a Tuesday-night neighborhood event, not a special occasion. Food is a civic obsession discussed with religious seriousness. Strangers talk to each other; the pace is slow and conversational; the architecture rewards a daily walk. The St. Charles streetcar still rumbles under the live oaks of Uptown, past the mansions of the Garden District, exactly as it has for over a century. For someone whose ideal retirement is rich in beauty, sociability, and sensory pleasure, few places on earth deliver like this one.</p>
+        <p><strong>And yet New Orleans asks for clear eyes.</strong> This is a city that has survived catastrophe — Hurricane Katrina in 2005 nearly ended it, and the recovery reshaped everything from the levees to the neighborhoods to the population. It carries real, persistent challenges: crime, heat, infrastructure, and an existential relationship with water that no amount of charm erases. The retirees who flourish here are the ones who weigh all of that honestly and decide that the music, the food, the architecture, and the singular daily texture are simply worth it. For the right person, nowhere else will do.</p>
       </div>
     </div>
 
@@ -1457,7 +1495,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in New Orleans, roughly.</h2>
-    <p class="week-intro">What a week might look like for an engaged New Orleans retiree — built around the food-music-and-neighborhood rhythm locals describe, with the worst summer heat scheduled around the way residents actually do it.</p>
 
     <div class="week-grid">
       <div class="day-card">
