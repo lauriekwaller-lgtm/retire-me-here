@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -114,7 +115,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -647,9 +648,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -975,15 +978,42 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
 
 
 /* ============================================
@@ -1267,12 +1297,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$234<span class="small">K</span></div>
+    <div class="stat-value">$240<span class="small">K</span></div>
     <div class="stat-sub">Citywide · far less than NYC/Boston/DC</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.5–7<span class="small">K/mo</span></div>
+    <div class="stat-value">$4.2–5.3<span class="small">K/mo</span></div>
     <div class="stat-sub">Cheap for a major metro · prime areas pricier</div>
   </div>
   <div class="stat">
@@ -1287,11 +1317,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $240K citywide median reflects significant variation across Philadelphia. The neighborhoods retirees typically target in the city &mdash; <strong>Center City</strong>, <strong>Society Hill</strong>, <strong>Chestnut Hill</strong>, <strong>Mt. Airy</strong> &mdash; run roughly <strong>$500K&ndash;$850K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Pennsylvania).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>1.26%</strong> effective (≈$3,780/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$1,529/yr</strong> ($300K dwelling, PA average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 1.26% effective (≈$3,780/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$1,529/yr ($300K dwelling, PA average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1412,9 +1450,9 @@ footer {
       <div class="section-eyebrow">The character of the place</div>
       <h2 class="section-title">The big city that stayed <em>affordable</em>.</h2>
       <div class="character-body">
-        <p><span class="dropcap">P</span>hiladelphia is where the United States was invented — the <strong>Declaration of Independence</strong> and the <strong>Constitution</strong> were both signed within a few blocks of each other in what's now a walkable colonial district. For a stretch in the 1790s it was the nation's capital and its largest city. That founding-era core, all brick and cobblestone around <strong>Independence Hall</strong>, is still intact and still lived-in, which gives Center City a density and historical texture that newer American cities simply can't manufacture.</p>
-        <p>But Philadelphia's defining trait, for a retiree, is its contradictions. It's a major East Coast metro — sixth-largest in the country — with the museums, hospitals, sports passion, and rail connections to match, yet it never priced itself out of reach the way its Northeast peers did. It's a city of fierce neighborhood loyalties and a famously blunt, unpretentious civic personality (the cheesesteak-and-Eagles stereotype is real, and locals lean into it). It's also, increasingly, a city of transplants who discovered they could have walkable urban life — Rittenhouse cafés, Reading Terminal mornings, first-rate medicine — for half what it would cost an hour north in New York.</p>
-        <p>The texture is in the neighborhoods, each with its own character: leafy, sophisticated <strong>Rittenhouse</strong>; historic, cobblestoned <strong>Society Hill</strong>; the village-like stone streets of <strong>Chestnut Hill</strong>; the row-house warmth and BYOB restaurants of <strong>East Passyunk</strong>. The connective tissue is walkability and transit — a retiree here can give up the car entirely, walk to the farmers market and the symphony, and hop Amtrak to see the grandkids in Boston without ever facing an airport. That combination — affordable, walkable, cultured, medically deep — is what makes Philadelphia quietly one of the best urban retirement values in the country.</p>
+        <p><span class="dropcap">P</span>hiladelphia is where the United States was invented — the Declaration of Independence and the Constitution were both signed within a few blocks of each other in what's now a walkable colonial district. For a stretch in the 1790s it was the nation's capital and its largest city. That founding-era core, all brick and cobblestone around Independence Hall, is still intact and still lived-in, which gives Center City a density and historical texture that newer American cities simply can't manufacture.</p>
+        <p><strong>But Philadelphia's defining trait, for a retiree, is its contradictions.</strong> It's a major East Coast metro — sixth-largest in the country — with the museums, hospitals, sports passion, and rail connections to match, yet it never priced itself out of reach the way its Northeast peers did. It's a city of fierce neighborhood loyalties and a famously blunt, unpretentious civic personality (the cheesesteak-and-Eagles stereotype is real, and locals lean into it). It's also, increasingly, a city of transplants who discovered they could have walkable urban life — Rittenhouse cafés, Reading Terminal mornings, first-rate medicine — for half what it would cost an hour north in New York.</p>
+        <p>The texture is in the neighborhoods, each with its own character: leafy, sophisticated Rittenhouse; historic, cobblestoned Society Hill; the village-like stone streets of Chestnut Hill; the row-house warmth and BYOB restaurants of East Passyunk. The connective tissue is walkability and transit — a retiree here can give up the car entirely, walk to the farmers market and the symphony, and hop Amtrak to see the grandkids in Boston without ever facing an airport. <strong>That combination — affordable, walkable, cultured, medically deep — is what makes Philadelphia quietly one of the best urban retirement values in the country.</strong></p>
       </div>
     </div>
 
@@ -1457,7 +1495,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Philadelphia, roughly.</h2>
-    <p class="week-intro">Here's how a week might unfold for an engaged, car-free Philadelphia retiree — built around the walkable-Center-City rhythm locals describe, with the regional-rail and Amtrak connections that make the city feel bigger than itself.</p>
 
     <div class="week-grid">
       <div class="day-card">
