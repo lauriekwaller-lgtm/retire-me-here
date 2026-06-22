@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -64,12 +65,12 @@ ml('account', '2238788');
         {
           "@type": "Question",
           "name": "Is Fort Myers a good place to retire?",
-          "acceptedAnswer": { "@type": "Answer", "text": "For the right retiree, yes, and the value case is the strongest on Florida's Gulf Coast: a typical home around $312,000 (the most affordable Gulf entry we cover), healthcare scoring 9 of 10 behind Lee Health (#3 on our healthcare list), airport access scoring 9 with RSW twenty minutes out, and a deep active-adult golf culture. The honest catch is the biggest one we score anywhere: Fort Myers was Hurricane Ian's ground zero in 2022, and our climate-resilience score of 1 of 10 is tied for the lowest in our database." }
+          "acceptedAnswer": { "@type": "Answer", "text": "For the right retiree, yes, and the value case is the strongest on Florida's Gulf Coast: a typical home around $372,000 (the most affordable Gulf entry we cover), healthcare scoring 9 of 10 behind Lee Health (#3 on our healthcare list), airport access scoring 9 with RSW twenty minutes out, and a deep active-adult golf culture. The honest catch is the biggest one we score anywhere: Fort Myers was Hurricane Ian's ground zero in 2022, and our climate-resilience score of 1 of 10 is tied for the lowest in our database." }
         },
         {
           "@type": "Question",
           "name": "How much does it cost to retire in Fort Myers?",
-          "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the citywide typical home value is around $312,000 with monthly retiree budgets of roughly $3,800 to $5,200, the most affordable Gulf Coast numbers in our Florida coverage. The 55+ communities east of town offer entry points below that. The offset is insurance: Florida estimates run around $7,136 a year on a $300K dwelling, with coastal and flood-zone addresses far above, and post-Ian pricing makes the quote a first question, not a footnote." }
+          "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the citywide typical home value is around $372,000 with monthly retiree budgets of roughly $5,500 to $6,800, the most affordable Gulf Coast numbers in our Florida coverage. The 55+ communities east of town offer entry points below that. The offset is insurance: Florida estimates run around $7,136 a year on a $300K dwelling, with coastal and flood-zone addresses far above, and post-Ian pricing makes the quote a first question, not a footnote." }
         },
         {
           "@type": "Question",
@@ -108,7 +109,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -641,9 +642,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -965,12 +968,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1257,12 +1260,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$312<span class="small">K</span></div>
+    <div class="stat-value">$372<span class="small">K</span></div>
     <div class="stat-sub">Citywide · most affordable Gulf entry we cover</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.8–5.2<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.5–6.8<span class="small">K/mo</span></div>
     <div class="stat-sub">Value tier · gated-community economics</div>
   </div>
   <div class="stat">
@@ -1280,8 +1283,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v14 (Florida).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$7,136/yr</strong> ($300K dwelling, FL average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$7,136/yr ($300K dwelling, FL average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal far above state avg; inland below</span>
 </div>
 
@@ -1303,7 +1306,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>You want the Gulf lifestyle at the Gulf's best price.</strong> A typical home of <strong>$312,000</strong>, the most affordable Gulf Coast entry in our Florida coverage, with budget scoring 7 of 10 and monthly estimates of $3,800 to $5,200. Our database puts it directly: more affordable than Naples while offering a similar Gulf Coast lifestyle. The 55+ communities east of town open the door lower still.</span>
+            <span><strong>You want the Gulf lifestyle at the Gulf's best price.</strong> A typical home of <strong>$372,000</strong>, the most affordable Gulf Coast entry in our Florida coverage, with budget scoring 7 of 10 and monthly estimates of $5,500 to $6,800. Our database puts it directly: more affordable than Naples while offering a similar Gulf Coast lifestyle. The 55+ communities east of town open the door lower still.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1443,9 +1446,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Fort Myers, roughly.</h2>
-    <p class="week-intro">A composite week drawn from the golf-river-ballpark cadence locals describe, with the snowbird season filling the calendar (and the roads) from January through April.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:40 AM</div>
@@ -1536,7 +1538,7 @@ footer {
       <div class="hood-card">
         <div class="hood-name">The 55+ corridor</div>
         <div class="hood-vibe">The value engine · Entry-level · Amenity-rich</div>
-        <div class="hood-desc">The big active-adult communities, Pelican Preserve and its neighbors: clubhouses, pickleball, pools, and the entry points that make the citywide $312K possible. Inland, social, and the honest budget path onto the Gulf Coast. <strong>Median: $250K–$400K.</strong></div>
+        <div class="hood-desc">The big active-adult communities, Pelican Preserve and its neighbors: clubhouses, pickleball, pools, and the entry points that make the citywide $372K possible. Inland, social, and the honest budget path onto the Gulf Coast. <strong>Median: $250K–$400K.</strong></div>
       </div>
     </div>
   </div>
