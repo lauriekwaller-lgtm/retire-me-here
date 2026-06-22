@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -20,7 +21,7 @@
 </script>
 
 <title>Boulder, Colorado — A Retirement City Profile | RetireMeHere</title>
-<meta name="description" content="An editorial profile of Boulder, Colorado as a retirement destination. AARP Top 100 (2025), 300+ trail miles, $971K typical home value, the Flatirons. The honest tradeoffs.">
+<meta name="description" content="An editorial profile of Boulder, Colorado as a retirement destination. AARP Top 100 (2025), 300+ trail miles, $964K typical home value, the Flatirons. The honest tradeoffs.">
 <link rel="canonical" href="https://retiremehere.com/cities/boulder/profile.html">
 
 <!-- MailerLite Universal -->
@@ -34,7 +35,7 @@ ml('account', '2238788');
 <!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Boulder, Colorado — A Retirement City Profile">
-<meta property="og:description" content="AARP Top 100 (2025), 300+ trail miles, $971K typical home value, the Flatirons. The honest tradeoffs.">
+<meta property="og:description" content="AARP Top 100 (2025), 300+ trail miles, $964K typical home value, the Flatirons. The honest tradeoffs.">
 <meta property="og:url" content="https://retiremehere.com/cities/boulder/profile.html">
 <meta property="og:image" content="https://retiremehere.com/cities/boulder/hero.jpg">
 <meta property="og:site_name" content="RetireMeHere">
@@ -48,7 +49,7 @@ ml('account', '2238788');
     {
       "@type": "Article",
       "headline": "Boulder, Colorado — A Retirement City Profile",
-      "description": "An editorial profile of Boulder, Colorado as a retirement destination. AARP Top 100 (2025), 300+ trail miles, $971K typical home value, the Flatirons. The honest tradeoffs.",
+      "description": "An editorial profile of Boulder, Colorado as a retirement destination. AARP Top 100 (2025), 300+ trail miles, $964K typical home value, the Flatirons. The honest tradeoffs.",
       "about": {
         "@type": "City",
         "name": "Boulder",
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Boulder, Colorado?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value runs around $971,000, with a typical retiree monthly budget of roughly $5,500 to $7,500 — about 29% above the national average."
+            "text": "As of 2026, the typical home value runs around $964,000, with a typical retiree monthly budget of roughly $8,000 to $9,900 — about 29% above the national average."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1075,12 +1078,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1367,12 +1370,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$971<span class="small">K</span></div>
+    <div class="stat-value">$964<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$5.5–7.5K<span class="small">/mo</span></div>
+    <div class="stat-value">$8–9.9K<span class="small">/mo</span></div>
     <div class="stat-sub">29% above national average</div>
   </div>
   <div class="stat">
@@ -1390,8 +1393,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Colorado).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.50%</strong> effective (≈$1,500/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$4,963/yr</strong> ($300K dwelling, CO average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.50% effective (≈$1,500/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$4,963/yr ($300K dwelling, CO average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Wildfire/foothill zones above avg</span>
 </div>
 
@@ -1417,7 +1420,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>You can afford it without feeling stretched.</strong> $971K typical home value means Boulder works best when housing isn't your biggest worry. The retirees who thrive here had an exit, a sale, or career equity.</span>
+            <span><strong>You can afford it without feeling stretched.</strong> $964K typical home value means Boulder works best when housing isn't your biggest worry. The retirees who thrive here had an exit, a sale, or career equity.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1510,7 +1513,7 @@ footer {
       <div class="character-body">
         <p><span class="dropcap">B</span>oulder voters have been taxing themselves to protect open space since 1967 — a half-century of community discipline that produced 45,000 protected acres ringing the city. That's the single fact that explains everything else. The Flatirons stay wild. The trails stay accessible. The view from anywhere downtown still ends at a mountain. It's a kind of civic stubbornness that's nearly impossible to retrofit into a city that didn't start doing it decades ago.</p>
         <p>The downtown that resulted is the Pearl Street pedestrian mall — four blocks of independent restaurants, bookstores, summer concerts, sidewalk chalk artists, and a slow procession of golden retrievers. CU Boulder anchors the city's intellectual life: the <strong>Colorado Music Festival</strong>, the <strong>Boulder International Film Festival</strong>, public lectures, a research-driven cultural calendar that gives the place real weight beyond its size. AARP put Boulder #6 mid-sized on its 2025 Top 100 Places to Live for Older Adults list — for reasons that aren't surprising once you spend a week here.</p>
-        <p>The price of all of this is the price of all of this. Typical home values sit at $971K. Cost of living runs 29% above the national average. Boulder is exceptional, and exceptional comes with a number attached. The retirees who land here happily are usually the ones who solved the housing question before they arrived.</p>
+        <p>The price of all of this is the price of all of this. Typical home values sit at $964K. Cost of living runs 29% above the national average. Boulder is exceptional, and exceptional comes with a number attached. The retirees who land here happily are usually the ones who solved the housing question before they arrived.</p>
       </div>
     </div>
 
@@ -1553,9 +1556,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Boulder, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Boulder retiree's days could look like — drawn from neighborhood patterns, what's actually open year-round, and the trail-walk, Pearl-Street, museum-meets-mountains cadence locals describe when they say "Boulder gets you outside."</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
