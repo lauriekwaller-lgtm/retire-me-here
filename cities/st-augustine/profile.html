@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -62,7 +63,7 @@ ml('account', '2238788');
         {
           "@type": "Question",
           "name": "How much does it cost to retire in St. Augustine?",
-          "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the citywide typical home value is around $432,000, the second-highest in our Florida coverage after Naples, with monthly retiree budgets of roughly $3,500 to $5,000. Florida's 0.78% property tax rate and lack of state income tax apply. Home insurance estimates run around $7,136 a year; our database notes northeast Florida as somewhat less surge-exposed than the Gulf and South Florida coasts, the best resilience profile in our state coverage, though still a hurricane coast." }
+          "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the citywide typical home value is around $432,000, the second-highest in our Florida coverage after Naples, with monthly retiree budgets of roughly $5,700 to $7,100. Florida's 0.78% property tax rate and lack of state income tax apply. Home insurance estimates run around $7,136 a year; our database notes northeast Florida as somewhat less surge-exposed than the Gulf and South Florida coasts, the best resilience profile in our state coverage, though still a hurricane coast." }
         },
         {
           "@type": "Question",
@@ -101,7 +102,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -634,9 +635,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -958,12 +961,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1255,7 +1258,7 @@ footer {
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.5–5.0<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.7–7.1<span class="small">K/mo</span></div>
     <div class="stat-sub">Budget tier 2 · taxes help the math</div>
   </div>
   <div class="stat">
@@ -1273,8 +1276,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v14 (Florida).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$7,136/yr</strong> ($300K dwelling, FL average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$7,136/yr ($300K dwelling, FL average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal far above state avg; inland below</span>
 </div>
 
@@ -1436,9 +1439,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in St. Augustine, roughly.</h2>
-    <p class="week-intro">A composite week drawn from the historic-district-and-island cadence locals describe, with the tourist calendar (and the back routes around it) part of the rhythm.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
