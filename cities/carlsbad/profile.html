@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Carlsbad, California?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $1,355,000, with a typical retiree monthly budget of roughly $10,000 to $12,000 — among the most expensive places we cover."
+            "text": "As of 2026, the typical home value is around $1,481,000, with a typical retiree monthly budget of roughly $10,900 to $13,600 — among the most expensive places we cover."
           }
         },
         {
@@ -102,7 +103,7 @@ ml('account', '2238788');
           "name": "What are the downsides of retiring in Carlsbad?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Cost is the dominant constraint — a roughly $1.35M typical home value and $10–12K monthly budgets; wildfire and the broader fire question affect the region; Carlsbad is a coastal village of about 115,000 rather than a true city; and its calm beaches aren't a surfing destination."
+            "text": "Cost is the dominant constraint — a roughly $1.48M typical home value and $10.9–13.6K monthly budgets; wildfire and the broader fire question affect the region; Carlsbad is a coastal village of about 115,000 rather than a true city; and its calm beaches aren't a surfing destination."
           }
         }
       ]
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1075,12 +1078,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1367,12 +1370,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$1.35<span class="small">M</span></div>
+    <div class="stat-value">$1.48<span class="small">M</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$10–12K<span class="small">/mo</span></div>
+    <div class="stat-value">$10.9–13.6K<span class="small">/mo</span></div>
     <div class="stat-sub">Tier 4 · Among the database’s most expensive</div>
   </div>
   <div class="stat">
@@ -1390,8 +1393,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (California).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.70%</strong> effective (≈$2,100/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$1,616/yr</strong> ($300K dwelling, CA average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.70% effective (≈$2,100/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$1,616/yr ($300K dwelling, CA average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Wildfire zones above avg; Prop 13 favors long-term owners</span>
 </div>
 
@@ -1438,7 +1441,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>Cost is a real constraint.</strong> Typical home value around $1.35M. Realistic monthly costs of $10,000–$12,000 for a couple. One of the most expensive cities in the database — alongside the priciest coastal markets, Napa, and Santa Barbara. Budget scored 1 of 10. California's state income tax (top bracket 13.3%) hits retirement-account withdrawals and capital gains; it does not tax Social Security. The math works for retirees who already own a coastal California home and are staying put; it is a hard ask for retirees moving here from anywhere cheaper.</span>
+            <span><strong>Cost is a real constraint.</strong> Typical home value around $1.48M. Realistic monthly costs of $10,000–$12,000 for a couple. One of the most expensive cities in the database — alongside the priciest coastal markets, Napa, and Santa Barbara. Budget scored 1 of 10. California's state income tax (top bracket 13.3%) hits retirement-account withdrawals and capital gains; it does not tax Social Security. The math works for retirees who already own a coastal California home and are staying put; it is a hard ask for retirees moving here from anywhere cheaper.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1553,9 +1556,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Carlsbad, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Carlsbad retiree's days could look like — drawn from the bluff-walk, village-market, lagoon-loop cadence locals describe when they explain why daily life here is so consistent year-round.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
