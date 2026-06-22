@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -13,7 +14,7 @@
 </script>
 
 <title>Delray Beach, Florida — A Retirement City Profile | RetireMeHere</title>
-<meta name="description" content="An editorial profile of Delray Beach, Florida as a retirement destination. One of Florida's most walkable main streets, the best airport access in our database, real value at $340K, and an honest look at the healthcare and hurricane catches.">
+<meta name="description" content="An editorial profile of Delray Beach, Florida as a retirement destination. One of Florida's most walkable main streets, the best airport access in our database, real value at $341K, and an honest look at the healthcare and hurricane catches.">
 <link rel="canonical" href="https://retiremehere.com/cities/delray-beach/profile.html">
 
 <!-- MailerLite Universal -->
@@ -41,7 +42,7 @@ ml('account', '2238788');
     {
       "@type": "Article",
       "headline": "Delray Beach, Florida — A Retirement City Profile",
-      "description": "An editorial profile of Delray Beach, Florida as a retirement destination. One of Florida's most walkable main streets, the best airport access in our database, real value at $340K, and an honest look at the healthcare and hurricane catches.",
+      "description": "An editorial profile of Delray Beach, Florida as a retirement destination. One of Florida's most walkable main streets, the best airport access in our database, real value at $341K, and an honest look at the healthcare and hurricane catches.",
       "about": {
         "@type": "City",
         "name": "Delray Beach",
@@ -71,7 +72,7 @@ ml('account', '2238788');
           "name": "Is Delray Beach a good place to retire?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Delray Beach is one of the strongest walkable-coastal values in our database: Atlantic Avenue is among Florida's most vibrant main streets (walkability 8 of 10), airport access is the best we score (9 of 10, with three major airports within 55 minutes), community scores 9 of 10, and the citywide typical home value is around $340,000. The honest catches are mid-tier healthcare depth (5 of 10), hurricane exposure with Florida insurance costs, and serious seasonal crowds."
+            "text": "Delray Beach is one of the strongest walkable-coastal values in our database: Atlantic Avenue is among Florida's most vibrant main streets (walkability 8 of 10), airport access is the best we score (9 of 10, with three major airports within 55 minutes), community scores 9 of 10, and the citywide typical home value is around $341,000. The honest catches are mid-tier healthcare depth (5 of 10), hurricane exposure with Florida insurance costs, and serious seasonal crowds."
           }
         },
         {
@@ -79,7 +80,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Delray Beach?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the citywide typical home value is around $340,000 with monthly retiree budgets of roughly $5,000 to $6,500. One important nuance: the citywide number is pulled down by large 55+ condo communities west of I-95, where units can run $150,000 to $300,000; east of I-95 and on the barrier island, prices run substantially higher."
+            "text": "As of 2026, the citywide typical home value is around $341,000 with monthly retiree budgets of roughly $5,100 to $6,300. One important nuance: the citywide number is pulled down by large 55+ condo communities west of I-95, where units can run $150,000 to $300,000; east of I-95 and on the barrier island, prices run substantially higher."
           }
         },
         {
@@ -125,7 +126,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -658,9 +659,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -982,12 +985,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1274,12 +1277,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$340<span class="small">K</span></div>
+    <div class="stat-value">$341<span class="small">K</span></div>
     <div class="stat-sub">Citywide · east of I-95 runs higher</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$5.0–6.5<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.1–6.3<span class="small">K/mo</span></div>
     <div class="stat-sub">Mid-tier · coastal South Florida</div>
   </div>
   <div class="stat">
@@ -1297,8 +1300,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v14 (Florida).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$7,136/yr</strong> ($300K dwelling, FL average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$7,136/yr ($300K dwelling, FL average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal far above state avg; inland below</span>
 </div>
 
@@ -1328,7 +1331,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>You want coastal Florida at a sane buy-in.</strong> The citywide typical home value is <strong>$340,000</strong>, with budget scoring 6 of 10, genuine value for walkable South Florida. The number is pulled down by the big 55+ communities west of I-95, which is itself an honest option: that is where the value lives, with the Avenue a fifteen-minute drive away.</span>
+            <span><strong>You want coastal Florida at a sane buy-in.</strong> The citywide typical home value is <strong>$341,000</strong>, with budget scoring 6 of 10, genuine value for walkable South Florida. The number is pulled down by the big 55+ communities west of I-95, which is itself an honest option: that is where the value lives, with the Avenue a fifteen-minute drive away.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1460,9 +1463,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Delray Beach, roughly.</h2>
-    <p class="week-intro">A composite week drawn from the beach-court-Avenue cadence locals describe, with the winter season layering on crowds and calendar from January through April.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
@@ -1531,7 +1533,7 @@ footer {
     <div class="section-eyebrow">Where to live</div>
     <h2 class="section-title">The barrier island, the grid, <em>or west of 95?</em></h2>
     <p class="hoods-intro">
-      Delray's retiree map splits cleanly at two lines: the Intracoastal and I-95. East of both is the walkable postcard; west is where the citywide $340K number actually comes from. The four below cover the realistic choices, with honest notes where they matter. <strong>Pricing reflects June 2026 estimates and varies meaningfully by building, age, and flood zone.</strong>
+      Delray's retiree map splits cleanly at two lines: the Intracoastal and I-95. East of both is the walkable postcard; west is where the citywide $341K number actually comes from. The four below cover the realistic choices, with honest notes where they matter. <strong>Pricing reflects June 2026 estimates and varies meaningfully by building, age, and flood zone.</strong>
     </p>
 
     <div class="hoods-grid">
