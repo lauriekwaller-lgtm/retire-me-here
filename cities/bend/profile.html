@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Bend, Oregon?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $735,000, with a typical retiree monthly budget of roughly $4,500 to $6,000 — above the national average, reflecting how popular the city has become."
+            "text": "As of 2026, the typical home value is around $726,000, with a typical retiree monthly budget of roughly $6,900 to $8,500 — above the national average, reflecting how popular the city has become."
           }
         },
         {
@@ -102,7 +103,7 @@ ml('account', '2238788');
           "name": "What are the downsides of retiring in Bend?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wildfire seasons have lengthened in central Oregon, the city is small (around 105,000) rather than a true metro, housing affordability is a real strain near a $735K typical value, and Oregon taxes most retirement income despite having no sales tax."
+            "text": "Wildfire seasons have lengthened in central Oregon, the city is small (around 105,000) rather than a true metro, housing affordability is a real strain near a $726K typical value, and Oregon taxes most retirement income despite having no sales tax."
           }
         }
       ]
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1075,12 +1078,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1367,12 +1370,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$735<span class="small">K</span></div>
+    <div class="stat-value">$726<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.5–6K<span class="small">/mo</span></div>
+    <div class="stat-value">$6.9–8.5K<span class="small">/mo</span></div>
     <div class="stat-sub">Above national average</div>
   </div>
   <div class="stat">
@@ -1390,8 +1393,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Oregon).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.81%</strong> effective (≈$2,430/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$1,572/yr</strong> ($300K dwelling, OR average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.81% effective (≈$2,430/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$1,572/yr ($300K dwelling, OR average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1446,7 +1449,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>Housing affordability matters most.</strong> Typical home value around $735K reflects how popular Bend has become — prices surged through the pandemic and haven't given much back. Budget scored 3 of 10, but the cost-of-living pressure here runs higher than the home price alone suggests; do the math carefully.</span>
+            <span><strong>Housing affordability matters most.</strong> Typical home value around $726K reflects how popular Bend has become — prices surged through the pandemic and haven't given much back. Budget scored 3 of 10, but the cost-of-living pressure here runs higher than the home price alone suggests; do the math carefully.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1510,7 +1513,7 @@ footer {
       <div class="character-body">
         <p><span class="dropcap">B</span>end sits at 3,600 feet on Oregon's east-of-the-Cascades shoulder, in country that the Cascade Range itself dries out — pine forest above, sagebrush flats to the east, the Deschutes River cutting through the middle of downtown. The geography sets the rules. Mt. Bachelor is twenty-two miles up the road. Smith Rock is half an hour north. The Cascade Lakes Highway is a one-day drive that retirees do casually, the way other people run errands. It's a city built around outdoor identity, and it's never tried to be anything else.</p>
         <p>The downtown that grew here reflects that. The Old Mill District — once a lumber mill complex — is now a riverside walking grid of restaurants, breweries, and small shops along the Deschutes. Bend consistently lands among the top U.S. cities for breweries per capita; the Bend Ale Trail is an actual passport. The Tower Theatre programs music and lectures year-round, and the High Desert Museum south of town is the cultural anchor most visitors don't expect — it's a serious institution. Outside Magazine and Travel + Leisure regularly land Bend on best-places lists for active retirees, often in the top 10.</p>
-        <p>What you trade for it is the price of being there. Typical home values around $735K, smoky August stretches in some years, and a town that has visibly grown — Bend's population has more than doubled in the past 25 years, and grown over 10% since the 2020 census alone. Longtime locals will tell you the city now feels less like a frontier and more like an arrival. The retirees who land here happily are the ones who came for the mountains and made peace with the fact that other people came too.</p>
+        <p>What you trade for it is the price of being there. Typical home values around $726K, smoky August stretches in some years, and a town that has visibly grown — Bend's population has more than doubled in the past 25 years, and grown over 10% since the 2020 census alone. Longtime locals will tell you the city now feels less like a frontier and more like an arrival. The retirees who land here happily are the ones who came for the mountains and made peace with the fact that other people came too.</p>
       </div>
     </div>
 
@@ -1553,9 +1556,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Bend, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Bend retiree's days could look like — drawn from the rhythms locals describe when they say "Bend gives you something outside every day, and a brewery to land at when you're done."</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">8:00 AM</div>
@@ -1646,7 +1648,7 @@ footer {
       <div class="hood-card">
         <div class="hood-name">Southeast Bend / DRW (Deschutes River Woods)</div>
         <div class="hood-vibe">Treed · Larger lots · Best relative value</div>
-        <div class="hood-desc">South of town. Pine forest, larger parcels, generally newer construction. The most accessible price-to-amenities band in the area, especially for retirees who want space and don't need to walk to dinner. <strong>Median: $625K–$735K.</strong></div>
+        <div class="hood-desc">South of town. Pine forest, larger parcels, generally newer construction. The most accessible price-to-amenities band in the area, especially for retirees who want space and don't need to walk to dinner. <strong>Median: $625K–$726K.</strong></div>
       </div>
     </div>
   </div>
