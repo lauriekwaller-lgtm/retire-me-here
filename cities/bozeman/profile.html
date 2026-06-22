@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Bozeman, Montana?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $728,000, with a typical retiree monthly budget of roughly $6,000 to $8,000 — a mountain-town premium that has climbed sharply since 2015."
+            "text": "As of 2026, the typical home value is around $740,000, with a typical retiree monthly budget of roughly $6,900 to $8,600 — a mountain-town premium that has climbed sharply since 2015."
           }
         },
         {
@@ -102,7 +103,7 @@ ml('account', '2238788');
           "name": "What are the downsides of retiring in Bozeman?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A real Montana winter runs December through March, costs have changed dramatically since 2015 (around a $728K typical value), top-tier specialty medicine isn't in town, and Bozeman is a busy working university city rather than a quiet small town."
+            "text": "A real Montana winter runs December through March, costs have changed dramatically since 2015 (around a $740K typical value), top-tier specialty medicine isn't in town, and Bozeman is a busy working university city rather than a quiet small town."
           }
         }
       ]
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1075,12 +1078,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1367,12 +1370,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$728<span class="small">K</span></div>
+    <div class="stat-value">$740<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$6–8K<span class="small">/mo</span></div>
+    <div class="stat-value">$6.9–8.6K<span class="small">/mo</span></div>
     <div class="stat-sub">Tier 3 · Mountain-town premium</div>
   </div>
   <div class="stat">
@@ -1390,8 +1393,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Montana).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.61%</strong> effective (≈$1,830/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$3,215/yr</strong> ($300K dwelling, MT average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.61% effective (≈$1,830/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$3,215/yr ($300K dwelling, MT average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1442,7 +1445,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>Cost has changed dramatically since 2015.</strong> Typical home value around $728K. Realistic monthly costs of $6,000–$8,000 for a couple. Bozeman's housing market has roughly doubled since 2015, driven by remote-work migration, tech and finance arrivals, and Yellowstone-adjacent investment. Budget scored 3 of 10. For retirees relocating from cheaper markets, the math has gotten meaningfully harder. The "affordable mountain-town retirement" story is no longer accurate.</span>
+            <span><strong>Cost has changed dramatically since 2015.</strong> Typical home value around $740K. Realistic monthly costs of $6,000–$8,000 for a couple. Bozeman's housing market has roughly doubled since 2015, driven by remote-work migration, tech and finance arrivals, and Yellowstone-adjacent investment. Budget scored 3 of 10. For retirees relocating from cheaper markets, the math has gotten meaningfully harder. The "affordable mountain-town retirement" story is no longer accurate.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1509,7 +1512,7 @@ footer {
       <h2 class="section-title">A college town that <em>found Yellowstone first</em>.</h2>
       <div class="character-body">
         <p><span class="dropcap">B</span>ozeman is named for John Bozeman, the trail-blazer who in 1864 cut a wagon route through the Gallatin Valley to the gold fields of Virginia City and Helena. The valley itself — fertile, sheltered, glacially carved, and ringed by mountains — had been Crow and Shoshone territory before the gold-rush settlers arrived. The town that grew along Bozeman's trail became a farming-and-ranching supply hub through the late 19th century, and got two pieces of long-tenure infrastructure that shaped everything since: the Northern Pacific Railroad in 1883, and Montana Agricultural College — now Montana State University — in 1893. The college turned Bozeman into a research-and-engineering town long before that was a national category.</p>
-        <p>What changed Bozeman from a small Montana college town into the city it is today happened in roughly three waves. Yellowstone National Park, established in 1872 and accessed through the Gallatin Valley, brought a tourism economy that has compounded for over a century. Big Sky Resort, founded by Chet Huntley in 1973, established the south-of-Bozeman ski-and-mountain economy that anchors today's wealth migration. And the post-2015 wave — remote work, tech and finance arrivals, second-home buyers, and the migration south from cooler-climate states — doubled housing prices in about a decade. The Bozeman of 2015 had typical home values near $325,000. Today it's near $728,000. The city is the same place; the economics aren't.</p>
+        <p>What changed Bozeman from a small Montana college town into the city it is today happened in roughly three waves. Yellowstone National Park, established in 1872 and accessed through the Gallatin Valley, brought a tourism economy that has compounded for over a century. Big Sky Resort, founded by Chet Huntley in 1973, established the south-of-Bozeman ski-and-mountain economy that anchors today's wealth migration. And the post-2015 wave — remote work, tech and finance arrivals, second-home buyers, and the migration south from cooler-climate states — doubled housing prices in about a decade. The Bozeman of 2015 had typical home values near $325,000. Today it's near $740,000. The city is the same place; the economics aren't.</p>
         <p>What this earns is a city retirees move to for very specific reasons: world-class outdoor recreation at the city's edge, a real downtown that has stayed intact, an academic-and-cultural infrastructure unusual for a city of 56,000, and four real seasons in a Rocky Mountain setting. What it costs is winter (genuine, long, cold), distance (Salt Lake City is the nearest major-hub airport, and it's five hours south), and a cost structure that has caught up to Boulder and Bend. The retirees who do well here came for the mountains, embraced the seasons, and either had a Bozeman connection already or did their research carefully. The retirees who didn't usually leave within three winters.</p>
       </div>
     </div>
@@ -1553,9 +1556,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Bozeman, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Bozeman retiree's days could look like — drawn from the trail-and-downtown, lecture-and-museum, fly-shop-and-coffee cadence locals describe when they explain the four-season rhythm of the place.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
