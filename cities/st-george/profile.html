@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in St. George, Utah?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $521,000, with a typical retiree monthly budget of roughly $4,500 to $6,000."
+            "text": "As of 2026, the typical home value is around $507,000, with a typical retiree monthly budget of roughly $5,700 to $7,100."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1075,12 +1078,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1367,12 +1370,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$521<span class="small">K</span></div>
+    <div class="stat-value">$507<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.5–6K<span class="small">/mo</span></div>
+    <div class="stat-value">$5.7–7.1K<span class="small">/mo</span></div>
     <div class="stat-sub">Tier 3 · Cost-tier sweet spot for a desert outdoor city</div>
   </div>
   <div class="stat">
@@ -1390,8 +1393,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Utah).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.48%</strong> effective (≈$1,440/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$1,814/yr</strong> ($300K dwelling, UT average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.48% effective (≈$1,440/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$1,814/yr ($300K dwelling, UT average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1425,7 +1428,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>The math works.</strong> Typical home value around $521K, monthly costs of $4,200–$5,600 for a couple. That's tier 3 — meaningfully below Scottsdale, Bend, and Bozeman for a city with comparable outdoor recreation. Utah doesn't tax Social Security as of 2021 reform, and the state income-tax structure is moderate. The math is friendlier than California, comparable to Arizona, and a clear value for retirees who prioritize outdoor recreation and healthcare over walkable urban density.</span>
+            <span><strong>The math works.</strong> Typical home value around $507K, monthly costs of $4,200–$5,600 for a couple. That's tier 3 — meaningfully below Scottsdale, Bend, and Bozeman for a city with comparable outdoor recreation. Utah doesn't tax Social Security as of 2021 reform, and the state income-tax structure is moderate. The math is friendlier than California, comparable to Arizona, and a clear value for retirees who prioritize outdoor recreation and healthcare over walkable urban density.</span>
           </li>
         </ul>
       </div>
@@ -1553,9 +1556,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in St. George, roughly.</h2>
-    <p class="week-intro">A composite week of what an active St. George retiree's days could look like — drawn from the early-trail, mid-morning-coffee, park-trip-Saturday cadence locals describe when explaining how the city's outdoor proximity shapes daily routines. (This is fall through spring. Summer mornings start much earlier.)</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
@@ -1636,7 +1638,7 @@ footer {
       <div class="hood-card">
         <div class="hood-name">Bloomington / Bloomington Hills</div>
         <div class="hood-vibe">Established master-planned · Golf · Mid-tier</div>
-        <div class="hood-desc">Southwest St. George, organized around the Bloomington Country Club and the Virgin River. The original master-planned retirement community in the area — established trees, mature golf course, established neighborhoods. The mid-tier value option compared to newer northern developments. <strong>Median: $521K–$775K.</strong></div>
+        <div class="hood-desc">Southwest St. George, organized around the Bloomington Country Club and the Virgin River. The original master-planned retirement community in the area — established trees, mature golf course, established neighborhoods. The mid-tier value option compared to newer northern developments. <strong>Median: $507K–$775K.</strong></div>
       </div>
       <div class="hood-card">
         <div class="hood-name">SunRiver</div>
