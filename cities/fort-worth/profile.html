@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -71,7 +72,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Fort Worth, Texas?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of May 2026, the typical home value in Fort Worth is around $300,000, below the national average. A typical retiree monthly budget runs roughly $3,000 to $4,200. Texas has no state income tax, no estate tax, and no inheritance tax, though property taxes are high — substantially offset for homeowners 65 and older by the over-65 homestead exemption and a school-tax freeze."
+            "text": "As of May 2026, the typical home value in Fort Worth is around $300,000, below the national average. A typical retiree monthly budget runs roughly $5,000 to $6,200. Texas has no state income tax, no estate tax, and no inheritance tax, though property taxes are high — substantially offset for homeowners 65 and older by the over-65 homestead exemption and a school-tax freeze."
           }
         },
         {
@@ -116,7 +117,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -649,9 +650,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -975,12 +978,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1272,7 +1275,7 @@ footer {
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.0–4.2<span class="small">K/mo</span></div>
+    <div class="stat-value">$5–6.2<span class="small">K/mo</span></div>
     <div class="stat-sub">Affordable big-city · no state income tax</div>
   </div>
   <div class="stat">
@@ -1290,8 +1293,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Texas).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>1.40%</strong> effective (≈$4,200/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$4,085/yr</strong> ($300K dwelling, TX average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 1.40% effective (≈$4,200/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$4,085/yr ($300K dwelling, TX average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Gulf coast far above state avg</span>
 </div>
 
@@ -1453,9 +1456,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Fort Worth, roughly.</h2>
-    <p class="week-intro">A composite week of what an engaged Fort Worth retiree's days could look like — drawn from the museum-Stockyards-Trinity-Trails rhythm that defines the city, with the heat scheduled around, the way locals actually do it.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">9:00 AM</div>
