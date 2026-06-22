@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -20,7 +21,7 @@
 </script>
 
 <title>Tucson, Arizona — A Retirement City Profile | RetireMeHere</title>
-<meta name="description" content="An editorial profile of Tucson, Arizona as a retirement destination. Sonoran Desert framed by five mountain ranges, $325K typical home value, world-class hiking, Banner University Medical Center. The honest tradeoffs.">
+<meta name="description" content="An editorial profile of Tucson, Arizona as a retirement destination. Sonoran Desert framed by five mountain ranges, $333K typical home value, world-class hiking, Banner University Medical Center. The honest tradeoffs.">
 <link rel="canonical" href="https://retiremehere.com/cities/tucson/profile.html">
 
 <!-- MailerLite Universal -->
@@ -34,7 +35,7 @@ ml('account', '2238788');
 <!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tucson, Arizona — A Retirement City Profile">
-<meta property="og:description" content="Sonoran Desert framed by five mountain ranges, $325K typical home value, world-class hiking, Banner University Medical Center. The honest tradeoffs.">
+<meta property="og:description" content="Sonoran Desert framed by five mountain ranges, $333K typical home value, world-class hiking, Banner University Medical Center. The honest tradeoffs.">
 <meta property="og:url" content="https://retiremehere.com/cities/tucson/profile.html">
 <meta property="og:image" content="https://retiremehere.com/cities/tucson/hero.jpg">
 <meta property="og:site_name" content="RetireMeHere">
@@ -48,7 +49,7 @@ ml('account', '2238788');
     {
       "@type": "Article",
       "headline": "Tucson, Arizona — A Retirement City Profile",
-      "description": "An editorial profile of Tucson, Arizona as a retirement destination. Sonoran Desert framed by five mountain ranges, $325K typical home value, world-class hiking, Banner University Medical Center. The honest tradeoffs.",
+      "description": "An editorial profile of Tucson, Arizona as a retirement destination. Sonoran Desert framed by five mountain ranges, $333K typical home value, world-class hiking, Banner University Medical Center. The honest tradeoffs.",
       "about": {
         "@type": "City",
         "name": "Tucson",
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Tucson, Arizona?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $325,000, with a typical retiree monthly budget of roughly $3,200 to $4,200 — below the national average."
+            "text": "As of 2026, the typical home value is around $333,000, with a typical retiree monthly budget of roughly $4,900 to $6,100 — below the national average."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1076,12 +1079,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1368,12 +1371,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$325<span class="small">K</span></div>
+    <div class="stat-value">$333<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.2–4.2K<span class="small">/mo</span></div>
+    <div class="stat-value">$4.9–6.1K<span class="small">/mo</span></div>
     <div class="stat-sub">Below national average</div>
   </div>
   <div class="stat">
@@ -1391,8 +1394,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Arizona).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.48%</strong> effective (≈$1,440/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,344/yr</strong> ($300K dwelling, AZ average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.48% effective (≈$1,440/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,344/yr ($300K dwelling, AZ average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1414,7 +1417,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>You want desert beauty without resort prices.</strong> $325K typical home value buys real Sonoran-foothills life. Scottsdale is twice the price for a similar landscape with less character.</span>
+            <span><strong>You want desert beauty without resort prices.</strong> $333K typical home value buys real Sonoran-foothills life. Scottsdale is twice the price for a similar landscape with less character.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1555,9 +1558,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Tucson, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Tucson retiree's days could look like — drawn from the early-morning-trail, late-afternoon-patio, mountain-meets-mission cadence locals describe when explaining why this city earns its outdoor scores. (This is the cool-season week. June–August looks different.)</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:00 AM</div>
