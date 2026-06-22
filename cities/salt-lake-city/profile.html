@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -61,7 +62,7 @@ ml('account', '2238788');
           "name": "Is Salt Lake City a good place to retire?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Salt Lake City is an exceptional fit for active retirees who prioritize the outdoors and healthcare. It is one of the rare cities scoring a perfect 10 for both: the Wasatch Range and 11 resorts line the Wasatch with about ten within an hour, and University of Utah Hospital has been ranked #1 in Utah for twelve straight years. A major Delta-hub airport sits at the city's edge. The main tradeoffs are winter air-quality inversions, a typical home value around $580K, and Utah's tax on retirement income."
+            "text": "Salt Lake City is an exceptional fit for active retirees who prioritize the outdoors and healthcare. It is one of the rare cities scoring a perfect 10 for both: the Wasatch Range and 11 resorts line the Wasatch with about ten within an hour, and University of Utah Hospital has been ranked #1 in Utah for twelve straight years. A major Delta-hub airport sits at the city's edge. The main tradeoffs are winter air-quality inversions, a typical home value around $525K, and Utah's tax on retirement income."
           }
         },
         {
@@ -69,7 +70,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Salt Lake City?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value in Salt Lake City is around $580,000, with a typical retiree monthly budget of roughly $4,800 to $6,200 \u2014 above the national average, driven by years of in-migration and limited valley land. Utah taxes retirement income at a flat state rate, including a portion of Social Security for higher earners, though a retirement-income tax credit softens it for moderate incomes."
+            "text": "As of 2026, the typical home value in Salt Lake City is around $525,000, with a typical retiree monthly budget of roughly $5,700 to $7,100 \u2014 above the national average, driven by years of in-migration and limited valley land. Utah taxes retirement income at a flat state rate, including a portion of Social Security for higher earners, though a retirement-income tax credit softens it for moderate incomes."
           }
         },
         {
@@ -85,7 +86,7 @@ ml('account', '2238788');
           "name": "What are the downsides of retiring in Salt Lake City?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Winter air quality is the biggest concern: valley temperature inversions can trap polluted air for days, which matters for anyone with respiratory or heart conditions. Utah also taxes retirement income, unlike no-income-tax states. Housing is expensive at around a $580K typical value, and Salt Lake is a mid-sized, relatively quiet city \u2014 lively for its size but not a major around-the-clock metro."
+            "text": "Winter air quality is the biggest concern: valley temperature inversions can trap polluted air for days, which matters for anyone with respiratory or heart conditions. Utah also taxes retirement income, unlike no-income-tax states. Housing is expensive at around a $525K typical value, and Salt Lake is a mid-sized, relatively quiet city \u2014 lively for its size but not a major around-the-clock metro."
           }
         }
       ]
@@ -114,7 +115,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -647,9 +648,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -973,12 +976,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1265,12 +1268,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$580<span class="small">K</span></div>
+    <div class="stat-value">$525<span class="small">K</span></div>
     <div class="stat-sub">Well above U.S. average · condos from ~$465K</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.8–6.2<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.7–7.1<span class="small">K/mo</span></div>
     <div class="stat-sub">Mountain-metro premium · Utah taxes income</div>
   </div>
   <div class="stat">
@@ -1288,8 +1291,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Utah).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.48%</strong> effective (≈$1,440/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$1,814/yr</strong> ($300K dwelling, UT average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.48% effective (≈$1,440/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$1,814/yr ($300K dwelling, UT average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1344,7 +1347,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>Affordability is your binding constraint.</strong> Salt Lake is not cheap. A typical home value around <strong>$580K</strong> and a cost of living a few points above the national average put it in the pricier tier, driven by years of in-migration and limited valley land. Budget scored 4 of 10. The value is real given what you get — mountains and medicine — but if you're stretching a fixed income, it's a meaningful stretch.</span>
+            <span><strong>Affordability is your binding constraint.</strong> Salt Lake is not cheap. A typical home value around <strong>$525K</strong> and a cost of living a few points above the national average put it in the pricier tier, driven by years of in-migration and limited valley land. Budget scored 4 of 10. The value is real given what you get — mountains and medicine — but if you're stretching a fixed income, it's a meaningful stretch.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1451,9 +1454,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Salt Lake, roughly.</h2>
-    <p class="week-intro">A week in the life of an engaged Salt Lake retiree tends to orbit the canyons-and-culture rhythm locals describe — with the worst inversion days spent up above the valley haze.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">8:00 AM</div>
