@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Charlottesville, Virginia?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $523,000, with a typical retiree monthly budget of roughly $4,000 to $5,500 — on the higher end for inland Virginia."
+            "text": "As of 2026, the typical home value is around $465,000, with a typical retiree monthly budget of roughly $5,500 to $6,800 — on the higher end for inland Virginia."
           }
         },
         {
@@ -102,7 +103,7 @@ ml('account', '2238788');
           "name": "What are the downsides of retiring in Charlottesville?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Affordability is modest at 4 of 10 with a roughly $523K typical value, the airport offers only regional connections (4 of 10), winters bring four real seasons, and this is a small college-town-scale city rather than a big metro."
+            "text": "Affordability is modest at 4 of 10 with a roughly $465K typical value, the airport offers only regional connections (4 of 10), winters bring four real seasons, and this is a small college-town-scale city rather than a big metro."
           }
         }
       ]
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -667,9 +668,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -993,12 +996,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1285,12 +1288,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$523<span class="small">K</span></div>
+    <div class="stat-value">$465<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.0–5.5<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.5–6.8<span class="small">K/mo</span></div>
     <div class="stat-sub">Higher-end · expensive for inland Virginia</div>
   </div>
   <div class="stat">
@@ -1308,8 +1311,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Virginia).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,074/yr</strong> ($300K dwelling, VA average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,074/yr ($300K dwelling, VA average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1356,7 +1359,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>You're cost-sensitive.</strong> Affordability scored 4 of 10. The typical home value is around <strong>$523,000</strong> and has been climbing, with a monthly budget in the $4,000–$5,500 range — expensive for an inland Virginia city, driven by UVA demand and the Blue Ridge lifestyle premium. It's far from the priciest place in our database, but it is not a value play, and the close-in walkable neighborhoods carry the steepest prices.</span>
+            <span><strong>You're cost-sensitive.</strong> Affordability scored 4 of 10. The typical home value is around <strong>$465,000</strong> and has been climbing, with a monthly budget in the $4,000–$5,500 range — expensive for an inland Virginia city, driven by UVA demand and the Blue Ridge lifestyle premium. It's far from the priciest place in our database, but it is not a value play, and the close-in walkable neighborhoods carry the steepest prices.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1471,9 +1474,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Charlottesville, roughly.</h2>
-    <p class="week-intro">A composite week of what an engaged Charlottesville retiree's days could look like — the mix of mountains, university culture, wine country, and a walkable downtown that gives the city its particular rhythm.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">9:00 AM</div>
