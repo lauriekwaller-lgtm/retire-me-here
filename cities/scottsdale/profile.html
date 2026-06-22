@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Scottsdale, Arizona?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $858,000, with a typical retiree monthly budget of roughly $6,500 to $8,500 — a top-tier cost alongside Naples, Park City, and Santa Barbara."
+            "text": "As of 2026, the typical home value is around $833,000, with a typical retiree monthly budget of roughly $7,300 to $9,100 — a top-tier cost alongside Naples, Park City, and Santa Barbara."
           }
         },
         {
@@ -102,7 +103,7 @@ ml('account', '2238788');
           "name": "What are the downsides of retiring in Scottsdale?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Summer heat from June through September runs 100–115°F, cost is a real constraint near an $858K typical value, walkability is limited outside Old Town, and long-term desert water sustainability is an open question."
+            "text": "Summer heat from June through September runs 100–115°F, cost is a real constraint near an $833K typical value, walkability is limited outside Old Town, and long-term desert water sustainability is an open question."
           }
         }
       ]
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1075,12 +1078,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1367,12 +1370,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$858<span class="small">K</span></div>
+    <div class="stat-value">$833<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$6.5–8.5K<span class="small">/mo</span></div>
+    <div class="stat-value">$7.3–9.1K<span class="small">/mo</span></div>
     <div class="stat-sub">Tier 4 · Alongside Naples, Park City, Santa Barbara</div>
   </div>
   <div class="stat">
@@ -1390,8 +1393,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Arizona).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.48%</strong> effective (≈$1,440/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,344/yr</strong> ($300K dwelling, AZ average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.48% effective (≈$1,440/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,344/yr ($300K dwelling, AZ average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1442,7 +1445,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>Cost is a real constraint.</strong> Typical home value roughly $858K. Realistic monthly costs of $6,500–$8,500 for a couple. One of the most expensive cities in the database — alongside Naples, Park City, and Santa Barbara — scoring 3 of 10 on budget. Property taxes are low and Arizona doesn't tax Social Security, but the entry price is the entry price. Tucson is half the price for a similar landscape with a more academic culture; Scottsdale is the choice when top-tier medicine, resort amenities, and major-hub airport access matter more than monthly cost.</span>
+            <span><strong>Cost is a real constraint.</strong> Typical home value roughly $833K. Realistic monthly costs of $6,500–$8,500 for a couple. One of the most expensive cities in the database — alongside Naples, Park City, and Santa Barbara — scoring 3 of 10 on budget. Property taxes are low and Arizona doesn't tax Social Security, but the entry price is the entry price. Tucson is half the price for a similar landscape with a more academic culture; Scottsdale is the choice when top-tier medicine, resort amenities, and major-hub airport access matter more than monthly cost.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1553,9 +1556,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Scottsdale, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Scottsdale retiree's days could look like — drawn from the early-trail, late-morning-court, gallery-and-resort-patio cadence locals describe when explaining how this city earns its reputation. (This is the cool-season week. June–September looks different.)</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:00 AM</div>
