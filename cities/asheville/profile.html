@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -20,7 +21,7 @@
 </script>
 
 <title>Asheville, North Carolina — A Retirement City Profile | RetireMeHere</title>
-<meta name="description" content="An editorial profile of Asheville, North Carolina as a retirement destination. Blue Ridge Mountains, Biltmore Estate, perfect 10 outdoor recreation, $461K typical home value — and what Helene recovery means in 2026.">
+<meta name="description" content="An editorial profile of Asheville, North Carolina as a retirement destination. Blue Ridge Mountains, Biltmore Estate, perfect 10 outdoor recreation, $462K typical home value — and what Helene recovery means in 2026.">
 <link rel="canonical" href="https://retiremehere.com/cities/asheville/profile.html">
 
 <!-- MailerLite Universal -->
@@ -34,7 +35,7 @@ ml('account', '2238788');
 <!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Asheville, North Carolina — A Retirement City Profile">
-<meta property="og:description" content="Blue Ridge Mountains, Biltmore Estate, perfect 10 outdoor recreation, $461K typical home value — and what Helene recovery means in 2026.">
+<meta property="og:description" content="Blue Ridge Mountains, Biltmore Estate, perfect 10 outdoor recreation, $462K typical home value — and what Helene recovery means in 2026.">
 <meta property="og:url" content="https://retiremehere.com/cities/asheville/profile.html">
 <meta property="og:image" content="https://retiremehere.com/cities/asheville/hero.jpg">
 <meta property="og:site_name" content="RetireMeHere">
@@ -48,7 +49,7 @@ ml('account', '2238788');
     {
       "@type": "Article",
       "headline": "Asheville, North Carolina — A Retirement City Profile",
-      "description": "An editorial profile of Asheville, North Carolina as a retirement destination. Blue Ridge Mountains, Biltmore Estate, perfect 10 outdoor recreation, $461K typical home value — and what Helene recovery means in 2026.",
+      "description": "An editorial profile of Asheville, North Carolina as a retirement destination. Blue Ridge Mountains, Biltmore Estate, perfect 10 outdoor recreation, $462K typical home value — and what Helene recovery means in 2026.",
       "about": {
         "@type": "City",
         "name": "Asheville",
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Asheville, North Carolina?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $461,000, with a typical retiree monthly budget of roughly $4,200 to $5,500 — near the national average."
+            "text": "As of 2026, the typical home value is around $462,000, with a typical retiree monthly budget of roughly $5,400 to $6,700 — near the national average."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -625,9 +626,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1124,12 +1127,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1416,12 +1419,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$461<span class="small">K</span></div>
+    <div class="stat-value">$462<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.2–5.5K<span class="small">/mo</span></div>
+    <div class="stat-value">$5.4–6.7K<span class="small">/mo</span></div>
     <div class="stat-sub">Near national average</div>
   </div>
   <div class="stat">
@@ -1451,8 +1454,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (North Carolina).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.66%</strong> effective (≈$1,980/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$3,124/yr</strong> ($300K dwelling, NC average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.66% effective (≈$1,980/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$3,124/yr ($300K dwelling, NC average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal above state avg</span>
 </div>
 
@@ -1507,7 +1510,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>Cost surprises you.</strong> $461K typical home value and $4.2–5.5K monthly budget aren't extreme, but Asheville costs more than most of North Carolina, and water/utility rates are climbing during recovery. Budget scored 3 of 10 in our database — moderate, not cheap.</span>
+            <span><strong>Cost surprises you.</strong> $462K typical home value and $5.4–6.7K monthly budget aren't extreme, but Asheville costs more than most of North Carolina, and water/utility rates are climbing during recovery. Budget scored 3 of 10 in our database — moderate, not cheap.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1613,9 +1616,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Asheville, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Asheville retiree's days could look like — drawn from the parts of the city that are open and operating in 2026, plus the long-standing rhythms that the storm didn't change. (Skips the River Arts District corridor, which sits at different stages of rebuild.)</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">7:30 AM</div>
