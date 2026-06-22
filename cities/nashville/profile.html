@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -61,7 +62,7 @@ ml('account', '2238788');
           "name": "Is Nashville a good place to retire?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nashville is a strong fit for culture-loving retirees with the budget for it. It pairs no state income tax with Vanderbilt University Medical Center — the #1 hospital in Tennessee — plus a world-class music and food scene, a mild four-season climate, and a major airport with 100-plus nonstop routes. The main tradeoff is cost: a typical home value around $436K and a higher monthly budget than most Southern cities. Limited walkability outside a few core neighborhoods and spring storm/tornado risk are the other honest caveats."
+            "text": "Nashville is a strong fit for culture-loving retirees with the budget for it. It pairs no state income tax with Vanderbilt University Medical Center — the #1 hospital in Tennessee — plus a world-class music and food scene, a mild four-season climate, and a major airport with 100-plus nonstop routes. The main tradeoff is cost: a typical home value around $460K and a higher monthly budget than most Southern cities. Limited walkability outside a few core neighborhoods and spring storm/tornado risk are the other honest caveats."
           }
         },
         {
@@ -69,7 +70,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Nashville?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value in Nashville is around $436,000, with a typical retiree monthly budget of roughly $5,000 to $6,500 — higher than most of the South. Tennessee has no state income tax, no tax on Social Security, pensions, or retirement-account withdrawals, and no estate tax, which offsets the housing cost meaningfully for retirees living on investment and retirement income."
+            "text": "As of 2026, the typical home value in Nashville is around $460,000, with a typical retiree monthly budget of roughly $5,400 to $6,700 — higher than most of the South. Tennessee has no state income tax, no tax on Social Security, pensions, or retirement-account withdrawals, and no estate tax, which offsets the housing cost meaningfully for retirees living on investment and retirement income."
           }
         },
         {
@@ -114,7 +115,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -647,9 +648,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -973,12 +976,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1265,12 +1268,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$436<span class="small">K</span></div>
+    <div class="stat-value">$460<span class="small">K</span></div>
     <div class="stat-sub">Above U.S. average · condos from ~$350K</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$5.0–6.5<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.4–6.7<span class="small">K/mo</span></div>
     <div class="stat-sub">Pricey for the South · no state income tax</div>
   </div>
   <div class="stat">
@@ -1288,8 +1291,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Tennessee).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.52%</strong> effective (≈$1,560/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,958/yr</strong> ($300K dwelling, TN average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.52% effective (≈$1,560/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,958/yr ($300K dwelling, TN average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1336,7 +1339,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>Cost is your binding constraint.</strong> This is the honest dealbreaker. Nashville is <strong>no longer cheap</strong> — a typical home value around <strong>$436K</strong> (and well past $1M in Green Hills, Belle Meade, or Brentwood), with a monthly budget higher than most Southern cities. The no-income-tax savings help, but they don't erase the gap. If you're stretching a fixed income, your dollar goes dramatically further in places like Columbus, Knoxville, or Chattanooga — and the tax advantage is identical statewide.</span>
+            <span><strong>Cost is your binding constraint.</strong> This is the honest dealbreaker. Nashville is <strong>no longer cheap</strong> — a typical home value around <strong>$460K</strong> (and well past $1M in Green Hills, Belle Meade, or Brentwood), with a monthly budget higher than most Southern cities. The no-income-tax savings help, but they don't erase the gap. If you're stretching a fixed income, your dollar goes dramatically further in places like Columbus, Knoxville, or Chattanooga — and the tax advantage is identical statewide.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1451,9 +1454,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Nashville, roughly.</h2>
-    <p class="week-intro">What a typical week looks like for an engaged Nashville retiree — shaped by the neighborhood-music-and-food rhythm locals live by, with Broadway left to the tourists.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">8:30 AM</div>
