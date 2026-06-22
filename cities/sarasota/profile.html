@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Sarasota, Florida?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $413,000, with a typical retiree monthly budget of roughly $4,800 to $6,200 — a mid-to-upper, arts-city premium."
+            "text": "As of 2026, the typical home value is around $462,000, with a typical retiree monthly budget of roughly $5,800 to $7,200 — a mid-to-upper, arts-city premium."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -665,9 +666,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -989,12 +992,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1281,12 +1284,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$413<span class="small">K</span></div>
+    <div class="stat-value">$462<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.8–6.2<span class="small">K/mo</span></div>
+    <div class="stat-value">$5.8–7.2<span class="small">K/mo</span></div>
     <div class="stat-sub">Mid-to-upper · arts-city premium</div>
   </div>
   <div class="stat">
@@ -1304,8 +1307,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Florida).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$7,136/yr</strong> ($300K dwelling, FL average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$7,136/yr ($300K dwelling, FL average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal far above state avg; inland below</span>
 </div>
 
@@ -1339,7 +1342,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>The Florida financial picture matters.</strong> No state income tax — a structural advantage for retirees drawing from 401(k)s, IRAs, and pensions. The Florida homestead exemption caps property tax growth for primary residents. Tax scored 9 of 10 in our database. Cost of living isn't cheap — typical home values run $413K and monthly budgets sit in the $4.8–6.2K range — but the tax structure recovers a meaningful piece of that.</span>
+            <span><strong>The Florida financial picture matters.</strong> No state income tax — a structural advantage for retirees drawing from 401(k)s, IRAs, and pensions. The Florida homestead exemption caps property tax growth for primary residents. Tax scored 9 of 10 in our database. Cost of living isn't cheap — typical home values run $462K and monthly budgets sit in the $5.8–7.2K range — but the tax structure recovers a meaningful piece of that.</span>
           </li>
         </ul>
       </div>
@@ -1352,7 +1355,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>Budget is the constraint.</strong> Sarasota is pricier than most Gulf Coast cities — a real step up from Tampa, St. Petersburg, or Fort Myers. Typical home value around $413K, monthly budgets $4.8–6.2K. Budget scored 5 of 10 in our database. The cultural infrastructure has a real-estate premium attached to it. If your numbers are tight, the math may not work without significant compromises on neighborhood.</span>
+            <span><strong>Budget is the constraint.</strong> Sarasota is pricier than most Gulf Coast cities — a real step up from Tampa, St. Petersburg, or Fort Myers. Typical home value around $462K, monthly budgets $5.8–7.2K. Budget scored 5 of 10 in our database. The cultural infrastructure has a real-estate premium attached to it. If your numbers are tight, the math may not work without significant compromises on neighborhood.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1467,9 +1470,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Sarasota, roughly.</h2>
-    <p class="week-intro">A composite week of what an arts-engaged Sarasota retiree's days could look like — drawn from the Ringling-museum-opera-beach cadence locals describe when they explain what a Tuesday actually looks like here.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">10:00 AM</div>
