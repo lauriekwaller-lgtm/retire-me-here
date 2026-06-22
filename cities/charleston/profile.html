@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Charleston, South Carolina?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $594,000, with a typical retiree monthly budget of roughly $4,800 to $5,800 — slightly above the national average."
+            "text": "As of 2026, the typical home value is around $526,000, with a typical retiree monthly budget of roughly $5,600 to $7,000 — slightly above the national average."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -576,9 +577,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1077,12 +1080,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1369,12 +1372,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$594<span class="small">K</span></div>
+    <div class="stat-value">$526<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$4.8–5.8K<span class="small">/mo</span></div>
+    <div class="stat-value">$5.6–7K<span class="small">/mo</span></div>
     <div class="stat-sub">Slightly above national average</div>
   </div>
   <div class="stat">
@@ -1392,8 +1395,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (South Carolina).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.49%</strong> effective (≈$1,470/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,974/yr</strong> ($300K dwelling, SC average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.49% effective (≈$1,470/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,974/yr ($300K dwelling, SC average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal above state avg</span>
 </div>
 
@@ -1554,9 +1557,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Charleston, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Charleston retiree's days could look like — drawn from the peninsula-and-beach, food-and-architecture, market-and-water cadence locals describe when they explain how this city earns its reputation.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">8:00 AM</div>
