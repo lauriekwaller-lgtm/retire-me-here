@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -13,7 +14,7 @@
 </script>
 
 <title>Pensacola, Florida — A Retirement City Profile | RetireMeHere</title>
-<meta name="description" content="An editorial profile of Pensacola, Florida as a retirement destination. The most affordable Florida city in our coverage at $266K, a 466-year-old historic downtown, the Blue Angels overhead, and the Panhandle's honest catches: hurricanes and real winters.">
+<meta name="description" content="An editorial profile of Pensacola, Florida as a retirement destination. The most affordable Florida city in our coverage at $264K, a 466-year-old historic downtown, the Blue Angels overhead, and the Panhandle's honest catches: hurricanes and real winters.">
 <link rel="canonical" href="https://retiremehere.com/cities/pensacola/profile.html">
 
 <!-- MailerLite Universal -->
@@ -57,12 +58,12 @@ ml('account', '2238788');
         {
           "@type": "Question",
           "name": "Is Pensacola a good place to retire?",
-          "acceptedAnswer": { "@type": "Answer", "text": "For value-focused retirees, Pensacola is the strongest entry point in our Florida coverage: a typical home around $266,000 (the most affordable Florida city we cover), monthly budgets from roughly $3,000, Florida's tax structure (9 of 10), a genuinely historic walkable downtown around Palafox Street, and some of the whitest sand on the Gulf nearby. The honest catches: Panhandle hurricane exposure (climate resilience 2 of 10, with Ivan and Sally the receipts), winters that are real rather than tropical, and mid-pack scores for healthcare and safety." }
+          "acceptedAnswer": { "@type": "Answer", "text": "For value-focused retirees, Pensacola is the strongest entry point in our Florida coverage: a typical home around $264,000 (the most affordable Florida city we cover), monthly budgets from roughly $3,000, Florida's tax structure (9 of 10), a genuinely historic walkable downtown around Palafox Street, and some of the whitest sand on the Gulf nearby. The honest catches: Panhandle hurricane exposure (climate resilience 2 of 10, with Ivan and Sally the receipts), winters that are real rather than tropical, and mid-pack scores for healthcare and safety." }
         },
         {
           "@type": "Question",
           "name": "How much does it cost to retire in Pensacola?",
-          "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the citywide typical home value is around $266,000 with monthly retiree budgets of roughly $3,000 to $4,200, the lowest numbers in our Florida coverage and a full budget tier below the peninsula's coastal cities. Florida's 0.78% property tax rate and lack of state income tax apply here too. The offset is the same one the whole coast carries: home insurance estimates around $7,136 a year, with waterfront and barrier-island addresses far above." }
+          "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the citywide typical home value is around $264,000 with monthly retiree budgets of roughly $4,900 to $6,100, the lowest numbers in our Florida coverage and a full budget tier below the peninsula's coastal cities. Florida's 0.78% property tax rate and lack of state income tax apply here too. The offset is the same one the whole coast carries: home insurance estimates around $7,136 a year, with waterfront and barrier-island addresses far above." }
         },
         {
           "@type": "Question",
@@ -101,7 +102,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -634,9 +635,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -958,12 +961,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1250,12 +1253,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$266<span class="small">K</span></div>
+    <div class="stat-value">$264<span class="small">K</span></div>
     <div class="stat-sub">Citywide · most affordable Florida city we cover</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.0–4.2<span class="small">K/mo</span></div>
+    <div class="stat-value">$4.9–6.1<span class="small">K/mo</span></div>
     <div class="stat-sub">Budget tier 2 · the cluster's lowest floor</div>
   </div>
   <div class="stat">
@@ -1273,8 +1276,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v14 (Florida).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>0.78%</strong> effective (≈$2,340/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$7,136/yr</strong> ($300K dwelling, FL average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 0.78% effective (≈$2,340/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$7,136/yr ($300K dwelling, FL average)</span>
   <span class="cost-qualifier">State averages — local rates vary · Coastal far above state avg; inland below</span>
 </div>
 
@@ -1296,7 +1299,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>Value is the whole point.</strong> A typical home of <strong>$266,000</strong>, the most affordable Florida city in our coverage, with monthly budgets from roughly $3,000 and budget tier 2 of 5, a full tier below the peninsula's coastal cities. Florida's tax structure (<strong>9 of 10</strong>) applies in full: no state income tax, 0.78% property rate. Per our database: more affordable than most Florida beach cities.</span>
+            <span><strong>Value is the whole point.</strong> A typical home of <strong>$264,000</strong>, the most affordable Florida city in our coverage, with monthly budgets from roughly $3,000 and budget tier 2 of 5, a full tier below the peninsula's coastal cities. Florida's tax structure (<strong>9 of 10</strong>) applies in full: no state income tax, 0.78% property rate. Per our database: more affordable than most Florida beach cities.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1436,9 +1439,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Pensacola, roughly.</h2>
-    <p class="week-intro">A composite week drawn from the downtown-bay-base cadence locals describe, with the mild months stacking festivals and the summer running on the water.</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">8:00 AM</div>
