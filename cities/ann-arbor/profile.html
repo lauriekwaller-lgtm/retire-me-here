@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -87,7 +88,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in Ann Arbor, Michigan?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the typical home value is around $532,000, with a typical retiree monthly budget of roughly $3,800 to $5,200 — a relative value for a walkable Big Ten city with top-tier medicine."
+            "text": "As of 2026, the typical home value is around $489,000, with a typical retiree monthly budget of roughly $5,600 to $6,900 — a relative value for a walkable Big Ten city with top-tier medicine."
           }
         },
         {
@@ -133,7 +134,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -577,9 +578,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1076,12 +1079,12 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
@@ -1368,12 +1371,12 @@ footer {
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-label">Typical Home Value</div>
-    <div class="stat-value">$532<span class="small">K</span></div>
+    <div class="stat-value">$489<span class="small">K</span></div>
     <div class="stat-sub">Citywide · neighborhoods vary</div>
   </div>
   <div class="stat">
     <div class="stat-label">Monthly Budget</div>
-    <div class="stat-value">$3.8–5.2K<span class="small">/mo</span></div>
+    <div class="stat-value">$5.6–6.9K<span class="small">/mo</span></div>
     <div class="stat-sub">Tier 3 · Cost-tier sweet spot for a walkable Big Ten city</div>
   </div>
   <div class="stat">
@@ -1391,8 +1394,8 @@ footer {
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Michigan).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>1.19%</strong> effective (≈$3,570/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,924/yr</strong> ($300K dwelling, MI average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 1.19% effective (≈$3,570/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,924/yr ($300K dwelling, MI average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1402,7 +1405,7 @@ footer {
     <div class="section-eyebrow">Should you actually move here?</div>
     <h2 class="section-title">Is Ann Arbor <em>for you</em>?</h2>
     <p class="fit-intro">
-      Ann Arbor is a small city built around a flagship public university, with an outsized medical campus and a downtown that's stayed walkable as the metro has grown. Retirees come for Michigan Medicine, the cultural calendar, and the cost-tier sweet spot — a $532K typical home value that buys real walkability and top-10 healthcare. The ones who leave usually leave because of Michigan winters, summer humidity, or because they wanted more outdoor variety than the Lower Peninsula offers.
+      Ann Arbor is a small city built around a flagship public university, with an outsized medical campus and a downtown that's stayed walkable as the metro has grown. Retirees come for Michigan Medicine, the cultural calendar, and the cost-tier sweet spot — a $489K typical home value that buys real walkability and top-10 healthcare. The ones who leave usually leave because of Michigan winters, summer humidity, or because they wanted more outdoor variety than the Lower Peninsula offers.
     </p>
 
     <div class="fit-grid">
@@ -1422,7 +1425,7 @@ footer {
           </li>
           <li>
             <span class="marker"></span>
-            <span><strong>The math works.</strong> Typical home value around $532K, monthly costs of $3,800–$5,200 for a couple. That's tier 3 — meaningfully below Boulder, Madison, and Charleston for a city with comparable healthcare and culture. Michigan doesn't tax Social Security and has a flat state income tax. The cost-tier sweet spot for a walkable Big Ten city is unusually rare in the database.</span>
+            <span><strong>The math works.</strong> Typical home value around $489K, monthly costs of $3,800–$5,200 for a couple. That's tier 3 — meaningfully below Boulder, Madison, and Charleston for a city with comparable healthcare and culture. Michigan doesn't tax Social Security and has a flat state income tax. The cost-tier sweet spot for a walkable Big Ten city is unusually rare in the database.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1510,7 +1513,7 @@ footer {
       <h2 class="section-title">A college town that <em>kept growing into a city</em>.</h2>
       <div class="character-body">
         <p><span class="dropcap">A</span>nn Arbor was founded in 1824 as a speculative land claim on the Huron River, named — depending on which origin story you believe — for the wives of the two co-founders (both named Ann) and the burr oak groves they camped under. It might have stayed a county-seat farm town if the University of Michigan hadn't relocated there from Detroit in 1837. Almost everything that followed traces back to that decision. The university grew, the city grew with it, and by the late nineteenth century Ann Arbor was already a research-and-medicine town — the U-M Hospital had been operating since 1869, one of the first university-owned teaching hospitals in the country.</p>
-        <p>What makes Ann Arbor unusual is that the working city and the university never separated. Downtown Ann Arbor and Central Campus run into each other along State Street and South University. The Diag — U-M's central quadrangle — is half a mile from the Michigan Theater and the Farmers Market. Burton Tower, the Law Quad's Gothic stone, and Hill Auditorium's 1913 acoustics aren't on a separate campus across town; they're embedded in the downtown grid. Michigan Medicine occupies a roughly 175-acre medical campus on the city's north and east sides, a short drive from the same downtown. That density is the city's defining feature, and it's what makes a $532K home buy something rare: walkable access to a top-10 hospital and a Big Ten cultural calendar.</p>
+        <p>What makes Ann Arbor unusual is that the working city and the university never separated. Downtown Ann Arbor and Central Campus run into each other along State Street and South University. The Diag — U-M's central quadrangle — is half a mile from the Michigan Theater and the Farmers Market. Burton Tower, the Law Quad's Gothic stone, and Hill Auditorium's 1913 acoustics aren't on a separate campus across town; they're embedded in the downtown grid. Michigan Medicine occupies a roughly 175-acre medical campus on the city's north and east sides, a short drive from the same downtown. That density is the city's defining feature, and it's what makes a $489K home buy something rare: walkable access to a top-10 hospital and a Big Ten cultural calendar.</p>
         <p>The trade-off is climate and topography. Ann Arbor sits at about 840 feet of elevation in southeast Michigan — gently rolling, generally green, and very flat by Western standards. The Huron River runs through the city and provides the outdoor backbone: kayaking, the Border-to-Border Trail (35 miles when complete), and Gallup, Bandemer, and Argo parks along the water. But the real story is the seasons. Fall is glorious. Summer is warm and humid. Winter is genuinely cold, often cloudy, and runs from December into March. Spring is unreliable. Retirees who do well here either embrace four real seasons or become snowbirds — the latter has gotten more common as Florida and Arizona drive times became drives to DTW instead.</p>
       </div>
     </div>
@@ -1554,9 +1557,8 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Ann Arbor, roughly.</h2>
-    <p class="week-intro">A composite week of what an active Ann Arbor retiree's days could look like — drawn from the walking-and-river, theater-and-recital, market-and-cafe cadence locals describe when explaining what they trade Michigan winters for. (This is fall through spring. Football Saturdays are their own thing.)</p>
 
-    <div class="week-grid">
+      <div class="week-grid">
       <div class="day-card">
         <div class="day-name">Monday</div>
         <div class="day-time">8:00 AM</div>
@@ -1642,7 +1644,7 @@ footer {
       <div class="hood-card">
         <div class="hood-name">Downtown / Kerrytown</div>
         <div class="hood-vibe">Walkable · Condo · Lock-and-leave</div>
-        <div class="hood-desc">Mid-rise condos and lofts in and around the Kerrytown district and Main Street. Walking distance to the Farmers Market, the Michigan Theater, restaurants, and UMS performances. The lock-and-leave option for retirees ready to give up the house, and the strongest fit for retirees splitting the year with a warmer second home. <strong>Median: $532K–$725K.</strong></div>
+        <div class="hood-desc">Mid-rise condos and lofts in and around the Kerrytown district and Main Street. Walking distance to the Farmers Market, the Michigan Theater, restaurants, and UMS performances. The lock-and-leave option for retirees ready to give up the house, and the strongest fit for retirees splitting the year with a warmer second home. <strong>Median: $489K–$725K.</strong></div>
       </div>
       <div class="hood-card">
         <div class="hood-name">North Campus / Plymouth Road</div>
