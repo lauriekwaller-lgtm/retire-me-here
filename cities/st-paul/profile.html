@@ -10,6 +10,7 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
 <script>
@@ -86,7 +87,7 @@ ml('account', '2238788');
           "name": "How much does it cost to retire in St. Paul, Minnesota?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "As of 2026, the city-proper typical home value is around $297,000, with a typical retiree monthly budget of roughly $3,800 to $5,000 — near the national average. Neighborhoods vary widely."
+            "text": "As of 2026, the citywide typical home value is around $297,000, with a typical retiree monthly budget of roughly $3,800 to $5,000, near the national average. The neighborhoods retirees typically target — Highland Park, Macalester-Groveland, Summit Hill, St. Anthony Park — run roughly $415,000 to $550,000, so the citywide figure is a starting reference rather than the realistic budget."
           }
         },
         {
@@ -132,7 +133,7 @@ ml('account', '2238788');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
 body {
   background: var(--paper);
   color: var(--dark);
@@ -583,9 +584,11 @@ body {
   padding: 32px 32px 36px;
   transition: all 0.25s;
 }
-.hood-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+@media (hover: hover) {
+  .hood-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(28,26,24,0.06);
+  }
 }
 .hood-name {
   font-family: 'Fraunces', serif;
@@ -1093,15 +1096,42 @@ footer {
   padding: 0 44px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   color: var(--mid);
-  text-align: center;
+  text-align: left;
 }
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
+
+/* NEIGHBORHOOD REALITY CHECK — per MEDIAN-HOME-METHODOLOGY.md v1.2 */
+.reality-check {
+  max-width: var(--max-w);
+  margin: 28px auto 0;
+  padding: 20px 28px;
+  background: var(--cream);
+  border-left: 3px solid var(--terra);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.reality-check-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.reality-check-body {
+  font-size: 14px; line-height: 1.55;
+  color: var(--mid);
+  margin: 0;
+}
+.reality-check-body strong { color: var(--dark); font-weight: 600; }
+@media (max-width: 768px) {
+  .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
+  .reality-check-body { font-size: 13px; }
+}
 
 
 /* ============================================
@@ -1405,11 +1435,19 @@ footer {
   </div>
 </div>
 
+<!-- NEIGHBORHOOD REALITY CHECK — per MEDIAN-HOME-METHODOLOGY.md v1.2 -->
+<aside class="reality-check">
+  <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
+  <p class="reality-check-body">
+    The $297K citywide median reflects significant variation across St. Paul. The neighborhoods retirees typically target — <strong>Highland Park</strong>, <strong>Macalester-Groveland</strong>, <strong>Summit Hill</strong>, <strong>St. Anthony Park</strong> — run roughly <strong>$415K–$550K</strong>. Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice.
+  </p>
+</aside>
+
 <!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Minnesota).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
-  <span class="cost-item">Property tax: <strong>1.00%</strong> effective (≈$3,000/yr on a $300K home)</span>
-  <span class="cost-item">Home insurance: <strong>≈$2,729/yr</strong> ($300K dwelling, MN average)</span>
+  <span class="cost-item"><strong>Property tax:</strong> 1.00% effective (≈$3,000/yr on a $300K home)</span>
+  <span class="cost-item"><strong>Home insurance:</strong> ≈$2,729/yr ($300K dwelling, MN average)</span>
   <span class="cost-qualifier">State averages — local rates and exemptions vary</span>
 </div>
 
@@ -1419,7 +1457,7 @@ footer {
     <div class="section-eyebrow">Should you actually move here?</div>
     <h2 class="section-title">Is St. Paul <em>for you</em>?</h2>
     <p class="fit-intro">
-      St. Paul is the Twin City that gets overlooked — and that's part of why it works. It's older, quieter, and more residential than Minneapolis, with a downtown you can leave behind for tree-lined neighborhoods of preserved Victorian homes, deep Twin Cities healthcare a short drive away, and an all-in cost of living that lands near the national average once you account for the neighborhoods retirees actually choose. The retirees who thrive here came for the architecture, the walkable old neighborhoods, and the genuine civic culture. The ones who leave usually leave because of one of two things: the winter, or the tax bill.
+      St. Paul is the Twin City that gets overlooked, and that's part of why it works. It's older, quieter, and more residential than Minneapolis, with a downtown you can leave behind for tree-lined neighborhoods of preserved Victorian homes, deep Twin Cities healthcare a short drive away, and an all-in cost of living that lands near the national average once you account for the neighborhoods retirees actually choose. The retirees who thrive here came for the architecture, the walkable old neighborhoods, and the genuine civic culture. The ones who leave usually leave because of one of two things: the winter, or the tax bill.
     </p>
 
     <div class="fit-grid">
@@ -1431,7 +1469,7 @@ footer {
         <ul class="fit-list">
           <li>
             <span class="marker"></span>
-            <span><strong>You want a walkable old city where the everyday costs stay reasonable.</strong> Summit Hill, Cathedral Hill, Grand Avenue, and Mac-Groveland are genuinely walkable — shops, cafés, churches, and groceries among Victorian streets. The catch on cost: the citywide typical home value runs around $297K, but the neighborhoods retirees actually target — Highland Park, Mac-Groveland, Summit Hill, St. Anthony Park — run $425K–$650K. Utilities, groceries, and most everyday services sit below the national average, so the all-in monthly cost still lands near average rather than high. Walkability scored 7 of 10 in our database.</span>
+            <span><strong>You want a walkable old city where the everyday costs stay reasonable.</strong> Summit Hill, Cathedral Hill, Grand Avenue, and Mac-Groveland are genuinely walkable: shops, cafés, churches, and groceries among Victorian streets. The catch on cost is named above in the Neighborhood Reality Check — citywide $297K, but the retiree-target neighborhoods run $415K–$550K. Utilities, groceries, and most everyday services sit below the national average, so the all-in monthly cost still lands near average rather than high. Walkability scored 7 of 10 in our database.</span>
           </li>
           <li>
             <span class="marker"></span>
@@ -1570,7 +1608,6 @@ footer {
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in St. Paul, roughly.</h2>
-    <p class="week-intro">A composite week of what an active St. Paul retiree's days could look like — drawn from the river-bluffs, Victorian-neighborhoods, museums-and-markets cadence locals describe when they explain how the quieter Twin earns its loyalty.</p>
 
     <div class="week-grid">
       <div class="day-card">
