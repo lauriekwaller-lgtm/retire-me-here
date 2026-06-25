@@ -1067,6 +1067,85 @@ footer {
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
 }
 @media (max-width: 880px){ .ad-slot-inner{ min-height: 100px; } }
+
+/* ===== STICKY CHIP NAV ===== */
+html { scroll-padding-top: 64px; }
+.section-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247, 243, 237, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(28,26,24,0.08);
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+.section-nav-inner {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 16px;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+.section-nav-inner::-webkit-scrollbar { display: none; }
+.nav-chip {
+  background: #E8F4F3;
+  border: 1px solid #2A5E5A;
+  color: #2A5E5A;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.nav-chip:hover { background: #D4E7E5; }
+.nav-chip.active {
+  background: #2A5E5A;
+  color: #FFFFFF;
+  border-color: #2A5E5A;
+}
+@media (min-width: 768px) {
+  .section-nav-inner { justify-content: center; }
+}
+.back-to-top-wrap {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(28,26,24,0.08);
+  text-align: center;
+}
+.back-to-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(28,26,24,0.16);
+  color: #5C5852;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.back-to-top-link:hover {
+  background: #1C1A18;
+  color: #FFFFFF;
+  border-color: #1C1A18;
+}
+.back-to-top-link .arr { font-size: 13px; line-height: 1; }
+/* ===== END STICKY CHIP NAV CSS ===== */
+
 </style>
 
 <style>
@@ -1366,6 +1445,19 @@ footer {
   <div class="hero-photo-credit">Photo · Cesar Andriola / Unsplash</div>
 </section>
 
+<!-- STICKY CHIP NAV -->
+<div id="navAnchor" aria-hidden="true" style="height:1px;"></div>
+<nav class="section-nav" id="sectionNav">
+  <div class="section-nav-inner">
+    <button class="nav-chip" data-target="fit">Is it for you?</button>
+    <button class="nav-chip" data-target="about">About the city</button>
+    <button class="nav-chip" data-target="week">A week here</button>
+    <button class="nav-chip" data-target="where">Where to live</button>
+    <button class="nav-chip" data-target="health">Healthcare</button>
+    <button class="nav-chip" data-target="compare">Compare cities</button>
+  </div>
+</nav>
+
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stat">
@@ -1399,7 +1491,7 @@ footer {
 </div>
 
 <!-- IS THIS FOR YOU? -->
-<section class="section fit-section">
+<section class="section fit-section" id="fit">
   <div class="wrap">
     <div class="section-eyebrow">Should you actually move here?</div>
     <h2 class="section-title">Is Madison <em>for you</em>?</h2>
@@ -1458,6 +1550,7 @@ footer {
         </ul>
       </div>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1505,7 +1598,7 @@ footer {
 </section>
 
 <!-- CHARACTER -->
-<section class="section character-section">
+<section class="section character-section" id="about">
   <div class="wrap">
     <div>
       <div class="section-eyebrow">The character of the place</div>
@@ -1535,6 +1628,7 @@ footer {
         </div>
       </aside>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1552,7 +1646,7 @@ footer {
 </section>
 
 <!-- TYPICAL WEEK -->
-<section class="section week-section">
+<section class="section week-section" id="week">
   <div class="wrap">
     <div class="section-eyebrow">What life actually looks like</div>
     <h2 class="section-title">A week in Madison, roughly.</h2>
@@ -1607,6 +1701,7 @@ footer {
         <div class="day-where">Both free. The Arboretum is 1,200 acres of restored prairie and savanna. Underrated city luxury.</div>
       </div>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1621,7 +1716,7 @@ footer {
 </section>
 
 <!-- NEIGHBORHOODS -->
-<section class="section">
+<section class="section" id="where">
   <div class="wrap">
     <div class="section-eyebrow">Where to live</div>
     <h2 class="section-title">Isthmus or west side?</h2>
@@ -1651,11 +1746,12 @@ footer {
         <div class="hood-desc">A quiet far-west-side neighborhood of ranches, split-levels, and condos laced with parks, ponds, and bike paths — consistently rated among Madison's safest, about 15 minutes from downtown. The turn-key, lower-maintenance option for downsizers, with condos from the high $200Ks giving a more attainable way in than the houses. <strong>Median: ~$505K; condos $275K–$450K.</strong></div>
       </div>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
 <!-- HEALTHCARE -->
-<section class="section" style="background: var(--cream); padding-bottom: 64px;">
+<section class="section" style="background: var(--cream); padding-bottom: 64px;" id="health">
   <div class="wrap">
     <div class="section-eyebrow">Healthcare — nationally ranked, locally available</div>
     <h2 class="section-title">A nationally ranked academic medical center, and it's <em>down the street</em>.</h2>
@@ -1671,6 +1767,7 @@ footer {
         <div class="health-grade-lbl">Healthcare Match</div>
       </div>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1743,7 +1840,7 @@ footer {
 
 <!-- RELATED CITIES
      Picks derived from CityDatabase May 19 v11: same budget tier as Madison, closest D1–D10 dimension vector.) -->
-<section class="section related-section">
+<section class="section related-section" id="compare">
   <div class="wrap">
     <div class="section-eyebrow">Weighing your options</div>
     <h2 class="section-title">Considering Madison? <em>Compare these.</em></h2>
@@ -1782,6 +1879,7 @@ footer {
       <a href="/madison-vs-ann-arbor-retirement.html" style="display:inline-block; background:var(--teal); color:#fff; padding:14px 30px; border-radius:100px; font-weight:700; text-decoration:none; font-size:15px;">Compare Madison vs. Ann Arbor →</a>
       <a href="/madison-vs-columbus-retirement.html" style="display:inline-block; background:var(--teal); color:#fff; padding:14px 30px; border-radius:100px; font-weight:700; text-decoration:none; font-size:15px;">Compare Madison vs. Columbus →</a>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1810,6 +1908,60 @@ footer {
     </div>
   </div>
 </footer>
+
+
+<script>
+/* ===== STICKY CHIP NAV BEHAVIOR ===== */
+(function(){
+  var nav = document.getElementById('sectionNav');
+  if (!nav) return;
+  var chips = nav.querySelectorAll('.nav-chip');
+  var navInner = nav.querySelector('.section-nav-inner');
+  var ids = ['fit','about','week','where','health','compare'];
+  var sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var target = document.getElementById(chip.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          chips.forEach(function(c){ c.classList.toggle('active', c.dataset.target === id); });
+          var activeChip = nav.querySelector('.nav-chip.active');
+          if (activeChip && navInner) {
+            var chipLeft = activeChip.offsetLeft;
+            var chipRight = chipLeft + activeChip.offsetWidth;
+            var visLeft = navInner.scrollLeft;
+            var visRight = visLeft + navInner.offsetWidth;
+            if (chipLeft < visLeft + 20) navInner.scrollLeft = chipLeft - 20;
+            else if (chipRight > visRight - 20) navInner.scrollLeft = chipRight - navInner.offsetWidth + 20;
+          }
+        }
+      });
+    }, { rootMargin: '-60px 0px -60% 0px', threshold: 0 });
+    sections.forEach(function(s){ observer.observe(s); });
+  }
+
+  var anchor = document.getElementById('navAnchor');
+  document.querySelectorAll('[data-back-to-top]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+/* ===== END STICKY CHIP NAV BEHAVIOR ===== */
+</script>
 
 </body>
 </html>
