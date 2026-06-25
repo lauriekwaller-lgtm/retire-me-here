@@ -2151,11 +2151,80 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   .rmh-stats-line b { font-size: 18px; }
   .rmh-eyebrow { font-size: 11px; letter-spacing: 0.2em; }
   .rmh-profile-preview { padding: 56px 16px 64px; }
-  .rmh-pp-grid { grid-template-columns: 1fr; gap: 28px; }
+  .rmh-pp-grid { grid-template-columns: repeat(2, 1fr); gap: 18px 14px; }
+  .rmh-pp-item { padding-top: 14px; }
+  .rmh-pp-item h3 { font-size: 16px; }
+  .rmh-pp-item p { font-size: 13px; line-height: 1.5; }
   .rmh-pp-sub { margin-bottom: 40px; }
   .rmh-sub-wrap p { font-size: 16px; }
 }
 /* === HERO REDESIGN END === */
+
+/* === SAMPLE-MATCHES CAROUSEL (mobile only) === */
+.rmh-carousel-wrap { position: relative; }
+.rmh-carousel-controls { display: none; }
+@media (max-width: 880px) {
+  .rmh-carousel-wrap {
+    overflow: hidden;
+    margin: 0 -12px;
+    padding: 8px 12px 4px;
+  }
+  .rmh-match-cards-stack {
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: nowrap;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    touch-action: pan-y;
+    will-change: transform;
+  }
+  .rmh-match-card {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+  .rmh-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 18px;
+    padding: 0 12px;
+  }
+  .rmh-carousel-arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid rgba(28,26,24,0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--dark);
+    box-shadow: 0 2px 8px rgba(28,26,24,0.06);
+    font-family: inherit;
+    line-height: 1;
+    padding: 0;
+  }
+  .rmh-carousel-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+  .rmh-carousel-dots { display: flex; gap: 8px; }
+  .rmh-carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(28,26,24,0.18);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .rmh-carousel-dot.active {
+    background: var(--terra);
+    width: 26px;
+    border-radius: 4px;
+  }
+}
+/* === END SAMPLE-MATCHES CAROUSEL === */
 </style>
 </head>
 <body>
@@ -2260,7 +2329,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
       <p class="rmh-samples-sub">Based on a sample profile prioritizing outdoor recreation, walkability, and mild summers. Yours will look different based on what matters to you.</p>
     </div>
 
-    <div class="rmh-match-cards-stack">
+    <div class="rmh-carousel-wrap">
+    <div class="rmh-match-cards-stack" id="rmhMatchTrack">
 
       <article class="rmh-match-card rmh-rank-1">
         <div class="rmh-match-card-bar"></div>
@@ -2358,6 +2428,17 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
         </div>
       </article>
 
+    </div>
+    </div>
+
+    <div class="rmh-carousel-controls">
+      <button class="rmh-carousel-arrow" id="rmhPrev" type="button" aria-label="Previous match">‹</button>
+      <div class="rmh-carousel-dots">
+        <button class="rmh-carousel-dot active" data-i="0" type="button" aria-label="Match 1"></button>
+        <button class="rmh-carousel-dot" data-i="1" type="button" aria-label="Match 2"></button>
+        <button class="rmh-carousel-dot" data-i="2" type="button" aria-label="Match 3"></button>
+      </div>
+      <button class="rmh-carousel-arrow" id="rmhNext" type="button" aria-label="Next match">›</button>
     </div>
   </section>
 
@@ -8626,6 +8707,63 @@ function closeReportModal(e) {
     <div class="ml-form-wrap" id="mlwrap-dJJ40D"><div class="ml-embedded" data-form="dJJ40D"></div></div>
     <div class="ml-form-wrap" id="mlwrap-g4M1M8"><div class="ml-embedded" data-form="g4M1M8"></div></div>
   </div>
+
+<script>
+/* === SAMPLE-MATCHES CAROUSEL BEHAVIOR === */
+(function(){
+  var track = document.getElementById('rmhMatchTrack');
+  if (!track) return;
+  var prev = document.getElementById('rmhPrev');
+  var next = document.getElementById('rmhNext');
+  var dots = document.querySelectorAll('.rmh-carousel-dot');
+  var i = 0;
+  var n = 3;
+  function isMobile(){ return window.innerWidth < 880; }
+  function update(){
+    if (isMobile()) {
+      track.style.transform = 'translateX(' + (-i * 100) + '%)';
+    } else {
+      track.style.transform = '';
+    }
+    dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
+    if (prev) prev.disabled = i === 0;
+    if (next) next.disabled = i === n - 1;
+  }
+  if (prev) prev.addEventListener('click', function(){ if (i > 0) { i--; update(); } });
+  if (next) next.addEventListener('click', function(){ if (i < n - 1) { i++; update(); } });
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){
+      i = parseInt(d.dataset.i, 10);
+      update();
+    });
+  });
+  var startX = 0, startY = 0, dx = 0, dy = 0, swiping = false;
+  track.addEventListener('touchstart', function(e){
+    if (!isMobile()) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    dx = 0; dy = 0;
+    swiping = true;
+  }, { passive: true });
+  track.addEventListener('touchmove', function(e){
+    if (!swiping) return;
+    dx = e.touches[0].clientX - startX;
+    dy = e.touches[0].clientY - startY;
+  }, { passive: true });
+  track.addEventListener('touchend', function(){
+    if (!swiping) return;
+    swiping = false;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0 && i < n - 1) i++;
+      else if (dx > 0 && i > 0) i--;
+      update();
+    }
+  });
+  window.addEventListener('resize', update);
+  update();
+})();
+/* === END SAMPLE-MATCHES CAROUSEL BEHAVIOR === */
+</script>
 
 </body>
 </html>
