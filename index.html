@@ -2163,6 +2163,19 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 /* === SAMPLE-MATCHES CAROUSEL (mobile only) === */
 .rmh-carousel-wrap { position: relative; }
 .rmh-carousel-controls { display: none; }
+
+/* Desktop: three cards side by side */
+@media (min-width: 881px) {
+  .rmh-samples { max-width: 1080px; }
+  .rmh-match-cards-stack {
+    flex-direction: row;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .rmh-match-card { flex: 1 1 0; min-width: 0; }
+  .rmh-match-card-body { padding: 22px 20px; }
+  .rmh-match-card-name { font-size: 26px; }
+}
 @media (max-width: 880px) {
   .rmh-carousel-wrap {
     overflow: hidden;
