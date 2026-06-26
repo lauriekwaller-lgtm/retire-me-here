@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BTL743DSJQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BTL743DSJQ');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Scouting Trip Workbook | Visit Before You Decide | RetireMeHere</title>
+<meta name="description" content="A printable companion workbook for retirees scouting a retirement city. Pre-trip checklist, daily observation log, six reality checks, and a 48-hour decision rubric.">
+<link rel="canonical" href="https://retiremehere.com/scouting-trip-workbook.html">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232A5E5A'/><text x='16' y='22' font-family='serif' font-size='18' font-weight='bold' fill='%23C4724A' text-anchor='middle'>H</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal: #2A5E5A;
+  --teal-lt: #E8F4F3;
+  --teal-mid: #3d7a75;
+  --terra: #C4724A;
+  --terra-lt: #FDF0EA;
+  --gold: #D4A84B;
+  --gold-lt: #FAF1D9;
+  --gold-dk: #8B6914;
+  --sand: #F7F3ED;
+  --sand-dk: #EFE9DD;
+  --dark: #1C1A18;
+  --mid: #5C5852;
+  --light: #9A9490;
+  --white: #FFFFFF;
+  --radius: 14px;
+  --shadow: 0 4px 24px rgba(28,26,24,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--sand);
+  color: var(--dark);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ============ DRAFT BANNER (remove on deploy) ============ */
+.draft-banner {
+  background: var(--gold);
+  color: var(--dark);
+  text-align: center;
+  padding: 10px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.draft-banner strong { font-weight: 800; }
+
+/* ============ ON-SCREEN HEADER (hidden in print) ============ */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid #e8e4de;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.header-wordmark .hw-retire { color: var(--teal); }
+.header-wordmark .hw-here { color: var(--terra); }
+.print-btn {
+  background: var(--teal);
+  color: var(--white);
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+.print-btn:hover { background: var(--teal-mid); }
+
+/* ============ WORKBOOK PAGE ============ */
+.workbook { max-width: 780px; margin: 0 auto; padding: 36px 28px 60px; }
+@media (max-width: 700px) { .workbook { padding: 24px 18px 40px; } }
+
+/* ============ COVER ============ */
+.cover {
+  background: var(--teal);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 56px 44px;
+  margin-bottom: 48px;
+  page-break-after: always;
+}
+.cover-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-lt);
+  margin-bottom: 20px;
+}
+.cover-h1 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(34px, 5vw, 48px);
+  font-weight: 800;
+  line-height: 1.08;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.cover-h1 em { font-style: italic; font-weight: 300; color: var(--gold-lt); }
+.cover-tagline {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 36px;
+  max-width: 560px;
+}
+.cover-meta {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 20px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cover-meta strong { color: var(--gold-lt); font-weight: 700; }
+.cover-fillin {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin-top: 32px;
+}
+.cover-fillin-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  margin-bottom: 12px;
+}
+.cover-fillin-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.cover-fillin-row:last-child { margin-bottom: 0; }
+.cover-fillin-item {
+  flex: 1 1 200px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+}
+.cover-fillin-item .line {
+  display: block;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  height: 24px;
+  margin-top: 4px;
+}
+
+/* ============ INTRO / HOW TO USE ============ */
+.intro {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-left: 4px solid var(--terra);
+  border-radius: var(--radius);
+  padding: 26px 30px;
+  margin-bottom: 48px;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.intro h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+.intro p { margin-bottom: 10px; color: var(--mid); }
+.intro p:last-child { margin-bottom: 0; }
+.intro strong { color: var(--dark); }
+
+/* ============ SECTION HEADER ============ */
+.section {
+  margin-bottom: 56px;
+  page-break-inside: avoid;
+}
+.section-num {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--terra);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.section-h2 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: clamp(24px, 3.4vw, 30px);
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.section-intro {
+  font-size: 15px;
+  color: var(--mid);
+  font-style: italic;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* ============ CHECKBOX ITEMS ============ */
+.check-list { list-style: none; padding: 0; margin: 0 0 20px; }
+.check-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 1px solid #ece6dc;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--dark);
+}
+.check-list li:last-child { border-bottom: none; }
+.check-box {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--teal);
+  border-radius: 5px;
+  margin-top: 1px;
+}
+.check-body { flex-grow: 1; }
+.check-body strong { font-weight: 700; }
+.check-body .sub {
+  display: block;
+  font-size: 12.5px;
+  color: var(--mid);
+  margin-top: 2px;
+  font-style: italic;
+  line-height: 1.45;
+}
+.check-body .inline-fillin {
+  margin-top: 7px;
+}
+.check-body .inline-fillin-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.check-body .inline-fillin-row:last-child {
+  margin-bottom: 0;
+}
+.check-body .inline-fillin-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mid);
+  flex-shrink: 0;
+  min-width: 14px;
+}
+.check-body .inline-fillin-line {
+  flex-grow: 1;
+  border-bottom: 1.5px solid #c9c2b3;
+  height: 24px;
+}
+
+/* ============ FILL-IN LINES ============ */
+.fillin-block {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  margin-bottom: 18px;
+}
+.fillin-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.fillin-row:last-child { margin-bottom: 0; }
+.fillin-item {
+  flex: 1 1 240px;
+  font-size: 14px;
+  color: var(--dark);
+}
+.fillin-item-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mid);
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 5px;
+}
+.fillin-line {
+  border-bottom: 1.5px solid #c9c2b3;
+  height: 28px;
+  width: 100%;
+}
+.fillin-box {
+  border: 1.5px solid #c9c2b3;
+  border-radius: 8px;
+  min-height: 80px;
+  padding: 10px;
+  background: var(--white);
+}
+.fillin-box-tall { min-height: 120px; }
+
+/* ============ DAY CARD ============ */
+.day-card {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  page-break-inside: avoid;
+}
+.day-card-num {
+  display: inline-block;
+  background: var(--terra);
+  color: var(--white);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+}
+.day-card-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.day-card-sub {
+  font-size: 14px;
+  color: var(--mid);
+  font-style: italic;
+  margin-bottom: 22px;
+}
+.day-section-title {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  margin-top: 18px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+}
+.day-section-title:first-child { margin-top: 0; }
+
+/* ============ REALITY CHECK SCORECARD ============ */
+.check-scorecard {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.scorecard-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid #ece6dc;
+}
+.scorecard-row:last-child { border-bottom: none; }
+.scorecard-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scorecard-body {
+  flex-grow: 1;
+}
+.scorecard-title {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+.scorecard-desc {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.5;
+}
+.scorecard-score {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mid);
+  text-align: right;
+}
+.scorecard-score-input {
+  display: inline-block;
+  width: 50px;
+  border-bottom: 1.5px solid #c9c2b3;
+  height: 22px;
+  margin-left: 4px;
+}
+.scorecard-total {
+  background: var(--teal);
+  color: var(--white);
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Libre Franklin', sans-serif;
+}
+.scorecard-total-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.scorecard-total-value {
+  font-size: 20px;
+  font-weight: 800;
+}
+.scorecard-total-value .denominator {
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============ DEALBREAKER GRID ============ */
+.dealbreaker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.dealbreaker-cell {
+  background: var(--white);
+  border: 1px solid #ece6dc;
+  border-radius: 10px;
+  padding: 16px;
+  min-height: 140px;
+}
+.dealbreaker-cell-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.dealbreaker-cell-sub {
+  font-size: 12px;
+  color: var(--mid);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+@media (max-width: 600px) {
+  .dealbreaker-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ FINAL DECISION ============ */
+.decision-card {
+  background: var(--terra-lt);
+  border: 1px solid var(--terra);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  page-break-inside: avoid;
+}
+.decision-card-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.decision-card-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.decision-options {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+.decision-options li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  font-size: 15px;
+  color: var(--dark);
+}
+.decision-options .check-box {
+  border-color: var(--terra);
+}
+
+/* ============ CLOSING NOTE ============ */
+.closing {
+  background: var(--dark);
+  color: rgba(255,255,255,0.9);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin-top: 48px;
+  text-align: center;
+}
+.closing-wordmark {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 14px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.closing-wordmark .cw-retire { color: var(--teal-lt); }
+.closing-wordmark .cw-here { color: var(--terra); }
+.closing-h3 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+.closing-p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.75);
+  max-width: 480px;
+  margin: 0 auto 14px;
+}
+.closing-url {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold-lt);
+  margin-top: 14px;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+  .draft-banner, .site-header { display: none !important; }
+  body { background: var(--white); }
+  .workbook { max-width: 100%; padding: 0; }
+  .cover, .day-card, .decision-card, .closing { page-break-inside: avoid; }
+  .cover { page-break-after: always; }
+  .section { page-break-before: always; }
+  .day-card { page-break-before: always; }
+  .day-card:first-of-type { page-break-before: avoid; }
+  @page { margin: 0.5in; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="draft-banner">
+  <strong>DRAFT</strong> &nbsp;·&nbsp; A printable workbook companion to "Visit Before You Decide." Click Print to see the layout as a PDF.
+</div>
+
+<header class="site-header">
+  <div class="header-wordmark">
+    <span class="hw-retire">RETIREME</span><span class="hw-here">HERE</span>
+  </div>
+  <button class="print-btn" onclick="window.print()">Print or Save as PDF →</button>
+</header>
+
+<main class="workbook">
+
+  <!-- ════════ COVER ════════ -->
+  <section class="cover">
+    <p class="cover-eyebrow">A printable scouting trip companion</p>
+    <h1 class="cover-h1">The Scouting Trip <em>Workbook</em></h1>
+    <p class="cover-tagline">Print this and take it with you. The framework from <strong style="color: var(--gold-lt);">Visit Before You Decide</strong>, structured as a worksheet you can fill in as you go and refer back to when the decision is in front of you.</p>
+
+    <p style="font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.78); margin-bottom: 26px; max-width: 560px;">Pre-trip checklist fills in at home. Daily logs fill in each evening on the road. The after-the-trip section gets completed at least 48 hours after you return, not before.</p>
+
+    <div class="cover-fillin">
+      <p class="cover-fillin-label">Your trip</p>
+      <div class="cover-fillin-row">
+        <div class="cover-fillin-item">
+          <span>City</span>
+          <span class="line"></span>
+        </div>
+        <div class="cover-fillin-item">
+          <span>Travel dates</span>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="cover-fillin-row">
+        <div class="cover-fillin-item">
+          <span>Trip length</span>
+          <span class="line"></span>
+        </div>
+        <div class="cover-fillin-item">
+          <span>Season tested</span>
+          <span class="line"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      <span>From <strong>RetireMeHere</strong></span>
+      <span>·</span>
+      <span>Real data, honest tradeoffs</span>
+      <span>·</span>
+      <span>retiremehere.com</span>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 1: PRE-TRIP ════════ -->
+  <section class="section">
+    <p class="section-num">Section 01</p>
+    <h2 class="section-h2">Before You Go</h2>
+    <p class="section-intro">Complete the pre-trip checklist at least a week before you fly. The more you do here, the less you have to scramble for once you arrive.</p>
+
+    <ul class="check-list">
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Trip dates locked, four days minimum.</strong>
+          <span class="sub">Five or six is ideal.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Visiting in the hardest season for you, not the prettiest.</strong>
+          <span class="sub">Florida in September. Phoenix in July. Boston in February.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Two or three candidate neighborhoods identified.</strong>
+          <div class="inline-fillin">
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">1.</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">2.</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">3.</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Trip priced three ways: warehouse-club, package site, individual components.</strong>
+          <span class="sub">Costco, Sam's Club, or AAA first if you're a member, then Expedia or Travelocity, then individual on Booking.com.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Rental car reserved at the arrival airport.</strong>
+          <span class="sub">Unless the city is truly walkable (Charleston, St. Pete, Delray Beach).</span>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Nearest major hospital identified.</strong>
+          <div class="inline-fillin">
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">Hospital</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>At least one Medicare-accepting primary care doctor's phone number on hand.</strong>
+          <span class="sub">Call from the trip to confirm they're taking new patients.</span>
+          <div class="inline-fillin">
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">Practice / phone</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Cultural anchor identified (museum, garden, historic district).</strong>
+          <div class="inline-fillin">
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">Anchor</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>Travel insurance priced if applicable.</strong>
+          <span class="sub">Worth a quote if visiting a hurricane zone, traveling June through November, or with pre-existing conditions.</span>
+        </div>
+      </li>
+      <li>
+        <span class="check-box"></span>
+        <div class="check-body">
+          <strong>The top two questions I want this trip to answer.</strong>
+          <div class="inline-fillin">
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">1.</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+            <div class="inline-fillin-row">
+              <span class="inline-fillin-label">2.</span>
+              <div class="inline-fillin-line"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ════════ SECTION 2: DAY 1 ════════ -->
+  <section class="section">
+    <p class="section-num">Section 02</p>
+    <h2 class="section-h2">Daily Observation Logs</h2>
+    <p class="section-intro">Fill in each evening, while the day is still fresh. The point is to capture honest reactions, not pretty notes. Scratch and cross out as you go.</p>
+
+    <div class="day-card">
+      <span class="day-card-num">Day One</span>
+      <h3 class="day-card-h3">Arrive, settle, drive the neighborhoods at dusk</h3>
+      <p class="day-card-sub">A travel day. Do not push for activity. The one thing you must do is the evening neighborhood drive.</p>
+
+      <p class="day-section-title">Arrival impressions</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Airport (easy / okay / difficult)</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Drive from airport to lodging (minutes)</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">First impressions from the car</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Evening drive: candidate neighborhoods</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Neighborhood 1 name</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Sidewalks, lighting, signs of life at this hour</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Neighborhood 2 name</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Sidewalks, lighting, signs of life at this hour</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Neighborhood 3 name (if applicable)</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Sidewalks, lighting, signs of life at this hour</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">End of day reflection</p>
+      <div class="fillin-box"></div>
+    </div>
+
+    <!-- ════════ DAY 2 ════════ -->
+    <div class="day-card">
+      <span class="day-card-num">Day Two</span>
+      <h3 class="day-card-h3">Cultural anchor, local lunch, first reality check</h3>
+      <p class="day-card-sub">Test the city's self-image. Eat where residents eat. Time a hospital drive.</p>
+
+      <p class="day-section-title">Cultural anchor</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Anchor visited</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Hours spent</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Did the city's self-image fit the retirement I want?</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Long lunch in a residential neighborhood</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Restaurant / neighborhood</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Did the neighborhood feel like a place I would spend time?</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Reality check: hospital drive</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Drive time at 3 PM (minutes)</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Estimated drive time at 7 AM (minutes)</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Any concerns about the route or hospital</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">End of day reflection</p>
+      <div class="fillin-box"></div>
+    </div>
+
+    <!-- ════════ DAY 3 ════════ -->
+    <div class="day-card">
+      <span class="day-card-num">Day Three</span>
+      <h3 class="day-card-h3">Neighborhood deep dive and the traffic test</h3>
+      <p class="day-card-sub">Spend half the day in your favorite candidate neighborhood. Then run the rush-hour traffic test.</p>
+
+      <p class="day-section-title">Morning neighborhood walk</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Neighborhood walked</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Grocery store visited</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Pharmacy / coffee shop / community space</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">What's missing from the neighborhood</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Could I do my daily errands here? Honestly?</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Reality check: rush hour traffic</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Route driven (from / to)</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Time of day / total drive time</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Frustration level 1-10 (10 = unacceptable)</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Notes on the drive</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">End of day reflection</p>
+      <div class="fillin-box"></div>
+    </div>
+
+    <!-- ════════ DAY 4 ════════ -->
+    <div class="day-card">
+      <span class="day-card-num">Day Four</span>
+      <h3 class="day-card-h3">Healthcare, community, final walkaround, depart</h3>
+      <p class="day-card-sub">The hardest reality checks happen today. The doctor call. The community visit. The final honest look.</p>
+
+      <p class="day-section-title">Hospital visit</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Hospital visited / brochures collected</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">First impressions</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Reality check: Medicare-accepting doctor call</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Doctor / practice called</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Accepting new Medicare patients? (Y/N)</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">If yes, wait time for first appointment</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">If no, alternatives suggested</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Reality check: community / faith / social club</p>
+      <div class="fillin-block">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Community visited</span>
+            <div class="fillin-line"></div>
+          </div>
+          <div class="fillin-item">
+            <span class="fillin-item-label">Welcoming? (Y/N) — and how I could tell</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Did I see people I would want to spend time with?</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="day-section-title">Final neighborhood walkaround</p>
+      <div class="fillin-box"></div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 3: AFTER THE TRIP ════════ -->
+  <section class="section">
+    <p class="section-num">Section 03</p>
+    <h2 class="section-h2">After the Trip</h2>
+    <p class="section-intro">Wait at least 48 hours after returning home before filling any of this out. No earlier. The scouting trip high needs to wear off before you can read your real reactions honestly.</p>
+
+    <p class="day-section-title" style="margin-top: 16px;">The "what I didn't like" exercise</p>
+    <p style="font-size: 14px; color: var(--mid); margin-bottom: 14px; line-height: 1.6;">Sit down with whoever you are making this decision with and answer one question only: <strong style="color: var(--dark);">what did you not like about the city?</strong> Not what you liked. Only the negatives. They will tell you more than the positives will.</p>
+
+    <div class="fillin-block">
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Negative 1</span>
+          <div class="fillin-line"></div>
+        </div>
+      </div>
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Negative 2</span>
+          <div class="fillin-line"></div>
+        </div>
+      </div>
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Negative 3</span>
+          <div class="fillin-line"></div>
+        </div>
+      </div>
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Negative 4</span>
+          <div class="fillin-line"></div>
+        </div>
+      </div>
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Negative 5</span>
+          <div class="fillin-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dealbreaker-grid">
+      <div class="dealbreaker-cell">
+        <div class="dealbreaker-cell-label">Dealbreakers</div>
+        <p class="dealbreaker-cell-sub">Negatives I cannot live with</p>
+        <div style="border-bottom: 1.5px solid #c9c2b3; height: 22px; margin-bottom: 6px;"></div>
+        <div style="border-bottom: 1.5px solid #c9c2b3; height: 22px;"></div>
+      </div>
+      <div class="dealbreaker-cell">
+        <div class="dealbreaker-cell-label">Manageable</div>
+        <p class="dealbreaker-cell-sub">Real but workable</p>
+        <div style="border-bottom: 1.5px solid #c9c2b3; height: 22px; margin-bottom: 6px;"></div>
+        <div style="border-bottom: 1.5px solid #c9c2b3; height: 22px;"></div>
+      </div>
+      <div class="dealbreaker-cell">
+        <div class="dealbreaker-cell-label">Surprised me</div>
+        <p class="dealbreaker-cell-sub">Did not see coming</p>
+        <div style="border-bottom: 1.5px solid #c9c2b3; height: 22px; margin-bottom: 6px;"></div>
+        <div style="border-bottom: 1.5px solid #c9c2b3; height: 22px;"></div>
+      </div>
+    </div>
+
+    <div class="decision-card">
+      <p class="decision-card-eyebrow">Where this city stands now</p>
+      <h3 class="decision-card-h3">The decision, after the dust settles</h3>
+
+      <p class="day-section-title" style="color: var(--terra);">Compared to what I expected, this city is:</p>
+      <ul class="decision-options">
+        <li><span class="check-box"></span>Better than I expected</li>
+        <li><span class="check-box"></span>About what I expected</li>
+        <li><span class="check-box"></span>Worse than I expected</li>
+      </ul>
+
+      <p class="day-section-title" style="color: var(--terra);">Next step:</p>
+      <ul class="decision-options">
+        <li><span class="check-box"></span>This is a strong candidate. Plan a housing-focused visit two.</li>
+        <li><span class="check-box"></span>Scout a different city first, then compare.</li>
+        <li><span class="check-box"></span>I am ready to make my decision.</li>
+        <li><span class="check-box"></span>I am not ready and need more time.</li>
+      </ul>
+
+      <p class="day-section-title" style="color: var(--terra); margin-top: 22px;">The two questions that matter most</p>
+      <div class="fillin-block" style="border-color: var(--terra); background: var(--white);">
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">Am I deciding with my head or my heart, honestly?</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+        <div class="fillin-row">
+          <div class="fillin-item">
+            <span class="fillin-item-label">What would I tell a friend about to make the same decision?</span>
+            <div class="fillin-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SECTION 4: QUESTIONS TO SHARE ════════ -->
+  <section class="section">
+    <p class="section-num">Section 04</p>
+    <h2 class="section-h2">Questions and Observations to Share</h2>
+    <p class="section-intro">What surprised you on this trip? What do you wish you had known before you went? We learn from every scouting trip our readers take, and good questions teach us what to add to the next version of this workbook. If you have a moment, send what came up to us.</p>
+
+    <div class="fillin-block">
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Questions I still have about this city or the process</span>
+          <div class="fillin-box fillin-box-tall"></div>
+        </div>
+      </div>
+      <div class="fillin-row">
+        <div class="fillin-item">
+          <span class="fillin-item-label">Anything that surprised me or that I wish I had known beforehand</span>
+          <div class="fillin-box fillin-box-tall"></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size: 14px; color: var(--mid); margin-top: 16px; line-height: 1.6; font-style: italic;">Send to: <strong style="color: var(--terra); font-style: normal;">hello@retiremehere.com</strong> (or reply to the email that delivered this workbook). With your permission, we may anonymize and share recurring questions to help future scouting trips.</p>
+  </section>
+
+  <!-- ════════ CLOSING ════════ -->
+  <section class="closing">
+    <div class="closing-wordmark">
+      <span class="cw-retire">RETIREME</span><span class="cw-here">HERE</span>
+    </div>
+    <h3 class="closing-h3">For the next city, print a fresh copy</h3>
+    <p class="closing-p">The framework is the same for any city you scout. Print a new workbook for each trip and start at the beginning.</p>
+    <p class="closing-url">retiremehere.com/visit-before-you-decide</p>
+  </section>
+
+</main>
+
+</body>
+</html>
