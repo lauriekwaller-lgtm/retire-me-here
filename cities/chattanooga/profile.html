@@ -1361,6 +1361,7 @@ html { scroll-padding-top: 64px; }
     <button class="nav-chip" data-target="where">Where to live</button>
     <button class="nav-chip" data-target="health">Healthcare</button>
     <button class="nav-chip" data-target="compare">Compare cities</button>
+    <button class="nav-chip" data-target="visit">Visit</button>
   </div>
 </nav>
 
@@ -1457,7 +1458,6 @@ html { scroll-padding-top: 64px; }
       </div>
     </div>
     <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
-    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1499,10 +1499,6 @@ html { scroll-padding-top: 64px; }
           gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (Chattanooga profile)' });
         }
       }
-      // Default-open the city's strongest-fit guide (Chattanooga: best-value + no income tax -> Value Navigator).
-      document.addEventListener('DOMContentLoaded', function() {
-        pickGuide('W6rMh2', document.getElementById('chip-W6rMh2'), true);
-      });
       </script>
     </div>
   </div>
@@ -1679,6 +1675,7 @@ html { scroll-padding-top: 64px; }
         <div class="health-grade-lbl">CHI Memorial · U.S. News regional best</div>
       </div>
     </div>
+    <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
   </div>
 </section>
 
@@ -1783,9 +1780,9 @@ html { scroll-padding-top: 64px; }
 
   <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">Pick lodging in a neighborhood you would actually buy in. The North Shore, the Southside, St. Elmo at the foot of Lookout, and Signal Mountain each feel like different towns. Walk to coffee in the morning. Drive from "home" to CHI Memorial or Erlanger in weekday traffic, and drive through one of the areas the crime map flags so you understand the spread firsthand. Test the daily routine, not the highlight reel.</p>
 
-  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 12px;"><a href="https://expedia.com/affiliate/EXPEDIA_CODE_TK" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Search Chattanooga hotels on Expedia →</a></p>
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 12px;"><a href="https://expedia.com/affiliate/eajqvVG" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Search Chattanooga hotels on Expedia →</a></p>
 
-  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">For longer scouting trips, a whole-home rental lets you simulate daily life more completely. <a href="https://vrbo.com/affiliate/VRBO_CODE_TK" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse Chattanooga rentals on Vrbo →</a></p>
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">For longer scouting trips, a whole-home rental lets you simulate daily life more completely. <a href="https://vrbo.com/affiliate/gkMRtl2" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse Chattanooga rentals on Vrbo →</a></p>
 
   <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
 </section>
@@ -1823,7 +1820,7 @@ html { scroll-padding-top: 64px; }
   if (!nav) return;
   var chips = nav.querySelectorAll('.nav-chip');
   var navInner = nav.querySelector('.section-nav-inner');
-  var ids = ['fit','about','week','where','health','compare'];
+  var ids = ['fit','about','week','where','health','compare','visit'];
   var sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
 
   chips.forEach(function(chip){
