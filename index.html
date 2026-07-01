@@ -8040,8 +8040,10 @@ function showCityDetail(cityName, cityState) {
     'Greenville_SC': 'cities/greenville/profile.html',
     'Kansas City_MO': 'cities/kansas-city/profile.html',
     'Memphis_TN': 'cities/memphis/profile.html',
-    'Miami_FL': 'cities/miami/profile.html'
+    'Miami_FL': 'cities/miami/profile.html',
+    'Chattanooga_TN': 'cities/chattanooga/profile.html'
   };
+  
   const profileKey = cityName + '_' + cityState;
   if (PUBLISHED_PROFILES[profileKey]) {
     window.location.href = PUBLISHED_PROFILES[profileKey];
