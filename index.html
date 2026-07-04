@@ -6423,9 +6423,7 @@ const STEPS = [
   { type: 'region' },
   { type: 'states' },
   { type: 'budget' },
-  { type: 'priorities' },
-  { type: 'setting' },
-  { type: 'character' }
+  { type: 'priorities' }
 ];
 
 function startQuiz() {
@@ -6448,8 +6446,6 @@ function renderStep() {
   else if (step.type === 'states') renderStates(container);
   else if (step.type === 'budget') renderBudget(container);
   else if (step.type === 'priorities') renderPriorities(container);
-  else if (step.type === 'setting') renderSetting(container);
-  else if (step.type === 'character') renderCharacter(container);
 }
 
 function renderIntro(container) {
@@ -6624,7 +6620,7 @@ function renderPriorities(container) {
   html += `</div>
     <div class="quiz-nav">
       <button class="btn-back" onclick="prevStep()">← Back</button>
-      <button class="btn-next" onclick="nextStep()" ${allSet ? '' : 'disabled'}>Next — Setting →</button>
+      <button class="btn-next" onclick="calculateResults()" ${allSet ? '' : 'disabled'}>Find My Cities ✦</button>
     </div>`;
   container.innerHTML = html;
 }
@@ -6937,21 +6933,6 @@ function runMatchingEngine() {
   if (quizState.budget) {
     // Allow cities up to 1 range over budget (so users can see slight stretches)
     candidates = candidates.filter(c => c.budgetRange <= quizState.budget + 1);  }
-
-  
-  if (quizState.settingTags.length > 0) {
-    candidates = candidates.filter(c => c.setting.some(s => quizState.settingTags.includes(s)));
-  }
-
-  if (quizState.characterTags.length > 0) {
-    candidates = candidates.filter(c => c.character.some(ch => quizState.characterTags.includes(ch)));
-  }
-
-  
-  if (quizState.characterTags.length > 0) {
-    const filtered = candidates.filter(c => c.character.some(ch => quizState.characterTags.includes(ch)));
-    if (filtered.length >= 3) candidates = filtered;
-  }
 
   
   // Climate hard filter — excludes cities with a poor climate match
