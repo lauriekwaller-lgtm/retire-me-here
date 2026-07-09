@@ -187,7 +187,7 @@ body {
 }
 
 /* ============================================
-   HERO — reduced to 70vh
+   HERO - reduced to 70vh
    ============================================ */
 .hero {
   position: relative;
@@ -285,7 +285,7 @@ body {
 }
 
 /* ============================================
-   STATS BAR — overlay onto hero
+   STATS BAR - overlay onto hero
    ============================================ */
 .stats-bar {
   background: white;
@@ -326,7 +326,7 @@ body {
   font-size: 12px; color: var(--mid); line-height: 1.4;
 }
 
-/* COST REALITY STRIP — values from CityDatabase (state-level) */
+/* COST REALITY STRIP - values from CityDatabase (state-level) */
 .cost-strip {
   max-width: var(--max-w);
   margin: 16px auto 0;
@@ -343,7 +343,7 @@ body {
 .cost-strip strong { color: var(--dark); font-weight: 600; }
 .cost-strip .cost-qualifier { color: var(--light); font-style: italic; }
 
-/* NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
+/* NEIGHBORHOOD REALITY CHECK - per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 */
 .reality-check {
   max-width: var(--max-w);
   margin: 28px auto 0;
@@ -1142,7 +1142,7 @@ footer {
 }
 
 /* ============================================
-   PLAN YOUR MOVE — services slot
+   PLAN YOUR MOVE - services slot
    ============================================ */
 .services-section { background: var(--sand); }
 .services-grid {
@@ -1259,7 +1259,7 @@ footer {
   .wrap { padding: 0 24px; }
   .section { padding: 56px 0; }
 
-  /* Hero — give content room to breathe and move credit out of the tagline zone */
+  /* Hero - give content room to breathe and move credit out of the tagline zone */
   .hero { min-height: 540px; }
   .hero-content { padding: 0 24px 96px; }
   .hero-eyebrow {
@@ -1435,6 +1435,40 @@ html { scroll-padding-top: 64px; }
 .back-to-top-link .arr { font-size: 13px; line-height: 1; }
 /* ===== END STICKY CHIP NAV CSS ===== */
 
+/* ===== FORCED-DARK-MODE HARDENING =====
+   color-scheme:light opts out of iOS/desktop dark inversion, but Android Chrome
+   "force dark", Samsung Internet, and in-app webviews run algorithmic darkening
+   that bypasses it. This re-pins the intended palette so light surfaces stay
+   light (dark text) and dark-by-design surfaces stay dark (light text). */
+@media (prefers-color-scheme: dark) {
+  html { color-scheme: light; }
+  body { background: var(--paper) !important; color: var(--dark) !important; }
+
+  /* Light surfaces keep cream/white bg + dark text */
+  .character-section, .reality-check, .lists-section { background: var(--cream) !important; }
+  .services-section, .week-section { background: var(--sand) !important; }
+  .related-section, .fast-facts { background: var(--paper) !important; }
+  .stats-bar, .day-card, .hood-card, .list-card, .related-card, .service-card { background: #fff !important; }
+  .visit-before-you-decide { background: #F7F3ED !important; }
+  .character-section, .reality-check, .lists-section, .services-section, .week-section,
+  .related-section, .fast-facts, .stats-bar, .day-card, .hood-card, .list-card,
+  .related-card, .service-card { color: var(--dark) !important; }
+  .visit-before-you-decide, .visit-before-you-decide p { color: #333 !important; }
+
+  /* Dark-by-design surfaces keep dark/teal bg + light text */
+  .hero, .detail-section, .detail-text, .health-card, .lifestyle-banner, footer { background: var(--dark) !important; }
+  .cta-section { background: var(--teal) !important; }
+  .capture-section { background: var(--teal-deep) !important; }
+  .header-nav a.header-cta { background: var(--teal-deep) !important; }
+  .nav-chip.active { background: #2A5E5A !important; }
+  .hero, .hero *, .detail-section, .detail-text, .detail-text *, .health-card, .health-card *,
+  .lifestyle-banner, .lifestyle-banner *, footer, footer *, .cta-section, .cta-section *,
+  .capture-section, .capture-section * { color: #fff !important; }
+  /* Restore intentional accent colors that the blanket white rule above would flatten */
+  .footer-wordmark .here { color: var(--terra-soft) !important; }
+  .cta-section em, .health-name, .capture-section .capture-eyebrow { color: var(--terra-soft) !important; }
+}
+
 </style>
 </head>
 <body>
@@ -1500,7 +1534,7 @@ html { scroll-padding-top: 64px; }
   </div>
 </div>
 
-<!-- NEIGHBORHOOD REALITY CHECK — per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
+<!-- NEIGHBORHOOD REALITY CHECK - per Median Honesty Rule, MEDIAN-HOME-METHODOLOGY.md v1.1 -->
 <aside class="reality-check">
   <div class="reality-check-eyebrow">Neighborhood Reality Check</div>
   <p class="reality-check-body">
@@ -1508,7 +1542,7 @@ html { scroll-padding-top: 64px; }
   </p>
 </aside>
 
-<!-- COST REALITY STRIP — PropTax Rate % and HO Insur Est from CityDatabase v12 (Missouri).
+<!-- COST REALITY STRIP - PropTax Rate % and HO Insur Est from CityDatabase v12 (Missouri).
      Example dollar figure computed on the $300K insurance benchmark home for consistency. -->
 <div class="cost-strip">
   <span class="cost-item"><strong>Property tax:</strong> 0.89% effective (≈$2,670/yr on a $300K home)</span>
@@ -1577,49 +1611,6 @@ html { scroll-padding-top: 64px; }
       </div>
     </div>
     <div class="back-to-top-wrap"><button class="back-to-top-link" data-back-to-top><span class="arr">↑</span> Back to top</button></div>
-  </div>
-</section>
-
-<!-- EMAIL CAPTURE -->
-<section class="capture-section" id="deep-dive-reports">
-  <div class="capture-inner">
-    <div>
-      <div class="capture-eyebrow">Free Deep Dive Reports</div>
-      <h2 class="capture-h2">Like how we look at cities? <em>Get the reports.</em></h2>
-      <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists, starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
-    </div>
-    <div>
-      <!-- Guide picker: each chip reveals that report's MailerLite embedded form.
-           Forms render hidden at page load; chips toggle visibility.
-           IDs match the embedded forms in MailerLite (account 2238788). -->
-      <div class="guide-chips" id="guideChips">
-        <button class="guide-chip" onclick="pickGuide('fwB9NA', this)">✈️ Globetrotter Guide</button>
-        <button class="guide-chip" id="chip-f03tJB" onclick="pickGuide('f03tJB', this)">🏥 Wellness Blueprint</button>
-        <button class="guide-chip" onclick="pickGuide('W6rMh2', this)">💰 Value Navigator</button>
-        <button class="guide-chip" onclick="pickGuide('dJJ40D', this)">🚶 Urban Walkabout</button>
-        <button class="guide-chip" onclick="pickGuide('g4M1M8', this)">🏔️ Active Frontier</button>
-      </div>
-      <div class="guide-form-area">
-        <div class="ml-form-wrap" id="mlwrap-fwB9NA" style="display:none"><div class="ml-embedded" data-form="fwB9NA"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-f03tJB" style="display:none"><div class="ml-embedded" data-form="f03tJB"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-W6rMh2" style="display:none"><div class="ml-embedded" data-form="W6rMh2"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-dJJ40D" style="display:none"><div class="ml-embedded" data-form="dJJ40D"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-g4M1M8" style="display:none"><div class="ml-embedded" data-form="g4M1M8"></div></div>
-      </div>
-      <p class="capture-micro">Pick a guide, enter your email, and it's on its way. No selling your address, ever.</p>
-      <script>
-      function pickGuide(formId, btn, auto) {
-        document.querySelectorAll('.guide-form-area .ml-form-wrap').forEach(function(w) { w.style.display = 'none'; });
-        document.querySelectorAll('.guide-chip').forEach(function(c) { c.classList.remove('active'); });
-        var wrap = document.getElementById('mlwrap-' + formId);
-        if (wrap) { wrap.style.display = 'block'; }
-        if (btn) { btn.classList.add('active'); }
-        if (!auto && typeof gtag !== 'undefined') {
-          gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (St. Louis profile)' });
-        }
-      }
-      </script>
-    </div>
   </div>
 </section>
 
@@ -1801,7 +1792,7 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
 
-<!-- PLAN YOUR MOVE — services slot
+<!-- PLAN YOUR MOVE - services slot
      AFFILIATE-SLOT: these three cards currently hold internal links.
      At affiliate activation (Month 3), swap card contents for partner placements
      (moving services, senior-living search, insurance comparison) and add
@@ -1814,7 +1805,7 @@ html { scroll-padding-top: 64px; }
     <div class="services-grid">
       <a href="/" class="service-card">
         <div class="service-card-kicker">Step 1 · Match</div>
-        <div class="service-card-name">Take the 7-question quiz</div>
+        <div class="service-card-name">Take the quiz</div>
         <div class="service-card-desc">See how St. Louis scores against your actual priorities, and which cities beat it for you.</div>
         <span class="service-card-arrow">→</span>
       </a>
@@ -1901,12 +1892,55 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
 
+<!-- EMAIL CAPTURE -->
+<section class="capture-section" id="deep-dive-reports">
+  <div class="capture-inner">
+    <div>
+      <div class="capture-eyebrow">Free Deep Dive Reports</div>
+      <h2 class="capture-h2">Like how we look at cities? <em>Get the reports.</em></h2>
+      <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists, starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
+    </div>
+    <div>
+      <!-- Guide picker: each chip reveals that report's MailerLite embedded form.
+           Forms render hidden at page load; chips toggle visibility.
+           IDs match the embedded forms in MailerLite (account 2238788). -->
+      <div class="guide-chips" id="guideChips">
+        <button class="guide-chip" onclick="pickGuide('fwB9NA', this)">✈️ Globetrotter Guide</button>
+        <button class="guide-chip" id="chip-f03tJB" onclick="pickGuide('f03tJB', this)">🏥 Wellness Blueprint</button>
+        <button class="guide-chip" onclick="pickGuide('W6rMh2', this)">💰 Value Navigator</button>
+        <button class="guide-chip" onclick="pickGuide('dJJ40D', this)">🚶 Urban Walkabout</button>
+        <button class="guide-chip" onclick="pickGuide('g4M1M8', this)">🏔️ Active Frontier</button>
+      </div>
+      <div class="guide-form-area">
+        <div class="ml-form-wrap" id="mlwrap-fwB9NA" style="display:none"><div class="ml-embedded" data-form="fwB9NA"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-f03tJB" style="display:none"><div class="ml-embedded" data-form="f03tJB"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-W6rMh2" style="display:none"><div class="ml-embedded" data-form="W6rMh2"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-dJJ40D" style="display:none"><div class="ml-embedded" data-form="dJJ40D"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-g4M1M8" style="display:none"><div class="ml-embedded" data-form="g4M1M8"></div></div>
+      </div>
+      <p class="capture-micro">Pick a guide, enter your email, and it's on its way. No selling your address, ever.</p>
+      <script>
+      function pickGuide(formId, btn, auto) {
+        document.querySelectorAll('.guide-form-area .ml-form-wrap').forEach(function(w) { w.style.display = 'none'; });
+        document.querySelectorAll('.guide-chip').forEach(function(c) { c.classList.remove('active'); });
+        var wrap = document.getElementById('mlwrap-' + formId);
+        if (wrap) { wrap.style.display = 'block'; }
+        if (btn) { btn.classList.add('active'); }
+        if (!auto && typeof gtag !== 'undefined') {
+          gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (St. Louis profile)' });
+        }
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
 <!-- QUIZ CTA -->
 <section class="cta-section">
   <div class="cta-inner">
     <div class="cta-eyebrow">Want a personalized match?</div>
     <h2 class="cta-h2">St. Louis might fit. <em>Or it might not.</em></h2>
-    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you, not what's trending.</p>
+    <p class="cta-tagline">Take the quiz. We'll match you across our database based on what actually matters to you, not what's trending.</p>
     <a href="/" class="cta-btn">
       <span>Find My Match</span>
       <span class="arrow">→</span>
