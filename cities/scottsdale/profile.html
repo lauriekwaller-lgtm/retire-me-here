@@ -31,7 +31,7 @@ ml('account', '2238788');
 </script>
 
 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scottsdale, Arizona: A Retirement City Profile">
@@ -1455,6 +1455,7 @@ html { scroll-padding-top: 64px; }
     <button class="nav-chip" data-target="where">Where to live</button>
     <button class="nav-chip" data-target="health">Healthcare</button>
     <button class="nav-chip" data-target="compare">Compare cities</button>
+    <button class="nav-chip" data-target="visit">Visit</button>
   </div>
 </nav>
 
@@ -1879,6 +1880,21 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
   
+<!-- VISIT BEFORE YOU DECIDE - AFFILIATE -->
+<section id="visit" class="visit-before-you-decide" style="margin: 60px 0; padding: 32px; background: #F7F3ED; border-left: 4px solid #2A5E5A; border-radius: 4px; max-width: 760px; margin-left: auto; margin-right: auto;">
+  <h2 style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(24px, 3vw, 32px); margin: 0 0 16px; color: #2A5E5A;">Visit Before You Decide</h2>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">Scottsdale is the desert's flagship retirement address: Mayo Clinic Arizona <strong>among the top five hospitals in the country</strong>, three hundred days of sun, and a resort life built for it. Two things decide whether it's for you, and both show up on a visit: the July heat, and a price near the top of the range.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">The communities set the tone. <strong>Old Town Scottsdale</strong> is the walkable entertainment core, <strong>McCormick Ranch</strong> the established lake-and-golf area, <strong>Grayhawk</strong> the north-Scottsdale favorite, and <strong>DC Ranch and Silverleaf</strong> the upscale enclaves. Rent in one, drive to Mayo Clinic Arizona, and stand outside at two in the afternoon in July. Test the daily routine, not the highlight reel.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 12px;"><a href="https://expedia.com/affiliate/oeEIzcB" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Search Scottsdale hotels on Expedia →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">Take a week in a rental in Old Town or McCormick Ranch and let the heat and the pace speak for themselves. <a href="https://vrbo.com/affiliate/LPAH1US" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse Scottsdale rentals on Vrbo →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
+</section>
+  
 <!-- QUIZ CTA -->
 <section class="cta-section">
   <div class="cta-inner">
@@ -1913,7 +1929,7 @@ html { scroll-padding-top: 64px; }
   if (!nav) return;
   var chips = nav.querySelectorAll('.nav-chip');
   var navInner = nav.querySelector('.section-nav-inner');
-  var ids = ['fit','about','week','where','health','compare'];
+  var ids = ['fit','about','week','where','health','compare','visit'];
   var sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
 
   chips.forEach(function(chip){

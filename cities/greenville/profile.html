@@ -31,7 +31,7 @@ ml('account', '2238788');
 </script>
 
 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Greenville, South Carolina: A Retirement City Profile">
@@ -1449,6 +1449,7 @@ html { scroll-padding-top: 64px; }
     <button class="nav-chip" data-target="where">Where to live</button>
     <button class="nav-chip" data-target="health">Healthcare</button>
     <button class="nav-chip" data-target="compare">Compare cities</button>
+    <button class="nav-chip" data-target="visit">Visit</button>
   </div>
 </nav>
 
@@ -1866,6 +1867,21 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
 
+<!-- VISIT BEFORE YOU DECIDE - AFFILIATE -->
+<section id="visit" class="visit-before-you-decide" style="margin: 60px 0; padding: 32px; background: #F7F3ED; border-left: 4px solid #2A5E5A; border-radius: 4px; max-width: 760px; margin-left: auto; margin-right: auto;">
+  <h2 style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(24px, 3vw, 32px); margin: 0 0 16px; color: #2A5E5A;">Visit Before You Decide</h2>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">Greenville took a dead textile downtown and turned it into one of the most walkable main streets in the Southeast, complete with a waterfall in the middle of it and <strong>two top-ranked hospital systems</strong> competing for you. Housing sits well under the national average. Come in July, though, and see how the heat reads before you fall for the spring version.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">The neighborhoods spread out from that revived core. <strong>North Main</strong> is the close-in walkable favorite, <strong>Five Forks</strong> the established eastern suburb, <strong>Travelers Rest</strong> the trailhead toward the mountains, and <strong>Overbrook</strong> a characterful pocket near downtown. Rent in one, drive to Prisma Health Greenville Memorial or Bon Secours, and walk Main Street on an ordinary Wednesday. Test the daily routine, not the highlight reel.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 12px;"><a href="https://expedia.com/affiliate/AduSjsM" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Search Greenville hotels on Expedia →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">Spend a week in a rental in North Main or by the Swamp Rabbit Trail and you'll know if the walk and the pace are yours. <a href="https://vrbo.com/affiliate/NiHUSwi" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse Greenville rentals on Vrbo →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
+</section>
+  
 <!-- QUIZ CTA -->
 <section class="cta-section">
   <div class="cta-inner">
@@ -1900,7 +1916,7 @@ html { scroll-padding-top: 64px; }
   if (!nav) return;
   var chips = nav.querySelectorAll('.nav-chip');
   var navInner = nav.querySelector('.section-nav-inner');
-  var ids = ['fit','about','week','where','health','compare'];
+  var ids = ['fit','about','week','where','health','compare','visit'];
   var sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
 
   chips.forEach(function(chip){

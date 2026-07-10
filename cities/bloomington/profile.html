@@ -31,7 +31,7 @@ ml('account', '2238788');
 </script>
 
 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Open Graph / social -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bloomington, Indiana: A Retirement City Profile">
@@ -1373,6 +1373,7 @@ html { scroll-padding-top: 64px; }
     <button class="nav-chip" data-target="where">Where to live</button>
     <button class="nav-chip" data-target="health">Healthcare</button>
     <button class="nav-chip" data-target="compare">Compare cities</button>
+    <button class="nav-chip" data-target="visit">Visit</button>
   </div>
 </nav>
 
@@ -1797,6 +1798,21 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
 
+<!-- VISIT BEFORE YOU DECIDE - AFFILIATE -->
+<section id="visit" class="visit-before-you-decide" style="margin: 60px 0; padding: 32px; background: #F7F3ED; border-left: 4px solid #2A5E5A; border-radius: 4px; max-width: 760px; margin-left: auto; margin-right: auto;">
+  <h2 style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(24px, 3vw, 32px); margin: 0 0 16px; color: #2A5E5A;">Visit Before You Decide</h2>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">For its size and its price, Bloomington carries a startling amount of arts and intellectual life, most of it flowing from <strong>Indiana University</strong>. The pull is real. The question is stamina: whether a small college town holds you for the long haul, and whether the winters and the drive to a big airport wear on you.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">Sort the neighborhoods first. <strong>Elm Heights</strong> is the prestigious pocket near campus, <strong>Bryan Park</strong> leafy and walkable, <strong>Prospect Hill</strong> historic, and <strong>Park Ridge</strong> quieter and newer on the east side. Rent in one, drive to IU Health Bloomington, and spend an ordinary evening downtown while the students are in class. Test the daily routine, not the highlight reel.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 12px;"><a href="https://expedia.com/affiliate/itQICbR" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Search Bloomington hotels on Expedia →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">Rent a house near Bryan Park or in Elm Heights for a week and the walkable core comes into focus fast. <a href="https://vrbo.com/affiliate/2uegw40" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse Bloomington rentals on Vrbo →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
+</section>
+  
 <!-- QUIZ CTA -->
 <section class="cta-section">
   <div class="cta-inner">
@@ -1831,7 +1847,7 @@ html { scroll-padding-top: 64px; }
   if (!nav) return;
   var chips = nav.querySelectorAll('.nav-chip');
   var navInner = nav.querySelector('.section-nav-inner');
-  var ids = ['fit','about','week','where','health','compare'];
+  var ids = ['fit','about','week','where','health','compare','visit'];
   var sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
 
   chips.forEach(function(chip){

@@ -31,7 +31,7 @@ ml('account', '2238788');
 </script>
 
 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Philadelphia, Pennsylvania: A Retirement City Profile">
@@ -1382,6 +1382,7 @@ html { scroll-padding-top: 64px; }
     <button class="nav-chip" data-target="where">Where to live</button>
     <button class="nav-chip" data-target="health">Healthcare</button>
     <button class="nav-chip" data-target="compare">Compare cities</button>
+    <button class="nav-chip" data-target="visit">Visit</button>
   </div>
 </nav>
 
@@ -1810,6 +1811,21 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
 
+<!-- VISIT BEFORE YOU DECIDE - AFFILIATE -->
+<section id="visit" class="visit-before-you-decide" style="margin: 60px 0; padding: 32px; background: #F7F3ED; border-left: 4px solid #2A5E5A; border-radius: 4px; max-width: 760px; margin-left: auto; margin-right: auto;">
+  <h2 style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(24px, 3vw, 32px); margin: 0 0 16px; color: #2A5E5A;">Visit Before You Decide</h2>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">Penn Medicine <strong>ranks first in Pennsylvania and nationally in eleven specialties</strong>, and you can live near it, on foot, for a fraction of what New York or Boston charges. The familiar asterisk applies: the citywide median blends in areas retirees skip, and Philadelphia changes character block to block. A visit is how you find your version.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 16px;">The retiree neighborhoods are worth naming. <strong>Rittenhouse Square</strong> is the walkable upscale core, <strong>Society Hill and Washington Square West</strong> historic and central, <strong>Chestnut Hill and Mt. Airy</strong> the leafy northwest, and <strong>Fitler Square and Graduate Hospital</strong> the close-in favorites, all well above that median. Rent in one, walk to Penn Medicine, and run a week of ordinary errands on foot. Test the daily routine, not the highlight reel.</p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 12px;"><a href="https://expedia.com/affiliate/uepPDUd" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Search Philadelphia hotels on Expedia →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">Nothing tests the walkable life like a week in a rental near Rittenhouse or in Chestnut Hill. <a href="https://vrbo.com/affiliate/wtbAaHe" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse Philadelphia rentals on Vrbo →</a></p>
+
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
+</section>
+  
 <!-- QUIZ CTA -->
 <section class="cta-section">
   <div class="cta-inner">
@@ -1844,7 +1860,7 @@ html { scroll-padding-top: 64px; }
   if (!nav) return;
   var chips = nav.querySelectorAll('.nav-chip');
   var navInner = nav.querySelector('.section-nav-inner');
-  var ids = ['fit','about','week','where','health','compare'];
+  var ids = ['fit','about','week','where','health','compare','visit'];
   var sections = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
 
   chips.forEach(function(chip){
