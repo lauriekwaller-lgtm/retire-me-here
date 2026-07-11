@@ -1147,6 +1147,40 @@ html { scroll-padding-top: 64px; }
 .back-to-top-link .arr { font-size: 13px; line-height: 1; }
 /* ===== END STICKY CHIP NAV CSS ===== */
 
+/* ===== FORCED-DARK-MODE HARDENING =====
+   color-scheme:light opts out of iOS/desktop dark inversion, but Android Chrome
+   "force dark", Samsung Internet, and in-app webviews run algorithmic darkening
+   that bypasses it. This re-pins the intended palette so light surfaces stay
+   light (dark text) and dark-by-design surfaces stay dark (light text). */
+@media (prefers-color-scheme: dark) {
+  html { color-scheme: light; }
+  body { background: var(--paper) !important; color: var(--dark) !important; }
+
+  /* Light surfaces keep cream/white bg + dark text */
+  .character-section, .reality-check, .lists-section { background: var(--cream) !important; }
+  .services-section, .week-section { background: var(--sand) !important; }
+  .related-section, .fast-facts { background: var(--paper) !important; }
+  .stats-bar, .day-card, .hood-card, .list-card, .related-card, .service-card { background: #fff !important; }
+  .visit-before-you-decide { background: #F7F3ED !important; }
+  .character-section, .reality-check, .lists-section, .services-section, .week-section,
+  .related-section, .fast-facts, .stats-bar, .day-card, .hood-card, .list-card,
+  .related-card, .service-card { color: var(--dark) !important; }
+  .visit-before-you-decide, .visit-before-you-decide p { color: #333 !important; }
+
+  /* Dark-by-design surfaces keep dark/teal bg + light text */
+  .hero, .detail-section, .detail-text, .health-card, .lifestyle-banner, footer { background: var(--dark) !important; }
+  .cta-section { background: var(--teal) !important; }
+  .capture-section { background: var(--teal-deep) !important; }
+  .header-nav a.header-cta { background: var(--teal-deep) !important; }
+  .nav-chip.active { background: #2A5E5A !important; }
+  .hero, .hero *, .detail-section, .detail-text, .detail-text *, .health-card, .health-card *,
+  .lifestyle-banner, .lifestyle-banner *, footer, footer *, .cta-section, .cta-section *,
+  .capture-section, .capture-section * { color: #fff !important; }
+  /* Restore intentional accent colors that the blanket white rule above would flatten */
+  .footer-wordmark .here { color: var(--terra-soft) !important; }
+  .cta-section em, .health-name, .capture-section .capture-eyebrow { color: var(--terra-soft) !important; }
+}
+
 </style>
 
 <style>
@@ -1743,7 +1777,7 @@ html { scroll-padding-top: 64px; }
     <div class="services-grid">
       <a href="/" class="service-card">
         <div class="service-card-kicker">Step 1 · Match</div>
-        <div class="service-card-name">Take the 7-question quiz</div>
+        <div class="service-card-name">Take the quiz</div>
         <div class="service-card-desc">See how Lexington scores against your actual priorities, and which cities beat it for you.</div>
         <span class="service-card-arrow">→</span>
       </a>
@@ -1901,7 +1935,7 @@ html { scroll-padding-top: 64px; }
   <div class="cta-inner">
     <div class="cta-eyebrow">Want a personalized match?</div>
     <h2 class="cta-h2">Lexington might fit. <em>Or it might not.</em></h2>
-    <p class="cta-tagline">Take the 7-question quiz. We'll match you across our database based on what actually matters to you, not what's trending.</p>
+    <p class="cta-tagline">Take the quiz. We'll match you across our database based on what actually matters to you, not what's trending.</p>
     <a href="/" class="cta-btn">
       <span>Find My Match</span>
       <span class="arrow">→</span>
