@@ -34,7 +34,10 @@ import sys
 import urllib.request
 
 RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
-DEFAULT_DB = "data/city-database.csv"
+# The database already lives in the repo, in docs/. That is the canonical copy the
+# validator reads. Update this constant when you bump the version, in the same commit
+# that adds the new xlsx.
+DEFAULT_DB = "docs/CityDatabase_Jul_06_v16_1_stpaul-corrected.xlsx"
 
 # Tolerated deviation on home-value prose before we call it stale.
 HOME_TOLERANCE = 0.03
@@ -124,20 +127,47 @@ def load_db(path):
         df = pd.read_csv(path)
     df.columns = [str(c).replace("\n", " ").strip() for c in df.columns]
 
+    # Keyed by BOTH "City" and "City_ST". Wilmington NC and Wilmington DE are both
+    # in the database, so a city-name-only key silently drops one of them. Anything
+    # that knows the state should look up "City_ST" first.
     db = {}
+    names = {}
     for _, r in df.iterrows():
         city = str(r["City"]).strip()
+        state = str(r["ST"]).strip()
         raw_home = str(r["Median Home"]).strip()
-        home = money_to_int(raw_home if raw_home.startswith("$") else f"${raw_home}")
-        db[city] = {
-            "state": str(r["ST"]).strip(),
+        row = {
+            "city": city,
+            "state": state,
             "monthly": str(r["Monthly Est"]).strip(),
-            "home": home,
+            "home": money_to_int(raw_home if raw_home.startswith("$") else f"${raw_home}"),
             "home_raw": raw_home,
             "range": int(r["Budget Range"]),
             "scores": {k: int(r[col]) for k, col in DIMS},
         }
+        db[f"{city}_{state}"] = row
+        names.setdefault(city, []).append(row)
+
+    for city, rows in names.items():
+        if len(rows) == 1:
+            db[city] = rows[0]          # unambiguous, name-only lookup is safe
+        else:
+            db[city] = None             # ambiguous: force callers to supply state
     return db
+
+
+def db_get(db, city, state=None):
+    """Look up a city. Returns None if the name is ambiguous and no state is given."""
+    if state:
+        row = db.get(f"{city}_{state}")
+        if row:
+            return row
+    return db.get(city)
+
+
+def db_cities(db):
+    """Every real row, once."""
+    return [v for k, v in db.items() if v is not None and "_" in k]
 
 
 def home_forms(value):
@@ -190,7 +220,7 @@ def check_figures(rep, db, idx):
             continue
         city, state = nm.group(1), nm.group(2)
         seen += 1
-        row = db.get(city)
+        row = db_get(db, city, state)
         if not row:
             rep.fail("figures", f"CITIES: {city}, {state} is not in the database")
             continue
@@ -218,9 +248,9 @@ def check_figures(rep, db, idx):
                              f"CITIES {city}, {state}: {key} is {got.get(key)}, "
                              f"DB says {row['scores'][key]}")
 
-    if seen != len(db):
+    if seen != len(db_cities(db)):
         rep.warn("figures",
-                 f"CITIES array has {seen} cities, database has {len(db)}")
+                 f"CITIES array has {seen} cities, database has {len(db_cities(db))}")
 
     # CITY_ENRICHMENT modal prose. Lookup is [name_ST] || [name], so both key
     # formats are valid; the _ST form exists to disambiguate Wilmington NC/DE.
@@ -232,10 +262,14 @@ def check_figures(rep, db, idx):
         owners = [k for p, k in keys if p < pos]
         if not owners:
             continue
-        city = re.sub(r"_[A-Z]{2}$", "", owners[-1]).strip()
-        row = db.get(city)
+        key = owners[-1]
+        st = key.rsplit("_", 1)[1] if re.search(r"_[A-Z]{2}$", key) else None
+        city = re.sub(r"_[A-Z]{2}$", "", key).strip()
+        row = db_get(db, city, st)
         if not row:
-            rep.warn("figures", f"CITY_ENRICHMENT key {owners[-1]!r} has no DB row")
+            rep.warn("figures",
+                     f"CITY_ENRICHMENT key {key!r}: no DB row, or the city name is "
+                     f"ambiguous and the key lacks a state suffix")
             continue
 
         lo, hi = re.findall(r"\$[\d,]+", row["monthly"])
@@ -279,11 +313,10 @@ def check_routing(rep, db, idx, sitemap, local):
                  f"sitemap lists cities/{slug}/ but it is not in PUBLISHED_PROFILES")
 
     for key in pub:
-        city = key.rsplit("_", 1)[0].strip()
-        if city not in db:
+        if key not in db:
             rep.fail("routing", f"PUBLISHED_PROFILES key {key!r} has no DB row")
 
-    return {v.split("/")[1]: k.rsplit("_", 1)[0].strip()
+    return {v.split("/")[1]: tuple(k.rsplit("_", 1))
             for k, v in pub.items() if "/" in v}
 
 
@@ -293,11 +326,13 @@ def check_profiles(rep, db, slug_to_city, local):
         r"(typical home value|median home is|home value is|citywide median|typical home of)",
         re.I)
 
-    for slug, city in sorted(slug_to_city.items()):
+    for slug, (city, state) in sorted(slug_to_city.items()):
         html = fetch(f"cities/{slug}/profile.html", local)
         if html is None:
             continue
-        row = db[city]
+        row = db_get(db, city, state)
+        if not row:
+            continue
         lo, hi = re.findall(r"\$[\d,]+", row["monthly"])
         flat = re.sub(r"\s+", " ", html)
         text = visible_text(html)
@@ -368,7 +403,7 @@ def check_cards(rep, db, idx, local):
                          f'{page}: {city}, {st} shows "Coming soon" but its '
                          f"profile is live")
 
-            row = db.get(city)
+            row = db_get(db, city, st)
             if not row:
                 continue
             lo, hi = re.findall(r"\$[\d,]+", row["monthly"])
@@ -388,15 +423,13 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
     guess at the intended scope; we surface the claim, name the true holder, and
     make a human confirm it.
     """
-    ranked = sorted(db.items(), key=lambda kv: kv[1]["home"])
-    cheapest = ranked[0][0]
-    priciest = ranked[-1][0]
+    rows = db_cities(db)
+    ranked = sorted(rows, key=lambda r: r["home"])
+    cheapest, priciest = ranked[0], ranked[-1]
 
     by_monthly = sorted(
-        db.items(),
-        key=lambda kv: money_to_int(re.findall(r"\$[\d,]+", kv[1]["monthly"])[0]))
-    cheapest_m = by_monthly[0][0]
-    priciest_m = by_monthly[-1][0]
+        rows, key=lambda r: money_to_int(re.findall(r"\$[\d,]+", r["monthly"])[0]))
+    cheapest_m, priciest_m = by_monthly[0], by_monthly[-1]
 
     # A superlative only needs checking when it claims a SCOPE: the database, our
     # coverage, a region, a state. "Best value" as a neighborhood-card tag and
@@ -429,12 +462,13 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
         rep.warn("superlatives", f"{page}: \"{txt}\"{times}")
 
     rep.warn("superlatives",
-             f"DB truth: cheapest home = {cheapest} "
-             f"(${db[cheapest]['home']:,}); priciest = {priciest} "
-             f"(${db[priciest]['home']:,})")
+             f"DB truth: cheapest home = {cheapest['city']}, {cheapest['state']} "
+             f"(${cheapest['home']:,}); priciest = {priciest['city']}, "
+             f"{priciest['state']} (${priciest['home']:,})")
     rep.warn("superlatives",
-             f"DB truth: lowest monthly = {cheapest_m} ({db[cheapest_m]['monthly']}); "
-             f"highest = {priciest_m} ({db[priciest_m]['monthly']})")
+             f"DB truth: lowest monthly = {cheapest_m['city']}, {cheapest_m['state']} "
+             f"({cheapest_m['monthly']}); highest = {priciest_m['city']}, "
+             f"{priciest_m['state']} ({priciest_m['monthly']})")
     rep.warn("superlatives",
              "Every line above is a claim about the whole database. Confirm each "
              "against the two DB truth lines, or scope it explicitly.")
@@ -494,8 +528,9 @@ def main():
 
     if not os.path.exists(args.db):
         print(f"Database not found at {args.db}.", file=sys.stderr)
-        print("Export the current CityDatabase xlsx to that path, or pass --db.",
-              file=sys.stderr)
+        print("The validator reads the xlsx in docs/. If you have bumped the "
+              "database version, update DEFAULT_DB at the top of this file, "
+              "or pass --db.", file=sys.stderr)
         return 2
 
     groups = set(args.only) if args.only else {
@@ -507,7 +542,7 @@ def main():
     print(f"  database: {args.db}")
 
     db = load_db(args.db)
-    print(f"  cities:   {len(db)}")
+    print(f"  cities:   {len(db_cities(db))}")
 
     idx = fetch("index.html", args.local)
     sitemap = fetch("sitemap.xml", args.local)
