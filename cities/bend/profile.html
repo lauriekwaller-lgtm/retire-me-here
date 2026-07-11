@@ -1555,49 +1555,6 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
 
-<!-- EMAIL CAPTURE -->
-<section class="capture-section" id="deep-dive-reports">
-  <div class="capture-inner">
-    <div>
-      <div class="capture-eyebrow">Free Deep Dive Reports</div>
-      <h2 class="capture-h2">Like how we look at cities? <em>Get the reports.</em></h2>
-      <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists, starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
-    </div>
-    <div>
-      <!-- Guide picker: each chip reveals that report's MailerLite embedded form.
-           Forms render hidden at page load; chips toggle visibility.
-           IDs match the embedded forms in MailerLite (account 2238788). -->
-      <div class="guide-chips" id="guideChips">
-        <button class="guide-chip" onclick="pickGuide('fwB9NA', this)">✈️ Globetrotter Guide</button>
-        <button class="guide-chip" onclick="pickGuide('f03tJB', this)">🏥 Wellness Blueprint</button>
-        <button class="guide-chip" onclick="pickGuide('W6rMh2', this)">💰 Value Navigator</button>
-        <button class="guide-chip" onclick="pickGuide('dJJ40D', this)">🚶 Urban Walkabout</button>
-        <button class="guide-chip" id="chip-g4M1M8" onclick="pickGuide('g4M1M8', this)">🏔️ Active Frontier</button>
-      </div>
-      <div class="guide-form-area">
-        <div class="ml-form-wrap" id="mlwrap-fwB9NA" style="display:none"><div class="ml-embedded" data-form="fwB9NA"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-f03tJB" style="display:none"><div class="ml-embedded" data-form="f03tJB"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-W6rMh2" style="display:none"><div class="ml-embedded" data-form="W6rMh2"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-dJJ40D" style="display:none"><div class="ml-embedded" data-form="dJJ40D"></div></div>
-        <div class="ml-form-wrap" id="mlwrap-g4M1M8" style="display:none"><div class="ml-embedded" data-form="g4M1M8"></div></div>
-      </div>
-      <p class="capture-micro">Pick a guide, enter your email, and it's on its way. No selling your address, ever.</p>
-      <script>
-      function pickGuide(formId, btn, auto) {
-        document.querySelectorAll('.guide-form-area .ml-form-wrap').forEach(function(w) { w.style.display = 'none'; });
-        document.querySelectorAll('.guide-chip').forEach(function(c) { c.classList.remove('active'); });
-        var wrap = document.getElementById('mlwrap-' + formId);
-        if (wrap) { wrap.style.display = 'block'; }
-        if (btn) { btn.classList.add('active'); }
-        if (!auto && typeof gtag !== 'undefined') {
-          gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (Bend profile)' });
-        }
-      }
-      </script>
-    </div>
-  </div>
-</section>
-
 <!-- CHARACTER -->
 <section class="section character-section" id="about">
   <div class="wrap">
@@ -1864,6 +1821,49 @@ html { scroll-padding-top: 64px; }
   </div>
 </section>
   
+<!-- EMAIL CAPTURE -->
+<section class="capture-section" id="deep-dive-reports">
+  <div class="capture-inner">
+    <div>
+      <div class="capture-eyebrow">Free Deep Dive Reports</div>
+      <h2 class="capture-h2">Like how we look at cities? <em>Get the reports.</em></h2>
+      <p class="capture-sub">Our Deep Dive series applies this same scoring to themed shortlists, starting with the Active Frontier report for outdoor-minded retirees. Free, no spam, unsubscribe anytime.</p>
+    </div>
+    <div>
+      <!-- Guide picker: each chip reveals that report's MailerLite embedded form.
+           Forms render hidden at page load; chips toggle visibility.
+           IDs match the embedded forms in MailerLite (account 2238788). -->
+      <div class="guide-chips" id="guideChips">
+        <button class="guide-chip" onclick="pickGuide('fwB9NA', this)">✈️ Globetrotter Guide</button>
+        <button class="guide-chip" onclick="pickGuide('f03tJB', this)">🏥 Wellness Blueprint</button>
+        <button class="guide-chip" onclick="pickGuide('W6rMh2', this)">💰 Value Navigator</button>
+        <button class="guide-chip" onclick="pickGuide('dJJ40D', this)">🚶 Urban Walkabout</button>
+        <button class="guide-chip" id="chip-g4M1M8" onclick="pickGuide('g4M1M8', this)">🏔️ Active Frontier</button>
+      </div>
+      <div class="guide-form-area">
+        <div class="ml-form-wrap" id="mlwrap-fwB9NA" style="display:none"><div class="ml-embedded" data-form="fwB9NA"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-f03tJB" style="display:none"><div class="ml-embedded" data-form="f03tJB"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-W6rMh2" style="display:none"><div class="ml-embedded" data-form="W6rMh2"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-dJJ40D" style="display:none"><div class="ml-embedded" data-form="dJJ40D"></div></div>
+        <div class="ml-form-wrap" id="mlwrap-g4M1M8" style="display:none"><div class="ml-embedded" data-form="g4M1M8"></div></div>
+      </div>
+      <p class="capture-micro">Pick a guide, enter your email, and it's on its way. No selling your address, ever.</p>
+      <script>
+      function pickGuide(formId, btn, auto) {
+        document.querySelectorAll('.guide-form-area .ml-form-wrap').forEach(function(w) { w.style.display = 'none'; });
+        document.querySelectorAll('.guide-chip').forEach(function(c) { c.classList.remove('active'); });
+        var wrap = document.getElementById('mlwrap-' + formId);
+        if (wrap) { wrap.style.display = 'block'; }
+        if (btn) { btn.classList.add('active'); }
+        if (!auto && typeof gtag !== 'undefined') {
+          gtag('event', 'report_request', { event_category: 'Reports', event_label: formId + ' (Bend profile)' });
+        }
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
 <!-- VISIT BEFORE YOU DECIDE - AFFILIATE -->
 <section id="visit" class="visit-before-you-decide" style="margin: 60px 0; padding: 32px; background: #F7F3ED; border-left: 4px solid #2A5E5A; border-radius: 4px; max-width: 760px; margin-left: auto; margin-right: auto;">
   <h2 style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(24px, 3vw, 32px); margin: 0 0 16px; color: #2A5E5A;">Visit Before You Decide</h2>
