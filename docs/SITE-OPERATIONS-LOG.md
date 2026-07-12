@@ -2,7 +2,7 @@
 **Purpose:** Single source of truth for what gets reviewed, updated, and refreshed across the site. Forward-looking calendar plus backward-looking change log. Written to be handover-ready, not personal shorthand.
 **Owner:** Laurie Waller (solo founder/operator)
 **Created:** June 17, 2026
-**Last full review:** June 19, 2026
+**Last full review:** July 12, 2026
 
 ---
 
@@ -23,15 +23,15 @@ Update this doc at the same time you do the work. If you defer the documentation
 | Frequency | Task | Trigger / Window | What it involves | Owner |
 |---|---|---|---|---|
 | Monthly | Analytics review | First Monday | GA4 traffic, Search Console queries, Microsoft Clarity heatmaps, MailerLite signups. Note anomalies. | Operator |
-| Monthly | Zillow ZHVI spot-check | Mid-month | Pull 10 random cities, compare to Median Home in current DB. Flag any with >10% move for the next quarterly review. | Operator |
+| Monthly | Zillow ZHVI spot-check | Mid-month | Pull 10 random cities, compare to Typical Home Value in current DB. Flag any with >10% move for the next quarterly review. | Operator |
 | Monthly | Pinterest performance | End of month | Top-performing pins, board engagement, click-throughs to site. Adjust pin cadence accordingly. | Operator |
 | Quarterly | Mortgage rate check | Mar / Jun / Sep / Dec, first week | Open Freddie Mac PMMS (https://www.freddiemac.com/pmms). Compare to rate documented in BUDGET-METHODOLOGY.md. If gap >50 basis points, trigger budget recompute (see SOP-2). | Operator |
-| Quarterly | Watch-list review | Same week as rate check | Open most recent Budget-Audit-*.xlsx, review Watch List sheet. Decide whether any flagged cities need a Median Home or framing update. | Operator |
+| Quarterly | Watch-list review | Same week as rate check | Open most recent Budget-Audit-*.xlsx, review Watch List sheet. Decide whether any flagged cities need a Typical Home Value or framing update. | Operator |
 | Quarterly | Profile audit (1/4 of cities) | Rotating | Pick ~25 profiles, spot-check airport routes, hospital rankings, and any external links. Refresh photos where dated. | Operator |
 | Annually | Medicare premium refresh | Mid-November | CMS announces next year's Part B premium ~Nov 14. Update BUDGET-METHODOLOGY.md and trigger annual recompute (see SOP-3). | Operator |
 | Annually | Full database rebuild | June | Roll mortgage rate, Medicare numbers, USDA food plan, BLS utilities, Zillow ZHVI snapshot. Increment DB filename (vN → vN+1). | Operator |
 | Annually | Tier boundary review | June (with rebuild) | Confirm current boundaries still produce sensible distribution. Adjust if any tier has <5 or >50 cities. | Operator |
-| Annually | Methodology doc audit | June | Review BUDGET-METHODOLOGY.md, GUIDE-METHODOLOGY-DECISIONS.md, scoring-analysis docs. Update for any drift. | Operator |
+| Annually | Methodology doc audit | June | Review BUDGET-METHODOLOGY.md, MEDIAN-HOME-METHODOLOGY.md, PROFILE-FORMATTING.md, GUIDE-METHODOLOGY-DECISIONS.md, scoring-analysis docs. Update for any drift. | Operator |
 | Annually | Sitemap & indexing health | June | Resubmit sitemap.xml to Search Console. Spot-check for orphaned profile pages. | Operator |
 
 ## 3. Event-driven triggers
@@ -42,37 +42,67 @@ These bypass the calendar. If any of these happen, act in the window indicated.
 |---|---|---|
 | Mortgage rate moves ≥75 bp from BUDGET-METHODOLOGY.md snapshot | Recompute budget (SOP-2). Bump methodology doc snapshot. | 2 weeks |
 | Major Florida or California insurance market event (state-mandated rate change, insurer pullout) | Re-source HO Insur Est $/yr column for affected states. Recompute affected cities. | 4 weeks |
-| Zillow changes ZHVI methodology | Audit how the change affects Median Home values. Document in change log. | 4 weeks |
+| Zillow changes ZHVI methodology | Audit how the change affects Typical Home Values. Document in change log. | 4 weeks |
 | First affiliate contract signed | Trigger trademark filing and LLC formation. Flip display ad switches. Activate affiliate placeholders. | Same week as contract |
 | Google Search Console flags a structural indexing problem | Investigate within 1 week, fix within 2 weeks. | 2 weeks |
 | Major new retiree-relevant CMS rule (Medicare, Medicare Advantage) | Assess impact on healthcare line in budget formula. | 4 weeks |
-| A city's Median Home value moves >15% in a single Zillow refresh | Investigate (data error vs real market shift). Update if real. | 4 weeks |
+| A city's citywide Zillow ZHVI moves >15% in a single refresh | Investigate (data error vs real market shift). Update if real. | 4 weeks |
+| A non-NRC city's retiree-target neighborhood premium becomes editorially significant | Review whether the city should be added to the NRC list. If yes, add a Neighborhood Reality Check callout per PROFILE-FORMATTING.md v1.2. | Next refresh |
 
 ## 4. Key files and where they live
 
 | File | Purpose | Location | Notes |
 |---|---|---|---|
-| CityDatabase_*_vN.xlsx | Authoritative scoring database | Project knowledge / synced to working session each session | Current: CityDatabase_Jun_9_v14.xlsx. Filename increments with version. |
+| CityDatabase_*_vN.xlsx | Authoritative scoring database | Project knowledge | Current: CityDatabase_Jun_19_v15_1_1.xlsx. Filename increments with version. |
+| MedianHomeAuditMASTER.xlsx | Full audit history including superseded v1.0 archetype values | Project knowledge | Reference only. Not authoritative for live values. |
 | Budget-Audit-*.xlsx | Per-rebuild audit trail | Project knowledge | Current: Budget-Audit-Jun-16-2026.xlsx |
-| BUDGET-METHODOLOGY.md | Budget formula and sources | Project knowledge + repo | Current: v1.0 (June 16 2026) |
-| MEDIAN-HOME-METHODOLOGY.md | Archetype framework, five-question inclusion test, basis documentation | Project knowledge + repo | Current: v1.0 (June 17 2026). Upstream of budget; Median Home values feed BUDGET-METHODOLOGY.md. |
-| GUIDE-METHODOLOGY-DECISIONS.md | Scoring decisions across guides | Project knowledge + repo | |
-| HUM-HEAT-Scoring-Guide.md | Humidity and heat scoring rubric | Project knowledge + repo | |
-| *-cities-scoring-analysis.md (7 files) | Per-guide scoring analysis | Project knowledge + repo | Active, Arts, Foodie, Healthcare, Hikers, LGBTQ, Sports Fans |
-| index.html | Quiz engine, landing structure, PUBLISHED_PROFILES map | GitHub repo (lauriekwaller-lgtm/retire-me-here) | Source of truth for what profiles are live |
-| sitemap.xml | Search engine discovery | GitHub repo | Edit the live repo version, not the project copy (which goes stale) |
-| cities/*/  | Profile pages | GitHub repo | One folder per city slug |
-| pick-and-compare.html | Interactive city compare | GitHub repo | Embeds full city dataset as inline JSON |
+| BUDGET-METHODOLOGY.md | Budget formula and sources | Project knowledge only | Current: v1.0 (June 16 2026) |
+| MEDIAN-HOME-METHODOLOGY.md | Citywide-default rule, NRC list, callout requirement | Project knowledge only | Current: v1.2. Upstream of budget; Typical Home Values feed BUDGET-METHODOLOGY.md. |
+| MEDIAN-HOME-LABEL-CONVENTIONS.md | (Deprecated) | Project knowledge only | Retired with MEDIAN-HOME-METHODOLOGY.md v1.2. Slated for deletion. NRC callout markup now lives in PROFILE-FORMATTING.md v1.2. |
+| MEDIAN-HOME-AUDIT-REFERENCE.md | Audit history and annual refresh playbook | Project knowledge only | Aligned with v1.2 |
+| PROFILE-FORMATTING.md | Profile-page formatting standard (light-mode lock, cost-strip alignment, em-dash policy, NRC callout structure, bolding convention) | Project knowledge only | Current: v1.2 (June 29 2026). Canonical reference profile: cities/st-louis/profile.html |
+| GUIDE-METHODOLOGY-DECISIONS.md | Scoring decisions across guides | Project knowledge only | |
+| HUM-HEAT-Scoring-Guide.md | Humidity and heat scoring rubric | Project knowledge only | |
+| *-cities-scoring-analysis.md (7 files) | Per-guide scoring analysis | Project knowledge only | Active, Arts, Foodie, Healthcare, Hikers, LGBTQ, Sports Fans. Authoritative for landing-page placement decisions. |
+| index.html | Quiz engine, landing structure, PUBLISHED_PROFILES map, CITIES array | GitHub repo (lauriekwaller-lgtm/retire-me-here) | Source of truth for what profiles are live and for the v15.1 city data shown on the quiz |
+| sitemap.xml | Search engine discovery | GitHub repo only | Always edit the live repo version. Never edit a stale project copy. |
+| cities/*/profile.html | Profile pages | GitHub repo | One folder per city slug |
+| compare-retirement-cities.html and *-vs-*-retirement.html | Comparison pages | GitHub repo | Derived from CityDatabase; rebuild from current data, not prior page versions |
 | pin-studio.html | Pinterest pin generator | GitHub repo | Uses localStorage to persist field inputs |
-| This document (SITE-OPERATIONS-LOG.md) | Operations and handover | Project knowledge + repo | Update at the time of the work, not later |
+| visit-before-you-decide.html | Scouting-trip pillar page | GitHub repo | Anchors the affiliate integration; links from every Visit block |
+| scouting-trip-workbook.html + .pdf | MailerLite lead magnet (planning workbook) | GitHub repo | Downloadable PDF gated via MailerLite form |
+| affiliate-policy.html | Affiliate disclosure page | GitHub repo | Footer link; states commission model and honest-alternatives framing |
+| This document (SITE-OPERATIONS-LOG.md) | Operations and handover | Project knowledge only | Update at the time of the work, not later |
+
+**Storage convention.** Methodology and reference docs live in project knowledge only, not in GitHub. The live site does not serve them and dual copies drift. Keeping a single canonical copy in project knowledge prevents the v1.0/v1.1 confusion that occurred during the v15.1 transition.
+
+### 4a. Canonical source rule (adopted July 12, 2026)
+
+**The GitHub repo is the single source of truth for every file. Nothing lives in two places.**
+
+| Where | What lives there |
+|---|---|
+| `docs/` in the repo | Every governing `.md` document and the current `CityDatabase_*.xlsx`. This is canonical. |
+| Project knowledge | Nothing that also exists in the repo. Working copies only, treated as disposable. |
+| Live site files | `raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main/<path>`. Always pull fresh. Never trust a cached or documented copy. |
+
+**Why the repo and not project knowledge.** Git gives version history; project knowledge does not. The database moved from v15.1 to v16.1 with nothing recording it, which is how St. Paul ended up correct in four places and wrong in a fifth. Project-knowledge files can also change silently mid-session. A source of truth that can change without a record is not a source of truth.
+
+**Reading rule for any session, human or model.** Pull the file live from the repo. Do not read a project-knowledge copy of anything that also exists in the repo. On July 12, 2026, all fifteen HTML files then in project knowledge were checked against live: fifteen of fifteen were stale. They have been removed and must not be re-added.
+
+**Only one copy of a governing doc may exist.** If you find two, stop and reconcile before doing anything else. Do not assume the newer-looking one is newer. On July 12, 2026, four documents had diverged: three were ahead in project knowledge and one was ahead in the repo.
+
+**When the database version changes**, in the same commit: add the new xlsx to `docs/`, delete the superseded one, update `DEFAULT_DB` at the top of `tools/validate.py`, and record it in the change log below.
+
+---
 
 ## 5. Version conventions
 
-**Database files** follow the pattern `CityDatabase_<Month>_<Day>_v<N>.xlsx`. The version number is canonical; the date is informational. Each rebuild bumps v.
+**Database files** follow the pattern `CityDatabase_<Month>_<Day>_v<N>.xlsx`. The version number is canonical; the date is informational. Each rebuild bumps v. A point-release (for example v15.1) indicates a methodology or formula change within the same annual cycle. A trailing point-point release (v15.1.1) indicates a single-city data correction that does not warrant a full recompute.
 
 **Audit files** are dated, not versioned: `Budget-Audit-<Month>-<Day>-<Year>.xlsx`. One audit file per rebuild.
 
-**Methodology docs** carry a version number in the footer (e.g., "v1.0 — June 16, 2026"). Bump the major version for any formula change, minor version for source refreshes.
+**Methodology docs** carry a version number in the footer (for example "v1.2 — June 29, 2026"). Bump the major version for any formula change, minor version for source refreshes.
 
 **Profile HTML files** are not versioned; the GitHub commit history serves that role.
 
@@ -84,18 +114,20 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 1. Confirm the city is in the current DB and has all 10 dimension scores plus budget data.
 2. Source three photos: hero 1600×899, detail 1600×2133 (portrait), lifestyle 1280×1280 (square). Vet for licensing and editorial fit.
-3. Build the profile HTML matching the established template (use a recent profile as the reference).
-4. Update PUBLISHED_PROFILES in index.html (key = `cityName_state`).
-5. Update sitemap.xml with the new URL.
-6. Fix reciprocal landing-page links if the city's card isn't already on relevant landing pages.
-7. Submit URL to Search Console for indexing.
-8. Log in Section 7 below.
+3. Build the profile HTML matching PROFILE-FORMATTING.md v1.2 (canonical reference: `cities/st-louis/profile.html`). Ensure zero em-dashes in rendered content per the em-dash policy.
+4. If the city qualifies for NRC treatment (see MEDIAN-HOME-METHODOLOGY.md v1.2 for the current 10-city list and the editorial rationale), include the Neighborhood Reality Check callout per PROFILE-FORMATTING.md v1.2.
+5. Add a Visit Before You Decide block above `<!-- QUIZ CTA -->` with city-specific hook, neighborhoods, hospital, and Expedia/Vrbo affiliate codes generated from Creator Hub.
+6. Update PUBLISHED_PROFILES in index.html (key = `cityName_state`).
+7. Update sitemap.xml with the new URL.
+8. Fix reciprocal landing-page links if the city's card isn't already on relevant landing pages.
+9. Submit URL to Search Console for indexing.
+10. Log in Section 7 below.
 
 ### SOP-2: Budget recompute (quarterly trigger)
 
 1. Pull current Freddie Mac PMMS rate.
 2. Open the current Budget-Audit file's Formula Inputs sheet, update the mortgage rate constant.
-3. Run the formula across all 100 cities (Python notebook, see `budget-recompute.ipynb` in project knowledge once created).
+3. Run the formula across all 99 cities (Python notebook).
 4. Spot-check 5 cities (one per tier) for sanity. If reasonable, proceed.
 5. Generate new Budget-Audit-<date>.xlsx.
 6. Update BUDGET-METHODOLOGY.md snapshot date and rate value.
@@ -107,10 +139,10 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 1. Run SOP-2 first to refresh the mortgage rate.
 2. Pull November Medicare Part B/D announcement values, update healthcare constants.
-3. Pull current USDA Cost of Food at Home (Moderate Plan, age 51–70 couple).
+3. Pull current USDA Cost of Food at Home (Moderate Plan, age 51-70 couple).
 4. Pull current BLS Consumer Expenditure Survey 65+ data for utilities and discretionary baselines.
-5. Pull fresh Zillow ZHVI snapshot for Median Home values. Re-source archetype basket submarkets at the same time (per MEDIAN-HOME-METHODOLOGY.md).
-6. Review Median Home Basis assignments. Flag any city where the basis should shift (Citywide → Archetype basket or vice versa). Tampa and Charleston are pre-flagged for this review.
+5. Pull fresh Zillow ZHVI snapshot for all 99 cities. For the 10 NRC cities, also re-pull ZHVI for the named retiree-target neighborhoods and reconfirm the citywide-vs-neighborhood gap remains editorially significant enough to warrant the callout (per MEDIAN-HOME-METHODOLOGY.md v1.2).
+6. Review whether any non-NRC city's neighborhood premium has grown enough to warrant adding it to the NRC list. Check borderline cases (currently Tampa and Charleston SC are the closest to the editorial threshold).
 7. Update KFF Medigap state-level data.
 8. Generate new audit file and database version.
 9. Update BUDGET-METHODOLOGY.md to v(N+1). Update MEDIAN-HOME-METHODOLOGY.md if any methodology refinement occurred.
@@ -120,60 +152,116 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 ### SOP-4: Deploy a database update
 
 1. Drag-drop the new DB file into the GitHub repo, replacing the prior version (rename if filename changed).
-2. If quiz logic depends on Budget Range tier boundaries, edit BUDGET_OPTIONS array in index.html.
-3. Commit. Netlify auto-deploys.
-4. Verify on production: load index.html, run the quiz, confirm budget tier matches.
-5. Submit Search Console indexing request for any page with materially changed copy.
+2. Refresh the CITIES array in index.html with the new monthlyEst, medianHome, and budgetRange values for all cities.
+3. Refresh profile stat cards for any city whose Typical Home Value or Monthly Budget changed.
+4. If quiz logic depends on Budget Range tier boundaries, edit BUDGET_OPTIONS array in index.html.
+5. Commit. Netlify auto-deploys.
+6. Verify on production: load index.html, run the quiz, confirm budget tier matches.
+7. Submit Search Console indexing request for any page with materially changed copy.
+
+### SOP-5: Batch profile edit via Codespaces (bulk operations)
+
+1. Open Codespaces on main. Run `git status` and `git pull origin main` to confirm clean sync.
+2. Upload the change bundle (zip of modified files organized as `cities/<slug>/profile.html`) into the workspace file panel.
+3. `unzip -o <bundle>.zip` from the terminal to overwrite target files in place.
+4. `rm <bundle>.zip`, then `git status` to confirm expected modification count and no stray untracked files.
+5. Spot-check one or two diffs with `git diff cities/<slug>/profile.html | head -30`.
+6. `git add cities/`, `git commit -m "<descriptive scoped message>"`, `git push origin main`.
+7. Watch Netlify deploy log; verify on production in an incognito window.
+8. Log in Section 7.
 
 ## 7. Change log
 
+### 2026-07-12 — Source-of-truth reconciliation and site validator
+
+**Problem.** Governing documents existed in two places, `docs/` in the repo and project knowledge, and had silently diverged. Four of thirteen did not match, and the direction of staleness was not consistent: `MEDIAN-HOME-METHODOLOGY.md` (repo v1.1 vs project v1.2), `PROFILE-FORMATTING.md` (repo v1.3 vs project v1.4), and `SITE-OPERATIONS-LOG.md` (repo June 19 vs project June 29) were behind in the repo, while `GUIDE-METHODOLOGY-DECISIONS.md` was behind in project knowledge, missing its June 7 addendum entirely. Separately, all fifteen HTML files in project knowledge were stale against the live site.
+
+**Resolution.** Adopted the canonical source rule in section 4a: the repo is the single source of truth, `docs/` holds every governing doc and the current database, and project knowledge holds nothing that also exists in the repo. Reconciled the four diverged documents file by file. Removed all HTML from project knowledge.
+
+**Files updated in `docs/`:** `MEDIAN-HOME-METHODOLOGY.md` to v1.2, `PROFILE-FORMATTING.md` to v1.4, `SITE-OPERATIONS-LOG.md` to the June 29 base plus this entry. `GUIDE-METHODOLOGY-DECISIONS.md` was already current in the repo and was left alone.
+
+**Files removed:** `docs/CityDatabase_Jun_19_v15_1 (1).xlsx` (superseded by v16.1; leaving both invites a future session to read the wrong one). `data/` folder (redundant; the validator reads the xlsx already in `docs/`).
+
+**Files added:** `tools/validate.py`, `tools/README.md`.
+
+**Validator.** Checks every live page against the current database in seven groups: figures (the `CITIES` array and `CITY_ENRICHMENT` modal prose in `index.html`), profiles, routing, cards, superlatives, em-dash policy, and database hygiene. Exit code 1 on failure, so it can gate a deploy. Run `python3 tools/validate.py` before every deploy.
+
+**First run: 163 failures, 45 warnings.** 143 in `index.html` (the quiz results modal, the largest single exposure on the site), 21 across profile pages, 10 on landing cards, 1 database hygiene. Routing and em-dash both clean. Remediation queued as Passes A through D.
+
+**Notable errors surfaced.** Fort Myers claims to be "the most affordable Gulf Coast entry we cover" in five separate places; it is false, since Corpus Christi ($219K) and Pensacola ($264K) are both cheaper. Pensacola carries the same failure mode: a true scoped claim ("most affordable Florida city") restated elsewhere with the scope dropped ("most affordable city in our coverage"), which is false, as Paducah is cheapest at $185K. The superlative check exists to catch exactly this class of error and reports it as a warning for human judgment, because scope is editorial.
+
+**Open decision.** The em-dash policy is recorded as site-wide but is enforced only on profiles and comparison pages, which are clean. The guides and landing pages carry 294 em-dashes in rendered text and have never been swept. `tools/validate.py` has a `GUIDES_TOO` flag, currently `False`, matching actual practice. Either amend `PROFILE-FORMATTING.md` to scope the rule to profiles and comparison pages, or schedule the fifteen-file guide sweep. The doc and the practice must be made to agree.
+
+
 Reverse chronological. Add to the top of this list as work happens.
 
-### 2026-06-19 — Median Home methodology v1.1 + v15.1 database transition
-**What:** Replaced multi-basis Median Home methodology (Citywide / Archetype / Neighborhood) with citywide-default + Median Honesty Rule. Generated CityDatabase_Jun_19_v15_1.xlsx with citywide medians for 97 cities and 2 range exceptions (Wilmington DE, St. Paul MN). Recomputed Monthly Est for all 99 cities. Updated index.html with new BUDGET_OPTIONS boundaries and refreshed all 99 city card data fields.
-**Why:** The v1.0 multi-basis methodology proved harder to defend than the problem it solved. Archetype basket composition was prone to over-premium-weighting (Tampa basket included Brandon/Riverview, which are separate municipalities) and inadvertent skew. Single-MEAN output for cities with genuine geographic income polarization (Memphis, Philadelphia, Pittsburgh, St. Louis) compressed real ranges into single points that misled in the opposite direction. Citywide + visible callouts is the simpler, defensible answer.
-**Files updated:**
-- MEDIAN-HOME-METHODOLOGY.md → v1.1 (citywide-default, Median Honesty Rule, 8 callout cities listed)
-- CityDatabase_Jun_19_v15_1.xlsx (replaces v14; 99 cities, Henderson NV collapsed into Las Vegas)
-- index.html (BUDGET_OPTIONS, BUDGET_LABELS, budgetLabels, quiz subtitle PITI framing, console.log, 99 city data fields, 7 Range-number prose fixes)
-**Files added:**
-- v14-to-v15_1-audit-log.xlsx (per-city delta log + tier distribution + callout cities reference)
-- V15_1-TRANSITION-CHECKLIST.xlsx (tracking artifact for outstanding work; delete when all rows ✅)
-**Files retired:**
-- MEDIAN-HOME-METHODOLOGY.md v1.0 (replaced)
-- MEDIAN-HOME-AUDIT-REFERENCE.md (12 refinements specific to v1.0 multi-basis approach; obsolete)
-- MEDIAN-HOME-LABEL-CONVENTIONS.md (basis labeling no longer applicable under v1.1)
-**Tier boundaries (v15.1 final, applied to index.html quiz):** R1 Under $5,500/mo | R2 $5,500–$6,499 | R3 $6,500–$7,499 | R4 $7,500–$8,999 | R5 $9,000+. Distribution: 30 / 31 / 20 / 10 / 8 = 99.
-**Median Honesty Rule (new):** 8 cities (Memphis, Philadelphia, Pittsburgh, St. Louis, New Orleans, Columbus, Kansas City, Tampa) require above-fold Neighborhood Reality Check callout because retiree-target neighborhoods run >50% above citywide median. These cities must not be described as "affordable" in any site copy without the callout context attached.
-**Quiz subtitle reframed:** "Total monthly cost for a couple — housing (mortgage, property taxes, homeowners insurance), healthcare, utilities, food, transportation, and lifestyle." Replaces incomplete 4-category framing.
-**Henderson NV collapsed into Las Vegas:** Henderson row removed from database; Las Vegas profile narrative absorbs the Henderson context. Database sits at 99 cities.
-**Outstanding work:** Profile copy pass (35 live profiles), Neighborhood Reality Check callouts (8 cities), index.html prose review (60 tier-shift cities), thematic landing page copy review, value-navigator.html review, comparison pages, Pinterest pin review. Tracked in V15_1-TRANSITION-CHECKLIST.xlsx.
-**Future methodology items deferred:** HOA fees in budget formula, home maintenance line, range-city midpoint documentation. Tracked in checklist sheet 6.
+### 2026-06-29 — Florida Visit blocks + line update to Asheville, Boulder, Bend
+**What:** Two changes shipped as one deploy (12 modified profiles).
 
-### 2026-06-17 — Median Home methodology v1.0 established
-**What:** Established the canonical methodology for Median Home values across all 100 cities. Introduced the archetype framework, five-question inclusion test, and per-city basis documentation requirement.
-**Why:** The June 16 budget methodology audit surfaced a deeper inconsistency. Eight cities used a retiree-target neighborhood basis (per Scoring Rubric v3.2) while the other 92 used citywide medians, even where the citywide figure misrepresents the retiree experience (Miami being the obvious example). The methodology was inconsistent and editorially debatable on a city-by-city basis, which is unsustainable for a credibility-first brand. Standardizing the framework now, before traffic scales, was the right window.
-**Files added:** MEDIAN-HOME-METHODOLOGY.md (v1.0).
-**Core principle:** Median Home represents what a financially-secure relocating retiree would pay across the realistic spectrum of submarkets they would consider. Two valid bases: Citywide (small towns and explicit retiree destinations) or Archetype basket (metros with significant internal price variation).
-**Archetype framework:** Five standard archetypes (urban walkable, established premium suburb, newer amenity-rich suburb, value/entry-level, active-adult community), plus up to one city-specific archetype where genuinely distinct. One representative submarket per archetype; basket capped at 5 picks. Simple arithmetic mean across the basket.
-**New database columns required (in v15):** Median Home Basis ("Citywide" or "Archetype basket") and Median Home Source (citywide source + date, or comma-separated submarket list).
-**Key distinction:** The methodology governs back-office computation only. Editorial content on profile pages remains unconstrained by archetype caps; profile pages can name as many neighborhoods as local credibility warrants.
-**Pre-flagged for next-rebuild review:** Tampa and Charleston as candidates for basis shift from Citywide to Archetype basket as their metros continue to bifurcate.
-**Audit pass status:** Pending. Order of operations confirmed: Median Home audit → corrected values → v15 budget recompute → database generation → quiz boundary update → page copy diff → one coherent deploy.
+First, deployed **9 Florida Visit Before You Decide blocks** on Miami, Naples, Delray Beach, Fort Myers, Pensacola, Sarasota, St. Augustine, St. Petersburg, and Tampa. Each block follows the established 5-paragraph pattern (city-specific hook / neighborhoods + hospital / Expedia link / Vrbo link / disclaimer) inserted between the closing `</section>` of the prior block and the `<!-- QUIZ CTA -->` marker. Hooks are tailored per city, leading with what's genuinely real about the place, then framing the honest test the visit should run. Each block carries a unique Expedia and Vrbo affiliate code generated in Creator Hub.
+
+Second, applied a **paragraph-2 line update to all 12 Visit blocks** (the 9 new plus the 3 existing on Asheville, Boulder, Bend). The closer changed from *"Do the boring things you'd do as a resident, not the things you'd do as a tourist."* to *"Test the daily routine, not the highlight reel."* Removed the standalone "Price a grocery run." sentence from Boulder and Bend to eliminate redundancy with the new closer. All 12 paragraph 2s now follow the same rhythm.
+
+**Files touched:** 12 profile HTML files (9 Florida + Asheville, Boulder, Bend); one commit.
+**Total Visit blocks live:** 12 of 38 profiles.
+
+### 2026-06-28 — Em-dash sweep across 36 profiles
+**What:** Applied PROFILE-FORMATTING.md v1.1 em-dash policy retroactively to all previously-legacy profiles. 1,391 em-dashes substituted, zero remaining in rendered zones. Substitution rules applied by context: colon for the label + amplification patterns (cost-strip, stat-sub, section-eyebrow, fast-fact-desc, list-card-tier, section-title, day-activity, hero-tagline single-em-dash), colon for page-title patterns (`<title>`, JSON-LD `headline`, og:title), `, and` for compound-list closers, period + capitalize for genuine independent-clause conjunctions, comma for the default parenthetical majority, and en-dash for day-time placeholders. CSS and HTML comments preserved untouched (207 em-dashes remain there per policy).
+**How:** Batch Python script in Codespaces with per-profile diff review; validated tag balance and JSON-LD parse across all 36 files.
+**Files touched:** 36 profile HTML files (Asheville was already clean and excluded from the bundle); one commit.
+
+### 2026-06-24 — PROFILE-FORMATTING.md v1.1 (em-dash policy added)
+**What:** Added the em-dash policy section codifying zero em-dashes in rendered content, with substitution guidance (period / comma / colon / parentheses in that preference order). Applied to Miami, Asheville, Boulder, Bend as pilot profiles.
+
+### 2026-06-23 — MEDIAN-HOME-METHODOLOGY.md v1.2 + St. Paul refresh + LABEL-CONVENTIONS deprecation
+**What:** Three related changes.
+
+First, **methodology to v1.2.** Unified all 99 cities under a single Typical Home Value display pattern: single citywide ZHVI figure. Retired the two-city range-string exception (Wilmington DE and St. Paul MN previously carried a range format). Retired the quantitative 50%-gap threshold for the "Median Honesty Rule"; replaced with editorial judgment about when the citywide-vs-neighborhood gap is significant enough to warrant a Neighborhood Reality Check callout. Expanded the NRC list from 8 to 10 by adding St. Paul MN and Wilmington DE.
+
+Second, **St. Paul refresh to the Memphis pattern.** Updated the St. Paul profile from range-string display ($297K in citywide ZHVI stat card, NRC callout naming Highland Park, Macalester-Groveland, Summit Hill, St. Anthony Park at $415K-$550K).
+
+Third, **MEDIAN-HOME-LABEL-CONVENTIONS.md deprecated.** The NRC callout markup and copy conventions moved into PROFILE-FORMATTING.md. Doc slated for deletion from project knowledge.
+
+### 2026-06-23 — Visit Before You Decide pillar + Expedia Group affiliate integration
+**What:** Shipped the standalone scouting-trip pillar page (`visit-before-you-decide.html`) and integrated the Expedia Group Travel Creator Program affiliate links (Expedia, Hotels.com, Vrbo) into the pillar page and into three sample profiles (Asheville, Boulder, Bend). Commission routing via Partnerize (last-click, 7-day cookie, $30 minimum payout). Also shipped `affiliate-policy.html` in the footer and applied for Booking.com through Awin as a secondary channel.
+
+Also shipped `scouting-trip-workbook.html` and `scouting-trip-workbook.pdf` as a MailerLite-gated lead magnet (form ID for the Scouting Workbook capture wired into the pillar page).
+
+### 2026-06-22 — Site polish batch: auto-open removal and Memphis wiring
+**What:** Two related fixes shipped same day.
+
+First, removed the inline `DOMContentLoaded` listener that auto-opened one Deep Dive guide form on every profile page load. The original rationale was "so the section never sits empty," but the auto-opened form pushed useful content below the fold. The chip row and `pickGuide` click handler remain; forms now open only on explicit click.
+
+Second, wired Memphis into the live site. The profile had been built in an earlier session and committed to the repo but was never added to PUBLISHED_PROFILES, leaving it unreachable from the site. Added `Memphis_TN` to the map and inserted a sitemap entry.
+
+**How:** Auto-open removal was a single regex find-and-replace in GitHub Codespaces across `cities/**/profile.html`, applied as one commit (37 files modified). Memphis wiring was a separate two-file upload (index.html + sitemap.xml) committed together.
+**Files touched:** All 37 profile HTML files; index.html (PUBLISHED_PROFILES); sitemap.xml.
+
+### 2026-06-21 — Median Home methodology v1.1 + v15.1 database ship + profile formatting v1.0
+**What:** Three coordinated changes that complete the v15 transition.
+
+First, **methodology reversal to v1.1.** The archetype basket framework from v1.0 (June 17) was retired after the full audit (Batches 1-4, all 99 cities) revealed systematic over-premium-weighting and a Refinement #2 violation in the Tampa basket (Brandon and Riverview included despite being separate municipalities). Replaced with a single rule: citywide Zillow ZHVI as a single Typical Home Value figure for 97 of 99 cities, range format preserved for 2 cities (Wilmington DE, St. Paul MN), plus a Median Honesty Rule for 8 cities (Memphis, Philadelphia, Pittsburgh, St. Louis, New Orleans, Columbus, Kansas City, Tampa, all drawn from the 97 single-figure set) requiring an above-fold Neighborhood Reality Check callout.
+
+Second, **v15.1 database shipped.** `CityDatabase_Jun_19_v15_1.xlsx` generated. Database structure: 99 cities total (Henderson NV collapsed into Las Vegas, reducing from 100 to 99). 97 cities show citywide Zillow ZHVI as a single Typical Home Value figure. 2 cities (Wilmington DE, St. Paul MN) preserve a range format anchored to verified neighborhood ZHVIs. Monthly Est recomputed for all 99 cities using BUDGET-METHODOLOGY.md's mortgaged-buyer formula at 6.52% PMMS with 20% down. `index.html` updated with new BUDGET_OPTIONS tier boundaries ($5,500 / $6,500 / $7,500 / $9,000), refreshed CITIES array data for all 99 cities, and quiz subtitle reframed to explicit PITI plus six-category framing.
+
+Third, **PROFILE-FORMATTING.md v1.0 adopted.** Canonical reference profile is `cities/st-louis/profile.html`. Six mechanical fixes required per profile: light-mode CSS lock, cost-strip alignment, label-only bolding in cost strip, hood-card hover wrapped in `@media (hover: hover)`, week-intro paragraph deleted, structured bolding pass (1-2 topic-sentence whole-clause bolds per character section). All 36 currently-live profiles brought to v1.0.
+
+**Files added or updated:** MEDIAN-HOME-METHODOLOGY.md (v1.1, supersedes v1.0); MEDIAN-HOME-LABEL-CONVENTIONS.md (aligned with v1.1); MEDIAN-HOME-AUDIT-REFERENCE.md (transitioned from audit playbook to historical record plus annual refresh playbook); PROFILE-FORMATTING.md (v1.0); CityDatabase_Jun_19_v15_1.xlsx (new); index.html (updated); 36 profile files (formatting v1.0 pass).
+**Files retired:** archetype basket framework in v1.0 of MEDIAN-HOME-METHODOLOGY.md; per-city archetype basket details in v1.0 of MEDIAN-HOME-AUDIT-REFERENCE.md and MEDIAN-HOME-LABEL-CONVENTIONS.md. Superseded content preserved in `MedianHomeAuditMASTER.xlsx` for institutional memory.
+
+### 2026-06-17 — Median Home methodology v1.0 established (superseded June 21)
+**What:** Original archetype basket framework for Median Home values. See appendix in MEDIAN-HOME-METHODOLOGY.md v1.1 for the full superseded record.
+**Status:** Superseded by v1.1 on June 21, 2026. Retained in change log for institutional memory.
 
 ### 2026-06-16 — Budget methodology v1.0 established
 **What:** Replaced legacy Monthly Est numbers (no documented source) with a transparent mortgaged-buyer formula. All 100 cities recomputed.
-**Why:** Original numbers had no audit trail and produced inconsistent results at the low end (Johnson City's $2,500–$3,200 didn't cover Medicare + housing for a couple with a mortgage). Path 2 chosen: full recompute with documented sources.
+**Why:** Original numbers had no audit trail and produced inconsistent results at the low end.
 **Files added:** BUDGET-METHODOLOGY.md (v1.0), Budget-Audit-Jun-16-2026.xlsx.
-**Files pending update:** CityDatabase_*_v15.xlsx (replace v14), index.html (quiz BUDGET_OPTIONS), several published pages (value-navigator.html, Johnson City and Casper profiles, affordability-themed star tags).
 **Key inputs:** Freddie Mac PMMS 6.52% (06/11/2026), CMS Medicare Part B $202.90 (2026 standard), CMS Part D $38.99 (2026 national avg), KFF Medigap state variance, BLS Consumer Expenditure Survey 65+ baselines.
-**Tier boundaries changed:** Old (Under $3,500 / $3,500-4,500 / $4,500-6,000 / $6,000-8,000 / $8,000+) → new (Under $5,500 / $5,500-6,500 / $6,500-7,500 / $7,500-9,000 / $9,000+).
-**Watch list:** 12 cities flagged for editorial review, especially Miami (Median Home blend question), Portland ME and New Orleans (2-tier moves).
-**Decided:** Cash-buyer toggle as future enhancement, not built now.
-**Follow-up:** Audit revealed a deeper Median Home methodology inconsistency. Addressed June 17 in MEDIAN-HOME-METHODOLOGY.md. v15 database generation now waits on the Median Home audit pass to avoid shipping the budget recompute twice.
+**Tier boundaries changed:** Old ($3,500 / $4,500 / $6,000 / $8,000) → new ($5,500 / $6,500 / $7,500 / $9,000). Quiz BUDGET_OPTIONS deployed in v15.1.
 
 ### Pre-2026-06-16 — Database evolution (incomplete record)
-The database progressed through versions ending at CityDatabase_Jun_9_v14.xlsx. The full history was not logged; this is the institutional reset point. Future versions will be tracked from v15 forward.
+The database progressed through versions ending at CityDatabase_Jun_9_v14.xlsx. The full history was not logged; this is the institutional reset point. Future versions are tracked from v15 forward.
 
 ## 8. Open items and future enhancements
 
@@ -181,36 +269,43 @@ Not commitments. Things worth doing when time and traffic justify.
 
 | Item | Priority | Trigger to start | Notes |
 |---|---|---|---|
-| Median Home audit pass (all 100 cities) | ~~High~~ ✅ | ~~Now (gates v15)~~ Done 2026-06-19 | Completed and superseded. Methodology shifted to citywide-default (v1.1). v15.1 database deployed. |
-| Publish Pensacola profile | High | Now | Built but not yet live. Add to sitemap and PUBLISHED_PROFILES. Do not pin until published. |
-| Quiz BUDGET_OPTIONS update | ~~High~~ ✅ | ~~With v15 deploy~~ Done 2026-06-19 | Updated in v15.1 transition. Quiz boundaries now $5,500 / $6,500 / $7,500 / $9,000. |
-| Page copy diff (value-navigator, affected profiles) | High | In progress | Tracked in V15_1-TRANSITION-CHECKLIST.xlsx. Profile copy pass + thematic landing pages outstanding. |
-| Tampa Median Home basis review | ~~Medium~~ ✅ | ~~Next annual rebuild~~ Done 2026-06-19 | Reviewed during v15 audit. Archetype basket considered then rejected; Tampa stays Citywide with Neighborhood Reality Check callout (43% gap, borderline). |
-| Charleston SC Median Home basis review | Medium | Next annual rebuild (June) | Candidate to shift Citywide → Archetype basket. Mount Pleasant, Daniel Island, West Ashley diverging from Charleston proper. |
-| Florida hub cluster | Medium | After v15 deploys cleanly | Previously identified as high-traffic opportunity |
+| 26 non-Florida Visit blocks | High | When affiliate codes generated | Remaining profiles for the Visit Before You Decide rollout. Each needs a unique Expedia and Vrbo code from Creator Hub. |
+| Chip nav "Visit" tab activation | Medium | After all 38 profiles have Visit blocks | Currently parked to avoid broken anchors. Flip on after Visit block coverage is complete. |
+| Delete deprecated MEDIAN-HOME-LABEL-CONVENTIONS.md from project knowledge | Low | Any time | Superseded by MEDIAN-HOME-METHODOLOGY.md v1.2 and PROFILE-FORMATTING.md v1.2. Slated for deletion. |
+| value-navigator.html copy review | Medium | When ready | Budget references and "most affordable" framing for any tier-shift impacts from v15.1. |
+| Thematic landing page review for tier-shift impacts | Medium | When ready | Seven landing pages: foodies, healthcare, arts, sports, hikers, LGBTQ, active retirees. |
+| Comparison page review for v15.1 dollar updates | Medium | When ready | 13 comparison pages quote dollar figures that may have shifted. |
+| /methodology.html ship | Medium | When ready | Public-facing methodology page. Draft content in MEDIAN-HOME-METHODOLOGY.md v1.2 appendix. |
+| Memphis Healthcare landing page placement | Medium | When ready | Tier 1 or Tier 2 decision, per Healthcare Confidence Index rubric. |
+| Tampa NRC continuation review | Annual | Next June rebuild | Confirm continued inclusion under editorial gap threshold. |
+| Charleston SC NRC consideration | Annual | Next June rebuild | Mount Pleasant, Daniel Island, West Ashley diverging from Charleston proper. Recheck editorial significance. |
+| Florida hub cluster page | Medium | After remaining Florida Visit blocks and pillar SEO signals | Previously identified as high-traffic opportunity |
+| South regional pillar page | Medium | After Memphis Healthcare placement | Memphis currently has no regional pillar home. |
 | Cash-buyer toggle / page | Low | Traffic signal or affiliate ask | Adds reach to readers funding moves from prior home sale |
 | Independent-living scoring dimension | Low | After current methodology stabilizes | Differentiation moat |
 | HOA-inclusive variant for Sun City / Villages / Naples | Low | If reader feedback warrants | Could be a per-city note rather than a database column |
 | State-by-state Medigap precision | Low | Annual rebuild cycle | Replace coarse 5-bucket modifier with KFF state-level data |
-| Reconcile index.html CITIES array against database | Medium | Next major code touch | Manual sync risk |
 | Frisco TX placement audit | Low | When refreshing landing pages | Was previously flagged for evaluation |
+| Stat card score labels (dimension eyebrows) | Low | Future design pass | Scores currently render as `10/10` without dimension eyebrow labels. |
+| Healthcare landing page toggle affordance | Low | Future design pass | Toggle not obvious enough; to be addressed separately. |
+| Methodology disclosure block portability | Low | Future design pass | `.methodology-block` CSS pattern designed to port to all seven landing pages. |
 | Display ad activation | Triggered | First affiliate contract | Containers deployed, switches off |
-| Affiliate placeholders activation | Triggered | First contract signed | In place, ready |
-| Trademark filing + LLC formation | Triggered | First affiliate contract | USPTO search confirmed zero conflicting marks |
+| LLC and business banking | Triggered | Revenue signal or contract complexity | Revisit when affiliate revenue lands or a contract requires |
+| Trademark filing | Triggered | First affiliate contract | USPTO search confirmed zero conflicting marks |
 
 ## 9. Handover essentials (for a future operator)
 
 If you are reading this because Laurie has handed you the site, start here.
 
-**What this site is.** A retirement-city discovery platform that scores 100 U.S. cities across 10 dimensions, helps readers match via a quiz, and monetizes through SEO-driven affiliate revenue. Credibility and accuracy come first; promotional polish never overrides honesty.
+**What this site is.** A retirement-city discovery platform that scores 99 U.S. cities across 10 dimensions, helps readers match via a quiz, and monetizes through SEO-driven affiliate revenue. Credibility and accuracy come first; promotional polish never overrides honesty.
 
-**What you should not do until you understand the system.** Do not change the database without reading BUDGET-METHODOLOGY.md and GUIDE-METHODOLOGY-DECISIONS.md. Do not add cities to landing pages without verifying they have full DB scores. Do not change tier boundaries or scoring rubrics without documenting in Section 7 above. Do not pin cities to Pinterest before their profile page is live and in the sitemap.
+**What you should not do until you understand the system.** Do not change the database without reading BUDGET-METHODOLOGY.md and MEDIAN-HOME-METHODOLOGY.md. Do not add cities to landing pages without verifying they have full DB scores and without consulting the corresponding *-cities-scoring-analysis.md document. Do not change tier boundaries or scoring rubrics without documenting in Section 7 above. Do not pin cities to Pinterest before their profile page is live and in the sitemap.
 
 **The single most important habit.** When you do work, log it in Section 7 the same session. The reason this doc exists is that institutional memory disappears when one person carries it all.
 
-**Tools you'll need access to.** GitHub repo `lauriekwaller-lgtm/retire-me-here` (deploy), Netlify (auto-deploys from GitHub), Google Analytics 4 (property G-BTL743DSJQ), Google Search Console, Microsoft Clarity, MailerLite (email capture, form IDs in project knowledge), Pinterest business account, Zillow Research portal (for Median Home refresh), Freddie Mac PMMS (for mortgage rate), CMS.gov (for Medicare premiums).
+**Tools you'll need access to.** GitHub repo `lauriekwaller-lgtm/retire-me-here` (deploy), Netlify (auto-deploys from GitHub), Google Analytics 4 (property G-BTL743DSJQ, tracked under "Destination Retired" account name), Google Search Console, Microsoft Clarity, MailerLite (email capture, form IDs in project knowledge), Pinterest business account, Zillow Research portal (for ZHVI refresh), Freddie Mac PMMS (for mortgage rate), CMS.gov (for Medicare premiums), Expedia Group Creator Hub (affiliate link generation), Partnerize (commission dashboard).
 
-**Where the work happens.** Editing is primarily through GitHub's web interface. For repo-wide operations that github.dev cannot handle (large refactors, bulk file moves), use GitHub Codespaces. Laurie works heavily on iPad and iPhone, so the patterns here favor lightweight web tooling over a local dev environment.
+**Where the work happens.** Editing is primarily through GitHub's web interface. For repo-wide operations that github.dev cannot handle (large refactors, bulk file moves, batch profile edits), use GitHub Codespaces from a Mac laptop. See SOP-5 for the batch-edit workflow.
 
 **Decisions a new operator can make autonomously.** Routine refreshes following the SOPs above. Photo refreshes. Copy edits that don't change scoring. Pinterest content. Small UI polish.
 
@@ -218,6 +313,6 @@ If you are reading this because Laurie has handed you the site, start here.
 
 ---
 
-*Site Operations Log v1.1 — June 17, 2026 (revised same-day to incorporate Median Home methodology)*
-*Companion docs: BUDGET-METHODOLOGY.md (v1.0), MEDIAN-HOME-METHODOLOGY.md (v1.0), GUIDE-METHODOLOGY-DECISIONS.md*
+*Site Operations Log v1.3 — June 29, 2026*
+*Companion docs: BUDGET-METHODOLOGY.md (v1.0), MEDIAN-HOME-METHODOLOGY.md (v1.2), MEDIAN-HOME-AUDIT-REFERENCE.md (v1.2), PROFILE-FORMATTING.md (v1.2), GUIDE-METHODOLOGY-DECISIONS.md*
 *Next review: September 2026 (quarterly cycle)*

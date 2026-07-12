@@ -1,11 +1,11 @@
 # PROFILE FORMATTING
 
-**Version:** 1.3
-**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3)
+**Version:** 1.4
+**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4)
 **Supersedes:** `BOLDING-CONVENTION.md` v2.1
 **Canonical reference:** `cities/st-louis/profile.html`
 
-This document captures the settled formatting standard for all city profile pages. It covers (1) the six mechanical format changes applied to every profile, (2) the bolding rules as actually practiced, (3) the em-dash policy, (4) the Neighborhood Reality Check callout structure for NRC cities, and (5) the template structure standards (Visit chip, Deep Dive placement, quiz language).
+This document captures the settled formatting standard for all city profile pages. It covers (1) the six mechanical format changes applied to every profile, (2) the bolding rules as actually practiced, (3) the em-dash policy, (4) the Neighborhood Reality Check callout structure for NRC cities, and (5) the template structure standards (Visit block and its voice, Visit chip, Deep Dive placement, quiz language).
 
 When in doubt, open the St. Louis profile and match its structure.
 
@@ -91,7 +91,23 @@ Every new profile carries a **Visit Before You Decide** block (affiliate slot) a
 
 Affiliate links use per-city Expedia and Vrbo codes (never shared) with `rel="sponsored nofollow"`. Leave `EXPEDIA_CODE_TK` / `VRBO_CODE_TK` placeholders until the codes are generated in Creator Hub.
 
-Gate note: retrofitting the chip onto the older block-less profiles is deferred; those get the chip only when they get a Visit block. New builds get both by default.
+Rollout status: as of July 10, 2026, all 41 published profiles carry a Visit block, per-city Expedia/Vrbo codes, and the Visit chip. The rollout is complete; new builds get all three by default.
+
+### Visit block voice
+
+The Visit block is written to a fixed voice standard, established when the block rolled out across all 41 profiles. The block sells the visit, not the city: the reader is already on the profile and already interested, so the job is to convert that interest into a scouting trip, and the honest, diligence-first framing is what actually motivates a retiree to go. Match the deployed blocks; the canonical example is `cities/st-louis/profile.html`.
+
+Five short paragraphs, in order:
+
+1. **Hook.** Open with the single most concrete, specific, appealing thing about the city: a named credential, a ranking, a signature fact, or a vivid scene, never a generic adjective. Lead with the positive. If the city has a real tradeoff (heat, winters, cost, crime, remoteness), weave it into the second or third sentence, not the opener. Do not open with a template ("A visit is how you..."); every hook opens differently from every other block.
+2. **Neighborhoods + hospital + closer.** Vary the opener (no stock "Base yourself where retirees actually land"). Name the retiree-target neighborhoods (from the profile's own hood cards) and the hospital (from its healthcare section), then send the reader out to test it. End on the canonical closer, verbatim: **"Test the daily routine, not the highlight reel."** This closer is the site's signature sign-off, used on every block; it does not rotate.
+3. **Expedia link.** "Search [City] hotels on Expedia" with the arrow, `rel="sponsored nofollow"`.
+4. **Vrbo lead + link.** A one-line, city-specific rental lead (vary the opener across cities), then "Browse [City] rentals on Vrbo" with the arrow, `rel="sponsored nofollow"`.
+5. **Disclaimer.** The standard FTC line, including the Costco Travel / AAA / price-three-ways note. Italic, verbatim.
+
+Tone test: the set reads confident, not cautionary. Across a run of blocks the hooks lead with the positive and the tradeoffs feel woven in, never front-loaded as a warning per block. Scaffolding must not repeat block to block: unique hook openers, unique neighborhood-paragraph openers, varied rental-line openers. The one intentional refrain is the closer.
+
+NRC cities in the Visit block: for the ten NRC cities, use retiree-target neighborhoods in paragraph 2 (not the citywide median) and make the citywide-versus-neighborhood point, but phrase it freshly each time. Do not repeat a stock line ("the citywide median averages in areas retirees would not target") across cities.
 
 ### Deep Dive Reports block placement
 
@@ -121,6 +137,7 @@ Bolding serves the scanner, a reader who skims on iPad before deciding whether t
 - **Method-callout label**: "Reading the numbers here:".
 - **Cost-strip labels**: Property tax:, Home insurance: (label-only per #3 above).
 - **Health-card named designations**: "Honor Roll" or similar named credentials, when they appear in the health-detail prose.
+- **Visit block, two anchors**: one credential or standout fact in the hook, and the neighborhood names in paragraph 2, and nothing else. Never bold the tradeoff/caveat, the Expedia or Vrbo lines, or the disclaimer; bolding a caveat undoes the block's confident tone. Roughly four to five bolds per block (one hook anchor plus three to four neighborhoods). This is the Visit-block application of the item-6 pass.
 
 ### What gets stripped during a bolding pass
 
@@ -269,6 +286,8 @@ CSS is in the batch additions section of each profile's inline `<style>` block (
 - [ ] `.hood-card:hover` is wrapped in `@media (hover: hover) { ... }`
 - [ ] No `<p class="week-intro">…</p>` in the week-section
 - [ ] Visit block present, with matching Visit chip in the last nav position and `'visit'` in the scroll-spy ids array
+- [ ] Visit block follows the voice standard: unique concrete hook (positive-led, tradeoff woven not front-loaded), varied neighborhood and rental openers, canonical closer verbatim
+- [ ] Visit block bolding: one hook anchor plus neighborhood names only; nothing bolded on the caveat, the Expedia/Vrbo lines, or the disclaimer
 - [ ] Deep Dive Reports block in the lower cluster (after Related Cities), not after the stats bar
 - [ ] Quiz copy says "the quiz" with no question count
 - [ ] No anchor bolds for proper nouns covered in callouts, hood cards, fast-facts, or day-card headlines
