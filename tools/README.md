@@ -37,7 +37,7 @@ you it cannot find the file rather than silently checking against stale data.
 | `profiles` | Profile pages: monthly ranges and citywide home-value claims. |
 | `routing` | `PUBLISHED_PROFILES` ↔ profile files ↔ `sitemap.xml`, all directions. |
 | `cards` | Landing pages: cards still saying "Coming soon" for a live city, stale card figures. |
-| `superlatives` | Every database-wide affordability claim, printed next to the DB's real answer. |
+| `superlatives` | **FAILS** on any superlative scoped to our own dataset (policy, below). **WARNS** on other sweeping claims, printed next to the DB's real answer. |
 | `emdash` | Em-dash policy on profiles and comparison pages. |
 | `db` | Database hygiene: column types, duplicate rows. |
 
@@ -68,3 +68,33 @@ are exactly the sort of thing that gets written once, confidently, and never rec
 
 Vague superlatives ("highest of any city in the database") are flagged without the
 subject, because the script cannot tell what "highest" refers to. Open the page.
+
+
+## The superlative policy (adopted July 12, 2026)
+
+**No superlative may be scoped to our own dataset.** These phrasings are banned when
+attached to a ranking word:
+
+> "in the database" · "in our database" · "we cover" · "in our coverage" ·
+> "we've published" · "of any city we…" · "on this site"
+
+**Why.** A claim like "the most affordable city we cover" is a claim about a private,
+moving object the reader cannot see. The day a city is added to the database, every
+such claim silently becomes a potential lie, and nothing tells you. Fort Myers and
+Pensacola both went wrong exactly this way, and reconciling them by hand across every
+profile on every database expansion is not sustainable.
+
+**Anchor to a number or a named comparison. Never to a rank.**
+
+| Instead of | Write |
+|---|---|
+| "the most affordable Gulf Coast entry we cover" | "at $372K, well below Sarasota ($462K) and Naples ($585K)" |
+| "the most affordable Florida city in our coverage" | "$264K, among the lowest on the Florida Gulf Coast" |
+| "highest healthcare score in our database" | "Healthcare 9 of 10" |
+| "the only city we've published with…" | just describe the thing |
+
+Numbers stay true when the database grows. Ranks do not.
+
+The validator enforces this as a hard failure, because unlike scope-correctness it is
+mechanically decidable. It cannot tell whether "most affordable Gulf city" is true. It
+can absolutely tell that you wrote "we cover".

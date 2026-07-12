@@ -431,14 +431,44 @@ def check_cards(rep, db, idx, local):
                              f"DB says {lo}–{hi}")
 
 
+# Superlatives scoped to our own dataset are BANNED (policy adopted July 12, 2026).
+# A claim like "the most affordable city we cover" is a claim about a private, moving
+# object the reader cannot see. The moment a city is added to the database, every such
+# claim silently becomes a potential lie, and nothing tells you. Fort Myers and
+# Pensacola both got wrong exactly this way.
+#
+# Anchor claims to a NUMBER or a NAMED comparison, never to a rank:
+#   BAD:  "the most affordable Gulf Coast entry we cover"
+#   GOOD: "at $372K, well below Sarasota ($462K) and Naples ($585K)"
+# Numbers stay true when the database grows. Ranks do not.
+# A ranking word followed, IN THE SAME CLAUSE, by a scope pointing at our own dataset.
+# Both halves are required and no sentence boundary may sit between them, or this fires
+# on harmless things like "Top Cities for Healthcare" and "Community 9 of 10 in our
+# database", which are not superlatives.
+BANNED_SUPERLATIVE = re.compile(
+    r"\b(most|least|cheapest|priciest|highest|lowest|largest|smallest|widest|"
+    r"narrowest|strongest|weakest|worst|only)\b"
+    r"(?!\s+(?:of the (?:metro|city|state)|of both))"     # "most of the metro" is not a claim
+    r"[^.!?;<]{0,55}?"                                     # same clause only
+    r"\b(in (?:the|our) database"
+    r"|(?:that |cities )?we cover"
+    r"|in our coverage"
+    r"|we(?:'ve| have) published"
+    r"|of any city we\b"
+    r"|of any city (?:in|on) (?:the|our)\b"
+    r"|on this site)\b", re.I)
+
+
 def check_superlatives(rep, db, idx, slug_to_city, local):
     """
-    Every affordability superlative on the site, resolved against the DB.
+    Two things at once.
 
-    This is the check that would have caught Fort Myers. A superlative is a factual
-    claim about the whole database, so it can be verified mechanically. We do not
-    guess at the intended scope; we surface the claim, name the true holder, and
-    make a human confirm it.
+    FAIL: any superlative scoped to our own dataset. This is a policy violation, and
+    unlike scope-correctness it is mechanically decidable, so it is a hard failure.
+
+    WARN: database-wide affordability claims, printed next to the DB's real answer,
+    for a human to judge. Also surfaces claims about the outside world ("largest art
+    market in the country"), which no spreadsheet can settle.
     """
     rows = [r for r in db_cities(db) if r["home"] is not None]
     ranked = sorted(rows, key=lambda r: r["home"])
@@ -467,6 +497,21 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
         if html:
             pages[f"cities/{slug}/profile.html"] = html
 
+    # --- FAIL: dataset-scoped superlatives (policy) ---
+    banned = {}
+    for page, html in pages.items():
+        for m in BANNED_SUPERLATIVE.finditer(visible_text(html)):
+            phrase = re.sub(r"\s+", " ", m.group(0)).strip()
+            banned.setdefault((page, phrase), 0)
+            banned[(page, phrase)] += 1
+
+    for (page, phrase), n in sorted(banned.items()):
+        times = f" (x{n})" if n > 1 else ""
+        rep.fail("superlatives",
+                 f'{page}: "{phrase}"{times} — superlative scoped to our own '
+                 f"dataset. Anchor to a figure or a named city instead.")
+
+    # --- WARN: everything else sweeping, for human eyes ---
     hits = {}
     for page, html in pages.items():
         for m in claim.finditer(visible_text(html)):
