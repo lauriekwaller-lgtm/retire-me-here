@@ -105,9 +105,19 @@ def fetch(path, local=None):
 
 
 def money_to_int(tok):
-    tok = tok.replace(" ", "")
+    """
+    Parse a single money token. Returns None on anything ambiguous.
+
+    Deliberately strict. An earlier version stripped punctuation and glued the
+    digits together, so the range "$430,000-$960,000" silently became the integer
+    430000960000 and every downstream comparison for that city ran against garbage.
+    A parser that cannot fail is a parser that lies.
+    """
+    tok = tok.strip().replace(" ", "")
+    if len(re.findall(r"\$", tok)) > 1 or re.search(r"[–—]", tok):
+        return None                      # a range, not a single figure
     num = re.sub(r"[^0-9.]", "", tok)
-    if not num:
+    if not num or num.count(".") > 1:
         return None
     val = float(num)
     if tok.endswith("K"):
@@ -136,11 +146,12 @@ def load_db(path):
         city = str(r["City"]).strip()
         state = str(r["ST"]).strip()
         raw_home = str(r["Median Home"]).strip()
+        home = money_to_int(raw_home if raw_home.startswith("$") else f"${raw_home}")
         row = {
             "city": city,
             "state": state,
             "monthly": str(r["Monthly Est"]).strip(),
-            "home": money_to_int(raw_home if raw_home.startswith("$") else f"${raw_home}"),
+            "home": home,             # None if the DB cell is malformed; see check_db
             "home_raw": raw_home,
             "range": int(r["Budget Range"]),
             "scores": {k: int(r[col]) for k, col in DIMS},
@@ -231,9 +242,11 @@ def check_figures(rep, db, idx):
 
         checks = [
             ("monthlyEst", field(r'monthlyEst:\s*"([^"]+)"'), row["monthly"]),
-            ("medianHome", field(r'medianHome:\s*"([^"]+)"'), f"${row['home']:,}"),
             ("budgetRange", field(r"budgetRange:\s*(\d)"), str(row["range"])),
         ]
+        if row["home"] is not None:
+            checks.append(
+                ("medianHome", field(r'medianHome:\s*"([^"]+)"'), f"${row['home']:,}"))
         for label, got, want in checks:
             if got != want:
                 rep.fail("figures",
@@ -279,6 +292,8 @@ def check_figures(rep, db, idx):
                          f"CITY_ENRICHMENT {city}: modal monthly {a}–{b}, "
                          f"DB says {lo}–{hi}")
 
+        if row["home"] is None:
+            continue                     # malformed DB cell; check_db reports it
         ok = home_forms(row["home"])
         first = MONEY_RE.search(note)
         if first and first.group(0) not in ok:
@@ -347,6 +362,8 @@ def check_profiles(rep, db, slug_to_city, local):
                          f"{city}: monthly {a}–{b}, DB says {lo}–{hi}  "
                          f"(...{ctx.strip()[-70:]})")
 
+        if row["home"] is None:
+            continue                     # malformed DB cell; check_db reports it
         ok = home_forms(row["home"])
         for m in citywide.finditer(text):
             seg = text[m.start():m.start() + 70]
@@ -423,7 +440,7 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
     guess at the intended scope; we surface the claim, name the true holder, and
     make a human confirm it.
     """
-    rows = db_cities(db)
+    rows = [r for r in db_cities(db) if r["home"] is not None]
     ranked = sorted(rows, key=lambda r: r["home"])
     cheapest, priciest = ranked[0], ranked[-1]
 
@@ -501,12 +518,20 @@ def check_db(rep, db_path):
         df = pd.read_csv(db_path)
     df.columns = [str(c).replace("\n", " ").strip() for c in df.columns]
 
-    bad = df[~df["Median Home"].astype(str).str.startswith("$")]
-    for _, r in bad.iterrows():
-        rep.fail("db",
-                 f"{r['City']}, {r['ST']}: Median Home is {r['Median Home']!r}, "
-                 f"not a '$N,NNN' string like the other rows. Scripts that "
-                 f"string-match this column will silently skip it.")
+    for _, r in df.iterrows():
+        raw = str(r["Median Home"]).strip()
+        figs = re.findall(r"\$[\d,]+", raw)
+        if len(figs) > 1 or re.search(r"[–—]", raw):
+            rep.fail("db",
+                     f"{r['City']}, {r['ST']}: Median Home is {raw!r}, a RANGE. "
+                     f"MEDIAN-HOME-METHODOLOGY.md v1.2 requires a single citywide "
+                     f"ZHVI figure for all 99 cities. Replace with one number and "
+                     f"move the spread into a Neighborhood Reality Check note.")
+        elif not raw.startswith("$"):
+            rep.fail("db",
+                     f"{r['City']}, {r['ST']}: Median Home is {raw!r}, not a "
+                     f"'$N,NNN' string like the other rows. Scripts that string-match "
+                     f"this column will silently skip or mis-parse it.")
 
     dupes = df[df.duplicated(subset=["City", "ST"], keep=False)]
     for _, r in dupes.iterrows():

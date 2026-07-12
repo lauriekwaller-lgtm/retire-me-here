@@ -5,54 +5,66 @@
 Checks every live page against the City Database and reports drift.
 
 ```bash
-# check the live site
-python3 tools/validate.py
-
-# check your working copy BEFORE you push
-python3 tools/validate.py --local .
-
-# one group at a time
+python3 tools/validate.py              # check the live site
+python3 tools/validate.py --local .    # check your working copy BEFORE you push
 python3 tools/validate.py --only figures
 python3 tools/validate.py --only superlatives
 ```
 
-Requires `pandas`. Exit code is 0 when clean, 1 when failures exist.
+One-time setup: `python3 -m pip install pandas openpyxl`. Use `python3 -m pip`, not bare
+`pip` — Codespaces has two Pythons and bare `pip` can install where `python3` cannot see it.
+
+Exit code 0 = clean, 1 = failures.
+
+It reads the database straight from `docs/`. Nothing else to set up.
+
+### When you bump the database version
+
+Open `validate.py` and update one line near the top:
+
+```python
+DEFAULT_DB = "docs/CityDatabase_Jul_06_v16_1_stpaul-corrected.xlsx"
+```
+
+Do it in the same commit that adds the new xlsx. If you forget, the script will tell
+you it cannot find the file rather than silently checking against stale data.
 
 ### Check groups
 
 | Group | What it catches |
 |---|---|
-| `figures` | `CITIES` array and `CITY_ENRICHMENT` modal prose in `index.html` vs the DB. Scores, monthly, home value, budget tier. |
-| `profiles` | Profile pages: monthly ranges and citywide home-value claims vs the DB. |
-| `routing` | `PUBLISHED_PROFILES` ↔ profile files ↔ `sitemap.xml`, checked in every direction. |
-| `cards` | Landing pages: cards still saying "Coming soon" for a live city, and stale card figures. |
-| `superlatives` | Every database-wide affordability claim on the site, printed next to the DB's real answer. This is the check that catches a "most affordable X we cover" that is not true. |
+| `figures` | `CITIES` array and `CITY_ENRICHMENT` modal prose in `index.html` vs the DB. Scores, monthly, home value, budget tier. This is where the quiz gets its numbers. |
+| `profiles` | Profile pages: monthly ranges and citywide home-value claims. |
+| `routing` | `PUBLISHED_PROFILES` ↔ profile files ↔ `sitemap.xml`, all directions. |
+| `cards` | Landing pages: cards still saying "Coming soon" for a live city, stale card figures. |
+| `superlatives` | Every database-wide affordability claim, printed next to the DB's real answer. |
 | `emdash` | Em-dash policy on profiles and comparison pages. |
-| `db` | Database hygiene: column type consistency, duplicate rows. |
+| `db` | Database hygiene: column types, duplicate rows. |
 
-Superlatives are reported as **warnings, not failures**, because scope is an editorial
-judgment a machine cannot make. The script's job is to put the claim and the truth
-side by side so a human decides. Read every one.
+Superlatives are **warnings, not failures**. Scope is an editorial judgment a script
+cannot make, so it puts the claim and the truth side by side and you decide. Read them
+all. This is the check that catches a "most affordable X we cover" that is not true.
 
-## data/city-database.csv
+### A note on Wilmington
 
-A CSV export of the current `CityDatabase_*.xlsx`. The validator reads this.
-
-**Regenerate it whenever you bump the database version**, in the same commit:
-
-```python
-import pandas as pd
-df = pd.read_excel("CityDatabase_<Month>_<Day>_v<N>.xlsx",
-                   sheet_name="City Database", header=1)
-df.columns = [str(c).replace("\n", " ").strip() for c in df.columns]
-df.to_csv("data/city-database.csv", index=False)
-```
-
-Keeping it in git means the database finally has version history. The v15.1 → v16.1
-transition happened with nothing recording it, which is how St. Paul ended up correct
-in four places and wrong in a fifth.
+Wilmington NC and Wilmington DE are both in the database. Anything keyed by city name
+alone will silently drop one of them. The validator keys by `City_ST` and refuses a
+name-only lookup when the name is ambiguous. `CITY_ENRICHMENT` in `index.html` handles
+this the same way, with `_NC` and `_DE` suffixed keys. Keep that convention.
 
 ## Run this before every deploy
 
-That is the whole point. Every error this script finds is a string that either matches
-a spreadsheet cell or does not. It should never again be a person's job to notice.
+Every error this script finds is a string that either matches a spreadsheet cell or
+does not. It should never again be a person's job to notice.
+
+## What the validator cannot check
+
+The `superlatives` group flags every sweeping claim it finds, but it can only resolve
+the ones that are **claims about the database** (cheapest, priciest, most affordable).
+Claims about the outside world — "largest art market in the country", "largest farmers
+market in the Southeast", "largest in the Western Hemisphere" — get surfaced for you to
+verify, because no spreadsheet can settle them. Read those with a skeptical eye. They
+are exactly the sort of thing that gets written once, confidently, and never rechecked.
+
+Vague superlatives ("highest of any city in the database") are flagged without the
+subject, because the script cannot tell what "highest" refers to. Open the page.
