@@ -269,7 +269,7 @@ def check_figures(rep, db, idx):
     # CITY_ENRICHMENT modal prose. Lookup is [name_ST] || [name], so both key
     # formats are valid; the _ST form exists to disambiguate Wilmington NC/DE.
     enrich = js_object_slice(idx, "CITY_ENRICHMENT")
-    keys = [(m.start(), m.group(1)) for m in re.finditer(r'\n  "([^"]+)": \{', enrich)]
+    keys = [(m.start(), m.group(1)) for m in re.finditer(r"\n\s*\"([^\"]+)\"\s*:\s*\{", enrich)]
 
     for pos, note in [(m.start(), m.group(1))
                       for m in re.finditer(r'D2: "((?:[^"\\]|\\.)*)"', enrich)]:
@@ -303,6 +303,31 @@ def check_figures(rep, db, idx):
                 rep.fail("figures",
                          f"CITY_ENRICHMENT {city}: modal home {first.group(0)}, "
                          f"DB says ${round(row['home'] / 1000)}K")
+
+
+def check_tiers(rep, db, idx):
+    """
+    Budget-tier labels written into the modal prose ("Range 2") vs the DB's Budget
+    Range. These drift whenever the tier boundaries move, and nothing else catches it.
+    Twenty-three were stale on July 12, 2026, some by two full tiers.
+    """
+    enrich = js_object_slice(idx, "CITY_ENRICHMENT")
+    keys = [(m.start(), m.group(1))
+            for m in re.finditer(r'\n\s*"([^"]+)"\s*:\s*\{', enrich)]
+    for m in re.finditer(r'D2: "((?:[^"\\]|\\.)*)"', enrich):
+        owners = [k for p, k in keys if p < m.start()]
+        if not owners:
+            continue
+        key = owners[-1]
+        st = key.rsplit("_", 1)[1] if re.search(r"_[A-Z]{2}$", key) else None
+        row = db_get(db, re.sub(r"_[A-Z]{2}$", "", key), st)
+        if not row:
+            continue
+        for tier in re.findall(r"\bRange\s*([1-5])\b", m.group(1), re.I):
+            if int(tier) != row["range"]:
+                rep.fail("figures",
+                         f"CITY_ENRICHMENT {key}: modal says Range {tier}, "
+                         f"DB Budget Range is {row['range']}")
 
 
 def check_routing(rep, db, idx, sitemap, local):
@@ -498,6 +523,17 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
         if html:
             pages[f"cities/{slug}/profile.html"] = html
 
+    # The CITY_ENRICHMENT strings live inside <script>, so visible_text() strips them.
+    # They render into the quiz results modal, which a reader absolutely does see. On
+    # July 12, 2026 this blind spot was hiding 27 banned superlatives, four of them
+    # flatly false ("Naples: most expensive city in the database" — Naples is $585K,
+    # Carmel is $2.28M). Scan the data strings as their own surface.
+    enrich = js_object_slice(idx, "CITY_ENRICHMENT")
+    for m in BANNED_SUPERLATIVE.finditer(enrich):
+        rep.fail("superlatives",
+                 f'index.html CITY_ENRICHMENT: "{m.group(0).strip()}" — superlative '
+                 f"scoped to our own dataset, and it renders in the quiz modal.")
+
     # --- FAIL: dataset-scoped superlatives (policy) ---
     banned = {}
     for page, html in pages.items():
@@ -678,6 +714,7 @@ def main():
 
     if "figures" in groups:
         check_figures(rep, db, idx)
+        check_tiers(rep, db, idx)
     if "profiles" in groups:
         check_profiles(rep, db, slug_to_city, args.local)
     if "cards" in groups:
