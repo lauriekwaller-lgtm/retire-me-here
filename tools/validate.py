@@ -19,6 +19,7 @@ Check groups:
     cards        landing pages: stale "coming soon" + card figures vs DB
     superlatives every affordability superlative on the site, checked against the DB
     emdash       em-dash policy (profiles + comparison pages)
+    affiliate    affiliate codes: duplicates, missing brands, multiple codes per page
     db           database hygiene
 
 Why this exists: every figure on this site is a string that either matches a DB cell
@@ -554,6 +555,48 @@ def check_emdash(rep, idx, sitemap, slug_to_city, local):
             rep.fail("emdash", f"{page}: {n} em-dash(es) in rendered text")
 
 
+def check_affiliate(rep, slug_to_city, local):
+    """
+    Affiliate codes, read from the profiles themselves.
+
+    The profiles ARE the record. There is no spreadsheet, deliberately: a separate
+    list of codes is a stale copy of data that lives in the HTML, and a half-current
+    reference is worse than none, because eventually someone trusts it.
+
+    A duplicated code is the dangerous failure. It does not error and it does not look
+    broken. It just quietly sends a Savannah reader to Charleston's hotel page. Nobody
+    catches that by eye.
+    """
+    LINK = re.compile(
+        r"https?://(?:www\.)?(expedia|hotels|vrbo)\.com/affiliate/([A-Za-z0-9]+)", re.I)
+    BRANDS = {"expedia", "vrbo"}
+
+    seen = {}          # (brand, code) -> slug
+    for slug in sorted(slug_to_city):
+        html = fetch(f"cities/{slug}/profile.html", local)
+        if html is None:
+            continue
+        found = {}
+        for brand, code in LINK.findall(html):
+            brand = brand.lower()
+            found.setdefault(brand, set()).add(code)
+            owner = seen.get((brand, code))
+            if owner and owner != slug:
+                rep.fail("affiliate",
+                         f"{slug}: {brand} code {code} is ALSO used by {owner}. "
+                         f"A duplicated code sends readers to the wrong city and "
+                         f"fails silently.")
+            seen.setdefault((brand, code), slug)
+
+        for brand in sorted(BRANDS - set(found)):
+            rep.fail("affiliate", f"{slug}: no {brand} affiliate link on the profile")
+        for brand, cs in sorted(found.items()):
+            if len(cs) > 1:
+                rep.fail("affiliate",
+                         f"{slug}: {len(cs)} different {brand} codes on one profile "
+                         f"({', '.join(sorted(cs))}). Only one is being credited.")
+
+
 def check_db(rep, db_path):
     """Database hygiene."""
     import pandas as pd
@@ -591,7 +634,7 @@ def main():
     ap.add_argument("--local", help="validate a local checkout instead of live GitHub")
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
-                             "superlatives", "emdash", "db"],
+                             "superlatives", "emdash", "affiliate", "db"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -604,7 +647,8 @@ def main():
         return 2
 
     groups = set(args.only) if args.only else {
-        "figures", "profiles", "routing", "cards", "superlatives", "emdash", "db"}
+        "figures", "profiles", "routing", "cards", "superlatives", "emdash",
+        "affiliate", "db"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -642,6 +686,8 @@ def main():
         check_superlatives(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:
         check_emdash(rep, idx, sitemap, slug_to_city, args.local)
+    if "affiliate" in groups:
+        check_affiliate(rep, slug_to_city, args.local)
     if "db" in groups:
         check_db(rep, args.db)
 

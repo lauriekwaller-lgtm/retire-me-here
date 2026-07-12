@@ -39,6 +39,7 @@ you it cannot find the file rather than silently checking against stale data.
 | `cards` | Landing pages: cards still saying "Coming soon" for a live city, stale card figures. |
 | `superlatives` | **FAILS** on any superlative scoped to our own dataset (policy, below). **WARNS** on other sweeping claims, printed next to the DB's real answer. |
 | `emdash` | Em-dash policy on profiles and comparison pages. |
+| `affiliate` | Affiliate codes on every profile: a code reused by two cities, a missing brand, or two codes for one brand on one page. |
 | `db` | Database hygiene: column types, duplicate rows. |
 
 Superlatives are **warnings, not failures**. Scope is an editorial judgment a script
@@ -98,3 +99,23 @@ Numbers stay true when the database grows. Ranks do not.
 The validator enforces this as a hard failure, because unlike scope-correctness it is
 mechanically decidable. It cannot tell whether "most affordable Gulf city" is true. It
 can absolutely tell that you wrote "we cover".
+
+
+## There is no affiliate-code spreadsheet, on purpose
+
+The profiles are the record. 84 codes, 42 cities, Expedia and Vrbo each.
+
+A separate spreadsheet of codes is a stale copy of data that already lives in the HTML.
+The one that existed covered about 30 cities and was never kept up, which makes it worse
+than nothing: eventually somebody trusts it. It was deleted.
+
+To read the current codes, read them from the source:
+
+```bash
+grep -rhoE 'https?://(www\.)?(expedia|vrbo)\.com/affiliate/[A-Za-z0-9]+' cities/
+```
+
+The `affiliate` check exists because a bad code is the one error that costs money while
+looking completely fine. A duplicated code does not throw, does not render wrong, and
+does not break a link. It just sends a Savannah reader to Charleston's hotel page. No
+human catches that by reading the page.
