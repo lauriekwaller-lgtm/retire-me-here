@@ -128,43 +128,114 @@ def money_to_int(tok):
     return int(val)
 
 
-def load_db(path):
-    """Load the City Database. Accepts .csv or .xlsx."""
-    if path.endswith(".xlsx"):
-        import pandas as pd
-        df = pd.read_excel(path, sheet_name="City Database", header=1)
-    else:
-        import pandas as pd
-        df = pd.read_csv(path)
-    df.columns = [str(c).replace("\n", " ").strip() for c in df.columns]
+def _read_xlsx(path, sheet_name):
+    """
+    Read one sheet of an .xlsx with the standard library only.
 
-    # Keyed by BOTH "City" and "City_ST". Wilmington NC and Wilmington DE are both
-    # in the database, so a city-name-only key silently drops one of them. Anything
-    # that knows the state should look up "City_ST" first.
+    An .xlsx is a zip of XML. Reading it needs no pandas and no openpyxl, and that
+    matters: Codespaces rebuilds periodically and pip-installed packages vanish with
+    it. A validator that cannot run is a validator that is not run. Zero dependencies
+    means this works on any machine with Python, forever, with no setup step.
+    """
+    import zipfile
+    import xml.etree.ElementTree as ET
+
+    NS = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+    REL = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
+
+    with zipfile.ZipFile(path) as z:
+        wb = ET.fromstring(z.read("xl/workbook.xml"))
+        rels = ET.fromstring(z.read("xl/_rels/workbook.xml.rels"))
+        target = {r.get("Id"): r.get("Target") for r in rels}
+
+        sheet_path = None
+        for sh in wb.iter(NS + "sheet"):
+            if sh.get("name") == sheet_name:
+                t = target[sh.get(REL + "id")]
+                sheet_path = t if t.startswith("xl/") else "xl/" + t.lstrip("/")
+                break
+        if sheet_path is None:
+            names = [sh.get("name") for sh in wb.iter(NS + "sheet")]
+            raise KeyError(f"sheet {sheet_name!r} not found; sheets are {names}")
+
+        shared = []
+        if "xl/sharedStrings.xml" in z.namelist():
+            sst = ET.fromstring(z.read("xl/sharedStrings.xml"))
+            for si in sst.iter(NS + "si"):
+                shared.append("".join(t.text or "" for t in si.iter(NS + "t")))
+
+        sheet = ET.fromstring(z.read(sheet_path))
+
+    def col_index(ref):
+        letters = "".join(ch for ch in ref if ch.isalpha())
+        n = 0
+        for ch in letters:
+            n = n * 26 + (ord(ch.upper()) - 64)
+        return n - 1
+
+    rows = []
+    for row in sheet.iter(NS + "row"):
+        cells = {}
+        for c in row.iter(NS + "c"):
+            v = c.find(NS + "v")
+            if v is None or v.text is None:
+                continue
+            if c.get("t") == "s":
+                val = shared[int(v.text)]
+            elif c.get("t") == "inlineStr":
+                val = "".join(t.text or "" for t in c.iter(NS + "t"))
+            else:
+                txt = v.text
+                try:
+                    f = float(txt)
+                    val = int(f) if f == int(f) else f
+                except ValueError:
+                    val = txt
+            cells[col_index(c.get("r"))] = val
+        rows.append(cells)
+    return rows
+
+
+def load_db(path):
+    """Load the City Database. Header is on row 2; data starts on row 3."""
+    rows = _read_xlsx(path, "City Database")
+    if len(rows) < 3:
+        raise ValueError(f"{path}: expected a header on row 2 and data below it")
+
+    header = {i: str(v).replace("\n", " ").strip()
+              for i, v in rows[1].items() if str(v).strip()}
+    col = {name: i for i, name in header.items()}
+
+    required = ["City", "ST", "Monthly Est", "Median Home", "Budget Range"] + \
+               [c for _, c in DIMS]
+    missing = [c for c in required if c not in col]
+    if missing:
+        raise ValueError(f"{path}: missing columns {missing}")
+
+    # Keyed by BOTH "City" and "City_ST". Wilmington NC and Wilmington DE are both in
+    # the database, so a city-name-only key silently drops one of them.
     db = {}
     names = {}
-    for _, r in df.iterrows():
-        city = str(r["City"]).strip()
-        state = str(r["ST"]).strip()
-        raw_home = str(r["Median Home"]).strip()
-        home = money_to_int(raw_home if raw_home.startswith("$") else f"${raw_home}")
+    for r in rows[2:]:
+        city = str(r.get(col["City"], "")).strip()
+        if not city:
+            continue
+        state = str(r.get(col["ST"], "")).strip()
+        raw_home = str(r.get(col["Median Home"], "")).strip()
         row = {
             "city": city,
             "state": state,
-            "monthly": str(r["Monthly Est"]).strip(),
-            "home": home,             # None if the DB cell is malformed; see check_db
+            "monthly": str(r.get(col["Monthly Est"], "")).strip(),
+            "home": money_to_int(raw_home if raw_home.startswith("$") else f"${raw_home}"),
             "home_raw": raw_home,
-            "range": int(r["Budget Range"]),
-            "scores": {k: int(r[col]) for k, col in DIMS},
+            "range": int(r[col["Budget Range"]]),
+            "scores": {k: int(r[col[c]]) for k, c in DIMS},
         }
         db[f"{city}_{state}"] = row
         names.setdefault(city, []).append(row)
 
-    for city, rows in names.items():
-        if len(rows) == 1:
-            db[city] = rows[0]          # unambiguous, name-only lookup is safe
-        else:
-            db[city] = None             # ambiguous: force callers to supply state
+    for city, rs in names.items():
+        db[city] = rs[0] if len(rs) == 1 else None
     return db
 
 
@@ -330,15 +401,26 @@ def check_tiers(rep, db, idx):
                          f"DB Budget Range is {row['range']}")
 
 
-def check_routing(rep, db, idx, sitemap, local):
-    """PUBLISHED_PROFILES <-> profile files <-> sitemap must agree, all directions."""
+def published_profiles(idx):
+    """The single parse of PUBLISHED_PROFILES. Returns {slug: (City, ST)}."""
     m = re.search(r"PUBLISHED_PROFILES\s*=\s*\{(.*?)\n\s*\}", idx, re.S)
     if not m:
-        rep.fail("routing", "could not locate PUBLISHED_PROFILES in index.html")
         return {}
-
     pub = dict(re.findall(r"['\"]([^'\"]+)['\"]\s*:\s*['\"]([^'\"]+)['\"]", m.group(1)))
-    slugs = {v.split("/")[1] for v in pub.values() if "/" in v}
+    out = {}
+    for key, path in pub.items():
+        if "/" not in path:
+            continue
+        city, _, state = key.rpartition("_")
+        out[path.split("/")[1]] = (city.strip(), state.strip())
+    return out
+
+
+def check_routing(rep, db, idx, sitemap, local, slug_to_city):
+    """PUBLISHED_PROFILES <-> profile files <-> sitemap must agree, all directions."""
+    m = re.search(r"PUBLISHED_PROFILES\s*=\s*\{(.*?)\n\s*\}", idx, re.S)
+    pub = dict(re.findall(r"['\"]([^'\"]+)['\"]\s*:\s*['\"]([^'\"]+)['\"]", m.group(1)))
+    slugs = set(slug_to_city)
     sm_slugs = set(re.findall(r"cities/([a-z0-9-]+)/", sitemap))
 
     for slug in sorted(slugs):
@@ -356,9 +438,6 @@ def check_routing(rep, db, idx, sitemap, local):
     for key in pub:
         if key not in db:
             rep.fail("routing", f"PUBLISHED_PROFILES key {key!r} has no DB row")
-
-    return {v.split("/")[1]: tuple(k.rsplit("_", 1))
-            for k, v in pub.items() if "/" in v}
 
 
 def check_profiles(rep, db, slug_to_city, local):
@@ -634,32 +713,36 @@ def check_affiliate(rep, slug_to_city, local):
 
 
 def check_db(rep, db_path):
-    """Database hygiene."""
-    import pandas as pd
-    if db_path.endswith(".xlsx"):
-        df = pd.read_excel(db_path, sheet_name="City Database", header=1)
-    else:
-        df = pd.read_csv(db_path)
-    df.columns = [str(c).replace("\n", " ").strip() for c in df.columns]
+    """Database hygiene. Standard library only, same as load_db."""
+    rows = _read_xlsx(db_path, "City Database")
+    header = {i: str(v).replace("\n", " ").strip()
+              for i, v in rows[1].items() if str(v).strip()}
+    col = {name: i for i, name in header.items()}
 
-    for _, r in df.iterrows():
-        raw = str(r["Median Home"]).strip()
+    seen = set()
+    for r in rows[2:]:
+        city = str(r.get(col["City"], "")).strip()
+        if not city:
+            continue
+        state = str(r.get(col["ST"], "")).strip()
+        raw = str(r.get(col["Median Home"], "")).strip()
+
         figs = re.findall(r"\$[\d,]+", raw)
         if len(figs) > 1 or re.search(r"[–—]", raw):
             rep.fail("db",
-                     f"{r['City']}, {r['ST']}: Median Home is {raw!r}, a RANGE. "
+                     f"{city}, {state}: Median Home is {raw!r}, a RANGE. "
                      f"MEDIAN-HOME-METHODOLOGY.md v1.2 requires a single citywide "
-                     f"ZHVI figure for all 99 cities. Replace with one number and "
-                     f"move the spread into a Neighborhood Reality Check note.")
+                     f"ZHVI figure for all cities. Replace with one number and move "
+                     f"the spread into a Neighborhood Reality Check note.")
         elif not raw.startswith("$"):
             rep.fail("db",
-                     f"{r['City']}, {r['ST']}: Median Home is {raw!r}, not a "
-                     f"'$N,NNN' string like the other rows. Scripts that string-match "
-                     f"this column will silently skip or mis-parse it.")
+                     f"{city}, {state}: Median Home is {raw!r}, not a '$N,NNN' string "
+                     f"like the other rows. Scripts that string-match this column will "
+                     f"silently skip or mis-parse it.")
 
-    dupes = df[df.duplicated(subset=["City", "ST"], keep=False)]
-    for _, r in dupes.iterrows():
-        rep.fail("db", f"duplicate DB row: {r['City']}, {r['ST']}")
+        if (city, state) in seen:
+            rep.fail("db", f"duplicate DB row: {city}, {state}")
+        seen.add((city, state))
 
 
 # ---------------------------------------------------------------- main
@@ -702,20 +785,25 @@ def main():
 
     rep = Report(quiet=args.quiet)
 
-    slug_to_city = check_routing(rep, db, idx, sitemap, args.local) \
-        if "routing" in groups else {}
+    # The slug map is needed by several checks, so build it exactly once, in exactly
+    # one format: {slug: (City, ST)}. It used to be rebuilt in a second place when the
+    # routing group was skipped, in the OLD string format, which made check_profiles
+    # silently iterate over nothing and report a clean zero. A checking tool that
+    # quietly reports success when it has not checked anything is worse than no tool.
+    slug_to_city = published_profiles(idx)
     if not slug_to_city:
-        # other checks still need the slug map
-        m = re.search(r"PUBLISHED_PROFILES\s*=\s*\{(.*?)\n\s*\}", idx, re.S)
-        pub = dict(re.findall(r"['\"]([^'\"]+)['\"]\s*:\s*['\"]([^'\"]+)['\"]",
-                              m.group(1))) if m else {}
-        slug_to_city = {v.split("/")[1]: k.rsplit("_", 1)[0].strip()
-                        for k, v in pub.items() if "/" in v}
+        print("Could not parse PUBLISHED_PROFILES from index.html.", file=sys.stderr)
+        return 2
+
+    if "routing" in groups:
+        check_routing(rep, db, idx, sitemap, args.local, slug_to_city)
 
     if "figures" in groups:
         check_figures(rep, db, idx)
         check_tiers(rep, db, idx)
     if "profiles" in groups:
+        if not slug_to_city:
+            rep.fail("profiles", "no published profiles found; nothing was checked")
         check_profiles(rep, db, slug_to_city, args.local)
     if "cards" in groups:
         check_cards(rep, db, idx, args.local)

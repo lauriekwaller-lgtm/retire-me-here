@@ -11,8 +11,10 @@ python3 tools/validate.py --only figures
 python3 tools/validate.py --only superlatives
 ```
 
-One-time setup: `python3 -m pip install pandas openpyxl`. Use `python3 -m pip`, not bare
-`pip` — Codespaces has two Pythons and bare `pip` can install where `python3` cannot see it.
+**No setup. No installs. No dependencies.** The validator uses only the Python standard
+library, including reading the `.xlsx`. Codespaces rebuilds and wipes pip packages; a
+
+validator that cannot run is a validator that is not run.
 
 Exit code 0 = clean, 1 = failures.
 
