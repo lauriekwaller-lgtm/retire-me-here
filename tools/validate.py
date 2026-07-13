@@ -38,7 +38,7 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_12_v16_2_d5-normalized.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_13_v16_3_d2-rebuild.xlsx"
 
 # Tolerated deviation on home-value prose before we call it stale.
 HOME_TOLERANCE = 0.03
@@ -199,13 +199,19 @@ def _read_xlsx(path, sheet_name):
     for row in sheet.iter(NS + "row"):
         cells = {}
         for c in row.iter(NS + "c"):
+            # inlineStr cells carry <is><t>, NOT <v>. This check must come FIRST:
+            # the <v> lookup below returns None for them, and an early `continue`
+            # would skip every inline string in the file. Excel writes sharedStrings
+            # so this never bit us; openpyxl writes inlineStr, which blanks the sheet.
+            if c.get("t") == "inlineStr":
+                cells[col_index(c.get("r"))] = "".join(
+                    t.text or "" for t in c.iter(NS + "t"))
+                continue
             v = c.find(NS + "v")
             if v is None or v.text is None:
                 continue
             if c.get("t") == "s":
                 val = shared[int(v.text)]
-            elif c.get("t") == "inlineStr":
-                val = "".join(t.text or "" for t in c.iter(NS + "t"))
             else:
                 txt = v.text
                 try:
@@ -605,23 +611,129 @@ def check_cards(rep, db, idx, local):
 #   BAD:  "the most affordable Gulf Coast entry we cover"
 #   GOOD: "at $372K, well below Sarasota ($462K) and Naples ($585K)"
 # Numbers stay true when the database grows. Ranks do not.
-# A ranking word followed, IN THE SAME CLAUSE, by a scope pointing at our own dataset.
-# Both halves are required and no sentence boundary may sit between them, or this fires
-# on harmless things like "Top Cities for Healthcare" and "Community 9 of 10 in our
-# database", which are not superlatives.
+# PHRASE BAN (adopted July 12, 2026, replacing the two-half semantic check).
+#
+# The old check required BOTH a ranking word AND a scope phrase in the same clause.
+# The scope half was airtight. The ranking half was a closed list of seventeen words,
+# and English is not a closed list. Everything that leaked, leaked through the ranking
+# half, never the scope half:
+#
+#   "one of the LOWER safety scores in our coverage"        (comparative, not "lowest")
+#   "the GENTLEST hurricane ledger of any Florida city we cover"   (not in the list)
+#   "NO OTHER Florida city in our coverage matches"         (not in the list)
+#
+# All three are dataset-scoped claims. All three rot the day city 100 lands. All three
+# passed clean. Extending the word list only moves the leak; the next escape is
+# "second to none in our coverage".
+#
+# So: drop the ranking half entirely and ban the SCOPE PHRASE on its own. A claim rots
+# if and only if it points at the moving dataset, which makes the scope phrase both
+# necessary and sufficient for the failure mode. The ranking word was only ever a proxy
+# for "is this a claim?", and the proxy is what failed.
+#
+# This does fire on non-claims ("the 99 cities we cover"). That is accepted, not
+# tolerated: "we cover" is insider voice. The reader does not know what we cover and has
+# no reason to care. Reword to "the 99 cities on RetireMeHere" and the sentence improves.
+#
+# Anchor real claims to a NUMBER or a NAMED city, never to a rank:
+#   BAD:  "the most affordable Gulf Coast entry we cover"
+#   GOOD: "at $372K, well below Sarasota ($462K) and Naples ($585K)"
+# Numbers stay true when the database grows. Ranks do not.
+#
+# Deliberately NOT banned: "of any city in the state", "in the country", "in Florida".
+# Those scope to the outside world, not to us. They cannot rot when we add a city; they
+# are handled by the WARN tier below, which asks a human to check them for truth.
 BANNED_SUPERLATIVE = re.compile(
-    r"\b(most|least|cheapest|priciest|highest|lowest|largest|smallest|widest|"
-    r"narrowest|strongest|weakest|worst|only)\b"
-    r"(?!\s+(?:of the (?:metro|city|state)|of both))"     # "most of the metro" is not a claim
-    r"[^.!?;<]{0,55}?"                                     # same clause only
     r"\b(in (?:the|our) database"
-    r"|(?:that |cities )?we cover"
-    r"|in our coverage"
+    r"|we cover"
+    r"|our coverage"
     r"|we(?:'ve| have) published"
-    r"|of any city we\b"
-    r"|of any city (?:in|on) (?:the|our)\b"
+    r"|of any city we"
+    r"|cities we(?:'ve| have)"
     r"|on this site)\b", re.I)
 
+
+def script_strings(html):
+    """
+    Prose that lives inside <script> as data, then renders to the reader through JS.
+
+    visible_text() strips <script> wholesale, so every such string is invisible to a
+    text scan. That blind spot hid 27 banned superlatives in index.html's
+    CITY_ENRICHMENT (four flatly false) and 13 more in pick-and-compare.html. Special-
+    casing one constant at a time loses; scan every string literal in every script and
+    the whole class is closed.
+
+    Only literals long enough to be prose. Short ones are selectors, keys, and classes.
+    """
+    out = []
+    for block in re.findall(r"<script[^>]*>(.*?)</script>", html, re.S):
+        for q in re.findall(r"'((?:[^'\\]|\\.){25,})'"
+                            r'|"((?:[^"\\]|\\.){25,})"'
+                            r"|`((?:[^`\\]|\\.){25,})`", block):
+            out.append(next(s for s in q if s))
+    return " ... ".join(out)
+
+
+
+def check_hardcoded_counts(rep, db, idx, slug_to_city, local):
+    """
+    A hardcoded city count is a claim that rots. Same disease as a self-scoped
+    superlative, different symptom.
+
+    On July 13 2026 the site was simultaneously telling readers "100 cities" (37x),
+    "100+ cities" (17x), "100 US cities" (5x), "99 cities" (4x) and "92 cities" (1x).
+    The database had 99. The most common claim was wrong; "100+" was flatly false;
+    and the "92" was a fossil from whenever that was briefly true.
+
+    Policy: no number. "every city on RetireMeHere". Nothing to drift, nothing to
+    maintain, correct forever.
+    """
+    pat = re.compile(r"\b(?:9[0-9]|1[0-9]{2})\+? (?:scored |ranked |US |U\.S\. )?cities\b", re.I)
+    pages = {"index.html": idx}
+    for slug in slug_to_city:
+        h = fetch(f"cities/{slug}/profile.html", local)
+        if h:
+            pages[f"cities/{slug}/profile.html"] = h
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    for page in sorted(set(re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub))):
+        h = fetch(page, local)
+        if h:
+            pages[page] = h
+    for page, html in pages.items():
+        for surface in (visible_text(html), script_strings(html)):
+            for m in pat.finditer(re.sub(r"\s+", " ", surface)):
+                rep.fail("counts",
+                         f'{page}: "{m.group(0)}" — hardcoded city count. It drifts every '
+                         f'time the database grows. Use count-free language.')
+
+
+def check_numeric_cells(rep, db, idx, slug_to_city, local):
+    """
+    A range is not a number.
+
+    Wilmington DE carried "$430,000-$960,000" in Median Home. Nothing errored. Every
+    consumer just silently picked a different point on it: the June budget audit read
+    the low end, a later edit recomputed Monthly Est off the midpoint, validate.py's
+    parser read the low end, and the actual citywide ZHVI ($321,158) sat below all
+    three. Four numbers, four systems, zero complaints.
+
+    St. Paul carried a bare int (297000, no dollar sign) and the parser returned None,
+    so it was silently dropped from every home-value check instead.
+
+    Both failure modes are silent by construction. Fail loudly on either.
+    """
+    for key, row in db.items():
+        if row is None or "_" not in key:
+            continue
+        raw = str(row.get("home_raw", "")).strip()
+        if not raw or raw.lower() == "nan":
+            continue
+        if re.search(r"[-\u2013\u2014]", raw[1:]):
+            rep.fail("db", f'{key}: Median Home is a RANGE ("{raw}"). A range is not a '
+                           f'number; every consumer picks a different point on it.')
+        elif not raw.startswith("$"):
+            rep.fail("db", f'{key}: Median Home ("{raw}") has no $ and will not parse. '
+                           f'It is silently dropped from every price check.')
 
 def check_superlatives(rep, db, idx, slug_to_city, local):
     """
@@ -655,36 +767,61 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
         r"in Florida|in Texas|in the state)"
         r"[^.<\"]{0,30}", re.I)
 
+    # Every page a reader can actually reach. The old scan covered index.html and the
+    # city profiles only, which is why pick-and-compare.html sat at 14 banned phrases
+    # and never once appeared in a FAIL. Comparison pages come from the hub, which is
+    # the one list that stays honest (the sitemap lags).
     pages = {"index.html": idx}
     for slug in slug_to_city:
         html = fetch(f"cities/{slug}/profile.html", local)
         if html:
             pages[f"cities/{slug}/profile.html"] = html
 
-    # The CITY_ENRICHMENT strings live inside <script>, so visible_text() strips them.
-    # They render into the quiz results modal, which a reader absolutely does see. On
-    # July 12, 2026 this blind spot was hiding 27 banned superlatives, four of them
-    # flatly false ("Naples: most expensive city in the database" — Naples is $585K,
-    # Carmel is $2.28M). Scan the data strings as their own surface.
-    enrich = js_object_slice(idx, "CITY_ENRICHMENT")
-    for m in BANNED_SUPERLATIVE.finditer(enrich):
-        rep.fail("superlatives",
-                 f'index.html CITY_ENRICHMENT: "{m.group(0).strip()}" — superlative '
-                 f"scoped to our own dataset, and it renders in the quiz modal.")
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    others = sorted(set(
+        re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub)
+    )) + [
+        "compare-retirement-cities.html", "pick-and-compare.html",
+        "where-should-i-retire-quiz.html", "visit-before-you-decide.html",
+        "best-places-to-retire-on-a-budget.html",
+        "best-places-to-retire-in-florida.html",
+        "best-places-to-retire-in-the-midwest.html",
+        "best-places-to-retire-avoid-natural-disasters.html",
+        "top-cities-for-active-retirees.html", "top-cities-for-arts-lovers.html",
+        "top-cities-for-foodies.html", "top-cities-for-healthcare.html",
+        "top-cities-for-hikers.html", "top-cities-for-lgbtq-retirees.html",
+        "top-cities-for-sports-fans.html",
+        "value-navigator.html", "active-frontier.html", "wellness-blueprint.html",
+        "globetrotter-guide.html", "urban-walkabout.html",
+    ]
+    for page in others:
+        html = fetch(page, local)
+        if html:
+            pages[page] = html
 
-    # --- FAIL: dataset-scoped superlatives (policy) ---
+    # --- FAIL: dataset-scoped phrasing (policy) ---
+    # Two surfaces per page: rendered HTML, and prose held in JS string literals that
+    # renders through the quiz modal, the compare tool, and friends. Report the
+    # surrounding clause, not the bare phrase; "we cover" alone tells you nothing about
+    # where to edit.
     banned = {}
     for page, html in pages.items():
-        for m in BANNED_SUPERLATIVE.finditer(visible_text(html)):
-            phrase = re.sub(r"\s+", " ", m.group(0)).strip()
-            banned.setdefault((page, phrase), 0)
-            banned[(page, phrase)] += 1
+        surfaces = [("", visible_text(html)), (" [in JS]", script_strings(html))]
+        for tag, raw in surfaces:
+            text = re.sub(r"\s+", " ", raw)
+            for m in BANNED_SUPERLATIVE.finditer(text):
+                a, b = max(0, m.start() - 60), min(len(text), m.end() + 25)
+                ctx = text[a:b].strip()
+                if a > 0:
+                    ctx = "..." + ctx
+                key = (page + tag, ctx)
+                banned[key] = banned.get(key, 0) + 1
 
-    for (page, phrase), n in sorted(banned.items()):
+    for (page, ctx), n in sorted(banned.items()):
         times = f" (x{n})" if n > 1 else ""
         rep.fail("superlatives",
-                 f'{page}: "{phrase}"{times} — superlative scoped to our own '
-                 f"dataset. Anchor to a figure or a named city instead.")
+                 f'{page}: "{ctx}"{times} — scoped to our own dataset. '
+                 f"Anchor to a figure or a named city instead.")
 
     # --- WARN: everything else sweeping, for human eyes ---
     hits = {}
@@ -902,6 +1039,8 @@ def main():
         check_cards(rep, db, idx, args.local)
     if "superlatives" in groups:
         check_superlatives(rep, db, idx, slug_to_city, args.local)
+        check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
+        check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:
         check_emdash(rep, idx, sitemap, slug_to_city, args.local)
     if "affiliate" in groups:

@@ -868,7 +868,7 @@ button.header-quiz-btn:hover,
     <p class="step-sub">Start typing a city name. Hit a state abbreviation to filter that state.</p>
 
     <div class="city-search">
-      <input type="text" id="citySearchInput" placeholder="Search 100 cities (try ‘Asheville’, ‘TX’, ‘coastal’...)" autocomplete="off">
+      <input type="text" id="citySearchInput" placeholder="Search every city on RetireMeHere (try ‘Asheville’, ‘TX’, ‘coastal’...)" autocomplete="off">
       <div class="city-search-results" id="citySearchResults"></div>
     </div>
 
@@ -1181,7 +1181,7 @@ function renderSearch(query) {
   const results = document.getElementById('citySearchResults');
   const q = (query || '').trim().toLowerCase();
   let pool = CITIES;
-  let limit = 100;  // empty query: show all 100 cities so the dropdown is truly browsable
+  let limit = 100;  // empty query: show every city on RetireMeHere so the dropdown is truly browsable
 
   if (q.length === 2 && /^[a-z]{2}$/.test(q)) {
     // State abbreviation shortcut

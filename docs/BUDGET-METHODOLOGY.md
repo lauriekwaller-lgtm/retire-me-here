@@ -43,7 +43,7 @@ Both ends are rounded to the nearest $100. The asymmetry around the central is i
 | Property tax | Median Home × PropTax Rate % column ÷ 12 | Existing DB column, retained as-is |
 | Homeowners insurance | HO Insur Est $/yr column ÷ 12 | Existing DB column, retained as-is |
 
-Median Home uses the existing DB value, which the database header already documents: Zillow ZHVI (City geography, All Homes SFR+Condo, Smoothed & Seasonally Adjusted), snapshot 2026-04-30. Eight cities (Indianapolis, Memphis, Philadelphia, Pittsburgh, San Antonio, St. Louis, St. Paul, Wilmington DE) use a retiree-target neighborhood basis instead, per Scoring Rubric v3.2 Universal Methodology. The new budget formula applies the same arithmetic to whatever Median Home value is stored, so those eight cities continue to reflect the neighborhood-target experience.
+Median Home uses the existing DB value, which the database header already documents: Zillow ZHVI (City geography, All Homes SFR+Condo, Smoothed & Seasonally Adjusted), snapshot 2026-04-30. All 99 cities use the citywide Zillow ZHVI, per MEDIAN-HOME-METHODOLOGY.md v1.2. No city uses a retiree-target neighborhood basis. The earlier eight-city carve-out (Indianapolis, Memphis, Philadelphia, Pittsburgh, San Antonio, St. Louis, St. Paul, Wilmington DE) was retired by v1.2 and this paragraph is its fossil, struck 2026-07-13. Where retiree-target neighborhoods run materially above the citywide median, that is disclosed in prose via a Neighborhood Reality Check note on the city profile, not by altering the number.
 
 ## 5. Non-housing line items
 
@@ -115,7 +115,7 @@ The formula assumes a relocating couple buying with a mortgage. Single retirees 
 
 The formula does not adjust for HOA fees in master-planned communities (Sun City, Villages, etc.), which can add $200 to $600/mo. Editorial card prose may note this where relevant.
 
-The eight neighborhood-basis cities reflect retiree-target neighborhood costs in the Median Home value, which then propagates through the formula. The resulting Monthly Est is internally consistent with their D2 score and neighborhood framing. Miami is structurally similar (citywide median is a blend), and may warrant moving onto the neighborhood-basis list in a future revision.
+No city uses a neighborhood basis. See Section 4.
 
 The asymmetric budget bonus in the quiz scoring engine (`Math.max(score, 5)` when city.budgetRange ≤ quizState.budget) does not need to change. Its logic depends on the relative ordering of Budget Range tiers, not the absolute monthly figures.
 
@@ -140,3 +140,42 @@ Each rebuild increments the DB filename (current: CityDatabase_Jun_9_v14.xlsx). 
 *Methodology v1.0 — June 16, 2026*
 *Inputs snapshot: Freddie Mac PMMS 06/11/2026 (6.52%), CMS 2026 Part B announcement (Nov 14 2025)*
 *Audit file: Budget-Audit-Jun-16-2026.xlsx*
+
+
+---
+
+## 13. D2 Budget scoring (added 2026-07-13)
+
+D2 is scored from the **central monthly estimate**, on fixed dollar thresholds:
+
+| D2 | Central estimate |
+|---|---|
+| 10 | under $4,600 |
+| 9 | $4,600 to $4,999 |
+| 8 | $5,000 to $5,499 |
+| 7 | $5,500 to $5,999 |
+| 6 | $6,000 to $6,499 |
+| 5 | $6,500 to $7,499 |
+| 4 | $7,500 to $8,499 |
+| 3 | $8,500 to $9,499 |
+| 2 | $9,500 to $11,499 |
+| 1 | $11,500+ |
+
+**Why this replaced the old rule.** Scoring Rubric v3.2 anchors D2 on median home price plus a
+COL index. The COL index column does not exist in the database and never has, so half that rule
+was unauditable. The rubric's own example cities also contradict its bands: Fort Myers (central
+$5,785) is listed at D2 3-4 while Grand Junction (central $6,193) is listed at 7-8, so a city
+that costs $400/mo more scores four points better. There was nothing coherent to recover.
+
+The central estimate is the better basis regardless. It already contains housing, healthcare,
+utilities, food, transport, and discretionary, computed identically for all 99 cities with every
+source named in this document. It is a cost-of-living measure, retiree-specific, and better than
+any index we could buy. No new data source is needed.
+
+**Thresholds are absolute, not percentile.** A percentile scale would re-rank every city each
+time one is added. Absolute dollar thresholds do not drift.
+
+**Why D2 was wrong before.** The V15.1 rebuild (June 19) recomputed Median Home, Monthly Est, and
+Budget Range. It did not touch D2. The D2 column therefore stayed scored against the pre-June
+budget figures, which were far too low, producing a uniform downward offset across the database:
+72 of 99 cities were wrong, mean shift +0.97. Rebuilt 2026-07-13.
