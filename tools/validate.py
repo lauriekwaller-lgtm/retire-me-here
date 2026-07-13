@@ -38,10 +38,15 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_06_v16_1_stpaul-corrected.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_12_v16_2_d5-normalized.xlsx"
 
 # Tolerated deviation on home-value prose before we call it stale.
 HOME_TOLERANCE = 0.03
+
+# Tolerated within-state spread on D5 Tax. D5 is a state-level score (see
+# docs/D5-TAX-METHODOLOGY.md); 1 point of slack covers real local sales-tax and
+# millage differences the database does not yet record. 2+ is always an error.
+D5_MAX_SPREAD = 1
 
 # The em-dash rule applies here. Guides and landing pages are grandfathered;
 # see PROFILE-FORMATTING.md. Flip GUIDES_TOO to True if that decision changes.
@@ -56,6 +61,18 @@ DIMS = [
 
 RANGE_RE = re.compile(r"(\$\d{1,2},\d{3})\s*(?:–|—|to|-)\s*(\$\d{1,2},\d{3})")
 MONEY_RE = re.compile(r"\$\d{3}K|\$\d{3},\d{3}|\$\d(?:\.\d{1,2})?M")
+
+# The citywide home figure is stated in exactly one place on a profile: the stat card.
+# <div class="stat-label">Typical Home Value</div><div class="stat-value">$726<span…>K…
+STAT_HOME = re.compile(
+    r'<div class="stat-label">\s*(?:Typical Home Value|Median Home[^<]*)\s*</div>\s*'
+    r'<div class="stat-value">(.*?)</div>', re.S | re.I)
+
+# "under $400K", "below $1M" — a bound, not a figure. Must sit in the same clause as
+# a home word, or it would swallow monthly-budget claims.
+HOME_BOUND = re.compile(
+    r"(?:home|house|housing|median)[^.!?;]{0,60}?"
+    r"\b(?:under|below|less than)\s+(\$[\d.,]+[KM]?)", re.I)
 
 
 # ---------------------------------------------------------------- infrastructure
@@ -151,8 +168,13 @@ def _read_xlsx(path, sheet_name):
         sheet_path = None
         for sh in wb.iter(NS + "sheet"):
             if sh.get("name") == sheet_name:
-                t = target[sh.get(REL + "id")]
-                sheet_path = t if t.startswith("xl/") else "xl/" + t.lstrip("/")
+                # Excel writes the rel target as "worksheets/sheet1.xml"; openpyxl and
+                # pandas write "/xl/worksheets/sheet1.xml". The old code checked for the
+                # "xl/" prefix BEFORE stripping the leading slash, so the openpyxl form
+                # became "xl/xl/worksheets/sheet1.xml" and the validator died the first
+                # time the database was saved from Python. Strip, then prefix.
+                t = target[sh.get(REL + "id")].lstrip("/")
+                sheet_path = t if t.startswith("xl/") else "xl/" + t
                 break
         if sheet_path is None:
             names = [sh.get("name") for sh in wb.iter(NS + "sheet")]
@@ -441,11 +463,7 @@ def check_routing(rep, db, idx, sitemap, local, slug_to_city):
 
 
 def check_profiles(rep, db, slug_to_city, local):
-    """Profile pages: monthly ranges and citywide home-value claims vs DB."""
-    citywide = re.compile(
-        r"(typical home value|median home is|home value is|citywide median|typical home of)",
-        re.I)
-
+    """Profile pages: monthly ranges and the citywide home stat card vs DB."""
     for slug, (city, state) in sorted(slug_to_city.items()):
         html = fetch(f"cities/{slug}/profile.html", local)
         if html is None:
@@ -470,20 +488,61 @@ def check_profiles(rep, db, slug_to_city, local):
         if row["home"] is None:
             continue                     # malformed DB cell; check_db reports it
         ok = home_forms(row["home"])
-        for m in citywide.finditer(text):
-            seg = text[m.start():m.start() + 70]
-            fig = MONEY_RE.search(seg)
-            if not fig or fig.group(0) in ok:
-                continue
-            # A neighborhood range like "$475K–$650K" is legitimate; skip those.
-            if re.search(r"\$[\d.]+[KM]?\s*[–—-]\s*\$", seg):
-                continue
-            val = money_to_int(fig.group(0))
-            if val and abs(val - row["home"]) / row["home"] > HOME_TOLERANCE:
+
+        # The stat card is the ONLY place a profile states the citywide figure.
+        # The old check scanned the whole page for phrases like "median home is",
+        # which swept up things that are supposed to differ from the citywide number:
+        # neighborhood medians, "condos from ~$X", and deliberate historical
+        # comparisons. Those are not drift. Read the stat card and nothing else.
+        sm = STAT_HOME.search(html)
+        if not sm:
+            rep.warn("profiles", f"{city}: no 'Typical Home Value' stat card found")
+        else:
+            shown = re.sub(r"\s+", "", re.sub(r"<[^>]*>", "", sm.group(1)))
+            if shown not in ok:
+                val = money_to_int(shown)
+                if val is None:
+                    rep.fail("profiles",
+                             f"{city}: stat card home {shown!r} is unparseable")
+                elif abs(val - row["home"]) / row["home"] > HOME_TOLERANCE:
+                    rep.fail("profiles",
+                             f"{city}: stat card home {shown}, "
+                             f"DB says ${round(row['home'] / 1000):,}K")
+
+        # "under $400K" is a claim about a BOUND, not a figure, so it is satisfied by
+        # any DB value below the bound. Only fails when the DB actually exceeds it.
+        for m in HOME_BOUND.finditer(text):
+            bound = money_to_int(m.group(1))
+            if bound and row["home"] >= bound:
                 rep.fail("profiles",
-                         f"{city}: citywide home {fig.group(0)}, "
-                         f"DB says ${round(row['home'] / 1000):,}K  "
-                         f"(\"{seg.strip()[:60]}\")")
+                         f"{city}: claims a home value {m.group(0).strip()!r}, but "
+                         f"DB says ${round(row['home'] / 1000):,}K, which is not below it")
+
+
+def card_blocks(html):
+    """
+    Yield each city card bounded at its OWN closing tag.
+
+    The old version did re.split(lookahead for the next card-open), so a block ran
+    from one card to the start of the next, and the LAST card in a section swallowed
+    every paragraph after it. On value-navigator that trailing prose contained nine
+    money ranges, all of which were then attributed to Chattanooga and reported as
+    card drift. Nine failures, zero bugs. Walk the tag depth and stop at the real end.
+    """
+    for m in re.finditer(r'<(a|div) class="city-(?:card|featured)', html):
+        tag = m.group(1)
+        depth, i = 0, m.start()
+        step = re.compile(rf"</?{tag}\b", re.I)
+        while True:
+            t = step.search(html, i)
+            if not t:
+                yield html[m.start():]           # unbalanced; caller still sees it
+                break
+            depth += -1 if t.group(0).startswith("</") else 1
+            i = t.end()
+            if depth == 0:
+                yield html[m.start():i + len(tag) + 1]
+                break
 
 
 def check_cards(rep, db, idx, local):
@@ -511,7 +570,7 @@ def check_cards(rep, db, idx, local):
             rep.warn("cards", f"{page}: could not fetch")
             continue
 
-        for block in re.split(r'(?=<(?:a|div) class="city-card)', html):
+        for block in card_blocks(html):
             nm = re.search(r'city-(?:name|featured-name)">([^<]+)', block)
             if not nm:
                 continue
@@ -720,12 +779,19 @@ def check_db(rep, db_path):
     col = {name: i for i, name in header.items()}
 
     seen = set()
+    d5_by_state = {}
     for r in rows[2:]:
         city = str(r.get(col["City"], "")).strip()
         if not city:
             continue
         state = str(r.get(col["ST"], "")).strip()
         raw = str(r.get(col["Median Home"], "")).strip()
+
+        try:
+            d5_by_state.setdefault(state, []).append(
+                (city, int(float(r.get(col["D5 Tax"])))))
+        except (TypeError, ValueError):
+            rep.fail("db", f"{city}, {state}: D5 Tax is not a number")
 
         figs = re.findall(r"\$[\d,]+", raw)
         if len(figs) > 1 or re.search(r"[–—]", raw):
@@ -743,6 +809,33 @@ def check_db(rep, db_path):
         if (city, state) in seen:
             rep.fail("db", f"duplicate DB row: {city}, {state}")
         seen.add((city, state))
+
+    # ---- D5 is a STATE-level score. See docs/D5-TAX-METHODOLOGY.md.
+    #
+    # Every input D5 measures (income tax on SS, on pension/IRA/401k, the overall
+    # rate, property tax, sales tax) is set at the state line or above. The rubric's
+    # neighborhood carve-out (Universal Methodology) is scoped to D2, D6 and D9 and
+    # does NOT reach D5. And the database holds no per-city tax input at all:
+    # PropTax Rate % carries exactly one value per state, for all 39 states.
+    #
+    # So a within-state D5 spread is not a judgment call, it is unsourced. Oregon had
+    # Bend at 6 and Eugene at 3 while Bend's own cons list said Oregon taxes are "worst
+    # for retirees in the Pacific Northwest". Fort Collins vs Boulder shipped a whole
+    # paragraph explaining a 2-point gap "that reflects local tax burden" on a page
+    # that also stated both cities pay an identical property rate.
+    #
+    # A 1-point spread is tolerated: local sales-tax and millage differences are real
+    # even if the DB does not currently record them. 2+ is always a mistake.
+    for state, entries in sorted(d5_by_state.items()):
+        scores = [s for _, s in entries]
+        spread = max(scores) - min(scores)
+        if spread > D5_MAX_SPREAD:
+            detail = ", ".join(f"{c} {s}" for c, s in sorted(entries, key=lambda e: e[1]))
+            rep.fail("db",
+                     f"{state}: D5 Tax spans {min(scores)}–{max(scores)} "
+                     f"({detail}). D5 is a state-level score; a spread of "
+                     f"{spread} points has no source in the database. "
+                     f"See docs/D5-TAX-METHODOLOGY.md.")
 
 
 # ---------------------------------------------------------------- main
