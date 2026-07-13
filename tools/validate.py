@@ -735,6 +735,63 @@ def check_numeric_cells(rep, db, idx, slug_to_city, local):
             rep.fail("db", f'{key}: Median Home ("{raw}") has no $ and will not parse. '
                            f'It is silently dropped from every price check.')
 
+
+def check_comparison_scores(rep, db, idx, slug_to_city, local):
+    """
+    Comparison pages hardcode every D1-D10 score in a table. Nothing checked them.
+
+    On 2026-07-13 the D2 column was rebuilt in the database and propagated into
+    index.html. The validator went green. Sixteen of nineteen comparison pages were
+    still showing the OLD D2, live, because no check ever read them. The tool said the
+    site was consistent while a third of the score tables on it were wrong.
+
+    A hardcoded score in prose or a table is a copy of the truth, and every copy drifts.
+    Check them all, on every dimension, not just the one that happened to change.
+    """
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    pages = sorted(set(re.findall(
+        r"([a-z0-9-]+)-vs-([a-z0-9-]+)-retirement\.html", hub)))
+
+    by_slug = {}
+    for key, row in db.items():
+        if row is None or "_" not in key:
+            continue
+        name = str(row.get("city", ""))
+        by_slug[name.lower().replace(" ", "-").replace(".", "")] = row
+
+    for a_slug, b_slug in pages:
+        page = f"{a_slug}-vs-{b_slug}-retirement.html"
+        html = fetch(page, local)
+        if not html:
+            continue
+        a, b = by_slug.get(a_slug), by_slug.get(b_slug)
+        if not a or not b:
+            continue
+        for dim_key, dim_label in DIMS:
+            m = re.search(
+                rf'<td class="metric">{re.escape(dim_label)}[^<]*</td>\s*'
+                rf'<td class="value[^"]*">(\d{{1,2}})/10[^<]*</td>\s*'
+                rf'<td class="value[^"]*">(\d{{1,2}})/10[^<]*</td>',
+                html, re.S)
+            if not m:
+                continue
+            shown_a, shown_b = int(m.group(1)), int(m.group(2))
+            for who, shown, row in ((a_slug, shown_a, a), (b_slug, shown_b, b)):
+                # Scores are NESTED under row["scores"], not on the row. The first cut
+                # of this check used row.get(dim_key), which returned None for every
+                # city, and the `is not None` guard below then skipped all of them --
+                # so it reported zero failures on a site with sixteen broken pages.
+                # A check that cannot fail is worse than no check. If a score is
+                # missing, say so; never skip quietly.
+                truth = row.get("scores", {}).get(dim_key)
+                if truth is None:
+                    rep.fail("comparison",
+                             f"{page}: {who} has no {dim_key} in the DB.")
+                elif shown != truth:
+                    rep.fail("comparison",
+                             f"{page}: {who} {dim_label} shows {shown}/10, "
+                             f"DB says {truth}/10.")
+
 def check_superlatives(rep, db, idx, slug_to_city, local):
     """
     Two things at once.
@@ -1039,6 +1096,7 @@ def main():
         check_cards(rep, db, idx, args.local)
     if "superlatives" in groups:
         check_superlatives(rep, db, idx, slug_to_city, args.local)
+        check_comparison_scores(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:
