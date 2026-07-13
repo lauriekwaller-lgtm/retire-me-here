@@ -6456,11 +6456,11 @@ function renderRegion(container) {
        <div class="q-step">Step 1 of 4 — Location</div>
       <div class="q-title">Where are you open to living?</div>
       <div class="q-subtitle">Many retirees prioritize staying near family, children, grandchildren, aging parents, or near communities they already love.</div>
-      <div class="q-instruction">Select every region that works for you. Not sure yet? Choose "Open to anywhere" below.</div>
       <button class="open-to-all" onclick="setOpenToAll()">
         🗺️ Open to anywhere — show me the best matches nationwide
       </button>
       <div class="quiz-hint" style="margin-top:14px;">💡 We'll only show cities in the regions you select. You can rule out specific states on the next screen.</div>
+      <div class="q-instruction">Or tap the regions you'd consider. Pick as many as you like.</div>
       <div class="region-grid">
         ${regions.map(r => `
           <button class="region-card ${quizState.regions.includes(r) ? 'selected' : ''}" onclick="toggleRegion('${r}')">
@@ -6505,7 +6505,7 @@ function renderStates(container) {
   container.innerHTML = `
     <div class="question-card">
       <div class="q-step">Step 2 of 4 — States</div>
-      <div class="q-title">Anywhere you want to rule out completely?</div>
+      <div class="q-title">Anywhere you want to <strong>rule out</strong> completely?</div>
       <div class="q-instruction">Tap any state to rule it out. No need to explain why.</div>
       <div class="q-skip-row">
         <span class="q-skip-note">${quizState.regions.length > 0 ? 'Showing states from your selected regions.' : 'Showing all states.'}</span>
@@ -6757,7 +6757,7 @@ function renderBudget(container) {
     { label: '$9,000+ / month', range: 5 },
   ];
   let html = `<div class="question-card">
-    <div class="q-step">Step 3 of 7 — Budget</div>
+    <div class="q-step">Step 3 of 4 — Budget</div>
     <div class="q-title">What's your monthly household budget, all-in?</div>
     <div class="q-subtitle">Total monthly cost for a couple — housing (mortgage, property taxes, homeowners insurance), healthcare, utilities, food, transportation, and lifestyle.</div>
     <div class="budget-options">`;
