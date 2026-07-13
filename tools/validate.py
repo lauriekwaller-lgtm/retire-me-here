@@ -961,21 +961,58 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
 
 
 def check_emdash(rep, idx, sitemap, slug_to_city, local):
-    """Em-dash policy: profiles and comparison pages. Guides are grandfathered."""
+    """
+    Em-dash policy: zero in rendered content. Guides stay grandfathered.
+
+    This check used to scan visible_text() only, and only city profiles and comparison
+    pages. Both gaps mattered:
+
+      * visible_text() strips <script>, so the 1,092 em-dashes sitting in index.html's
+        city pros/cons/highlight strings were invisible -- and they render, in the city
+        cards and the quiz modal. Same blind spot that hid the superlatives twice.
+      * index.html was never a target at all, so its 311 plain-HTML em-dashes were
+        never counted either.
+
+    On 2026-07-13 the check reported ZERO while 1,403 em-dashes were live on the home
+    page. Scan both surfaces, and scan index.html.
+
+    Not converted, deliberately: em-dashes inside <style>, and the '\u2014' UI
+    placeholder used as a fallback when a value is missing (city.monthlyEst || '\u2014').
+    Those are not prose. script_strings() only returns literals of 25+ chars, so the
+    placeholder never reaches this check.
+    """
     targets = [f"cities/{s}/profile.html" for s in slug_to_city]
     targets += re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", sitemap)
+    targets += [
+        "best-places-to-retire-on-a-budget.html",
+        "best-places-to-retire-in-florida.html",
+        "best-places-to-retire-in-the-midwest.html",
+        "best-places-to-retire-avoid-natural-disasters.html",
+        "top-cities-for-active-retirees.html", "top-cities-for-arts-lovers.html",
+        "top-cities-for-foodies.html", "top-cities-for-healthcare.html",
+        "top-cities-for-hikers.html", "top-cities-for-lgbtq-retirees.html",
+        "top-cities-for-sports-fans.html",
+        "pick-and-compare.html", "compare-retirement-cities.html",
+    ]
     if GUIDES_TOO:
         targets += ["value-navigator.html", "active-frontier.html",
                     "wellness-blueprint.html", "globetrotter-guide.html",
                     "urban-walkabout.html"]
 
+    pages = {"index.html": idx}
     for page in sorted(set(targets)):
         html = fetch(page, local)
-        if html is None:
-            continue
-        n = visible_text(html).count("\u2014")
-        if n:
-            rep.fail("emdash", f"{page}: {n} em-dash(es) in rendered text")
+        if html is not None:
+            pages[page] = html
+
+    for page, html in sorted(pages.items()):
+        rendered = visible_text(html).count("\u2014")
+        in_js = script_strings(html).count("\u2014")
+        if rendered:
+            rep.fail("emdash", f"{page}: {rendered} em-dash(es) in rendered text")
+        if in_js:
+            rep.fail("emdash", f"{page}: {in_js} em-dash(es) in JS strings "
+                               f"(these render to the reader through the cards and modal)")
 
 
 def check_affiliate(rep, slug_to_city, local):
