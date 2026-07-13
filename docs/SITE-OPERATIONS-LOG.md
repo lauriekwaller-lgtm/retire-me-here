@@ -53,7 +53,7 @@ These bypass the calendar. If any of these happen, act in the window indicated.
 
 | File | Purpose | Location | Notes |
 |---|---|---|---|
-| CityDatabase_*_vN.xlsx | Authoritative scoring database | Project knowledge | Current: CityDatabase_Jun_19_v15_1_1.xlsx. Filename increments with version. |
+| CityDatabase_*_vN.xlsx | Authoritative scoring database | `docs/` in the repo | Current: CityDatabase_Jul_13_v16_4_climate.xlsx. Filename increments with version. `DEFAULT_DB` at the top of `tools/validate.py` must be updated in the same commit. |
 | MedianHomeAuditMASTER.xlsx | Full audit history including superseded v1.0 archetype values | Project knowledge | Reference only. Not authoritative for live values. |
 | Budget-Audit-*.xlsx | Per-rebuild audit trail | Project knowledge | Current: Budget-Audit-Jun-16-2026.xlsx |
 | BUDGET-METHODOLOGY.md | Budget formula and sources | Project knowledge only | Current: v1.0 (June 16 2026) |
@@ -171,6 +171,123 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+
+### 2026-07-13 — Climate engine rebuild: dealbreakers, mild scoring, and a mislabeled column
+
+**Problem.** A quiz run with Weather Preference set to "Mild Year-Round" and
+dealbreakers set to "cold winters (below freezing)" and "grey / cloudy winters"
+returned Boulder as the #1 match, followed by Scottsdale and St. Petersburg.
+Boulder has a January mean of 33F and 88 inches of snow a year. The dealbreaker
+UI promises "we'll remove those cities from your results." It was not doing that.
+
+Four separate faults were compounding. Each is worth recording, because none of
+them is visible from the surface behavior and all four were mutually concealing.
+
+**Fault 1 — the cold dealbreaker was calibrated against the wrong scale.**
+The filter read `climate.W > 3`, where `W` is winter comfort on a 1-10 scale.
+That removes only the 29 harshest-winter cities. Boulder is `W:5` and passed.
+So did Bend, Fort Collins, Grand Junction, Flagstaff, Colorado Springs, Boise,
+Santa Fe, Pittsburgh and St. Louis, all of which have January means at or below
+freezing. Raising the threshold could not fix this: the `W:5` bucket holds both
+Boulder (33F, 88 inches of snow) and Greenville SC (42F, 3 inches). No cutoff on
+`W` separates them. `W` is a comfort-preference score and cannot carry a hard
+factual promise about temperature.
+
+**Fault 2 — the `Climate Mild YR` database column was mislabeled.** The column
+does not hold a mildness score. It holds the dryness/humidity score, `M`, exactly
+as defined in scoring rubric v3.2 (10 = very dry, 1 = very humid). Proof: Tucson
+is 9 and Scottsdale is 10 on this column, and neither is a mild-year-round city.
+The grey-winter dealbreaker had been wired to it (`climate.M > 4`), so "no grey
+winters" was filtering on humidity. It removed Naples, Miami, Tampa, Charleston
+and Savannah, the sunniest cities on the site, while keeping Pittsburgh (45%
+possible sunshine, among the cloudiest in the country). It also split Tampa from
+St. Petersburg, twenty miles apart under the same sky. The column is renamed to
+`Climate Dryness M` in v16.4. Values are unchanged; only the header was ever wrong.
+
+**Fault 3 — the `mild` formula was a weighted average, so extremes cancelled.**
+`0.40*W + 0.40*(10-HEAT) + 0.20*(10-HUM)`. An average lets a great season offset
+a terrible one. Boulder scored 6 (cool summers, dry air, freezing winter ignored).
+Scottsdale scored 5 (perfect winter, lethal summer, the two cancelling). Under the
+old formula Boulder genuinely was a better "Mild Year-Round" city than Scottsdale.
+"Mild year-round" means no bad season, so the score must reflect the WORSE of
+winter and summer, never the blend. `warm_dry` carried the identical flaw: a cold
+dry city could pass as "warm and dry." Both are rewritten as worst-of.
+
+**Fault 4 — a guard was silently discarding the climate filter.** The climate hard
+filter ended with `if (climateFiltered.length >= 5) candidates = climateFiltered;`.
+When fewer than five cities cleared the threshold, the filter was dropped entirely
+and the user's climate preference stopped applying at all. It failed open and said
+nothing. Now it falls back to the fifteen best-matching climates instead of to no
+filter. This one was invisible until the `mild` formula was sharpened, at which
+point it immediately began firing.
+
+**Resolution.** Three real data columns added, sourced from NOAA-NWS 1991-2020
+normals: `Jan Mean F`, `Ann Snow in`, `Ann Sun %`. The two broken dealbreakers now
+read the data that matches the promise printed on the button:
+
+- cold  →  `janF >= 34 && snow <= 15`
+- grey  →  `sun >= 55`
+
+`mild` and `warm_dry` rewritten as worst-of-season, with the winter term read from
+`janF` directly rather than from `W`. Climate hard-filter threshold raised from
+5/3 to 7/5. The fail-open guard closed.
+
+**Deliberately NOT done.** An earlier version of this work recalibrated `W` across
+all 99 cities from January temperature. It moved 66 of 99 values and would have
+churned `warm`, `cool` and `seasons` as collateral. It was withdrawn. Once the
+dealbreakers read real temperature and `mild` reads `janF` directly, recalibrating
+`W` buys nothing. `W`, `H`, `M`, `HUM` and `HEAT` are otherwise untouched: zero
+score churn.
+
+**Data corrections (2).** Sedona `Climate Warm W` 7 -> 5 (January mean 41F; it was
+scored warmer than Fort Worth at 47F). Grand Junction 5 -> 3 (January mean 29F; it
+was scored warmer than Boise). These were the only two cities whose `W` was off by
+2 or more against actual normals. Neither changes any ranking.
+
+**Verification.** The patched JavaScript was executed directly in Node against the
+live `CITIES` array, not reimplemented. All four climate paths regression-tested:
+
+| Preference | Top matches after patch |
+|---|---|
+| Mild Year-Round | Delray Beach, St. Petersburg, Tampa, Sarasota |
+| Warm & Dry | Scottsdale, Las Vegas, Tucson, Palm Springs |
+| Cool / Mountain | Ann Arbor, Salt Lake City, Jackson Hole, Boulder |
+| Four Seasons | Ann Arbor, Salt Lake City, Pittsburgh, St. Paul |
+
+Boulder now surfaces on Cool / Mountain, where it belongs, and nowhere else.
+Scottsdale surfaces on Warm & Dry and is absent from Mild. The reported quiz
+returns 17 matches instead of 41, with Boulder, Scottsdale, Bend and Pittsburgh
+all correctly removed.
+
+**Not a bug: weather is 25% of the match score.** After the fix, Florida cities
+still lead a Mild Year-Round search ahead of Santa Barbara and Carmel, which score
+higher on climate. This is the weighting working as designed, not a fault. Picking
+a weather preference auto-sets `DC` to "Very Important" (weight 3) while the nine
+other dimensions sit at 1, so climate is 3 of 12 weight units. Florida's tax,
+healthcare and senior-fitness scores outrun a three-point climate edge. Raising
+weather's influence is a product decision, not a defect, and would need testing
+against every other quiz path before being attempted.
+
+**Files updated:** `index.html` (99 climate blocks extended; `mild`, `warm_dry`,
+both dealbreakers, the climate threshold and the fail-open guard rewritten),
+`docs/CityDatabase_Jul_13_v16_4_climate.xlsx` (3 columns added, 1 header renamed,
+2 values corrected), `tools/validate.py` (`DEFAULT_DB` bumped to v16.4).
+
+**Files removed:** `docs/CityDatabase_Jul_13_v16_3_d2-rebuild.xlsx`.
+
+**Open items.**
+1. `Ann Sun %` is the softest of the three new columns. Percent-possible-sunshine
+   is published for only a subset of NOAA stations, so roughly 30 of the 99 values
+   are interpolated from the nearest reporting station. Adequate behind a 55%
+   filter cutoff. Do not print these figures on a profile page without verifying
+   the specific city.
+2. The validator does not yet check climate data. A future pass should assert that
+   the `CITIES` array climate blocks in `index.html` match the database
+   (they matched exactly, 99 of 99, on all five original fields as of this entry)
+   and that `janF`, `snow` and `sun` are present and non-null for every city.
+3. Beaufort is coded `NC` in the database and is Beaufort, North Carolina. Confirmed
+   2026-07-13. Normals sourced accordingly. Recorded here because "Beaufort" reads
+   as South Carolina to most people and this will be second-guessed.
 
 ### 2026-07-12 — Source-of-truth reconciliation and site validator
 
