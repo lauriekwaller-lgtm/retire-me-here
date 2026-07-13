@@ -1206,6 +1206,12 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .intro-step-num { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 900; color: var(--teal); width: 24px; flex-shrink: 0; }
 .intro-step-text { font-size: 13px; color: var(--mid); font-family: 'DM Sans', sans-serif; }
 .quiz-hint { background: var(--teal-lt); border: 1px solid var(--teal); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--teal); line-height: 1.5; margin-bottom: 16px; }
+.q-instruction { font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.5; margin: 0 0 16px; }
+.q-skip-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 18px; }
+.q-skip-note { font-size: 12px; color: var(--light); font-style: italic; }
+.q-skip-link { background: none; border: none; padding: 0; font-family: inherit; font-size: 13px; font-weight: 600; color: var(--teal); text-decoration: underline; cursor: pointer; }
+.q-skip-link:hover { color: var(--terra); }
+.priority-divider { font-size: 15px; font-weight: 700; color: var(--dark); border-top: 1px solid #e8e4dc; padding-top: 20px; margin: 26px 0 10px; }
 .climate-section-divider { font-size: 13px; font-weight: 700; color: var(--dark); margin: 18px 0 6px; }
 .climate-section-sub { font-size: 12px; color: var(--light); font-style: italic; margin-bottom: 12px; }
 .climate-priority-wrap { margin-top: 16px; padding-top: 14px; border-top: 1px solid #f0ede8; }
@@ -6412,7 +6418,7 @@ function startQuiz() {
 }
 
 function renderStep() {
-  const pct = ((quizState.step + 1) / STEPS.length) * 100;
+  const pct = (quizState.step / (STEPS.length - 1)) * 100;
   document.getElementById('progressBar').style.width = pct + '%';
   const container = document.getElementById('quizContainer');
   const step = STEPS[quizState.step];
@@ -6447,11 +6453,15 @@ function renderRegion(container) {
   const regions = Object.keys(REGION_MAP);
   container.innerHTML = `
     <div class="question-card">
-       <div class="q-step">Step 1 of 7 — Location</div>
+       <div class="q-step">Step 1 of 4 — Location</div>
       <div class="q-title">Where are you open to living?</div>
-      <div class="q-subtitle">Many retirees prioritize staying near family — children, grandchildren, aging parents — or near communities they already love. Select regions that work for you, or skip if you're truly open to anywhere.</div>
-      <div class="quiz-hint">💡 We'll only show cities in the regions you select. You can rule out specific states on the next screen.</div>
-            <div class="region-grid">
+      <div class="q-subtitle">Many retirees prioritize staying near family, children, grandchildren, aging parents, or near communities they already love.</div>
+      <div class="q-instruction">Select every region that works for you. Not sure yet? Choose "Open to anywhere" below.</div>
+      <button class="open-to-all" onclick="setOpenToAll()">
+        🗺️ Open to anywhere — show me the best matches nationwide
+      </button>
+      <div class="quiz-hint" style="margin-top:14px;">💡 We'll only show cities in the regions you select. You can rule out specific states on the next screen.</div>
+      <div class="region-grid">
         ${regions.map(r => `
           <button class="region-card ${quizState.regions.includes(r) ? 'selected' : ''}" onclick="toggleRegion('${r}')">
             <span class="region-icon">${REGION_MAP[r].icon}</span>
@@ -6459,12 +6469,6 @@ function renderRegion(container) {
             <div class="region-states">${REGION_STATE_LABELS[r]}</div>
           </button>`).join('')}
       </div>
-      <button class="open-to-all ${quizState.regions.length === 0 ? 'selected' : ''}" onclick="setOpenToAll()">
-        🗺️ Open to anywhere — show me the best matches nationwide
-      </button>
-    </div>
-    <div style="text-align:center;margin-top:8px;">
-      <button class="btn-skip" onclick="quizState.regions=[];nextStep();" style="background:none;border:none;color:var(--light);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit;">Skip region & state questions →</button>
     </div>
     <div class="quiz-nav" style="margin-top:8px;">
       <button class="btn-back" onclick="prevStep()">← Back</button>
@@ -6500,14 +6504,14 @@ function renderStates(container) {
 
   container.innerHTML = `
     <div class="question-card">
-      <div class="q-step">Step 2 of 7 — States</div>
+      <div class="q-step">Step 2 of 4 — States</div>
       <div class="q-title">Anywhere you want to rule out completely?</div>
-      <div class="q-subtitle">Tap any state to rule it out. No need to explain why.</div>
-      <p style="font-size:12px;color:var(--light);font-style:italic;margin-bottom:14px;">Showing states from your selected regions.</p>
+      <div class="q-instruction">Tap any state to rule it out. No need to explain why.</div>
+      <div class="q-skip-row">
+        <span class="q-skip-note">${quizState.regions.length > 0 ? 'Showing states from your selected regions.' : 'Showing all states.'}</span>
+        <button class="q-skip-link" onclick="quizState.excludedStates=[];nextStep();">Nothing to rule out — include all states →</button>
+      </div>
       ${statesHtml}
-    </div>
-    <div style="text-align:center;margin-top:8px;">
-      <button onclick="nextStep();" style="background:none;border:none;color:var(--light);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit;">Skip — include all states →</button>
     </div>
     <div class="quiz-nav" style="margin-top:8px;">
       <button class="btn-back" onclick="prevStep()">← Back</button>
@@ -6546,10 +6550,9 @@ function renderPriorities(container) {
   ];
 
   let html = `<div class="question-card">
-     <div class="q-step">Step 5 of 7 — Priorities</div>
+     <div class="q-step">Step 4 of 4 — Priorities</div>
     <div class="q-title">What matters most to you?</div>
-    <div class="q-subtitle">Start with weather, then rate what matters most. <strong>"Must Have" removes cities that don't meet your minimum.</strong></div>
-    <div class="quiz-hint" style="margin-bottom:16px;">💡 Tip: Limit "Must Haves" to your top 1–2. Too many can leave you with no matches.</div>
+    <div class="q-instruction">Start with weather. Then rate how much each of the nine dimensions matters to you.</div>
 
     <div class="priority-section">
       <div class="priority-label"><span class="icon">⛅</span>Weather Preference</div>
@@ -6575,6 +6578,10 @@ function renderPriorities(container) {
           </div>
         </button>`).join('')}
     </div>`;
+
+  // Must-Have guidance sits here, immediately above the first rated dimension
+  html += `<div class="priority-divider">How much does each of these matter?</div>
+    <div class="quiz-hint" style="margin-bottom:18px;">💡 <strong>"Must Have" removes any city that doesn't meet your minimum.</strong> Limit Must Haves to your top 1 or 2. Too many can leave you with no matches at all.</div>`;
 
   // All dimensions except DC (climate handled above)
   DIMENSIONS.filter(d => d.key !== 'DC').forEach(dim => {
@@ -6940,12 +6947,20 @@ function runMatchingEngine() {
       if (!priority || priority === 'Not Important') {
         const weight = 1;
         let score = getCityScore(city, dim.key);
+        
+        if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
+          score = Math.max(score, 5);
+        }
         weightedTotal += score * weight;
         totalWeight += weight * 10;
         return;
       }
       const weight = PRIORITY_WEIGHTS[priority] || 1;
       let score = getCityScore(city, dim.key);
+      
+      if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
+        score = Math.max(score, 5);
+      }
       weightedTotal += score * weight;
       totalWeight += weight * 10;
     });
