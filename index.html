@@ -6940,20 +6940,12 @@ function runMatchingEngine() {
       if (!priority || priority === 'Not Important') {
         const weight = 1;
         let score = getCityScore(city, dim.key);
-        
-        if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
-          score = Math.max(score, 5);
-        }
         weightedTotal += score * weight;
         totalWeight += weight * 10;
         return;
       }
       const weight = PRIORITY_WEIGHTS[priority] || 1;
       let score = getCityScore(city, dim.key);
-      
-      if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
-        score = Math.max(score, 5);
-      }
       weightedTotal += score * weight;
       totalWeight += weight * 10;
     });

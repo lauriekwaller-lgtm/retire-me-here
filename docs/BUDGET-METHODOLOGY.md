@@ -117,7 +117,9 @@ The formula does not adjust for HOA fees in master-planned communities (Sun City
 
 No city uses a neighborhood basis. See Section 4.
 
-The asymmetric budget bonus in the quiz scoring engine (`Math.max(score, 5)` when city.budgetRange ≤ quizState.budget) does not need to change. Its logic depends on the relative ordering of Budget Range tiers, not the absolute monthly figures.
+There is no budget bonus in the quiz scoring engine. An earlier version of this document described one (`Math.max(score, 5)` when `city.budgetRange <= quizState.budget`) as live. It was not. Git history shows the line was present in the first upload of index.html (2026-03-29) and that D2 has never once appeared in the DIMENSIONS array the scoring loop iterates, so the guard could never evaluate true. It never executed. Both guards were deleted 2026-07-13, a no-op by construction.
+
+Budget is not a weighted dimension and by design never has been. Asking a reader how important affordability is has no discriminating power (everyone answers 'very'), so the quiz asks for their monthly budget instead, which is a fact about them, and applies it as a hard filter: `candidates.filter(c => c.budgetRange <= quizState.budget + 1)`. D2 is a reader-facing display score on profiles and comparison tables. It is not a matching input.
 
 ## 11. Refresh and versioning
 

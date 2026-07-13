@@ -792,6 +792,33 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
                              f"{page}: {who} {dim_label} shows {shown}/10, "
                              f"DB says {truth}/10.")
 
+
+def check_dead_dimension_guards(rep, db, idx, slug_to_city, local):
+    """
+    A guard on a dimension key that is not in DIMENSIONS can never fire.
+
+    index.html carried `if (dim.key === 'D2' ...)` inside a `DIMENSIONS.forEach(dim =>`
+    loop from the site's very first commit (2026-03-29). D2 has never been in
+    DIMENSIONS, in any of 926 commits. The guard never executed once. It was written
+    for a design where affordability was a weighted dimension; that design was dropped,
+    the code was not. BUDGET-METHODOLOGY then documented the bonus as live, because
+    someone read the line and reasonably assumed it ran.
+
+    Dead code that looks alive is worse than no code: it teaches the next reader
+    something false about how the product works.
+    """
+    m = re.search(r"const DIMENSIONS = \[(.*?)\];", idx, re.S)
+    if not m:
+        rep.fail("engine", "index.html: DIMENSIONS array not found.")
+        return
+    keys = set(re.findall(r"key:\s*'([^']+)'", m.group(1)))
+    for guard in set(re.findall(r"dim\.key === '([^']+)'", idx)):
+        if guard not in keys:
+            rep.fail("engine",
+                     f"index.html: guard `dim.key === '{guard}'` is unreachable. "
+                     f"'{guard}' is not in DIMENSIONS ({', '.join(sorted(keys))}). "
+                     f"Delete it or add the dimension.")
+
 def check_superlatives(rep, db, idx, slug_to_city, local):
     """
     Two things at once.
@@ -1096,6 +1123,7 @@ def main():
         check_cards(rep, db, idx, args.local)
     if "superlatives" in groups:
         check_superlatives(rep, db, idx, slug_to_city, args.local)
+        check_dead_dimension_guards(rep, db, idx, slug_to_city, args.local)
         check_comparison_scores(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
