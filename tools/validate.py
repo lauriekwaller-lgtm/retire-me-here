@@ -38,7 +38,7 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_13_v16_3_d2-rebuild.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_13_v16_4_climate.xlsx"
 
 # Tolerated deviation on home-value prose before we call it stale.
 HOME_TOLERANCE = 0.03
