@@ -290,10 +290,34 @@ def home_forms(value):
     return forms
 
 
+BLOCK_TAGS = ("div|p|h[1-6]|li|ul|ol|table|thead|tbody|tr|td|th|section|article|"
+              "header|footer|nav|aside|main|blockquote|figure|figcaption|br|hr|form|label")
+
+
 def visible_text(html):
+    """
+    Rendered text, with BLOCK boundaries preserved.
+
+    Every tag used to become a single space, which quietly fused text from separate
+    block elements into one running clause. That manufactured phrases that appear
+    nowhere on the page. Real example, from cities/prescott/profile.html:
+
+        <div class="eyebrow">Prescott also appears on</div>
+        <h2 class="section-title">The list where Prescott earns its place.</h2>
+
+    collapsed to "...appears on The list where..." and tripped the superlative ban on
+    "on ... list" -- a phrase no reader ever sees. The same seam can hide a real
+    violation just as easily as invent a fake one.
+
+    So: block-level tags become a hard boundary, inline tags (span, strong, a, em ...)
+    stay a space, because a banned phrase legitimately runs through <strong> mid-clause.
+    """
     html = re.sub(r"<script.*?</script>", " ", html, flags=re.S)
     html = re.sub(r"<style.*?</style>", " ", html, flags=re.S)
     html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
+    # block boundaries first: a period stops a clause dead
+    html = re.sub(r"</?(?:%s)\b[^>]*>" % BLOCK_TAGS, " . ", html, flags=re.I)
+    # everything else (inline) is just a space
     return re.sub(r"\s+", " ", re.sub(r"<[^>]*>", " ", html))
 
 
