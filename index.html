@@ -6354,15 +6354,11 @@ const BUDGET_OPTIONS = [
   { label: 'Range 5 — $9,000+/mo', range: 5 },
 ];
 
-const SETTING_TAGS = ['Beach / Coastal', 'Mountain', 'Desert', 'Forest / Green', 'Urban / Metro', 'Lakeside'];
-const CHARACTER_TAGS = ['Historic', 'Arts & Culture', 'Resort / Golf', 'Big City Energy', 'Urban Neighborhood', 'Quiet & Residential', 'Nature-Centric', 'College Town'];
 
 let quizState = {
   step: 0,
   priorities: {},
   budget: null,
-  settingTags: [],
-  characterTags: [],
   climateChoice: null,
   climateDeals: [],
   regions: [],
@@ -6408,7 +6404,7 @@ const STEPS = [
 ];
 
 function startQuiz() {
-  quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
+  quizState = { step: 0, priorities: {}, budget: null, climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
   DIMENSIONS.forEach(d => { quizState.priorities[d.key] = null; });
   if (typeof gtag !== 'undefined') {
     gtag('event', 'quiz_start', { event_category: 'Quiz', event_label: document.referrer || 'direct' });
@@ -6775,56 +6771,6 @@ function renderBudget(container) {
 
 function setBudget(range) { quizState.budget = range; renderStep(); }
 
-function renderSetting(container) {
-  let html = `<div class="question-card">
-    <div class="q-step">Step 6 of 7 — Setting</div>
-    <div class="q-title">What setting appeals to you?</div>
-    <div class="q-subtitle">Pick the settings you're naturally drawn to — this narrows your matches by geography.</div>
-    <div class="tag-options">`;
-  SETTING_TAGS.forEach(tag => {
-    const sel = quizState.settingTags.includes(tag) ? 'selected' : '';
-    html += `<button class="tag-btn ${sel}" onclick="toggleSetting('${tag}')">${tag}</button>`;
-  });
-  html += `</div><div class="tag-limit">Select any that appeal to you, or skip to see all settings.</div></div>
-    <div class="quiz-nav">
-      <button class="btn-back" onclick="prevStep()">← Back</button>
-      <button class="btn-next" onclick="nextStep()">Next — Community →</button>
-    </div>`;
-  container.innerHTML = html;
-}
-
-function toggleSetting(tag) {
-  const idx = quizState.settingTags.indexOf(tag);
-  if (idx >= 0) quizState.settingTags.splice(idx, 1);
-  else quizState.settingTags.push(tag);
-  renderStep();
-}
-
-function renderCharacter(container) {
-  let html = `<div class="question-card">
-    <div class="q-step">Step 7 of 7 — Community</div>
-    <div class="q-title">What kind of community feels like home?</div>
-    <div class="q-subtitle">Pick up to 2 — this helps match your lifestyle preferences.</div>
-    <div class="tag-options">`;
-  CHARACTER_TAGS.forEach(tag => {
-    const sel = quizState.characterTags.includes(tag) ? 'selected' : '';
-    html += `<button class="tag-btn ${sel}" onclick="toggleCharacter('${tag}')">${tag}</button>`;
-  });
-  html += `</div><div class="tag-limit">${quizState.characterTags.length}/2 selected</div></div>
-    <div class="quiz-nav">
-      <button class="btn-back" onclick="prevStep()">← Back</button>
-      <button class="btn-next" onclick="calculateResults()">Find My Cities ✦</button>
-    </div>`;
-  container.innerHTML = html;
-}
-
-function toggleCharacter(tag) {
-  const idx = quizState.characterTags.indexOf(tag);
-  if (idx >= 0) quizState.characterTags.splice(idx, 1);
-  else if (quizState.characterTags.length < 2) quizState.characterTags.push(tag);
-  renderStep();
-}
-
 function nextStep() {
   if (quizState.step < STEPS.length - 1) { quizState.step++; renderStep(); window.scrollTo(0, 0); }
 }
@@ -6947,20 +6893,12 @@ function runMatchingEngine() {
       if (!priority || priority === 'Not Important') {
         const weight = 1;
         let score = getCityScore(city, dim.key);
-        
-        if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
-          score = Math.max(score, 5);
-        }
         weightedTotal += score * weight;
         totalWeight += weight * 10;
         return;
       }
       const weight = PRIORITY_WEIGHTS[priority] || 1;
       let score = getCityScore(city, dim.key);
-      
-      if (dim.key === 'D2' && quizState.budget && city.budgetRange <= quizState.budget) {
-        score = Math.max(score, 5);
-      }
       weightedTotal += score * weight;
       totalWeight += weight * 10;
     });
@@ -7027,21 +6965,6 @@ function generateWhyMatch(city) {
     parts.push(`Your budget of ${budgetLabels[quizState.budget-1]}/mo fits here — ${city.name} is comfortably within reach.`);
   }
 
-  
-  if (quizState.settingTags.length > 0) {
-    const match = city.setting.find(s => quizState.settingTags.includes(s));
-    if (match) {
-      const settingMsg = {
-        'Beach / Coastal': `You said coastal living appeals to you, and ${city.name} delivers that waterfront character.`,
-        'Mountain': `You're drawn to mountain settings — ${city.name} has that elevation and natural backdrop you're looking for.`,
-        'Urban / Metro': `You want urban energy with walking, transit, and rideshare at your doorstep — ${city.name} has the density and infrastructure to deliver car-free or car-light living.`,
-        'Forest / Green': `You prefer green, forested settings — ${city.name} fits that quieter, nature-connected character.`,
-        'Desert': `You're drawn to desert living — ${city.name} has that distinctive arid landscape and culture.`,
-        'Lakeside': `You want water nearby — ${city.name} has that lakeside quality that brings a sense of calm and recreation.`,
-      };
-      if (settingMsg[match]) parts.push(settingMsg[match]);
-    }
-  }
 
   return parts.slice(0, 2).join(' ') || `${city.name} scored well across your priorities and is a strong fit for the retirement lifestyle you described.`;
 }
@@ -7223,18 +7146,8 @@ function generateBestFor(city) {
     quizState.priorities[d.key] === 'Very Important'
   ).map(d => d.label);
 
-  const setting = quizState.settingTags[0] || '';
   const climate = quizState.climateChoice;
   const budget = quizState.budget;
-
-  const settingDesc = {
-    'Beach / Coastal': 'a coastal lifestyle',
-    'Mountain': 'mountain scenery and outdoor access',
-    'Urban / Metro': 'urban energy and walkable neighborhoods',
-    'Forest / Green': 'a quieter, greener setting',
-    'Desert': 'desert living and wide-open spaces',
-    'Lakeside': 'lakeside living and water access',
-  };
 
   const climateDesc = {
     'warm': "prioritize warm winters and don\'t mind summer heat or humidity",
@@ -7262,9 +7175,6 @@ function generateBestFor(city) {
     desc += 'value a comfortable retirement environment';
   }
 
-  if (setting && settingDesc[setting]) {
-    desc += `, drawn to ${settingDesc[setting]}`;
-  }
 
   const prioDescs = topPrios.map(p => prioDesc[p]).filter(Boolean);
   if (prioDescs.length > 0) {
@@ -8351,7 +8261,7 @@ window.addEventListener('popstate', function(e) {
 });
 
 function restartQuiz() {
-  quizState = { step: 0, priorities: {}, budget: null, settingTags: [], characterTags: [], climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
+  quizState = { step: 0, priorities: {}, budget: null, climateChoice: null, climateDeals: [], regions: [], excludedStates: [] };
   DIMENSIONS.forEach(d => { quizState.priorities[d.key] = null; });
   document.getElementById('progressBar').style.width = '0%';
   showScreen('screen-hero');
