@@ -847,6 +847,45 @@ def check_dead_dimension_guards(rep, db, idx, slug_to_city, local):
                      f"'{guard}' is not in DIMENSIONS ({', '.join(sorted(keys))}). "
                      f"Delete it or add the dimension.")
 
+def check_tag_balance(rep, db, idx, sitemap, slug_to_city, local):
+    """
+    Unclosed / orphaned inline tags.
+
+    Added 2026-07-13 after finding a stray </strong> live in value-navigator.html:
+
+        Typical home value <strong>$185K</strong> , under Tulsa at $194K
+        and Memphis at $195K</strong> · UNESCO Creative City
+
+    An earlier edit deleted the opening tag and left the closer behind. Browsers
+    swallow it silently, so it rendered "fine" and nothing caught it. Cheap to check,
+    so check it.
+
+    Only inline tags with mandatory closers. <p> and <li> are legally left open in
+    HTML, and <br>/<img> are void, so they are not counted.
+    """
+    TAGS = ("strong", "em", "b", "i", "span", "a")
+
+    targets = ["index.html", "pick-and-compare.html", "compare-retirement-cities.html",
+               "visit-before-you-decide.html"]
+    targets += [f"cities/{s}/profile.html" for s in slug_to_city]
+    targets += re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", sitemap)
+    targets += ["value-navigator.html", "active-frontier.html", "wellness-blueprint.html",
+                "globetrotter-guide.html", "urban-walkabout.html"]
+
+    for page in sorted(set(targets)):
+        html = idx if page == "index.html" else fetch(page, local)
+        if html is None:
+            continue
+        body = re.sub(r"<(script|style)\b.*?</\1>", "", html, flags=re.S | re.I)
+        for tag in TAGS:
+            opens = len(re.findall(r"<%s\b[^>]*>" % tag, body, re.I))
+            closes = len(re.findall(r"</%s\s*>" % tag, body, re.I))
+            if opens != closes:
+                rep.fail("tags",
+                         f"{page}: <{tag}> unbalanced, {opens} open vs {closes} close "
+                         f"({opens - closes:+d})")
+
+
 def check_superlatives(rep, db, idx, slug_to_city, local):
     """
     Two things at once.
@@ -1132,7 +1171,7 @@ def main():
     ap.add_argument("--local", help="validate a local checkout instead of live GitHub")
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
-                             "superlatives", "emdash", "affiliate", "db"],
+                             "superlatives", "emdash", "tags", "affiliate", "db"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -1146,7 +1185,7 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "affiliate", "db"}
+        "tags", "affiliate", "db"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -1194,6 +1233,8 @@ def main():
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:
         check_emdash(rep, idx, sitemap, slug_to_city, args.local)
+    if "tags" in groups:
+        check_tag_balance(rep, db, idx, sitemap, slug_to_city, args.local)
     if "affiliate" in groups:
         check_affiliate(rep, slug_to_city, args.local)
     if "db" in groups:
