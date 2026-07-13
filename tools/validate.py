@@ -1120,6 +1120,107 @@ def check_affiliate(rep, slug_to_city, local):
                          f"({', '.join(sorted(cs))}). Only one is being credited.")
 
 
+# ---------------------------------------------------------------------------
+# Docs currency
+# ---------------------------------------------------------------------------
+# The governing docs go stale for a boring reason: they go stale WHILE the work
+# is being done, and the person doing the work is the same person who would have
+# to notice. Discipline does not fix that. A tool that is already being run at
+# the exact moment of the deploy does.
+#
+# These are WARNINGS, not failures. A stale taskboard must never block a deploy.
+# It should nag, at the one moment you are guaranteed to be looking.
+
+DOC_MONTHS = {"jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+              "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12}
+
+
+def _doc_date(text):
+    """Pull a date out of 'July 13, 2026' or 'Jul_13' or '2026-07-13'. None if absent."""
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", text)
+    if m:
+        return tuple(int(g) for g in m.groups())
+    m = re.search(r"([A-Za-z]{3})[a-z]*[_ ](\d{1,2}),?[_ ]?(\d{4})?", text)
+    if m and m.group(1)[:3].lower() in DOC_MONTHS:
+        year = int(m.group(3)) if m.group(3) else 2026
+        return (year, DOC_MONTHS[m.group(1)[:3].lower()], int(m.group(2)))
+    return None
+
+
+def check_docs(rep, db_path, idx, sitemap, slug_to_city, local):
+    """Are TASKBOARD.md and SITE-OPERATIONS-LOG.md current with the live repo?"""
+    board = fetch("docs/TASKBOARD.md", local)
+    log = fetch("docs/SITE-OPERATIONS-LOG.md", local)
+
+    if board is None:
+        rep.warn("docs", "docs/TASKBOARD.md not found; nothing tracked")
+        return
+    if log is None:
+        rep.warn("docs", "docs/SITE-OPERATIONS-LOG.md not found")
+        return
+
+    # --- 1. counts the board asserts vs counts actually live -----------------
+    live_profiles = len(slug_to_city)
+    live_compares = len(set(re.findall(r"[a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html", sitemap)))
+
+    m = re.search(r"(\d+)\s+profiles", board)
+    if m and int(m.group(1)) != live_profiles:
+        rep.warn("docs",
+                 f"TASKBOARD.md asserts {m.group(1)} profiles; {live_profiles} are live. "
+                 f"The board is behind the work.")
+    elif not m:
+        rep.warn("docs", "TASKBOARD.md states no profile count; add one so it can be checked")
+
+    m = re.search(r"(\d+)\s+comparison pages", board)
+    if m and int(m.group(1)) != live_compares:
+        rep.warn("docs",
+                 f"TASKBOARD.md asserts {m.group(1)} comparison pages; "
+                 f"{live_compares} are live.")
+
+    # --- 2. the DB the validator reads vs the DB the log registers -----------
+    db_name = os.path.basename(db_path)
+    if db_name not in log:
+        rep.warn("docs",
+                 f"SITE-OPERATIONS-LOG.md never mentions {db_name}, the database this "
+                 f"validator is reading. The file registry in section 4 is stale.")
+
+    # --- 3. is there a log entry for the current database? -------------------
+    db_date = _doc_date(db_name)
+    entries = re.findall(r"^### (\d{4}-\d{2}-\d{2})", log, re.M)
+    newest_log = _doc_date(entries[0]) if entries else None
+    if db_date and newest_log and newest_log < db_date:
+        rep.warn("docs",
+                 f"newest change-log entry is {entries[0]}, but the live database is "
+                 f"{db_name}. A database version shipped without being logged.")
+
+    # --- 4. is the board older than the log? --------------------------------
+    m = re.search(r"\*\*Last updated:\*\*\s*([^\n(]+)", board)
+    board_date = _doc_date(m.group(1)) if m else None
+    if board_date is None:
+        rep.warn("docs", "TASKBOARD.md has no parseable '**Last updated:**' date")
+    elif newest_log and board_date < newest_log:
+        rep.warn("docs",
+                 f"TASKBOARD.md last updated {board_date[0]}-{board_date[1]:02d}-"
+                 f"{board_date[2]:02d}, but SITE-OPERATIONS-LOG.md has an entry dated "
+                 f"{entries[0]}. Work shipped that the board does not know about.")
+
+    # --- 5. exactly one database in docs/ (local only; cannot list on GitHub) -
+    if local:
+        docs_dir = os.path.join(local, "docs")
+        if os.path.isdir(docs_dir):
+            dbs = [f for f in os.listdir(docs_dir)
+                   if f.startswith("CityDatabase_") and f.endswith(".xlsx")]
+            if len(dbs) > 1:
+                rep.fail("docs",
+                         f"{len(dbs)} CityDatabase files in docs/: {sorted(dbs)}. "
+                         f"Leaving more than one invites a future session to read the "
+                         f"wrong one. Delete the superseded file.")
+            elif dbs and dbs[0] != db_name:
+                rep.fail("docs",
+                         f"DEFAULT_DB points at {db_name}, but docs/ contains "
+                         f"{dbs[0]}. One of the two is wrong.")
+
+
 def check_db(rep, db_path):
     """Database hygiene. Standard library only, same as load_db."""
     rows = _read_xlsx(db_path, "City Database")
@@ -1195,7 +1296,8 @@ def main():
     ap.add_argument("--local", help="validate a local checkout instead of live GitHub")
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
-                             "superlatives", "emdash", "tags", "affiliate", "db"],
+                             "superlatives", "emdash", "tags", "affiliate", "db",
+                             "docs"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -1209,7 +1311,7 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "tags", "affiliate", "db"}
+        "tags", "affiliate", "db", "docs"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -1263,6 +1365,8 @@ def main():
         check_affiliate(rep, slug_to_city, args.local)
     if "db" in groups:
         check_db(rep, args.db)
+    if "docs" in groups:
+        check_docs(rep, args.db, idx, sitemap, slug_to_city, args.local)
 
     return rep.render()
 
