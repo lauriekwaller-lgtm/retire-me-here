@@ -644,13 +644,41 @@ def check_cards(rep, db, idx, local):
 # Those scope to the outside world, not to us. They cannot rot when we add a city; they
 # are handled by the WARN tier below, which asks a human to check them for truth.
 BANNED_SUPERLATIVE = re.compile(
-    r"\b(in (?:the|our) database"
-    r"|we cover"
-    r"|our coverage"
-    r"|we(?:'ve| have) published"
-    r"|of any city we"
-    r"|cities we(?:'ve| have)"
-    r"|on this site)\b", re.I)
+    # (a) a preposition pointing at our own corpus, article optional.
+    #     "in the database", "in our coverage", and -- the ones the first cut MISSED --
+    #     bare "in database", "on our list", "across the site".
+    r"\b(?:in|on|of|across|from|among|throughout|against|within)\s+"
+    r"(?:the\s+|our\s+|this\s+)?(?:database|dataset|coverage|site|list)\b"
+    # (b) first-person verbs of curation. "we cover" was banned; "we score", "we rank",
+    #     "we track", "we publish" were not, and there were 16 of them live.
+    r"|\bwe(?:'ve| have)?\s+(?:cover|covered|score|scored|rank|ranked|track|tracked|"
+    r"publish|published|list|listed|include|included)\b"
+    # (c) "of any city we ...", "of any city here"
+    r"|\bof any city\s+(?:we|here)\b",
+    re.I)
+# WHY THIS SHAPE, AND WHY IT GOT WIDER (2026-07-13, second pass)
+#
+# The first phrase ban replaced a closed list of RANKING words with what I called an
+# airtight scope check. It was not airtight. It was a closed list of SCOPE strings --
+# the same mistake, moved one clause to the right. It matched "in the database" and
+# "in our database" but not bare "in database", and not "we score" / "we rank" /
+# "we track". Twenty-one bare "in database" and fifteen "we score" were live and
+# invisible, and inside them sat three separate cities each claiming to be the "Most
+# expensive city in database" (Naples $549K, Carlsbad $1.36M, Jackson Hole $1.93M).
+# None of them is. Carmel-by-the-Sea is, at $2,281,000. All three figures were stale too.
+#
+# So this version bans the STRUCTURE, not the strings: a preposition aimed at our corpus,
+# or a first-person verb of curation. Those are the only two ways to point a claim at
+# our own moving dataset, and both are now closed.
+#
+# Anchor real claims to a NUMBER or a NAMED city, never to a rank:
+#   BAD:  "the most expensive city in database"
+#   GOOD: "at $585,000, well below Carmel-by-the-Sea's $2.28M"
+# Numbers stay true when the database grows. Ranks do not.
+#
+# Deliberately NOT banned: "in the country", "in Florida", "of any city in the state".
+# Those scope to the outside world and cannot rot when we add a city; the WARN tier
+# below asks a human to check them for truth.
 
 
 def script_strings(html):
