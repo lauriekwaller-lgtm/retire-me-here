@@ -2,7 +2,7 @@
 **Purpose:** Single source of truth for what gets reviewed, updated, and refreshed across the site. Forward-looking calendar plus backward-looking change log. Written to be handover-ready, not personal shorthand.
 **Owner:** Laurie Waller (solo founder/operator)
 **Created:** June 17, 2026
-**Last full review:** July 12, 2026
+**Last full review:** July 14, 2026
 
 ---
 
@@ -56,25 +56,27 @@ These bypass the calendar. If any of these happen, act in the window indicated.
 | CityDatabase_*_vN.xlsx | Authoritative scoring database | `docs/` in the repo | Current: CityDatabase_Jul_13_v16_4_climate.xlsx. Filename increments with version. `DEFAULT_DB` at the top of `tools/validate.py` must be updated in the same commit. |
 | MedianHomeAuditMASTER.xlsx | Full audit history including superseded v1.0 archetype values | Project knowledge | Reference only. Not authoritative for live values. |
 | Budget-Audit-*.xlsx | Per-rebuild audit trail | Project knowledge | Current: Budget-Audit-Jun-16-2026.xlsx |
-| BUDGET-METHODOLOGY.md | Budget formula and sources | Project knowledge only | Current: v1.0 (June 16 2026) |
-| MEDIAN-HOME-METHODOLOGY.md | Citywide-default rule, NRC list, callout requirement | Project knowledge only | Current: v1.2. Upstream of budget; Typical Home Values feed BUDGET-METHODOLOGY.md. |
-| MEDIAN-HOME-LABEL-CONVENTIONS.md | (Deprecated) | Project knowledge only | Retired with MEDIAN-HOME-METHODOLOGY.md v1.2. Slated for deletion. NRC callout markup now lives in PROFILE-FORMATTING.md v1.2. |
-| MEDIAN-HOME-AUDIT-REFERENCE.md | Audit history and annual refresh playbook | Project knowledge only | Aligned with v1.2 |
-| PROFILE-FORMATTING.md | Profile-page formatting standard (light-mode lock, cost-strip alignment, em-dash policy, NRC callout structure, bolding convention) | Project knowledge only | Current: v1.2 (June 29 2026). Canonical reference profile: cities/st-louis/profile.html |
-| GUIDE-METHODOLOGY-DECISIONS.md | Scoring decisions across guides | Project knowledge only | |
-| HUM-HEAT-Scoring-Guide.md | Humidity and heat scoring rubric | Project knowledge only | |
-| *-cities-scoring-analysis.md (7 files) | Per-guide scoring analysis | Project knowledge only | Active, Arts, Foodie, Healthcare, Hikers, LGBTQ, Sports Fans. Authoritative for landing-page placement decisions. |
+| BUDGET-METHODOLOGY.md | Budget formula and sources | `docs/` in the repo | Current: v1.0 (June 16 2026) |
+| MEDIAN-HOME-METHODOLOGY.md | Citywide-default rule, NRC list, callout requirement | `docs/` in the repo | Current: v1.2. Upstream of budget; Typical Home Values feed BUDGET-METHODOLOGY.md. |
+| MEDIAN-HOME-LABEL-CONVENTIONS.md | (Deprecated, deleted) | Nowhere | Retired with MEDIAN-HOME-METHODOLOGY.md v1.2 and removed. NRC callout markup lives in PROFILE-FORMATTING.md v1.2. Do not resurrect. |
+| MEDIAN-HOME-AUDIT-REFERENCE.md | Audit history and annual refresh playbook | **GAP: not in the repo** | Aligned with v1.2. Governing doc still outside `docs/`, in breach of 4a. Move it in and delete the outside copy. |
+| PROFILE-FORMATTING.md | Profile-page formatting standard (light-mode lock, cost-strip alignment, em-dash policy, NRC callout structure, bolding convention) | `docs/` in the repo | Current: v1.2 (June 29 2026). Canonical reference profile: cities/st-louis/profile.html |
+| GUIDE-METHODOLOGY-DECISIONS.md | Scoring decisions across guides | `docs/` in the repo | |
+| HUM-HEAT-Scoring-Guide.md | Humidity and heat scoring rubric | `docs/` in the repo | |
+| *-cities-scoring-analysis.md | Per-guide scoring analysis | `docs/` in the repo | Six confirmed live: active-retirees, arts-lovers, foodie, healthcare, hikers, sports-fans. **GAP: the LGBTQ analysis is not in `docs/` under any expected filename.** Locate it and commit it. Authoritative for landing-page placement decisions; read the rubric before any placement call. |
 | index.html | Quiz engine, landing structure, PUBLISHED_PROFILES map, CITIES array | GitHub repo (lauriekwaller-lgtm/retire-me-here) | Source of truth for what profiles are live and for the v15.1 city data shown on the quiz |
-| sitemap.xml | Search engine discovery | GitHub repo only | Always edit the live repo version. Never edit a stale project copy. |
+| sitemap.xml | Search engine discovery | GitHub repo only | **Derived artifact, not an index.** It is only current if step 5 of SOP-1 ran. Never use it to enumerate what exists. See 4b. |
 | cities/*/profile.html | Profile pages | GitHub repo | One folder per city slug |
 | compare-retirement-cities.html and *-vs-*-retirement.html | Comparison pages | GitHub repo | Derived from CityDatabase; rebuild from current data, not prior page versions |
 | pin-studio.html | Pinterest pin generator | GitHub repo | Uses localStorage to persist field inputs |
 | visit-before-you-decide.html | Scouting-trip pillar page | GitHub repo | Anchors the affiliate integration; links from every Visit block |
 | scouting-trip-workbook.html + .pdf | MailerLite lead magnet (planning workbook) | GitHub repo | Downloadable PDF gated via MailerLite form |
 | affiliate-policy.html | Affiliate disclosure page | GitHub repo | Footer link; states commission model and honest-alternatives framing |
-| This document (SITE-OPERATIONS-LOG.md) | Operations and handover | Project knowledge only | Update at the time of the work, not later |
+| This document (SITE-OPERATIONS-LOG.md) | Operations and handover | `docs/` in the repo | Update at the time of the work, not later |
+| TASKBOARD.md | Live work queue and profile counts | `docs/` in the repo | The validator `docs` check warns when its counts drift from live reality |
+| tools/validate.py | Pre-deploy gate | GitHub repo | Pre-deploy: `python3 tools/validate.py --local .` Post-deploy confirmation only: `python3 tools/validate.py` |
 
-**Storage convention.** Methodology and reference docs live in project knowledge only, not in GitHub. The live site does not serve them and dual copies drift. Keeping a single canonical copy in project knowledge prevents the v1.0/v1.1 confusion that occurred during the v15.1 transition.
+**Storage convention.** Every governing document lives in `docs/` in the repo and nowhere else. This reverses the pre-July-12 convention, which stored them in project knowledge. That earlier paragraph survived in this table until July 14, 2026 and was actively contradicting section 4a below, telling readers to look in exactly the place 4a forbids. Two `.xlsx` audit artifacts (MedianHomeAuditMASTER, Budget-Audit-*) remain outside the repo as reference-only history and are not governing documents.
 
 ### 4a. Canonical source rule (adopted July 12, 2026)
 
@@ -93,6 +95,34 @@ These bypass the calendar. If any of these happen, act in the window indicated.
 **Only one copy of a governing doc may exist.** If you find two, stop and reconcile before doing anything else. Do not assume the newer-looking one is newer. On July 12, 2026, four documents had diverged: three were ahead in project knowledge and one was ahead in the repo.
 
 **When the database version changes**, in the same commit: add the new xlsx to `docs/`, delete the superseded one, update `DEFAULT_DB` at the top of `tools/validate.py`, and record it in the change log below.
+
+**No repo snapshots in project knowledge. Ever.** (Added July 14, 2026.) A GitHub connector attached to the project ingests a point-in-time *snapshot* of the repo into project knowledge. It does not read live. It sits in the context window of every chat that opens, looking exactly like the real repo, and it goes stale the moment you push. This is the same failure as a stale pasted file, except it is invisible, it covers every file at once, and nothing about it announces that it is a copy. Do not attach a GitHub connector to this project. If one appears, remove it before doing any other work.
+
+**A file sitting in context is not evidence that it is current.** This is the rule that catches everything above. Staleness is not detectable by reading the file. A June sitemap and a July sitemap are both well-formed XML. The only way to know is to fetch from `raw.githubusercontent.com` and compare. So: fetch, always, even when a copy is already sitting right there.
+
+### 4b. Enumeration rule: how to find out what exists (adopted July 14, 2026)
+
+**Never enumerate the site from `sitemap.xml`.** It is a *derived* file, hand-maintained at step 5 of SOP-1. It is only accurate if that step ran. A slug missing from the sitemap means the sitemap is behind, not that the city does not exist, and a chat that assumes otherwise will conclude a live profile is missing.
+
+**The directory listing is the enumeration of record.** It cannot be stale, because it is the repo:
+
+```
+https://api.github.com/repos/lauriekwaller-lgtm/retire-me-here/contents/cities?ref=main
+```
+
+Filter for `type == "dir"`. Each directory is one live city slug. As of July 14, 2026 this returns 43.
+
+The old grep-the-sitemap pattern (`grep -oE 'cities/[a-z0-9-]+/'`) is retired. It is still fine as a way to audit *the sitemap itself* for drift, which is a different and useful job: diff the directory listing against the sitemap and any delta is a step-5 miss that needs fixing.
+
+**Cache note.** `raw.githubusercontent.com` serves through a CDN with roughly a five-minute TTL. If you have just pushed, append a cache-buster (`?v=$(date +%s)`) or you will read the previous commit and not know it.
+
+### 4c. Session start gate (adopted July 14, 2026)
+
+Before any work touching cities, comparison pages, landing pages, or the sitemap, a session must first fetch the live `cities/` directory listing (4b) and echo the count and slug list. No work proceeds until that is done.
+
+This exists because the failure mode is silent. On July 14, 2026 a comparison-page session reported that Savannah did not exist in the repo. Savannah had been live for hours. The session was reading a project-knowledge snapshot listing 29 cities and 3 comparison pages while the repo held 43 and 18. Fourteen live cities were invisible to it: chattanooga, delray-beach, fort-collins, fort-myers, kansas-city, knoxville, memphis, miami, naples, pensacola, prescott, savannah, st-augustine, st-petersburg. Nothing in the session looked wrong. It had a plausible file and no reason to doubt it.
+
+The gate costs one API call. Skipping it costs a rebuild on bad data.
 
 ---
 
@@ -171,6 +201,51 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+
+### 2026-07-14 - Stale repo snapshot removed; enumeration and session-start rules added
+
+**Symptom.** A comparison-page session reported that it could not find the Savannah profile in the
+repo, and was working from figures that did not match live. Savannah had been deployed and was
+returning HTTP 200.
+
+**Cause.** A GitHub connector was attached to the project. It had ingested a point-in-time snapshot
+of the repo into project knowledge. That snapshot loads into the context window of every chat in the
+project before any tool call runs. Sessions were reading it, reasonably, as the repo. It was not the
+repo. It was a June copy: 29 city profiles and 3 comparison pages, against 43 and 18 live. Fourteen
+live cities were invisible to every session in the project.
+
+The failure was silent by construction. The snapshot is well-formed and complete-looking. There is no
+signal, from inside a session, that distinguishes a current file from a three-week-old one. Section 4a
+already said "do not read a project-knowledge copy of anything that also exists in the repo," and the
+sessions were not knowingly breaking that rule. They did not know they had one.
+
+**Second cause, latent.** The section 4 file table still carried the pre-July-12 storage convention,
+listing seven governing docs as "project knowledge only" and stating outright that methodology docs
+do not live in GitHub. Section 4a, adopted July 12, says the exact opposite. Both were in the same
+document, forty lines apart, for two days. Any session that read the table before the rule got the
+wrong instruction from its own governing doc.
+
+**Third cause, structural.** The documented way to enumerate cities was to grep `sitemap.xml`. The
+sitemap is a hand-maintained derived file, updated at step 5 of SOP-1. Using it as the index means a
+missed step 5 presents as a missing city. The sitemap should never have been the index.
+
+**Fixed.**
+- GitHub connector removed from the project. Verified: a fresh session now returns 43 profiles.
+- Section 4 table corrected. Seven docs relocated on paper to `docs/`, where they had already been
+  living since July 12. The contradictory storage-convention paragraph is gone.
+- Section 4a extended: explicit ban on repo snapshots and connectors, plus the general rule that a
+  file sitting in context is not evidence that it is current.
+- Section 4b added: the GitHub contents API directory listing is the enumeration of record. The
+  grep-the-sitemap pattern is retired for enumeration and repurposed as a sitemap drift audit.
+- Section 4c added: session start gate. Fetch the live city list and echo the count before any work
+  touching cities, comparison pages, landing pages, or the sitemap.
+
+**Two gaps surfaced and left open** (see section 8): MEDIAN-HOME-AUDIT-REFERENCE.md is not in `docs/`,
+and the LGBTQ scoring analysis is not in `docs/` under any expected filename. Both are governing docs
+sitting outside the repo, which is what 4a exists to prevent.
+
+**Judgment call.** The section 4 table now marks those two as GAP rather than quietly dropping them.
+A visible gap in the canonical doc is worth more than a tidy table that lies.
 
 ### 2026-07-14 - Superlative policy closed out, guide em-dash sweep, validator mode banner
 
@@ -449,6 +524,18 @@ Third, **PROFILE-FORMATTING.md v1.0 adopted.** Canonical reference profile is `c
 The database progressed through versions ending at CityDatabase_Jun_9_v14.xlsx. The full history was not logged; this is the institutional reset point. Future versions are tracked from v15 forward.
 
 ## 8. Open items and future enhancements
+
+**Doc location breaches (opened July 14, 2026, blocking nothing but violating 4a).**
+- `MEDIAN-HOME-AUDIT-REFERENCE.md` is not in `docs/`. Commit it, delete the outside copy.
+- The LGBTQ `*-cities-scoring-analysis.md` is not in `docs/` under any expected filename. The other
+  six are. Locate it and commit it. Until then, LGBTQ landing-page placement calls have no readable
+  rubric, and the standing rule is to consult the rubric before any placement decision.
+
+**Validator enhancement (proposed July 14, 2026).** The `docs` check group already warns on taskboard
+drift and a stale ops-log registry. Add: diff the `cities/` directory listing against `sitemap.xml`
+and fail on any city present in the repo but missing from the sitemap. This converts a silent step-5
+miss into a hard pre-deploy failure, and is the mechanical backstop for the 4b rule.
+
 
 Not commitments. Things worth doing when time and traffic justify.
 
