@@ -69,3 +69,26 @@ Reviewed 2026-07-14.
 | top-cities-for-arts-lovers.html | largest art market in the US · 250+ galleries on Canyon Ro | TRUE | Santa Fe is routinely cited as the 3rd-largest US art market after NY and LA. |
 | top-cities-for-arts-lovers.html | largest in the US) · Hill Auditorium · UMMA · M | TRUE | Outside-world claim, hedged or sourced. Not scoped to our dataset; cannot rot when a city is added. |
 | top-cities-for-foodies.html | largest producer-only farmers market in the US · L'Etoile (Tory Miller, Jame | TRUE | Dane County Farmers' Market — largest producer-only market in the US. |
+
+## Banned shape: citing our own database to the reader
+
+Added to `BANNED_SUPERLATIVE` on July 14, 2026, after 46 live instances were found.
+
+    BAD:  "our database notes NCH as the #1-rated hospital in Florida"
+    GOOD: "NCH has been rated the #1 hospital in Florida multiple years running"
+
+    BAD:  "Three cities top the database"
+    GOOD: "Alexandria, Portland ME and Provincetown all score 9 or better"
+
+    BAD:  "the gentlest hurricane ledger in our Florida set"
+    GOOD: "a 3 of 10, against the 2s of the Gulf coast"
+
+Two separate faults, one phrase. First, it is dataset-scoped, so it rots the moment a city
+is added. Second, and worse, it launders an outside fact through our own spreadsheet: US
+News rates NCH, NOAA models the surge, Motley Fool made the Motley Fool call. Attributing
+those to "our database" points the reader at a private document they cannot open, in place
+of the real source. State the fact. Drop the attribution.
+
+Our own scores are the one thing the database may be credited with, and even then it reads
+better without the possessive: "climate resilience scores 2 of 10", not "our database scores
+it 2 of 10".

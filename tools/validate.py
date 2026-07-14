@@ -701,7 +701,18 @@ BANNED_SUPERLATIVE = re.compile(
     # (c) "of any city we ...", and the generalised noun: "of any PAIRING here",
     #     "of any ARIZONA CITY here", "of any FLORIDA CITY here" all leaked past a
     #     hardcoded "city".
-    r"|\bof any \w+(?:\s+\w+)?\s+(?:we|here)\b",
+    r"|\bof any \w+(?:\s+\w+)?\s+(?:we|here)\b"
+    # (d) A VERB pointing at the corpus, with no preposition in front to catch it in (a):
+    #       "Three cities TOP the database"
+    #       "One of the safer additions TO the database"
+    #       "our database NOTES NCH as the #1-rated hospital in Florida"
+    #     The last shape is the worst of the three. It launders an OUTSIDE fact through our
+    #     own spreadsheet: US News rates NCH, not us. It tells the reader to trust a document
+    #     they cannot open, and it rots if the score ever moves. State the fact, drop the
+    #     attribution. 46 of these were live on July 14 2026.
+    r"|\b(?:our|the)\s+(?:city\s+)?(?:database|dataset)\b"
+    # (e) the same rot wearing a noun the list did not have: "the gentlest in our FLORIDA SET".
+    r"|\bour\s+\w+\s+set\b",
     re.I)
 # WHY THIS SHAPE, AND WHY IT GOT WIDER (2026-07-13, second pass)
 #
@@ -1420,6 +1431,15 @@ def main():
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
+    # One command, two entirely different jobs, and until now nothing on screen said which
+    # one you got. Run it bare before pushing and it grades the OLD live site with the NEW
+    # rules, then reports failures you already fixed. It did exactly that on July 14 2026.
+    if args.local:
+        print(f"  mode:     PRE-DEPLOY GATE -- reading the files on this machine")
+    else:
+        print(f"  mode:     POST-DEPLOY CHECK -- reading the LIVE files from GitHub,")
+        print(f"            not your working copy. If you have not pushed, this is")
+        print(f"            grading the OLD site. The gate is: --local .")
     print(f"  source:   {source}")
     print(f"  database: {args.db}")
 
