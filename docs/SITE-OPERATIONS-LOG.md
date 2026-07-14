@@ -172,6 +172,74 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-14 - Superlative policy closed out, guide em-dash sweep, validator mode banner
+
+Four batches, pushed in sequence. All four started as "clean up 41 warnings" and turned into
+something else, which is the useful part of the record.
+
+**Batch 1 - the warnings were the wrong target.** Of the 39 real superlative warnings, most were
+TRUE claims about the outside world (Michigan Stadium is the largest stadium in the country) that
+should stay. But they formed a 39-line wall nobody reads, and false claims were hiding in it.
+Found and fixed: Chattanooga "best value in the Southeast" (8th-cheapest SE city; D2=8 loses to
+Paducah and Memphis at 10); Tampa "best value in Florida" (D2=6 at $400K, beaten by four FL cities,
+and our own Florida page already said Pensacola was cheapest, so the site contradicted itself);
+BOTH FAQPage schema answers were wrong (Florida named Fort Myers second-cheapest when Delray is
+$341K; Midwest named Columbus cheapest when Des Moines is $191K) - Google can serve those as direct
+answers. Florida's best-for-budget card had all four figures wrong. Corpus Christi listed at $214K
+against a DB value of $219K.
+
+Gate leaks closed: "in ENTIRE database" and "we have COMPARED" walked through because both halves of
+the ban were still closed word-lists. Six live violations sat behind them, three in index.html.
+
+**docs/SUPERLATIVE-LEDGER.md created.** The warn tier fires on outside-world claims no spreadsheet
+can settle. Those cannot be rewritten away and should not be. But an unclearable warning is worse
+than no warning. The ledger retires a reviewed claim from the queue, with evidence, so the queue can
+sit at zero and a NEW claim actually shouts. Stale entries self-report. Dataset-scoped claims may
+never go in it; those are a hard FAIL.
+
+**Batch 2 - the "in our Florida coverage" family.** ~25 dataset-scoped rank claims hiding behind a
+region word between the modifier and the noun. St. Augustine's profile carried fourteen alone. All
+re-anchored to a figure or a named city. Rewriting them exposed five factual errors: St. Augustine
+claimed FOUR TIMES that "only Naples costs more" when Miami ($575K) and Sarasota ($462K) both exceed
+its $432K (it is fourth-priciest, not second); Naples vs Fort Myers listed budget "7 vs. 3" against a
+DB of 6 vs. 5; Pensacola vs Fort Myers said budget "ties at 7" when it is 8 vs. 6; Madison vs Columbus
+gave Columbus $249K (DB: $235K) and "best airport access in our Midwest coverage" when St. Paul scores
+10 to Columbus's 8; Nashville vs Memphis claimed Nashville had Tennessee's deepest walkability at
+D6=5, against Chattanooga's 6. Also killed "Lee Health, #3 on our healthcare list" (x6): landing pages
+are alphabetical within tiers, not ranked, so that rank never existed.
+
+**Batch 3 - guide em-dash sweep. It was 231, not 64.** All five guides, not two: globetrotter (71),
+wellness-blueprint (55), urban-walkabout (41), value-navigator (36), active-frontier (28). Swept per
+the PROFILE-FORMATTING.md substitution rules. `GUIDES_TOO` flipped to True and planted-error tested.
+
+The flag was never a decision. Its comment said guides were "grandfathered; see PROFILE-FORMATTING.md",
+and that document grandfathers nothing - its scope is profiles, and its sweep status only ever covered
+the 38 profiles. The flag was recording an UNFINISHED JOB in the grammar of a DECISION, which is why
+nobody questioned it, and it hid 231 em-dashes for as long as it stayed False. Worth watching for
+elsewhere in the codebase.
+
+Also found: all five guides said "Our database has 100." It has 99. The count was removed rather than
+swapped for another number that would rot.
+
+**Batch 4 - database-voice attribution.** 46 instances of "our database notes / calls / flags / scores"
+across 18 files. Two faults in one phrase. It is dataset-scoped, so it rots. And worse, it LAUNDERS AN
+OUTSIDE FACT through our own spreadsheet: US News rates NCH, NOAA models the surge, Motley Fool made
+the Motley Fool call. Attributing those to "our database" points the reader at a private document they
+cannot open, in place of the real source. It reads as evasive and it is weaker than the truth. State
+the fact, drop the attribution. Four more found wearing a different noun ("the gentlest in our Florida
+SET"). Rehoboth Beach was billed as "one of the pricier additions to the database" at $632K; Carmel is
+$2,281,000 and Park City $1,522,000.
+
+**Validator mode banner.** `validate.py` is one command doing two entirely different jobs, and nothing
+on screen said which. Run bare before a push and it grades the OLD live site with the NEW rules, then
+reports failures already fixed. This misfired twice in one session. It now prints PRE-DEPLOY GATE
+(reading this machine) or POST-DEPLOY CHECK (reading live GitHub, not your working copy) at the top of
+every run.
+
+**Net:** validator 0 failures, 0 warnings, local and live agreed. Superlative gate now catches every
+shape found leaking: bare/modified corpus nouns, curation verbs, "of any X here", verb-to-corpus
+("top the database"), attribution voice ("our database notes"), and "our REGION set".
+
 ### 2026-07-13 — Climate engine rebuild: dealbreakers, mild scoring, and a mislabeled column
 
 **Problem.** A quiz run with Weather Preference set to "Mild Year-Round" and

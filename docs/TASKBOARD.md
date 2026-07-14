@@ -4,11 +4,13 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 14, 2026 (Savannah + validator blind spot + favicon unification pushed together)
+**Last updated:** July 14, 2026 (superlative policy closed out, guide em-dash sweep, database-voice strip, validator mode banner)
 
 **Verified live at last update:** 43 profiles, 18 comparison pages, 5 guides, 7 landing pages.
-All 43 profiles carry a Visit block. Validator: 0 failures, 42 warnings (`--local .`, measured on the
-exact tree that was pushed, with `scottsdale-vs-santa-fe-profile.html` deleted).
+All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
+`--local .` (the tree that was pushed) and bare (live GitHub). The warn queue reaches zero because
+`docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
+unreviewed and shouts. Zero is now the expected reading. If a warning appears, it is new.
 
 ---
 
@@ -28,30 +30,35 @@ Rules of thumb:
 - RETROFITTING existing profiles is a `BATCH` job, never woven into a single city build.
 - If a chat shows a "conversation compacted" note, finish the current step, update this board, start fresh.
 
-**Before every deploy:** `python3 tools/validate.py --local .`
-**After every deploy:** `python3 tools/validate.py`
+**Before every deploy:** `python3 tools/validate.py --local .`  <- THIS IS THE GATE
+**After every deploy (optional receipt):** `python3 tools/validate.py`
+
 These read different things. `--local .` reads your working checkout: the code you are about to push.
-Bare reads live GitHub: the code already deployed. A bare run BEFORE a deploy validates the old site
-and returns a green light that says nothing about your changes.
+Bare reads live GitHub: the code already deployed. A bare run BEFORE a push grades the OLD site with
+your NEW rules and reports failures you have already fixed. This misfired twice on July 14, 2026.
+
+As of July 14 the validator PRINTS WHICH ONE IT IS DOING at the top of every run:
+
+    mode:     PRE-DEPLOY GATE -- reading the files on this machine
+    mode:     POST-DEPLOY CHECK -- reading the LIVE files from GitHub, not your working copy
+
+If the header says POST-DEPLOY, the numbers describe the live site, not your work. Read the header
+before you read the failure count.
+
+Standard deploy block:
+
+    git pull
+    (drag zip into repo root)
+    unzip -o <bundle>.zip
+    rm <bundle>.zip
+    python3 tools/validate.py --local .     # must read PRE-DEPLOY GATE and 0 failures
+    git add -A                              # -A, not `git add .` -- catches docs/ and tools/
+    git commit -m "..."
+    git push
 
 ---
 
 ## ACTIVE - batch / site-wide operations
-
-- **Superlative warning cleanup** - 42 warnings, 0 failures. Two distinct jobs, do not mix:
-  - **(a) ~11 dataset-scoped superlatives.** Claims ranked against our own data, which rot every time
-    a city is added. Live: "best value in Florida" (sarasota-vs-tampa x2, tampa-vs-st-petersburg);
-    "largest anywhere on this scorecard" and "widest home-price gaps of any pairing here"
-    (fort-collins-vs-boulder); "highest of any pairing we have compared" (madison-vs-ann-arbor);
-    "largest spread anywhere on this scorecard" (knoxville-vs-chattanooga); "most affordable cities
-    in the Southeast" (value-navigator); plus arts-lovers and foodies landing pages. Re-anchor each
-    to a figure or a named city, never to a rank within our own dataset. The validator prints two DB
-    truth lines to check against (cheapest home: Paducah $185,000; priciest: Carmel-by-the-Sea $2,281,000).
-  - **(b) ~30 per-profile warnings.** Ann Arbor (3), St. Louis (2), Santa Fe (2), Naples (2),
-    Kansas City (2), Chattanooga (2), St. Petersburg, Scottsdale, Philadelphia, Miami,
-    active-frontier (2), others. Bulkier and more repetitive than (a).
-  - Run as a `BATCH` chat with `python3 tools/validate.py --only superlatives` output pasted in.
-    NOT an OPS job.
 
 - **`.lists-grid-four` is used but never defined** - the class appears on `st-louis` (the CANONICAL),
   `columbus`, `pittsburgh`, `memphis` and `st-paul`, but only `new-orleans`, `st-paul` and
@@ -62,21 +69,16 @@ and returns a green light that says nothing about your changes.
   rule to the canonical, then batch it out. Nothing in the validator sees CSS, so this will not
   self-report.
 
-- **Widen the superlative phrase list** - the check matches literal strings ("in our database",
-  "we cover", "on this scorecard"). It does NOT match "our 100-city database", "our database records
-  as", or "among cities to score it", all three of which were shipped INTO the scottsdale page during
-  the very batch that was cleaning superlatives out of it, and all three passed the gate. A banned-
-  phrase list is a blocklist and inherits every blocklist's flaw. Consider matching on the pattern
-  (a possessive + "database"/"scorecard"/"we publish"/"among cities") rather than on remembered
-  strings.
-
-- **Guide em-dash sweep** - 232 em-dashes in rendered text across all 5 lead-magnet guides:
-  globetrotter-guide (71), wellness-blueprint (55), urban-walkabout (41), value-navigator (37),
-  active-frontier (28). Profiles, comparison pages, landing pages and index.html are all clean.
-  The guides were skipped by the earlier sweep, and `GUIDES_TOO = False` in `tools/validate.py` has
-  been hiding them. **When the sweep ships, flip `GUIDES_TOO` to `True`** so the win is guarded.
-  Until then PROFILE-FORMATTING.md says site-wide while practice says everything-but-guides.
-  The doc and the practice must be made to agree.
+- **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
+  a list of remembered phrases, and every single leak came through the list, never the logic. Six
+  distinct shapes were found live on July 14: a modifier the list didn't have (`in ENTIRE database`),
+  a region word between modifier and noun (`in our FLORIDA coverage`), a curation verb not on the list
+  (`we have COMPARED`), a verb pointing at the corpus with no preposition (`Three cities TOP the
+  database`), attribution voice (`our database NOTES NCH as...`), and a different noun (`our Florida
+  SET`). All six are now closed structurally. When adding a new one, ban the SHAPE, never the string.
+  Counter-check: `high on YOUR list` and `across the board` must NOT fire - the free-word slot is only
+  allowed after a real determiner, and page-local objects (the two-city scorecard the reader is looking
+  at) are bounded and static, so they cannot rot and are not this policy's business.
 
 - **Validator: add a climate check group** - the validator compares `index.html` city FIGURES against
   the DB but has never checked the CLIMATE blocks. They happen to match 99/99, but nothing enforces it,
@@ -140,6 +142,27 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 14, 2026: SUPERLATIVE POLICY CLOSED OUT (4 batches). The 41 warnings were the wrong target:
+  most were TRUE outside-world facts that should stay. But they formed a wall nobody reads, and false
+  claims were hiding in it. Killed: Chattanooga "best value in the Southeast" (8th-cheapest SE city);
+  Tampa "best value in Florida" (D2=6, four FL cities beat it, and our own Florida page already said
+  Pensacola was cheapest); BOTH FAQPage schema answers wrong (Google can serve those as direct
+  answers); St. Augustine claiming FOUR TIMES that "only Naples costs more" when Miami and Sarasota
+  both exceed it; three stale D2 scores on comparison pages; "Lee Health #3 on our healthcare list"
+  x6 (landing pages are alphabetical, not ranked - that rank never existed). Then 46 instances of
+  "our database notes/calls/flags", which launders outside facts (US News rates NCH, not us) through
+  a private spreadsheet the reader cannot open. **docs/SUPERLATIVE-LEDGER.md** now retires reviewed
+  true claims so the warn queue sits at zero and a NEW claim shouts. See SITE-OPERATIONS-LOG.md
+  2026-07-14.
+- Jul 14, 2026: GUIDE EM-DASH SWEEP. 231 across all five guides, not the 64 first counted.
+  `GUIDES_TOO = True`, planted-error tested. PROFILE-FORMATTING.md -> v1.5. The flag was never a
+  decision: its comment claimed the guides were "grandfathered; see PROFILE-FORMATTING.md" and that
+  doc grandfathers nothing. It was an unfinished job written in the grammar of a decision, which is
+  why it went unquestioned for weeks. Also: all five guides said "Our database has 100." It has 99.
+- Jul 14, 2026: VALIDATOR MODE BANNER. One command, two different jobs, nothing on screen saying
+  which. Bare runs before a push grade the OLD site with NEW rules and report already-fixed failures;
+  this misfired twice in one session. It now prints PRE-DEPLOY GATE or POST-DEPLOY CHECK at the top.
 
 - Jul 13, 2026: Climate engine rebuild. Four compounding faults fixed: the cold dealbreaker was
   calibrated against the wrong scale (Boulder, 33F and 88in of snow, passed a "no freezing winters"
