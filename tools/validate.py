@@ -49,9 +49,15 @@ HOME_TOLERANCE = 0.03
 # millage differences the database does not yet record. 2+ is always an error.
 D5_MAX_SPREAD = 1
 
-# The em-dash rule applies here. Guides and landing pages are grandfathered;
-# see PROFILE-FORMATTING.md. Flip GUIDES_TOO to True if that decision changes.
-GUIDES_TOO = False
+# The em-dash rule applies to the five guide pages too, as of the July 14 2026 sweep.
+#
+# This flag used to be False, with a comment saying guides were "grandfathered; see
+# PROFILE-FORMATTING.md". That document grandfathers nothing. Its scope is profiles, and
+# its sweep status covers "all 38 published profiles" -- it never spoke to the guides
+# either way. So the flag was not recording a decision. It was recording an unfinished
+# job, in the grammar of a decision, and it hid 231 rendered em-dashes across the five
+# guides for as long as it stayed False.
+GUIDES_TOO = True
 
 DIMS = [
     ("D1", "D1 Airport"), ("D2", "D2 Budget"), ("D3", "D3 Health"),
@@ -669,17 +675,33 @@ def check_cards(rep, db, idx, local):
 # Those scope to the outside world, not to us. They cannot rot when we add a city; they
 # are handled by the WARN tier below, which asks a human to check them for truth.
 BANNED_SUPERLATIVE = re.compile(
-    # (a) a preposition pointing at our own corpus, article optional.
-    #     "in the database", "in our coverage", and -- the ones the first cut MISSED --
-    #     bare "in database", "on our list", "across the site".
+    # (a) a preposition pointing at our own corpus. The modifier slot is now a
+    #     REPEATING group plus one free adjective, because the fixed (the|our|this)
+    #     was itself a closed list and two things walked straight through it:
+    #       "among most affordable in ENTIRE database"      (index.html, live)
+    #       "perfect 10s in our MIDWEST coverage"           (midwest page, live)
+    #     The nouns stay narrow on purpose. "scorecard" and "board" are NOT here:
+    #     "the widest gap on the scorecard" points at the two-city table the reader
+    #     is looking at. It is bounded, visible, and static. It cannot rot when city
+    #     100 lands, so it is not this policy's business, and banning it would have
+    #     condemned ~30 clean sentences plus every "similar scores across the board".
     r"\b(?:in|on|of|across|from|among|throughout|against|within)\s+"
-    r"(?:the\s+|our\s+|this\s+)?(?:database|dataset|coverage|site|list)\b"
-    # (b) first-person verbs of curation. "we cover" was banned; "we score", "we rank",
-    #     "we track", "we publish" were not, and there were 16 of them live.
+    # The free word is only allowed AFTER a real determiner. "in our FLORIDA coverage"
+    # and "in ENTIRE database" match; "high on YOUR list" and "in result list" do not,
+    # because "your"/"result" are not determiners and the noun must then follow directly.
+    # Bare "in database" still matches, as before.
+    r"(?:(?:the|our|this|these|entire|whole|full|all)\s+(?:\w+\s+)?)?"
+    r"(?:database|dataset|coverage|site|list)\b"
+    # (b) first-person verbs of curation. "compare" and "profile" were missing:
+    #       "the highest of any pairing WE HAVE COMPARED"   (madison-vs-ann-arbor)
+    #       "more than almost any city WE PROFILE"          (new-orleans)
     r"|\bwe(?:'ve| have)?\s+(?:cover|covered|score|scored|rank|ranked|track|tracked|"
-    r"publish|published|list|listed|include|included)\b"
-    # (c) "of any city we ...", "of any city here"
-    r"|\bof any city\s+(?:we|here)\b",
+    r"publish|published|list|listed|include|included|compare|compared|feature|featured|"
+    r"profile|profiled|review|reviewed|select|selected|analyze|analyzed)\b"
+    # (c) "of any city we ...", and the generalised noun: "of any PAIRING here",
+    #     "of any ARIZONA CITY here", "of any FLORIDA CITY here" all leaked past a
+    #     hardcoded "city".
+    r"|\bof any \w+(?:\s+\w+)?\s+(?:we|here)\b",
     re.I)
 # WHY THIS SHAPE, AND WHY IT GOT WIDER (2026-07-13, second pass)
 #
@@ -911,6 +933,29 @@ def check_tag_balance(rep, db, idx, sitemap, slug_to_city, local):
                          f"({opens - closes:+d})")
 
 
+def load_ledger(local):
+    """
+    docs/SUPERLATIVE-LEDGER.md. One reviewed claim per row:
+
+        | page | phrase | verdict | evidence |
+
+    Only rows whose verdict is TRUE are honoured. A row is an assertion by a human
+    that this claim is true about the OUTSIDE WORLD and therefore cannot rot when a
+    city is added. Claims about our own dataset never belong here; they are a FAIL.
+    """
+    raw = fetch("docs/SUPERLATIVE-LEDGER.md", local) or ""
+    out = set()
+    for line in raw.splitlines():
+        if not line.strip().startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 3 or cells[0].lower() in ("page", "---") or set(cells[0]) <= {"-", ":"}:
+            continue
+        if cells[2].upper().startswith("TRUE"):
+            out.add((cells[0], cells[1].lower()))
+    return out
+
+
 def check_superlatives(rep, db, idx, slug_to_city, local):
     """
     Two things at once.
@@ -1021,16 +1066,54 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
                  f"Anchor to a figure or a named city instead.")
 
     # --- WARN: everything else sweeping, for human eyes ---
+    #
+    # TWO SURFACES, not one. This scan read visible_text() only, and the FAIL scan
+    # above has read BOTH surfaces since July 12. That asymmetry is not academic:
+    # every city card, quiz-modal highlight, and D2 blurb lives in a JS string
+    # literal, which is where "Best value city in the Southeast" (Chattanooga) and
+    # "Best value in FL" (Tampa) sat unreviewed while the rendered-HTML copies of
+    # the same claims warned every run. Same blind spot, third time. It is closed.
     hits = {}
     for page, html in pages.items():
-        for m in claim.finditer(visible_text(html)):
-            txt = re.sub(r"\s+", " ", m.group(0)).strip()
-            hits.setdefault((page, txt), 0)
-            hits[(page, txt)] += 1
+        for tag, raw in ((" ", visible_text(html)), (" [in JS]", script_strings(html))):
+            text = re.sub(r"\s+", " ", raw)
+            for m in claim.finditer(text):
+                txt = re.sub(r"\s+", " ", m.group(0)).strip()
+                key = (page + ("" if tag == " " else tag), txt)
+                hits[key] = hits.get(key, 0) + 1
 
+    # A claim about the outside world ("largest stadium in the country") cannot be
+    # settled by a spreadsheet and cannot be rewritten away -- it is true, it is
+    # load-bearing, and it should stay. But an unclearable warning is worse than no
+    # warning: 39 permanent lines is a wall nobody reads, and a wall nobody reads is
+    # where the next false claim hides. So a claim can be RETIRED from this queue by
+    # recording it, with its evidence, in docs/SUPERLATIVE-LEDGER.md. Ledgered claims
+    # go quiet. Anything not ledgered is, by definition, unreviewed, and shouts.
+    #
+    # The ledger is checked in both directions. An entry that no longer matches any
+    # live page is reported as stale, so the ledger cannot quietly outlive the copy it
+    # vouches for -- which is the exact rot this whole policy exists to prevent.
+    ledger = load_ledger(local)
+    unreviewed, seen = [], set()
     for (page, txt), n in sorted(hits.items()):
+        key = (page.replace(" [in JS]", "").strip(), txt.lower())
+        if key in ledger:
+            seen.add(key)
+            continue
         times = f" (x{n})" if n > 1 else ""
-        rep.warn("superlatives", f"{page}: \"{txt}\"{times}")
+        unreviewed.append(f"{page.strip()}: \"{txt}\"{times}")
+
+    for line in unreviewed:
+        rep.warn("superlatives", f"UNREVIEWED {line}")
+
+    for key in sorted(set(ledger) - seen):
+        rep.warn("superlatives",
+                 f"STALE LEDGER {key[0]}: \"{key[1]}\" is vouched for in "
+                 f"SUPERLATIVE-LEDGER.md but no longer appears on the page. "
+                 f"Delete the entry.")
+
+    if not unreviewed:
+        return
 
     rep.warn("superlatives",
              f"DB truth: cheapest home = {cheapest['city']}, {cheapest['state']} "

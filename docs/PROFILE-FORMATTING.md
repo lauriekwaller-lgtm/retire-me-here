@@ -1,7 +1,7 @@
 # PROFILE FORMATTING
 
-**Version:** 1.4
-**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4)
+**Version:** 1.5
+**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4); guide-page em-dash sweep completed and enforcement extended to guides July 14, 2026 (v1.5)
 **Supersedes:** `BOLDING-CONVENTION.md` v2.1
 **Canonical reference:** `cities/st-louis/profile.html`
 
@@ -216,6 +216,8 @@ Day cards with "Anytime" timing use `<div class="day-time">–</div>` (en-dash) 
 The policy is enforced going forward. Retroactive sweep is complete.
 
 - **Swept (zero em-dashes in rendered content):** all 38 published profiles as of June 29, 2026.
+- **Swept (guides):** all five guide pages as of July 14, 2026: `value-navigator`, `active-frontier`, `wellness-blueprint`, `globetrotter-guide`, `urban-walkabout`. 231 rendered em-dashes replaced per the substitution rules above.
+- **Enforcement:** the guides are now inside the validator's em-dash check (`GUIDES_TOO = True` in `tools/validate.py`). Before July 14, 2026 that flag was `False` with a comment claiming the guides were "grandfathered; see PROFILE-FORMATTING.md". This document never said that. Its scope is profiles. The flag was recording an unfinished job in the grammar of a decision, and the em-dash rule now applies to every rendered surface on the site with no exemptions.
 - **Legacy comments preserved:** 207 em-dashes inside `<style>` and `<!-- ... -->` blocks retained (non-rendered).
 
 Touch any profile during future edits and confirm no em-dash reintroduction via the QA checklist.
