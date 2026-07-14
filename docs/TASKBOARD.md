@@ -87,14 +87,13 @@ Standard deploy block:
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
-- **v1.3 template retrofit** - status NOT VERIFIED. The prior board listed dark-mode hardening, Deep Dive
-  relocation, plain-quiz wording, and comment em-dash cleanup as NOT STARTED, but the profile markup no
-  longer matches the greps that would confirm it either way. First task of the BATCH chat is to establish
-  actual status against the canonical (`cities/st-louis/profile.html`), not to assume.
-
-- **Closer-variety sweep** - status NOT VERIFIED, same reason. Originally: the ~12 Visit-block profiles
-  all ended on "highlight reel." All 43 profiles now carry Visit blocks, so if this is still open the
-  scope is 43, not 12. Confirm before scoping.
+- **Visit-block hooks: 4 profiles open on a template.** `asheville`, `bend`, `boulder`, `fort-collins`
+  all open the Visit hook with "A scoring sheet can't tell you..." / "A scoring sheet only tells you...".
+  PROFILE-FORMATTING.md is explicit that the hook must be "the single most concrete, specific, appealing
+  thing about the city... never a generic adjective" and "do not open with a template; every hook opens
+  differently from every other block." These four are the last scaffolding repeat in the set: the other
+  39 hooks are distinct, and the rental-line openers are 42/43 distinct. Small, precise, judgment-based
+  rewrite of four opening sentences. Not batchable.
 
 ---
 
@@ -142,6 +141,22 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 14, 2026: v1.3 TEMPLATE RETROFIT VERIFIED COMPLETE (was "NOT VERIFIED"). Checked against all 43
+  profiles, not assumed: forced-dark hardening block 43/43; Visit chip present, in LAST nav position,
+  and wired into the scroll-spy ids array 43/43; Deep Dive block correctly placed after Related Cities
+  and before Visit 43/43; zero "N-question quiz" copy 43/43. The "comment em-dash cleanup" the old board
+  carried as an open v1.3 task was never a deliverable: PROFILE-FORMATTING.md explicitly exempts them
+  ("legacy comments carrying em-dashes are cosmetic only and do not require sweeping unless touched").
+  219 remain in `<style>`/`<!-- -->` blocks across 36 profiles and are fine there. Rendered em-dashes
+  across all 43 profiles: 0.
+- Jul 14, 2026: CLOSER-VARIETY SWEEP RETIRED AS OBSOLETE. The item predated v1.4 and had the standard
+  backwards. It flagged that the Visit blocks all end on "the highlight reel" as a defect. v1.4 makes
+  that closer MANDATORY: "Test the daily routine, not the highlight reel" is the site's signature
+  sign-off, "used on every block; it does not rotate." Verified 43/43 carry it verbatim, which is
+  compliance, not drift. What the standard DOES require to vary is hooks and openers: 38/43 distinct
+  hook openers, 42/43 distinct rental-line openers. The real residual is 4 templated hooks, now its
+  own board item.
 
 - Jul 14, 2026: SUPERLATIVE POLICY CLOSED OUT (4 batches). The 41 warnings were the wrong target:
   most were TRUE outside-world facts that should stay. But they formed a wall nobody reads, and false
