@@ -4,10 +4,11 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 13, 2026 (reconciled against live repo; climate engine rebuilt and deployed)
+**Last updated:** July 14, 2026 (Savannah + validator blind spot + favicon unification pushed together)
 
-**Verified live at last update:** 42 profiles, 18 comparison pages, 5 guides, 7 landing pages.
-All 42 profiles carry a Visit block. Validator: 0 failures, 41 warnings.
+**Verified live at last update:** 43 profiles, 18 comparison pages, 5 guides, 7 landing pages.
+All 43 profiles carry a Visit block. Validator: 0 failures, 42 warnings (`--local .`, measured on the
+exact tree that was pushed, with `scottsdale-vs-santa-fe-profile.html` deleted).
 
 ---
 
@@ -37,7 +38,7 @@ and returns a green light that says nothing about your changes.
 
 ## ACTIVE - batch / site-wide operations
 
-- **Superlative warning cleanup** - 41 warnings, 0 failures. Two distinct jobs, do not mix:
+- **Superlative warning cleanup** - 42 warnings, 0 failures. Two distinct jobs, do not mix:
   - **(a) ~11 dataset-scoped superlatives.** Claims ranked against our own data, which rot every time
     a city is added. Live: "best value in Florida" (sarasota-vs-tampa x2, tampa-vs-st-petersburg);
     "largest anywhere on this scorecard" and "widest home-price gaps of any pairing here"
@@ -51,6 +52,23 @@ and returns a green light that says nothing about your changes.
     active-frontier (2), others. Bulkier and more repetitive than (a).
   - Run as a `BATCH` chat with `python3 tools/validate.py --only superlatives` output pasted in.
     NOT an OPS job.
+
+- **`.lists-grid-four` is used but never defined** - the class appears on `st-louis` (the CANONICAL),
+  `columbus`, `pittsburgh`, `memphis` and `st-paul`, but only `new-orleans`, `st-paul` and
+  `philadelphia` actually define a `.lists-grid-four {}` rule. On the rest the div falls back to an
+  unstyled block, so the list cards stack full-width instead of forming the centered 2x2 grid the
+  standard specifies. Because the canonical carries it, every profile built from the canonical
+  inherits it. Savannah was caught and moved to plain `.lists-grid`. Fix: add the `.lists-grid-four`
+  rule to the canonical, then batch it out. Nothing in the validator sees CSS, so this will not
+  self-report.
+
+- **Widen the superlative phrase list** - the check matches literal strings ("in our database",
+  "we cover", "on this scorecard"). It does NOT match "our 100-city database", "our database records
+  as", or "among cities to score it", all three of which were shipped INTO the scottsdale page during
+  the very batch that was cleaning superlatives out of it, and all three passed the gate. A banned-
+  phrase list is a blocklist and inherits every blocklist's flaw. Consider matching on the pattern
+  (a possessive + "database"/"scorecard"/"we publish"/"among cities") rather than on remembered
+  strings.
 
 - **Guide em-dash sweep** - 232 em-dashes in rendered text across all 5 lead-magnet guides:
   globetrotter-guide (71), wellness-blueprint (55), urban-walkabout (41), value-navigator (37),
@@ -73,16 +91,16 @@ and returns a green light that says nothing about your changes.
   actual status against the canonical (`cities/st-louis/profile.html`), not to assume.
 
 - **Closer-variety sweep** - status NOT VERIFIED, same reason. Originally: the ~12 Visit-block profiles
-  all ended on "highlight reel." All 42 profiles now carry Visit blocks, so if this is still open the
-  scope is 42, not 12. Confirm before scoping.
+  all ended on "highlight reel." All 43 profiles now carry Visit blocks, so if this is still open the
+  scope is 43, not 12. Confirm before scoping.
 
 ---
 
 ## ACTIVE - city profile builds
 
 - **Next in queue:** San Antonio (unlocks Fort Worth vs San Antonio).
-- Then: Savannah, Roanoke, Tulsa.
-- Live profiles: 42. Fort Collins, Prescott and Knoxville all shipped since the last board update.
+- Then: Roanoke, Tulsa.
+- Live profiles: 43. Fort Collins, Prescott, Knoxville and Savannah all shipped since the last board update.
 
 ---
 
@@ -133,5 +151,38 @@ Unlocks pending a build:
 - Jul 13, 2026: Wilmington DE, Indianapolis and St. Paul median-home corrections confirmed live in both
   DB and index.html. MEDIAN-HOME-LABEL-CONVENTIONS.md deleted. D2 rebuild cleared the suspect
   `$4,500-$5,500` range (the one remaining instance is La Crosse WI's genuine DB value).
-- Jul 13, 2026: Visit-block rollout COMPLETE. All 42 live profiles carry a Visit block.
+- Jul 14, 2026: VALIDATOR BLIND SPOT CLOSED. check_superlatives picked its targets from a
+  hand-maintained list of filenames plus a hub regex matching only *-retirement.html. Anything not
+  on that list shipped unchecked. privacy.html was never on it. Neither was a stray
+  scottsdale-vs-santa-fe-PROFILE.html, which sat live on Netlify with FOUR banned superlatives and
+  passed the gate clean. Local mode now discovers pages by globbing the disk: the filesystem is the
+  only list that cannot drift from what actually ships. Planted-error tested with a brand-new
+  unlinked page. The gate went from a false "0 failures" to a true 6, now cleared to 0.
+- Jul 14, 2026: SCOTTSDALE vs SANTA FE deduplicated. Two files existed. The orphan (-profile.html,
+  Jul 6) was NEWER and better than the live page (-retirement.html, Jun 22): proper favicon set, and
+  a body that names the healthcare drop, the 3-of-10 safety, and wildfire directly. It was a rebuild
+  saved under the wrong suffix that never replaced the original. Its body was promoted onto the live
+  -retirement.html URL and **the orphan file was deleted with `git rm`**. A zip cannot express a
+  deletion, so this step is easy to skip and it is the step that turns the new globbing validator from
+  green to 4 failures. D2 scores corrected on the promoted page (Scottsdale 3->4, Santa Fe 6->5, both
+  verified against CityDatabase_Jul_13_v16_4_climate.xlsx) and the D2 checkmark dropped, since 4 vs 5
+  is a 1-point gap and the table rule is 2+. All dollar figures already matched the DB.
+  SECOND PASS: promoting the orphan's body carried in three NEW dataset-scoped claims that the
+  validator's literal phrase list does not match: "in the lower third of our 100-city database",
+  "which our database records as", and "matched only by Miami and New Orleans among cities to score
+  it". All three re-anchored before push. The lesson is below, under the validator item.
+- Jul 14, 2026: FAVICON UNIFIED site-wide. 20 pages fixed: 14 carried an inline SVG data-URI, 6
+  (privacy.html + Chattanooga, Delray Beach, Pensacola, St. Augustine, St. Petersburg) had none at
+  all. All 84 pages now carry the real favicon set exactly once. Verified post-merge: 84/84 pages
+  carry `/favicon.ico`, zero pages carry it twice, zero data-URI stragglers remain. Diff-reviewed:
+  the batch touched only favicon markup. The 9 asset files were already in the repo root.
+- Jul 14, 2026: SAVANNAH, GA profile shipped. No pillar city (nothing scores 9+); built on the
+  D2 Budget 8 / D10 Community 8 cluster, with Safety 4 and Resilience 3 stated in the character
+  section rather than buried. Carries an NRC callout under MEDIAN-HOME-METHODOLOGY v1.2 (citywide
+  $326K vs retiree-target hoods $500K-$790K) despite not being one of the ten legacy NRC cities.
+  Savannah is on TWO lists (arts-lovers, budget); it is a documented near-miss on foodies.
+  Built with `lists-grid` (2 cards), not `lists-grid-four`: see the undefined-class bug below.
+  OPEN: DB scores Savannah D1=5, but SAV runs 38 nonstops on 9 airlines, which the rubric's own
+  anchors put at 6-7. Score NOT changed; prose written consistent with a 5. Worth a D1 review.
+- Jul 14, 2026: Visit-block rollout COMPLETE. All 43 live profiles carry a Visit block.
 - Jul 9, 2026: Knoxville deployed; v1.3 canonical + docs deployed; St. Paul DB fix done.

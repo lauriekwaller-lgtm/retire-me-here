@@ -30,6 +30,7 @@ checked, and drift accumulated silently across 100 cities and 80 pages.
 import argparse
 import json
 import os
+import pathlib
 import re
 import sys
 import urllib.request
@@ -944,35 +945,56 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
 
     # Every page a reader can actually reach. The old scan covered index.html and the
     # city profiles only, which is why pick-and-compare.html sat at 14 banned phrases
-    # and never once appeared in a FAIL. Comparison pages come from the hub, which is
-    # the one list that stays honest (the sitemap lags).
-    pages = {"index.html": idx}
-    for slug in slug_to_city:
-        html = fetch(f"cities/{slug}/profile.html", local)
-        if html:
-            pages[f"cities/{slug}/profile.html"] = html
+    # and never once appeared in a FAIL.
+    #
+    # It was then widened to a HAND-MAINTAINED LIST, which is its own trap: a list of
+    # pages someone remembered to add. privacy.html was never on it. Neither was a
+    # stray scottsdale-vs-santa-fe-PROFILE.html (note the suffix -- the hub regex only
+    # matches -retirement.html), which sat live on Netlify carrying four banned
+    # superlatives and passed this gate clean, because the gate never looked at it.
+    #
+    # So: in local mode, discover from DISK. Anything that deploys is something a
+    # reader can reach, and anything a reader can reach gets scanned. The filesystem is
+    # the only list that cannot drift from what actually ships.
+    pages = {}
+    if local:
+        root = pathlib.Path(local)
+        found = sorted(root.glob("*.html")) + sorted(root.glob("cities/*/profile.html"))
+        for p in found:
+            rel = str(p.relative_to(root))
+            html = fetch(rel, local)
+            if html:
+                pages[rel] = html
+    else:
+        # Remote mode cannot glob, so fall back to the known surfaces. This is the
+        # post-deploy confirmation run, not the gate.
+        pages = {"index.html": idx}
+        for slug in slug_to_city:
+            html = fetch(f"cities/{slug}/profile.html", local)
+            if html:
+                pages[f"cities/{slug}/profile.html"] = html
 
-    hub = fetch("compare-retirement-cities.html", local) or ""
-    others = sorted(set(
-        re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub)
-    )) + [
-        "compare-retirement-cities.html", "pick-and-compare.html",
-        "where-should-i-retire-quiz.html", "visit-before-you-decide.html",
-        "best-places-to-retire-on-a-budget.html",
-        "best-places-to-retire-in-florida.html",
-        "best-places-to-retire-in-the-midwest.html",
-        "best-places-to-retire-avoid-natural-disasters.html",
-        "top-cities-for-active-retirees.html", "top-cities-for-arts-lovers.html",
-        "top-cities-for-foodies.html", "top-cities-for-healthcare.html",
-        "top-cities-for-hikers.html", "top-cities-for-lgbtq-retirees.html",
-        "top-cities-for-sports-fans.html",
-        "value-navigator.html", "active-frontier.html", "wellness-blueprint.html",
-        "globetrotter-guide.html", "urban-walkabout.html",
-    ]
-    for page in others:
-        html = fetch(page, local)
-        if html:
-            pages[page] = html
+        hub = fetch("compare-retirement-cities.html", local) or ""
+        others = sorted(set(
+            re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub)
+        )) + [
+            "compare-retirement-cities.html", "pick-and-compare.html",
+            "where-should-i-retire-quiz.html", "visit-before-you-decide.html",
+            "best-places-to-retire-on-a-budget.html",
+            "best-places-to-retire-in-florida.html",
+            "best-places-to-retire-in-the-midwest.html",
+            "best-places-to-retire-avoid-natural-disasters.html",
+            "top-cities-for-active-retirees.html", "top-cities-for-arts-lovers.html",
+            "top-cities-for-foodies.html", "top-cities-for-healthcare.html",
+            "top-cities-for-hikers.html", "top-cities-for-lgbtq-retirees.html",
+            "top-cities-for-sports-fans.html",
+            "value-navigator.html", "active-frontier.html", "wellness-blueprint.html",
+            "globetrotter-guide.html", "urban-walkabout.html",
+        ]
+        for page in others:
+            html = fetch(page, local)
+            if html:
+                pages[page] = html
 
     # --- FAIL: dataset-scoped phrasing (policy) ---
     # Two surfaces per page: rendered HTML, and prose held in JS string literals that
