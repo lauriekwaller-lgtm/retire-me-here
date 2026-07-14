@@ -368,6 +368,7 @@ body {
 @media (max-width: 768px) {
   .reality-check { margin: 20px 14px 0; padding: 16px 18px; }
   .reality-check-body { font-size: 13px; }
+  .lists-grid-four { grid-template-columns: minmax(0, 340px); }
 }
 
 /* ============================================
@@ -849,6 +850,14 @@ body {
    APPEARS ON LISTS
    ============================================ */
 .lists-section { background: var(--cream); }
+/* Centered 2x2 grid for cities that earn 4 list cards */
+.lists-grid-four {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 340px));
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
 .lists-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 340px));

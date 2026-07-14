@@ -60,15 +60,6 @@ Standard deploy block:
 
 ## ACTIVE - batch / site-wide operations
 
-- **`.lists-grid-four` is used but never defined** - the class appears on `st-louis` (the CANONICAL),
-  `columbus`, `pittsburgh`, `memphis` and `st-paul`, but only `new-orleans`, `st-paul` and
-  `philadelphia` actually define a `.lists-grid-four {}` rule. On the rest the div falls back to an
-  unstyled block, so the list cards stack full-width instead of forming the centered 2x2 grid the
-  standard specifies. Because the canonical carries it, every profile built from the canonical
-  inherits it. Savannah was caught and moved to plain `.lists-grid`. Fix: add the `.lists-grid-four`
-  rule to the canonical, then batch it out. Nothing in the validator sees CSS, so this will not
-  self-report.
-
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
   distinct shapes were found live on July 14: a modifier the list didn't have (`in ENTIRE database`),
@@ -141,6 +132,19 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 14, 2026: `.lists-grid-four` UNDEFINED-CLASS BUG FIXED. Four profiles (`st-louis` the CANONICAL,
+  `columbus`, `memphis`, `pittsburgh`) carried `class="lists-grid-four"` on the four-card container but
+  never defined the rule, and had no base `.lists-grid` on the div to fall back on, so the cards stacked
+  full-width instead of forming the centered 2x2. Added a self-contained `.lists-grid-four` rule (display
+  grid, `repeat(2, minmax(0,340px))`, centered) to all four, matching the standalone form `st-paul`
+  already used. Also added the mobile single-column collapse (`minmax(0,340px)` at max-width 768px) the
+  build spec calls for, which no profile was enforcing: on a phone the 2-col grid was squeezing cards to
+  ~151px instead of stacking. All 7 profiles that use the class now render identically: desktop 2x2,
+  mobile 1-col. `new-orleans` and `philadelphia` were already correct via the two-class combo
+  (`lists-grid lists-grid-four`) and needed no change. Nothing in the validator sees CSS, so this class
+  of bug does not self-report; caught by audit. Verified with tag-balance; visual behavior reasoned from
+  the grid track math, NOT rendered, so eyeball the 2x2 on one rebuilt profile after deploy to be sure.
 
 - Jul 14, 2026: v1.3 TEMPLATE RETROFIT VERIFIED COMPLETE (was "NOT VERIFIED"). Checked against all 43
   profiles, not assumed: forced-dark hardening block 43/43; Visit chip present, in LAST nav position,
