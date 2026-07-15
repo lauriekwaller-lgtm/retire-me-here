@@ -82,6 +82,24 @@ HOME_BOUND = re.compile(
     r"\b(?:under|below|less than)\s+(\$[\d.,]+[KM]?)", re.I)
 
 
+# A home-value figure stated inside a pros/cons bullet, tied to the DB Median Home.
+# Two shapes: word-then-figure ("typical home value $585,000", "median home $465K")
+# and figure-then-word ("$465K median", "$530K typical home value").
+#
+# The noun is restricted to home value / median home, NEVER a bare "median": the
+# pros/cons carry "median bill $5,026" (property-tax bill) and "monthly costs $10K+",
+# which are not home values and must not match. The token is range-aware so a range
+# self-rejects through money_to_int (returns None) instead of the regex grabbing only
+# the low end. And it is anchored tight so it cannot cross a comma into the next
+# clause: the Frisco con "home value $663K, above Georgetown at $457K" yields $663K
+# only, never the comparison city's figure.
+_FIG = r"~?(\$[\d.,]+[KM]?(?:\s*[\u2013\u2014-]\s*\$?[\d.,]+[KM]?)?)"
+PROSCONS_HOME = re.compile(
+    r"(?:typical\s+)?home\s+value\s*" + _FIG +
+    r"|median\s+home(?:\s+(?:value|price|sale))?\s*" + _FIG +
+    r"|" + _FIG + r"\s+(?:median|typical\s+home\s+value)\b", re.I)
+
+
 # ---------------------------------------------------------------- infrastructure
 
 class Report:
@@ -391,6 +409,32 @@ def check_figures(rep, db, idx):
                     rep.fail("figures",
                              f"CITIES {city}, {state}: {key} is {got.get(key)}, "
                              f"DB says {row['scores'][key]}")
+
+        # pros/cons bullets hard-code home figures that nothing checked against the
+        # DB. That is how a stale "$327K" survived a Knoxville refresh while the
+        # medianHome field four lines up was already correct. Read every home-value
+        # figure in the pros/cons prose and hold it to the same DB Median Home.
+        if row["home"] is not None:
+            prose = " ".join(re.findall(r'(?:pros|cons):\s*\[([^\]]*)\]', obj))
+            for m in PROSCONS_HOME.finditer(prose):
+                tok = next(g for g in m.groups() if g)
+                # "$250K citywide but retirees target ..." — an explicitly citywide
+                # figure is a deliberate second number for a high-variance city, whose
+                # DB Median Home carries the retiree-target figure by design. Skip it.
+                if re.match(r"\s*citywide", prose[m.end():m.end() + 12], re.I):
+                    continue
+                val = money_to_int(tok)
+                if val is None:                     # a range or unparseable: skip
+                    continue
+                if abs(val - row["home"]) / row["home"] > HOME_TOLERANCE:
+                    # WARN, not FAIL, for now. The Jul-13 DB refresh left 34 pros/cons
+                    # home figures stranded; they must be reconciled before this can
+                    # gate a deploy (see the reconciliation worklist). Once the group
+                    # reports clean, PROMOTE this to rep.fail so future drift blocks the
+                    # deploy exactly like the other figures checks: change warn -> fail.
+                    rep.warn("figures",
+                             f"CITIES {city}, {state}: pros/cons state a home value "
+                             f"{tok}, DB Median Home is ${round(row['home'] / 1000)}K")
 
     if seen != len(db_cities(db)):
         rep.warn("figures",
