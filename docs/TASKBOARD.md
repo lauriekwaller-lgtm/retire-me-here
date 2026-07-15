@@ -78,6 +78,20 @@ Standard deploy block:
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
+- **Validator: tie `index.html` `pros`/`cons` figures to the DB.** The `pros` and `cons` arrays each
+  carry hard-coded dollar figures (e.g. "Affordable: $368K typical home value") that no check compares
+  against that city's own `medianHome` field or the DB. This is exactly how the Knoxville `$327K` stale
+  figure survived a refresh while `medianHome` four lines above it was correct. Add a group that extracts
+  currency figures from `pros`/`cons` and flags any that contradict the same record's `medianHome` (or
+  the DB `Median Home`). Pattern-based, same spirit as the superlative and climate check groups.
+
+- **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
+  "Hot summers (lower = milder)" but populated from `Climate Hot Sum`, which the rubric defines as summer
+  COMFORT (10 = comfortable, 1 = extreme heat) - so higher is milder, and the label says the opposite.
+  Invisible there because both cities score 6, but the label is wrong. The new `knoxville-vs-nashville`
+  page uses the correct "Summer comfort (higher = milder)". Fix the Chattanooga label on its next touch;
+  audit other comparison pages for the same inverted wording while at it. Latent, not live-wrong.
+
 - **Visit-block hooks: 4 profiles open on a template.** `asheville`, `bend`, `boulder`, `fort-collins`
   all open the Visit hook with "A scoring sheet can't tell you..." / "A scoring sheet only tells you...".
   PROFILE-FORMATTING.md is explicit that the hook must be "the single most concrete, specific, appealing
@@ -132,6 +146,15 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 14, 2026: KNOXVILLE vs NASHVILLE comparison page shipped (page 19). Built from the
+  `knoxville-vs-chattanooga` template against COMPARISON-PAGE-STANDARD-v2; scores/figures/tiers from
+  `CityDatabase_Jul_13_v16_4_climate.xlsx`. Checkmarks at 2+ point gaps only (D1 Nashville; D7, D9
+  Knoxville) plus the three cost rows. Also fixed a stale `index.html` figure: the Knoxville `pros`
+  array read `$327K` while its own `medianHome` read `$368,000` (DB agrees $368K); corrected. Deploy
+  hit and cleared a real gate failure: a session-start `index.html` copy, packaged whole, reintroduced
+  five superlatives that live had been cleaned of in between; rebuilt on a fresh pull as a one-line
+  diff. See SITE-OPERATIONS-LOG.md change log for the full note.
 
 - Jul 14, 2026: `.lists-grid-four` UNDEFINED-CLASS BUG FIXED. Four profiles (`st-louis` the CANONICAL,
   `columbus`, `memphis`, `pittsburgh`) carried `class="lists-grid-four"` on the four-card container but
