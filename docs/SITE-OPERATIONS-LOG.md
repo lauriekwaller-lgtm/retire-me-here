@@ -202,6 +202,32 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-14 - Knoxville vs. Nashville comparison page; stale index.html median fixed
+
+**Shipped.** `knoxville-vs-nashville-retirement.html`, comparison page 19. Built from
+`knoxville-vs-chattanooga-retirement.html` against COMPARISON-PAGE-STANDARD-v2. All scores,
+dollar figures, and budget tiers read from `docs/CityDatabase_Jul_13_v16_4_climate.xlsx`.
+Checkmarks at 2+ point gaps only (D1 to Nashville; D7, D9 to Knoxville) plus the three cost rows.
+Airport counts verified against carrier route data, July 2026: TYS 40 nonstops / 7 airlines, all
+domestic; BNA 122 nonstops / 18 airlines including transatlantic.
+
+**Bug fixed.** The Knoxville record in `index.html` carried `"$327K typical home value"` in its
+`pros` array while its own `medianHome` field read `$368,000`; the DB agrees with $368,000. The
+string appeared nowhere else in the repo and the profile was already correct. Corrected to $368K.
+The `pros`/`cons` arrays hold hard-coded figures no check ties back to `medianHome` or the DB;
+this is the likely place for a stale number to survive a refresh. Candidate for a validator check.
+
+**Deploy note (stale-snapshot near-miss).** The first build of this deploy shipped a full
+`index.html` copied at session start. Between that pull and the push, live `index.html` had been
+cleaned of five dataset-scoped superlatives. Unzipping the session-start copy over the pulled tree
+reintroduced all five, and the pre-deploy gate (correctly) failed with 5 errors. Rebuilt the entire
+deploy against a fresh pull and reduced the `index.html` change to the single `$327K -> $368K` line
+rather than shipping the whole file. Reinforces section 4a: never ship a whole file copied at
+session start; re-pull immediately before packaging and apply the minimum diff.
+
+**Also updated.** `sitemap.xml`, `compare-retirement-cities.html` (hub card, ItemList position 19,
+og/twitter description), reciprocal pills on the two sibling Tennessee matchups, `TASKBOARD.md`.
+
 ### 2026-07-14 - Stale repo snapshot removed; enumeration and session-start rules added
 
 **Symptom.** A comparison-page session reported that it could not find the Savannah profile in the

@@ -6,7 +6,7 @@ When a job moves, edit the line here (or ask Claude to). If it is not on this bo
 
 **Last updated:** July 14, 2026 (superlative policy closed out, guide em-dash sweep, database-voice strip, validator mode banner)
 
-**Verified live at last update:** 43 profiles, 18 comparison pages, 5 guides, 7 landing pages.
+**Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
 `--local .` (the tree that was pushed) and bare (live GitHub). The warn queue reaches zero because
 `docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
@@ -98,11 +98,11 @@ Standard deploy block:
 
 ## ACTIVE - comparison pages
 
-Live: 18. Shipped since last board update: Fort Collins vs Boulder, Knoxville vs Chattanooga,
-Bend vs Boulder, Bloomington vs Lexington, Madison vs Ann Arbor, Madison vs Columbus, and others.
+Live: 19. Shipped since last board update: Knoxville vs Nashville, Fort Collins vs Boulder,
+Knoxville vs Chattanooga, Bend vs Boulder, Bloomington vs Lexington, Madison vs Ann Arbor,
+Madison vs Columbus, and others.
 
 Unlocked and ready to build now (both cities live):
-- **Knoxville vs Nashville**
 - **Knoxville vs Asheville**
 - **Arizona three-way cluster** (Prescott now live, so this is unblocked)
 
