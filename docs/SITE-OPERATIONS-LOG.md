@@ -202,6 +202,15 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-15 - Working-environment clarification (Codespaces, not Mac-local paths)
+
+Clarified in Section 9 ("Where the work happens") that although Laurie works from a Mac laptop, the
+repo working tree lives in Codespaces at `/workspaces/retire-me-here`, and all interactive terminal,
+git, deploy, and file-management commands run in the Codespaces shell. Operator-facing instructions
+must use bare Codespaces commands and paths, not Mac-local filesystem paths or a leading `cd`. Prompted
+by a deploy where Mac-style `cd ~/path/to/repo` guidance failed (harmlessly) because the shell was
+already in the Codespaces repo root. Docs-only change; no site or scoring impact.
+
 ### 2026-07-14 - Knoxville vs. Nashville comparison page; stale index.html median fixed
 
 **Shipped.** `knoxville-vs-nashville-retirement.html`, comparison page 19. Built from
@@ -603,7 +612,7 @@ If you are reading this because Laurie has handed you the site, start here.
 
 **Tools you'll need access to.** GitHub repo `lauriekwaller-lgtm/retire-me-here` (deploy), Netlify (auto-deploys from GitHub), Google Analytics 4 (property G-BTL743DSJQ, tracked under "Destination Retired" account name), Google Search Console, Microsoft Clarity, MailerLite (email capture, form IDs in project knowledge), Pinterest business account, Zillow Research portal (for ZHVI refresh), Freddie Mac PMMS (for mortgage rate), CMS.gov (for Medicare premiums), Expedia Group Creator Hub (affiliate link generation), Partnerize (commission dashboard).
 
-**Where the work happens.** Editing is primarily through GitHub's web interface. For repo-wide operations that github.dev cannot handle (large refactors, bulk file moves, batch profile edits), use GitHub Codespaces from a Mac laptop. See SOP-5 for the batch-edit workflow.
+**Where the work happens.** Editing is primarily through GitHub's web interface. For repo-wide operations that github.dev cannot handle (large refactors, bulk file moves, batch profile edits), use GitHub Codespaces from a Mac laptop. See SOP-5 for the batch-edit workflow. Note on the device vs. the working tree: Laurie sits at a Mac laptop, but the repo working tree lives in Codespaces, so every terminal, git, deploy, and file-management command runs in the Codespaces shell at `/workspaces/retire-me-here`, which opens in the repo root already. Instructions handed to Laurie or a future operator should use bare Codespaces commands and Codespaces paths, never Mac-local filesystem paths (e.g. `~/path/to/repo`) and never a leading `cd` to a Mac path.
 
 **Decisions a new operator can make autonomously.** Routine refreshes following the SOPs above. Photo refreshes. Copy edits that don't change scoring. Pinterest content. Small UI polish.
 

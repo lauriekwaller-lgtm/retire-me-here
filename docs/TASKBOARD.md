@@ -4,7 +4,7 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 14, 2026 (superlative policy closed out, guide em-dash sweep, database-voice strip, validator mode banner)
+**Last updated:** July 15, 2026 (Codespaces working-environment clarification logged; Knoxville vs Nashville shipped; superlative policy closed out, validator mode banner)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
@@ -146,6 +146,12 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 15, 2026: WORKING-ENVIRONMENT CLARIFICATION logged in SITE-OPERATIONS-LOG.md (Section 9 +
+  change log). Laurie works from a Mac laptop but the repo working tree lives in Codespaces at
+  `/workspaces/retire-me-here`; all terminal, git, deploy, and file-management commands run there.
+  Operator-facing instructions use bare Codespaces commands and paths, never Mac-local paths or a
+  leading `cd`. Docs-only; no site or scoring impact.
 
 - Jul 14, 2026: KNOXVILLE vs NASHVILLE comparison page shipped (page 19). Built from the
   `knoxville-vs-chattanooga` template against COMPARISON-PAGE-STANDARD-v2; scores/figures/tiers from
