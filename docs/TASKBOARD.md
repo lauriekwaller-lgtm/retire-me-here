@@ -4,7 +4,7 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 15, 2026 (pros/cons figure-drift check built + 34-city reconciliation shipped; Pensacola corrections staged pending a wording greenlight; superlative scoped-rank leak found)
+**Last updated:** July 15, 2026 (pros/cons figure-drift check + 34-city reconciliation shipped; Pensacola 3-fix correction shipped; superlative scoped-rank leak found, close pending)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
@@ -140,14 +140,7 @@ Unlocks pending a build:
 
 ## DEPLOY QUEUE (built, awaiting push to GitHub)
 
-- **Pensacola profile: 3 corrections built, awaiting a wording greenlight then push.** File staged
-  (`pensacola-profile.html`). Fixes: (1) removed a doubled figure in the character section
-  (`a typical home of $264,000, a $264,000 median` -> single figure); (2) stale FAQ monthly
-  `$3,000` -> `$4,900` in the JSON-LD; (3) retired `Florida's lowest here` in all 5 spots (meta, og,
-  JSON-LD, stat-sub, character) as a site-scoped rank that rots the moment a cheaper FL city is added.
-  Replacement `well under Florida's peninsula prices` (panhandle vs peninsula, rot-proof) is SET;
-  file ready to push. index.html / sitemap / PUBLISHED_PROFILES unchanged; single-file drop-in over
-  `cities/pensacola/profile.html`.
+(empty)
 
 ---
 
@@ -166,6 +159,14 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 15, 2026: PENSACOLA profile 3-fix correction shipped. (1) Removed a doubled figure in the
+  character section (`a typical home of $264,000, a $264,000 median` -> single figure). (2) Fixed a
+  stale FAQ monthly buried in the FAQPage JSON-LD (`$3,000` -> `$4,900`; DB `$4,900-$6,100`), invisible
+  in prose. (3) Retired `Florida's lowest here` in all 5 spots (meta, og, JSON-LD, stat-sub, character):
+  a rank scoped to the site via `here` that goes false the moment a cheaper FL city is added. Replaced
+  with `well under Florida's peninsula prices` (panhandle vs peninsula, rot-proof). Verified live: 5x new
+  phrase, 0 old rank, 0 stale figure, JSON-LD parses. Ops-log writeup still to be added.
 
 - Jul 15, 2026: PROS/CONS FIGURE-DRIFT CHECK built + 34-CITY RECONCILIATION shipped. The board item
   assumed one stale figure (Knoxville `$327K`, already fixed). The check found 34: a third of the
