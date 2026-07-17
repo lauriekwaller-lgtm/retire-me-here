@@ -4,13 +4,16 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 15, 2026 (Codespaces working-environment clarification logged; Knoxville vs Nashville shipped; superlative policy closed out, validator mode banner)
+**Last updated:** July 15, 2026 (pros/cons figure-drift check built + 34-city reconciliation shipped; Pensacola corrections staged pending a wording greenlight; superlative scoped-rank leak found)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
 `--local .` (the tree that was pushed) and bare (live GitHub). The warn queue reaches zero because
 `docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
 unreviewed and shouts. Zero is now the expected reading. If a warning appears, it is new.
+The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
+Live bare run reads 0 pros/cons warnings after the Jul 15 reconciliation. It currently ships WARN,
+pending promotion to FAIL (see ACTIVE - batch).
 
 ---
 
@@ -70,6 +73,11 @@ Standard deploy block:
   Counter-check: `high on YOUR list` and `across the board` must NOT fire - the free-word slot is only
   allowed after a real determiner, and page-local objects (the two-city scorecard the reader is looking
   at) are bounded and static, so they cannot rot and are not this policy's business.
+  **New leak found Jul 15 (Pensacola):** `Florida's lowest here`, and the bare `[STATE]'s lowest` form,
+  scope a rank to the site through the word `here` with no ledger phrase to trip on. Same rot as
+  `we cover`, different disguise. Close the SHAPE (a superlative/rank adjacent to a state name, or a rank
+  plus site-scoping `here`), surgically enough that an innocent `here` (`the winters are real here too`)
+  does not fire.
 
 - **Validator: add a climate check group** - the validator compares `index.html` city FIGURES against
   the DB but has never checked the CLIMATE blocks. They happen to match 99/99, but nothing enforces it,
@@ -78,12 +86,17 @@ Standard deploy block:
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
-- **Validator: tie `index.html` `pros`/`cons` figures to the DB.** The `pros` and `cons` arrays each
-  carry hard-coded dollar figures (e.g. "Affordable: $368K typical home value") that no check compares
-  against that city's own `medianHome` field or the DB. This is exactly how the Knoxville `$327K` stale
-  figure survived a refresh while `medianHome` four lines above it was correct. Add a group that extracts
-  currency figures from `pros`/`cons` and flags any that contradict the same record's `medianHome` (or
-  the DB `Median Home`). Pattern-based, same spirit as the superlative and climate check groups.
+- **Validator: promote the pros/cons figure check from WARN to FAIL.** Built and live as of Jul 15,
+  folded into the `figures` group. It shipped WARN because the first run surfaced 34 drifted figures,
+  not the single Knoxville case the board assumed; those are now reconciled and live reads 0 pros/cons
+  warnings. Flip the marked `rep.warn` -> `rep.fail` line in `check_figures` so future drift blocks the
+  gate like every other figures check. One-line change; do it once you have re-confirmed a clean bare run.
+
+- **Validator: extend figure-drift checking to profile stat cards + FAQ JSON-LD.** The pros/cons check
+  covers `index.html` only. The Pensacola FAQ carried a stale `$3,000` monthly (DB `$4,900-$6,100`)
+  buried in the FAQPage schema: invisible, unguarded, the same failure mode one field over. Point the
+  same DB cross-check at each profile's stat card and FAQ schema, all cities, to size how widespread
+  profile-level drift is. Own batch, same spirit as the pros/cons and climate groups.
 
 - **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
   "Hot summers (lower = milder)" but populated from `Climate Hot Sum`, which the rubric defines as summer
@@ -127,7 +140,14 @@ Unlocks pending a build:
 
 ## DEPLOY QUEUE (built, awaiting push to GitHub)
 
-(empty)
+- **Pensacola profile: 3 corrections built, awaiting a wording greenlight then push.** File staged
+  (`pensacola-profile.html`). Fixes: (1) removed a doubled figure in the character section
+  (`a typical home of $264,000, a $264,000 median` -> single figure); (2) stale FAQ monthly
+  `$3,000` -> `$4,900` in the JSON-LD; (3) retired `Florida's lowest here` in all 5 spots (meta, og,
+  JSON-LD, stat-sub, character) as a site-scoped rank that rots the moment a cheaper FL city is added.
+  Replacement `well under Florida's peninsula prices` (panhandle vs peninsula, rot-proof) is SET;
+  file ready to push. index.html / sitemap / PUBLISHED_PROFILES unchanged; single-file drop-in over
+  `cities/pensacola/profile.html`.
 
 ---
 
@@ -146,6 +166,21 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 15, 2026: PROS/CONS FIGURE-DRIFT CHECK built + 34-CITY RECONCILIATION shipped. The board item
+  assumed one stale figure (Knoxville `$327K`, already fixed). The check found 34: a third of the
+  CITIES-array pros/cons home figures had drifted from the Jul-13 DB, in both directions (21 high, 13
+  low), which reads as accumulated staleness across refreshes rather than one migration. Built into the
+  `figures` group, anchored to home-value CONTEXT only, so monthly/bill figures, ranges, explicitly-
+  `citywide` figures on high-variance cities, and cross-city comparison figures (`above Georgetown at
+  $457K`) do not misfire; 0 false positives across all 99 cities. Shipped WARN, not FAIL, so the 34
+  could be reconciled without red-lighting the gate. Reconciled with a two-pass scripted batch (audit
+  all, then apply; abort if any anchor is missing or non-unique; re-run-safe), which caught a real
+  anchor collision: Santa Barbara's STALE `$1.85M` equalled Jackson Hole's CORRECT `$1.85M`, resolved
+  by quoting the anchor to the array literal. Deployed `index.html` (34 fixes) + `tools/validate.py`;
+  live bare run reads 0 failures, 0 pros/cons warnings. FOLLOW-UPS now on the ACTIVE board: promote the
+  check WARN->FAIL, and extend the same cross-check to profile stat cards + FAQ schemas. Ops-log writeup
+  still to be added.
 
 - Jul 15, 2026: WORKING-ENVIRONMENT CLARIFICATION logged in SITE-OPERATIONS-LOG.md (Section 9 +
   change log). Laurie works from a Mac laptop but the repo working tree lives in Codespaces at
