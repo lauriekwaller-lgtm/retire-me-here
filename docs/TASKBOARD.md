@@ -5,7 +5,7 @@ Chats are disposable; this doc is not. Read it at the start of a work session, u
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
 **Last updated:** July 18, 2026 (pros/cons figure check promoted WARN -> FAIL; profile figure drift
-audited AND reconciled, 13 fixes across 5 profiles; the stat-card/FAQ validator check is still to build)
+audited AND reconciled, 13 fixes across five city profiles; the stat-card/FAQ validator check is still to build)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
@@ -185,7 +185,7 @@ Unlocks pending a build:
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
 
-- Jul 18, 2026: PROFILE FIGURE DRIFT AUDITED AND RECONCILED. 13 fixes across 5 profiles. The audit was
+- Jul 18, 2026: PROFILE FIGURE DRIFT AUDITED AND RECONCILED. 13 fixes across five city profiles. The audit was
   scoped to stat cards + FAQ JSON-LD and found 5 figures in 4 cities; reading each one IN CONTEXT before
   editing showed the scope was wider, and the failure was worse than "a stale schema field": three
   profiles CONTRADICTED THEIR OWN STAT CARD.
