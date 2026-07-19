@@ -4,7 +4,7 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 15, 2026 (pros/cons figure-drift check + 34-city reconciliation shipped; Pensacola 3-fix correction shipped; superlative scoped-rank leak found, close pending)
+**Last updated:** July 18, 2026 (quiz dimension descriptions reframed to positive trait, 5 of 10; Georgetown/D1 threshold question resolved as keep-generic-7; rubric drift + `D4` key reuse parked)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
@@ -146,6 +146,23 @@ Unlocks pending a build:
 
 ## PARKED / BACKLOG
 
+- **Rubric doc drift: `scoring_rubric_v3.2` describes a filter the code does not run.** The rubric says
+  "D1 is the only dimension with a hard filter threshold" and describes a priority ladder (Must Have 8+,
+  Very Important 6+, Somewhat Important 4+). Live code does neither. `MUST_HAVE_THRESHOLD = 7` filters
+  EVERY dimension marked Must Have, and D1 is not special. `D1_THRESHOLDS` (index.html ~line 6346) is
+  defined and referenced nowhere: dead code. Decision made Jul 18, 2026 after checking the D1 spread
+  (99 cities: 44 at 7+, 32 at 8+) and the D1=7 cohort city by city: KEEP generic-7. Raising the floor to
+  8 would strand Bozeman, Boise, Tulsa, Pensacola, Sarasota, Spokane, Des Moines, Virginia Beach and
+  Georgetown, all of which carry real air access. Restoring the ladder would also make "Very Important"
+  silently cut 29 of 99 cities while the quiz only ever warns about Must Have. Resolution: delete
+  `D1_THRESHOLDS`, rewrite the rubric to describe generic-7 as shipped. Doc + dead-code only, no
+  matching-logic change.
+- **`D4` key reuse for Climate Resilience & Insurance.** The dimension occupies the internal key `'D4'`,
+  the slot the retired cost-of-living dimension vacated. Functionally harmless; it is a trap for anyone
+  cross-referencing the rubric, where D4 means something else. Fix ONLY as its own scoped rename with a
+  full grep (DIMENSIONS array, every city score object, `quizState.priorities`, `getCityScore`, the
+  filter loop, results render) plus a validator run. Never bolt onto other work. Low value, wide blast
+  radius: leaving it is a defensible permanent answer.
 - Site-wide bolding pass (PROFILE-FORMATTING item 6, judgment-based, not batchable)
 - Booking.com affiliate (Awin) - applied; deploy deferred until Expedia fully verified
 - Pinterest save-rate optimization (ongoing; cadence + pin copy)
@@ -159,6 +176,22 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 18, 2026: QUIZ DIMENSION DESCRIPTIONS REFRAMED to name the desirable trait (5 of 10, `index.html`
+  DIMENSIONS array only). The importance scale asks "how important is this to you?" against four shared
+  labels, so a desc naming the neutral topic or the bad end does not parse: "Must Have ... disaster
+  exposure" dangles. Fixed: Climate Resilience (`Disaster exposure, insurance cost & availability` ->
+  `Low disaster risk, affordable and available insurance`), Airport Access (`Drive time to major hub,
+  nonstop routes, airlines` -> `Flying easily from an airport nearby, or a major hub a short drive
+  away`), Healthcare (`Hospital ratings...` -> `Top hospital ratings...`), Tax Friendliness (`...property
+  tax burden` -> `Low to no tax on Social Security, income, and property`), Safety (`Violent and property
+  crime rates by city` -> `Low crime and feeling safe day to day`). The other five already named the good
+  version; Weather uses a different pattern. The Airport rewrite is also the RESOLUTION of the Georgetown
+  question: Georgetown TX has no field of its own and leans on Austin (AUS) 35 min out, which felt like
+  "drive far, then connect" but is not: AUS runs ~87 nonstops incl. direct to JFK/LGA, Boston, Charlotte,
+  Atlanta, Miami, DCA/IAD, plus year-round London, Amsterdam, Frankfurt. Chose to name both the
+  own-airport and hub-drive cases honestly rather than encode a proximity cap and re-score the
+  drive-to-hub cities. Validator 0/0 pre-deploy. Ops-log writeup still to be added.
 
 - Jul 15, 2026: PENSACOLA profile 3-fix correction shipped. (1) Removed a doubled figure in the
   character section (`a typical home of $264,000, a $264,000 median` -> single figure). (2) Fixed a
