@@ -427,12 +427,13 @@ def check_figures(rep, db, idx):
                 if val is None:                     # a range or unparseable: skip
                     continue
                 if abs(val - row["home"]) / row["home"] > HOME_TOLERANCE:
-                    # WARN, not FAIL, for now. The Jul-13 DB refresh left 34 pros/cons
-                    # home figures stranded; they must be reconciled before this can
-                    # gate a deploy (see the reconciliation worklist). Once the group
-                    # reports clean, PROMOTE this to rep.fail so future drift blocks the
-                    # deploy exactly like the other figures checks: change warn -> fail.
-                    rep.warn("figures",
+                    # PROMOTED WARN -> FAIL, Jul 18 2026. It shipped WARN on Jul 15
+                    # only because the first run surfaced 34 stranded figures from the
+                    # Jul-13 DB refresh and they had to be reconciled without
+                    # red-lighting the gate. That reconciliation is done and both
+                    # `--local .` and the live bare run read 0 pros/cons warnings, so
+                    # the check now gates a deploy like every other figures check.
+                    rep.fail("figures",
                              f"CITIES {city}, {state}: pros/cons state a home value "
                              f"{tok}, DB Median Home is ${round(row['home'] / 1000)}K")
 

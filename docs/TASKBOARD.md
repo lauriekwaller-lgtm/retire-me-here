@@ -4,7 +4,8 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 18, 2026 (quiz dimension descriptions reframed to positive trait, 5 of 10; Georgetown/D1 threshold question resolved as keep-generic-7; rubric drift + `D4` key reuse parked)
+**Last updated:** July 18, 2026 (pros/cons figure check promoted WARN -> FAIL; profile stat-card +
+FAQ JSON-LD drift AUDITED, 4 findings across 4 cities, fixes not yet applied)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
@@ -12,8 +13,9 @@ All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, conf
 `docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
 unreviewed and shouts. Zero is now the expected reading. If a warning appears, it is new.
 The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
-Live bare run reads 0 pros/cons warnings after the Jul 15 reconciliation. It currently ships WARN,
-pending promotion to FAIL (see ACTIVE - batch).
+As of Jul 18 it ships **FAIL**, not WARN: the Jul-15 34-figure reconciliation held, both `--local .`
+and the live bare run read 0 pros/cons warnings, so drift now blocks the gate like every other
+figures check. Planted-error tested (Knoxville `$327K` against DB `$368,000`: 1 failure, exit 1).
 
 ---
 
@@ -86,17 +88,30 @@ Standard deploy block:
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
-- **Validator: promote the pros/cons figure check from WARN to FAIL.** Built and live as of Jul 15,
-  folded into the `figures` group. It shipped WARN because the first run surfaced 34 drifted figures,
-  not the single Knoxville case the board assumed; those are now reconciled and live reads 0 pros/cons
-  warnings. Flip the marked `rep.warn` -> `rep.fail` line in `check_figures` so future drift blocks the
-  gate like every other figures check. One-line change; do it once you have re-confirmed a clean bare run.
-
-- **Validator: extend figure-drift checking to profile stat cards + FAQ JSON-LD.** The pros/cons check
-  covers `index.html` only. The Pensacola FAQ carried a stale `$3,000` monthly (DB `$4,900-$6,100`)
-  buried in the FAQPage schema: invisible, unguarded, the same failure mode one field over. Point the
-  same DB cross-check at each profile's stat card and FAQ schema, all cities, to size how widespread
-  profile-level drift is. Own batch, same spirit as the pros/cons and climate groups.
+- **Profile stat-card + FAQ JSON-LD drift: AUDITED Jul 18, fixes NOT yet applied.** Audit-only pass,
+  all 43 profiles, read against `CityDatabase_Jul_13_v16_4_climate.xlsx`. Nothing like the 34-figure
+  pros/cons blowout: **4 findings across 4 cities.** In every case `index.html` and the DB agree and
+  the PROFILE is the stale side.
+    1. `pensacola` stat card Budget Score reads `7/10`, DB D2 is `8`.
+    2. `st-paul` stat card Monthly Budget reads `$3.8-5K/mo`, DB is `$4,700-$5,900/mo`.
+    3. `columbus` FAQ answer + Article description both read `$249,000`, DB Median Home is `$235,000`.
+    4. `st-louis` FAQ answer reads a citywide `$250,000`, DB Median Home is `$235,000`.
+       (`tampa` FAQ `$377,000` vs DB `$400,000` was also flagged; see the audit report.)
+  **The finding that matters more than the count:** pointing the EXISTING `PROSCONS_HOME` matcher at
+  the FAQ schema would have covered 13 of ~45 home figures. The FAQ voice is
+  "the typical home value in Columbus **is around** $249,000" - a hedge, and sometimes a place phrase,
+  sits between the noun and the figure, and the pros/cons matcher requires them adjacent. It would
+  have reported a near-clean FAQ surface and missed Columbus and St. Louis entirely. The new check
+  needs a hedge slot, a money token anchored to end on a DIGIT (a token class ending in `[\d.,]+`
+  swallows the sentence comma and drags the other-place guard a clause too far, which is exactly how
+  St. Louis hid), and an other-place guard bounded to the SAME clause.
+  Two more gaps the audit surfaced, both currently unchecked anywhere:
+  the stat card's abbreviated monthly (`$4.9-6.1K/mo`) - `RANGE_RE` only knows the `$4,900-$6,100`
+  long form, so 43 monthly stat cards have never been checked; and the two variable stat slots, which
+  carry real dimension scores under 20-odd different labels (Healthcare, Outdoor, Walkability,
+  Community, Safety, Airport Access, Tax Friendliness, Wellness, Budget Score) and are unchecked.
+  Six slot labels are non-DB facts (Founded, Elevation, Metro, Coastline, Weather, State Income Tax)
+  and must stay unmapped. NEXT: fix the 4 (5) figures, then build the check against the reconciled tree.
 
 - **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
   "Hot summers (lower = milder)" but populated from `Climate Hot Sum`, which the rubric defines as summer
@@ -176,6 +191,12 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 18, 2026: PROS/CONS FIGURE CHECK PROMOTED WARN -> FAIL (`tools/validate.py`, one line plus its
+  comment). Preconditions re-confirmed first: `--local .` on a fresh clone of main read 0 failures,
+  0 warnings, so the Jul-15 reconciliation of 34 stranded figures is holding. Planted-error tested
+  three ways: clean tree 0/0, a planted Knoxville `$327K` against DB `$368,000` produces
+  `[FAIL] ... figures` and exit 1 (not a warning), revert returns to 0/0.
 
 - Jul 18, 2026: QUIZ DIMENSION DESCRIPTIONS REFRAMED to name the desirable trait (5 of 10, `index.html`
   DIMENSIONS array only). The importance scale asks "how important is this to you?" against four shared
