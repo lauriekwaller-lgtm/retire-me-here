@@ -4,8 +4,8 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 18, 2026 (pros/cons figure check promoted WARN -> FAIL; profile stat-card +
-FAQ JSON-LD drift AUDITED, 4 findings across 4 cities, fixes not yet applied)
+**Last updated:** July 18, 2026 (pros/cons figure check promoted WARN -> FAIL; profile figure drift
+audited AND reconciled, 13 fixes across 5 profiles; the stat-card/FAQ validator check is still to build)
 
 **Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
 All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
@@ -88,30 +88,23 @@ Standard deploy block:
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
-- **Profile stat-card + FAQ JSON-LD drift: AUDITED Jul 18, fixes NOT yet applied.** Audit-only pass,
-  all 43 profiles, read against `CityDatabase_Jul_13_v16_4_climate.xlsx`. Nothing like the 34-figure
-  pros/cons blowout: **4 findings across 4 cities.** In every case `index.html` and the DB agree and
-  the PROFILE is the stale side.
-    1. `pensacola` stat card Budget Score reads `7/10`, DB D2 is `8`.
-    2. `st-paul` stat card Monthly Budget reads `$3.8-5K/mo`, DB is `$4,700-$5,900/mo`.
-    3. `columbus` FAQ answer + Article description both read `$249,000`, DB Median Home is `$235,000`.
-    4. `st-louis` FAQ answer reads a citywide `$250,000`, DB Median Home is `$235,000`.
-       (`tampa` FAQ `$377,000` vs DB `$400,000` was also flagged; see the audit report.)
-  **The finding that matters more than the count:** pointing the EXISTING `PROSCONS_HOME` matcher at
-  the FAQ schema would have covered 13 of ~45 home figures. The FAQ voice is
-  "the typical home value in Columbus **is around** $249,000" - a hedge, and sometimes a place phrase,
-  sits between the noun and the figure, and the pros/cons matcher requires them adjacent. It would
-  have reported a near-clean FAQ surface and missed Columbus and St. Louis entirely. The new check
-  needs a hedge slot, a money token anchored to end on a DIGIT (a token class ending in `[\d.,]+`
-  swallows the sentence comma and drags the other-place guard a clause too far, which is exactly how
-  St. Louis hid), and an other-place guard bounded to the SAME clause.
-  Two more gaps the audit surfaced, both currently unchecked anywhere:
-  the stat card's abbreviated monthly (`$4.9-6.1K/mo`) - `RANGE_RE` only knows the `$4,900-$6,100`
-  long form, so 43 monthly stat cards have never been checked; and the two variable stat slots, which
-  carry real dimension scores under 20-odd different labels (Healthcare, Outdoor, Walkability,
-  Community, Safety, Airport Access, Tax Friendliness, Wellness, Budget Score) and are unchecked.
-  Six slot labels are non-DB facts (Founded, Elevation, Metro, Coastline, Weather, State Income Tax)
-  and must stay unmapped. NEXT: fix the 4 (5) figures, then build the check against the reconciled tree.
+- **Validator: build the profile stat-card + FAQ figure check.** The 13 drifted figures are now
+  reconciled (see RECENTLY SHIPPED), so this can be built against a clean tree. Three things the
+  audit proved the check needs, each of which cost a wrong answer while sizing the job:
+  (1) a HEDGE SLOT between the noun and the figure. The existing `PROSCONS_HOME` matcher requires them
+  adjacent, but the profile voice is "the typical home value in Columbus IS AROUND $249,000". Reusing
+  the pros/cons matcher as-is covers 13 of ~45 home figures and reports a near-clean surface.
+  (2) a money token anchored to end on a DIGIT. A class ending `[\d.,]+` swallows the sentence comma
+  and drags the other-place guard a clause forward, which is exactly how St. Louis hid behind an
+  unrelated "suburbs".
+  (3) the other-place guard bounded to the SAME clause, so it still skips Bentonville's Bella Vista
+  figure and Tampa's Water Street range without excusing a real citywide drift.
+  Also still unguarded: the stat card's ABBREVIATED monthly (`$4.9-6.1K/mo`) - `RANGE_RE` only knows
+  the `$4,900-$6,100` long form, so all 43 monthly stat cards are unchecked; and the two variable stat
+  slots, which carry real dimension scores under ~20 labels (Healthcare, Outdoor, Walkability,
+  Community, Safety, Airport Access, Tax Friendliness, Wellness, Budget Score). Six slot labels are
+  non-DB facts (Founded, Elevation, Metro, Coastline, Weather, State Income Tax) and must stay unmapped.
+  Planted-error test the whole surface: the audit pass caught 5 of 5 planted errors across both.
 
 - **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
   "Hot summers (lower = milder)" but populated from `Climate Hot Sum`, which the rubric defines as summer
@@ -191,6 +184,27 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 18, 2026: PROFILE FIGURE DRIFT AUDITED AND RECONCILED. 13 fixes across 5 profiles. The audit was
+  scoped to stat cards + FAQ JSON-LD and found 5 figures in 4 cities; reading each one IN CONTEXT before
+  editing showed the scope was wider, and the failure was worse than "a stale schema field": three
+  profiles CONTRADICTED THEIR OWN STAT CARD.
+    - `columbus` 8 fixes. Stat card read `$235K` while EIGHT other places on the same page read `$249K`:
+      meta description, og:description, JSON-LD Article description, two FAQ answers, hero tagline, a
+      fit-list bullet, and a fast-fact box. The meta description is what Google shows in results, so
+      the stale figure was the most publicly visible number on the page.
+    - `st-louis` 2 fixes. FAQ `$250,000` and the "Reading the numbers here" callout `~$250K`; stat card
+      already read `$235K`.
+    - `tampa` 1 fix. FAQ `$377,000` -> `$400,000`. The Water Street hood-card range `$377K-$800K` is a
+      NEIGHBORHOOD figure and was deliberately left alone.
+    - `pensacola` 1 fix. Stat card Budget Score `7/10` -> `8/10` (DB D2 = 8).
+    - `st-paul` 1 fix. Stat card Monthly Budget `$3.8-5K/mo` -> `$4.7-5.9K/mo`, already contradicted by
+      its own FAQ, which read `$4,700 to $5,900`.
+  In every case `index.html` and the DB agreed and the PROFILE was the stale side, so nothing in the
+  matching engine was affected. Applied with an abort-on-count-mismatch batch. Verified: 0 leftovers of
+  the old figures, JSON-LD parses on all five, 0 rendered em-dashes introduced, gate 0 failures /
+  0 warnings, and both audit passes re-read zero. LESSON: the audit surface was too narrow. A figure
+  that drifts drifts EVERYWHERE it was typed, including meta and og tags that no on-page read catches.
 
 - Jul 18, 2026: PROS/CONS FIGURE CHECK PROMOTED WARN -> FAIL (`tools/validate.py`, one line plus its
   comment). Preconditions re-confirmed first: `--local .` on a fresh clone of main read 0 failures,
