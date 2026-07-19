@@ -2,7 +2,7 @@
 **Purpose:** Single source of truth for what gets reviewed, updated, and refreshed across the site. Forward-looking calendar plus backward-looking change log. Written to be handover-ready, not personal shorthand.
 **Owner:** Laurie Waller (solo founder/operator)
 **Created:** June 17, 2026
-**Last full review:** July 14, 2026
+**Last full review:** July 19, 2026
 
 ---
 
@@ -201,6 +201,69 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+
+### 2026-07-19 - San Antonio, TX profile; a false UNESCO claim caught by the rubric check
+
+**Shipped.** `cities/san-antonio/profile.html`, profile 44, plus hero/detail/lifestyle photos. Built
+from a live pull of the canonical `cities/st-louis/profile.html` rather than any local copy. All
+dimension scores, `Monthly Est` and `Median Home` read from
+`docs/CityDatabase_Jul_13_v16_4_climate.xlsx` row 75. Research was used only for supporting color:
+SAT nonstop and carrier counts, University Hospital and Methodist credentials, Bexar County property
+tax rates.
+
+**Emphasis brief.** Two dimensions at 9 (D1 Airport, D5 Tax) and two at 8 (D3 Health, D10 Community).
+That is the MULTI-STRENGTH shape rather than MULTI-PILLAR, so the hero tagline and opening character
+paragraph carry all four. The hard-flagged counterweight is not a D-score: `Climate Hot Sum` = 3 with
+HEAT 9 and HUM 8, which leads the "Skip if" column. D6 and D7 at 5 fill out the honest column.
+
+**Bug caught pre-publish.** The draft claimed San Antonio was "the first U.S. city named a UNESCO
+Creative City of Gastronomy." It is not. `docs/foodie-cities-scoring-analysis.md` records Tucson at
+2015 and San Antonio at 2017, both in the database. Corrected to "one of only two in the United
+States" in the two places it appeared. The claim was invented during drafting, not read from any
+source document, and it would have shipped if the landing-page rubric review had been treated as
+out-of-scope for a city BUILD. **Consequence: consult the relevant `*-cities-scoring-analysis.md`
+before publishing a profile, not only before making a landing-page placement decision.** Those docs
+carry verified credential facts, not just tier assignments.
+
+**Editorial correction after operator review.** The first draft led on the Spanish missions because
+that is where the UNESCO World Heritage credential sits, and left the River Walk to a fast-fact and
+the Alamo to a single clause. Operator flagged that a reader arriving at a San Antonio page expects
+those two first. Revised: the hero tagline opens on the River Walk and the Alamo, character P1 makes
+the river the reason the city exists and the River Walk its modern axis, and the Visit block hook
+opens on both before pivoting to the four missions south of downtown. Final counts: River Walk 10
+mentions, Alamo 16. General lesson: the credential and the landmark a reader is actually looking for
+are not always the same thing, and the profile has to serve both.
+
+**NRC callout added off-list.** San Antonio is not one of the ten NRC cities in
+`PROFILE-FORMATTING.md`, but the DB row makes the case on its own: `Median Home` `$320,000` against
+retiree-target neighborhoods at `$400K-$900K`. MEDIAN-HOME-METHODOLOGY.md v1.2 treats the NRC as a
+universal editorial mechanism rather than a fixed list, so the callout was added and approved.
+San Antonio is the eleventh NRC city; the formatting doc still says ten.
+
+**Four data conflicts surfaced, none fixed here.** All four are logged on the taskboard. The serious
+one is the DB `Highlight` string, which says "Citywide median home $260K" while the structured
+`Median Home` field says `$320,000`. Because `Highlight` renders on `pick-and-compare.html` and the
+foodies landing card, the site is currently publishing two different medians for the same city. The
+other three: `PropTax Rate %` 1.4 against real Bexar effective rates of 1.55% to 1.96%,
+`Budget Range` 2 against a `Monthly Est` midpoint in Range 3, and a `scoreNotes.DW` January mean of
+44 F against the DB's 52. This repeats the July 14 Knoxville pattern: hard-coded prose figures inside
+`index.html`, and inside DB free-text fields, drift away from the structured fields and nothing checks
+them. The pros/cons figure check covers one such surface; `Highlight` is another.
+
+**Landing pages.** No edits were required. Existing San Antonio cards on `top-cities-for-foodies.html`
+and `urban-walkabout.html` already linked via `index.html?city=San Antonio&state=TX`, which the new
+`PUBLISHED_PROFILES` entry resolves. A rubric review of all seven landing pages found San Antonio
+explicitly excluded from Sports Fans (Spurs only, against a documented 2-team Tier 2 minimum), with no
+case on Hikers (D7=5) or Active Retirees (D8=6), and unevaluated on Healthcare and Arts Lovers where
+it reads as a Tier 2 candidate on both. Those two placements are parked as BATCH work.
+
+**Also confirmed, not a bug.** The numbered counters on landing-page city cards restart at 1 within
+each tier and each tier is alphabetical, so they are positional, not rankings, and are not expected to
+match the rank column in a scoring-analysis doc.
+
+**Files changed.** `cities/san-antonio/profile.html` (new), three photos (new), one
+`PUBLISHED_PROFILES` line in `index.html`, one url block in `sitemap.xml`, `TASKBOARD.md`,
+`SITE-OPERATIONS-LOG.md`.
 
 ### 2026-07-15 - Working-environment clarification (Codespaces, not Mac-local paths)
 

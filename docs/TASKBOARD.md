@@ -4,11 +4,11 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 18, 2026 (pros/cons figure check promoted WARN -> FAIL; profile figure drift
-audited AND reconciled, 13 fixes across five city profiles; the stat-card/FAQ validator check is still to build)
+**Last updated:** July 19, 2026 (San Antonio shipped, profile 44; landing-page rubric review caught a
+false UNESCO claim pre-publish and surfaced two unevaluated Tier 2 placements plus four DB conflicts)
 
-**Verified live at last update:** 43 profiles, 19 comparison pages, 5 guides, 7 landing pages.
-All 43 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
+**Verified live at last update:** 44 profiles, 19 comparison pages, 5 guides, 7 landing pages.
+All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
 `--local .` (the tree that was pushed) and bare (live GitHub). The warn queue reaches zero because
 `docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
 unreviewed and shouts. Zero is now the expected reading. If a warning appears, it is new.
@@ -125,9 +125,11 @@ Standard deploy block:
 
 ## ACTIVE - city profile builds
 
-- **Next in queue:** San Antonio (unlocks Fort Worth vs San Antonio).
-- Then: Roanoke, Tulsa.
-- Live profiles: 43. Fort Collins, Prescott, Knoxville and Savannah all shipped since the last board update.
+- **Next in queue:** Roanoke, then Tulsa.
+- Live profiles: 44. San Antonio shipped Jul 19; Fort Collins, Prescott, Knoxville and Savannah
+  shipped earlier in the same window.
+- San Antonio carries a Neighborhood Reality Check callout, making it the 11th NRC city.
+  `PROFILE-FORMATTING.md` still lists ten and needs updating.
 
 ---
 
@@ -140,9 +142,11 @@ Madison vs Columbus, and others.
 Unlocked and ready to build now (both cities live):
 - **Knoxville vs Asheville**
 - **Arizona three-way cluster** (Prescott now live, so this is unblocked)
+- **Fort Worth vs San Antonio** (San Antonio now live; nearest D1-D10 vector in the database at
+  distance 5, and the in-state matchup)
 
 Unlocks pending a build:
-- Fort Worth vs San Antonio (needs San Antonio)
+- (none)
 
 ---
 
@@ -154,6 +158,34 @@ Unlocks pending a build:
 
 ## PARKED / BACKLOG
 
+- **Four CityDatabase / index.html data conflicts on San Antonio, surfaced during the Jul 19 build.**
+  Not fixed in the build chat because three of them touch shared surfaces, which makes them BATCH work:
+    - DB `Highlight` says "Citywide median home $260K" while DB `Median Home` reads `$320,000` and
+      `CITY_ENRICHMENT` scoreNotes D2 reads "~$320K". The Highlight string renders on
+      `pick-and-compare.html` and the foodies landing card, so the site currently publishes two
+      different medians for the same city. Worst of the four.
+    - DB `PropTax Rate %` = 1.4 for San Antonio. External sources put Bexar County effective rates at
+      1.55% to 1.96%, and index.html cons/scoreNotes already publish ~1.8%. The profile shipped with
+      1.8% for internal consistency. The DB field is the thing to fix.
+    - DB `Budget Range` = 2, but `Monthly Est` `$5,100-$6,400/mo` puts the midpoint in Range 3.
+    - `CITY_ENRICHMENT["San Antonio"].scoreNotes.DW` says "Jan avg 44 F"; DB `Jan Mean F` = 52.
+- **San Antonio landing-page placements: Healthcare Tier 2 and Arts Lovers Tier 2.** BATCH scope.
+  Neither scoring-analysis doc evaluated the city at all (zero mentions), so these are omissions, not
+  rejections. Healthcare Tier 2 is defined as "major university medical center or state flagship";
+  San Antonio has University Hospital plus UT Health San Antonio with the Mays Cancer Center holding
+  NCI designation, the same credential that places Miami in Tier 2. Arts Tier 2 runs 8.3 to 8.8;
+  San Antonio reads 8.3 to 8.5 against Fort Worth at 8.4. Touches five files: the two landing pages,
+  the two scoring-analysis docs, and a return trip to `cities/san-antonio/profile.html` to take the
+  Lists section from 2 cards to 4.
+- **`PROFILE-FORMATTING.md` NRC list is stale at ten cities.** San Antonio is the eleventh.
+- **`scripts/generate_brief.py` is referenced by the `retiremehere-city-profile` skill but is not in
+  the repo** (404 on raw). The Jul 19 brief was computed by hand against the thresholds documented in
+  the skill. Either commit the script or amend the skill; as written it points the next build at a
+  file that is not there.
+- **Landing-page card counters are positional, not ranks.** `top-cities-for-foodies.html` numbers
+  restart at 1 per tier and each tier is alphabetical, so the on-page number never has to match the
+  scoring-analysis doc's rank. Recorded because it was raised as a discrepancy during the San Antonio
+  build and was not one.
 - **Rubric doc drift: `scoring_rubric_v3.2` describes a filter the code does not run.** The rubric says
   "D1 is the only dimension with a hard filter threshold" and describes a priority ladder (Must Have 8+,
   Very Important 6+, Somewhat Important 4+). Live code does neither. `MUST_HAVE_THRESHOLD = 7` filters
@@ -185,6 +217,14 @@ Unlocks pending a build:
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
 
+- Jul 19, 2026: SAN ANTONIO, TX SHIPPED. Profile 44. Built from a live pull of
+  `cities/st-louis/profile.html`; all scores, Monthly Est and Median Home read from
+  `docs/CityDatabase_Jul_13_v16_4_climate.xlsx` row 75. Carries an NRC callout (11th NRC city), a
+  Visit block with live per-city Expedia and Vrbo codes, and the Visit chip wired into the scroll-spy
+  ids array. No landing-page edits were needed: existing foodies and urban-walkabout cards already
+  routed through `index.html?city=San Antonio&state=TX`, and `CITY_ENRICHMENT` plus the `cities[]`
+  object already existed, so `index.html` took a single `PUBLISHED_PROFILES` line. The pre-publish
+  rubric check caught a false UNESCO claim in the draft (see ops log).
 - Jul 18, 2026: PROFILE FIGURE DRIFT AUDITED AND RECONCILED. 13 fixes across five city profiles. The audit was
   scoped to stat cards + FAQ JSON-LD and found 5 figures in 4 cities; reading each one IN CONTEXT before
   editing showed the scope was wider, and the failure was worse than "a stale schema field": three
