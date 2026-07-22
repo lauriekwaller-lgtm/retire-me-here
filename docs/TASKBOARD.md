@@ -4,12 +4,14 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 19, 2026 (San Antonio shipped, profile 44; landing-page rubric review caught a
-false UNESCO claim pre-publish and surfaced two unevaluated Tier 2 placements plus four DB conflicts)
+**Last updated:** July 21, 2026 (San Antonio vs Fort Worth comparison page shipped, page 20; live
+validator surfaced a pre-existing superlative FAIL in the San Antonio profile, now fixed)
 
-**Verified live at last update:** 44 profiles, 19 comparison pages, 5 guides, 7 landing pages.
-All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, confirmed on BOTH
-`--local .` (the tree that was pushed) and bare (live GitHub). The warn queue reaches zero because
+**Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
+All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings** as of the Jul 21 fixes,
+on the bare (live GitHub) run. NOTE: the Jul 19 board asserted 0/0 on BOTH `--local .` and bare, but
+the Jul 21 bare run found a superlative FAIL that had been live since Jul 19, so that claim was wrong.
+Treat any 0/0 line here as stale until re-confirmed by a fresh run. The warn queue reaches zero because
 `docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
 unreviewed and shouts. Zero is now the expected reading. If a warning appears, it is new.
 The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
@@ -64,6 +66,29 @@ Standard deploy block:
 ---
 
 ## ACTIVE - batch / site-wide operations
+
+- **NRC HIGHLIGHT PROSE CONTRADICTS `Median Home` ON ALL SEVEN NRC CITIES. Live and wrong right now.**
+  Highest-priority batch item on this board. The median-home batch updated the structured `Median Home`
+  field and never rewrote the `Highlight` prose, so every city carrying the
+  "Citywide median home $X but retirees target..." string publishes a figure that contradicts its own
+  database row. Measured Jul 21 against `CityDatabase_Jul_13_v16_4_climate.xlsx`:
+
+  | City | DB `Median Home` | Highlight prose | Off by |
+  |---|---|---|---|
+  | Wilmington DE | $418,000 | $215K | $203,000 |
+  | San Antonio TX | $320,000 | $260K | $60,000 |
+  | Memphis TN | $195,000 | $170K | $25,000 |
+  | Philadelphia PA | $240,000 | $270K | $30,000 |
+  | Pittsburgh PA | $240,000 | $265K | $25,000 |
+  | St. Paul MN | $297,000 | $280K | $17,000 |
+  | Indianapolis IN | $224,000 | $223K | $1,000 |
+
+  One string, two surfaces: DB `Highlight` and `index.html`. It also renders on `pick-and-compare.html`
+  and on landing-page cards, so the site currently publishes two different medians for the same city in
+  several places at once. Scope before editing: grep every surface that reads `Highlight`, because the
+  Jul 18 figure audit established that reading each figure IN CONTEXT widens the scope every time.
+  Ship a validator check with it (structured field vs prose figure must agree), planted-error tested.
+  BATCH scope. Do not fold into a city or comparison build.
 
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
@@ -135,15 +160,14 @@ Standard deploy block:
 
 ## ACTIVE - comparison pages
 
-Live: 19. Shipped since last board update: Knoxville vs Nashville, Fort Collins vs Boulder,
+Live: 20. Shipped since last board update: San Antonio vs Fort Worth, Knoxville vs Nashville, Fort Collins vs Boulder,
 Knoxville vs Chattanooga, Bend vs Boulder, Bloomington vs Lexington, Madison vs Ann Arbor,
 Madison vs Columbus, and others.
 
 Unlocked and ready to build now (both cities live):
 - **Knoxville vs Asheville**
 - **Arizona three-way cluster** (Prescott now live, so this is unblocked)
-- **Fort Worth vs San Antonio** (San Antonio now live; nearest D1-D10 vector in the database at
-  distance 5, and the in-state matchup)
+- (Fort Worth vs San Antonio SHIPPED Jul 21, see RECENTLY SHIPPED)
 
 Unlocks pending a build:
 - (none)
@@ -164,6 +188,8 @@ Unlocks pending a build:
       `CITY_ENRICHMENT` scoreNotes D2 reads "~$320K". The Highlight string renders on
       `pick-and-compare.html` and the foodies landing card, so the site currently publishes two
       different medians for the same city. Worst of the four.
+      **Jul 21: escalated out of PARKED. This is a seven-city cohort bug, not a San Antonio bug.
+      See the top of ACTIVE - batch / site-wide operations.**
     - DB `PropTax Rate %` = 1.4 for San Antonio. External sources put Bexar County effective rates at
       1.55% to 1.96%, and index.html cons/scoreNotes already publish ~1.8%. The profile shipped with
       1.8% for internal consistency. The DB field is the thing to fix.
@@ -178,6 +204,14 @@ Unlocks pending a build:
   the two scoring-analysis docs, and a return trip to `cities/san-antonio/profile.html` to take the
   Lists section from 2 cards to 4.
 - **`PROFILE-FORMATTING.md` NRC list is stale at ten cities.** San Antonio is the eleventh.
+- **Validator superlative check matches `on this list` literally and fires on within-page lists.**
+  Caught `cities/san-antonio/profile.html` ("the most genuinely urban option on this list") on Jul 21,
+  where "this list" meant the four neighborhood cards in the same section, not the city dataset. The
+  claim does not rot when a city is added, so this is a scoping false positive. Two sibling phrases in
+  the same section ("the most expensive of the inner-loop municipalities", "the most house per dollar
+  of the retiree-target areas") pass, which confirms the check is keying on the string and not the
+  shape. Copy was rewritten rather than the check loosened. If the pattern is scoped later, it needs a
+  planted-error test first.
 - **`scripts/generate_brief.py` is referenced by the `retiremehere-city-profile` skill but is not in
   the repo** (404 on raw). The Jul 19 brief was computed by hand against the thresholds documented in
   the skill. Either commit the script or amend the skill; as written it points the next build at a
@@ -217,6 +251,40 @@ Unlocks pending a build:
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
 
+- Jul 21, 2026: SAN ANTONIO vs FORT WORTH comparison page shipped (page 20). Built from a live pull of
+  `st-louis-vs-kansas-city-retirement.html`; all scores, Monthly Est, Median Home, tier, property tax
+  and insurance read from `docs/CityDatabase_Jul_13_v16_4_climate.xlsx` rows 73 and 75. Four files:
+  the new page, `sitemap.xml`, `compare-retirement-cities.html` (new Texas hub region + ItemList
+  position 20), and `cities/fort-worth/profile.html`.
+  **Zero checkmarks on the whole table, and that is the finding, not an omission.** All ten dimensions
+  are a tie or a one-point gap: five exact ties (D2, D3, D4, D6, D8), San Antonio +1 on D5/D7/D9/D10,
+  Fort Worth +1 on D1. Cost rows are $20,000 and $200/mo apart with identical tier, property tax and
+  insurance, so the two cost rows were left unmarked as well rather than manufacturing separation
+  the data does not support. The D9 row is disclosed in prose as apples-to-oranges: San Antonio is
+  scored on retiree-target areas (three of which are independent municipalities with their own police
+  departments), Fort Worth citywide.
+  Two deviations from the template, both deliberate: the climate row is labelled "Summer comfort
+  (higher = milder)" rather than the template's inverted "Hot summers (lower = milder)", so the page
+  does not propagate the known `knoxville-vs-chattanooga` label bug (both cities score 3, so it is
+  invisible either way); and the caption carries a property-tax variance note because the DB ships the
+  Texas state average while the San Antonio profile publishes a Bexar-specific 1.8%.
+  `cities/fort-worth/profile.html`: Tulsa removed from the related-cities grid and replaced with San
+  Antonio. Tulsa was the only one of the three with no live profile, so the card dead-ended at the
+  matcher, and its `related-card-why` text was a verbatim duplicate of Memphis's. Kansas City's
+  "The closest overall match" line was also rewritten, since San Antonio now holds that position.
+  Deployed by drag-and-drop through the GitHub web UI rather than Codespaces, so `--local .` was not
+  run as a pre-deploy gate; structural checks (tag balance, JSON-LD parse, sitemap XML, em-dash count,
+  banned-superlative scan) were run on all four files before upload and the bare live validator was
+  run after.
+- Jul 21, 2026: PRE-EXISTING SUPERLATIVE FAIL CLEARED IN `cities/san-antonio/profile.html`. The bare
+  live validator run after the comparison-page deploy returned 1 failure + 1 warning. Neither came
+  from the deploy. The failure was the King William hood-card reading "the most genuinely urban option
+  on this list", live since the Jul 19 San Antonio ship and never caught because live mode had not
+  been run since. Rewritten to "the most genuinely urban of the four retiree-target areas here". The
+  warning was this board asserting 19 comparison pages against 20 live, cleared by this update.
+  **Process note: the Jul 19 board claims validator 0/0 confirmed on both `--local .` and bare. The
+  bare run cannot have covered the San Antonio profile, or it would have failed then.** Worth
+  distrusting that line and re-running bare mode before relying on any 0/0 claim on this board.
 - Jul 19, 2026: SAN ANTONIO, TX SHIPPED. Profile 44. Built from a live pull of
   `cities/st-louis/profile.html`; all scores, Monthly Est and Median Home read from
   `docs/CityDatabase_Jul_13_v16_4_climate.xlsx` row 75. Carries an NRC callout (11th NRC city), a
