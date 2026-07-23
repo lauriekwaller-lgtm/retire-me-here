@@ -53,7 +53,7 @@ These bypass the calendar. If any of these happen, act in the window indicated.
 
 | File | Purpose | Location | Notes |
 |---|---|---|---|
-| CityDatabase_*_vN.xlsx | Authoritative scoring database | `docs/` in the repo | Current: CityDatabase_Jul_13_v16_4_climate.xlsx. Filename increments with version. `DEFAULT_DB` at the top of `tools/validate.py` must be updated in the same commit. |
+| CityDatabase_*_vN.xlsx | Authoritative scoring database | `docs/` in the repo | Current: CityDatabase_Jul_23_v16_5_highlights.xlsx. Filename increments with version. `DEFAULT_DB` at the top of `tools/validate.py` must be updated in the same commit. |
 | MedianHomeAuditMASTER.xlsx | Full audit history including superseded v1.0 archetype values | Project knowledge | Reference only. Not authoritative for live values. |
 | Budget-Audit-*.xlsx | Per-rebuild audit trail | Project knowledge | Current: Budget-Audit-Jun-16-2026.xlsx |
 | BUDGET-METHODOLOGY.md | Budget formula and sources | `docs/` in the repo | Current: v1.0 (June 16 2026) |
@@ -201,6 +201,48 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+
+### 2026-07-23 - highlight home-figure check shipped; DB `Highlight` column reconciled (v16_5)
+
+**Shipped.** `check_highlight_homes()` in `tools/validate.py`, folded into the `figures` group,
+FAIL not WARN, with `tools/test_highlight_homes.py` as its planted-error test (15 assertions). The
+check holds every home figure written into `highlight` PROSE to that city's `Median Home`, on both
+`index.html` and `pick-and-compare.html`. Exact match, no tolerance band: a figure in thousands must
+equal `round(DB/1000)`.
+
+**Why anchored, not blanket.** Three shapes in these strings are supposed to disagree with
+`Median Home`, and a check that fires on every dollar figure red-lights all of them forever: the NRC
+neighborhood range, the cross-city reference (Tampa naming Naples' figure), and figures that are not
+homes at all (Tulsa's $465M park, Traverse City's $132K tax deduction). A figure is in scope only
+when it is attached to a home-value noun. A cross-city veto sits behind the anchor. Bounds are
+checked as inequalities, not equalities, which is what caught Roanoke's "median homes under $230K"
+against a `Median Home` of $251,000.
+
+**16 drifted figures on the two HTML surfaces**, all real, all reconciled in the same push:
+`index.html` 9, `pick-and-compare.html` 7. Sioux Falls carried two DIFFERENT wrong figures, $333K on
+one surface and $285K on the other, against $314,000. Provincetown's $2.1M resolved to $924K, which
+its own `D2` modal already said, sourced to Boston Globe / Warren Group April 2026.
+
+**Then the source.** Running the same matcher over the DB's own `Highlight` column found 16 more, a
+DIFFERENT 16: the column was a pre-Jul-23 vintage still holding every NRC citywide figure from
+before that sweep, including Wilmington DE at $215K against $321,000, the exact string used as the
+planted error in the test. Fixing two renderings does not fix a master, and the next regen would
+have reintroduced all of it. Database bumped to
+`docs/CityDatabase_Jul_23_v16_5_highlights.xlsx`, `DEFAULT_DB` updated in the same commit, old file
+deleted. Also removed from Miami's cell: "The only city in the database with all four major pro
+sports leagues," a dataset-scoped superlative banned since Jul 12, sitting in the master where a
+regen would have pushed it back onto the site.
+
+**How the xlsx was edited.** Inline strings in `xl/worksheets/sheet1.xml`, rezipped. No openpyxl, no
+pandas, same zero-dependency posture as the validator. Verified afterwards: every other zip part
+byte-identical, the other four sheets row-identical, `load_db()` output identical old vs new (so no
+score, monthly, home value or budget tier moved), exactly 16 rows changed, exactly one column
+touched.
+
+**Still open.** The column is clean but ungated: run the same matcher over it inside the `db` group.
+It also carries em dashes on most rows where `index.html` does not, and it matches
+`pick-and-compare.html` on only 68/99 rows and `index.html` on 26/99, so there is no single
+"regenerate from source" path today. All three are on the taskboard.
 
 ### 2026-07-19 - San Antonio, TX profile; a false UNESCO claim caught by the rubric check
 
