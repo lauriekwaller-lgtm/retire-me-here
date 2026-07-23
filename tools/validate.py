@@ -39,7 +39,7 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_23_v16_5_highlights.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_23_v16_6_nohighlight.xlsx"
 
 # Tolerated deviation on home-value prose before we call it stale.
 HOME_TOLERANCE = 0.03
@@ -696,6 +696,74 @@ def check_highlight_homes(rep, db, idx, local):
                          f"{tok.strip()}, DB Median Home is ${round(home / 1000)}K")
 
 
+def check_highlight_surfaces(rep, idx, local):
+    """
+    The same highlight sentence, on both surfaces, byte for byte.
+
+    Until 2026-07-23 this string lived in THREE places: index.html, pick-and-compare
+    .html, and a `Highlight` column in the database. Nothing read the database copy,
+    nothing compared any of them, and by the time anyone looked they disagreed on 65
+    of 99 rows, 16 of 99, and 67 of 99 respectively. Two of the database rows quoted a
+    home price that contradicted the `Median Home` cell in their own row.
+
+    The column is gone. The two that remain both render, so neither can go, which
+    makes them the thing to gate instead. This check is the reason "one record" is
+    true rather than aspirational.
+
+    It would also have caught the em-dash gap on the day it opened. The July 13 sweep
+    converted index.html and missed pick-and-compare.html, and the two surfaces have
+    disagreed on 65 rows ever since, in silence, because no check compared them.
+
+    Byte-for-byte on purpose. "Near enough" is how a terminology sweep half-lands and
+    one surface says median home while the other says typical home value.
+    """
+    pc = fetch("pick-and-compare.html", local)
+    if pc is None:
+        rep.fail("figures", "highlight surfaces: pick-and-compare.html not found")
+        return
+
+    ix = {}
+    for m in re.finditer(r'name:\s*"((?:[^"\\]|\\.)*)",\s*state:\s*"([A-Z]{2})",'
+                         r'(?:(?!name:\s*")[\s\S])*?highlight:\s*"((?:[^"\\]|\\.)*)"', idx):
+        ix[(m.group(1), m.group(2))] = json.loads('"%s"' % m.group(3))
+
+    m = re.search(r"const CITIES\s*=\s*(\[.*?\]);", pc, re.S)
+    if not m:
+        rep.fail("figures", "highlight surfaces: could not locate CITIES in "
+                            "pick-and-compare.html")
+        return
+    try:
+        cities = json.loads(m.group(1))
+    except ValueError as exc:
+        rep.fail("figures", f"highlight surfaces: CITIES did not parse as JSON ({exc})")
+        return
+
+    # An extractor that matches nothing reports a clean run forever.
+    if not ix or not cities:
+        rep.fail("figures",
+                 f"highlight surfaces: read {len(ix)} highlights from index.html and "
+                 f"{len(cities)} from pick-and-compare.html. One of the two shapes has "
+                 f"changed and the comparison is scanning nothing.")
+        return
+
+    pcs = {(c.get("city"), c.get("state")): c.get("highlight", "") for c in cities}
+    for key in sorted(set(ix) | set(pcs), key=lambda k: (k[1] or "", k[0] or "")):
+        city, state = key
+        if key not in ix:
+            rep.fail("figures", f"{city}, {state}: on pick-and-compare.html but has no "
+                                f"highlight in index.html")
+        elif key not in pcs:
+            rep.fail("figures", f"{city}, {state}: in index.html but has no highlight "
+                                f"on pick-and-compare.html")
+        elif ix[key] != pcs[key]:
+            a, b = ix[key], pcs[key]
+            i = next((n for n, (x, y) in enumerate(zip(a, b)) if x != y), min(len(a), len(b)))
+            rep.fail("figures",
+                     f"{city}, {state}: highlight differs between surfaces. "
+                     f"index.html: ...{a[max(0, i - 30):i + 40]!r}... "
+                     f"pick-and-compare.html: ...{b[max(0, i - 30):i + 40]!r}...")
+
+
 def published_profiles(idx):
     """The single parse of PUBLISHED_PROFILES. Returns {slug: (City, ST)}."""
     m = re.search(r"PUBLISHED_PROFILES\s*=\s*\{(.*?)\n\s*\}", idx, re.S)
@@ -995,6 +1063,39 @@ def script_strings(html):
             out.append(next(s for s in q if s))
     return " ... ".join(out)
 
+
+# Every spelling that reaches a reader as an em dash. The check used to count the
+# literal character and nothing else, so pick-and-compare.html -- which stores its
+# strings as JSON, where an em dash is written as the six characters \u2014 -- read
+# zero while 63 were live. Count the SHAPE, not one spelling of it.
+EMDASH_RENDERINGS = [
+    ("literal", re.compile("\u2014")),
+    ("escaped \\u2014", re.compile(r"\\u2014")),
+    ("&mdash;", re.compile(r"&mdash;")),
+    ("&#8212;", re.compile(r"&#0*8212;")),
+    ("&#x2014;", re.compile(r"&#[xX]0*2014;")),
+]
+
+# A bracket group with no whitespace inside it is a regex character class, not prose:
+#
+#     /[\u2013\u2014\-].*\$/        pick-and-compare.html, twice
+#
+# script_strings() pairs quotes naively, so the code around that line comes back as if
+# it were a string literal. Counting escape forms without removing character classes
+# first puts two permanent failures on code that is doing exactly the right thing, and
+# a gate with permanent noise in it is a gate nobody reads.
+RE_CHAR_CLASS = re.compile(r"\[[^\]\s]{0,40}\]")
+
+
+def emdash_forms(surface):
+    """Em-dash renderings in a surface, keyed by spelling. Character classes excluded."""
+    surface = RE_CHAR_CLASS.sub(" ", surface)
+    found = {}
+    for name, pat in EMDASH_RENDERINGS:
+        n = len(pat.findall(surface))
+        if n:
+            found[name] = n
+    return found
 
 
 def check_hardcoded_counts(rep, db, idx, slug_to_city, local):
@@ -1391,14 +1492,27 @@ def check_emdash(rep, idx, sitemap, slug_to_city, local):
     On 2026-07-13 the check reported ZERO while 1,403 em-dashes were live on the home
     page. Scan both surfaces, and scan index.html.
 
-    Not converted, deliberately: em-dashes inside <style>, and the '\u2014' UI
-    placeholder used as a fallback when a value is missing (city.monthlyEst || '\u2014').
-    Those are not prose. script_strings() only returns literals of 25+ chars, so the
-    placeholder never reaches this check.
+    Then it happened a THIRD time, same family, different axis. The check counted one
+    spelling of the character. pick-and-compare.html stores its city strings as JSON,
+    where an em dash is the six characters \u2014, so 63 of them sat in the check's own
+    target list and read zero, and 22 more sat in the JSON-LD of four profiles. Twice
+    is a coincidence; three times is the check being written against a spelling instead
+    of a shape. emdash_forms() counts every rendering: the literal character, \u2014,
+    &mdash;, &#8212;, &#x2014;.
+
+    Not converted, deliberately, and each exclusion is load-bearing:
+      * em-dashes inside <style> and <script> code. visible_text() drops both.
+      * the UI placeholder used when a value is missing (city.monthlyEst || '\u2014').
+        script_strings() only returns literals of 25+ chars, so a placeholder short
+        enough to BE a placeholder never reaches this check. That protection is what
+        makes counting escape forms shippable at all -- a raw-text scan for \u2014
+        fires on every placeholder in the file.
+      * regex character classes that match em dashes on purpose. See RE_CHAR_CLASS.
+
+    A target that matches no file is the fourth way this check can read zero, so a
+    named target that does not resolve is a failure, not a skip.
     """
-    targets = [f"cities/{s}/profile.html" for s in slug_to_city]
-    targets += re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", sitemap)
-    targets += [
+    named = [
         "best-places-to-retire-on-a-budget.html",
         "best-places-to-retire-in-florida.html",
         "best-places-to-retire-in-the-midwest.html",
@@ -1410,24 +1524,42 @@ def check_emdash(rep, idx, sitemap, slug_to_city, local):
         "pick-and-compare.html", "compare-retirement-cities.html",
     ]
     if GUIDES_TOO:
-        targets += ["value-navigator.html", "active-frontier.html",
-                    "wellness-blueprint.html", "globetrotter-guide.html",
-                    "urban-walkabout.html"]
+        named += ["value-navigator.html", "active-frontier.html",
+                  "wellness-blueprint.html", "globetrotter-guide.html",
+                  "urban-walkabout.html"]
+
+    derived = [f"cities/{s}/profile.html" for s in slug_to_city]
+    derived += re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", sitemap)
 
     pages = {"index.html": idx}
-    for page in sorted(set(targets)):
+    missing = []
+    for page in sorted(set(named + derived)):
         html = fetch(page, local)
-        if html is not None:
+        if html is None:
+            missing.append(page)
+        else:
             pages[page] = html
 
+    if missing:
+        rep.fail("emdash",
+                 f"{len(missing)} target(s) matched no file and were scanned for "
+                 f"nothing: {', '.join(missing)}. A target list that has drifted off "
+                 f"the filenames reports a clean run forever. Fix the path or drop "
+                 f"the entry deliberately.")
+
     for page, html in sorted(pages.items()):
-        rendered = visible_text(html).count("\u2014")
-        in_js = script_strings(html).count("\u2014")
-        if rendered:
-            rep.fail("emdash", f"{page}: {rendered} em-dash(es) in rendered text")
-        if in_js:
-            rep.fail("emdash", f"{page}: {in_js} em-dash(es) in JS strings "
-                               f"(these render to the reader through the cards and modal)")
+        for surface, where in ((visible_text(html), "rendered text"),
+                               (script_strings(html), "script strings")):
+            found = emdash_forms(surface)
+            if not found:
+                continue
+            total = sum(found.values())
+            spellings = ", ".join(f"{k} x{v}" for k, v in sorted(found.items()))
+            note = ("" if where == "rendered text" else
+                    " (these reach the reader through the cards, the modal, and "
+                    "the JSON-LD that search results are built from)")
+            rep.fail("emdash",
+                     f"{page}: {total} em-dash(es) in {where} [{spellings}]{note}")
 
 
 def check_affiliate(rep, slug_to_city, local):
@@ -1707,6 +1839,7 @@ def main():
         check_figures(rep, db, idx)
         check_tiers(rep, db, idx)
         check_highlight_homes(rep, db, idx, args.local)
+        check_highlight_surfaces(rep, idx, args.local)
     if "profiles" in groups:
         if not slug_to_city:
             rep.fail("profiles", "no published profiles found; nothing was checked")

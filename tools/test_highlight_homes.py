@@ -88,6 +88,18 @@ def highlight_of(tmp, path, city, state):
     return m.group(1)
 
 
+# Planting into ONE surface desyncs it from the other, and check_highlight_surfaces
+# reports that. It is a real failure and a correct one, so it is partitioned off rather
+# than filtered away: every assertion below says what it expects from each check.
+DRIFT = "highlight differs between surfaces"
+
+
+def split(new):
+    """(home-figure failures, surface-drift failures)."""
+    drift = {f for f in new if DRIFT in f}
+    return new - drift, drift
+
+
 RESULTS = []
 
 
@@ -119,8 +131,10 @@ def main():
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     new = fails - base_fails
+    home, drift = split(new)
     check("planted $215K on Wilmington DE is caught",
-          len(new) == 1 and "Wilmington, DE" in next(iter(new)) and "$215K" in next(iter(new)),
+          len(home) == 1 and "Wilmington, DE" in next(iter(home))
+          and "$215K" in next(iter(home)) and len(drift) == 1,
           f"exit {code}, new failures: {sorted(new) or 'none'}")
     check("planted error gates the deploy (exit 1)", code == 1, f"exit {code}")
 
@@ -131,8 +145,10 @@ def main():
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     new = fails - base_fails
+    home, drift = split(new)
     check("pick-and-compare.html is parsed and checked too",
-          len(new) == 1 and "pick-and-compare.html" in next(iter(new)),
+          len(home) == 1 and "pick-and-compare.html" in next(iter(home))
+          and len(drift) == 1,
           f"new failures: {sorted(new) or 'none'}")
 
     # ------------------------------------------- 3. the two-Wilmingtons key guard
@@ -143,8 +159,9 @@ def main():
     edit(tmp, "index.html", hl, "A $418K typical home value. " + hl)
     code, fails = run(tmp)
     shutil.rmtree(tmp)
+    home, _ = split(fails - base_fails)
     check("Wilmington NC graded against NC's $418,000, not DE's $321,000",
-          not (fails - base_fails), f"new failures: {sorted(fails - base_fails) or 'none'}")
+          not home, f"new failures: {sorted(home) or 'none'}")
 
     tmp = stage(repo)
     hl = highlight_of(tmp, "index.html", "Wilmington", "NC")
@@ -152,8 +169,9 @@ def main():
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     new = fails - base_fails
+    home, _ = split(new)
     check("Wilmington NC carrying DE's figure is caught",
-          len(new) == 1 and "Wilmington, NC" in next(iter(new)),
+          len(home) == 1 and "Wilmington, NC" in next(iter(home)),
           f"new failures: {sorted(new) or 'none'}")
 
     # ------------------------------------------------------ 4. scope: no false fires
@@ -175,8 +193,9 @@ def main():
         edit(tmp, "index.html", hl, hl + snippet)
         code, fails = run(tmp)
         shutil.rmtree(tmp)
+        home, _ = split(fails - base_fails)
         check(f"no false fire: {label}",
-              not (fails - base_fails), f"{sorted(fails - base_fails) or 'silent'}")
+              not home, f"{sorted(home) or 'silent'}")
 
     # ------------------------------------------------ 5. scope: real errors still caught
     # The mirror image. Each of these is false against Wilmington DE's $321,000.
@@ -191,8 +210,9 @@ def main():
         edit(tmp, "index.html", hl, hl + snippet)
         code, fails = run(tmp)
         shutil.rmtree(tmp)
+        home, _ = split(fails - base_fails)
         check(f"caught: {label}",
-              len(fails - base_fails) == 1, f"{sorted(fails - base_fails) or 'SILENT'}")
+              len(home) == 1, f"{sorted(home) or 'SILENT'}")
 
     # ------------------------------------------------------------ 6. no silent no-op
     # If the CITIES array is renamed or reshaped, the check must say so rather than
@@ -207,6 +227,45 @@ def main():
     check("a missing CITIES array fails loudly, not silently",
           any("could not locate CITIES in pick-and-compare" in f
               for f in fails - base_fails),
+          f"{sorted(fails - base_fails) or 'SILENT'}")
+
+    # --------------------------------------------- 7. the two surfaces must agree
+    # The same highlight lives in index.html and pick-and-compare.html. It used to
+    # live in a database column too, and all three drifted apart unwatched: 65 rows,
+    # 16 rows, 67 rows. The column is gone; these two both render, so they get gated.
+    tmp = stage(repo)
+    hl = highlight_of(tmp, "pick-and-compare.html", "Wilmington", "DE")
+    edit(tmp, "pick-and-compare.html", hl, hl + " One extra sentence.")
+    code, fails = run(tmp)
+    shutil.rmtree(tmp)
+    check("caught: highlight differs between the two surfaces",
+          any("highlight differs between surfaces" in f for f in fails - base_fails),
+          f"{sorted(fails - base_fails) or 'SILENT'}")
+
+    # A whole city present on one surface and not the other.
+    tmp = stage(repo)
+    with open(os.path.join(tmp, "index.html"), encoding="utf-8") as fh:
+        text = fh.read()
+    hl = highlight_of(tmp, "index.html", "Wilmington", "DE")
+    with open(os.path.join(tmp, "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(text.replace('highlight: "%s"' % hl, 'blurb: "%s"' % hl, 1))
+    code, fails = run(tmp)
+    shutil.rmtree(tmp)
+    check("caught: a city with a highlight on only one surface",
+          any("no highlight in index.html" in f for f in fails - base_fails),
+          f"{sorted(fails - base_fails) or 'SILENT'}")
+
+    # And the no-op guard again, on the other extractor. Renaming the field on every
+    # city must fail loudly, not quietly compare an empty set to an empty set.
+    tmp = stage(repo)
+    with open(os.path.join(tmp, "index.html"), encoding="utf-8") as fh:
+        text = fh.read()
+    with open(os.path.join(tmp, "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(text.replace("highlight: \"", "blurb: \""))
+    code, fails = run(tmp)
+    shutil.rmtree(tmp)
+    check("a reshaped index.html highlight field fails loudly, not silently",
+          any("scanning nothing" in f for f in fails - base_fails),
           f"{sorted(fails - base_fails) or 'SILENT'}")
 
     bad = [n for n, ok, _ in RESULTS if not ok]

@@ -4,11 +4,11 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 23, 2026 (highlight home-figure check SHIPPED into the `figures` group,
-FAIL not WARN, planted-error tested; the sixteen drifted figures it surfaced across both surfaces
-reconciled to the DB; DB `Highlight` column then reconciled too and bumped to
-**v16_5**; board's Jul 21 Wilmington figure corrected - it was Wilmington NC; 63 escaped em dashes
-found live on `pick-and-compare.html`, boarded below)
+**Last updated:** July 23, 2026, second push (em-dash check rebuilt to count every RENDERING of the
+character, planted-error tested; 83 live em dashes converted across `pick-and-compare.html` and four
+profiles' JSON-LD; DB `Highlight` COLUMN DELETED and bumped to **v16_6**; new
+`check_highlight_surfaces` gates the two remaining copies against each other; 72 stale D2 scores
+found on `pick-and-compare.html`, boarded below)
 
 **Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
 All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings** as of the Jul 21 fixes,
@@ -82,33 +82,39 @@ Standard deploy block:
   to correct the DB and let the check re-derive the prose, NOT to revert these edits. Settle it
   before the next DB bump. Philadelphia's profile separately contradicts itself: "citywide typical
   home value is around $234K" against $240K elsewhere in the same file - the profile surface is not
-  yet covered by any home-figure check.
+  yet covered by any home-figure check. CONFIRMED and extended Jul 23: a scan of profile JSON-LD
+  against `Median Home` found Philadelphia $234,000 vs DB $240,000 (twice, in two FAQ answers) and
+  New Orleans $246,000 vs DB $250,000. Both cities' HIGHLIGHTS carry the correct DB figure on both
+  surfaces, so this is the JSON-LD alone - the surface search results are built from. This is the
+  concrete instance of the already-open "extend figure cross-checking to profile stat cards and FAQ
+  JSON-LD" item.
 
-- **NEXT: gate the DB `Highlight` column itself.** The column is now clean (see RECENTLY SHIPPED),
-  but nothing enforces it, so it can rot again exactly as it did. Run the same `HL_*` matcher over
-  the DB's own `Highlight` column inside the `db` group. Small: the matcher and its helpers are
-  already shipped and tested; the work is the read loop plus new plants in
-  `tools/test_highlight_homes.py`. Held back from the Jul 23 push only to keep one confirmed change
-  per deploy.
+- **LIVE: `pick-and-compare.html` carries 72 stale D2 (Affordability) scores.** Found Jul 23 while
+  syncing highlights. Every one of the 99 cities was compared on all ten dimensions across the two
+  surfaces: 72 disagree, all of them D2, and in **every single case `index.html` matches the DB and
+  `pick-and-compare.html` does not** (Alexandria 3 vs 5, Asheville 5 vs 7, Boise 4 vs 6, Charlottesville
+  4 vs 6, and 68 more). D2 is a scored, sorted, checkmarked row on the comparison tool, so the tool is
+  ranking cities on affordability using numbers the database disowns. NOT touched in the Jul 23
+  em-dash push, deliberately: one confirmed change per deploy, and this is its own change. Take it
+  next. The fix is mechanical (adopt the DB value) but it must be gated afterwards, by extending
+  `check_highlight_surfaces` from the highlight field to the score block, or the same drift reopens.
 
-- **LIVE: 56 city highlights render an em dash on `pick-and-compare.html`, and the `emdash` check
-  cannot see them.** Found Jul 23. The page stores its strings as JSON, so an em dash is written
-  `\u2014`, not as the character. `check_emdash` counts the character. It reads ZERO while **63
-  escaped em dashes** sit in the file and 56 of 99 highlights render one to the reader (Hot Springs,
-  Scottsdale, Sedona, Carlsbad and 52 more). The page has been in the check's target list the whole
-  time. This is the THIRD instance of the same blind-spot family the check's own docstring already
-  documents twice - visible_text() stripping `<script>`, then index.html not being a target at all,
-  now the escape form. Ban the SHAPE: count every rendering of the character, not one spelling of it.
-  Upstream source is the DB `Highlight` column, which carries em dashes on most rows where
-  `index.html` (colons) does not, so fixing only the page leaves the master to reintroduce them.
-  One BATCH job, three parts: teach the check the escape form, planted-error test it, convert the 63
-  on the page AND their source cells. Zero em dashes is a hard site-wide rule and this is a live
-  violation of it, not a latent one - take it before the discretionary validator builds below.
+- **RESOLVED Jul 23 by deleting the column.** The question was which surface the DB `Highlight`
+  column was the master of. The answer was neither: nothing read it, nothing validated it, and it
+  disagreed with `pick-and-compare.html` on 16 rows, with `index.html` on 67, while the two HTML
+  surfaces disagreed with each other on 65. Three copies, three answers, no arbiter. The column is
+  gone as of v16_6 and the two surfaces that actually render are now gated against each other by
+  `check_highlight_surfaces`. Same reasoning as `check_affiliate`: the HTML IS the record, and a
+  half-current reference is worse than none because eventually someone trusts it.
 
-- **DB `Highlight` column is not a clean rendering of either surface.** It matches
-  `pick-and-compare.html` on 68/99 rows and `index.html` on 26/99. So there is no single "regenerate
-  from source" path today, and no arbiter when the three disagree on anything other than a home
-  figure. Decide which surface the column is supposed to be the master of before any regen pass.
+- **Two live em dashes sit on pages the `emdash` check has never scanned.** `privacy.html` line 12,
+  in the `<title>`, and `scouting-trip-workbook.html` line 1020, in a rendered `<span>`. Neither page
+  is in the check's target list, which is the FOURTH axis of the same blind-spot family (surface,
+  target membership, spelling, and now coverage). Left alone in the Jul 23 push on purpose: adding
+  them breaks the invariant that push was verified against, which was that every page except the five
+  being converted reads zero. Small job: add both to the named target list, convert the two, re-run.
+  The check now fails loudly on a named target that matches no file, so the list can be trusted once
+  it is right.
 
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
@@ -270,6 +276,45 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 23, 2026 (second push): EM-DASH CHECK REBUILT + DB `Highlight` COLUMN DELETED (**v16_6**).
+  `docs/CityDatabase_Jul_23_v16_5_highlights.xlsx` -> **`docs/CityDatabase_Jul_23_v16_6_nohighlight.xlsx`**;
+  `DEFAULT_DB` and the SITE-OPERATIONS-LOG "Current:" line updated in the same commit, old file
+  deleted before the gate ran.
+  `check_emdash` counted ONE SPELLING of the character, so 85 escaped em dashes were live while the
+  gate read 0. It now counts every rendering that reaches a reader: the literal character, `\u2014`,
+  `&mdash;`, `&#8212;`, `&#x2014;`. Two of the 85 turned out to be regex character classes
+  (`/[\u2013\u2014\-].*\$/`, twice in `pick-and-compare.html`), which are code doing the right thing,
+  so whitespace-free bracket groups are excluded and named as a third deliberate exclusion alongside
+  `<style>` and the short `'\u2014'` UI placeholder. Real count was 83, not 85.
+  Converted: 61 on `pick-and-compare.html` and 22 in the JSON-LD of New Orleans, Philadelphia, Salt
+  Lake City and St. Louis (4 of those were the `headline` separator, brought into line with the colon
+  the other 44 profiles already use).
+  The page conversion turned out to be already written. `index.html` was swept Jul 13 and
+  `pick-and-compare.html` was missed, so the two surfaces had disagreed on 65 of 99 highlights ever
+  since, silently. All 99 were synced from `index.html`, which is newer on every one of the 24 rows
+  that differed by more than punctuation (the `median home` -> `typical home value` sweep, the Jul 12
+  superlative sweep, and corrected figures for Boulder, Bentonville and New Orleans).
+  The DB `Highlight` column is deleted rather than converted. It was a master nothing read: `load_db()`
+  never touched it, no tool consumed it, no check validated it, and it disagreed with both surfaces.
+  Deleting it also retired, at zero cost, the twelve banned dataset-scoped superlatives sitting in it
+  (Fayetteville AR, Carmel-by-the-Sea CA, Santa Barbara CA, Vail CO, Delray Beach FL, Boise ID,
+  Paducah KY, Beaufort NC, Johnson City TN, Corpus Christi TX, Jackson Hole WY, Burlington VT), plus
+  Chattanooga's unanchored "Best value city in the Southeast", plus two cells that contradicted the
+  `Median Home` in their own row (New Orleans $267K vs $250,000, Tulsa $245K vs $194,000).
+  NEW CHECK: `check_highlight_surfaces`, in the `figures` group, fails when the same city's highlight
+  differs between `index.html` and `pick-and-compare.html`, byte for byte. It is what makes "one
+  record" true rather than aspirational, and it would have caught the em-dash gap on the day it opened.
+  Tested: `tools/test_emdash_forms.py` NEW, 10/10 (escape form caught; `<style>` silent; short
+  placeholder silent in both spellings; regex character class silent; prose beside a character class
+  still caught; entity forms caught; a named target matching no file fails loudly).
+  `tools/test_highlight_homes.py` extended to 18/18, with three plants for the new check. Its older
+  assertions were retightened rather than loosened: a single-surface plant now legitimately trips two
+  checks, so each assertion names what it expects from each.
+  Column removed as inline strings in `xl/worksheets/sheet1.xml` and rezipped; no openpyxl, no pandas.
+  Verified: every other zip part byte-identical, part order preserved, only `Highlight` gone,
+  0 data cells changed outside it, `load_db()` output identical old vs new.
+  Gate: `python3 tools/validate.py --local .` reads PRE-DEPLOY GATE, **0 failures, 0 warnings**.
 
 - Jul 23, 2026: DB `Highlight` COLUMN RECONCILED. `docs/CityDatabase_Jul_13_v16_4_climate.xlsx` ->
   **`docs/CityDatabase_Jul_23_v16_5_highlights.xlsx`**; `DEFAULT_DB` and the SITE-OPERATIONS-LOG
