@@ -11,8 +11,9 @@ profiles' JSON-LD; DB `Highlight` COLUMN DELETED and bumped to **v16_6**; new
 found on `pick-and-compare.html`, boarded below)
 
 **Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
-All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings** as of the Jul 21 fixes,
-on the bare (live GitHub) run. NOTE: the Jul 19 board asserted 0/0 on BOTH `--local .` and bare, but
+All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, re-confirmed on the bare
+(live GitHub) run on **Jul 23 after the v16_6 push**, and on `--local .` before it.
+NOTE: the Jul 19 board asserted 0/0 on BOTH `--local .` and bare, but
 the Jul 21 bare run found a superlative FAIL that had been live since Jul 19, so that claim was wrong.
 Treat any 0/0 line here as stale until re-confirmed by a fresh run. The warn queue reaches zero because
 `docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
@@ -23,8 +24,13 @@ and the live bare run read 0 pros/cons warnings, so drift now blocks the gate li
 figures check. Planted-error tested (Knoxville `$327K` against DB `$368,000`: 1 failure, exit 1).
 As of Jul 23 the `figures` group ALSO covers home figures in `highlight` PROSE, on both
 `index.html` and `pick-and-compare.html`. Also **FAIL**. Planted-error tested by
-`tools/test_highlight_homes.py` (15 assertions, run it after any edit to the `HL_*` patterns).
+`tools/test_highlight_homes.py` (now **18 assertions**, run it after any edit to the `HL_*` patterns).
 Exact match, no tolerance band: a figure in thousands must equal `round(DB/1000)`.
+As of Jul 23 the `figures` group ALSO carries `check_highlight_surfaces`, which fails when a city's
+highlight differs between `index.html` and `pick-and-compare.html` byte for byte. Three of the 18
+assertions cover it. And the `emdash` group counts every RENDERING of the character rather than one
+spelling, with its own planted-error test, `tools/test_emdash_forms.py` (**10 assertions**). Run BOTH
+test files after any validator edit; neither is wired into the gate.
 
 ---
 
@@ -216,6 +222,10 @@ Unlocks pending a build:
       different medians for the same city. Worst of the four.
       **Jul 21: escalated out of PARKED. This is a seven-city cohort bug, not a San Antonio bug.
       See the top of ACTIVE - batch / site-wide operations.**
+      **Jul 23: CLOSED by deletion. The DB `Highlight` column no longer exists (v16_6), so there is
+      no second median to conflict with. `Median Home` is the only DB home figure now, and both
+      rendering surfaces are gated against it and against each other. The `PropTax Rate %` and
+      `Budget Range` items below are untouched and still open.**
     - DB `PropTax Rate %` = 1.4 for San Antonio. External sources put Bexar County effective rates at
       1.55% to 1.96%, and index.html cons/scoreNotes already publish ~1.8%. The profile shipped with
       1.8% for internal consistency. The DB field is the thing to fix.
