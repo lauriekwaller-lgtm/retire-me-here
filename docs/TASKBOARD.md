@@ -4,8 +4,9 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 21, 2026 (San Antonio vs Fort Worth comparison page shipped, page 20; live
-validator surfaced a pre-existing superlative FAIL in the San Antonio profile, now fixed)
+**Last updated:** July 23, 2026 (NRC highlight prose reconciled with `Median Home` across
+`index.html` and `pick-and-compare.html`; validator confirmed blind to this bug class; board's
+Jul 21 Wilmington figure corrected - it was Wilmington NC)
 
 **Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
 All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings** as of the Jul 21 fixes,
@@ -67,28 +68,31 @@ Standard deploy block:
 
 ## ACTIVE - batch / site-wide operations
 
-- **NRC HIGHLIGHT PROSE CONTRADICTS `Median Home` ON ALL SEVEN NRC CITIES. Live and wrong right now.**
-  Highest-priority batch item on this board. The median-home batch updated the structured `Median Home`
-  field and never rewrote the `Highlight` prose, so every city carrying the
-  "Citywide median home $X but retirees target..." string publishes a figure that contradicts its own
-  database row. Measured Jul 21 against `CityDatabase_Jul_13_v16_4_climate.xlsx`:
+- **Validator is blind to prose-vs-structured-field drift. Ship the check.** Ran
+  `validate.py --local .` against the UNPATCHED file: 0 failures, 0 warnings, exit 0, with nine live
+  factual contradictions in it. The `figures` group covers pros/cons but not `highlight`. Extend it:
+  any dollar figure in `highlight` prose must agree with that city's `medianHome`, across BOTH
+  `index.html` and `pick-and-compare.html`. Ships FAIL, not WARN. Planted-error tested. Until this
+  lands, this whole bug class is invisible to the gate.
 
-  | City | DB `Median Home` | Highlight prose | Off by |
-  |---|---|---|---|
-  | Wilmington DE | $418,000 | $215K | $203,000 |
-  | San Antonio TX | $320,000 | $260K | $60,000 |
-  | Memphis TN | $195,000 | $170K | $25,000 |
-  | Philadelphia PA | $240,000 | $270K | $30,000 |
-  | Pittsburgh PA | $240,000 | $265K | $25,000 |
-  | St. Paul MN | $297,000 | $280K | $17,000 |
-  | Indianapolis IN | $224,000 | $223K | $1,000 |
+- **Provincetown MA publishes three mutually contradictory home figures.** `medianHome` $924,000;
+  highlight says $2.1M single-family; `D2` reads "Typical home value $326K: significantly more
+  affordable than FL coastal peers." That D2 string looks copy-pasted from another city outright - a
+  $326K Provincetown is not plausible and Provincetown has no FL coastal peer framing. Needs a
+  decision on the real figure, not a swap. Not an NRC city, so it sat outside the batch. Check
+  whether the same paste landed on other cities.
 
-  One string, two surfaces: DB `Highlight` and `index.html`. It also renders on `pick-and-compare.html`
-  and on landing-page cards, so the site currently publishes two different medians for the same city in
-  several places at once. Scope before editing: grep every surface that reads `Highlight`, because the
-  Jul 18 figure audit established that reading each figure IN CONTEXT widens the scope every time.
-  Ship a validator check with it (structured field vs prose figure must agree), planted-error tested.
-  BATCH scope. Do not fold into a city or comparison build.
+- **Six non-NRC cities quote a home figure in prose that contradicts `Median Home`, all skewing
+  high.** Casper $308K/$273K, Columbus $260K/$235K, Des Moines $217K/$191K, La Crosse $285K/$243K,
+  Roanoke $280K/$251K, Sioux Falls $333K/$314K. The consistent direction suggests a second data
+  vintage rather than random drift. No corroborating field to arbitrate, unlike the NRC cities where
+  `D2` already carried the correct figure - so settle the source before editing. Philadelphia's
+  profile also contradicts itself: "citywide typical home value is around $234K" against $240K
+  elsewhere in the same file.
+
+- **DB `Highlight` column still holds all nine stale strings verbatim.** Fixing the two HTML surfaces
+  does not fix the source. The next generation pass reintroduces every one of them. Update
+  `CityDatabase_Jul_13_v16_4_climate.xlsx` before any profile regen.
 
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
@@ -250,6 +254,22 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 23, 2026: NRC HIGHLIGHT PROSE RECONCILED with `Median Home`. Recorded on this board as seven
+  cities; the actual count was **nine** across **two** surfaces - the board omitted New Orleans and
+  Tulsa, and the `pick-and-compare.html` surface it flagged had never been swept.
+  `index.html`: 9 highlight figures, the Indianapolis $223K/$224K rounding, and the St. Louis
+  stat-card `sub`, which read "Citywide $250K" while its own `methodologyNote` two lines below said
+  $235,000. `pick-and-compare.html`: the same 9 figures, plus Indianapolis, Wilmington DE and
+  St. Paul still holding pre-v1.2 retiree-target values in `medianHome` / `medianHomeMid` /
+  `monthlyEst` (two stored as ranges, which v1.2 abolished). `medianHomeMid` drives the comparison
+  sort, so Indianapolis had been sorting at $432,000 against a real $224,000 - that one corrupted
+  output, not just copy. Also two $100 monthlyEst drifts (Burlington, Nashua). City profiles audited
+  clean. Both patches idempotent with abort-on-miss; validator 0/0 exit 0 on `--local .`.
+  **CORRECTION to the Jul 21 entry:** it listed Wilmington DE `Median Home` as $418,000, an apparent
+  $203,000 gap. $418,000 is **Wilmington NC**. The measurement matched on city name without state.
+  True DE figure is $321,000 and the real gap was $106,000. Two Wilmingtons in the DB, and two
+  Columbuses - always key on (City, ST).
 
 - Jul 21, 2026: SAN ANTONIO vs FORT WORTH comparison page shipped (page 20). Built from a live pull of
   `st-louis-vs-kansas-city-retirement.html`; all scores, Monthly Est, Median Home, tier, property tax
