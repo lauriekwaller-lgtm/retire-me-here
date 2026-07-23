@@ -6,7 +6,9 @@ When a job moves, edit the line here (or ask Claude to). If it is not on this bo
 
 **Last updated:** July 23, 2026 (highlight home-figure check SHIPPED into the `figures` group,
 FAIL not WARN, planted-error tested; the sixteen drifted figures it surfaced across both surfaces
-reconciled to the DB; board's Jul 21 Wilmington figure corrected - it was Wilmington NC)
+reconciled to the DB; DB `Highlight` column then reconciled too and bumped to
+**v16_5**; board's Jul 21 Wilmington figure corrected - it was Wilmington NC; 63 escaped em dashes
+found live on `pick-and-compare.html`, boarded below)
 
 **Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
 All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings** as of the Jul 21 fixes,
@@ -82,12 +84,31 @@ Standard deploy block:
   home value is around $234K" against $240K elsewhere in the same file - the profile surface is not
   yet covered by any home-figure check.
 
-- **DB `Highlight` column still holds the stale strings verbatim. THIS IS NOW THE LIVE RISK.** Fixing
-  the two HTML surfaces does not fix the source; the next generation pass reintroduces every one of
-  them, and the new check will red-light the gate the moment it does. Update
-  `CityDatabase_Jul_13_v16_4_climate.xlsx` before any profile regen. Obvious follow-on check: run the
-  same `HL_*` matcher over the DB's own `Highlight` column inside the `db` group, so the source is
-  gated too and not just its two renderings.
+- **NEXT: gate the DB `Highlight` column itself.** The column is now clean (see RECENTLY SHIPPED),
+  but nothing enforces it, so it can rot again exactly as it did. Run the same `HL_*` matcher over
+  the DB's own `Highlight` column inside the `db` group. Small: the matcher and its helpers are
+  already shipped and tested; the work is the read loop plus new plants in
+  `tools/test_highlight_homes.py`. Held back from the Jul 23 push only to keep one confirmed change
+  per deploy.
+
+- **LIVE: 56 city highlights render an em dash on `pick-and-compare.html`, and the `emdash` check
+  cannot see them.** Found Jul 23. The page stores its strings as JSON, so an em dash is written
+  `\u2014`, not as the character. `check_emdash` counts the character. It reads ZERO while **63
+  escaped em dashes** sit in the file and 56 of 99 highlights render one to the reader (Hot Springs,
+  Scottsdale, Sedona, Carlsbad and 52 more). The page has been in the check's target list the whole
+  time. This is the THIRD instance of the same blind-spot family the check's own docstring already
+  documents twice - visible_text() stripping `<script>`, then index.html not being a target at all,
+  now the escape form. Ban the SHAPE: count every rendering of the character, not one spelling of it.
+  Upstream source is the DB `Highlight` column, which carries em dashes on most rows where
+  `index.html` (colons) does not, so fixing only the page leaves the master to reintroduce them.
+  One BATCH job, three parts: teach the check the escape form, planted-error test it, convert the 63
+  on the page AND their source cells. Zero em dashes is a hard site-wide rule and this is a live
+  violation of it, not a latent one - take it before the discretionary validator builds below.
+
+- **DB `Highlight` column is not a clean rendering of either surface.** It matches
+  `pick-and-compare.html` on 68/99 rows and `index.html` on 26/99. So there is no single "regenerate
+  from source" path today, and no arbiter when the three disagree on anything other than a home
+  figure. Decide which surface the column is supposed to be the master of before any regen pass.
 
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
@@ -249,6 +270,26 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 23, 2026: DB `Highlight` COLUMN RECONCILED. `docs/CityDatabase_Jul_13_v16_4_climate.xlsx` ->
+  **`docs/CityDatabase_Jul_23_v16_5_highlights.xlsx`**; `DEFAULT_DB` and the SITE-OPERATIONS-LOG
+  "Current:" line updated in the same commit, old file deleted.
+  Running the freshly shipped `HL_*` matcher over the column found **16 drifted home figures**, and
+  it was a DIFFERENT 16 than the two HTML surfaces carried. The column was a pre-Jul-23 vintage: it
+  still held every NRC citywide figure from before that sweep, including **Wilmington DE at $215K
+  against a `Median Home` of $321,000** - the exact string used as the planted error in
+  `tools/test_highlight_homes.py`, sitting live in the master the whole time. Also stale: Memphis
+  $170K/$195K, San Antonio $260K/$320K, Philadelphia $270K/$240K, Pittsburgh $265K/$240K, St. Paul
+  $280K/$297K, St. Louis $250K/$235K, Indianapolis $223K/$224K, Miami $430K/$575K, plus the six
+  non-NRC cities and Provincetown.
+  One extra fix in the same pass: Miami's cell opened "The only city in the database with all four
+  major pro sports leagues" - a dataset-scoped superlative, banned since Jul 12, sitting in the
+  master where a regen would have pushed it back onto the site. Now "A rare city with all four major
+  pro sports leagues," matching both surfaces.
+  Edited as inline strings in `xl/worksheets/sheet1.xml` and rezipped; no openpyxl, no pandas.
+  Verified: every other zip part byte-identical, the other four sheets row-identical, `load_db()`
+  output identical across old and new (so no score, monthly, home value or tier moved), exactly 16
+  rows changed, exactly one column touched, and 0 drifted figures on the re-read.
 
 - Jul 23, 2026: HIGHLIGHT HOME-FIGURE CHECK SHIPPED. `check_highlight_homes()` in
   `tools/validate.py`, folded into the `figures` group, **FAIL** not WARN. Holds every home figure in
