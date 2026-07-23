@@ -35,7 +35,7 @@ you it cannot find the file rather than silently checking against stale data.
 
 | Group | What it catches |
 |---|---|
-| `figures` | `CITIES` array and `CITY_ENRICHMENT` modal prose in `index.html` vs the DB. Scores, monthly, home value, budget tier. This is where the quiz gets its numbers. |
+| `figures` | `CITIES` array and `CITY_ENRICHMENT` modal prose in `index.html` vs the DB. Scores, monthly, home value, budget tier. Also every home figure written into `highlight` PROSE, on both `index.html` and `pick-and-compare.html`. This is where the quiz gets its numbers. |
 | `profiles` | Profile pages: monthly ranges and citywide home-value claims. |
 | `routing` | `PUBLISHED_PROFILES` ↔ profile files ↔ `sitemap.xml`, all directions. |
 | `cards` | Landing pages: cards still saying "Coming soon" for a live city, stale card figures. |
@@ -54,6 +54,46 @@ Wilmington NC and Wilmington DE are both in the database. Anything keyed by city
 alone will silently drop one of them. The validator keys by `City_ST` and refuses a
 name-only lookup when the name is ambiguous. `CITY_ENRICHMENT` in `index.html` handles
 this the same way, with `_NC` and `_DE` suffixed keys. Keep that convention.
+
+### Home figures in `highlight` prose
+
+`medianHome` is a field, so it was checked. The same number written into the `highlight`
+sentence four lines below it was prose, so it was not. Nine cities had drifted, and the
+validator read 0 failures the whole time.
+
+The rule is exact, with no tolerance band: a figure written in thousands must equal
+`round(DB Median Home / 1000)`. `$224K` against a `$224,000` cell passes and `$223K` does
+not. A band is how the nine hid, because 3% forgives `$275K` against `$273K` and does not
+forgive `$217K` against `$191K`, and both are equally false.
+
+Scope is anchored, not blanket. A dollar figure is only in scope when it is attached to a
+home-value noun. Three things in these strings are supposed to disagree with `medianHome`,
+and a blanket "every figure must match" check red-lights all of them forever:
+
+| Shape | Example | Why it is not drift |
+|---|---|---|
+| The NRC range | "Citywide median home $195K but retirees target Germantown ($280K–$500K)" | The range is the point of the sentence |
+| A cross-city reference | Tampa's "Naples matches it at $585K" | Correct, and not our figure |
+| A figure that is not a home | Tulsa's "$465M Gathering Place" | Not a home value at all |
+
+Bounds are checked as bounds. "Homes under $260K" is not a claim that the median IS $260K,
+so it is not held to equality, but it is still a factual claim, and Roanoke shipped "median
+homes under $230K" against a DB `$251,000`. The check fails when the inequality is false.
+
+## test_highlight_homes.py
+
+```bash
+python3 tools/test_highlight_homes.py
+```
+
+The planted-error test for the check above. Fifteen assertions: the real Wilmington DE
+`$215K` bug on both surfaces, the two-Wilmingtons key guard, six legitimate shapes that must
+stay silent, three wrong figures that must not, and a renamed `CITIES` array that must fail
+loudly rather than scan nothing and report a clean site.
+
+Run it after any edit to the `HL_*` patterns. A check that has never been watched fail is
+not a check.
+
 
 ## Run this before every deploy
 

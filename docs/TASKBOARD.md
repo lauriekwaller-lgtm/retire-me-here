@@ -4,9 +4,9 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 23, 2026 (NRC highlight prose reconciled with `Median Home` across
-`index.html` and `pick-and-compare.html`; validator confirmed blind to this bug class; board's
-Jul 21 Wilmington figure corrected - it was Wilmington NC)
+**Last updated:** July 23, 2026 (highlight home-figure check SHIPPED into the `figures` group,
+FAIL not WARN, planted-error tested; the sixteen drifted figures it surfaced across both surfaces
+reconciled to the DB; board's Jul 21 Wilmington figure corrected - it was Wilmington NC)
 
 **Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
 All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings** as of the Jul 21 fixes,
@@ -19,6 +19,10 @@ The validator now ALSO carries a pros/cons home-figure check (folded into the `f
 As of Jul 18 it ships **FAIL**, not WARN: the Jul-15 34-figure reconciliation held, both `--local .`
 and the live bare run read 0 pros/cons warnings, so drift now blocks the gate like every other
 figures check. Planted-error tested (Knoxville `$327K` against DB `$368,000`: 1 failure, exit 1).
+As of Jul 23 the `figures` group ALSO covers home figures in `highlight` PROSE, on both
+`index.html` and `pick-and-compare.html`. Also **FAIL**. Planted-error tested by
+`tools/test_highlight_homes.py` (15 assertions, run it after any edit to the `HL_*` patterns).
+Exact match, no tolerance band: a figure in thousands must equal `round(DB/1000)`.
 
 ---
 
@@ -68,31 +72,22 @@ Standard deploy block:
 
 ## ACTIVE - batch / site-wide operations
 
-- **Validator is blind to prose-vs-structured-field drift. Ship the check.** Ran
-  `validate.py --local .` against the UNPATCHED file: 0 failures, 0 warnings, exit 0, with nine live
-  factual contradictions in it. The `figures` group covers pros/cons but not `highlight`. Extend it:
-  any dollar figure in `highlight` prose must agree with that city's `medianHome`, across BOTH
-  `index.html` and `pick-and-compare.html`. Ships FAIL, not WARN. Planted-error tested. Until this
-  lands, this whole bug class is invisible to the gate.
+- **OPEN QUESTION carried out of the Jul 23 check: are the six non-NRC prose figures a second data
+  vintage?** Casper, Columbus, Des Moines, La Crosse, Roanoke, Sioux Falls all quoted prose figures
+  ABOVE `Median Home`, and the consistent direction still suggests a vintage rather than random
+  drift. They were edited DOWN to the DB because the data-source rule makes the DB canonical and
+  because a shipped FAIL gate cannot sit red. If the prose was in fact the newer vintage, the fix is
+  to correct the DB and let the check re-derive the prose, NOT to revert these edits. Settle it
+  before the next DB bump. Philadelphia's profile separately contradicts itself: "citywide typical
+  home value is around $234K" against $240K elsewhere in the same file - the profile surface is not
+  yet covered by any home-figure check.
 
-- **Provincetown MA publishes three mutually contradictory home figures.** `medianHome` $924,000;
-  highlight says $2.1M single-family; `D2` reads "Typical home value $326K: significantly more
-  affordable than FL coastal peers." That D2 string looks copy-pasted from another city outright - a
-  $326K Provincetown is not plausible and Provincetown has no FL coastal peer framing. Needs a
-  decision on the real figure, not a swap. Not an NRC city, so it sat outside the batch. Check
-  whether the same paste landed on other cities.
-
-- **Six non-NRC cities quote a home figure in prose that contradicts `Median Home`, all skewing
-  high.** Casper $308K/$273K, Columbus $260K/$235K, Des Moines $217K/$191K, La Crosse $285K/$243K,
-  Roanoke $280K/$251K, Sioux Falls $333K/$314K. The consistent direction suggests a second data
-  vintage rather than random drift. No corroborating field to arbitrate, unlike the NRC cities where
-  `D2` already carried the correct figure - so settle the source before editing. Philadelphia's
-  profile also contradicts itself: "citywide typical home value is around $234K" against $240K
-  elsewhere in the same file.
-
-- **DB `Highlight` column still holds all nine stale strings verbatim.** Fixing the two HTML surfaces
-  does not fix the source. The next generation pass reintroduces every one of them. Update
-  `CityDatabase_Jul_13_v16_4_climate.xlsx` before any profile regen.
+- **DB `Highlight` column still holds the stale strings verbatim. THIS IS NOW THE LIVE RISK.** Fixing
+  the two HTML surfaces does not fix the source; the next generation pass reintroduces every one of
+  them, and the new check will red-light the gate the moment it does. Update
+  `CityDatabase_Jul_13_v16_4_climate.xlsx` before any profile regen. Obvious follow-on check: run the
+  same `HL_*` matcher over the DB's own `Highlight` column inside the `db` group, so the source is
+  gated too and not just its two renderings.
 
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
@@ -254,6 +249,36 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 23, 2026: HIGHLIGHT HOME-FIGURE CHECK SHIPPED. `check_highlight_homes()` in
+  `tools/validate.py`, folded into the `figures` group, **FAIL** not WARN. Holds every home figure in
+  `highlight` prose to `Median Home` on both surfaces: `index.html` (JS object literals) and
+  `pick-and-compare.html` (single-line JSON under `const CITIES =`), parsed separately because they
+  are not the same format. Exact match, **no tolerance band** - a figure in thousands must equal
+  `round(DB/1000)`. A band was the whole reason the nine hid: 3% forgives Casper's $275K against
+  $273K and does not forgive Des Moines' $217K against $191K, and both are equally false.
+  Scope is ANCHORED, not blanket: a figure counts only when attached to a home-value noun. That one
+  rule keeps three legitimate shapes silent forever - the NRC neighborhood range, the cross-city
+  reference (Tampa naming Naples' figure), and figures that are not homes at all (Tulsa's $465M
+  Gathering Place, Traverse City's $132K deduction, Provincetown's $2M estate cliff). A cross-city
+  veto sits behind the anchor for the day someone writes "Naples' median home is $585K" inside
+  Tampa's string. Bounds are checked as bounds, not equalities.
+  **16 failures on the unpatched tree, all real**, all reconciled to the DB in the same push:
+  `index.html` 9 (Des Moines, Sioux Falls, Casper, Columbus, Roanoke, Miami, La Crosse, Boulder,
+  Provincetown), `pick-and-compare.html` 7 (Des Moines, Columbus, Sioux Falls, Roanoke, Casper,
+  La Crosse, Provincetown). Sioux Falls carried TWO DIFFERENT wrong figures, $333K on one surface and
+  $285K on the other, against a DB $314,000. Roanoke's was a false BOUND, "median homes under $230K"
+  against $251,000. Provincetown's $2.1M was resolved to $924K, which is what its own `D2` modal
+  already said, sourced to Boston Globe / Warren Group April 2026 - so the $2.1M was simply wrong and
+  the earlier $326K paste is already gone.
+  Planted-error tested by `tools/test_highlight_homes.py`, 15 assertions, all passing. The plant is
+  the bug that actually shipped: Wilmington DE's highlight at `$215K` against a DB `$321,000`, one
+  failure, exit 1. Test 3 is the (City, ST) key guard - Wilmington NC carrying its own $418K must be
+  silent AND Wilmington NC carrying DE's $321K must fail, which is only true if the lookup keys on
+  state. That is the Jul 21 mistake, now mechanically prevented. Test 6 plants a renamed `CITIES`
+  array and asserts the check fails LOUDLY rather than scanning nothing and reporting a clean site.
+  Files: `tools/validate.py`, `tools/test_highlight_homes.py` (new), `tools/README.md`, `index.html`,
+  `pick-and-compare.html`, this board. Validator 0 failures, 0 warnings, exit 0 on `--local .`.
 
 - Jul 23, 2026: NRC HIGHLIGHT PROSE RECONCILED with `Median Home`. Recorded on this board as seven
   cities; the actual count was **nine** across **two** surfaces - the board omitted New Orleans and

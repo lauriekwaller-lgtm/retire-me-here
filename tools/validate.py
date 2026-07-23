@@ -100,6 +100,95 @@ PROSCONS_HOME = re.compile(
     r"|" + _FIG + r"\s+(?:median|typical\s+home\s+value)\b", re.I)
 
 
+# ------------------------------------------------------- highlight home figures
+#
+# The `highlight` string is the one place a home figure is prose, not a field. It
+# renders on the card, in the modal, and in the compare table, and until now nothing
+# held it to `medianHome` sitting four lines away in the same object. Nine cities had
+# drifted: Des Moines said $217K against a DB $191K, La Crosse $285K against $243K,
+# Sioux Falls $333K on one surface and $285K on the other against a DB $314K.
+#
+# Scope is the hard part. Three things in these strings are dollar figures that are
+# SUPPOSED to disagree with medianHome, and a naive "every $ figure must match" check
+# fires on all of them, forever:
+#
+#   1. Neighborhood ranges.  "Citywide median home $195K but retirees target
+#      Germantown, Collierville ($280K–$500K)."  The range is the point of the
+#      sentence. Every NRC city carries one.
+#   2. Cross-city references. Tampa's highlight names Naples' figure; Chattanooga
+#      names Asheville's; Corpus Christi names Pensacola's. All correct, none ours.
+#   3. Figures that are not home values at all. Tulsa's "$465M Gathering Place",
+#      Traverse City's "$132K joint retirement income deduction", Provincetown's
+#      "$2M estate tax cliff", and every monthly budget range on the site.
+#
+# So the figure has to be ANCHORED to a home-value noun to be in scope, the same way
+# PROSCONS_HOME works. That one rule kills all three classes: the neighborhood range
+# sits after "retirees target", not after "median home"; the cross-city figure hangs
+# off a city name; and a park's price tag is not a home value. The cross-city veto
+# below is belt-and-braces for the day someone writes "Naples' median home is $585K"
+# inside Tampa's string, which the anchor alone would not catch.
+HL_MONEY = r"\$\s?\d[\d,]*(?:\.\d+)?\s?[KkMm]?"
+HL_DASH = r"[\u2013\u2014-]"
+# Range-aware on purpose: a range must be captured WHOLE so it self-rejects in
+# _hl_money(). Capturing only the low end is how "$800K–$1M median" would have been
+# graded as a claim of $800K.
+HL_FIG = (r"~?(" + HL_MONEY +
+          r"(?:\s*" + HL_DASH + r"\s*\$?\s?\d[\d,]*(?:\.\d+)?\s?[KkMm]?)?)")
+
+HL_NOUN = (r"(?:citywide|typical|median|average)?\s*"
+           r"(?:single-family\s+|starter\s+|entry-level\s+)?"
+           r"home\s+(?:value|price|sale\s+price)s?"
+           r"|(?:citywide|typical|median|average)\s+"
+           r"(?:single-family\s+|starter\s+)?homes?")
+
+HL_BOUNDW = r"under|below|less\s+than|over|above|from|starting\s+at|upward\s+of"
+
+# Up to 20 characters of connector between the noun and the figure ("home values
+# around $280K", "home value is $585K"), but never across a sentence boundary, never
+# across another "$", and never across a bound word: "median homes under $230K" is a
+# BOUND claim, handled below, and must not also be read as a claim that the median
+# IS $230K, or one error reports twice.
+HL_GAP = r"(?:(?!\b(?:" + HL_BOUNDW + r")\b)[^.;!?$]){0,20}?"
+
+HL_HOME_FIG = re.compile(
+    r"(?:" + HL_NOUN + r")" + HL_GAP + HL_FIG +
+    r"|" + HL_FIG + r"\s+(?:citywide\s+)?(?:" + HL_NOUN + r"|median)\b", re.I)
+
+HL_HOME_BOUND = re.compile(
+    r"(?:" + HL_NOUN + r"|homes?)" + HL_GAP +
+    r"\b(" + HL_BOUNDW + r")\s+" + HL_FIG, re.I)
+
+
+def _hl_money(tok):
+    """Parse one prose money token. None means 'not a single figure, skip it'."""
+    tok = tok.strip().strip(".,;:").replace("~", "")
+    if re.search(HL_DASH, tok) or tok.count("$") > 1:
+        return None                      # a range
+    return money_to_int(tok.replace(" ", ""))
+
+
+def _hl_agrees(tok, val, home):
+    """
+    Exact agreement, no tolerance band.
+
+    A band is precisely how the nine drifted figures hid: HOME_TOLERANCE is 3%, and
+    $217K against $191K is 13% but $275K against $273K is 0.7%. One got caught by a
+    band and one did not, and both are equally wrong. So: a figure written in
+    thousands must equal round(DB/1000) exactly. $224K for a $224,000 DB cell passes;
+    $223K does not.
+
+    Figures written in millions are held to home_forms(), which is the convention
+    already shipped for the modal check: $1.85M is an accepted rendering of
+    $1,851,000. That is a rounding convention, not a tolerance, and keeping one
+    convention across the validator beats inventing a second one here.
+    """
+    clean = tok.strip().strip(".,;:").replace(" ", "").upper()
+    if clean.endswith("M"):
+        return clean in {f"${home / 1e6:.2f}M".upper(),
+                         f"${home / 1e6:.1f}M".upper()}
+    return round(val / 1000) == round(home / 1000)
+
+
 # ---------------------------------------------------------------- infrastructure
 
 class Report:
@@ -503,6 +592,108 @@ def check_tiers(rep, db, idx):
                 rep.fail("figures",
                          f"CITY_ENRICHMENT {key}: modal says Range {tier}, "
                          f"DB Budget Range is {row['range']}")
+
+
+def _highlight_rows(idx, pc, rep):
+    """
+    Every (city, state, highlight, surface) pair on the two surfaces that carry one.
+
+    Two surfaces, two formats, same data. index.html holds JS object literals with
+    unquoted keys, which is not JSON and will not parse as JSON. pick-and-compare.html
+    holds a single-line JSON array under `const CITIES =`, which will. Parse each the
+    way it is actually written rather than forcing one reader to cover both.
+    """
+    rows = []
+
+    src = js_object_slice(idx, "CITIES")
+    if not src:
+        rep.fail("figures", "highlight check: could not locate CITIES in index.html")
+    for obj in re.split(r"\n  \{", src)[1:]:
+        nm = re.search(r'name:\s*"([^"]+)",\s*state:\s*"([^"]+)"', obj)
+        hl = re.search(r'highlight:\s*"((?:[^"\\]|\\.)*)"', obj)
+        if nm and hl:
+            rows.append((nm.group(1), nm.group(2), hl.group(1), "index.html"))
+
+    if pc is None:
+        rep.fail("figures", "highlight check: pick-and-compare.html could not be read")
+        return rows
+    src = js_object_slice(pc, "CITIES")
+    if not src:
+        rep.fail("figures",
+                 "highlight check: could not locate CITIES in pick-and-compare.html")
+        return rows
+    try:
+        data = json.loads(src)
+    except ValueError as exc:
+        rep.fail("figures", f"highlight check: pick-and-compare.html CITIES is not "
+                            f"valid JSON ({exc})")
+        return rows
+    for r in data:
+        if r.get("highlight"):
+            rows.append((r.get("city", ""), r.get("state", ""),
+                         r["highlight"], "pick-and-compare.html"))
+    return rows
+
+
+def check_highlight_homes(rep, db, idx, local):
+    """
+    Home figures in `highlight` prose vs the DB Median Home, on both surfaces.
+
+    See the HL_* block above for why the scope is anchored rather than "every dollar
+    figure". FAIL, not WARN: unlike a superlative, this is decidable. The string
+    either names the DB's number or it names a different one.
+    """
+    pc = fetch("pick-and-compare.html", local)
+    rows = _highlight_rows(idx, pc, rep)
+    if not rows:
+        rep.fail("figures", "highlight check: no highlight strings found on either "
+                            "surface; nothing was checked")
+        return
+
+    # Keyed on (City, ST) throughout. The database holds two Wilmingtons, and a
+    # name-only key is how Wilmington NC's $418,000 ended up graded against
+    # Wilmington DE's string on July 21.
+    names = {r["city"] for r in db_cities(db)}
+
+    for city, state, hl, surface in rows:
+        row = db_get(db, city, state)
+        if not row or row["home"] is None:
+            continue                     # unknown city / malformed cell: other checks
+        home = row["home"]
+        others = [n for n in names if n != city]
+
+        def cross_city(start, end):
+            """Is this figure attached to some OTHER city's name?"""
+            window = hl[max(0, start - 12):end]
+            return any(re.search(r"\b" + re.escape(n) + r"\b", window) for n in others)
+
+        for m in HL_HOME_FIG.finditer(hl):
+            tok = next(g for g in m.groups() if g)
+            if cross_city(m.start(), m.end()):
+                continue
+            val = _hl_money(tok)
+            if val is None:
+                continue                 # a range: the NRC pattern, deliberately ours
+            if not _hl_agrees(tok, val, home):
+                rep.fail("figures",
+                         f"{surface} {city}, {state}: highlight states a home value "
+                         f"{tok.strip()}, DB Median Home is ${round(home / 1000)}K")
+
+        # "homes under $260K" is not a claim that the median IS $260K, so it is not
+        # held to equality -- but it is still a factual claim, and Roanoke shipped
+        # "median homes under $230K" against a DB $251,000. Check that the inequality
+        # actually holds, which is the only reading under which the sentence is true.
+        for m in HL_HOME_BOUND.finditer(hl):
+            op = m.group(1).lower()
+            tok = next(g for g in m.groups()[1:] if g)
+            val = _hl_money(tok)
+            if val is None or cross_city(m.start(), m.end()):
+                continue
+            below = op in ("under", "below", "less than")
+            if (home >= val) if below else (home < val):
+                rep.fail("figures",
+                         f"{surface} {city}, {state}: highlight says homes {op} "
+                         f"{tok.strip()}, DB Median Home is ${round(home / 1000)}K")
 
 
 def published_profiles(idx):
@@ -1515,6 +1706,7 @@ def main():
     if "figures" in groups:
         check_figures(rep, db, idx)
         check_tiers(rep, db, idx)
+        check_highlight_homes(rep, db, idx, args.local)
     if "profiles" in groups:
         if not slug_to_city:
             rep.fail("profiles", "no published profiles found; nothing was checked")
