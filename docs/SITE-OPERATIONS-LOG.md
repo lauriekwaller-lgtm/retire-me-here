@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-24 - Roanoke, VA profile; four stale index.html figures fixed en route
+
+**Shipped.** `cities/roanoke/profile.html`, profile 45, plus hero/detail/lifestyle photos. Built from
+a live pull of the canonical `cities/st-louis/profile.html`. All dimension scores, `Monthly Est`, and
+`Median Home` read from `docs/CityDatabase_Jul_23_v16_6_nohighlight.xlsx` row 81 (D1 5 / D2 9 / D3 7 /
+D5 6 / D6 6 / D7 8 / D8 7 / D9 7 / D10 7, Range 1, $4,400-$5,400/mo, $251,000). Research used only for
+supporting color: ROA nonstop and carrier counts, Carilion credentials and trauma level, Virginia
+retirement-tax rules, Carvins Cove and McAfee Knob facts, neighborhood price spot-checks.
+
+**Emphasis brief.** One pillar at 9 (D2 Budget) with D7 Outdoor at 8 and a wide 7-band. That is the
+MULTI-STRENGTH shape, not MULTI-PILLAR, so the hero and character lead with the value-plus-mountains
+cluster rather than a single hook, and give the 7-band real weight. Honest counterweight leads the
+"Skip if" column: D1 Airport = 5 (about 10 nonstops, most trips connect), plus D5 = 6 (Virginia taxes
+retirement income up to 5.75%) and D6 = 6 (car needed outside downtown and Grandin Village). Not an
+NRC city, so no Reality Check aside or method-callout; the wide citywide-to-South-Roanoke gap
+($251K vs ~$580K) is carried honestly in the hood cards instead.
+
+**Detail photo = the Roanoke Star**, used as the civic-identity photo break (parallel to St. Louis
+baseball). Valley-from-overlook shot handed off as an alternate. Taubman Museum photo is CC BY-SA 3.0
+(Warfieldian / Wikimedia), credited with the license named, not as Unsplash.
+
+**Four stale index.html figures fixed while in the file.** The existing Roanoke `CITIES`/enrichment
+entry carried: a `$280K` pro that contradicted its own `$251K` highlight (DB says $251,000); a "16
+procedures" hospital count (U.S. News 2025-26 says 15); a D1 scoreNote naming only Atlanta and
+Charlotte (ROA now flies 7 hubs plus a new June 2026 DFW daily); and a D7 scoreNote calling Roanoke
+"a Range 2 city" when it is Range 1. All corrected.
+
+**Deploy.** `PUBLISHED_PROFILES` gained `'Roanoke_VA'`; `sitemap.xml` gained the url block; the budget
+landing page's Roanoke card flipped from "Coming soon" to a live link. Roanoke was already carded on
+the hikers and disaster-safe landing pages, so no other reciprocal edits. Carvins Cove
+"second-largest municipal park" retired to `SUPERLATIVE-LEDGER.md` as a verified outside-world fact.
+Visit block ships with `EXPEDIA_CODE_TK` / `VRBO_CODE_TK` placeholders pending Creator Hub codes;
+grep-gate `CODE_TK` before deploy. `python3 tools/validate.py --local .`: **0 failures, 0 warnings**.
+
 ### 2026-07-23 (second push) - em-dash check rebuilt to count renderings; DB `Highlight` column deleted (v16_6)
 
 **The bug.** `check_emdash` counted the literal character `\u2014` and nothing else. Every string on

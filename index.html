@@ -3796,7 +3796,7 @@ const CITIES = [
     scores: { D1:5, D2:9, D3:7, D4:7, D5:6, D6:6, D7:8, D8:7, D9:7, D10:7 },
     climate: { W:4, H:7, M:5, HUM:7, HEAT:6, janF:36, snow:15, sun:56 },
     highlight: "Tucked into the Blue Ridge Mountains with the Appalachian Trail and Blue Ridge Parkway in its backyard: Roanoke combines genuine mountain access, Carilion’s strong regional healthcare, a growing arts scene, and a typical home value of $251K.",
-    pros: ["Blue Ridge Parkway and Appalachian Trail access from the city limits", "Carilion Roanoke Memorial Hospital: high-performing in 16 procedures and conditions", "Typical home value around $280K with overall cost of living 8% below national average", "AARP Age-Friendly Community with growing arts scene in Grandin Village"],
+    pros: ["Blue Ridge Parkway and Appalachian Trail access from the city limits", "Carilion Roanoke Memorial Hospital: high-performing in 15 procedures and conditions", "Typical home value around $251K with overall cost of living 8% below national average", "AARP Age-Friendly Community with growing arts scene in Grandin Village"],
     cons: ["Virginia income tax applies to retirement income: up to 5.75%", "Roanoke-Blacksburg Regional Airport has limited nonstop service", "Car dependent outside of downtown core", "Hot humid summers though mountain elevation provides some relief"]
   },
   {
@@ -5943,15 +5943,15 @@ const CITY_ENRICHMENT = {
       { name: "Vinton / Cave Spring", vibe: "Suburban, safe, affordable", desc: "Eastern and southwestern suburbs with excellent safety and affordable pricing. More car-dependent but strong value for retirees prioritizing safety and cost." },
       { name: "Salem", vibe: "Small town, safe, independent", desc: "Independent city adjacent to Roanoke with small-town character. Very safe, lower price points. Greenfield Recreation Area nearby. Popular with retirees wanting quiet community life." }
     ],
-    hospitalRating: "Carilion Roanoke Memorial Hospital: high-performing in 16 procedures and conditions; Carilion Clinic multi-location system",
+    hospitalRating: "Carilion Roanoke Memorial Hospital: Level I trauma center, high-performing in 15 procedures and conditions; Carilion Clinic multi-location system",
     walkScore: 52,
     scoreNotes: {
-      D1: "Roanoke-Blacksburg Regional Airport (ROA) serves Atlanta and Charlotte direct. Limited nonstop options: connecting flights required for most destinations.",
+      D1: "Roanoke-Blacksburg Regional Airport (ROA) flies nonstop to Charlotte, Atlanta, Chicago, DFW (added June 2026), NYC/LaGuardia, Philadelphia, and Washington Dulles across four carriers. About 10 nonstop destinations: most trips connect through a hub.",
       D2: "Typical home value ~$251K. Cost of living 8-9% below national average. Strong value for a Blue Ridge Mountain city with real urban amenities.",
-      D3: "Carilion Roanoke Memorial Hospital high-performing in 16 procedures. Carilion Clinic system throughout region. Solid depth for a city its size.",
+      D3: "Carilion Roanoke Memorial Hospital: region's only Level I trauma center, high-performing in 15 procedures, VT Carilion teaching hospital. Solid depth for a city its size.",
       D5: "Virginia income tax up to 5.75%. Social Security exempt for many retirees. Moderate retirement tax burden: better than most Northeast states.",
       D6: "Downtown Roanoke and Grandin Village are genuinely walkable. Valley Metro bus system. Most neighborhoods require a car.",
-      D7: "Blue Ridge Parkway and Appalachian Trail from city limits. Mill Mountain Park. Virginia’s Explore Park. Outstanding mountain access for a Range 2 city.",
+      D7: "Blue Ridge Parkway and Appalachian Trail from city limits. Mill Mountain Park. Virginia’s Explore Park. Outstanding mountain access for a Range 1 city.",
       D9: "Generally safe city. Crime below national average in established neighborhoods. Grandin Village and South Roanoke particularly safe."
     }
   },
@@ -7942,7 +7942,8 @@ function showCityDetail(cityName, cityState) {
     'Fort Collins_CO': 'cities/fort-collins/profile.html',
     'Prescott_AZ': 'cities/prescott/profile.html',
     'Knoxville_TN': 'cities/knoxville/profile.html',
-    'San Antonio_TX': 'cities/san-antonio/profile.html'
+    'San Antonio_TX': 'cities/san-antonio/profile.html',
+    'Roanoke_VA': 'cities/roanoke/profile.html'
   };
   
   const profileKey = cityName + '_' + cityState;

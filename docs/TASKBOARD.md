@@ -4,20 +4,14 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 23, 2026, second push (em-dash check rebuilt to count every RENDERING of the
-character, planted-error tested; 83 live em dashes converted across `pick-and-compare.html` and four
-profiles' JSON-LD; DB `Highlight` COLUMN DELETED and bumped to **v16_6**; new
-`check_highlight_surfaces` gates the two remaining copies against each other; 72 stale D2 scores
-found on `pick-and-compare.html`, boarded below)
+**Last updated:** July 24, 2026 (Roanoke, VA profile shipped, profile 45; four stale Roanoke
+index.html figures fixed en route: $280K->$251K, hospital 16->15, D1 routes refreshed, D7
+"Range 2"->"Range 1"; Carvins Cove second-largest-municipal-park claim retired to the ledger)
 
-**Verified live at last update:** 44 profiles, 20 comparison pages, 5 guides, 7 landing pages.
-All 44 profiles carry a Visit block. Validator: **0 failures, 0 warnings**, re-confirmed on the bare
-(live GitHub) run on **Jul 23 after the v16_6 push**, and on `--local .` before it.
-NOTE: the Jul 19 board asserted 0/0 on BOTH `--local .` and bare, but
-the Jul 21 bare run found a superlative FAIL that had been live since Jul 19, so that claim was wrong.
-Treat any 0/0 line here as stale until re-confirmed by a fresh run. The warn queue reaches zero because
-`docs/SUPERLATIVE-LEDGER.md` retires reviewed outside-world claims; anything NOT in the ledger is
-unreviewed and shouts. Zero is now the expected reading. If a warning appears, it is new.
+**Verified live at last update:** 45 profiles, 20 comparison pages, 5 guides, 7 landing pages.
+All 45 profiles carry a Visit block (Roanoke's uses placeholder affiliate codes pending Creator Hub).
+Validator: **0 failures, 0 warnings** on `--local .` after the Roanoke push; re-confirm on the bare
+(live GitHub) run once deployed.
 The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
 As of Jul 18 it ships **FAIL**, not WARN: the Jul-15 34-figure reconciliation held, both `--local .`
 and the live bare run read 0 pros/cons warnings, so drift now blocks the gate like every other

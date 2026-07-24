@@ -92,3 +92,5 @@ of the real source. State the fact. Drop the attribution.
 Our own scores are the one thing the database may be credited with, and even then it reads
 better without the possessive: "climate resilience scores 2 of 10", not "our database scores
 it 2 of 10".
+
+| cities/roanoke/profile.html | largest municipal park in the country, spreads 12,700 acres and mor | TRUE | Carvins Cove, 12,700 acres, is the second-largest municipally-owned park in the US (Wikipedia; Roanoke Parks & Recreation). Copy says "second-largest"; the validator captures the phrase from "second-|largest". Outside-world fact, static. |
