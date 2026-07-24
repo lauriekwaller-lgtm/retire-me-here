@@ -4,12 +4,15 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 24, 2026 (Roanoke, VA profile shipped, profile 45; four stale Roanoke
-index.html figures fixed en route: $280K->$251K, hospital 16->15, D1 routes refreshed, D7
-"Range 2"->"Range 1"; Carvins Cove second-largest-municipal-park claim retired to the ledger)
+**Last updated:** July 24, 2026 (Tulsa, OK profile shipped, profile 46; Tulsa card on
+best-places-to-retire-on-a-budget.html promoted from coming-soon to a live link; two Saint Francis
+"largest hospital" claims retired to the ledger. Earlier the same day: Roanoke, VA shipped as profile
+45, with four stale Roanoke index.html figures fixed en route: $280K->$251K, hospital 16->15, D1
+routes refreshed, D7 "Range 2"->"Range 1"; Carvins Cove second-largest-municipal-park claim retired)
 
-**Verified live at last update:** 45 profiles, 20 comparison pages, 5 guides, 7 landing pages.
-All 45 profiles carry a Visit block (Roanoke's uses placeholder affiliate codes pending Creator Hub).
+**Verified live at last update:** 46 profiles, 20 comparison pages, 5 guides, 7 landing pages.
+All 46 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
+placeholders pending Creator Hub; Tulsa's are live).
 Validator: **0 failures, 0 warnings** on `--local .` after the Roanoke push; re-confirm on the bare
 (live GitHub) run once deployed.
 The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
@@ -176,11 +179,18 @@ Standard deploy block:
 
 ## ACTIVE - city profile builds
 
-- **Next in queue:** Roanoke, then Tulsa.
-- Live profiles: 44. San Antonio shipped Jul 19; Fort Collins, Prescott, Knoxville and Savannah
-  shipped earlier in the same window.
-- San Antonio carries a Neighborhood Reality Check callout, making it the 11th NRC city.
-  `PROFILE-FORMATTING.md` still lists ten and needs updating.
+- **Next in queue:** open. Roanoke and Tulsa both shipped Jul 24.
+- Live profiles: 46. Tulsa shipped Jul 24; Roanoke the same day; San Antonio Jul 19; Fort Collins,
+  Prescott, Knoxville and Savannah shipped earlier in the same window.
+- San Antonio carries a Neighborhood Reality Check callout, making it the 11th NRC city, and Tulsa
+  makes it 12 (citywide $194K against retiree-target $300K-$500K, the exact gap the note exists for).
+  `PROFILE-FORMATTING.md` still lists ten and is now two behind.
+- **Tulsa follow-ups (not blocking the push):**
+  - `pick-and-compare.html` carries Tulsa at `d2:7`; DB and `index.html` both say **D2 = 9**. Stale.
+  - `index.html` enrichment gives Tulsa property tax 0.77%; DB says 0.79. Profile uses the DB.
+  - `top-cities-for-arts-lovers.html` lists Gilcrease Museum on the Tulsa card as a live asset. It
+    has been closed since 2021 and now reopens spring 2027, a year late and ~70% over budget.
+  - Detail photo is a placeholder (ORU Prayer Tower); swap for Art Deco downtown, Cain's, or Route 66.
 
 ---
 

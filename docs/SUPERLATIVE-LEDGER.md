@@ -47,6 +47,8 @@ Reviewed 2026-07-14.
 | cities/st-louis/profile.html | largest in the Western Hemisphere | TRUE | Outside-world claim, hedged or sourced. Not scoped to our dataset; cannot rot when a city is added. |
 | cities/st-louis/profile.html | widest city-to-suburb gaps in the country | TRUE | Outside-world claim, hedged or sourced. Not scoped to our dataset; cannot rot when a city is added. |
 | cities/st-petersburg/profile.html | largest farmers markets in the Southeast, in season from fall through | TRUE | Outside-world claim, hedged or sourced. Not scoped to our dataset; cannot rot when a city is added. |
+| cities/tulsa/profile.html | largest hospital in Oklahoma and the 11th largest in the nation, anchored by a 168-bed heart | TRUE | Saint Francis Hospital, 1,112 beds: largest in Oklahoma and 11th largest in the US, per Saint Francis Health System and the Premier 15 Top Health Systems 2025 study. Outside-world fact, static. |
+| cities/tulsa/profile.html | largest hospital in the state | TRUE | Same Saint Francis claim, in the JSON-LD FAQ answer. 1,112 beds, largest in Oklahoma. |
 | fort-collins-vs-boulder-retirement.html | largest anywhere on this scorecard | TRUE | Page-local: refers to the two-city table on this page. Bounded, visible, static; cannot rot when a city is added. |
 | index.html | Largest producer-only farmers market in the US at Capitol Square | TRUE | Largest producer-only farmers market in the US (Dane County). Matches the Madison profile. |
 | index.html | highest in the US: major retirement income pena | TRUE | Outside-world claim, hedged or sourced. Not scoped to our dataset; cannot rot when a city is added. |
