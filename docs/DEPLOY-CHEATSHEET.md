@@ -97,7 +97,7 @@ repo root and everything lands where it belongs.
 `index.html`, `sitemap.xml`, a landing page, `TASKBOARD.md`, `SUPERLATIVE-LEDGER.md`. It runs from the
 repo root, it is idempotent, and it refuses to write anything at all if any anchor text has moved.
 
-Then the deploy is the same eight lines for every city:
+Then the deploy is the same sequence for every city:
 
 ```bash
 git pull                                  # first, always
@@ -105,10 +105,10 @@ unzip -o tulsa-bundle.zip                 # new files land in final paths
 rm tulsa-bundle.zip
 python3 apply-tulsa.py                    # edits the existing files
 python3 tools/validate.py --local .       # the gate. 0 failures or stop.
+rm apply-tulsa.py                         # BEFORE git add, or it gets committed
 git status                                # does the count match what you expect?
 git add -A && git commit -m "Tulsa OK profile (46); budget card live; ledger + taskboard"
 git push
-rm apply-tulsa.py                         # one-time script, never committed
 ```
 
 ### Why the existing files are not in the zip
