@@ -3,6 +3,7 @@
 **Current version:** v1.2, June 2026
 **Applies to:** the Typical Home Value figure on every city profile, every comparison page, and every other surface on the site; the Median Home column in CityDatabase; and the derived Monthly Est via BUDGET-METHODOLOGY.md
 **Companion docs:** BUDGET-METHODOLOGY.md, PROFILE-FORMATTING.md, SITE-OPERATIONS-LOG.md
+**Correction, July 25, 2026 (within v1.2):** the ten-city Neighborhood Reality Check roster in sections 2 and 4 was removed. It had gone seven cities stale and named Wilmington DE, which has no profile. No methodology changed, so the version is not bumped and the `per MEDIAN-HOME-METHODOLOGY.md v1.2` comment in the profiles stays correct.
 **Note:** MEDIAN-HOME-LABEL-CONVENTIONS.md was deprecated in v1.2 and slated for deletion. Its content has been folded into this document and into PROFILE-FORMATTING.md.
 
 ---
@@ -25,7 +26,7 @@ The label "Typical Home Value" matches what Zillow calls the ZHVI series and is 
 
 The note is warranted when the citywide figure alone would mislead a typical retiree-shopper — most often where retiree-target neighborhoods run substantially above the citywide median because the citywide figure is pulled down by neighborhoods retirees would not consider. The decision to add a note is editorial judgment, refreshed annually. There is no quantitative threshold; the principle is reader honesty, not categorization.
 
-Cities currently carrying Neighborhood Reality Check notes (as of June 2026): Memphis, Philadelphia, Pittsburgh, St. Louis, New Orleans, Columbus, Kansas City, Tampa, St. Paul, Wilmington DE. This list may grow or shrink with annual review.
+Cities carrying a Neighborhood Reality Check note are deliberately not enumerated here. The set changes with every build, and a stale roster in a governing document is worse than no roster. The enumeration of record is `grep -l 'reality-check-eyebrow' cities/*/profile.html`, which returned 17 profiles on July 25, 2026.
 
 The canonical closing phrase for the note is: *"Use the citywide figure as a starting reference; the realistic budget depends on neighborhood choice."*
 
@@ -50,7 +51,7 @@ Editorial judgment, not a binary test. Useful prompts:
 
 A note is generally warranted when retiree-target neighborhoods sit materially above the citywide figure — enough that a retiree relying on the citywide number alone would significantly underestimate the realistic budget. Where retiree-target neighborhoods cluster near or below the citywide figure, a note adds noise rather than clarity and should be omitted.
 
-The 10 cities currently carrying notes (Section 2) passed this judgment in June 2026. The list is reviewed at each annual rebuild. Cities approaching the editorial line are flagged for explicit review — as of June 2026, Charleston SC and Tampa are watch-list cities where the spread may grow or shrink with future market movement.
+Every city currently carrying a note passed this judgment at its build (Section 2 says how to enumerate them). Those judgments are reviewed at each annual rebuild. Cities approaching the editorial line are flagged for explicit review: as of June 2026, Charleston SC and Tampa are watch-list cities where the spread may grow or shrink with future market movement.
 
 ## 5. Documentation in the database
 

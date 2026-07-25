@@ -202,6 +202,85 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-25 - BATCH: a closed museum, a stale NRC roster, and a property-tax premise that was wrong
+
+**Four items in, four items out, four boarded.** No new files, no city builds. Every edit shipped
+through `apply-batch.py` against a fresh clone; `python3 tools/validate.py --local .` returned
+0 failures, 0 warnings before and after.
+
+**1. Gilcrease Museum, the second and third surfaces.** The July 24 Tulsa build caught this in the
+profile and boarded the other two. Both are now closed. `top-cities-for-arts-lovers.html` and
+`docs/arts-lovers-cities-scoring-analysis.md` now read `Gilcrease Museum (reopens spring 2027)` and
+`Gilcrease Museum (closed for rebuild since 2021, reopens spring 2027)` respectively. Verified
+before writing: closed since 2021, reopening spring 2027 rather than 2026, and $140.9M against an
+original $83.6M plan, which is the roughly 70% overrun the board recorded. **Marked, not deleted.**
+The collection is a real reason Tulsa scores 8.5 on the arts list, and deleting the name would have
+quietly weakened a tier rationale to fix a status error.
+
+**Swept the other city pages for the same shape, and found no second instance.** Checked every
+`city-teams` strip on all seven landing pages. Three near misses, all cleared: Park Square Theatre
+(St. Paul) survived its 2023 fiscal crisis and is producing a five-play Hatcher cycle; the Minnesota
+Museum of American Art is open Thursday to Sunday; and the Diana Wortham Theatre was **not** renamed
+out of existence, it is the 500-seat main stage inside the Wortham Center complex, so the arts card
+is correct as written. Two real finds, both boarded rather than shipped, see below.
+
+**2. The NRC roster was not two cities behind. It was seven, and one city did not exist.**
+`PROFILE-FORMATTING.md` listed ten. The board said twelve. `grep -l 'reality-check-eyebrow'
+cities/*/profile.html` returns **17**. The eight undocumented cities are Fort Collins, Knoxville,
+Miami, Prescott, Roanoke, San Antonio, Savannah and Tulsa. Worse, the listed tenth city was
+**Wilmington DE, which has no profile at all** and therefore has never carried a callout on any
+surface. It had been sitting in a governing document since June.
+
+**Both docs were carrying the roster, so fixing one would only have relocated the bug.**
+`MEDIAN-HOME-METHODOLOGY.md` v1.2 states the principle correctly in sections 1 and 2, that the note
+is a universal editorial mechanism with no quantitative threshold, and then contradicts itself by
+enumerating ten cities in section 2 and calling them "the 10 cities" in section 4. Both
+enumerations are gone. `PROFILE-FORMATTING.md` now governs structure and placement only and defers
+to MEDIAN-HOME-METHODOLOGY section 4 for the when, with an explicit instruction not to reintroduce
+a list. **A governing document should hold the test, not the answers.** A roster in a doc is a
+snapshot that starts rotting the moment the next profile ships; the repo already knows the answer
+and cannot be out of date with itself.
+
+**Judgment call, flagged for override.** MEDIAN-HOME-METHODOLOGY was corrected **within v1.2**
+rather than bumped to v1.3. The roster was descriptive and the doc's own section 2 already called
+it editorial, so no methodology changed. Bumping would have stranded the
+`per MEDIAN-HOME-METHODOLOGY.md v1.2` comment in all 17 NRC profiles, which is a 17-file cascade to
+buy nothing. A dated correction line sits in the doc header instead. PROFILE-FORMATTING did change
+substantively and went 1.5 to 1.6.
+
+**3. The property-tax item had a false premise, and the sweep is the finding.** The board read
+"index.html says 0.77, DB says 0.79, one is wrong." Neither was wrong in the way that implies.
+`D5-TAX-METHODOLOGY.md` section 2 defines `PropTax Rate %` as **one value per state**, and the DB
+holds exactly one value per state across all 39 states in the file. The `index.html` D5 enrichment
+carries **county or city** rates, and several say so in the prose (Nueces, Tarrant, Williamson,
+Escambia counties). A sweep of all 38 property-tax figures in the enrichment found **17 cities**
+where the two disagree by design. That is not 17 bugs; it is two fields measuring two different
+things, which nothing in the docs says out loud.
+
+**Tulsa was a real error for a reason specific to Tulsa: it is the only Oklahoma city in the
+database.** With no other OK row there is no city-versus-state distinction to preserve, so the two
+fields should agree and they did not. 0.77 also matched nothing external: sourced Tulsa County
+effective rates run 0.94% to 1.06%, so 0.77 was not a county figure that had been correctly
+recorded. Fixed to 0.79 in both places it appears, the pros bullet and the D5 scoreNote, matching
+the DB, `cities/tulsa/profile.html` (which computes 0.79% as roughly $2,370 on a $300K home), and
+the D5 methodology. The paired median bill of $1,672 stays: at 0.79% it implies a home of about
+$212K, which is the right order for the Tulsa County median.
+
+**4. The one-line residue was the Wilmington DE phantom**, closed as part of item 2. The two other
+finds are both genuinely more than one line and were boarded rather than expanded into:
+`top-cities-for-sports-fans.html` still lists `Mullett` on the Scottsdale card, but the Arizona
+Coyotes were sold and relocated to Utah in April 2024, so that is a text edit **plus** a pill
+recount from `5+ teams` to `4 teams`. And the Memphis `Brooks Museum of Art` entries are correct
+today and become wrong in autumn 2026 when it closes in Overton Park and reopens downtown as the
+**Memphis Art Museum**, so they are dated rather than deferred.
+
+**The lesson that keeps recurring, one level further out again.** July 19 caught a UNESCO claim.
+July 24 caught a closed museum in a profile. July 25 caught the same museum on two more surfaces, a
+roster that had drifted seven cities in one month, and a phantom city sitting in a governing doc.
+**In every case the repo already held the right answer and a document held a copy of it.** The
+Gilcrease status lived in the world, the NRC list lived in the profiles, the property tax lived in
+the DB. Every one of these bugs is a cached copy that nobody invalidated. Prefer a query to a list.
+
 ### 2026-07-24 (second push) - Tulsa, OK profile; a closed museum caught pre-publish; build hand-off format standardized
 
 **Shipped.** `cities/tulsa/profile.html`, profile 46, plus hero/detail/lifestyle photos. Built from a

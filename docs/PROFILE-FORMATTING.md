@@ -1,7 +1,7 @@
 # PROFILE FORMATTING
 
-**Version:** 1.5
-**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4); guide-page em-dash sweep completed and enforcement extended to guides July 14, 2026 (v1.5)
+**Version:** 1.6
+**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4); guide-page em-dash sweep completed and enforcement extended to guides July 14, 2026 (v1.5); NRC fixed list removed in favour of the live-repo enumeration July 25, 2026 (v1.6)
 **Supersedes:** `BOLDING-CONVENTION.md` v2.1
 **Canonical reference:** `cities/st-louis/profile.html`
 
@@ -226,20 +226,17 @@ Touch any profile during future edits and confirm no em-dash reintroduction via 
 
 ## Neighborhood Reality Check callout
 
-The ten NRC cities require an above-fold Reality Check callout under the editorial rule that the citywide ZHVI figure understates the realistic budget for retiree-target neighborhoods:
+A Neighborhood Reality Check callout sits above the fold on any profile where the citywide ZHVI figure would understate the realistic budget for retiree-target neighborhoods. It is a universal editorial mechanism, not a property of a fixed roster of cities. Any profile may carry one, and the call is made at build time.
 
-- Memphis
-- Philadelphia
-- Pittsburgh
-- St. Louis
-- New Orleans
-- Columbus
-- Kansas City
-- Tampa
-- St. Paul
-- Wilmington DE
+`MEDIAN-HOME-METHODOLOGY.md` v1.2 section 4 is the governing test for **when** a callout is warranted. This document governs only its **structure and placement**.
 
-These are cities where the citywide ZHVI median significantly understates what retirees actually pay because retiree-target neighborhoods run substantially higher. The list is editorial, not defined by a fixed quantitative threshold; see MEDIAN-HOME-METHODOLOGY.md v1.2 for the governing rationale.
+**Do not maintain a list of NRC cities in this document.** Versions 1.2 through 1.5 enumerated ten. That list was stale within a month, ran seven cities behind by late July, and named Wilmington DE, which has no profile and therefore never carried a callout at all. The enumeration of record is the live repo:
+
+```bash
+grep -l 'reality-check-eyebrow' cities/*/profile.html
+```
+
+That returned 17 profiles on July 25, 2026.
 
 ### Structure
 

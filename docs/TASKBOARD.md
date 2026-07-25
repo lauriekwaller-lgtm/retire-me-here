@@ -4,7 +4,12 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 24, 2026 (Tulsa, OK profile shipped, profile 46; Tulsa card on
+**Last updated:** July 25, 2026 (BATCH: Gilcrease Museum corrected on the arts landing card and
+in the arts scoring doc; NRC fixed list removed from PROFILE-FORMATTING.md and
+MEDIAN-HOME-METHODOLOGY.md, live count is 17 not 10; Tulsa property tax 0.77% -> 0.79% in
+index.html; Wilmington DE phantom NRC entry removed. Four items boarded, see below.)
+
+**Previously:** July 24, 2026 (Tulsa, OK profile shipped, profile 46; Tulsa card on
 best-places-to-retire-on-a-budget.html promoted from coming-soon to a live link; two Saint Francis
 "largest hospital" claims retired to the ledger. Earlier the same day: Roanoke, VA shipped as profile
 45, with four stale Roanoke index.html figures fixed en route: $280K->$251K, hospital 16->15, D1
@@ -182,18 +187,55 @@ Standard deploy block:
 - **Next in queue:** open. Roanoke and Tulsa both shipped Jul 24.
 - Live profiles: 46. Tulsa shipped Jul 24; Roanoke the same day; San Antonio Jul 19; Fort Collins,
   Prescott, Knoxville and Savannah shipped earlier in the same window.
-- San Antonio carries a Neighborhood Reality Check callout, making it the 11th NRC city, and Tulsa
-  makes it 12 (citywide $194K against retiree-target $300K-$500K, the exact gap the note exists for).
-  `PROFILE-FORMATTING.md` still lists ten and is now two behind.
-- **Tulsa follow-ups (not blocking the push):**
+- NRC city count: **17 profiles carry a callout**, not 10 and not 12. Both the June count and the
+  Jul 24 "San Antonio makes 11, Tulsa makes 12" note were wrong. Closed Jul 25: neither
+  `PROFILE-FORMATTING.md` nor `MEDIAN-HOME-METHODOLOGY.md` enumerates NRC cities any more. The
+  enumeration of record is `grep -l 'reality-check-eyebrow' cities/*/profile.html`. Do not
+  reintroduce a list in either doc.
+- **Tulsa follow-ups:**
   - `pick-and-compare.html` carries Tulsa at `d2:7`; DB and `index.html` both say **D2 = 9**. Stale.
-  - `index.html` enrichment gives Tulsa property tax 0.77%; DB says 0.79. Profile uses the DB.
-  - `top-cities-for-arts-lovers.html` lists Gilcrease Museum on the Tulsa card as a live asset. It
-    has been closed since 2021 and now reopens spring 2027, a year late and ~70% over budget.
+    Part of the 72-score job boarded Jul 23, not a Tulsa-specific fix.
   - Detail photo resolved Jul 24: Boston Avenue Methodist Church, CPacker at English Wikipedia,
     CC BY 2.0, credited on the image and in the footer with a license link and a cropped note.
-  - `docs/arts-lovers-cities-scoring-analysis.md` names Gilcrease in the Tulsa Tier 2 rationale
-    too. Same correction needed on both surfaces.
+  - Gilcrease Museum: CLOSED Jul 25 on both surfaces (landing card and scoring doc), marked as
+    reopening spring 2027 rather than deleted, since the collection still earns Tulsa its arts tier.
+  - `index.html` Tulsa property tax: CLOSED Jul 25, 0.77% -> 0.79% in both the pros bullet and the
+    D5 scoreNote.
+
+---
+
+## ACTIVE - boarded July 25, 2026 (BATCH: Gilcrease, NRC list, Tulsa PropTax)
+
+- **`top-cities-for-sports-fans.html` Scottsdale card names a franchise that left in 2024.** The
+  card reads `Cardinals · Diamondbacks · Suns · Mullett · Mercury (WNBA) · Cactus League spring
+  training` with a `5+ teams` pill. Mullett Arena was the Arizona Coyotes' venue; the NHL board of
+  governors approved the sale and relocation to Utah in April 2024 and the Phoenix metro has had no
+  NHL team since. The site already knows this, because the Salt Lake City card correctly reads
+  `Mammoth`. Fix is two lines, not one, which is why it was boarded rather than shipped Jul 25:
+  drop `Mullett ·` from line 584, and change the pill on line 586 from `5+ teams` to `4 teams`
+  (Cardinals, Diamondbacks, Suns, Mercury). Decide separately whether Cactus League counts.
+- **Memphis card and arts doc will go stale in autumn 2026.** `top-cities-for-arts-lovers.html` and
+  `docs/arts-lovers-cities-scoring-analysis.md` both name `Brooks Museum of Art`. It is genuinely
+  open in Overton Park today, so nothing was changed. It closes there in autumn 2026 and reopens
+  downtown in December 2026 as the **Memphis Art Museum**. Two edits, both dated, both known now.
+  Do them at the autumn close, not before.
+- **Enrichment-vs-DB property tax is a category mismatch, not a set of bugs.** The Jul 24 board read
+  "index.html says 0.77, DB says 0.79, one is wrong". The premise was wrong. `D5-TAX-METHODOLOGY.md`
+  section 2 defines `PropTax Rate %` as **one value per state**, and the DB holds exactly one value
+  per state across all 39 states. The `index.html` D5 enrichment carries **county or city** rates,
+  several of which name their county in the prose (Nueces, Tarrant, Williamson, Escambia). A sweep
+  of all 38 property-tax figures in the enrichment found 17 cities where the two disagree by design:
+  Ann Arbor, Burlington, Charleston, Charlottesville, Corpus Christi, Delray Beach, Fort Myers,
+  Fort Worth, Georgetown, Greenville, Miami, Naples, Pensacola, Provincetown, Sarasota, Tampa,
+  Traverse City. None of these is a bug. Tulsa was the one real error only because it is the sole
+  Oklahoma city, so there is no city-versus-state distinction to preserve, and 0.77 matched neither
+  the state figure nor any sourced Tulsa county rate (which run 0.94% to 1.06%). **Open question,
+  not a defect:** neither doc says the enrichment may hold county rates. Either write that down in
+  `D5-TAX-METHODOLOGY.md` or add the `Local Tax Adj` column that doc already proposes.
+- **Institution-status checks are still manual.** Gilcrease was caught twice by hand. The validator
+  cannot know whether a named museum is open. Consider a thin `docs/INSTITUTION-WATCH.md` listing
+  every named institution with a known status change and its date, so landing cards get checked on a
+  schedule instead of when someone happens to notice.
 
 ---
 
