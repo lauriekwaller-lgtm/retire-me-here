@@ -129,6 +129,27 @@ what it expected.
 **So: if a chat hands you a zip with `index.html` in it, do not unzip it.** Ask for a patch script
 instead. This is not a preference. It is the rule in section 4a with the mechanics attached.
 
+### Images, and anything else a script cannot diff
+
+A patch script can edit HTML and markdown. It cannot edit a JPEG. Photos and other binaries are
+always dragged, never patched.
+
+**Drag them to the repo root, then move them with one line.** Never into a nested folder, never
+hand-renamed first:
+
+```bash
+mv tulsa-detail.jpg cities/tulsa/detail.jpg
+```
+
+Dropping a file into the Explorer puts it wherever you release the mouse, and the root is the
+easiest place to hit by accident. A hand-rename plus an aimed drag is two chances to go wrong with
+no error message either way. One `mv` line does both and complains if the path is wrong. This has
+already gone wrong once: on July 24 a replacement Tulsa photo landed at the root while
+`profile.html` was correctly updated, so the live page credited one image and displayed another.
+
+`.gitignore` also carries `apply-*.py` now, so a one-time script cannot reach a commit whatever
+order you run things in.
+
 ---
 
 ## 5. Which validator command, and why it matters
@@ -232,4 +253,4 @@ Steps 4 and 5 are the two you will be tempted to skip. They are the two that pay
 
 ---
 
-*RetireMeHere.com · DEPLOY-CHEATSHEET.md v1.1 · July 24, 2026*
+*RetireMeHere.com · DEPLOY-CHEATSHEET.md v1.2 · July 24, 2026*

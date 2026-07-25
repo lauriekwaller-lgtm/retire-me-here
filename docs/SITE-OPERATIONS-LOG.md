@@ -263,9 +263,21 @@ existing file is edited by script, never shipped as a copy.**
 
 **Found, boarded, NOT fixed here.** `top-cities-for-arts-lovers.html` lists Gilcrease on the Tulsa
 card as an open institution. `index.html` enrichment gives Tulsa `PropTax` 0.77% against the DB 0.79%.
-`PROFILE-FORMATTING.md` NRC list is two cities behind. Tulsa's detail photo is a placeholder pending a
-better vertical. Tulsa's `pick-and-compare.html` D2 of 7 against the DB 9 is one of the 72 stale D2
+`PROFILE-FORMATTING.md` NRC list is two cities behind. Tulsa's `pick-and-compare.html` D2 of 7 against the DB 9 is one of the 72 stale D2
 scores already boarded on July 23, not a new finding.
+
+**Same-day photo swap, and two process failures.** The detail photo shipped as a placeholder and was
+replaced the same day with Boston Avenue Methodist Church (CPacker at English Wikipedia, CC BY 2.0),
+credited on the image and in the footer with a license link and a cropped note. **A CC BY image
+cannot ship until the author name is in hand; the license text alone is not enough.** Two failures,
+both caused by the deploy instructions rather than the operator. The one-time patch scripts were
+committed twice, because the hand-off put `rm apply-<city>.py` after `git push` while `git add -A`
+ran before it. `apply-*.py` is now in `.gitignore`: **a guard that has to be remembered will
+eventually be forgotten, so it belongs in the tooling.** Separately, the replacement photo was
+committed to the repo root because the instruction asked for a hand-rename plus a drag into a nested
+folder, and for a period the live page credited Boston Avenue while displaying the Prayer Tower.
+**Images are dragged to the repo root and moved with one `mv` line; never hand-renamed, never
+dragged into a subfolder.**
 
 **Landing pages.** `top-cities-for-arts-lovers.html` already carried a live Tulsa card.
 `best-places-to-retire-on-a-budget.html` carried Tulsa as a `coming-soon` div, promoted to a live

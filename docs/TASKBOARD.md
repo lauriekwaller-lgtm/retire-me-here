@@ -190,7 +190,10 @@ Standard deploy block:
   - `index.html` enrichment gives Tulsa property tax 0.77%; DB says 0.79. Profile uses the DB.
   - `top-cities-for-arts-lovers.html` lists Gilcrease Museum on the Tulsa card as a live asset. It
     has been closed since 2021 and now reopens spring 2027, a year late and ~70% over budget.
-  - Detail photo is a placeholder (ORU Prayer Tower); swap for Art Deco downtown, Cain's, or Route 66.
+  - Detail photo resolved Jul 24: Boston Avenue Methodist Church, CPacker at English Wikipedia,
+    CC BY 2.0, credited on the image and in the footer with a license link and a cropped note.
+  - `docs/arts-lovers-cities-scoring-analysis.md` names Gilcrease in the Tulsa Tier 2 rationale
+    too. Same correction needed on both surfaces.
 
 ---
 
