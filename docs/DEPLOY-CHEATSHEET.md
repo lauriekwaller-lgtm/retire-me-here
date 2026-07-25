@@ -74,7 +74,64 @@ and Git says 47, something in the zip was built wrong. Find out before you commi
 
 ---
 
-## 4. Which validator command, and why it matters
+## 4. What a build chat hands you, and what you do with it
+
+Every build chat delivers the same two things in the same shape. If a chat gives you something else,
+it is the chat that is wrong, not you.
+
+**A zip, containing only files that do not exist in the repo yet**, already in their final paths:
+
+```
+cities/tulsa/profile.html
+cities/tulsa/hero.jpg
+cities/tulsa/detail.jpg
+cities/tulsa/lifestyle.jpg
+docs/DEPLOY-tulsa.md
+apply-tulsa.py
+```
+
+Final paths and final names. No `tulsa-hero.jpg` to rename by hand, no folder to create. Unzip at the
+repo root and everything lands where it belongs.
+
+**A patch script, `apply-<city>.py`, holding every edit to a file that already exists.** Typically
+`index.html`, `sitemap.xml`, a landing page, `TASKBOARD.md`, `SUPERLATIVE-LEDGER.md`. It runs from the
+repo root, it is idempotent, and it refuses to write anything at all if any anchor text has moved.
+
+Then the deploy is the same eight lines for every city:
+
+```bash
+git pull                                  # first, always
+unzip -o tulsa-bundle.zip                 # new files land in final paths
+rm tulsa-bundle.zip
+python3 apply-tulsa.py                    # edits the existing files
+python3 tools/validate.py --local .       # the gate. 0 failures or stop.
+git status                                # does the count match what you expect?
+git add -A && git commit -m "Tulsa OK profile (46); budget card live; ledger + taskboard"
+git push
+rm apply-tulsa.py                         # one-time script, never committed
+```
+
+### Why the existing files are not in the zip
+
+Because of section 4a, and because of what happened on July 14. A build chat pulls `index.html` at the
+start of a session and hands it back an hour later. Anything that landed in between is silently
+reverted when you unzip the older copy over your pulled tree.
+
+The July 14 Knoxville deploy did exactly that and reintroduced five dataset-scoped superlatives that
+had been cleaned from live `index.html` in the interim. The gate caught it, with 5 errors, **but only
+because those five were a hard-FAIL class.** A whole-file zip that reverts a corrected photo credit, a
+rewritten blurb, or a reciprocal link reverts it silently and ships. The validator has no idea it was
+ever different.
+
+A patch script cannot do this. It changes one line and fails loudly if the surrounding text is not
+what it expected.
+
+**So: if a chat hands you a zip with `index.html` in it, do not unzip it.** Ask for a patch script
+instead. This is not a preference. It is the rule in section 4a with the mechanics attached.
+
+---
+
+## 5. Which validator command, and why it matters
 
 ```bash
 python3 tools/validate.py --local .       # PRE-deploy. Reads the files on your disk.
@@ -93,7 +150,7 @@ believe a failure is wrong, that is a bug in the validator, and the fix goes in 
 
 ---
 
-## 5. Commit messages
+## 6. Commit messages
 
 You are the only person who will ever read these, which is exactly why they matter. In six months, the
 change log and the commit history are the only record of why the site is the way it is.
@@ -106,7 +163,7 @@ Write what changed and where.
 
 ---
 
-## 6. When it goes wrong
+## 7. When it goes wrong
 
 **"nothing to commit, working tree clean"** right after you dropped a file in.
 The file is not where you think it is. Run `git status`. If Git cannot see it, you dropped it in the
@@ -132,7 +189,7 @@ on GitHub means Netlify never saw anything, and the problem is upstream of Netli
 
 ---
 
-## 7. Rules that live above this document
+## 8. Rules that live above this document
 
 These are from SITE-OPERATIONS-LOG.md sections 4a through 4c and are repeated here because they are
 easy to violate during a deploy.
@@ -152,26 +209,27 @@ sitemap.
 
 ---
 
-## 8. Full deploy, start to finish
+## 9. Full deploy, start to finish
 
 The whole thing, in the order you actually do it.
 
 ```bash
 git pull                                  # 1. get current
                                           # 2. make your change (drop file, unzip, or edit)
-git status                                # 3. does Git see what you expect, and nothing else?
-python3 tools/validate.py --local .       # 4. exit 0 or stop
-git add <the files you meant>             # 5. stage deliberately
-git commit -m "<what changed and where>"  # 6. snapshot it
-git push                                  # 7. ship
-                                          # 8. watch the Netlify deploy log
-                                          # 9. verify live in an incognito window
-python3 tools/validate.py                 # 10. optional: confirm against live
-                                          # 11. log it in ops log section 7
+python3 apply-<city>.py                   # 3. edits to existing files, if the build sent one
+git status                                # 4. does Git see what you expect, and nothing else?
+python3 tools/validate.py --local .       # 5. exit 0 or stop
+git add <the files you meant>             # 6. stage deliberately
+git commit -m "<what changed and where>"  # 7. snapshot it
+git push                                  # 8. ship
+                                          # 9. watch the Netlify deploy log
+                                          # 10. verify live in an incognito window
+python3 tools/validate.py                 # 11. optional: confirm against live
+                                          # 12. log it in ops log section 7
 ```
 
-Steps 3 and 4 are the two you will be tempted to skip. They are the two that pay for themselves.
+Steps 4 and 5 are the two you will be tempted to skip. They are the two that pay for themselves.
 
 ---
 
-*RetireMeHere.com · DEPLOY-CHEATSHEET.md v1.0 · July 14, 2026*
+*RetireMeHere.com · DEPLOY-CHEATSHEET.md v1.1 · July 24, 2026*

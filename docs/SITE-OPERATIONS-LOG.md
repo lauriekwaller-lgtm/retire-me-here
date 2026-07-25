@@ -202,6 +202,84 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-24 (second push) - Tulsa, OK profile; a closed museum caught pre-publish; build hand-off format standardized
+
+**Shipped.** `cities/tulsa/profile.html`, profile 46, plus hero/detail/lifestyle photos. Built from a
+live pull of the canonical `cities/st-louis/profile.html`. All dimension scores, `Monthly Est`, and
+`Median Home` read from `docs/CityDatabase_Jul_23_v16_6_nohighlight.xlsx` row 96 (D1 7 / D2 9 / D3 8 /
+D5 7 / D6 5 / D7 5 / D8 6 / D9 7 / D10 8, D4 Resil 4, Range 1, $4,200-$5,300/mo, $194,000). Research
+used only for supporting color: Saint Francis and Ascension St. John credentials, Gilcrease
+construction status, Route 66 centennial dates, Oklahoma retirement-tax rules.
+
+**Emphasis brief.** One pillar at 9 (D2 Budget) with D3 Health and D10 Community both at 8 and
+D1/D5/D9 at 7. MULTI-STRENGTH, not MULTI-PILLAR, so the hero leads with value and the
+culture-plus-healthcare cluster carries real weight in the character section rather than fading behind
+the price story. The hard-flagged counterweight is D4 Resilience at 4, Tornado Alley, which leads the
+"Skip if" column alongside summer heat (`Climate Hot Sum` 3, HEAT 8).
+
+**Bug caught pre-publish: a museum that has been closed for five years.** The first draft listed
+Gilcrease Museum among Tulsa's open institutions, which is what `top-cities-for-arts-lovers.html` shows
+on its Tulsa card and what `docs/arts-lovers-cities-scoring-analysis.md` lists in the Tier 2 rationale.
+Gilcrease has been closed since 2021. Its replacement building now opens spring 2027, a year later
+than planned and roughly 70% over budget at $140.9M total. Corrected before publish: the profile
+treats it as under construction with a dated reopening. **Consequence: a landing-page card and a
+scoring-analysis doc record why a city earned a tier, not whether each named institution is currently
+open.** Institution status is a live fact and needs checking at build time, the same lesson as the
+July 19 San Antonio UNESCO claim, one level further out.
+
+**NRC callout added off-list.** Citywide `Median Home` $194,000 against retiree-target neighborhoods
+at $300K-$500K, with the Maple Ridge mansion blocks past seven figures. MEDIAN-HOME-METHODOLOGY.md
+v1.2 treats the Neighborhood Reality Check as a universal editorial mechanism rather than a fixed
+list, so the callout was added and approved. Tulsa is the twelfth NRC city. `PROFILE-FORMATTING.md`
+still says ten and is now two behind, San Antonio having made eleven on July 19.
+
+**Superlative handling: copy tightened before the ledger, not instead of it.** The Saint Francis bed
+count fired three UNREVIEWED warnings for one fact, across the health card, a fit bullet, and the
+JSON-LD FAQ. Rather than ledger the same claim three times, the vague hedge "among the largest in the
+country" was replaced with the sourced figure "the 11th largest in the nation", and the redundant
+third mention was cut from the fit bullet. Two ledger rows remain, both TRUE, evidenced to Saint
+Francis Health System and the Premier 15 Top Health Systems 2025 study. **The ledger is for claims
+that cannot be improved, not for claims that have not been edited yet.**
+
+**Affiliate codes live.** Expedia `TtKUzzx`, Vrbo `W5AR3HO`, from the operator's
+`visit-block-affiliate-codes.numbers`, both with `rel="sponsored nofollow"`. Note the sheet has blank
+State cells on its last four rows (Tulsa, Virginia Beach, Iowa City, Carmel); the codes themselves are
+in the correct columns, verified by cross-checking the St. Louis row against the live St. Louis
+profile.
+
+**Build hand-off format standardized.** The operator flagged that consecutive build chats deliver
+their files in different shapes, which is true and was costing a rename step or a wrong-folder drop
+each time. Reviewing `roanoke-deploy.zip` against this build: that zip carried whole copies of
+`index.html` (674K), `sitemap.xml`, `best-places-to-retire-on-a-budget.html`, `TASKBOARD.md`,
+`SUPERLATIVE-LEDGER.md`, and `SITE-OPERATIONS-LOG.md`, against section 4a. All six happened to be
+byte-identical to live main, so nothing was reverted, but that is the empty-window case rather than a
+safe method. The July 14 Knoxville near-miss is the same pattern caught only because the reverted
+content was itself a hard-FAIL class; a whole-file zip that reverts a corrected photo credit or a
+reciprocal link ships silently. Tulsa shipped instead as a new-files-only bundle plus an idempotent
+patch script (`apply-tulsa.py`) holding every edit to an existing file, each guarded by an exact
+anchor match that refuses to write if the file has drifted. Standard now recorded in
+DEPLOY-CHEATSHEET.md section 4. **New files arrive in a zip already in their final repo paths; every
+existing file is edited by script, never shipped as a copy.**
+
+**Found, boarded, NOT fixed here.** `top-cities-for-arts-lovers.html` lists Gilcrease on the Tulsa
+card as an open institution. `index.html` enrichment gives Tulsa `PropTax` 0.77% against the DB 0.79%.
+`PROFILE-FORMATTING.md` NRC list is two cities behind. Tulsa's detail photo is a placeholder pending a
+better vertical. Tulsa's `pick-and-compare.html` D2 of 7 against the DB 9 is one of the 72 stale D2
+scores already boarded on July 23, not a new finding.
+
+**Landing pages.** `top-cities-for-arts-lovers.html` already carried a live Tulsa card.
+`best-places-to-retire-on-a-budget.html` carried Tulsa as a `coming-soon` div, promoted to a live
+link. No other landing page needed editing.
+
+**Gate.** `python3 tools/validate.py --local .` reads PRE-DEPLOY GATE, 0 failures, 0 warnings,
+verified end to end on a fresh `--depth 1` clone with the patch script applied before hand-off, not
+only on the build machine. Bare post-deploy run confirmed 0 failures, 0 warnings after the push.
+
+**Files changed.** `cities/tulsa/profile.html` (new), three photos (new), one `PUBLISHED_PROFILES`
+line in `index.html`, one url block in `sitemap.xml`, one card in
+`best-places-to-retire-on-a-budget.html`, `SUPERLATIVE-LEDGER.md`, `TASKBOARD.md`,
+`SITE-OPERATIONS-LOG.md`, `DEPLOY-CHEATSHEET.md`.
+
 ### 2026-07-24 - Roanoke, VA profile; four stale index.html figures fixed en route
 
 **Shipped.** `cities/roanoke/profile.html`, profile 45, plus hero/detail/lifestyle photos. Built from
