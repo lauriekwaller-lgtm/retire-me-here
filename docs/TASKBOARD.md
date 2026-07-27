@@ -4,7 +4,27 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026, budget-roster batch (BATCH: `best-places-to-retire-on-a-budget.html`
+**Last updated:** July 27, 2026, nav batch (BATCH: the budget pillar is now in the site
+menu. Added as "Budget-Conscious Retirees" (desktop `index.html`) and "For Budget-Conscious
+Retirees" (everywhere else), sorted between Arts Lovers and Foodies, which is the order the
+dropdown already followed once you ignore the leading "For". 40 files, 80 rows, 2 per file for
+desktop and mobile. Option A of three considered: the item was RENAMED into the "Top Cities
+For..." pattern rather than kept as "On a Budget", because every other item completes that
+heading and "On a Budget" does not. Decided at the same time NOT to add the other three pillars,
+Florida, Midwest and Avoid Natural Disasters: the location lists are thin against a 99-city
+database and do not warrant menu placement yet. Also fixed rather than propagated: the budget
+page already carried "On a Budget" in its own dropdown, alone among 87 files, sitting between
+LGBTQ+ Retirees and Sports Fans, which is alphabetical under no reading. Those 2 rows were
+removed and re-inserted correctly, which is the only deletion in the diff. Nothing hardcodes
+markup: each file's own Arts Lovers row is cloned and its href and label swapped, so absolute
+paths stay absolute on index.html and relative stay relative elsewhere, across all seven nav
+variants. Verified: 40 files at exactly 2 rows each, every href resolves from its own directory,
+every dropdown still alphabetical, diff is 80 insertions and 2 deletions and nothing else.
+Gate 0/0, three harnesses. NOT touched, and this is the real finding: the nav is copy-pasted
+into 87 files in SEVEN variants, and the 46 city profiles carry a stripped 3-link nav with no
+dropdown at all, so they cannot receive menu items without a nav rework. Boarded below.)
+
+**Previously:** July 27, 2026, budget-roster batch (BATCH: `best-places-to-retire-on-a-budget.html`
 rebased on v17. Roster moved from a 31-card set to tier R1's 30. Four came off, Beaufort NC,
 Pensacola FL, Rio Rancho NM and Sioux Falls SD, all now R2; three went on, Indianapolis IN and
 Wilmington DE as coming-soon cards and San Antonio TX as a live card. Per the boarded Jul 27
@@ -448,6 +468,33 @@ Standard deploy block:
   Also flagged while in there, not a v17 error: the passage opens "Of the Florida cities scored on
   RetireMeHere, Pensacola is the cheapest". That is a rank scoped to our own dataset, which is the
   banned shape, and `check_superlatives` does not catch this phrasing. Anchor it to the figure.
+
+- **The site nav is copy-pasted into 87 files in seven variants, and 46 of them cannot take a menu
+  item at all.** Found while adding the budget pillar to the menu. There is no template, no include,
+  no build step: every header is a literal copy. The variants differ in path style (absolute on
+  `index.html`, relative elsewhere), in class names (`nav-dropdown-item` on 38 pages, bare `<a>` on
+  `index.html`), in label form ("Arts Lovers" on index desktop, "For Arts Lovers" on all mobile and
+  all other desktop), and in which top-level links are present (`index.html` alone carries "Plan a
+  Visit"). Three consequences, in the order they will bite:
+    1. The 46 city profiles carry a 3-link nav, Home / Top Cities For... / Find My Match, with NO
+       dropdown. They did not get the budget item and cannot get any future one. Roughly half the
+       site's pages are therefore permanently one menu behind, and a reader who lands on a profile
+       from search sees a different site than one who lands on the homepage.
+    2. `visit-before-you-decide.html` has flat links and no dropdown either, a seventh variant of one.
+    3. Every future menu change is a 40-file edit that must be scripted, and any hand-edit
+       reintroduces drift. The "On a Budget" entry that existed on exactly one page out of 87 is
+       what that looks like after one occurrence.
+  Nothing validates nav parity today, so none of this fails a gate. The cheap first move is a check
+  that asserts every page's dropdown contains the same set of hrefs, which would have caught the
+  single-page "On a Budget" the day it shipped. The real fix is one nav partial and a build step,
+  which is a bigger call about whether this site stays hand-authored HTML.
+
+- **Florida and Midwest pillar titles both claim "The 8 Best Places" and both render six cards.**
+  Noticed while listing the pillars for the menu decision. Not verified further and not fixed: the
+  count may be stale, or the pages may deliberately narrate 8 while carding 6. Worth ten minutes
+  before either page gets promoted anywhere, since the title tag is what search results show.
+  Note `check_hardcoded_counts` does not catch these, for the same reason it missed the "100-city
+  database (v14)" string already boarded: the number is fused into prose it does not scan.
 
 - **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
   elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when
