@@ -1524,6 +1524,12 @@ def check_emdash(rep, idx, sitemap, slug_to_city, local):
         "top-cities-for-hikers.html", "top-cities-for-lgbtq-retirees.html",
         "top-cities-for-sports-fans.html",
         "pick-and-compare.html", "compare-retirement-cities.html",
+        # Added 2026-07-27. Neither page had ever been scanned. That is the
+        # fourth axis of this same blind spot, and the only one that is not
+        # about HOW the check reads: surface, spelling, unresolved target --
+        # and now plain TARGET MEMBERSHIP. Each carried exactly one live em
+        # dash on the day it was added.
+        "privacy.html", "scouting-trip-workbook.html",
     ]
     if GUIDES_TOO:
         named += ["value-navigator.html", "active-frontier.html",

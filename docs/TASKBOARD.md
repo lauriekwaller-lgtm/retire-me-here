@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026, latest (OPS: VALIDATOR HARNESS REPAIR SHIPPED, commit
+**Last updated:** July 27, 2026, batch (BATCH: three stale prose home figures corrected
+and two unscanned pages brought under the `emdash` check. Philadelphia `$234K` x2 ->
+`$237K`, New Orleans `$246K` -> `$248K`, matching v17 and matching the correct figure each
+file already carried elsewhere. `privacy.html` and `scouting-trip-workbook.html` added to
+the `emdash` named target list and their one em dash each converted. The feared sprawl did
+not happen: both pages held exactly one, and a raw scan finds nothing further in either
+file, not even in `<style>` or comments. Gate 0/0 on a fresh clone, both harnesses ran.
+Three planted-error tests confirm the two new targets are genuinely scanned rather than
+silently clean, including the escaped `&mdash;` form. Note what this does NOT close: the
+coverage gap that let the three figures live is still open, see the item below.)
+
+**Previously:** July 27, 2026, latest (OPS: VALIDATOR HARNESS REPAIR SHIPPED, commit
 `b13edf1`. `tools/test_highlight_homes.py` no longer hardcodes home figures; it reads them from
 the DB at runtime through validate.py's own loader, so the next annual ZHVI refresh cannot break
 it again. Both harnesses are now a `harness` check group and gate the deploy. Gate 0/0 on a fresh
@@ -122,25 +133,32 @@ Standard deploy block:
 
 ## ACTIVE - batch / site-wide operations
 
-- **LIVE: three stale home figures in profile PROSE, uncovered by any check.** Philadelphia's
-  profile states `$234K` twice and New Orleans states `$246K` once, against v17 values of
-  `$237,000` and `$248,000`. Both profiles ALSO carry the correct rebased figure elsewhere in the
-  same file, so each one contradicts itself. Correction to the earlier framing of this item: these
-  are NOT in the JSON-LD. A scan of every `ld+json` block on both profiles finds zero occurrences;
-  all three sit in visible bolded body copy. That makes them reader-facing, not just
-  search-result-facing, and it means the covering check has to reach profile prose, not just the
-  structured blocks. The July 27 rebase re-derived every surface it covers and left these three
-  untouched, which is the precise measure of the gap. Fix belongs with the profile stat-card + FAQ
-  figure check already boarded below.
+- **Three stale home figures in profile PROSE: FIXED Jul 27. The GAP THAT ALLOWED THEM IS STILL
+  OPEN.** Philadelphia `$234K` x2 -> `$237K` and New Orleans `$246K` -> `$248K`, both now equal to
+  v17 and to the correct figure each file already carried elsewhere. Read the fix narrowly: three
+  characters of drift were corrected by hand, and nothing was built that would catch the fourth.
+  Profile prose remains outside every figures check. One detail the earlier framing got slightly
+  wrong and worth keeping straight, because it changes what a covering check has to match: the
+  three were described as visible BOLDED body copy, and two of them are, but Philadelphia's second
+  (`that $234K figure is citywide`) sat in plain unbolded prose inside the same `<span>`. A matcher
+  keyed to `<strong>` would have found two of three and reported the surface handled. Confirmed
+  correct: none of the three was in JSON-LD. Real fix is the profile stat-card + FAQ figure check
+  boarded below, which must reach prose, bolded or not.
 
-- **Two live em dashes sit on pages the `emdash` check has never scanned.** `privacy.html` line 12,
-  in the `<title>`, and `scouting-trip-workbook.html` line 1020, in a rendered `<span>`. Neither page
-  is in the check's target list, which is the FOURTH axis of the same blind-spot family (surface,
-  target membership, spelling, and now coverage). Left alone in the Jul 23 push on purpose: adding
-  them breaks the invariant that push was verified against, which was that every page except the five
-  being converted reads zero. Small job: add both to the named target list, convert the two, re-run.
-  The check now fails loudly on a named target that matches no file, so the list can be trusted once
-  it is right.
+- **Em-dash target list: two pages added Jul 27, two remain out, both already clean.**
+  `privacy.html` and `scouting-trip-workbook.html` are now named targets and their one em dash each
+  is converted (the `<title>` moved to the ` | RetireMeHere` form the other 88 titles use; the
+  workbook label took a comma). The risk boarded against this job did not materialise: the workbook
+  is long, but a raw scan of both files finds exactly one em dash each and nothing else, in any
+  region, scanned or not. Nothing to defer.
+  What the sweep turned up: only TWO top-level pages are still outside the target list,
+  `visit-before-you-decide.html` and `where-should-i-retire-quiz.html`, and both already read zero
+  on both surfaces today. Adding them is a two-line edit that converts nothing and closes the
+  target-membership axis for the whole top level. Deliberately not done here, because a target
+  added is a target that must stay true and this chat was scoped to two characters.
+  Also unscanned and out of scope by nature: `scouting-trip-workbook.pdf`, a separate built
+  artifact that no HTML check reaches. If it was generated from the HTML it now differs from it by
+  one label. Worth a look next time the workbook is regenerated, not before.
 
 - **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
@@ -549,6 +567,17 @@ Unlocks pending a build:
 ---
 
 ## RECENTLY SHIPPED (rolling, trim as it grows)
+
+- Jul 27, 2026 (batch): STALE PROSE FIGURES + EM-DASH TARGET LIST. Six edits in five files
+  through one idempotent `apply-batch.py`, marker-gated per edit rather than keyed to the old
+  string being gone. Philadelphia `$234K` x2 -> `$237K`, New Orleans `$246K` -> `$248K`.
+  `privacy.html` + `scouting-trip-workbook.html` added to `check_emdash`'s named list, one em
+  dash converted on each. Gate: `PRE-DEPLOY GATE`, 0 failures / 0 warnings on a fresh clone,
+  harnesses 18/18 and 10/10. Planted-error tested three ways, because a passing gate on a newly
+  added target proves nothing on its own: a literal em dash planted in `privacy.html` fails, an
+  ESCAPED `&mdash;` planted in the workbook fails (so the new targets run through
+  `emdash_forms()`, not a literal scan), and a deliberately misspelled target name still trips
+  the matched-no-file failure. Control run after each: 0/0.
 
 - Jul 23, 2026 (second push): EM-DASH CHECK REBUILT + DB `Highlight` COLUMN DELETED (**v16_6**).
   `docs/CityDatabase_Jul_23_v16_5_highlights.xlsx` -> **`docs/CityDatabase_Jul_23_v16_6_nohighlight.xlsx`**;
