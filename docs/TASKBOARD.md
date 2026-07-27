@@ -352,6 +352,13 @@ Standard deploy block:
   and the tier have been describing different rules all along; the page only ever sat close to R1 by
   luck. Pick one basis and restate the prose to match, because a reader can check that claim against
   the numbers printed on the same page. Recommendation: keep R1, say "central estimate".
+  **DECIDED Jul 27, 2026: keep R1.** The roster is tier R1 and the prose is restated to describe
+  the CENTRAL estimate, not the low end of the published range. Rationale: R1 is the basis the quiz
+  and the DB actually use, so the page then agrees with the rest of the site instead of inventing a
+  private rule, and 47 cards is a worse page than 30. Consequence to carry into the fix: the
+  methodology sentence must stop saying "starts under about $5,500", because that sentence is what
+  currently justifies keeping Beaufort, Pensacola, Rio Rancho and Sioux Falls. Roster and prose move
+  in the SAME commit; shipping either alone leaves the page contradicting itself.
 
 - **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
   elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when
