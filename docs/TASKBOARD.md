@@ -4,7 +4,15 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026 (OPS: ZHVI REBASE SHIPPED. `Median Home` rebuilt for all 99 cities
+**Last updated:** July 27, 2026, later (OPS: BUDGET-METHODOLOGY.md made independently
+reproducible. Exact per-state COL and Medigap multipliers written into section 6 as tables,
+recovered from BudgetAuditJun162026.xlsx; section 4 snapshot date corrected to 2026-06-30;
+section 5 healthcare range corrected to $924-$1,096; section 9 tier counts corrected to
+30/29/19/12/9 and the stale quiz-rollout paragraph replaced. Verified: the formula now
+reproduces all 99 rows of v17 exactly, both the Monthly Est string and the Budget Range
+integer. Gate 0/0. Board swept: three items below were already dead and one was mislabeled.)
+
+**Previously:** July 27, 2026 (OPS: ZHVI REBASE SHIPPED. `Median Home` rebuilt for all 99 cities
 from the 2026-06-30 Zillow column; Monthly Est, Budget Range and D2 recomputed; every derived surface
 figure re-derived. Three further faults found and closed en route: Monthly Est did not equal
 f(Median Home) for 31 cities, `pick-and-compare.html` disagreed with `index.html` on d2 for 72 cities
@@ -95,37 +103,16 @@ Standard deploy block:
 
 ## ACTIVE - batch / site-wide operations
 
-- **RESOLVED Jul 26, and it resolved against the DB.** The six non-NRC prose figures (Casper,
-  Columbus, Des Moines, La Crosse, Roanoke, Sioux Falls) WERE a second and newer vintage. Checked
-  against Zillow's own `City_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv`, June 2026 column:
-  every one of the six DB figures is low, by +6.9% (Columbus) to +18.8% (La Crosse). The prose was
-  closer to reality than the DB was. Per the note below, the fix is to correct the DB and let the
-  check re-derive the prose, NOT to hand-revert the six edits. Folded into the rebase item. Philadelphia's profile separately contradicts itself: "citywide typical
-  home value is around $234K" against $240K elsewhere in the same file - the profile surface is not
-  yet covered by any home-figure check. CONFIRMED and extended Jul 23: a scan of profile JSON-LD
-  against `Median Home` found Philadelphia $234,000 vs DB $240,000 (twice, in two FAQ answers) and
-  New Orleans $246,000 vs DB $250,000. Both cities' HIGHLIGHTS carry the correct DB figure on both
-  surfaces, so this is the JSON-LD alone - the surface search results are built from. This is the
-  concrete instance of the already-open "extend figure cross-checking to profile stat cards and FAQ
-  JSON-LD" item.
-
-- **LIVE: `pick-and-compare.html` carries 72 stale D2 (Affordability) scores.** Found Jul 23 while
-  syncing highlights. Every one of the 99 cities was compared on all ten dimensions across the two
-  surfaces: 72 disagree, all of them D2, and in **every single case `index.html` matches the DB and
-  `pick-and-compare.html` does not** (Alexandria 3 vs 5, Asheville 5 vs 7, Boise 4 vs 6, Charlottesville
-  4 vs 6, and 68 more). D2 is a scored, sorted, checkmarked row on the comparison tool, so the tool is
-  ranking cities on affordability using numbers the database disowns. NOT touched in the Jul 23
-  em-dash push, deliberately: one confirmed change per deploy, and this is its own change. Take it
-  next. The fix is mechanical (adopt the DB value) but it must be gated afterwards, by extending
-  `check_highlight_surfaces` from the highlight field to the score block, or the same drift reopens.
-
-- **RESOLVED Jul 23 by deleting the column.** The question was which surface the DB `Highlight`
-  column was the master of. The answer was neither: nothing read it, nothing validated it, and it
-  disagreed with `pick-and-compare.html` on 16 rows, with `index.html` on 67, while the two HTML
-  surfaces disagreed with each other on 65. Three copies, three answers, no arbiter. The column is
-  gone as of v16_6 and the two surfaces that actually render are now gated against each other by
-  `check_highlight_surfaces`. Same reasoning as `check_affiliate`: the HTML IS the record, and a
-  half-current reference is worse than none because eventually someone trusts it.
+- **LIVE: three stale home figures in profile PROSE, uncovered by any check.** Philadelphia's
+  profile states `$234K` twice and New Orleans states `$246K` once, against v17 values of
+  `$237,000` and `$248,000`. Both profiles ALSO carry the correct rebased figure elsewhere in the
+  same file, so each one contradicts itself. Correction to the earlier framing of this item: these
+  are NOT in the JSON-LD. A scan of every `ld+json` block on both profiles finds zero occurrences;
+  all three sit in visible bolded body copy. That makes them reader-facing, not just
+  search-result-facing, and it means the covering check has to reach profile prose, not just the
+  structured blocks. The July 27 rebase re-derived every surface it covers and left these three
+  untouched, which is the precise measure of the gap. Fix belongs with the profile stat-card + FAQ
+  figure check already boarded below.
 
 - **Two live em dashes sit on pages the `emdash` check has never scanned.** `privacy.html` line 12,
   in the `<title>`, and `scouting-trip-workbook.html` line 1020, in a rendered `<span>`. Neither page
@@ -278,6 +265,66 @@ Standard deploy block:
 
 ## ACTIVE - boarded July 27, 2026 (validator blind spots found during the rebase)
 
+- **DO THIS FIRST: `tools/test_highlight_homes.py` is BROKEN on main.** It crashes at line 129,
+  `AssertionError: Wilmington DE's highlight no longer states $321K`. The rebase moved Wilmington DE
+  from $321,000 to $336,000 and the harness hardcodes `$321K` in nine places (lines 14, 126, 129,
+  130, 144, 163, 168, 182, 201). It exits 1, so it fails loudly, but nothing runs it: neither
+  harness is wired into the gate, which is exactly why this shipped through a clean 0/0 gate and sat
+  unnoticed. Eighteen assertions covering the `HL_*` patterns and `check_highlight_surfaces` are
+  currently dead. `tools/test_emdash_forms.py` still passes 10/10.
+  **Why this is first:** house rule is that no new validator check ships without a planted-error
+  test. The planted-error harness is the thing that is broken. Every check below is blocked on it in
+  principle, and would be written into a file nothing executes. Fix is nine constants plus a gate
+  hook. Small job, unblocks the rest.
+
+- **Wire BOTH harnesses into the gate.** `test_highlight_homes.py` and `test_emdash_forms.py` are
+  run by hand or not at all. The item above is the proof of what that costs. Do it in the same job
+  as the fix, not as a follow-up.
+
+- **`best-places-to-retire-on-a-budget.html` roster is stale against v17.** The page was built off
+  tier R1 (under v16.6, R1 was 33 and the page carried 31, missing only Indianapolis and Wilmington;
+  nothing on the page was outside R1). R1 is now 30. The page therefore carries FOUR cities that
+  left the tier - Pensacola, Beaufort, Rio Rancho, Sioux Falls - and is MISSING San Antonio, which
+  dropped into R1 when its Median Home fell from $320,000 to $251,000. Per-city monthly figures on
+  the page are all correct against v17; it is the roster that did not move.
+  **Decide before fixing:** the page's methodology block says the bar is "every city whose all-in
+  monthly estimate STARTS under about $5,500". That describes the LOW end of the published range,
+  not the central estimate the tier uses, and it admits 46 cities in v17 rather than 30. The prose
+  and the tier have been describing different rules all along; the page only ever sat close to R1 by
+  luck. Pick one basis and restate the prose to match, because a reader can check that claim against
+  the numbers printed on the same page. Recommendation: keep R1, say "central estimate".
+
+- **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
+  elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when
+  both the DB and the quiz use Under $5,500 through $9,000+; (2) the D1 hard-filter ladder, resolved
+  Jul 18 as keep-generic-7, pairs with deleting dead `D1_THRESHOLDS` from index.html; (3) D4
+  described as retired and folded into D2, when it is live as Climate Resilience & Insurance with 99
+  of 99 cities scored and no anchors documented anywhere; (4) the Universal Methodology section still
+  scopes D2 to retiree-target neighborhoods, which BUDGET-METHODOLOGY.md section 4 already calls "its
+  fossil, struck 2026-07-13"; (5) consequently the D2/D6/D9 grouping must become D6/D9, since D9 IS
+  still genuinely neighborhood-scored (Memphis and San Antonio both sit at D9=7 where the rubric's
+  own anchor puts their citywide figures at 1-2); (6) the D2 data-source line reads "Zillow/Redfin"
+  and should be Zillow ZHVI only.
+  Also check while in there: D2's anchor bands key off median-home breakpoints at $250K / $375K /
+  $525K / $750K, and 23 D2 scores moved in the rebase. Those bands were calibrated against the old
+  patchwork column.
+  **Structural question to settle first:** the rubric is the only governing doc NOT in the repo. It
+  lives in project knowledge as a .docx. That is a direct conflict with the source-of-truth rule in
+  SITE-OPERATIONS-LOG section 4a, and it is the likeliest reason this doc drifted further than any
+  other: nothing pulls it, nothing validates it, no commit touches it. Ship v3.3 as markdown in
+  `docs/`, not as another .docx.
+
+- **MEDIAN-HOME-METHODOLOGY.md needs three lines and was deliberately not touched on Jul 27.**
+  (1) Section 1 says the figure is "refreshed annually"; the first annual refresh has now actually
+  run, so record the date and that it used the 2026-06-30 ZHVI column. (2) Note that the refresh is a
+  column swap against a file already in hand, not research; section 6 currently reads like a research
+  task ("pull current Zillow ZHVI for all 99 cities") and will mislead the next operator. (3) Section
+  6's out-of-cycle triggers should record that this refresh fired OUTSIDE the June cycle and why
+  (Memphis 33% off was the credibility trigger in practice); a doc that says "annual" with no record
+  of an off-cycle run invites the next operator to wait until June. Separately, section 9 lists
+  `/methodology.html` as a surface this methodology touches. It 404s and is not in the sitemap.
+  Either build it or strike the line.
+
 - **`check_highlight_surfaces` enforces highlight parity but not SCORE parity.** `pick-and-compare.html`
   carries its own JSON blob (`monthlyEst`, `monthlyMid`, `medianHome`, `medianHomeMid`, `budgetTier`,
   `d2`) and nothing held it to the DB, so d2 drifted on 72 of 99 cities unnoticed. All ten dimensions
@@ -294,12 +341,13 @@ Standard deploy block:
 - **No vintage check on `Median Home`.** The rebase fixed the values; nothing prevents the column
   ageing into a patchwork again. Add a gate check that flags any DB figure more than N% off the
   current ZHVI CSV, as boarded on July 26. This is the mechanism fix, not the data fix.
-- **A `Monthly Est == f(Median Home)` assertion would have caught 31 cities.** The formula is fully
-  specified in BUDGET-METHODOLOGY.md sections 3-6 and reproduces all 99 rows exactly. Asserting it on
-  the gate makes an entire class of drift impossible. Note that sections 5-6 publish the state
-  modifiers as RANGES ("low-cost rural states 0.88-0.95"), which is not precise enough to recompute
-  from; the exact per-state values were recovered from BudgetAuditJun162026.xlsx and should be written
-  into the doc so it is independently reproducible.
+- **A `Monthly Est == f(Median Home)` assertion would have caught 31 cities. Now unblocked.**
+  The doc dependency is CLOSED as of the July 27 doc push: BUDGET-METHODOLOGY.md sections 5 and 6
+  now publish the exact per-state multipliers as tables rather than ranges, and the formula is
+  confirmed to reproduce all 99 rows of v17 exactly, zero mismatches, on both the Monthly Est
+  string and the Budget Range integer. Nothing further is needed from the docs. What remains is
+  building the check itself and its planted-error test. Asserting it on the gate makes an entire
+  class of drift impossible. Highest-value single check on this board.
 - **DB title cell still reads "100 cities"** against 99 rows, and `pick-and-compare.html` line 918
   still hardcodes "100-city database (v14)". Both invisible to `check_hardcoded_counts`.
 
@@ -349,7 +397,6 @@ Madison vs Columbus, and others.
 Unlocked and ready to build now (both cities live):
 - **Knoxville vs Asheville**
 - **Arizona three-way cluster** (Prescott now live, so this is unblocked)
-- (Fort Worth vs San Antonio SHIPPED Jul 21, see RECENTLY SHIPPED)
 
 Unlocks pending a build:
 - (none)
