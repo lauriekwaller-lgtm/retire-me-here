@@ -16,7 +16,8 @@ Check groups:
     figures      CITIES array + CITY_ENRICHMENT modal strings vs DB
     profiles     profile pages: monthly + citywide home value vs DB
     routing      PUBLISHED_PROFILES <-> profile files <-> sitemap parity
-    cards        landing pages: stale "coming soon" + card figures vs DB
+    cards        landing pages: stale "coming soon" + card figures vs DB,
+                 and roster membership for pages whose roster is a DB predicate
     superlatives every affordability superlative on the site, checked against the DB
     emdash       em-dash policy (profiles + comparison pages)
     affiliate    affiliate codes: duplicates, missing brands, multiple codes per page
@@ -938,6 +939,68 @@ def check_cards(rep, db, idx, local):
                              f"DB says {lo}–{hi}")
 
 
+# Roster membership: WHICH cities belong on a page, not whether each card is correct.
+#
+# check_cards above asks two questions of every card: does the money match the DB, and
+# is this marked "coming soon" while the profile is live. Both are per-card questions.
+# Neither asks whether the card should be on the page at all.
+#
+# That gap shipped. On July 27 2026 the budget page was carrying Beaufort, Pensacola,
+# Rio Rancho and Sioux Falls after all four left Budget Range 1 in the ZHVI rebase, and
+# was missing San Antonio after it dropped in. Five cities wrong. The gate ran against
+# that exact page and reported 0 failures, because every individual card was internally
+# correct. The page was wrong about its own membership and nothing looked.
+#
+# Only pages whose roster is a DB PREDICATE belong here. The top-cities-for-* set is
+# editorial tiering out of the scoring-analysis docs, not a predicate, so asserting it
+# here would be asserting a guess. Those need a hardcoded expected roster instead, which
+# is a separate job.
+DB_ROSTERS = {
+    "best-places-to-retire-on-a-budget.html": (
+        "Budget Range 1", lambda row: row["range"] == 1),
+}
+
+
+def check_roster(rep, db, local):
+    """Pages whose roster is a DB predicate: fail on extras AND on omissions."""
+    for page, (label, predicate) in DB_ROSTERS.items():
+        html = fetch(page, local)
+        if html is None:
+            rep.fail("cards", f"{page}: roster target matched no file. Renaming a page "
+                              f"must not silently retire its roster check")
+            continue
+
+        on_page = []
+        for block in card_blocks(html):
+            nm = re.search(r'city-(?:name|featured-name)">([^<]+)', block)
+            st = re.search(r'state-code">([^<]+)', block)
+            if nm and st:
+                on_page.append((nm.group(1).strip(), st.group(1).strip()))
+
+        # The silent no-op. If the markup changes shape, this check finds nothing to
+        # compare and would otherwise report a clean pass over an unread page.
+        if not on_page:
+            rep.fail("cards", f"{page}: no city cards found, so the {label} roster was "
+                              f"never compared. The card markup has changed shape")
+            continue
+
+        dupes = {c for c in on_page if on_page.count(c) > 1}
+        for city, st in sorted(dupes):
+            rep.fail("cards", f"{page}: {city}, {st} appears on the page more than once")
+
+        listed = set(on_page)
+        expected = {(r["city"], r["state"]) for r in db_cities(db) if predicate(r)}
+
+        for city, st in sorted(listed - expected):
+            row = db_get(db, city, st)
+            now = f", now Budget Range {row['range']}" if row else ", not in the DB"
+            rep.fail("cards", f"{page}: {city}, {st} is on the page but is not in "
+                              f"{label}{now}")
+        for city, st in sorted(expected - listed):
+            rep.fail("cards", f"{page}: {city}, {st} is in {label} but has no card "
+                              f"on the page")
+
+
 # Superlatives scoped to our own dataset are BANNED (policy adopted July 12, 2026).
 # A claim like "the most affordable city we cover" is a claim about a private, moving
 # object the reader cannot see. The moment a city is added to the database, every such
@@ -1793,7 +1856,8 @@ def check_db(rep, db_path):
 # clean 0/0 gate, with eighteen assertions dead and nothing on screen saying so. A test
 # suite nothing executes is not a test suite. So they are a check group now, and they
 # gate the deploy like every other group.
-HARNESSES = ("tools/test_highlight_homes.py", "tools/test_emdash_forms.py")
+HARNESSES = ("tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
+             "tools/test_roster.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -1919,6 +1983,7 @@ def main():
         check_profiles(rep, db, slug_to_city, args.local)
     if "cards" in groups:
         check_cards(rep, db, idx, args.local)
+        check_roster(rep, db, args.local)
     if "superlatives" in groups:
         check_superlatives(rep, db, idx, slug_to_city, args.local)
         check_dead_dimension_guards(rep, db, idx, slug_to_city, args.local)

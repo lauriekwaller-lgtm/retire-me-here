@@ -4,7 +4,36 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026, batch (BATCH: three stale prose home figures corrected
+**Last updated:** July 27, 2026, budget-roster batch (BATCH: `best-places-to-retire-on-a-budget.html`
+rebased on v17. Roster moved from a 31-card set to tier R1's 30. Four came off, Beaufort NC,
+Pensacola FL, Rio Rancho NM and Sioux Falls SD, all now R2; three went on, Indianapolis IN and
+Wilmington DE as coming-soon cards and San Antonio TX as a live card. Per the boarded Jul 27
+decision the methodology prose moved in the SAME commit: the bar stopped describing the low end
+of the published range, "starts under about $5,500", which admitted 47 cities and was the sentence
+justifying all four departures, and now describes the CENTRAL estimate, "centers at $5,550 or below",
+which is the basis the DB and quiz already use. R1 midpoints run $4,300 to $5,550 and R2 opens at
+$5,600, so the band is cleanly separable and a reader can check the claim against the midpoints
+printed on the cards. Verified before the edit: all 27 surviving cards already carried correct v17
+monthly figures, so this was purely a roster and prose fault. Ranks renumbered 1-30, roster
+alphabetical, 18 live and 12 coming-soon. Reciprocal link added: San Antonio's profile gained a
+budget list card and moved from `lists-grid-four` to `lists-grid` per the 3-card convention.
+Pensacola needed no reciprocal removal, its profile carries no list cards at all. Meta descriptions
+corrected 31 -> 30, and "ranked by" changed to "measured by" in three places where it contradicted
+the page's own "alphabetically, not ranked" one line below. Gate 0/0 on a fresh clone, both
+harnesses ran. Shipped in the same commit, because it is the fix for the reason this rotted:
+`check_roster` in validate.py, wired into the `cards` group, with `tools/test_roster.py` as its
+planted-error test at 7 assertions. `check_cards` only ever asked per-card questions, so the page
+could be wrong about WHICH cities belong while every card on it was individually correct, and the
+gate confirmed that by passing the stale page at 0 failures. Run the new check against the PRE-batch
+page and it reports 7 failures naming exactly the four extras and the three omissions. Also cleared
+the boarded Scottsdale fossil: the `Mullett` entry and the `5+ teams` pill, both left over from the
+Coyotes' 2024 move to Utah, corrected on the sports page and in the scoring doc to `4 teams`.
+Four leagues still clears the Tier 1 bar of "4 or more", so placement did not move. Two new faults
+found en route and boarded below, neither shipped: the Florida and Midwest pillars parse to ZERO
+cards inside `check_cards`, and the Florida pillar carries a stale comparison passage on three
+surfaces whose fix changes an argument rather than a figure.)
+
+**Previously:** July 27, 2026, batch (BATCH: three stale prose home figures corrected
 and two unscanned pages brought under the `emdash` check. Philadelphia `$234K` x2 ->
 `$237K`, New Orleans `$246K` -> `$248K`, matching v17 and matching the correct figure each
 file already carried elsewhere. `privacy.html` and `scouting-trip-workbook.html` added to
@@ -348,7 +377,10 @@ Standard deploy block:
 
 ## ACTIVE - boarded July 27, 2026 (validator blind spots found during the rebase)
 
-- **`best-places-to-retire-on-a-budget.html` roster is stale against v17.** The page was built off
+- **CLOSED Jul 27, 2026 (shipped).** ~~`best-places-to-retire-on-a-budget.html` roster is stale against v17.~~ Shipped exactly as decided: roster = R1 (30), prose = central estimate, both in one
+  commit. Delta as boarded proved correct against v17: off Beaufort/Pensacola/Rio Rancho/Sioux Falls,
+  on Indianapolis/San Antonio/Wilmington DE, 31 - 4 + 3 = 30. Original text kept below for the record.
+  The page was built off
   tier R1 (under v16.6, R1 was 33 and the page carried 31, missing only Indianapolis and Wilmington;
   nothing on the page was outside R1). R1 is now 30. The page therefore carries FOUR cities that
   left the tier - Pensacola, Beaufort, Rio Rancho, Sioux Falls - and is MISSING San Antonio, which
@@ -377,6 +409,45 @@ Standard deploy block:
   methodology sentence must stop saying "starts under about $5,500", because that sentence is what
   currently justifies keeping Beaufort, Pensacola, Rio Rancho and Sioux Falls. Roster and prose move
   in the SAME commit; shipping either alone leaves the page contradicting itself.
+
+- **CLOSED Jul 27, 2026 (shipped in the same commit).** ~~`check_cards` does not validate tier
+  membership.~~ `check_roster` added, wired into the `cards` group, with `tools/test_roster.py`
+  as its planted-error test, 7 assertions. Proof it works on the real fault, not just on plants:
+  run against the PRE-batch page it reports 7 failures naming exactly the four extras and the
+  three omissions. Only pages whose roster is a DB PREDICATE are in `DB_ROSTERS`, which today is
+  the budget page alone. Test 5 is the one that matters longest: markup that yields zero cards
+  fails loudly instead of comparing nothing.
+
+- **Two pillar pages have no city cards at all, so `check_cards` reads them and finds nothing.**
+  `best-places-to-retire-in-florida.html` and `best-places-to-retire-in-the-midwest.html` are both
+  in the `check_cards` target list and both parse to ZERO cards: they use `bestfor-card` markup, not
+  `city-card`. The check fetches them, iterates nothing, and passes. This is the silent-no-op shape
+  the emdash harness already exists to prevent, sitting in a different check. Note this is NOT the
+  same hole as the roster gap just closed: those pages carry no per-city cards to check, so their
+  figures live in prose instead, and see the Florida item directly below for what that let through.
+  Fix is a decision, not a patch: either bring their money prose under a check, or drop them from the
+  `check_cards` list and say in the code why they are exempt. Leaving them listed-but-unread is the
+  worst of the three, because the target list currently reads as coverage.
+
+- **`best-places-to-retire-in-florida.html` carries a stale comparison passage, found Jul 27.**
+  Not shipped in this batch: fixing it changes an ARGUMENT, not just figures, so it wants its own
+  pass. The passage repeats on three surfaces: the JSON-LD FAQ blob, the `bestfor-why` card, and the
+  visible FAQ answer. Against v17:
+    - Pensacola home `$264,000` -> `$269,000`; "budgets from about $4,900" -> `$5,000`.
+    - Delray Beach `$341,000` -> `$342,000`.
+    - Fort Myers `$372,000` -> `$310,000`, a $62K move.
+    - ORDERING IS NOW WRONG. The sentence reads "Delray Beach is next, then Fort Myers". v17 order
+      is Pensacola $269K, Fort Myers $310K, Delray Beach $342K, so Fort Myers is second.
+    - "Pensacola scores 8 of 10 on budget and sits in budget tier 1" is wrong twice: D2 is 7 and
+      Pensacola is Budget Range 2 as of the rebase. Note this is the SAME departure that took it off
+      the budget page in this batch.
+    - "Fort Myers scores 6 and sits in tier 2" -> D2 is 7. So Pensacola and Fort Myers are now BOTH
+      D2=7 and BOTH Range 2, which collapses the passage's whole contrast. That is the editorial
+      call: the trade-off has to be rewritten around resilience and healthcare, since it can no
+      longer be framed on a budget gap that no longer exists. Fort Myers D4=1 is still correct.
+  Also flagged while in there, not a v17 error: the passage opens "Of the Florida cities scored on
+  RetireMeHere, Pensacola is the cheapest". That is a rank scoped to our own dataset, which is the
+  banned shape, and `check_superlatives` does not catch this phrasing. Anchor it to the figure.
 
 - **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
   elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when

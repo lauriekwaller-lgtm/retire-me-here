@@ -64,7 +64,7 @@ Cities with teams in 4 or more major leagues within 30 minutes. Football, baseba
 | **Fort Worth** | TX | 6 | Cowboys (NFL) · Rangers (MLB) · Mavericks (NBA) · Stars (NHL) · FC Dallas (MLS) · Wings (WNBA). Arlington stadium cluster 20 minutes; American Airlines Center in Dallas reachable. |
 | **Miami** | FL | 5 | Dolphins (NFL) · Marlins (MLB) · Heat (NBA) · Panthers (NHL) · Inter Miami CF (MLS). Strong Latin American soccer following. |
 | **Philadelphia** | PA | 5 | Eagles (NFL) · Phillies (MLB) · 76ers (NBA) · Flyers (NHL) · Union (MLS). The South Philly stadium complex puts four venues within walking distance of each other. |
-| **Scottsdale** | AZ | 5+ | Cardinals (NFL) · Diamondbacks (MLB) · Suns (NBA) · Mercury (WNBA) · Mullett Arena · Cactus League spring training. The premier desert sports retirement destination. |
+| **Scottsdale** | AZ | 4 | Cardinals (NFL) · Diamondbacks (MLB) · Suns (NBA) · Mercury (WNBA) · Cactus League spring training. The premier desert sports retirement destination. Tier 1 on four leagues; the Coyotes left for Utah in 2024 and the Valley has had no NHL tenant since, so Mullett Arena is no longer a sports draw. |
 | **St. Paul** | MN | 6 | Vikings (NFL) · Twins (MLB) · Timberwolves (NBA) · Wild (NHL) · Minnesota United (MLS) · Lynx (WNBA). Xcel Energy Center and Allianz Field are in St. Paul itself; Minneapolis venues are 12-minute drive. The most complete pro sports access on this list. |
 
 ### Tier 2 — Major sports cities | 9 cities
