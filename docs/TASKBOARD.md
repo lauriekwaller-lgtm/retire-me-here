@@ -4,7 +4,16 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026, later (OPS: BUDGET-METHODOLOGY.md made independently
+**Last updated:** July 27, 2026, latest (OPS: VALIDATOR HARNESS REPAIR SHIPPED, commit
+`b13edf1`. `tools/test_highlight_homes.py` no longer hardcodes home figures; it reads them from
+the DB at runtime through validate.py's own loader, so the next annual ZHVI refresh cannot break
+it again. Both harnesses are now a `harness` check group and gate the deploy. Gate 0/0 on a fresh
+clone; bare post-deploy run also 0/0 on live main. Two things the board did not have: the harness
+hardcoded TEN figures, not nine - Wilmington NC sat at $418,000 against a v17 $423,000, which would
+have failed test 3 silently once the crash cleared - and one of the 18 assertions was passing
+vacuously, matching nothing at all. Both fixed.)
+
+**Previously:** July 27, 2026, later (OPS: BUDGET-METHODOLOGY.md made independently
 reproducible. Exact per-state COL and Medigap multipliers written into section 6 as tables,
 recovered from BudgetAuditJun162026.xlsx; section 4 snapshot date corrected to 2026-06-30;
 section 5 healthcare range corrected to $924-$1,096; section 9 tier counts corrected to
@@ -40,7 +49,8 @@ only the first set).
 All 46 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
 placeholders pending Creator Hub; Tulsa's are live).
 Validator: **0 failures, 0 warnings** on `--local .`, confirmed on a fresh clone at commit
-`0699f7f` (Jul 25 BATCH push). The bare (live GitHub) post-deploy run is still outstanding.
+`b13edf1` (Jul 27 harness push). The bare (live GitHub) post-deploy run was also made at that
+commit and also reads 0/0, so the outstanding bare run from the Jul 25 push is closed.
 The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
 As of Jul 18 it ships **FAIL**, not WARN: the Jul-15 34-figure reconciliation held, both `--local .`
 and the live bare run read 0 pros/cons warnings, so drift now blocks the gate like every other
@@ -52,8 +62,17 @@ Exact match, no tolerance band: a figure in thousands must equal `round(DB/1000)
 As of Jul 23 the `figures` group ALSO carries `check_highlight_surfaces`, which fails when a city's
 highlight differs between `index.html` and `pick-and-compare.html` byte for byte. Three of the 18
 assertions cover it. And the `emdash` group counts every RENDERING of the character rather than one
-spelling, with its own planted-error test, `tools/test_emdash_forms.py` (**10 assertions**). Run BOTH
-test files after any validator edit; neither is wired into the gate.
+spelling, with its own planted-error test, `tools/test_emdash_forms.py` (**10 assertions**).
+As of Jul 27 BOTH test files run automatically as the `harness` check group, so the gate covers
+them and you no longer have to remember. A gate run prints two extra lines:
+
+    harness:  tools/test_highlight_homes.py 18/18 passed
+    harness:  tools/test_emdash_forms.py 10/10 passed
+
+If either line is absent from a gate run, the group did not execute; that is itself the failure.
+Three ways the group fails, all planted-error tested: a failing assertion (named individually on
+the gate, plus `17/18 passed`), a harness file that has been deleted, and a harness that exits 0
+having run nothing.
 
 ---
 
@@ -263,23 +282,53 @@ Standard deploy block:
 
 ---
 
+## CLOSED July 27, 2026 (validator harness repair) - shipped at `b13edf1`
+
+- **`tools/test_highlight_homes.py` was broken on main. CLOSED.** It crashed on an assert because
+  the rebase moved Wilmington DE from $321,000 to $336,000. Fixed, but NOT by swapping constants:
+  every home figure in the harness is now read from the DB at runtime via `validate.load_db` /
+  `validate.db_get`. Swapping nine constants would have bought until the 2027 refresh and no
+  further - and by then the harness gates the deploy, so it would have taken the gate down with it.
+  A fixture that names a number the annual refresh moves is a fixture with an expiry date on it.
+  **It was TEN occurrences, not nine.** Wilmington NC was hardcoded at $418,000 against a v17
+  $423,000. That one does not crash; it fails quietly, inside the two-Wilmingtons key guard whose
+  whole job is to assert silence on NC's own correct figure. Fixing only the nine would have
+  produced 17/18 and a confusing failure in the one test designed to catch city-key bugs.
+
+- **Wire BOTH harnesses into the gate. CLOSED.** New `harness` check group, runs last (it shells
+  out, and is the slowest group by a wide margin). Recursion is stopped twice over: the harnesses
+  invoke `--only figures` / `--only emdash`, which excludes the group, and an `RMH_IN_HARNESS` env
+  sentinel survives someone widening a harness's `--only` later. Runs in both modes, because these
+  test the VALIDATOR's logic, not the live site. Costs about 7 seconds on a gate run.
+
+- **One of the 18 assertions was passing vacuously.** The `cross-city reference` fixture read
+  `" Naples matches it at $585K."`, which carries no home-value noun and so matched neither
+  `HL_HOME_FIG` nor `HL_HOME_BOUND`. It matched nothing, therefore it was silent, therefore it
+  passed - forever, and it never once exercised the `cross_city()` veto it is named for. Reworded to
+  `" Naples' median home is $549K."`, the sentence validate.py's own `HL_*` comment says the veto
+  exists for. Verified both ways: the old form matches nothing, the new form matches and is silenced
+  only by the veto. **This is the harness's own stated failure mode found inside the harness.** When
+  touching any planted-error fixture, confirm the regex actually MATCHES it before trusting a PASS.
+
+- **`.gitignore` gained `__pycache__/` and `*.pyc`.** The harness now imports `validate`, which
+  writes bytecode into `tools/`. With `git add -A` as the deploy convention, the next commit would
+  have carried it.
+
+- **Lesson for every future `apply-batch.py`: "is the old string gone?" is the wrong idempotency
+  test.** The first cut of this batch used it, and three of its edits keep their anchor and add
+  around it (a docstring line with a new line appended, a `def main():` with a block inserted
+  before it). On a second run they matched again and applied twice. `edit()` now takes an explicit
+  MARKER that exists only after the edit lands, and aborts if the marker is not in its own
+  replacement. Verified 16/0 then 0/16 across repeated runs.
+
+- **Doc nit, not fixed:** validate.py's usage block still advertises
+  `--quiet   # failures only, no PASS lines`, but no check has ever printed a PASS line. The two
+  `harness:` lines are the first, and they do respect `--quiet`. Correct the usage text on the next
+  validator touch.
+
+---
+
 ## ACTIVE - boarded July 27, 2026 (validator blind spots found during the rebase)
-
-- **DO THIS FIRST: `tools/test_highlight_homes.py` is BROKEN on main.** It crashes at line 129,
-  `AssertionError: Wilmington DE's highlight no longer states $321K`. The rebase moved Wilmington DE
-  from $321,000 to $336,000 and the harness hardcodes `$321K` in nine places (lines 14, 126, 129,
-  130, 144, 163, 168, 182, 201). It exits 1, so it fails loudly, but nothing runs it: neither
-  harness is wired into the gate, which is exactly why this shipped through a clean 0/0 gate and sat
-  unnoticed. Eighteen assertions covering the `HL_*` patterns and `check_highlight_surfaces` are
-  currently dead. `tools/test_emdash_forms.py` still passes 10/10.
-  **Why this is first:** house rule is that no new validator check ships without a planted-error
-  test. The planted-error harness is the thing that is broken. Every check below is blocked on it in
-  principle, and would be written into a file nothing executes. Fix is nine constants plus a gate
-  hook. Small job, unblocks the rest.
-
-- **Wire BOTH harnesses into the gate.** `test_highlight_homes.py` and `test_emdash_forms.py` are
-  run by hand or not at all. The item above is the proof of what that costs. Do it in the same job
-  as the fix, not as a follow-up.
 
 - **`best-places-to-retire-on-a-budget.html` roster is stale against v17.** The page was built off
   tier R1 (under v16.6, R1 was 33 and the page carried 31, missing only Indianapolis and Wilmington;
@@ -287,6 +336,16 @@ Standard deploy block:
   left the tier - Pensacola, Beaufort, Rio Rancho, Sioux Falls - and is MISSING San Antonio, which
   dropped into R1 when its Median Home fell from $320,000 to $251,000. Per-city monthly figures on
   the page are all correct against v17; it is the roster that did not move.
+  **Delta re-derived against v17 on Jul 27, use these numbers:** page carries 31 cards (18 live,
+  13 coming-soon), R1 is 30. Four come OFF - Beaufort (now R2, $5,300 start), **Pensacola (now R2,
+  $5,000 start, and this is a LIVE card for a Tier 1 profile, so removing it is an editorial call,
+  not a mechanical one)**, Rio Rancho (R2), Sioux Falls (R2). Three go ON - Indianapolis
+  ($4,300-$5,400), San Antonio ($4,700-$5,800), Wilmington DE ($4,700-$5,800); note Wilmington NC
+  is R2 and must NOT be added. Net 31 - 4 + 3 = 30.
+  The prose bar as written ("starts under about $5,500") admits **47** cities in v17, not 46 as
+  first boarded. Note which way that cuts: the prose as written currently JUSTIFIES all four cities
+  the tier says should come off. So this is not a stale roster against agreed prose; it is two rules
+  that were never the same rule. Fix both in one pass or the page contradicts itself either way.
   **Decide before fixing:** the page's methodology block says the bar is "every city whose all-in
   monthly estimate STARTS under about $5,500". That describes the LOW end of the published range,
   not the central estimate the tier uses, and it admits 46 cities in v17 rather than 30. The prose
