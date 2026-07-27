@@ -4,7 +4,14 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 26, 2026 (board-only: six-city vintage question RESOLVED against the DB;
+**Last updated:** July 27, 2026 (OPS: ZHVI REBASE SHIPPED. `Median Home` rebuilt for all 99 cities
+from the 2026-06-30 Zillow column; Monthly Est, Budget Range and D2 recomputed; every derived surface
+figure re-derived. Three further faults found and closed en route: Monthly Est did not equal
+f(Median Home) for 31 cities, `pick-and-compare.html` disagreed with `index.html` on d2 for 72 cities
+(the boarded item, now closed), and seven carve-out fossils still framed cities on the retired
+retiree-target-neighborhood basis. Validator 0/0.)
+
+**Previously:** July 26, 2026 (board-only: six-city vintage question RESOLVED against the DB;
 `Median Home` found to be a 2020-2026 patchwork never rebased, full audit boarded below; two
 TASKBOARD header nits fixed. No content surfaces touched, no scores changed.)
 
@@ -209,7 +216,7 @@ Standard deploy block:
 
 ---
 
-## ACTIVE - boarded July 26, 2026 (ZHVI rebase)
+## CLOSED July 27, 2026 (ZHVI rebase) - shipped, see SITE-OPERATIONS-LOG 2026-07-27
 
 - **`Median Home` is not one vintage. It is a 2020-2026 patchwork, and it has never been rebased.**
   Found Jul 26 while settling the six-city question above. Joined all 99 DB rows against Zillow's
@@ -266,6 +273,35 @@ Standard deploy block:
 
 - **Casper is the intended next BUILD.** Fine choice, but it is 15% stale (DB $273K, actual $314K).
   Build it after the rebase.
+
+---
+
+## ACTIVE - boarded July 27, 2026 (validator blind spots found during the rebase)
+
+- **`check_highlight_surfaces` enforces highlight parity but not SCORE parity.** `pick-and-compare.html`
+  carries its own JSON blob (`monthlyEst`, `monthlyMid`, `medianHome`, `medianHomeMid`, `budgetTier`,
+  `d2`) and nothing held it to the DB, so d2 drifted on 72 of 99 cities unnoticed. All ten dimensions
+  now agree across both surfaces, but nothing stops it recurring. Extend the check to every `dN` field
+  plus the four cost fields. Planted-error test required.
+- **A city whose name contains non-ASCII is invisible to the surface checks.** Coeur d'Alene is stored
+  `Coeur d\u2019Al\u00e8ne` in the pick-and-compare blob, so name-keyed checks skip it. Its record was
+  stale at $553K against a DB $611K and the gate read clean. Any check that joins the two surfaces by
+  literal name has this hole.
+- **The abbreviated stat-card money form is unparsed.** The editorial modal renders
+  `value: '$3.5–4.8K<span>/mo</span>'`. The validator reads `$X,XXX–$X,XXX` only, so St. Louis sat at
+  $3.5-4.8K against a DB $4,100-$5,200, wrong before the rebase and never flagged. Same hole for the
+  `$192<span>K</span>` home form.
+- **No vintage check on `Median Home`.** The rebase fixed the values; nothing prevents the column
+  ageing into a patchwork again. Add a gate check that flags any DB figure more than N% off the
+  current ZHVI CSV, as boarded on July 26. This is the mechanism fix, not the data fix.
+- **A `Monthly Est == f(Median Home)` assertion would have caught 31 cities.** The formula is fully
+  specified in BUDGET-METHODOLOGY.md sections 3-6 and reproduces all 99 rows exactly. Asserting it on
+  the gate makes an entire class of drift impossible. Note that sections 5-6 publish the state
+  modifiers as RANGES ("low-cost rural states 0.88-0.95"), which is not precise enough to recompute
+  from; the exact per-state values were recovered from BudgetAuditJun162026.xlsx and should be written
+  into the doc so it is independently reproducible.
+- **DB title cell still reads "100 cities"** against 99 rows, and `pick-and-compare.html` line 918
+  still hardcodes "100-city database (v14)". Both invisible to `check_hardcoded_counts`.
 
 ---
 

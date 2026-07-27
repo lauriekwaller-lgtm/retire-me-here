@@ -53,7 +53,7 @@ These bypass the calendar. If any of these happen, act in the window indicated.
 
 | File | Purpose | Location | Notes |
 |---|---|---|---|
-| CityDatabase_*_vN.xlsx | Authoritative scoring database | `docs/` in the repo | Current: CityDatabase_Jul_23_v16_6_nohighlight.xlsx. Filename increments with version. `DEFAULT_DB` at the top of `tools/validate.py` must be updated in the same commit. |
+| CityDatabase_*_vN.xlsx | Authoritative scoring database | `docs/` in the repo | Current: CityDatabase_Jul_27_v17.xlsx. Filename increments with version. `DEFAULT_DB` at the top of `tools/validate.py` must be updated in the same commit. |
 | MedianHomeAuditMASTER.xlsx | Full audit history including superseded v1.0 archetype values | Project knowledge | Reference only. Not authoritative for live values. |
 | Budget-Audit-*.xlsx | Per-rebuild audit trail | Project knowledge | Current: Budget-Audit-Jun-16-2026.xlsx |
 | BUDGET-METHODOLOGY.md | Budget formula and sources | `docs/` in the repo | Current: v1.0 (June 16 2026) |
@@ -201,6 +201,63 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+
+### 2026-07-27 - ZHVI rebase: Median Home rebuilt for all 99 cities (v17)
+
+**Problem.** `Median Home` was never one vintage. Joined against Zillow's city-level mid-tier ZHVI
+series, the 99 DB figures dated from 2020 to 2026: one 2020, five 2021, twenty-six 2022, twenty 2023,
+eighteen 2024, twenty-one 2025-26. The project started in April 2026, so every value was entered
+within four months and was already stale when typed. Cause: the column was seeded from web research,
+which returns cached crawls and articles quoting whatever was current when written. The data-source
+rule was working downstream; the leak was upstream of it.
+
+**Fix.** All 99 rebased from the 2026-06-30 ZHVI column. The eight cities that do not join on name
+were normalised and each geography verified by county, not just by name: Saint Augustine (Saint Johns,
+not Saint Augustine Beach), Saint Petersburg (Pinellas), Coeur d'Alene (Kootenai), Saint Paul (Ramsey,
+not South/West/North Saint Paul), Saint Louis (Saint Louis City), Hilton Head Island (Beaufort),
+Saint George (Washington), Jackson (Teton) for Jackson Hole. Both Wilmingtons resolved separately
+(DE/New Castle, NC/New Hanover) and Beaufort NC to Carteret, the coastal town.
+
+94 median home values changed, 80 Monthly Est, 14 Budget Range, 23 D2. Median gap +2.8%. Largest
+movers: Beaufort NC +36.5%, Rehoboth Beach +27.8%, Memphis -24.6%, San Antonio -21.6%, St. Louis
+-18.3%. Monthly Est recomputed via BUDGET-METHODOLOGY.md sections 3-6.
+
+**Second fault found en route: Monthly Est did not equal f(Median Home) for 31 of 99 cities.** An
+input had moved and nothing re-derived the budget. Sedona and Grand Junction were traced to a
+`Climate Warm W` edit after the June audit, which moves the utilities climate adjustment. The rebase
+wipes this out by construction: the recompute now reproduces all 99 from the DB, up from 68.
+
+**Third fault: `pick-and-compare.html` disagreed with `index.html` on d2 for 72 of 99 cities.** This
+is the boarded "72 stale D2 scores" item, now closed. Root cause: that page carries its own JSON blob
+(`monthlyEst`, `monthlyMid`, `medianHome`, `medianHomeMid`, `budgetTier`, `d2`) and nothing held it to
+the DB. `check_highlight_surfaces` enforces highlight parity between the two surfaces but not score
+parity. All ten dimensions now agree across both surfaces for all 99 cities.
+
+**Seven carve-out fossils rewritten.** San Antonio, Memphis, Indianapolis, Wilmington DE, Tulsa and
+two St. Louis surfaces still framed the city on the retiree-target-neighborhood basis retired by
+MEDIAN-HOME-METHODOLOGY.md v1.2 on 2026-07-13. Tulsa's note cited "v3.2 high-variance methodology" by
+name. All now lead with the citywide figure and carry neighborhoods as a Neighborhood Reality Check.
+The phrase "Monthly costs ... in target areas" was false on every one of them: per
+BUDGET-METHODOLOGY.md section 4 the monthly figure is computed from the citywide home value for all
+99 cities, never from target neighborhoods. Struck.
+
+**Seven dated attributions dropped.** Des Moines, Iowa City, La Crosse, Salt Lake City, Traverse City,
+Tulsa and Provincetown attributed a figure to a named source and often a date ("per Boston Globe /
+Warren Group April 2026", "Redfin Feb 2026"). A June ZHVI number cannot inherit a February Redfin
+citation, so the attributions were removed and the ZHVI figure stated plainly rather than re-sourced.
+
+**Also fixed.** Durango stated a county median and an in-town figure, neither of which was the
+published city basis; now the city ZHVI. Knoxville claimed "median home is under $377,000" against a
+DB of exactly $377K. Coeur d'Alene's pick-and-compare record was stale ($553K against $611K) and
+invisible to the gate because that entry stores its name JSON-escaped. St. Louis's abbreviated
+"Monthly Budget" stat card read $3.5-4.8K against a DB of $4,100-$5,200, and was wrong before the
+rebase too; the validator does not parse that abbreviated form.
+
+**DB header note corrected.** It claimed snapshot 2026-04-30 and still described the eight-city
+retiree-target carve-out retired on 2026-07-13. Both replaced.
+
+**Net:** validator 0 failures, 0 warnings on `--local .`. `apply-batch.py` verified idempotent.
+Audited: only D2 changed across both surfaces, zero unintended edits to D1 or D3-D10.
 
 ### 2026-07-26 - The Median Home column was stale on the day it was written
 
