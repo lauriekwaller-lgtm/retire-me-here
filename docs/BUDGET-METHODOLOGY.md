@@ -43,14 +43,14 @@ Both ends are rounded to the nearest $100. The asymmetry around the central is i
 | Property tax | Median Home × PropTax Rate % column ÷ 12 | Existing DB column, retained as-is |
 | Homeowners insurance | HO Insur Est $/yr column ÷ 12 | Existing DB column, retained as-is |
 
-Median Home uses the existing DB value, which the database header already documents: Zillow ZHVI (City geography, All Homes SFR+Condo, Smoothed & Seasonally Adjusted), snapshot 2026-04-30. All 99 cities use the citywide Zillow ZHVI, per MEDIAN-HOME-METHODOLOGY.md v1.2. No city uses a retiree-target neighborhood basis. The earlier eight-city carve-out (Indianapolis, Memphis, Philadelphia, Pittsburgh, San Antonio, St. Louis, St. Paul, Wilmington DE) was retired by v1.2 and this paragraph is its fossil, struck 2026-07-13. Where retiree-target neighborhoods run materially above the citywide median, that is disclosed in prose via a Neighborhood Reality Check note on the city profile, not by altering the number.
+Median Home uses the existing DB value, which the database header already documents: Zillow ZHVI (City geography, All Homes SFR+Condo, Smoothed & Seasonally Adjusted), snapshot 2026-06-30. The column was rebased for all 99 cities on 2026-07-27, the first execution of the annual refresh described in MEDIAN-HOME-METHODOLOGY.md section 6; before that date it was a 2020-2026 patchwork. All 99 cities use the citywide Zillow ZHVI, per MEDIAN-HOME-METHODOLOGY.md v1.2. No city uses a retiree-target neighborhood basis. The earlier eight-city carve-out (Indianapolis, Memphis, Philadelphia, Pittsburgh, San Antonio, St. Louis, St. Paul, Wilmington DE) was retired by v1.2 and this paragraph is its fossil, struck 2026-07-13. Where retiree-target neighborhoods run materially above the citywide median, that is disclosed in prose via a Neighborhood Reality Check note on the city profile, not by altering the number.
 
 ## 5. Non-housing line items
 
 All figures are per couple, per month, in 2026 dollars.
 
 ### Healthcare
-Federal components (Medicare Part B at $202.90/person and Part D at $38.99/person) are fixed across cities. Medigap Plan G has a base of $165/person, multiplied by a state factor: NY 1.40, NJ 1.30, CA/MA/CT 1.25, FL 1.15, IL 1.10, TX/PA 1.05, baseline 1.00, low-cost rural states 0.88–0.95. Out-of-pocket (dental, vision, copays, deductibles) is $150/couple. Total typical range: $920 to $1,020/mo.
+Federal components (Medicare Part B at $202.90/person and Part D at $38.99/person) are fixed across cities. Medigap Plan G has a base of $165/person, multiplied by a per-state factor. The exact factor for every state in the database is tabulated in Section 6; do not read the factor off a range. Out-of-pocket (dental, vision, copays, deductibles) is $150/couple. Total range across the 99 cities: $924/mo (SD, factor 0.88) to $1,096/mo (NY, factor 1.40). Nine distinct values, one per Medigap factor.
 
 **Sources:** CMS 2026 Premium Announcement (Nov 14 2025); KFF Medicare Supplement Insurance briefs; AHIP 2025 Medigap buyer's guide.
 
@@ -83,7 +83,57 @@ Baseline $500/mo per couple, multiplied by the state cost-of-living modifier. Co
 
 ## 6. State cost-of-living modifier
 
-Applied to utilities, food, and discretionary line items. Anchored at 1.00 (national baseline). High-cost states: HI 1.25, CA/DC 1.20, NY/MA/AK 1.15, NJ/CT 1.12, WA 1.10, OR/CO/MD 1.07–1.08, AZ/UT/NH/VT/RI/NV 1.03–1.05. Low-cost states: MS 0.86, AR/AL/WV/OK 0.88, KY/LA 0.90, TN/IN/KS 0.92, IA/MO/SD/NE 0.93, SC/MI/WI/OH/NC/GA 0.94–0.95. Baseline 0.96–1.02 for everything else.
+Two per-state multipliers are used. Both are exact values, not ranges.
+Earlier versions of this document published them as ranges ("low-cost rural
+states 0.88-0.95"), which is not precise enough to recompute a city from, and
+which silently collapsed real distinctions: OR and CO were both "1.07-1.08"
+but are 1.08 and 1.07; SC and GA were both "0.94-0.95" but are 0.94 and 0.95.
+
+**Cost-of-living modifier (COL).** Applied to the utilities, food, and
+discretionary baselines. Anchored at 1.00 (national baseline).
+
+| COL | States |
+|---|---|
+| 0.88 | AL, AR, OK |
+| 0.90 | KY, LA |
+| 0.92 | IN, TN |
+| 0.93 | IA, MO, SD |
+| 0.94 | OH, SC |
+| 0.95 | GA, MI, NC, WI |
+| 0.96 | TX |
+| 0.98 | NM, PA |
+| 1.00 | DE, ID, ME, WY |
+| 1.02 | FL, MN, MT |
+| 1.03 | AZ, UT, VA |
+| 1.05 | NH, NV, VT |
+| 1.07 | CO, MD |
+| 1.08 | OR |
+| 1.10 | WA |
+| 1.15 | MA, NY |
+| 1.20 | CA |
+
+**Medigap state factor.** Applied to the $165/person Plan G base in Section 5.
+It is a separate scale from COL and the two do not track each other: TX is 0.96
+on COL but 1.05 on Medigap; MN is 1.02 on COL but 0.95 on Medigap.
+
+| Factor | States |
+|---|---|
+| 0.88 | SD |
+| 0.90 | IA, WY |
+| 0.92 | AL, AR, KY, OK, TN |
+| 0.95 | MN, WI |
+| 1.00 | AZ, CO, DE, GA, ID, IN, LA, MD, ME, MI, MO, MT, NC, NH, NM, NV, OH, OR, SC, UT, VA, VT, WA |
+| 1.05 | PA, TX |
+| 1.15 | FL |
+| 1.25 | CA, MA |
+| 1.40 | NY |
+
+**Coverage.** These tables cover the 39 states with a city in the database, and
+nothing else. That is deliberate: an unexercised value is an unverified value.
+Adding a city in a 40th state requires deriving both multipliers for that state
+first (BLS regional CPI for COL, KFF/AHIP state Medigap averages for the
+factor), adding the rows here, and recording the derivation in the ops log.
+Do not infer a value from a neighboring state.
 
 **Sources:** BLS regional CPI; EPI Family Budget Calculator metro-level cross-checks (calibration only, not direct input).
 
@@ -101,13 +151,27 @@ Cities are grouped into five Budget Ranges using the central estimate:
 
 | Tier | Central estimate | Cities | Framing |
 |---|---|---|---|
-| R1 — Most Affordable | Under $5,500/mo | 23 | The cheapest in the database. Healthcare and basics covered, with margin. |
-| R2 — Affordable | $5,500 to $6,499 | 39 | Mainstream affordable. Largest tier. |
-| R3 — Mid-Range | $6,500 to $7,499 | 17 | Typical major-metro and Sun Belt prices. |
+| R1 — Most Affordable | Under $5,500/mo | 30 | The cheapest in the database. Healthcare and basics covered, with margin. Largest tier. |
+| R2 — Affordable | $5,500 to $6,499 | 29 | Mainstream affordable. |
+| R3 — Mid-Range | $6,500 to $7,499 | 19 | Typical major-metro and Sun Belt prices. |
 | R4 — Premium | $7,500 to $8,999 | 12 | Established retiree destinations and high-cost cities. |
 | R5 — Luxury | $9,000+/mo | 9 | Resort towns and luxury enclaves. |
 
-The published quiz currently uses different boundaries (Under $3,500, $3,500–$4,500, $4,500–$6,000, $6,000–$8,000, $8,000+). The quiz boundaries should be updated to match this tier structure as part of the rollout.
+The quiz rollout is complete. `index.html` carries these boundaries
+verbatim ('$5,500','$5,500-6,499','$6,500-7,499','$7,500-8,999','$9,000') and
+no longer references the retired Under-$3,500 set.
+
+The counts above are as of the 2026-07-27 ZHVI rebase, which moved 14 cities
+across a tier boundary. They are a snapshot, not an invariant: any rebase of
+`Median Home` moves them. Treat a mismatch between this table and the database
+as this table being stale.
+
+**Reproducibility.** The formula in Sections 3 through 6 is complete. With the
+exact multipliers tabulated in Section 6, it reproduces all 99 rows of
+CityDatabase_Jul_27_v17.xlsx exactly, both the published Monthly Est string and
+the Budget Range integer, with zero mismatches. Anything less than an exact
+reproduction means an input drifted, and that is the condition the boarded
+`Monthly Est == f(Median Home)` gate check asserts.
 
 ## 10. Limitations and known caveats
 
