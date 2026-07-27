@@ -202,6 +202,58 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-26 - The Median Home column was stale on the day it was written
+
+Board-only session. No content surface changed, no score changed, no DB written. What changed is
+what we know.
+
+**The six-city question resolved, and it resolved the other way.** Casper, Columbus, Des Moines,
+La Crosse, Roanoke and Sioux Falls had quoted prose figures ABOVE `Median Home`, and on Jul 23 they
+were edited DOWN to the DB on the data-source rule. Checked against Zillow's own city-level
+mid-tier ZHVI CSV, June 2026 column: **all six DB figures are low**, by +6.9% to +18.8%. The prose
+was the newer vintage. The Jul 23 edits pushed better numbers back to worse ones. Per the standing
+note, the fix is to correct the DB and re-derive, never to hand-revert.
+
+**Then the column itself.** Dating each DB figure by finding the month in the ZHVI series it best
+matches gives 1 city at 2020, 5 at 2021, 26 at 2022, 20 at 2023, 18 at 2024, 21 at 2025-26. It is
+not one vintage that drifted. It is a patchwork.
+
+**The part worth writing down: this project started in April 2026.** Every value in that column was
+entered within the last four months, yet the vintages run back to 2020. They were not entered fresh
+and left to age. **They were already stale the moment they were typed in.** The cause was
+demonstrated live in-session: a Zillow page returned in a web search served Casper at $273,235,
+which is a late-2022 value, while the CSV for the identical RegionID said $314,485. Nothing on the
+page marks it as old. Web research returns cached crawls and licensed snapshots, and they look
+current. The data-source rule (DB canonical, research for colour only) was working correctly the
+whole time; the leak is that the DB was itself seeded from research, upstream of the rule.
+
+**Magnitude, honestly.** Median gap +2.7%. 49 of 91 within +/-5%. **81 of 91 do not change D2
+median-home band.** Ten move; five have live profiles; two of those five are noise (Knoxville
+crosses $375K by $1,600; New Orleans moves favourably). The real review list is three cities. Seven
+live profiles carry a figure more than 8% stale, worst being Tulsa at +14.9% with a DB vintage of
+July 2022 - which shipped as profile 46 two days ago with an NRC callout built on it - and Salt
+Lake City at an August 2021 vintage, the oldest on any live profile.
+
+**Not fixed here, deliberately.** The rebase is an OPS job of its own: normalise the 8 name
+variants that do not join, rewrite all 99 figures, recompute Monthly Est, re-derive the profile
+surfaces, review D2 on the band-movers, ship a new DB version. Doing any of that inside a BATCH
+chat would be exactly the scope creep the chat taxonomy exists to stop. Casper was queued as the
+next BUILD and has been pushed behind the rebase; building it today would write a 15%-stale figure
+into a stat card, JSON-LD and pros/cons, all to be edited out weeks later.
+
+**The pattern, now four for four.** Gilcrease was a status copied once and never re-checked. The
+NRC roster was a list copied out of the profiles and never re-checked. The Tulsa property tax was a
+figure copied with no source. `Median Home` is the same failure at 99x scale. In every case the
+authoritative answer existed elsewhere and something held a copy. The open question for the rebase
+is therefore not just "what are the right numbers" but "what re-checks them next year" - most
+likely a validator vintage check against the CSV, so drift lands on the gate instead of waiting to
+be noticed.
+
+**Also fixed:** two TASKBOARD header nits. The inventory line said 7 landing pages and counted only
+`top-cities-for-*`, omitting the 4 `best-places-to-*` pillars; it now reads 11 and names both sets.
+The validator line still referenced the Roanoke push and now cites commit `0699f7f`, with the bare
+post-deploy run noted as still outstanding.
+
 ### 2026-07-25 - BATCH: a closed museum, a stale NRC roster, and a property-tax premise that was wrong
 
 **Four items in, four items out, four boarded.** No new files, no city builds. Every edit shipped

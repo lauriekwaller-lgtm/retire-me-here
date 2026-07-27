@@ -4,7 +4,11 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 25, 2026 (BATCH: Gilcrease Museum corrected on the arts landing card and
+**Last updated:** July 26, 2026 (board-only: six-city vintage question RESOLVED against the DB;
+`Median Home` found to be a 2020-2026 patchwork never rebased, full audit boarded below; two
+TASKBOARD header nits fixed. No content surfaces touched, no scores changed.)
+
+**Previously:** July 25, 2026 (BATCH: Gilcrease Museum corrected on the arts landing card and
 in the arts scoring doc; NRC fixed list removed from PROFILE-FORMATTING.md and
 MEDIAN-HOME-METHODOLOGY.md, live count is 17 not 10; Tulsa property tax 0.77% -> 0.79% in
 index.html; Wilmington DE phantom NRC entry removed. Four items boarded, see below.)
@@ -15,11 +19,13 @@ best-places-to-retire-on-a-budget.html promoted from coming-soon to a live link;
 45, with four stale Roanoke index.html figures fixed en route: $280K->$251K, hospital 16->15, D1
 routes refreshed, D7 "Range 2"->"Range 1"; Carvins Cove second-largest-municipal-park claim retired)
 
-**Verified live at last update:** 46 profiles, 20 comparison pages, 5 guides, 7 landing pages.
+**Verified live at last update:** 46 profiles, 20 comparison pages, 5 guides, 11 category pages
+(7 `top-cities-for-*` plus 4 `best-places-to-*` pillars; the old "7 landing pages" line counted
+only the first set).
 All 46 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
 placeholders pending Creator Hub; Tulsa's are live).
-Validator: **0 failures, 0 warnings** on `--local .` after the Roanoke push; re-confirm on the bare
-(live GitHub) run once deployed.
+Validator: **0 failures, 0 warnings** on `--local .`, confirmed on a fresh clone at commit
+`0699f7f` (Jul 25 BATCH push). The bare (live GitHub) post-deploy run is still outstanding.
 The validator now ALSO carries a pros/cons home-figure check (folded into the `figures` group).
 As of Jul 18 it ships **FAIL**, not WARN: the Jul-15 34-figure reconciliation held, both `--local .`
 and the live bare run read 0 pros/cons warnings, so drift now blocks the gate like every other
@@ -82,13 +88,12 @@ Standard deploy block:
 
 ## ACTIVE - batch / site-wide operations
 
-- **OPEN QUESTION carried out of the Jul 23 check: are the six non-NRC prose figures a second data
-  vintage?** Casper, Columbus, Des Moines, La Crosse, Roanoke, Sioux Falls all quoted prose figures
-  ABOVE `Median Home`, and the consistent direction still suggests a vintage rather than random
-  drift. They were edited DOWN to the DB because the data-source rule makes the DB canonical and
-  because a shipped FAIL gate cannot sit red. If the prose was in fact the newer vintage, the fix is
-  to correct the DB and let the check re-derive the prose, NOT to revert these edits. Settle it
-  before the next DB bump. Philadelphia's profile separately contradicts itself: "citywide typical
+- **RESOLVED Jul 26, and it resolved against the DB.** The six non-NRC prose figures (Casper,
+  Columbus, Des Moines, La Crosse, Roanoke, Sioux Falls) WERE a second and newer vintage. Checked
+  against Zillow's own `City_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv`, June 2026 column:
+  every one of the six DB figures is low, by +6.9% (Columbus) to +18.8% (La Crosse). The prose was
+  closer to reality than the DB was. Per the note below, the fix is to correct the DB and let the
+  check re-derive the prose, NOT to hand-revert the six edits. Folded into the rebase item. Philadelphia's profile separately contradicts itself: "citywide typical
   home value is around $234K" against $240K elsewhere in the same file - the profile surface is not
   yet covered by any home-figure check. CONFIRMED and extended Jul 23: a scan of profile JSON-LD
   against `Median Home` found Philadelphia $234,000 vs DB $240,000 (twice, in two FAQ answers) and
@@ -201,6 +206,66 @@ Standard deploy block:
     reopening spring 2027 rather than deleted, since the collection still earns Tulsa its arts tier.
   - `index.html` Tulsa property tax: CLOSED Jul 25, 0.77% -> 0.79% in both the pros bullet and the
     D5 scoreNote.
+
+---
+
+## ACTIVE - boarded July 26, 2026 (ZHVI rebase)
+
+- **`Median Home` is not one vintage. It is a 2020-2026 patchwork, and it has never been rebased.**
+  Found Jul 26 while settling the six-city question above. Joined all 99 DB rows against Zillow's
+  city-level mid-tier ZHVI CSV (91 join cleanly on name+state) and dated each DB figure by finding
+  the month in the series it best matches:
+
+  | vintage of DB figure | cities |
+  |---|---|
+  | 2020 | 1 |
+  | 2021 | 5 |
+  | 2022 | 26 |
+  | 2023 | 20 |
+  | 2024 | 18 |
+  | 2025-26 | 21 |
+
+  **The project started in April 2026. Every one of these values was entered within the last four
+  months.** So they were not entered fresh and left to age; they were already stale on the day they
+  were typed in. Cause is near-certain: the column was seeded from web research, and web research
+  returns cached crawls, licensed snapshots, and articles quoting whatever was current when written.
+  This was demonstrated live during the Jul 26 session, when a Zillow page in search results served
+  Casper at $273,235 (a late-2022 value) while the CSV for the same RegionID said $314,485. The
+  data-source rule was doing its job downstream; the leak is that the DB itself was seeded upstream
+  of it from a dirty source.
+
+- **Magnitude: a tail problem, not a collapse.** Median gap is +2.7%, 49 of 91 cities are within
+  +/-5%, and **81 of 91 do not change D2 median-home band at all.** Ten move bands, of which only
+  five have live profiles, and two of those are noise: Knoxville crosses $375K by $1,600, and
+  New Orleans moves the favourable way (7-8 -> 9-10). Real review list is Charlottesville
+  ($465K -> $528K), Ann Arbor ($489K -> $541K) and Columbus ($235K -> $251K). **D2 is not median
+  home alone** (the rubric scores COL index and monthly cost too), so a band crossing is a flag for
+  review, not an automatic rescore.
+
+- **Live profiles carrying a figure stale by more than 8%** (7 of 41 matched): Tulsa
+  $194K -> $223K (+14.9%, DB vintage ~Jul 2022, and this shipped as profile 46 on Jul 24 with an NRC
+  callout built on it), Charleston $526K -> $598K, Roanoke $251K -> $285K, Charlottesville
+  $465K -> $528K, Ann Arbor $489K -> $541K, Salt Lake City $525K -> $580K (DB vintage ~Aug 2021,
+  the oldest on a live profile), Bloomington $296K -> $321K.
+
+- **NEXT JOB, own OPS chat: rebase `Median Home` from the ZHVI CSV.** Not a BATCH item and not a
+  BUILD item. Scope: (1) normalise the 8 cities that do not join on name (`St. Augustine`,
+  `St. Petersburg`, `St. Louis`, `St. Paul`, `St. George`, `Coeur d'Alene`, `Hilton Head`,
+  `Jackson Hole` - all spelling/abbreviation variants, none actually missing from Zillow);
+  (2) rewrite `Median Home` for all 99 from the June 2026 column; (3) recompute `Monthly Est` via
+  `BUDGET-METHODOLOGY.md`; (4) re-derive every prose and stat-card figure on the affected profiles;
+  (5) review D2 on the ten band-movers. Ships a new DB version. **Do this before the next city
+  build,** or the new profile is written against a stale figure and immediately needs editing.
+
+- **Mechanism, not just the fix.** `MEDIAN-HOME-METHODOLOGY.md` v1.2 s1 says the figure is
+  "refreshed annually" and the doc was established Jun 17 2026, so no annual cycle has been missed -
+  the first one simply has not run. Worth deciding at the rebase whether the validator should carry
+  a vintage check (flag any DB figure more than N% off the current CSV) so this surfaces on the gate
+  rather than by chance. Same family as every other find this month: a value copied once with
+  nothing re-checking it against source.
+
+- **Casper is the intended next BUILD.** Fine choice, but it is 15% stale (DB $273K, actual $314K).
+  Build it after the rebase.
 
 ---
 
