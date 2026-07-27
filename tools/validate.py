@@ -10,7 +10,7 @@ Usage:
     python3 tools/validate.py --local .             # check your working copy before pushing
     python3 tools/validate.py --db path/to/db.xlsx  # override the database
     python3 tools/validate.py --only figures        # run one check group
-    python3 tools/validate.py --quiet               # failures only, no PASS lines
+    python3 tools/validate.py --quiet               # failures only, hides the harness lines
 
 Check groups:
     figures      CITIES array + CITY_ENRICHMENT modal strings vs DB

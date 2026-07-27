@@ -4,7 +4,26 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026, nav batch (BATCH: the budget pillar is now in the site
+**Last updated:** July 27, 2026, cleanup batch (BATCH: nine stale `Median Home` instances across
+five profiles, the tail of the ZHVI rebase, plus board corrections. Salt Lake City `$525,000` and
+`$525K` -> `$580K`, Columbus `$235,000` and the visible By the Numbers stat -> `$251K`, Nashville
+`$460,000` -> `$437,000`, Kansas City `$250K` -> `$257K` in THREE places (prose, By the Numbers and
+the NRC callout), Lexington `$333K` -> `$337K`. Kansas City and Lexington were not in the original
+scope: they were surfaced by the post-edit verification scan rather than by hunting, and were folded
+in because they are the same stat on the same surface, not a new line of inquiry. Verified before
+editing: the monthly figures in the same sentences are all correct against v17, so this was home
+value only with no cascade. Post-batch scan across all 46 profiles: zero home-figure disagreements
+with v17 on either the JSON-LD or By the Numbers surfaces, and every JSON-LD blob parses.
+Also corrected validate.py's usage text, which advertised `no PASS lines` when no check has ever
+printed one, boarded since Jul 27 as "fix on the next validator touch" and missed by the last two
+validator touches. Board corrections, which were the larger problem: the rebase item still read
+NEXT JOB and still blocked Casper, when steps 1-3 had already shipped in v17; the Scottsdale item
+still read as open after shipping this morning. Both closed. Nothing else touched, nothing new
+investigated. Standing decision as of this session: findings get boarded, not fixed, and the board
+is reviewed monthly rather than chased. The site's actual accuracy state after this batch is zero
+known reader-visible wrong figures on any profile.)
+
+**Previously:** July 27, 2026, nav batch (BATCH: the budget pillar is now in the site
 menu. Added as "Budget-Conscious Retirees" (desktop `index.html`) and "For Budget-Conscious
 Retirees" (everywhere else), sorted between Arts Lovers and Foodies, which is the order the
 dropdown already followed once you ignore the leading "For". 40 files, 80 rows, 2 per file for
@@ -328,7 +347,18 @@ Standard deploy block:
   $465K -> $528K, Ann Arbor $489K -> $541K, Salt Lake City $525K -> $580K (DB vintage ~Aug 2021,
   the oldest on a live profile), Bloomington $296K -> $321K.
 
-- **NEXT JOB, own OPS chat: rebase `Median Home` from the ZHVI CSV.** Not a BATCH item and not a
+- **MOSTLY CLOSED Jul 27, 2026.** ~~NEXT JOB, own OPS chat: rebase `Median Home` from the ZHVI
+  CSV.~~ **Steps 1-3 already shipped in v17 and nobody closed this**, so the board spent a week
+  telling the next session to redo finished work and to hold Casper behind it. Verified against
+  `CityDatabase_Jul_27_v17.xlsx`: every value this item lists as pending is already in the DB
+  (Tulsa $223K, Charleston $598K, Salt Lake City $580K, Roanoke $285K, Charlottesville $528K,
+  Ann Arbor $541K, Bloomington $321K, Columbus $251K, Casper $314K), all 8 non-joining city names
+  normalised, `Median Home` is a single figure in all 99 rows with no ranges left, no row missing a
+  `Monthly Est`, and St. Paul is now `$301,000` which also closes the separate St. Paul item.
+  Step 4 finished this session: 43 of 46 profiles were already fully re-derived, and the last three
+  (Salt Lake City, Columbus, Nashville) were fixed in this batch. **Step 5 is the only part still
+  open** and is carried as its own item below. Original scope text kept below for the record.
+  Not a BATCH item and not a
   BUILD item. Scope: (1) normalise the 8 cities that do not join on name (`St. Augustine`,
   `St. Petersburg`, `St. Louis`, `St. Paul`, `St. George`, `Coeur d'Alene`, `Hilton Head`,
   `Jackson Hole` - all spelling/abbreviation variants, none actually missing from Zillow);
@@ -344,8 +374,9 @@ Standard deploy block:
   rather than by chance. Same family as every other find this month: a value copied once with
   nothing re-checking it against source.
 
-- **Casper is the intended next BUILD.** Fine choice, but it is 15% stale (DB $273K, actual $314K).
-  Build it after the rebase.
+- **Casper is the intended next BUILD. UNBLOCKED Jul 27, 2026.** ~~It is 15% stale (DB $273K,
+  actual $314K), build it after the rebase.~~ The rebase shipped; v17 carries `$314,000`. Nothing
+  stands in the way of this build.
 
 ---
 
@@ -388,7 +419,12 @@ Standard deploy block:
   MARKER that exists only after the edit lands, and aborts if the marker is not in its own
   replacement. Verified 16/0 then 0/16 across repeated runs.
 
-- **Doc nit, not fixed:** validate.py's usage block still advertises
+- **CLOSED Jul 27, 2026.** ~~Doc nit: validate.py's usage block advertises `--quiet` as hiding PASS
+  lines that no check has ever printed.~~ Corrected to describe what `--quiet` actually suppresses,
+  the `harness:` lines. Worth noting how long this took: the note said "correct on the next
+  validator touch", and the next two validator touches both edited text within three lines of it
+  and missed it. A boarded instruction attached to someone else's future action is the weakest
+  form of a task. Original text below. validate.py's usage block still advertises
   `--quiet   # failures only, no PASS lines`, but no check has ever printed a PASS line. The two
   `harness:` lines are the first, and they do respect `--quiet`. Correct the usage text on the next
   validator touch.
@@ -496,6 +532,15 @@ Standard deploy block:
   Note `check_hardcoded_counts` does not catch these, for the same reason it missed the "100-city
   database (v14)" string already boarded: the number is fused into prose it does not scan.
 
+- **D2 band-mover review: the last open piece of the ZHVI rebase (step 5).** Three cities crossed a
+  D2 median-home band when the figures were rebased and none has been reviewed: Charlottesville
+  ($465K -> $528K), Ann Arbor ($489K -> $541K), Columbus ($235K -> $251K). This is a JUDGMENT task,
+  not a mechanical one, which is why it keeps getting deferred: per the rubric, D2 weighs the COL
+  index and monthly cost as well as median home, so crossing a band is a flag for review and not an
+  automatic rescore. Two others move but need no thought: Knoxville crosses $375K by $1,600, and
+  New Orleans moves the favourable way. Do this in a session where the rubric is open, not as a
+  rider on something else.
+
 - **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
   elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when
   both the DB and the quiz use Under $5,500 through $9,000+; (2) the D1 hard-filter ladder, resolved
@@ -557,7 +602,14 @@ Standard deploy block:
 
 ## ACTIVE - boarded July 25, 2026 (BATCH: Gilcrease, NRC list, Tulsa PropTax)
 
-- **`top-cities-for-sports-fans.html` Scottsdale card names a franchise that left in 2024.** The
+- **CLOSED Jul 27, 2026 (shipped).** ~~`top-cities-for-sports-fans.html` Scottsdale card names a
+  franchise that left in 2024.~~ Shipped in the roster commit: `Mullett` dropped from the card and
+  the pill changed `5+ teams` -> `4 teams`, and the same fossil corrected in
+  `docs/sports-fans-cities-scoring-analysis.md`. Placement checked before editing and did NOT move:
+  Tier 1 requires four or more leagues and Cardinals, Diamondbacks, Suns and Mercury is four.
+  **The open sub-question is answered: Cactus League does NOT count as a team.** It stays listed on
+  the card as a genuine draw but is excluded from the count, which is what makes the pill 4 and not
+  5. Original text kept below for the record. The
   card reads `Cardinals · Diamondbacks · Suns · Mullett · Mercury (WNBA) · Cactus League spring
   training` with a `5+ teams` pill. Mullett Arena was the Arizona Coyotes' venue; the NHL board of
   governors approved the sale and relocation to Utah in April 2024 and the Phoenix metro has had no
