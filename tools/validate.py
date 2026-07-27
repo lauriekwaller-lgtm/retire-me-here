@@ -21,6 +21,7 @@ Check groups:
     emdash       em-dash policy (profiles + comparison pages)
     affiliate    affiliate codes: duplicates, missing brands, multiple codes per page
     db           database hygiene
+    harness      the planted-error tests in tools/, run against this checkout
 
 Why this exists: every figure on this site is a string that either matches a DB cell
 or does not. That is machine-checkable. Before this script existed, it was not being
@@ -32,6 +33,7 @@ import json
 import os
 import pathlib
 import re
+import subprocess
 import sys
 import urllib.request
 
@@ -1774,6 +1776,71 @@ def check_db(rep, db_path):
 
 # ---------------------------------------------------------------- main
 
+# ------------------------------------------------------------------- harnesses
+#
+# The planted-error harnesses check the CHECKER. Each plants an error that really
+# shipped, runs the relevant group against a throwaway copy, and asserts it is caught.
+# House rule is that no check ships without one.
+#
+# They were run by hand or not at all, and on July 27 2026 the cost of that showed up:
+# test_highlight_homes.py had been crashing on main since the ZHVI rebase, through a
+# clean 0/0 gate, with eighteen assertions dead and nothing on screen saying so. A test
+# suite nothing executes is not a test suite. So they are a check group now, and they
+# gate the deploy like every other group.
+HARNESSES = ("tools/test_highlight_homes.py", "tools/test_emdash_forms.py")
+
+# Each harness runs THIS script on a staged copy, so the group would recurse without a
+# stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
+# excludes this group, and the sentinel below survives someone widening that later.
+HARNESS_ENV = "RMH_IN_HARNESS"
+
+# "18/18 passed", with the backreference doing the work: a harness that ran zero
+# assertions prints "0/0 passed" and exits 0, which is the silent-no-op failure these
+# files exist to prevent, so it is rejected separately below.
+HARNESS_SUMMARY = re.compile(r"\b(\d+)/\1 passed\b")
+
+
+def check_harnesses(rep, local, quiet=False):
+    """Run each planted-error harness. Non-zero exit, or a shapeless summary, fails."""
+    if os.environ.get(HARNESS_ENV):
+        return                           # we are inside a harness; do not recurse
+
+    # The harnesses stage FILES ON THIS MACHINE either way: they are a self-test of the
+    # validator's logic, not of the live site, so they run in both modes. In a bare run
+    # `local` is None and the checkout is this file's grandparent.
+    root = local or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    env = dict(os.environ)
+    env[HARNESS_ENV] = "1"
+
+    for rel in HARNESSES:
+        path = os.path.join(root, rel)
+        if not os.path.exists(path):
+            rep.fail("harness", f"{rel} is missing: the planted-error test for its "
+                                f"check group is not running, and that check is now "
+                                f"unwatched")
+            continue
+
+        proc = subprocess.run([sys.executable, path, "--repo", root],
+                              capture_output=True, text=True, env=env)
+        lines = (proc.stdout or "").strip().splitlines()
+        summary = lines[-1].strip() if lines else "(no output)"
+
+        if proc.returncode != 0:
+            # Surface the individual assertions, not just the exit code. The whole
+            # point is that this is readable on the gate without a second command.
+            for ln in lines:
+                if "[FAIL]" in ln:
+                    rep.fail("harness", f"{rel}: {ln.strip()}")
+            detail = (proc.stderr or "").strip().splitlines()
+            rep.fail("harness", f"{rel}: exit {proc.returncode}, {summary}"
+                                + (f" | {detail[-1]}" if detail else ""))
+        elif not HARNESS_SUMMARY.search(summary):
+            rep.fail("harness", f"{rel}: exit 0 but no N/N summary line; last line was "
+                                f"{summary!r}. It ran nothing, or its shape changed.")
+        elif not quiet:
+            print(f"  harness:  {rel} {summary}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="Validate RetireMeHere against the City Database.")
     ap.add_argument("--db", default=DEFAULT_DB, help=f"database path (default: {DEFAULT_DB})")
@@ -1781,7 +1848,7 @@ def main():
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
                              "superlatives", "emdash", "tags", "affiliate", "db",
-                             "docs"],
+                             "docs", "harness"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -1795,7 +1862,7 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "tags", "affiliate", "db", "docs"}
+        "tags", "affiliate", "db", "docs", "harness"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -1862,6 +1929,10 @@ def main():
         check_db(rep, args.db)
     if "docs" in groups:
         check_docs(rep, args.db, idx, sitemap, slug_to_city, args.local)
+    # Last: it shells out once per harness and is the slowest group by a wide margin,
+    # so everything cheap has already had its say by the time it starts.
+    if "harness" in groups:
+        check_harnesses(rep, args.local, args.quiet)
 
     return rep.render()
 

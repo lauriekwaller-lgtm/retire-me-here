@@ -1,2 +1,4 @@
 *.zip
 apply-*.py
+__pycache__/
+*.pyc

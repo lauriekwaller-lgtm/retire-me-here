@@ -11,8 +11,16 @@ is subtle: a regex that matches nothing reports a clean run forever and looks ex
 like a site with no bugs.
 
 The planted error is the one that actually shipped. Wilmington DE's highlight read
-$215K while the database said $321,000, and it read that way on the live site until
-this check was written. Nothing synthetic here.
+$215K while the database said something else, and it read that way on the live site
+until this check was written. Nothing synthetic here.
+
+Every home figure below is READ FROM THE DATABASE at runtime. They were hardcoded
+until July 27 2026, when the annual ZHVI rebase moved Wilmington DE from $321,000 to
+$336,000 and this file began crashing on an assert at the first test. Nothing ran it,
+so nothing said so, and it sat broken on main through a clean 0/0 gate. Both halves of
+that are fixed together: the figures are derived, and the harness is wired into the
+gate as the `harness` check group. A fixture that names a constant the annual refresh
+moves is a fixture with an expiry date on it.
 
 Test 3 is the one that matters most. The database holds Wilmington DE AND Wilmington
 NC. On July 21 a name-only lookup graded one against the other's figure and put
@@ -32,7 +40,36 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import validate  # noqa: E402  -- same directory, imported only to read the database
+
 NEEDED = ["index.html", "pick-and-compare.html", "sitemap.xml", "docs", "tools"]
+
+
+def db_homes(repo, wanted):
+    """
+    Median Home for each (City, ST), read through validate.py's own loader.
+
+    Deliberately not a second xlsx parser. If the database moves or its columns are
+    renamed, this harness must break in the same place and the same way the validator
+    does, rather than grading the site against a stale copy of the truth.
+    """
+    db = validate.load_db(os.path.join(repo, validate.DEFAULT_DB))
+    out = {}
+    for city, state in wanted:
+        row = validate.db_get(db, city, state)
+        if not row or row.get("home") is None:
+            raise AssertionError(
+                f"{city}, {state} has no Median Home in {validate.DEFAULT_DB}. This "
+                f"harness plants against real rows; pick a different fixture city "
+                f"rather than hardcoding a figure back in.")
+        out[(city, state)] = row["home"]
+    return out
+
+
+def K(value):
+    """The $NNNK rendering, the one the highlight strings use."""
+    return "$%dK" % round(value / 1000)
 
 
 def stage(repo):
@@ -116,6 +153,21 @@ def main():
 
     print("planted-error test: highlight home figures\n")
 
+    homes = db_homes(repo, [("Wilmington", "DE"), ("Wilmington", "NC"),
+                            ("Naples", "FL")])
+    DE = homes[("Wilmington", "DE")]
+    NC = homes[("Wilmington", "NC")]
+    NAPLES = homes[("Naples", "FL")]
+    WRONG = "$215K"          # the figure that actually shipped on Wilmington DE
+
+    # The fixtures below are only meaningful if the planted figures really are wrong
+    # and really do differ from each other. Assert it rather than assume it, because a
+    # future refresh that collides them would turn several tests green by accident.
+    assert K(DE) != WRONG, "the planted wrong figure now equals Wilmington DE's DB value"
+    assert K(DE) != K(NC), "the two Wilmingtons now share a figure; test 3 is void"
+    print(f"  database: Wilmington DE {K(DE)}, Wilmington NC {K(NC)}, "
+          f"Naples {K(NAPLES)}\n")
+
     # ---------------------------------------------------------------- control
     tmp = stage(repo)
     base_code, base_fails = run(tmp)
@@ -123,11 +175,11 @@ def main():
     print(f"  control run: exit {base_code}, {len(base_fails)} failures\n")
 
     # ------------------------------------------------- 1. the error that shipped
-    # Wilmington DE: highlight $215K against a DB Median Home of $321,000.
+    # Wilmington DE: highlight $215K against its DB Median Home.
     tmp = stage(repo)
     hl = highlight_of(tmp, "index.html", "Wilmington", "DE")
-    assert "$321K" in hl, "Wilmington DE's highlight no longer states $321K"
-    edit(tmp, "index.html", hl, hl.replace("$321K", "$215K"))
+    assert K(DE) in hl, f"Wilmington DE's highlight no longer states {K(DE)}"
+    edit(tmp, "index.html", hl, hl.replace(K(DE), WRONG))
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     new = fails - base_fails
@@ -141,7 +193,7 @@ def main():
     # ---------------------------------------------- 2. the same error, other surface
     tmp = stage(repo)
     hl = highlight_of(tmp, "pick-and-compare.html", "Wilmington", "DE")
-    edit(tmp, "pick-and-compare.html", hl, hl.replace("$321K", "$215K"))
+    edit(tmp, "pick-and-compare.html", hl, hl.replace(K(DE), WRONG))
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     new = fails - base_fails
@@ -156,16 +208,16 @@ def main():
     # Both halves pass only if the lookup is keyed on (City, ST).
     tmp = stage(repo)
     hl = highlight_of(tmp, "index.html", "Wilmington", "NC")
-    edit(tmp, "index.html", hl, "A $418K typical home value. " + hl)
+    edit(tmp, "index.html", hl, f"A {K(NC)} typical home value. " + hl)
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     home, _ = split(fails - base_fails)
-    check("Wilmington NC graded against NC's $418,000, not DE's $321,000",
+    check(f"Wilmington NC graded against NC's {K(NC)}, not DE's {K(DE)}",
           not home, f"new failures: {sorted(home) or 'none'}")
 
     tmp = stage(repo)
     hl = highlight_of(tmp, "index.html", "Wilmington", "NC")
-    edit(tmp, "index.html", hl, "A $321K typical home value. " + hl)
+    edit(tmp, "index.html", hl, f"A {K(DE)} typical home value. " + hl)
     code, fails = run(tmp)
     shutil.rmtree(tmp)
     new = fails - base_fails
@@ -179,13 +231,19 @@ def main():
     # red-light. They are planted into one city's string and must produce silence.
     legit = [
         ("NRC neighborhood range",
-         " Citywide median home $321K but retirees target Greenville, Hockessin "
+         f" Citywide median home {K(DE)} but retirees target Greenville, Hockessin "
          "($400K\\u2013$1.1M)."),
-        ("cross-city reference", " Naples matches it at $585K."),
+        # JUDGMENT CALL, Jul 27 2026: this fixture used to read "Naples matches it at
+        # $585K", which carries no home-value noun and so matched neither HL_HOME_FIG
+        # nor HL_HOME_BOUND. It passed by matching nothing, which is the exact failure
+        # this harness exists to catch, and it never once exercised the cross_city()
+        # veto it is named for. Reworded to the sentence validate.py's own HL_* comment
+        # says the veto is there for, and pointed at Naples' real figure.
+        ("cross-city reference", f" Naples' median home is {K(NAPLES)}."),
         ("figure that is not a home value", " The $465M Gathering Place anchors downtown."),
         ("tax threshold", " A $132K joint retirement income deduction."),
         ("monthly budget range", " Budget $4,700\\u2013$5,800/mo."),
-        ("a true bound", " Affordable homes under $400K."),
+        ("a true bound", f" Affordable homes under {K(DE + 100_000)}."),
     ]
     for label, snippet in legit:
         tmp = stage(repo)
@@ -198,11 +256,12 @@ def main():
               not home, f"{sorted(home) or 'silent'}")
 
     # ------------------------------------------------ 5. scope: real errors still caught
-    # The mirror image. Each of these is false against Wilmington DE's $321,000.
+    # The mirror image. Each of these is false against Wilmington DE's DB figure.
     wrong = [
-        ("stale figure off by one thousand", " Typical home value $322K."),
-        ("a bound that does not hold", " Median homes under $300K."),
-        ("wrong figure in full dollars", " Median home $215,000."),
+        ("stale figure off by one thousand",
+         f" Typical home value ${round(DE / 1000) + 1}K."),
+        ("a bound that does not hold", f" Median homes under {K(DE - 50_000)}."),
+        ("wrong figure in full dollars", f" Median home ${DE - 100_000:,}."),
     ]
     for label, snippet in wrong:
         tmp = stage(repo)
