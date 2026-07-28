@@ -4,7 +4,22 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 27, 2026, cleanup batch (BATCH: nine stale `Median Home` instances across
+**Last updated:** July 28, 2026, validator `layout` group shipped (OPS. New check
+`check_stray_artifacts` plus `tools/test_stray_artifacts.py`, 7 planted-error assertions.
+It fails on a `<city>-profile.html` or `<city>-hero.jpg` at the repo root, any zip at the
+root, rename debris or a missing photo inside `cities/<slug>/`, and a `cities/` directory
+that yields nothing. Run it with `--only layout`. Local mode only: it asks what is on disk,
+and a bare run cannot list a directory over HTTP, so it is skipped rather than faked in the
+post-deploy run. Cause it addresses: every other check reads the CONTENT of a file whose
+path it already knows, which left a file with the wrong NAME in the wrong PLACE unwatched.
+A build chat delivered the pre-July-14 hand-off shape three times between Jul 25 and Jul 28,
+loose `casper-profile.html` and `casper-hero.jpg` to rename by hand, and the gate read 0/0
+each time. The skill file was the leak: it lives outside the repo, so section 4a and the
+enumeration rule cannot keep it current, and it still specified a shape DEPLOY-CHEATSHEET.md
+superseded on Jul 14. Skill rewritten to delegate rather than restate. One item boarded,
+see below.)
+
+**Previously:** July 27, 2026, cleanup batch (BATCH: nine stale `Median Home` instances across
 five profiles, the tail of the ZHVI rebase, plus board corrections. Salt Lake City `$525,000` and
 `$525K` -> `$580K`, Columbus `$235,000` and the visible By the Numbers stat -> `$251K`, Nashville
 `$460,000` -> `$437,000`, Kansas City `$250K` -> `$257K` in THREE places (prose, By the Numbers and
@@ -285,6 +300,18 @@ Standard deploy block:
   rewrite of four opening sentences. Not batchable.
 
 ---
+
+## BOARDED - opened by the layout-check work (Jul 28)
+
+- **Any doc that lives outside the repo is unwatchable.** Section 4a makes the repo
+  canonical and the enumeration rule keeps repo docs honest, but `SKILL.md` sits in
+  `/mnt/skills/user/` and this project's own instructions sit in project settings. Both
+  restated the hand-off shape, both went stale on Jul 14, and neither could be caught by
+  anything. The skill is now rewritten to delegate to the repo docs instead of restating
+  them. **The project instructions still say the old thing** and should get the same
+  treatment: they currently ask for `<city>-profile.html` and city-prefixed photos to
+  rename at deploy time. Worth a periodic audit of both against the repo, since no tool
+  can do it.
 
 ## ACTIVE - city profile builds
 

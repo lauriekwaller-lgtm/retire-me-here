@@ -202,6 +202,52 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-28 - validator `layout` group: the hand-off shape is now checked
+
+**Problem.** Every check in `validate.py` reads the CONTENT of a file whose path it already
+knows. That leaves a whole class of fault unwatched: a file with the wrong NAME, in the wrong
+PLACE, which no check has any reason to open. `DEPLOY-CHEATSHEET.md` section 4 has specified
+the hand-off shape since Jul 14 (a zip of new files at final repo paths, plus
+`apply-<city>.py` for edits to existing files), but nothing enforced it. A build chat
+delivered the older shape three times between Jul 25 and Jul 28, loose `casper-profile.html`
+and `casper-hero.jpg` to be renamed by hand at deploy time, and the gate read 0 failures
+every time, correctly by its own lights.
+
+The ways that ships wrong are all quiet: three photos renamed by hand at 11pm with one
+missed, so a profile goes live with a broken image nobody sees until a reader does; the loose
+copy left at the root beside the correct one, so a stray `-PROFILE.html` sits live and
+unscanned, which is how a `scottsdale-vs-santa-fe` stray carried four banned superlatives
+past `check_superlatives`; or a bundle zip committed because `rm` came after `git add`.
+
+**Cause.** Not forgetfulness. Three documents described the hand-off shape and two were
+stale. The one a build chat reads at step zero, `SKILL.md`, lives OUTSIDE the repo, so
+neither section 4a nor the enumeration rule can reach it. It is the single document
+guaranteed to be read on every build and the single document the currency machinery cannot
+see. The project instructions have the same problem and still carry the old shape.
+
+**Fix, two parts.** `check_stray_artifacts` plus `tools/test_stray_artifacts.py` (7 planted
+assertions, both directions: strays present, and expected files absent, and a `cities/` that
+yields nothing failing loudly rather than comparing an empty set). Local mode only, since a
+bare run cannot list a directory over HTTP. And `SKILL.md` rewritten to delegate rather than
+restate, with a table naming which repo doc owns which subject and an explicit rule that if
+the skill and a repo doc disagree, the repo doc wins and the skill is the bug.
+
+Three further stale claims in the skill were fixed while there: it described
+`PUBLISHED_PROFILES` as a structured entry with `hospitalRating` and `scoreNotes` (that is a
+different map further up `index.html`; the real one is a flat key-to-path map), it told a
+build chat to run a `scripts/generate_brief.py` that is not bundled with no fallback, so the
+ranking step could be skipped for want of a tool, and its photo section carried no EXIF
+verification or licence-attribution guidance.
+
+**Verified.** Reproduced the original mistake against the new check: `casper-profile.html`
+and `casper-hero.jpg` dropped at the root of a clean checkout produce 2 failures naming both
+files and pointing at section 4. Full gate 0/0 with four harnesses.
+
+**Limit worth stating.** This catches the wrong shape at the operator's end, on unzip. It
+cannot stop a chat producing it. The skill rewrite is what addresses that and it is the
+weaker half, since it depends on the next chat reading the delegation and pulling the
+cheatsheet.
+
 ### 2026-07-27 - ZHVI rebase: Median Home rebuilt for all 99 cities (v17)
 
 **Problem.** `Median Home` was never one vintage. Joined against Zillow's city-level mid-tier ZHVI
