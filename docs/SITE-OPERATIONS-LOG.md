@@ -202,6 +202,64 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-28 (second push) - P0 figure batch: 13 reader-visible figures; board triage scale adopted
+
+**What happened.** An OPS chat scoped to building the profile stat-card + FAQ figure check ran a
+draft of that check across all 47 live profiles before writing it, to size the job. The draft found
+**44 figures that disagree with CityDatabase_Jul_27_v17** on surfaces no check has ever read. The
+gate read 0 failures, 0 warnings over every one of them, because `RANGE_RE` recognises only the long
+`$4,500-$5,600` money form and the abbreviated stat card is written `$4.5-5.6K/mo`.
+
+**What shipped.** The 13 a reader can see and act on, and nothing else.
+
+Ten abbreviated monthly stat cards, each off by $300 to $600 per month:
+
+| City | Card read | v17 Monthly Est | Now |
+|---|---|---|---|
+| Carlsbad | `$10.9-13.6K` | $10,400-$13,000 | `$10.4-13K` |
+| San Antonio | `$5.1-6.4K` | $4,700-$5,800 | `$4.7-5.8K` |
+| Charlottesville | `$5.5-6.8` | $5,800-$7,300 | `$5.8-7.3` |
+| Ann Arbor | `$5.6-6.9K` | $5,900-$7,300 | `$5.9-7.3K` |
+| Charleston | `$5.6-7K` | $6,000-$7,400 | `$6-7.4K` |
+| Salt Lake City | `$5.7-7.1` | $6,000-$7,500 | `$6-7.5` |
+| Fort Myers | `$5.5-6.8` | $5,200-$6,500 | `$5.2-6.5` |
+| Memphis | `$4.1-5.1K` | $3,800-$4,800 | `$3.8-4.8K` |
+| Roanoke | `$4.4-5.4K` | $4,600-$5,700 | `$4.6-5.7K` |
+| St. Louis | `$4.4-5.4K` | $4,100-$5,200 | `$4.1-5.2K` |
+
+Three home figures, each contradicted by the same page elsewhere: San Antonio `~$320K` to `~$251K`
+and St. Louis `~$235K` to `~$192K`, both in the `method-callout` at the head of Where to live;
+Memphis `$195K` to `$147K` in the `hoods-intro`.
+
+**The one to remember.** Carlsbad's `stat-sub`, rendered on the line directly beneath the wrong
+figure, already read "Tier 5 - $10,400 to $13,000 a month". The card contradicted its own subtitle
+on screen, roughly two centimetres apart, and had done so for as long as the card existed.
+
+**What did not ship, and why.** The check itself, and the other 26 figures: twenty monthly cards off
+by exactly $100, five home figures off by $1K to $9K, and Pensacola's Budget Score tile reading 8
+against a v17 D2 of 7. All are real. None changes what a reader does. They are left in place on
+purpose as the check's regression corpus, because hand-fixing them before the guard exists means
+doing the work twice, and because a corpus of 26 known-wrong figures is the only honest way to prove
+the check catches the class rather than the plants.
+
+**Board triage scale adopted, and every open item ranked.** The second half of this push is
+procedural. `docs/TASKBOARD.md` gained a `HOW TO RANK ANYTHING ON THIS BOARD` section defining P0
+through P4 on one question, who is harmed and how fast, and all 34 open items now carry a rank
+inline. Two rules attach: no board line without a rank, and only P0 may interrupt a city profile
+build.
+
+The cause it addresses is not a missing process, it is a missing field. Every finding was being
+boarded with full reasoning and no priority, so a 1,100-line board presented a $100 rounding
+difference and a nav copied into 87 files in the same visual weight. The operator reported the
+predictable effect: every cleanup chat surfaced more work of unknown importance, and the queue felt
+undifferentiated. Ranking is cheap, reversible, and restores the distinction the board was already
+capable of making.
+
+**Verification.** `python3 tools/validate.py --local .` on a fresh clone: 0 failures, 0 warnings,
+four harnesses green. Note what that proves and what it does not: the existing gate passed before
+this batch and passes after it, and could not have told the two states apart. That is precisely the
+gap the P2 check closes.
+
 ### 2026-07-28 - Casper, WY profile (47); budget-page card promoted; NRC roster grep found leaky
 
 **Built.** `cities/casper/profile.html`, cloned from the live St. Louis canonical rather than a

@@ -4,7 +4,15 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
+**Last updated:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
+reader-visible figures corrected across ten profiles, ten abbreviated monthly stat cards off by
+$300 to $600 and three home figures each contradicted by their own page. Every open item on this
+board now carries a P0-P4 rank; the scale and the two rules that make it hold are the first
+section below. The stat-card + FAQ validator check that found all of this did NOT ship: it is
+P2, its findings are recorded on its own board item, and the 26 P1 figures it also found are
+deliberately still in place as its regression corpus. Gate clean at 47 profiles.)
+
+**Before that:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
 live St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: one pillar, D5 Tax 10,
 with a cluster of three 8s (D2 Budget, D7 Outdoor, D9 Safety), so the MULTI-STRENGTH pattern
 applies: tax leads, cluster carries the character section. Hard-flagged weaknesses D1 Airport 4
@@ -225,9 +233,72 @@ Standard deploy block:
 
 ---
 
+## HOW TO RANK ANYTHING ON THIS BOARD (adopted July 28, 2026)
+
+Every open item below carries a rank. An item without one is not tracked, because a board on
+which everything looks equally urgent gets read as a pile rather than a queue.
+
+Rank on one question: who is harmed, and how fast.
+
+| Rank | Test | What it means for the schedule |
+|---|---|---|
+| **P0** | A reader sees a wrong number that could change a decision, or a page is broken | Fix in the chat that finds it |
+| **P1** | Wrong, but a reader cannot see it or would not act on it: machine-only surfaces, rounding, low-traffic pages, dated triggers not yet due | Batch. Monthly, or the next time you are in the file |
+| **P2** | Nothing is wrong today; nothing prevents it going wrong tomorrow. Every validator check lives here | Its own scheduled OPS chat |
+| **P3** | Structural debt. The nav in 87 files, the rubric living outside the repo | Only when it blocks something you actually want to do |
+| **P4** | Cosmetic, wording, doc version numbers, enumeration accuracy | Only while already in the file. Never its own job |
+
+Two rules make the scale hold:
+
+1. **No board line without a rank.** A chat that cannot rank a finding does not board it.
+2. **Only P0 may interrupt a city profile build.** With 52 cities left to score into profiles,
+   builds are the default work and findings are the interruption, never the other way round.
+
+Ranks are cheap to change and are a judgment, not a measurement. Move one the moment it reads
+wrong; do not open a discussion about the scale to do it.
+
+One exception, and only one: **queue entries carry no rank.** `Next in queue`, the comparison-page
+queue and the per-city follow-up lists are the WORK, not findings about the work. Four such bullets
+are unranked today and that is correct, not an oversight.
+
+Why this exists, recorded so the reasoning does not have to be reconstructed: on July 28 an OPS
+chat scoped to a single validator check turned up 44 wrong figures across 36 profiles. Ten moved
+a headline monthly budget by $300 to $600. Twenty moved it by $100. Before today those two
+classes read identically on this board, and the effect was that the $100 ones felt as blocking
+as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
+
+---
+
+## CLOSED July 28, 2026 (P0 figure batch + triage scale) - shipped
+
+- **13 P0 figures fixed, and the scale that decided they were the only 13.** An OPS chat scoped
+  to the stat-card + FAQ check ran a draft of that check across all 47 profiles and found 44
+  figures that disagree with v17 on surfaces nothing has ever read. The check itself did NOT
+  ship in this batch, deliberately: see the P2 item below. What shipped is the subset a reader
+  can see and act on.
+  **Ten abbreviated monthly stat cards**, all off by $300 to $600 per month: Carlsbad
+  `$10.9-13.6K` -> `$10.4-13K`, San Antonio `$5.1-6.4K` -> `$4.7-5.8K`, Charlottesville
+  `$5.5-6.8` -> `$5.8-7.3`, Ann Arbor `$5.6-6.9K` -> `$5.9-7.3K`, Charleston `$5.6-7K` ->
+  `$6-7.4K`, Salt Lake City `$5.7-7.1` -> `$6-7.5`, Fort Myers `$5.5-6.8` -> `$5.2-6.5`,
+  Memphis `$4.1-5.1K` -> `$3.8-4.8K`, Roanoke `$4.4-5.4K` -> `$4.6-5.7K`, St. Louis
+  `$4.4-5.4K` -> `$4.1-5.2K`.
+  **Three visible home figures**, all contradicted by the same page elsewhere: San Antonio
+  `~$320K` -> `~$251K` and St. Louis `~$235K` -> `~$192K`, both in the `method-callout` box at
+  the head of the Where to live section; Memphis `$195K` -> `$147K` in the `hoods-intro`.
+  Carlsbad is the one to remember: its `stat-sub` on the very next line already read
+  "Tier 5 - $10,400 to $13,000 a month", so the card contradicted its own subtitle, and the
+  gate read 0/0 over it.
+  Not in this batch, and boarded as P1 rather than fixed: twenty monthly cards off by exactly
+  $100, five home figures off by $1K to $9K, and Pensacola's Budget Score tile reading 8 where
+  v17 says D2 = 7. All real, none of them changes what a reader does, and all twenty-six are
+  what the P2 check exists to hold. Fixing them by hand before the guard ships means doing it
+  again after the next DB refresh.
+
+---
+
 ## ACTIVE - batch / site-wide operations
 
-- **Three stale home figures in profile PROSE: FIXED Jul 27. The GAP THAT ALLOWED THEM IS STILL
+- **[P2]** **Three stale home figures in profile PROSE: FIXED Jul 27. The GAP THAT ALLOWED THEM IS STILL
   OPEN.** Philadelphia `$234K` x2 -> `$237K` and New Orleans `$246K` -> `$248K`, both now equal to
   v17 and to the correct figure each file already carried elsewhere. Read the fix narrowly: three
   characters of drift were corrected by hand, and nothing was built that would catch the fourth.
@@ -239,7 +310,7 @@ Standard deploy block:
   correct: none of the three was in JSON-LD. Real fix is the profile stat-card + FAQ figure check
   boarded below, which must reach prose, bolded or not.
 
-- **Em-dash target list: two pages added Jul 27, two remain out, both already clean.**
+- **[P4]** **Em-dash target list: two pages added Jul 27, two remain out, both already clean.**
   `privacy.html` and `scouting-trip-workbook.html` are now named targets and their one em dash each
   is converted (the `<title>` moved to the ` | RetireMeHere` form the other 88 titles use; the
   workbook label took a comma). The risk boarded against this job did not materialise: the workbook
@@ -254,7 +325,7 @@ Standard deploy block:
   artifact that no HTML check reaches. If it was generated from the HTML it now differs from it by
   one label. Worth a look next time the workbook is regenerated, not before.
 
-- **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
+- **[P2]** **Superlative rules are now PATTERN-based, not string-based - keep them that way.** The old ban was
   a list of remembered phrases, and every single leak came through the list, never the logic. Six
   distinct shapes were found live on July 14: a modifier the list didn't have (`in ENTIRE database`),
   a region word between modifier and noun (`in our FLORIDA coverage`), a curation verb not on the list
@@ -270,14 +341,14 @@ Standard deploy block:
   plus site-scoping `here`), surgically enough that an innocent `here` (`the winters are real here too`)
   does not fire.
 
-- **Validator: add a climate check group** - the validator compares `index.html` city FIGURES against
+- **[P2]** **Validator: add a climate check group** - the validator compares `index.html` city FIGURES against
   the DB but has never checked the CLIMATE blocks. They happen to match 99/99, but nothing enforces it,
   and the July 13 rebuild added three fields (`janF`, `snow`, `sun`) that live in `index.html` with no
   guard at all. Add a group asserting (1) all five original climate values match the DB per city,
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
-- **Validator: build the profile stat-card + FAQ figure check.** The 13 drifted figures are now
+- **[P2]** **Validator: build the profile stat-card + FAQ figure check.** The 13 drifted figures are now
   reconciled (see RECENTLY SHIPPED), so this can be built against a clean tree. Three things the
   audit proved the check needs, each of which cost a wrong answer while sizing the job:
   (1) a HEDGE SLOT between the noun and the figure. The existing `PROSCONS_HOME` matcher requires them
@@ -294,15 +365,34 @@ Standard deploy block:
   Community, Safety, Airport Access, Tax Friendliness, Wellness, Budget Score). Six slot labels are
   non-DB facts (Founded, Elevation, Metro, Coastline, Weather, State Income Tax) and must stay unmapped.
   Planted-error test the whole surface: the audit pass caught 5 of 5 planted errors across both.
+  **SIZED Jul 28, and it is bigger than a check.** A draft of all three sub-checks was run across
+  the 47 live profiles. Findings, so the next chat does not re-derive them: 35 of 47 abbreviated
+  monthly cards disagree with v17; 1 variable slot disagrees (Pensacola Budget Score 8, D2 = 7);
+  8 prose home figures disagree out of 157 matched. Ten of the monthly cards and three of the home
+  figures shipped as P0 on Jul 28. The remaining 26 are P1 and are deliberately left in place: they
+  are the check's own regression corpus, and hand-fixing them before the guard exists means doing
+  it twice.
+  Design settled while sizing, so it does not have to be re-argued: the money token must be
+  `\$\s?\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s?[KkMm])?`, which can only end on a digit or K/M and is what
+  stops `$314,000, with` swallowing the comma. The hedge slot is a bounded run that crosses no
+  comma, no second `$` and no bound word, which is enough for "the typical home value in Salt Lake
+  City is around $580,000" at 28 characters. `hood-card` blocks are excluded structurally, which is
+  what keeps Bentonville's Bella Vista `~$300K` and Tampa's Water Street range out; note Pittsburgh's
+  Brookline card reads `around $246K` and passes today only because it happens to equal the citywide
+  figure. `method-callout` is a THIRD sub-surface where a bare "median" is admissible, because that
+  box only ever discusses the citywide home figure: 3 matches site-wide, all three were wrong, and
+  San Antonio and St. Louis are reachable no other way. The variable-slot rule fires only on a
+  `N/10` value, so `Healthcare: Barnes-Jewish` is out of scope, and a `N/10` under an unmapped label
+  is a FAIL rather than a skip.
 
-- **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
+- **[P1]** **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
   "Hot summers (lower = milder)" but populated from `Climate Hot Sum`, which the rubric defines as summer
   COMFORT (10 = comfortable, 1 = extreme heat) - so higher is milder, and the label says the opposite.
   Invisible there because both cities score 6, but the label is wrong. The new `knoxville-vs-nashville`
   page uses the correct "Summer comfort (higher = milder)". Fix the Chattanooga label on its next touch;
   audit other comparison pages for the same inverted wording while at it. Latent, not live-wrong.
 
-- **Visit-block hooks: 4 profiles open on a template.** `asheville`, `bend`, `boulder`, `fort-collins`
+- **[P4]** **Visit-block hooks: 4 profiles open on a template.** `asheville`, `bend`, `boulder`, `fort-collins`
   all open the Visit hook with "A scoring sheet can't tell you..." / "A scoring sheet only tells you...".
   PROFILE-FORMATTING.md is explicit that the hook must be "the single most concrete, specific, appealing
   thing about the city... never a generic adjective" and "do not open with a template; every hook opens
@@ -314,7 +404,7 @@ Standard deploy block:
 
 ## BOARDED - opened by the layout-check work (Jul 28)
 
-- **Any doc that lives outside the repo is unwatchable.** Section 4a makes the repo
+- **[P3]** **Any doc that lives outside the repo is unwatchable.** Section 4a makes the repo
   canonical and the enumeration rule keeps repo docs honest, but `SKILL.md` sits in
   `/mnt/skills/user/` and this project's own instructions sit in project settings. Both
   restated the hand-off shape, both went stale on Jul 14, and neither could be caught by
@@ -326,13 +416,13 @@ Standard deploy block:
 
 ## BOARDED - opened by the Casper build (Jul 28)
 
-- **The NRC roster grep over-counts.** `PROFILE-FORMATTING.md` v1.6 names
+- **[P4]** **The NRC roster grep over-counts.** `PROFILE-FORMATTING.md` v1.6 names
   `grep -l 'reality-check-eyebrow' cities/*/profile.html` as the enumeration of record, but that
   matches the CSS selector as well as the markup, so profiles carrying the inherited stylesheet
   and no callout are counted. Knoxville, Roanoke and Prescott are three such today; the grep
   returns 17. Tighten it to `grep -l 'class="reality-check-eyebrow"'` and re-count. Casper was
   built with the unused NRC CSS stripped, so it does not add to the problem.
-- **index.html Casper scoreNotes name the hospital "Wyoming Medical Center".** It has been
+- **[P1]** **index.html Casper scoreNotes name the hospital "Wyoming Medical Center".** It has been
   Banner Wyoming Medical Center since the Banner Health acquisition. Low urgency: with
   `Casper_WY` now in PUBLISHED_PROFILES the inline detail view never renders. Fold into the
   next BATCH.
@@ -348,8 +438,11 @@ Standard deploy block:
   enumeration of record is `grep -l 'reality-check-eyebrow' cities/*/profile.html`. Do not
   reintroduce a list in either doc.
 - **Tulsa follow-ups:**
-  - `pick-and-compare.html` carries Tulsa at `d2:7`; DB and `index.html` both say **D2 = 9**. Stale.
-    Part of the 72-score job boarded Jul 23, not a Tulsa-specific fix.
+  - **CLOSED Jul 28, 2026, verified.** ~~`pick-and-compare.html` carries Tulsa at `d2:7`; DB and
+    `index.html` both say **D2 = 9**. Stale.~~ The 72-score job carried it: the live blob now reads
+    `d2: 9` for Tulsa, and Coeur d'Alene, boarded separately as unreachable by name-keyed checks,
+    now reads `$611,000` against a v17 `$611,000`. Both checked against live `main` on Jul 28. The
+    SHAPE of the Coeur d'Alene hole is still open and is boarded as P2; only its data is clean.
   - Detail photo resolved Jul 24: Boston Avenue Methodist Church, CPacker at English Wikipedia,
     CC BY 2.0, credited on the image and in the footer with a license link and a cropped note.
   - Gilcrease Museum: CLOSED Jul 25 on both surfaces (landing card and scoring doc), marked as
@@ -525,7 +618,7 @@ Standard deploy block:
   the budget page alone. Test 5 is the one that matters longest: markup that yields zero cards
   fails loudly instead of comparing nothing.
 
-- **Two pillar pages have no city cards at all, so `check_cards` reads them and finds nothing.**
+- **[P2]** **Two pillar pages have no city cards at all, so `check_cards` reads them and finds nothing.**
   `best-places-to-retire-in-florida.html` and `best-places-to-retire-in-the-midwest.html` are both
   in the `check_cards` target list and both parse to ZERO cards: they use `bestfor-card` markup, not
   `city-card`. The check fetches them, iterates nothing, and passes. This is the silent-no-op shape
@@ -536,7 +629,7 @@ Standard deploy block:
   `check_cards` list and say in the code why they are exempt. Leaving them listed-but-unread is the
   worst of the three, because the target list currently reads as coverage.
 
-- **`best-places-to-retire-in-florida.html` carries a stale comparison passage, found Jul 27.**
+- **[P0]** **`best-places-to-retire-in-florida.html` carries a stale comparison passage, found Jul 27.**
   Not shipped in this batch: fixing it changes an ARGUMENT, not just figures, so it wants its own
   pass. The passage repeats on three surfaces: the JSON-LD FAQ blob, the `bestfor-why` card, and the
   visible FAQ answer. Against v17:
@@ -556,7 +649,7 @@ Standard deploy block:
   RetireMeHere, Pensacola is the cheapest". That is a rank scoped to our own dataset, which is the
   banned shape, and `check_superlatives` does not catch this phrasing. Anchor it to the figure.
 
-- **The site nav is copy-pasted into 87 files in seven variants, and 46 of them cannot take a menu
+- **[P3]** **The site nav is copy-pasted into 87 files in seven variants, and 46 of them cannot take a menu
   item at all.** Found while adding the budget pillar to the menu. There is no template, no include,
   no build step: every header is a literal copy. The variants differ in path style (absolute on
   `index.html`, relative elsewhere), in class names (`nav-dropdown-item` on 38 pages, bare `<a>` on
@@ -576,14 +669,14 @@ Standard deploy block:
   single-page "On a Budget" the day it shipped. The real fix is one nav partial and a build step,
   which is a bigger call about whether this site stays hand-authored HTML.
 
-- **Florida and Midwest pillar titles both claim "The 8 Best Places" and both render six cards.**
+- **[P1]** **Florida and Midwest pillar titles both claim "The 8 Best Places" and both render six cards.**
   Noticed while listing the pillars for the menu decision. Not verified further and not fixed: the
   count may be stale, or the pages may deliberately narrate 8 while carding 6. Worth ten minutes
   before either page gets promoted anywhere, since the title tag is what search results show.
   Note `check_hardcoded_counts` does not catch these, for the same reason it missed the "100-city
   database (v14)" string already boarded: the number is fused into prose it does not scan.
 
-- **D2 band-mover review: the last open piece of the ZHVI rebase (step 5).** Three cities crossed a
+- **[P1]** **D2 band-mover review: the last open piece of the ZHVI rebase (step 5).** Three cities crossed a
   D2 median-home band when the figures were rebased and none has been reviewed: Charlottesville
   ($465K -> $528K), Ann Arbor ($489K -> $541K), Columbus ($235K -> $251K). This is a JUDGMENT task,
   not a mechanical one, which is why it keeps getting deferred: per the rubric, D2 weighs the COL
@@ -592,7 +685,7 @@ Standard deploy block:
   New Orleans moves the favourable way. Do this in a session where the rubric is open, not as a
   rider on something else.
 
-- **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
+- **[P3]** **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
   elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when
   both the DB and the quiz use Under $5,500 through $9,000+; (2) the D1 hard-filter ladder, resolved
   Jul 18 as keep-generic-7, pairs with deleting dead `D1_THRESHOLDS` from index.html; (3) D4
@@ -612,7 +705,7 @@ Standard deploy block:
   other: nothing pulls it, nothing validates it, no commit touches it. Ship v3.3 as markdown in
   `docs/`, not as another .docx.
 
-- **MEDIAN-HOME-METHODOLOGY.md needs three lines and was deliberately not touched on Jul 27.**
+- **[P4]** **MEDIAN-HOME-METHODOLOGY.md needs three lines and was deliberately not touched on Jul 27.**
   (1) Section 1 says the figure is "refreshed annually"; the first annual refresh has now actually
   run, so record the date and that it used the 2026-06-30 ZHVI column. (2) Note that the refresh is a
   column swap against a file already in hand, not research; section 6 currently reads like a research
@@ -623,30 +716,36 @@ Standard deploy block:
   `/methodology.html` as a surface this methodology touches. It 404s and is not in the sitemap.
   Either build it or strike the line.
 
-- **`check_highlight_surfaces` enforces highlight parity but not SCORE parity.** `pick-and-compare.html`
+- **[P2]** **`check_highlight_surfaces` enforces highlight parity but not SCORE parity.** `pick-and-compare.html`
   carries its own JSON blob (`monthlyEst`, `monthlyMid`, `medianHome`, `medianHomeMid`, `budgetTier`,
   `d2`) and nothing held it to the DB, so d2 drifted on 72 of 99 cities unnoticed. All ten dimensions
   now agree across both surfaces, but nothing stops it recurring. Extend the check to every `dN` field
   plus the four cost fields. Planted-error test required.
-- **A city whose name contains non-ASCII is invisible to the surface checks.** Coeur d'Alene is stored
+- **[P2]** **A city whose name contains non-ASCII is invisible to the surface checks.** Coeur d'Alene is stored
   `Coeur d\u2019Al\u00e8ne` in the pick-and-compare blob, so name-keyed checks skip it. Its record was
   stale at $553K against a DB $611K and the gate read clean. Any check that joins the two surfaces by
   literal name has this hole.
-- **The abbreviated stat-card money form is unparsed.** The editorial modal renders
+- **[P2]** **The abbreviated stat-card money form is unparsed.** The editorial modal renders
   `value: '$3.5–4.8K<span>/mo</span>'`. The validator reads `$X,XXX–$X,XXX` only, so St. Louis sat at
   $3.5-4.8K against a DB $4,100-$5,200, wrong before the rebase and never flagged. Same hole for the
   `$192<span>K</span>` home form.
-- **No vintage check on `Median Home`.** The rebase fixed the values; nothing prevents the column
+  **Measured Jul 28: 35 of 47 live profiles carry a wrong abbreviated monthly.** Not a St. Louis
+  quirk. Ten were off by $300 to $600 and shipped as P0 the same day; twenty are off by exactly
+  $100 and are P1 pending the check. The rendering convention is one decimal with a trailing `.0`
+  dropped, established by the 12 cards that were already correct, and both span variants are live
+  (`$5.9-7.3K<span>/mo</span>` and `$5.8-7.3<span>K/mo</span>`), so a comparison has to normalise
+  HTML entities before it reads.
+- **[P2]** **No vintage check on `Median Home`.** The rebase fixed the values; nothing prevents the column
   ageing into a patchwork again. Add a gate check that flags any DB figure more than N% off the
   current ZHVI CSV, as boarded on July 26. This is the mechanism fix, not the data fix.
-- **A `Monthly Est == f(Median Home)` assertion would have caught 31 cities. Now unblocked.**
+- **[P2]** **A `Monthly Est == f(Median Home)` assertion would have caught 31 cities. Now unblocked.**
   The doc dependency is CLOSED as of the July 27 doc push: BUDGET-METHODOLOGY.md sections 5 and 6
   now publish the exact per-state multipliers as tables rather than ranges, and the formula is
   confirmed to reproduce all 99 rows of v17 exactly, zero mismatches, on both the Monthly Est
   string and the Budget Range integer. Nothing further is needed from the docs. What remains is
   building the check itself and its planted-error test. Asserting it on the gate makes an entire
   class of drift impossible. Highest-value single check on this board.
-- **DB title cell still reads "100 cities"** against 99 rows, and `pick-and-compare.html` line 918
+- **[P1]** **DB title cell still reads "100 cities"** against 99 rows, and `pick-and-compare.html` line 918
   still hardcodes "100-city database (v14)". Both invisible to `check_hardcoded_counts`.
 
 ---
@@ -668,12 +767,12 @@ Standard deploy block:
   `Mammoth`. Fix is two lines, not one, which is why it was boarded rather than shipped Jul 25:
   drop `Mullett ·` from line 584, and change the pill on line 586 from `5+ teams` to `4 teams`
   (Cardinals, Diamondbacks, Suns, Mercury). Decide separately whether Cactus League counts.
-- **Memphis card and arts doc will go stale in autumn 2026.** `top-cities-for-arts-lovers.html` and
+- **[P1]** **Memphis card and arts doc will go stale in autumn 2026.** `top-cities-for-arts-lovers.html` and
   `docs/arts-lovers-cities-scoring-analysis.md` both name `Brooks Museum of Art`. It is genuinely
   open in Overton Park today, so nothing was changed. It closes there in autumn 2026 and reopens
   downtown in December 2026 as the **Memphis Art Museum**. Two edits, both dated, both known now.
   Do them at the autumn close, not before.
-- **Enrichment-vs-DB property tax is a category mismatch, not a set of bugs.** The Jul 24 board read
+- **[P4]** **Enrichment-vs-DB property tax is a category mismatch, not a set of bugs.** The Jul 24 board read
   "index.html says 0.77, DB says 0.79, one is wrong". The premise was wrong. `D5-TAX-METHODOLOGY.md`
   section 2 defines `PropTax Rate %` as **one value per state**, and the DB holds exactly one value
   per state across all 39 states. The `index.html` D5 enrichment carries **county or city** rates,
@@ -686,7 +785,7 @@ Standard deploy block:
   the state figure nor any sourced Tulsa county rate (which run 0.94% to 1.06%). **Open question,
   not a defect:** neither doc says the enrichment may hold county rates. Either write that down in
   `D5-TAX-METHODOLOGY.md` or add the `Local Tax Adj` column that doc already proposes.
-- **Institution-status checks are still manual.** Gilcrease was caught twice by hand. The validator
+- **[P3]** **Institution-status checks are still manual.** Gilcrease was caught twice by hand. The validator
   cannot know whether a named museum is open. Consider a thin `docs/INSTITUTION-WATCH.md` listing
   every named institution with a known status change and its date, so landing cards get checked on a
   schedule instead of when someone happens to notice.
@@ -716,7 +815,7 @@ Unlocks pending a build:
 
 ## PARKED / BACKLOG
 
-- **Four CityDatabase / index.html data conflicts on San Antonio, surfaced during the Jul 19 build.**
+- **[P1]** **Four CityDatabase / index.html data conflicts on San Antonio, surfaced during the Jul 19 build.**
   Not fixed in the build chat because three of them touch shared surfaces, which makes them BATCH work:
     - DB `Highlight` says "Citywide median home $260K" while DB `Median Home` reads `$320,000` and
       `CITY_ENRICHMENT` scoreNotes D2 reads "~$320K". The Highlight string renders on
@@ -733,7 +832,7 @@ Unlocks pending a build:
       1.8% for internal consistency. The DB field is the thing to fix.
     - DB `Budget Range` = 2, but `Monthly Est` `$5,100-$6,400/mo` puts the midpoint in Range 3.
     - `CITY_ENRICHMENT["San Antonio"].scoreNotes.DW` says "Jan avg 44 F"; DB `Jan Mean F` = 52.
-- **San Antonio landing-page placements: Healthcare Tier 2 and Arts Lovers Tier 2.** BATCH scope.
+- **[P4]** **San Antonio landing-page placements: Healthcare Tier 2 and Arts Lovers Tier 2.** BATCH scope.
   Neither scoring-analysis doc evaluated the city at all (zero mentions), so these are omissions, not
   rejections. Healthcare Tier 2 is defined as "major university medical center or state flagship";
   San Antonio has University Hospital plus UT Health San Antonio with the Mays Cancer Center holding
@@ -741,8 +840,8 @@ Unlocks pending a build:
   San Antonio reads 8.3 to 8.5 against Fort Worth at 8.4. Touches five files: the two landing pages,
   the two scoring-analysis docs, and a return trip to `cities/san-antonio/profile.html` to take the
   Lists section from 2 cards to 4.
-- **`PROFILE-FORMATTING.md` NRC list is stale at ten cities.** San Antonio is the eleventh.
-- **Validator superlative check matches `on this list` literally and fires on within-page lists.**
+- **[P4]** **`PROFILE-FORMATTING.md` NRC list is stale at ten cities.** San Antonio is the eleventh.
+- **[P2]** **Validator superlative check matches `on this list` literally and fires on within-page lists.**
   Caught `cities/san-antonio/profile.html` ("the most genuinely urban option on this list") on Jul 21,
   where "this list" meant the four neighborhood cards in the same section, not the city dataset. The
   claim does not rot when a city is added, so this is a scoping false positive. Two sibling phrases in
@@ -750,15 +849,15 @@ Unlocks pending a build:
   of the retiree-target areas") pass, which confirms the check is keying on the string and not the
   shape. Copy was rewritten rather than the check loosened. If the pattern is scoped later, it needs a
   planted-error test first.
-- **`scripts/generate_brief.py` is referenced by the `retiremehere-city-profile` skill but is not in
+- **[P2]** **`scripts/generate_brief.py` is referenced by the `retiremehere-city-profile` skill but is not in
   the repo** (404 on raw). The Jul 19 brief was computed by hand against the thresholds documented in
   the skill. Either commit the script or amend the skill; as written it points the next build at a
   file that is not there.
-- **Landing-page card counters are positional, not ranks.** `top-cities-for-foodies.html` numbers
+- **[P4]** **Landing-page card counters are positional, not ranks.** `top-cities-for-foodies.html` numbers
   restart at 1 per tier and each tier is alphabetical, so the on-page number never has to match the
   scoring-analysis doc's rank. Recorded because it was raised as a discrepancy during the San Antonio
   build and was not one.
-- **Rubric doc drift: `scoring_rubric_v3.2` describes a filter the code does not run.** The rubric says
+- **[P3]** **Rubric doc drift: `scoring_rubric_v3.2` describes a filter the code does not run.** The rubric says
   "D1 is the only dimension with a hard filter threshold" and describes a priority ladder (Must Have 8+,
   Very Important 6+, Somewhat Important 4+). Live code does neither. `MUST_HAVE_THRESHOLD = 7` filters
   EVERY dimension marked Must Have, and D1 is not special. `D1_THRESHOLDS` (index.html ~line 6346) is
@@ -769,7 +868,7 @@ Unlocks pending a build:
   silently cut 29 of 99 cities while the quiz only ever warns about Must Have. Resolution: delete
   `D1_THRESHOLDS`, rewrite the rubric to describe generic-7 as shipped. Doc + dead-code only, no
   matching-logic change.
-- **`D4` key reuse for Climate Resilience & Insurance.** The dimension occupies the internal key `'D4'`,
+- **[P3]** **`D4` key reuse for Climate Resilience & Insurance.** The dimension occupies the internal key `'D4'`,
   the slot the retired cost-of-living dimension vacated. Functionally harmless; it is a trap for anyone
   cross-referencing the rubric, where D4 means something else. Fix ONLY as its own scoped rename with a
   full grep (DIMENSIONS array, every city score object, `quizState.priorities`, `getCityScore`, the
