@@ -1856,8 +1856,83 @@ def check_db(rep, db_path):
 # clean 0/0 gate, with eighteen assertions dead and nothing on screen saying so. A test
 # suite nothing executes is not a test suite. So they are a check group now, and they
 # gate the deploy like every other group.
+# ---------------------------------------------------------------------------
+# Hand-off shape
+# ---------------------------------------------------------------------------
+# Every other check in this file reads the CONTENT of a file whose path it already
+# knows. That leaves one whole class of fault unwatched: a file with the wrong NAME,
+# in the wrong PLACE, which no check has any reason to open.
+#
+# DEPLOY-CHEATSHEET.md section 4 says a build chat delivers a zip of new files already
+# at their final repo paths, plus apply-<city>.py for edits to existing files. Between
+# July 25 and July 28 2026 a build chat delivered the older shape three times running:
+# loose `casper-profile.html` and `casper-hero.jpg` to be renamed by hand at deploy
+# time. The gate read 0/0 each time and was right to, by its own lights.
+#
+# The ways that ships wrong are all quiet: three photos renamed by hand at 11pm with
+# one missed, so the profile goes live with a broken image; the loose copy left at the
+# root next to the correct one, so a stray `-PROFILE.html` sits live and unscanned,
+# which is exactly how a scottsdale-vs-santa-fe stray carried four banned superlatives
+# past check_superlatives; or a bundle zip committed because `rm` came after `git add`.
+#
+# LOCAL MODE ONLY. This asks what is ON DISK, and a bare run cannot list a directory
+# over HTTP. It is skipped rather than faked in the post-deploy run.
+STRAY_ROOT = re.compile(
+    r"-(profile\.html|hero|detail|lifestyle)(\.(jpe?g|png|webp|html))?$", re.I)
+
+# Every one of the 46 city folders held exactly these four files on July 28 2026.
+# The uniformity is the point: anything else in there is debris from a rename.
+CITY_FILES = {"profile.html", "hero.jpg", "detail.jpg", "lifestyle.jpg"}
+
+
+def check_stray_artifacts(rep, local):
+    """Repo-root strays and city-folder debris: the wrong-shape hand-off, caught."""
+    if not local:
+        return                           # see LOCAL MODE ONLY above
+
+    root = pathlib.Path(local)
+
+    for p in sorted(root.iterdir()):
+        if not p.is_file():
+            continue
+        name = p.name
+        if name.lower().endswith(".zip"):
+            rep.fail("layout",
+                     f"{name}: a zip at the repo root. Delete it before `git add`, or "
+                     f"it gets committed. See DEPLOY-CHEATSHEET.md section 4.")
+        elif STRAY_ROOT.search(name):
+            rep.fail("layout",
+                     f"{name}: a build artifact at the repo root. Files ship at their "
+                     f"FINAL paths and names (cities/<slug>/hero.jpg), never as "
+                     f"<city>-hero.jpg to rename by hand. See DEPLOY-CHEATSHEET.md "
+                     f"section 4.")
+
+    cities = root / "cities"
+    if not cities.is_dir():
+        rep.fail("layout", "cities/ is missing entirely; nothing was checked")
+        return
+
+    slugs = [d for d in sorted(cities.iterdir()) if d.is_dir()]
+    if not slugs:
+        rep.fail("layout", "cities/ contains no city folders; nothing was checked")
+        return
+
+    for d in slugs:
+        names = {f.name for f in d.iterdir()
+                 if f.is_file() and not f.name.startswith(".")}
+        for missing in sorted(CITY_FILES - names):
+            rep.fail("layout",
+                     f"cities/{d.name}/{missing} is missing. A profile without all "
+                     f"three photos ships a broken image to a reader.")
+        for extra in sorted(names - CITY_FILES):
+            rep.fail("layout",
+                     f"cities/{d.name}/{extra} is not one of the four expected files "
+                     f"({', '.join(sorted(CITY_FILES))}). Rename debris, or a file "
+                     f"that belongs somewhere else.")
+
+
 HARNESSES = ("tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
-             "tools/test_roster.py")
+             "tools/test_roster.py", "tools/test_stray_artifacts.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -1918,7 +1993,7 @@ def main():
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
                              "superlatives", "emdash", "tags", "affiliate", "db",
-                             "docs", "harness"],
+                             "docs", "layout", "harness"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -1932,7 +2007,7 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "tags", "affiliate", "db", "docs", "harness"}
+        "tags", "affiliate", "db", "docs", "layout", "harness"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -2000,6 +2075,8 @@ def main():
         check_db(rep, args.db)
     if "docs" in groups:
         check_docs(rep, args.db, idx, sitemap, slug_to_city, args.local)
+    if "layout" in groups:
+        check_stray_artifacts(rep, args.local)
     # Last: it shells out once per harness and is the slowest group by a wide margin,
     # so everything cheap has already had its say by the time it starts.
     if "harness" in groups:
