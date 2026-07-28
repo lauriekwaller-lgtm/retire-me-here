@@ -202,6 +202,84 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-28 (third push) - `check_statcard_faq`: three profile surfaces brought under the gate
+
+**What shipped.** `check_statcard_faq`, wired into the existing `profiles` group, plus
+`tools/test_statcard_faq.py` with 16 planted-error assertions. Five harnesses now run on the gate.
+It checks three things `check_profiles` never read:
+
+1. **The abbreviated monthly stat card.** Derived from `Monthly Est`, compared after HTML entities
+   are resolved. Entity handling is not tidiness: four profiles write the range as `&ndash;` and
+   Savannah's card is correct, so a byte comparison reports it as drift.
+2. **The variable score slots.** Fires only when the value is literally `N/10`, because the same
+   labels carry free text on thirty slots (`Healthcare: Barnes-Jewish`, `Airport: 48 nonstops`). A
+   score under a label that maps to no dimension is a FAIL, not a skip, so the next new label cannot
+   arrive unwatched.
+3. **Home figures in prose**, across profile body, the JSON-LD FAQ, and two structured regions.
+
+**Three design decisions, each of which cost a wrong answer first.**
+
+*The money token must end on a digit or K/M.* A class ending `[\d.,]+` matches `$314,000,` including
+the sentence comma, which drags the same-clause guard a clause forward. That is exactly how St.
+Louis's wrong figure hid behind an unrelated later mention of "suburbs".
+
+*The hedge slot.* `PROSCONS_HOME` requires the noun and the figure to be adjacent. Profile voice does
+not: "the typical home value in Salt Lake City is around $580,000" puts 28 characters between them.
+Reusing the pros/cons matcher unchanged covered 13 of about 45 figures and reported a near-clean
+surface.
+
+*The other-place guard is bounded in BOTH directions,* to the same clause and to text before the
+figure. Unbounded forward it excuses real drift; unbounded backward it stops seeing our own figure as
+ours. Both St. Augustine's "$433,000 above Tampa's $400,000" and Fort Myers' "$310,000 against
+Naples' $585,000" are our own correct figures, and a looser guard skips them and calls the surface
+clean.
+
+**The correction the sizing pass got wrong.** The July 27 board framed the method-callout as a noun
+problem. It is a region problem. The first money figure in a `method-callout` or a `reality-check`
+block is the citywide home value, always, verified across all 22 such blocks on the site. Three were
+wrong, and **not one of the three is reachable by any home-value noun**, because Tulsa's two blocks
+and Prescott's both open on the phrase "the $X figure". Tulsa is the one that matters: its
+Neighborhood Reality Check was still built on `$194K` after the ZHVI rebase moved Tulsa 14.9% to
+`$223K`, so the callout explaining the citywide figure was explaining the wrong number, on a profile
+that shipped four days ago. The region walk also has to accept `aside`, not just `div`, because the
+NRC is an `<aside>` and a div-only walk skipped it in silence.
+
+**What it found, and what was fixed.** Against the pre-batch tree the check reports **36 failures**
+and nothing else: 25 abbreviated monthly cards, 1 score slot (Pensacola's Budget Score tile reading 8
+against a v17 D2 of 7), and 10 home figures. All 36 are fixed in this commit.
+
+Fixed alongside them, and NOT reported by the check, because they are outside its scope by design:
+
+- **Eight cross-city figures** the other-place guard correctly excuses but which are stale anyway.
+  Fort Myers names Sarasota at `$462,000` (now `$413,000`, twice) and Naples at `$585,000` (now
+  `$549,000`, four times). Pensacola names Delray Beach at `$341,000` (now `$342,000`), Fort Myers at
+  `$372,000` (now `$310,000`), and its own entry price at `$264,000` (now `$269,000`). Every swap
+  keeps its sentence true; each was re-verified after applying.
+- **Three unanchored figures** found by hand only, sitting under no noun and in no region:
+  `st-augustine` twice at `$432,000`, and `carlsbad` at `$1,481,000` against a DB `$1,388,000` and a
+  `$1.39M` stat card in the same paragraph.
+- **Prescott's spelled-out money.** It was the only profile writing `585,000 dollars`, three times,
+  all in the JSON-LD and all stale, including a monthly top end of `7,400` against a DB `$7,500`.
+  Normalised to the `$` form rather than teaching the token a spelled-out variant, which brings those
+  sentences under `RANGE_RE` as well.
+
+**What was deliberately not fixed, and why it is P0 rather than P4.** St. Augustine's comparison to
+Tampa, Sarasota and Fort Myers is stale on three surfaces, and one of the three INVERTS under v17:
+the page says it sits "under Sarasota's $462,000", and at `$433,000` against a Sarasota `$413,000` it
+no longer does. Swapping the figures alone would publish a false claim in corrected numbers. Same
+cause as the Florida pillar page: v17 collapsed a price ordering the prose was built on, and both
+want one editorial pass. Bozeman is the other: it now states `$734,000` for 2015 and `$740,000` for
+today, in a paragraph arguing prices doubled in a decade, and the 2015 figure has to be sourced
+rather than guessed.
+
+**Verification.** `python3 tools/validate.py --local .` on a fresh clone: 0 failures, 0 warnings,
+five harnesses green including `tools/test_statcard_faq.py 16/16 passed`. The harness plants eight
+errors and demands a failure, and plants seven things that look like errors and demands silence,
+because on this surface the false positives are the hard part: a correct `&ndash;` range, free text
+under a mapped label, another city's figure named before it, a wrong figure inside a hood-card, and a
+range. The cross-city and unanchored fixes were re-verified by a separate scan after applying, since
+the gate cannot see them.
+
 ### 2026-07-28 (second push) - P0 figure batch: 13 reader-visible figures; board triage scale adopted
 
 **What happened.** An OPS chat scoped to building the profile stat-card + FAQ figure check ran a
@@ -234,6 +312,13 @@ Memphis `$195K` to `$147K` in the `hoods-intro`.
 **The one to remember.** Carlsbad's `stat-sub`, rendered on the line directly beneath the wrong
 figure, already read "Tier 5 - $10,400 to $13,000 a month". The card contradicted its own subtitle
 on screen, roughly two centimetres apart, and had done so for as long as the card existed.
+
+**CORRECTION, same day, third push: the count below is wrong.** It says 26 and the true figure was
+31, because "twenty monthly cards off by exactly $100" was the $100 CLASS, not the remainder: 35
+were wrong, 10 shipped as P0, so 25 monthly cards were left, not 20. The final number the check
+reports is 36, higher again because the region rule added on the third push reaches four figures no
+noun pattern could. Left standing rather than edited, because a change log that quietly corrects
+itself is not a log. Original paragraph follows.
 
 **What did not ship, and why.** The check itself, and the other 26 figures: twenty monthly cards off
 by exactly $100, five home figures off by $1K to $9K, and Pensacola's Budget Score tile reading 8

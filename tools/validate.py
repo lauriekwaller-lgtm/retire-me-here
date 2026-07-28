@@ -14,7 +14,9 @@ Usage:
 
 Check groups:
     figures      CITIES array + CITY_ENRICHMENT modal strings vs DB
-    profiles     profile pages: monthly + citywide home value vs DB
+    profiles     profile pages: monthly + citywide home value vs DB, plus the
+                 abbreviated monthly stat card, the variable score slots, and
+                 every home figure in profile prose and the JSON-LD FAQ
     routing      PUBLISHED_PROFILES <-> profile files <-> sitemap parity
     cards        landing pages: stale "coming soon" + card figures vs DB,
                  and roster membership for pages whose roster is a DB predicate
@@ -37,6 +39,8 @@ import re
 import subprocess
 import sys
 import urllib.request
+
+from html import unescape as html_unescape
 
 RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
@@ -861,6 +865,358 @@ def check_profiles(rep, db, slug_to_city, local):
                 rep.fail("profiles",
                          f"{city}: claims a home value {m.group(0).strip()!r}, but "
                          f"DB says ${round(row['home'] / 1000):,}K, which is not below it")
+
+
+# ------------------------------------------- profile stat card + FAQ figures
+#
+# check_profiles above reads exactly two things on a profile: the long-form monthly
+# range, and the "Typical Home Value" stat card. That left three surfaces on every
+# profile unread, and on 2026-07-28 a draft of this check found 44 wrong figures
+# sitting behind a gate that read 0 failures, 0 warnings.
+#
+#   1. The ABBREVIATED monthly, "$4.5-5.6K/mo". RANGE_RE only knows "$4,500-$5,600",
+#      so all 47 of these were unchecked. 35 were wrong. Carlsbad is the one to
+#      remember: its stat-sub on the very next rendered line already read "Tier 5 -
+#      $10,400 to $13,000 a month", so the card contradicted its own subtitle.
+#   2. The two VARIABLE stat slots, which carry real dimension scores under about
+#      twenty different labels. Pensacola's Budget Score tile read 8 against a D2 of 7.
+#   3. HOME FIGURES IN PROSE. The stat card is the only place check_profiles looks, but
+#      the same number is restated in the JSON-LD FAQ, in the body, and in the
+#      method-callout at the head of Where to live. Eight disagreed with the DB.
+#
+# Scope is the whole difficulty, exactly as it was for the highlight strings. Three
+# things below are dollar figures that are SUPPOSED to differ from Median Home:
+# neighborhood card medians, cross-city comparisons, and figures that are not home
+# values at all. The rules that kill all three are recorded next to the pattern they
+# belong to rather than in one lump, because each was learned separately.
+
+# A money token that can only END on a digit or on K/M. This is not cosmetic. A class
+# ending [\d.,]+ matches "$314,000," including the sentence comma, which drags the
+# same-clause guard a clause forward, and that is precisely how St. Louis's wrong
+# $192,000 hid behind an unrelated later mention of "suburbs".
+SC_MONEY = r"\$\s?\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s?[KkMm])?"
+SC_DASH = r"[\u2013\u2014-]"
+
+# Range-aware on purpose, so a range is captured WHOLE and self-rejects in _hl_money()
+# rather than being read as a claim of its low end.
+SC_FIG = (r"(~?" + SC_MONEY +
+          r"(?:\s*" + SC_DASH + r"\s*\$?\s?\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s?[KkMm])?)?)")
+
+SC_MOD = r"(?:citywide|city-proper|typical|median|average)"
+
+# "citywide median" with no "home" is admitted because it is unambiguous. A BARE
+# "median" is not, and never will be: the pros/cons carry "median bill $5,026".
+SC_NOUN = (r"(?:" + SC_MOD + r"\s+)?(?:single-family\s+|starter\s+|entry-level\s+)?"
+           r"home\s+(?:value|price|sale\s+price)s?"
+           r"|" + SC_MOD + r"\s+(?:single-family\s+|starter\s+)?homes?"
+           r"|citywide\s+median\b")
+
+SC_BOUNDW = r"under|below|less\s+than|over|above|from|starting\s+at|upward\s+of"
+
+# THE HEDGE SLOT. PROSCONS_HOME requires the noun and the figure to be adjacent, which
+# matches pros/cons voice but not profile voice: "the typical home value in Columbus is
+# around $251,000" puts 21 characters between them, and "in Salt Lake City is around"
+# puts 28. Reusing the pros/cons matcher unchanged covered 13 of about 45 home figures
+# and reported a near-clean surface. The slot is bounded rather than free: it crosses no
+# sentence punctuation, no comma, no second "$", and no bound word. Excluding the comma
+# is what makes it a clause and not a paragraph.
+SC_HEDGE = r"(?:(?!\b(?:" + SC_BOUNDW + r")\b)[^.;!?$,]){0,45}?"
+
+# "citywide" is itself an anchor, with or without the word "home" after it. The profile
+# voice uses it both ways round: "the citywide $341K number" and "the $194K citywide
+# figure". Admitted because on a city profile "citywide" modifies exactly one quantity.
+SC_CITYWIDE_NOUN = r"citywide\s+(?:figure|number|median|price|home\s+value|typical\s+home\s+value)"
+
+SC_HOME = re.compile(
+    r"(?:" + SC_NOUN + r")" + SC_HEDGE + SC_FIG +
+    r"|" + SC_FIG + r"\s+(?:citywide\s+)?(?:" + SC_NOUN + r")" +
+    r"|\bcitywide\s+" + SC_FIG +
+    r"|" + SC_FIG + r"\s+" + SC_CITYWIDE_NOUN, re.I)
+
+# Two blocks on a profile are STRUCTURED rather than prose, and they carry an invariant
+# worth more than any noun pattern: the FIRST money figure in a method-callout or a
+# Neighborhood Reality Check is the citywide home figure, always, because both blocks
+# exist to state that figure and then contrast it with neighborhood ranges. Verified
+# across all 22 such blocks on 2026-07-28.
+#
+# This is why the rule is a REGION rule and not a noun rule. Three of those blocks were
+# wrong, and not one of the three is reachable by any home-value noun: Tulsa's callout
+# and NRC both open "the $194K figure", and Prescott's opens "the $585K figure". Tulsa
+# had moved 14.9% in the ZHVI rebase and its NRC callout was still built on the old
+# number. Loosening the noun far enough to catch "figure" in open prose would also catch
+# every unrelated dollar amount on the page; bounding it to these two blocks does not.
+SC_REGIONS = ("method-callout", "reality-check")
+SC_ANY_MONEY = re.compile(
+    r"~?\$\s?\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s?[KkMm])?"
+    r"(?:\s*" + SC_DASH + r"\s*\$?\s?\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s?[KkMm])?)?")
+
+# Stat slots 1 and 2 are fixed; 3 and 4 are chosen per city. A slot is a SCORE claim
+# only when its value is literally "N/10". The same label carries free text elsewhere:
+# "Healthcare: Barnes-Jewish", "Airport: 48 nonstops", "Outdoors: Blue Ridge". Keying on
+# the label alone would fail all thirty of those.
+SC_SLOT = re.compile(
+    r'<div class="stat">\s*<div class="stat-label">\s*(.*?)\s*</div>\s*'
+    r'<div class="stat-value">(.*?)</div>', re.S)
+SC_SCORE = re.compile(r"^(\d{1,2})/10$")
+
+SC_SLOT_DIMS = {
+    "healthcare": "D3",
+    "airport": "D1", "airport access": "D1", "air access": "D1",
+    "budget": "D2", "budget score": "D2",
+    "tax friendliness": "D5", "taxes": "D5", "tax": "D5",
+    "walkability": "D6", "walkable": "D6",
+    "outdoor": "D7", "outdoors": "D7", "the outdoors": "D7",
+    "outdoor access": "D7", "outdoor recreation": "D7", "open space": "D7",
+    "wellness": "D8", "active wellness": "D8",
+    "safety": "D9",
+    "community": "D10", "community & culture": "D10", "culture": "D10",
+    "arts": "D10", "arts & culture": "D10",
+}
+
+# Labels that are facts about the city, not dimension scores. They are listed rather
+# than merely absent so that the FAIL below reads as "this label is unmapped" and not
+# as "someone forgot Founded". None of them carries an N/10 value today, and if one
+# ever does that is a mislabelled score and should fail.
+SC_SLOT_NOT_DB = {
+    "founded", "elevation", "metro", "coastline", "weather", "state income tax",
+    "population", "sunshine", "distance", "airport code",
+}
+
+
+def monthly_abbrev(monthly):
+    """'$4,500-$5,600/mo' -> '$4.5-5.6K/mo'. One decimal, trailing .0 dropped.
+
+    Not invented here. It is the convention the 12 correct cards already used on
+    2026-07-28, read off the tree rather than chosen: $8,000 renders "$8", not "$8.0",
+    and $10,400 renders "$10.4".
+    """
+    parts = re.findall(r"\$[\d,]+", monthly)
+    if len(parts) != 2:
+        return None
+    out = []
+    for tok in parts:
+        n = int(tok.replace("$", "").replace(",", ""))
+        out.append(("%.1f" % (n / 1000.0)).rstrip("0").rstrip("."))
+    return "$%s\u2013%sK/mo" % (out[0], out[1])
+
+
+def _sc_flat(fragment):
+    """Rendered text of a fragment: tags out, entities resolved, whitespace gone.
+
+    Entity handling is load-bearing, not tidiness. Four profiles write the range as
+    `&ndash;` and Savannah's card is CORRECT; comparing raw bytes reports it as drift.
+    """
+    txt = html_unescape(re.sub(r"<[^>]*>", "", fragment))
+    return re.sub(r"\s+", "", txt).replace("\u2014", "\u2013").replace("-", "\u2013")
+
+
+def _sc_div_spans(page, cls):
+    """(start, end) of every <div|aside class="cls"> block, bounded at its OWN closing tag.
+
+    Same tag-depth walk as card_blocks(), and for the same reason: a lookahead to the
+    next opening tag makes the last block in a section swallow everything after it.
+    """
+    # div OR aside: the Neighborhood Reality Check is an <aside>, and a div-only walk
+    # skipped it silently, which put Tulsa's stale $194K back into the prose surface
+    # instead of the region rule that is meant to own it.
+    step = re.compile(r"</?(?:div|aside)\b", re.I)
+    for m in re.finditer(r'<(?:div|aside) class="%s"' % re.escape(cls), page):
+        depth, i = 0, m.start()
+        while True:
+            t = step.search(page, i)
+            if not t:
+                yield (m.start(), len(page))
+                break
+            depth += -1 if t.group(0).startswith("</") else 1
+            i = t.end()
+            if depth == 0:
+                close = page.find(">", i)
+                yield (m.start(), len(page) if close == -1 else close + 1)
+                break
+
+
+def _sc_cut(page, classes):
+    """Return page with every block of the named classes removed."""
+    spans = []
+    for cls in classes:
+        spans.extend(_sc_div_spans(page, cls))
+    out, last = [], 0
+    for a, b in sorted(spans):
+        if a < last:
+            continue                     # nested or overlapping; already dropped
+        out.append(page[last:a])
+        last = b
+    out.append(page[last:])
+    return "".join(out)
+
+
+def _sc_jsonld(page):
+    """Every FAQ answer and Article description string, decoded.
+
+    The FAQ on a profile is JSON-LD only; there is no rendered FAQ section. A reader
+    never sees these, but Google does, and on Columbus the JSON-LD monthly was RIGHT
+    while the stat card two thousand lines below it was wrong.
+    """
+    out = []
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>',
+                            page, re.S):
+        for raw in re.findall(r'"(?:text|description)":\s*"((?:[^"\\]|\\.)*)"', block):
+            try:
+                out.append(json.loads('"%s"' % raw))
+            except ValueError:
+                out.append(raw)
+    return " ".join(out)
+
+
+def _sc_region_first(rep, city, state, cls, page, home):
+    """In a structured callout block, the FIRST money figure IS the citywide claim."""
+    for a, b in _sc_div_spans(page, cls):
+        text = re.sub(r"\s+", " ", visible_text(page[a:b]))
+        m = SC_ANY_MONEY.search(text)
+        if not m:
+            continue
+        val = _hl_money(m.group(0))
+        if val is None:
+            continue                     # a range opens the block: not a citywide claim
+        if not _hl_agrees(m.group(0), val, home):
+            rep.fail("profiles",
+                     f"{city}, {state}: {cls} opens on {m.group(0).strip()}, but the "
+                     f"first figure in that block is the citywide home value and the "
+                     f"DB Median Home is ${round(home / 1000):,}K")
+
+
+def _sc_scan(rep, city, state, where, text, home, others):
+    """Report every home figure in `text` that disagrees with `home`."""
+    text = re.sub(r"\s+", " ", text)
+    for pat in (SC_HOME,):
+        for m in pat.finditer(text):
+            tok = next(g for g in m.groups() if g)
+
+            # THE OTHER-PLACE GUARD, bounded to the same clause AND to text BEFORE the
+            # figure. Both bounds matter and in opposite directions. Unbounded forward,
+            # it excuses real drift by finding an unrelated place name later in the
+            # sentence. Unbounded backward across a comma, it stops seeing the figure as
+            # ours at all: St. Augustine's "the citywide typical home value is around
+            # $433,000 above Tampa's $400,000" and Fort Myers' "the median home runs
+            # $310,000 against Naples' $585K" are BOTH our own correct figures, and a
+            # looser guard would skip them and call the surface clean.
+            ls = max([text.rfind(ch, 0, m.start()) for ch in ".;!?,"] + [-1])
+            before = text[ls + 1:m.start()]
+            if any(re.search(r"\b" + re.escape(o) + r"\b", before) for o in others):
+                continue
+
+            val = _hl_money(tok)
+            if val is None:
+                continue                 # a range: neighborhood spread, deliberately ours
+            if not _hl_agrees(tok, val, home):
+                rep.fail("profiles",
+                         f"{city}, {state}: {where} states a home value {tok.strip()}, "
+                         f"DB Median Home is ${round(home / 1000):,}K")
+
+
+def check_statcard_faq(rep, db, slug_to_city, local):
+    """
+    The three profile surfaces check_profiles does not read.
+
+    Deliberately NOT covered, so that a later reader knows these are decisions and not
+    oversights:
+      * hood-card blocks. Their "Median home:" figures are NEIGHBORHOOD claims by
+        construction. This is what keeps Bentonville's Bella Vista "~$300K" and Tampa's
+        Water Street range out. It also removes a trap: Pittsburgh's Brookline card
+        reads "around $246K" and would pass today only because it happens to equal the
+        citywide figure.
+      * stat values that are not N/10. Free text, no DB counterpart.
+      * bound claims ("under $400K") and the long-form monthly, both already held by
+        HOME_BOUND and RANGE_RE in check_profiles. Checking them twice reports one
+        error twice.
+      * money with no home-value anchor anywhere outside a method-callout. Loosening
+        the noun to reach it is how "median bill $5,026" gets graded as a home price.
+    """
+    seen_profiles = 0
+    seen_slots = 0
+    names = {r["city"] for r in db_cities(db)}
+
+    for slug, (city, state) in sorted(slug_to_city.items()):
+        page = fetch(f"cities/{slug}/profile.html", local)
+        if page is None:
+            continue
+        row = db_get(db, city, state)
+        if not row:
+            continue
+        seen_profiles += 1
+
+        slots = SC_SLOT.findall(page)
+        if len(slots) < 3:
+            rep.fail("profiles",
+                     f"{city}, {state}: found {len(slots)} stat slots, expected 4. "
+                     f"The stats-bar markup has changed and this profile is unchecked.")
+            continue
+
+        # ---- slot 2: the abbreviated monthly -------------------------------------
+        want = monthly_abbrev(row["monthly"])
+        got = _sc_flat(slots[1][1])
+        label = _sc_flat(slots[1][0])
+        if label.lower() not in ("monthlybudget", "monthlyest", "monthlycost"):
+            rep.fail("profiles",
+                     f"{city}, {state}: stat slot 2 is labelled {label!r}, not "
+                     f"Monthly Budget. The abbreviated monthly is not where it is "
+                     f"expected and is therefore unchecked.")
+        elif want is None:
+            rep.fail("profiles",
+                     f"{city}, {state}: DB Monthly Est {row['monthly']!r} is not a "
+                     f"two-figure range, so the stat card cannot be derived")
+        elif got != want:
+            rep.fail("profiles",
+                     f"{city}, {state}: stat card monthly {got}, DB says {want} "
+                     f"(Monthly Est {row['monthly']})")
+
+        # ---- slots 3+: dimension scores ------------------------------------------
+        for i, (raw_label, raw_value) in enumerate(slots[2:], start=3):
+            value = _sc_flat(raw_value)
+            key = html_unescape(re.sub(r"<[^>]*>", "", raw_label)).strip().lower()
+            key = re.sub(r"\s+", " ", key.replace("&", "&"))
+            hit = SC_SCORE.match(value)
+            if not hit:
+                continue                 # free text: a hospital name, a trail mileage
+            seen_slots += 1
+            dim = SC_SLOT_DIMS.get(key)
+            if dim is None:
+                rep.fail("profiles",
+                         f"{city}, {state}: stat slot {i} shows a score {value} under "
+                         f"the label {key!r}, which maps to no dimension. Add it to "
+                         f"SC_SLOT_DIMS or the score is unwatched."
+                         + (" This label is listed as a non-DB fact."
+                            if key in SC_SLOT_NOT_DB else ""))
+                continue
+            shown = int(hit.group(1))
+            if shown != row["scores"][dim]:
+                rep.fail("profiles",
+                         f"{city}, {state}: stat slot {i} {key!r} shows {shown}/10, "
+                         f"DB {dim} is {row['scores'][dim]}")
+
+        # ---- home figures in prose -----------------------------------------------
+        if row["home"] is None:
+            continue                     # malformed DB cell; check_db reports it
+        others = [n for n in names if n != city]
+
+        for cls in SC_REGIONS:
+            _sc_region_first(rep, city, state, cls, page, row["home"])
+
+        body = _sc_cut(page, ("hood-card",) + SC_REGIONS)
+        _sc_scan(rep, city, state, "profile prose",
+                 visible_text(body), row["home"], others)
+        _sc_scan(rep, city, state, "JSON-LD",
+                 _sc_jsonld(page), row["home"], others)
+
+    # An extractor that matches nothing reports a clean run forever. This is the same
+    # guard check_highlight_surfaces carries, and the reason tools/test_roster.py keeps
+    # a zero-cards assertion: silence and success look identical from the outside.
+    if seen_profiles == 0:
+        rep.fail("profiles", "stat-card check: no profiles were read; nothing was checked")
+    elif seen_slots == 0:
+        rep.fail("profiles",
+                 f"stat-card check: read {seen_profiles} profiles and found zero "
+                 f"N/10 score slots. The stats-bar markup has changed.")
 
 
 def card_blocks(html):
@@ -1932,7 +2288,8 @@ def check_stray_artifacts(rep, local):
 
 
 HARNESSES = ("tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
-             "tools/test_roster.py", "tools/test_stray_artifacts.py")
+             "tools/test_roster.py", "tools/test_stray_artifacts.py",
+             "tools/test_statcard_faq.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -2056,6 +2413,7 @@ def main():
         if not slug_to_city:
             rep.fail("profiles", "no published profiles found; nothing was checked")
         check_profiles(rep, db, slug_to_city, args.local)
+        check_statcard_faq(rep, db, slug_to_city, args.local)
     if "cards" in groups:
         check_cards(rep, db, idx, args.local)
         check_roster(rep, db, args.local)

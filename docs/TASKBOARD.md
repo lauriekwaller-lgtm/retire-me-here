@@ -4,7 +4,14 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
+**Last updated:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
+The profile stat-card, score-slot and prose/FAQ surfaces are now gated. New harness
+`tools/test_statcard_faq.py`, 16 assertions, five harnesses in the list. Every figure the check
+reports is fixed in the same commit, plus eight cross-city figures it deliberately excuses and three
+unanchored ones it cannot see. Four items boarded, two of them P0 editorial. Gate clean at 47
+profiles.)
+
+**Before that:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
 reader-visible figures corrected across ten profiles, ten abbreviated monthly stat cards off by
 $300 to $600 and three home figures each contradicted by their own page. Every open item on this
 board now carries a P0-P4 rank; the scale and the two rules that make it hold are the first
@@ -12,7 +19,7 @@ section below. The stat-card + FAQ validator check that found all of this did NO
 P2, its findings are recorded on its own board item, and the 26 P1 figures it also found are
 deliberately still in place as its regression corpus. Gate clean at 47 profiles.)
 
-**Before that:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
+**Earlier:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
 live St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: one pillar, D5 Tax 10,
 with a cluster of three 8s (D2 Budget, D7 Outdoor, D9 Safety), so the MULTI-STRENGTH pattern
 applies: tax leads, cluster carries the character section. Hard-flagged weaknesses D1 Airport 4
@@ -290,15 +297,62 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   gate read 0/0 over it.
   Not in this batch, and boarded as P1 rather than fixed: twenty monthly cards off by exactly
   $100, five home figures off by $1K to $9K, and Pensacola's Budget Score tile reading 8 where
-  v17 says D2 = 7. All real, none of them changes what a reader does, and all twenty-six are
+  v17 says D2 = 7. (CORRECTED Jul 28: twenty-six is wrong, the remainder was 31, and the shipped
+  check reports 36. See the third-push log entry.) All real, none of them changes what a reader
+  does, and all twenty-six are
   what the P2 check exists to hold. Fixing them by hand before the guard ships means doing it
   again after the next DB refresh.
 
 ---
 
+## BOARDED - opened by the stat-card check (Jul 28)
+
+- **[P0]** **`st-augustine` cross-city comparison is broken by v17, not merely stale.** The profile
+  compares its own figure to three other cities, six occurrences in all, and every comparison figure
+  predates the rebase: Tampa `$400,000` x3 (now `$380,000`), Sarasota `$462,000` x2 (now
+  `$413,000`), Fort Myers `$372,000` x1 (now `$310,000`). Deliberately NOT swapped in this commit, because one of them
+  INVERTS: the page says St. Augustine sits "under Sarasota's $462,000", and at `$433,000` against a
+  Sarasota `$413,000` it no longer does. Fixing the figures alone would publish a false claim in
+  corrected numbers, which is worse than the stale version. The sentence has to be rewritten, which is
+  an editorial call and wants the same pass as the Florida pillar page below, since it is the same
+  cause: v17 collapsed a price ordering the prose was built on.
+  Consequence carried on purpose: `pensacola` names Fort Myers at `$310,000` after this commit while
+  `st-augustine` still names it at `$372,000`. Two pages, one city, two figures. That is known, not
+  missed, and it ends when this item ships.
+
+- **[P0]** **`bozeman` states the same figure for 2015 and for today.** The prose reads "The Bozeman
+  of 2015 had typical home values near $734,000. Today it's near $740,000", in a paragraph whose whole
+  argument is that prices DOUBLED in about a decade. `$734,000` is the v17 figure for today, so the
+  rebase appears to have been applied to the wrong clause. Not touched, because the 2015 number has to
+  be sourced rather than guessed and the sentence cannot be repaired without it. Neither figure is
+  reachable by `check_statcard_faq`: the first is attributed to a past year and the second carries no
+  home-value noun.
+
+- **[P2]** **Money with no anchor at all is still unreadable, and it is not hypothetical.** Three
+  figures in this batch were found by hand and by hand only, because they sit under no home-value
+  noun, in no structured region, and name no city: `st-augustine`'s "At $432,000 this is a pricey
+  small town", the same page's "Price: at $432,000", and `carlsbad`'s "At $1,481,000, Carlsbad sits
+  among the priciest coastal markets" against a `$1,388,000` DB figure and a `$1.39M` stat card two
+  sentences earlier. All three are fixed here; the SHAPE is not closed. Reaching them means grading
+  every dollar figure on the page against Median Home, which fires on monthly budgets, property-tax
+  bills and neighborhood prices. The cheaper move is probably a PROFILE-FORMATTING rule that a
+  citywide figure must carry its noun, enforced on new builds rather than retrofitted.
+
+- **[P4]** **`prescott` was the only profile writing money as "585,000 dollars".** Three occurrences,
+  all in the JSON-LD, all invisible to every money pattern on the site, and all three were stale: the
+  home figure twice and the monthly top end once (`7,400` against a DB `$7,500`). Normalised to the
+  `$` form the other 46 profiles use, which brings them under `RANGE_RE` and the new check rather than
+  adding a spelled-out variant to the token. Worth a glance on the next build that a profile has not
+  invented a third money style.
+
+---
+
 ## ACTIVE - batch / site-wide operations
 
-- **[P2]** **Three stale home figures in profile PROSE: FIXED Jul 27. The GAP THAT ALLOWED THEM IS STILL
+- **GAP CLOSED Jul 28, 2026.** `check_statcard_faq` now reads profile prose, the JSON-LD FAQ, the
+  method-callout and the NRC. The fourth figure this item predicted turned out to be ten. Original
+  text below.
+  **[P2]** **Three stale home figures in profile PROSE: FIXED Jul 27. The GAP THAT ALLOWED THEM IS STILL
   OPEN.** Philadelphia `$234K` x2 -> `$237K` and New Orleans `$246K` -> `$248K`, both now equal to
   v17 and to the correct figure each file already carried elsewhere. Read the fix narrowly: three
   characters of drift were corrected by hand, and nothing was built that would catch the fourth.
@@ -348,7 +402,21 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   (2) `janF`, `snow`, `sun` present and non-null for all 99. Silent drift of exactly this kind produced
   the Boulder bug.
 
-- **[P2]** **Validator: build the profile stat-card + FAQ figure check.** The 13 drifted figures are now
+- **CLOSED Jul 28, 2026 (shipped).** ~~**[P2]** **Validator: build the profile stat-card + FAQ figure
+  check.**~~ Shipped as `check_statcard_faq` in the `profiles` group, with `tools/test_statcard_faq.py`
+  as its planted-error test, 16 assertions, five harnesses now in the list. Proof it works on the real
+  fault and not only on plants: run against the PRE-batch tree it reports 36 failures naming every one
+  of them, and reports nothing else. All 36 are fixed in the same commit.
+  Two things changed from the design boarded on Jul 27, both because the sizing pass was wrong about
+  them. First, the method-callout is not a NOUN problem, it is a REGION problem: the first money figure
+  in a `method-callout` or a `reality-check` block is the citywide home value, always, verified across
+  all 22 such blocks. Three were wrong and NONE of the three is reachable by any home-value noun,
+  because Tulsa's two blocks and Prescott's both open on the phrase "the $X figure". Tulsa's NRC
+  callout was still built on `$194K` after the rebase moved it 14.9% to `$223K`. Second, the region
+  walk must accept `aside` as well as `div`: the NRC is an `<aside>`, a div-only walk skipped it
+  silently, and that alone would have left Tulsa's NRC unread.
+  Original text below.
+  **[P2]** **Validator: build the profile stat-card + FAQ figure check.** The 13 drifted figures are now
   reconciled (see RECENTLY SHIPPED), so this can be built against a clean tree. Three things the
   audit proved the check needs, each of which cost a wrong answer while sizing the job:
   (1) a HEDGE SLOT between the noun and the figure. The existing `PROSCONS_HOME` matcher requires them
@@ -369,7 +437,8 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   the 47 live profiles. Findings, so the next chat does not re-derive them: 35 of 47 abbreviated
   monthly cards disagree with v17; 1 variable slot disagrees (Pensacola Budget Score 8, D2 = 7);
   8 prose home figures disagree out of 157 matched. Ten of the monthly cards and three of the home
-  figures shipped as P0 on Jul 28. The remaining 26 are P1 and are deliberately left in place: they
+  figures shipped as P0 on Jul 28. (CORRECTED: the remainder was 31, not 26, and the shipped check
+  reports 36.) The remaining 26 are P1 and are deliberately left in place: they
   are the check's own regression corpus, and hand-fixing them before the guard exists means doing
   it twice.
   Design settled while sizing, so it does not have to be re-argued: the money token must be
@@ -725,7 +794,10 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   `Coeur d\u2019Al\u00e8ne` in the pick-and-compare blob, so name-keyed checks skip it. Its record was
   stale at $553K against a DB $611K and the gate read clean. Any check that joins the two surfaces by
   literal name has this hole.
-- **[P2]** **The abbreviated stat-card money form is unparsed.** The editorial modal renders
+- **CLOSED Jul 28, 2026 (shipped).** ~~**[P2]** **The abbreviated stat-card money form is
+  unparsed.**~~ Now parsed and gated by `check_statcard_faq`. Final count on the profile surface was
+  35 of 47 wrong, of which 10 shipped as P0 on Jul 28 and the remaining 25 in this commit.
+  **[P2]** **The abbreviated stat-card money form is unparsed.** The editorial modal renders
   `value: '$3.5–4.8K<span>/mo</span>'`. The validator reads `$X,XXX–$X,XXX` only, so St. Louis sat at
   $3.5-4.8K against a DB $4,100-$5,200, wrong before the rebase and never flagged. Same hole for the
   `$192<span>K</span>` home form.
