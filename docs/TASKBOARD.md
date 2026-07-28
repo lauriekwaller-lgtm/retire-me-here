@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 28, 2026, validator `layout` group shipped (OPS. New check
+**Last updated:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
+live St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: one pillar, D5 Tax 10,
+with a cluster of three 8s (D2 Budget, D7 Outdoor, D9 Safety), so the MULTI-STRENGTH pattern
+applies: tax leads, cluster carries the character section. Hard-flagged weaknesses D1 Airport 4
+and D6 Walk 3 both sit in the No-if column, airport first. No NRC callout: Paradise Valley
+prices within a few thousand dollars of the $314K citywide figure, so a callout would add noise
+under MEDIAN-HOME-METHODOLOGY.md v1.2 section 4. Casper card on
+best-places-to-retire-on-a-budget.html promoted from coming-soon to a live link; the Value
+Navigator, Active Frontier and natural-disasters cards were already live. Two items boarded,
+see below. Gate clean at 47 profiles.)
+
+**Previously:** July 28, 2026, validator `layout` group shipped (OPS. New check
 `check_stray_artifacts` plus `tools/test_stray_artifacts.py`, 7 planted-error assertions.
 It fails on a `<city>-profile.html` or `<city>-hero.jpg` at the repo root, any zip at the
 root, rename debris or a missing photo inside `cities/<slug>/`, and a `cities/` directory
@@ -137,11 +148,11 @@ best-places-to-retire-on-a-budget.html promoted from coming-soon to a live link;
 45, with four stale Roanoke index.html figures fixed en route: $280K->$251K, hospital 16->15, D1
 routes refreshed, D7 "Range 2"->"Range 1"; Carvins Cove second-largest-municipal-park claim retired)
 
-**Verified live at last update:** 46 profiles, 20 comparison pages, 5 guides, 11 category pages
+**Verified live at last update:** 47 profiles, 20 comparison pages, 5 guides, 11 category pages
 (7 `top-cities-for-*` plus 4 `best-places-to-*` pillars; the old "7 landing pages" line counted
 only the first set).
-All 46 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
-placeholders pending Creator Hub; Tulsa's are live).
+All 47 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
+placeholders pending Creator Hub; Tulsa's and Casper's are live).
 Validator: **0 failures, 0 warnings** on `--local .`, confirmed on a fresh clone at commit
 `b13edf1` (Jul 27 harness push). The bare (live GitHub) post-deploy run was also made at that
 commit and also reads 0/0, so the outstanding bare run from the Jul 25 push is closed.
@@ -313,10 +324,23 @@ Standard deploy block:
   rename at deploy time. Worth a periodic audit of both against the repo, since no tool
   can do it.
 
+## BOARDED - opened by the Casper build (Jul 28)
+
+- **The NRC roster grep over-counts.** `PROFILE-FORMATTING.md` v1.6 names
+  `grep -l 'reality-check-eyebrow' cities/*/profile.html` as the enumeration of record, but that
+  matches the CSS selector as well as the markup, so profiles carrying the inherited stylesheet
+  and no callout are counted. Knoxville, Roanoke and Prescott are three such today; the grep
+  returns 17. Tighten it to `grep -l 'class="reality-check-eyebrow"'` and re-count. Casper was
+  built with the unused NRC CSS stripped, so it does not add to the problem.
+- **index.html Casper scoreNotes name the hospital "Wyoming Medical Center".** It has been
+  Banner Wyoming Medical Center since the Banner Health acquisition. Low urgency: with
+  `Casper_WY` now in PUBLISHED_PROFILES the inline detail view never renders. Fold into the
+  next BATCH.
+
 ## ACTIVE - city profile builds
 
-- **Next in queue:** open. Roanoke and Tulsa both shipped Jul 24.
-- Live profiles: 46. Tulsa shipped Jul 24; Roanoke the same day; San Antonio Jul 19; Fort Collins,
+- **Next in queue:** open. Casper shipped Jul 28.
+- Live profiles: 47. Casper shipped Jul 28; Tulsa Jul 24; Roanoke the same day; San Antonio Jul 19; Fort Collins,
   Prescott, Knoxville and Savannah shipped earlier in the same window.
 - NRC city count: **17 profiles carry a callout**, not 10 and not 12. Both the June count and the
   Jul 24 "San Antonio makes 11, Tulsa makes 12" note were wrong. Closed Jul 25: neither

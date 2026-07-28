@@ -202,6 +202,42 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-28 - Casper, WY profile (47); budget-page card promoted; NRC roster grep found leaky
+
+**Built.** `cities/casper/profile.html`, cloned from the live St. Louis canonical rather than a
+session copy, against `CityDatabase_Jul_27_v17.xlsx` row 85. Scores read from the DB only:
+D1 4, D2 8, D3 6, D5 10, D6 3, D7 8, D8 6, D9 8, D10 6; Range 1; $4,800-$5,900/mo; $314,000;
+PropTax 0.53%; HO insurance $2,075. Research supplied supporting colour only (Banner Wyoming
+Medical Center bed count and ACS Level II trauma verification, CPR's single nonstop route,
+Casper Mountain and River Trail mileage, Wyoming exemption mechanics).
+
+**Emphasis.** One pillar (D5 Tax 10) plus a cluster of three 8s, which is the MULTI-STRENGTH
+shape, so the tax fact leads the hero and the cluster carries the character section rather than
+the profile riding a single hook. Both sub-5 dimensions (D1 Airport 4, D6 Walk 3) are named in
+the No-if column, the airport first, since one nonstop route is the binding constraint.
+
+**Two superlatives caught by the gate, not by eye.** A services card read "Casper ranks second on
+the value list" and a JSON-LD FAQ answer read "the lowest of the five budget tiers used on this
+site". Both are dataset-scoped and both were rewritten to anchor on figures. Worth noting that
+they were written by someone who had read the policy immediately beforehand: the check is
+carrying real weight, not duplicating care that already exists.
+
+**No NRC callout.** Paradise Valley, the retiree-favoured side of town, prices at roughly $316K
+against a $314K citywide figure, so neighbourhood selection does not move the budget here and a
+callout would add noise under MEDIAN-HOME-METHODOLOGY.md v1.2 section 4. The unused NRC CSS was
+stripped from the clone so the profile does not register in the roster grep.
+
+**One process note.** The $314,000 figure was queried during the build against Zillow city-page
+and Redfin city-median values and wrongly reported as a possible 15% error. Natrona County ZHVI
+at 2026-06-30 is $314,485, which rounds to the DB value exactly; the mismatch was reading a city
+figure against a county-based column. Nothing in the tooling raised it. Worth recording because
+the docs do not state anywhere which geography the rebased column uses, so the same wrong
+comparison is available to the next person who checks a figure by hand.
+
+**Files changed.** `cities/casper/profile.html` (new), `index.html` (PUBLISHED_PROFILES),
+`sitemap.xml`, `best-places-to-retire-on-a-budget.html` (coming-soon card promoted to a live
+link at rank 2), `docs/TASKBOARD.md`, this log.
+
 ### 2026-07-28 - validator `layout` group: the hand-off shape is now checked
 
 **Problem.** Every check in `validate.py` reads the CONTENT of a file whose path it already
