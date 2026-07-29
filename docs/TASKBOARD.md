@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 29, 2026, Portland ME shipped as profile 48 (BUILD. Built from the live
+**Last updated:** July 29, 2026, stat-card labels unhidden site-wide (BATCH. Every profile was
+rendering its stats bar with the label row invisible, so readers saw `9/10` with nothing saying
+what was scored. Not a Bozeman bug and not new: it is in the St. Louis canonical, so all 48
+profiles inherited it. The stats bar's negative top margin was written to pull the card up over
+the HERO; the sticky section-nav was later inserted between them, so the pull-up lands on the nav
+instead, and the nav wins on z-index 50 against 3. The hidden band is exactly the label row at
+both widths, which is why the 2x2 mobile grid shows row 2's labels and not row 1's. Pull-up
+reduced below the top padding at both widths, 8px clearance, 96 edits across 48 files. Found by
+reading a live page, not by any check.)
+
+**Before that:** July 29, 2026, Portland ME shipped as profile 48 (BUILD. Built from the live
 St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: three pillars, D3 Health 9,
 D6 Walk 9 and D10 Community 9, so the MULTI-PILLAR rule applies and all three land in the hero
 tagline and the opening character paragraph rather than one leading. Support at D1 Airport 8 and
@@ -323,6 +333,33 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
+## CLOSED July 29, 2026 (stat-card labels) - shipped
+
+- **[P1] Every profile hid its stat-card labels behind the sticky nav.** Surfaced by a reader
+  question that could not be answered from the page: what does `9/10` mean? The label saying
+  OUTDOOR was there in the markup and painted behind the nav.
+  **Cause.** DOM order is `site-header` -> `hero` -> `section-nav` (sticky) -> `stats-bar`. The
+  stats bar's `margin-top: -56px` was written to pull the card up over the hero image. The sticky
+  nav was later inserted between the two, so the pull-up now lands on the NAV, and the nav paints
+  over it at `z-index: 50` against the stats bar's `3`. The covered band is 56px; the label row
+  occupies 32px padding + 10px label + 8px margin = 50px. It fits inside the covered band exactly.
+  **Why mobile looked different.** At 2x2 the pull-up is 40px against 24px padding, so row 1's
+  labels are covered and row 2's clear. That asymmetry is what confirmed the diagnosis: a
+  scroll-offset bug would have hidden both rows or neither.
+  **Fix.** Pull-up reduced below the top padding at both widths, `-56px` -> `-24px` desktop and
+  `-40px` -> `-16px` mobile, leaving 8px of clearance so the nav can only ever cover padding. The
+  tucked band is invisible either way, since the nav is opaque with a backdrop blur, so the only
+  visual change is the card sitting 32px lower. 96 edits, 48 files.
+  **Not fixed, boarded below.** `.site-header` and `.section-nav` are BOTH pinned to `top: 0`, and
+  the header's `z-index: 100` beats the nav's `50`, so the chips are clipped along their top edge
+  rather than stacking below the header. Same block of CSS, visible in the same screenshot, but it
+  wants a browser to confirm before touching.
+  **No check covers this.** Nothing on the site reads rendered geometry, and nothing would have
+  caught a label that exists in the markup and is painted over. Boarded as a question rather than
+  a task, because a CSS-geometry check may cost more than it returns.
+
+---
+
 ## CLOSED July 29, 2026 (bozeman 2015 anchor) - shipped
 
 - **Follow-on, same day: `PROFILE-FORMATTING.md` v1.6 -> v1.7.** The guard imposes a house
@@ -458,6 +495,21 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 ---
 
 ## BOARDED - opened by the stat-card check (Jul 28)
+
+- **[P1] `.site-header` and `.section-nav` are both pinned to `top: 0`.** Found July 29 alongside
+  the stat-label fix, same block of CSS. The header carries `z-index: 100` and the nav `z-index:
+  50`, so when the nav sticks it slides UNDER the header instead of stacking below it, and the
+  chips are clipped along their top edge. Visible in the same screenshot that surfaced the label
+  bug. Likely fix is `top: <site-header height>` on `.section-nav` plus a matching
+  `scroll-padding-top`, which is currently `64px` and looks too small for the two bars stacked.
+  Not touched, because unlike the label bug the arithmetic cannot be settled from the CSS alone:
+  the header's height is padding plus content and wants measuring in a browser. All 48 profiles.
+
+- **[P3] Nothing on the site reads rendered geometry.** The stat-label bug lived in the canonical
+  template and shipped into 48 profiles, and no check could have caught it, because the markup was
+  correct and the pixels were wrong. Open question rather than a task: a check asserting the
+  stats-bar pull-up stays smaller than its top padding would have caught this exact bug and
+  nothing else, which may not earn its keep. Worth deciding deliberately rather than by default.
 
 - **[P2]** **`check_comparison_scores` cannot see the D4 or D10 rows on any comparison page.**
   Found Jul 29 while rewriting the Pensacola pairing. The check matches
