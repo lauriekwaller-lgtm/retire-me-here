@@ -333,6 +333,34 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
+## CLOSED July 29, 2026 (D2 band-mover review) - reviewed, no change
+
+- **[P1] D2 band-mover review, the last open piece of the ZHVI rebase (step 5).** Closed with NO
+  score changes. All three cities are already correct; the review was worth running anyway, because
+  of what it turned up.
+  **What was flagged.** Charlottesville `$465K -> $528K` and Ann Arbor `$489K -> $541K` both crossed
+  `$525K`, which the rubric publishes as the 5-6 / 3-4 boundary. Columbus `$235K -> $251K` crossed
+  `$250K` out of the 9-10 band. Knoxville (over `$375K` by ~$2,000) and New Orleans (moved the
+  favourable way) were set aside as not worth the thought, correctly.
+  **Method.** Rubric step 4 says cross-check a score against 2-3 similar cities already in the
+  database rather than reading the band table alone, and the rubric itself states D2 reflects
+  affordability RELATIVE TO THE DATABASE AVERAGE, not absolute cost. So the test applied was peer
+  consistency, not band arithmetic.
+  **Result.** Every city in the database between `$495,000` and `$571,000` scores D2 5 or 6, without
+  exception: Bentonville $497K/6, Boise $508K/6, Nashua $517K/5, Burlington $520K/5, St. George
+  $521K/6, Charlottesville $528K/6, Ann Arbor $541K/5, Pinehurst $542K/5, Naples $549K/5, Silver
+  Spring $557K/5, Fort Collins $569K/5, Portland ME $571K/5. Charlottesville at 6 sits with
+  St. George at $521K; Ann Arbor at 5 sits with Pinehurst at $542K and Naples at $549K. Columbus at
+  8 is already inside its new band. Nothing to change.
+  **The finding, moved to the Rubric v3.3 item.** The rubric's published D2 band table and the
+  database's actual practice have diverged: the rubric calls `$525-$750K` a 3-4 band and the
+  database has never scored that range below 5. This is not a scoring error, it is a documentation
+  error, and it is the dangerous kind. Anyone scoring a new $530K city from the rubric alone would
+  assign a 4 and land two points out of step with twelve existing cities.
+  **This also closes the ZHVI rebase.** Step 5 was the last open piece.
+
+---
+
 ## CLOSED July 29, 2026 (stat-card labels) - shipped
 
 - **[P1] Every profile hid its stat-card labels behind the sticky nav.** Surfaced by a reader
@@ -944,14 +972,7 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   Note `check_hardcoded_counts` does not catch these, for the same reason it missed the "100-city
   database (v14)" string already boarded: the number is fused into prose it does not scan.
 
-- **[P1]** **D2 band-mover review: the last open piece of the ZHVI rebase (step 5).** Three cities crossed a
-  D2 median-home band when the figures were rebased and none has been reviewed: Charlottesville
-  ($465K -> $528K), Ann Arbor ($489K -> $541K), Columbus ($235K -> $251K). This is a JUDGMENT task,
-  not a mechanical one, which is why it keeps getting deferred: per the rubric, D2 weighs the COL
-  index and monthly cost as well as median home, so crossing a band is a flag for review and not an
-  automatic rescore. Two others move but need no thought: Knoxville crosses $375K by $1,600, and
-  New Orleans moves the favourable way. Do this in a session where the rubric is open, not as a
-  rider on something else.
+
 
 - **[P3]** **Rubric v3.3.** `scoring_rubric_v3.2` is wrong in six places, four of which are already resolved
   elsewhere on this board: (1) budget ranges still published as Under $3,500 through $8,000+, when
@@ -972,6 +993,14 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   SITE-OPERATIONS-LOG section 4a, and it is the likeliest reason this doc drifted further than any
   other: nothing pulls it, nothing validates it, no commit touches it. Ship v3.3 as markdown in
   `docs/`, not as another .docx.
+  **(7) The D2 median-home band table does not describe what the database does.** Added Jul 29
+  from the band-mover review. The rubric publishes `$525-$750K` as a 3-4 band; every one of the
+  twelve cities the database holds between `$495,000` and `$571,000` scores 5 or 6, none lower.
+  The scores are peer-consistent and correct, so this is the table that is wrong, and it is the
+  most actively harmful of the seven: the other six are stale descriptions of settled decisions,
+  whereas this one will actively mis-score the next city anyone adds from the rubric alone.
+  Either restate the bands to match practice or say plainly that the bands are indicative and
+  the peer cross-check governs.
 
 - **[P4]** **MEDIAN-HOME-METHODOLOGY.md needs three lines and was deliberately not touched on Jul 27.**
   (1) Section 1 says the figure is "refreshed annually"; the first annual refresh has now actually
