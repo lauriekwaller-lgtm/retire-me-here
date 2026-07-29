@@ -4,7 +4,24 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 29, 2026, `bozeman` 2015 anchor sourced and closed (BATCH. The last open
+**Last updated:** July 29, 2026, Portland ME shipped as profile 48 (BUILD. Built from the live
+St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: three pillars, D3 Health 9,
+D6 Walk 9 and D10 Community 9, so the MULTI-PILLAR rule applies and all three land in the hero
+tagline and the opening character paragraph rather than one leading. Support at D1 Airport 8 and
+D7 Outdoor 7. Hard-flagged D9 Safety 4 and D5 Tax 4 both sit in the No-if column, property crime
+first: CrimeGrade has Portland at the 28th percentile OVERALL on a property crime rate about 40%
+above national, while violent crime sits BELOW national at the 84th percentile, and writing only
+the first half would have been the dishonest version of a 4. No NRC callout and no `.reality-check`
+markup: under MEDIAN-HOME-METHODOLOGY.md v1.2 section 4 a note is warranted where retiree-target
+neighborhoods run materially ABOVE the citywide figure, and Portland is the opposite case, with the
+West End at roughly $554K against a citywide $571,000. The method-callout carries that point
+instead and opens on the DB figure. Stat slots 3 and 4 use concrete proof, `Level I` and a Walk
+Score band, not a bare N/10; the abbreviated monthly was derived through `monthly_abbrev` rather
+than typed. Zero landing-page edits needed: all six Portland cards were already live `city-card`
+links, none coming-soon, none carrying a money figure. Two items boarded. Gate clean at 48
+profiles.)
+
+**Before that:** July 29, 2026, `bozeman` 2015 anchor sourced and closed (BATCH. The last open
 P0 from the rebase. The prose read "The Bozeman of 2015 had typical home values near $734,000.
 Today it's near $740,000", which put the v17 figure in the 2015 clause and the superseded v16
 figure in today's. No 2015 value had ever been in the file to restore, so it was sourced from the
@@ -21,7 +38,7 @@ alongside the existing other-place guard, same window, same backward-only bound,
 excluded so the "As of 2026," opener stays read. Four new assertions, harness now 21. Gate clean
 at 47 profiles.)
 
-**Before that:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
+**Earlier:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
 P0 items the July 27 rebase left behind, both the same cause: v17 collapsed a price ordering that
 two pages argued from, so both wanted an ARGUMENT rewrite rather than a figure swap.
 `best-places-to-retire-in-florida.html` lost its budget ladder entirely, since Pensacola, Fort
@@ -34,7 +51,7 @@ than left to contradict the rewritten FAQ three screens up: six stale home figur
 Budget/D2 scores, none of which any check reads. 18 edits, two files. Two items boarded, both
 comparison pages with the same cause. Gate clean at 47 profiles.)
 
-**Earlier:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
+**Previously:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
 The profile stat-card, score-slot and prose/FAQ surfaces are now gated. New harness
 `tools/test_statcard_faq.py`, 16 assertions, five harnesses in the list. Every figure the check
 reports is fixed in the same commit, plus eight cross-city figures it deliberately excuses and three
@@ -193,11 +210,11 @@ best-places-to-retire-on-a-budget.html promoted from coming-soon to a live link;
 45, with four stale Roanoke index.html figures fixed en route: $280K->$251K, hospital 16->15, D1
 routes refreshed, D7 "Range 2"->"Range 1"; Carvins Cove second-largest-municipal-park claim retired)
 
-**Verified live at last update:** 47 profiles, 20 comparison pages, 5 guides, 11 category pages
+**Verified live at last update:** 48 profiles, 20 comparison pages, 5 guides, 11 category pages
 (7 `top-cities-for-*` plus 4 `best-places-to-*` pillars; the old "7 landing pages" line counted
 only the first set).
-All 47 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
-placeholders pending Creator Hub; Tulsa's and Casper's are live).
+All 48 profiles carry a Visit block with per-city Expedia and Vrbo codes (Roanoke's are still
+placeholders pending Creator Hub; Tulsa's, Casper's and Portland ME's are live).
 Validator: **0 failures, 0 warnings** on `--local .`, confirmed on a fresh clone at commit
 `b13edf1` (Jul 27 harness push). The bare (live GitHub) post-deploy run was also made at that
 commit and also reads 0/0, so the outstanding bare run from the Jul 25 push is closed.

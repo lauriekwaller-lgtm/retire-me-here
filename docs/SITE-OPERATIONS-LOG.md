@@ -202,6 +202,38 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-29 (fourth push) - Portland, ME shipped as profile 48
+
+**What shipped.** `cities/portland-me/profile.html` plus three photos, one line in
+`PUBLISHED_PROFILES`, one `sitemap.xml` entry, and the board and log updates. No landing page
+changed: all six Portland cards were already live `city-card` links routing through
+`index.html?city=Portland&state=ME`, none marked coming-soon, none carrying a monthly range.
+
+**The build is the first MULTI-PILLAR case since the rule was written down.** D3, D6 and D10 all
+score 9. The skill's failure mode is a profile that latches onto whichever pillar writes the
+prettiest sentence, which here would have been the food scene, and lets healthcare and
+walkability fade into the body. Hero tagline and opening paragraph both carry all three.
+
+**A `4` that needed both halves.** D9 Safety is 4, and the obvious sentence is "crime is a
+problem". CrimeGrade actually splits: 28th percentile overall, property crime roughly 40% above
+the national rate, violent crime BELOW it at the 84th percentile. Writing only the aggregate
+would have been technically defensible and materially misleading for a reader deciding whether
+to walk home at night. Both halves are on the page, property crime leading.
+
+**No NRC, deliberately, and the reasoning is the reusable part.** Every NRC city so far has been
+one where a cheap citywide figure hides expensive retiree neighborhoods. Portland inverts it: the
+citywide $571,000 is already high, and the West End, the neighborhood most retirees picture, runs
+roughly $554K, BELOW it. What moves the number is the town line, not the neighborhood, so the
+point belongs in the method-callout. A note here would have added noise, which is the exact test
+MEDIAN-HOME-METHODOLOGY.md v1.2 section 4 sets.
+
+**Photo note.** The detail image is Portland Head Light, which is in Cape Elizabeth rather than
+Portland. Kept because it is the signature image of Greater Portland and does double duty as the
+honest-about-winter break, but Cape Elizabeth is named explicitly in both the caption and the day
+card rather than left to imply otherwise. The Pexels credit `Ssorsch` is an account handle, not a
+confirmed name; Pexels does not require attribution and `Szora / Pexels` on Knoxville is the
+existing precedent for crediting a handle.
+
 ### 2026-07-29 (third push) - pensacola vs. fort myers: the money argument rebuilt
 
 **What shipped.** 24 edits across `pensacola-vs-fort-myers-retirement.html` and one on
