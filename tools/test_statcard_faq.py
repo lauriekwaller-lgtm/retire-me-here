@@ -43,6 +43,14 @@ check was being sized:
     15. the same markup change across every profile trips the global zero guard, rather
         than reporting a clean run over nothing
     16. the control run is clean, so the check is not merely failing at everything
+    17. a PAST-year home figure does NOT fail. Bozeman's sourced 2015 value is correct
+        and disagrees with Median Home by design
+    18. a CURRENT-year mention does NOT excuse a wrong figure, or the guard is a hole
+    19. the real corpus opener "As of <year>," is comma-walled, so a wrong figure
+        still fails whatever the year says. This is what makes the guard safe across
+        a New Year rollover
+    20. a year AFTER the figure does not excuse it: bounded backward only, like the
+        other-place guard
 
 Exit 0 = all tests pass.
 """
@@ -54,6 +62,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+
+from datetime import date
+
+CURRENT_YEAR = date.today().year
 
 # Chosen because their markup is the common shape, not because they are special. If a
 # rebuild moves any of these the harness raises rather than quietly testing nothing.
@@ -288,6 +300,80 @@ def main():
     added = fails - base
     check("another city's home figure, named before it, does not fail",
           code == 0 and not added, f"{len(added)} new failure(s)")
+
+    # ============================================ the other-time guard (added Jul 29)
+    #
+    # Bozeman's rebase overwrote a CORRECT 2015 figure ($325,000) with the new figure
+    # for today, and restoring a sourced 2015 value then failed the check, because a
+    # figure under a home-value noun read as a claim about now. These four pin the
+    # guard that fixed it, in the same shape as 9 and 10 above: two demand silence,
+    # two demand a failure, and the failing pair is what stops the guard from becoming
+    # a hole.
+
+    # ------------------------- 17. a PAST-year figure disagreeing with the DB is silent
+    tmp = stage(repo)
+    anchor = first_sentence_anchor(
+        tmp, PROSE_CITY, "A typical home value around $435K")
+    sub_once(tmp, PROSE_CITY, anchor,
+             "The city of 2015 had typical home values near $211,000",
+             "a sourced historical home figure")
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("a past-year home figure does not fail",
+          code == 0 and not added, f"{len(added)} new failure(s)")
+
+    # -------------------- 18. the CURRENT year must not excuse, comma-less shape
+    #
+    # Without the current-year exclusion this passes and the guard is a hole: any
+    # sentence naming this year would carry any figure at all.
+    tmp = stage(repo)
+    anchor = first_sentence_anchor(
+        tmp, PROSE_CITY, "A typical home value around $435K")
+    sub_once(tmp, PROSE_CITY, anchor,
+             f"As of {CURRENT_YEAR} the typical home value is around $911,000",
+             "a wrong current figure under a current-year mention")
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("a current-year mention does not excuse a wrong figure",
+          code == 1 and any("$911,000" in f for f in added),
+          f"{len(added)} new failure(s)")
+
+    # ------------- 19. the real corpus shape: "As of <year>," is comma-walled anyway
+    #
+    # This is the opener 47 profiles use. It must fail on a wrong figure whatever the
+    # year says, because the comma puts the year outside the window. That is what makes
+    # the guard safe across a New Year rollover.
+    tmp = stage(repo)
+    anchor = first_sentence_anchor(
+        tmp, PROSE_CITY, "A typical home value around $435K")
+    sub_once(tmp, PROSE_CITY, anchor,
+             "As of 2015, the typical home value is around $911,000",
+             "a wrong current figure behind a comma-walled past year")
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("a comma-walled year does not excuse a wrong figure",
+          code == 1 and any("$911,000" in f for f in added),
+          f"{len(added)} new failure(s)")
+
+    # ----------------------- 20. the guard is bounded BACKWARD only, like the place one
+    #
+    # Year after the figure must not excuse. Pins the bound so a later refactor cannot
+    # quietly make it bidirectional, which is the failure mode assertion 9 exists for.
+    tmp = stage(repo)
+    anchor = first_sentence_anchor(
+        tmp, PROSE_CITY, "A typical home value around $435K")
+    sub_once(tmp, PROSE_CITY, anchor,
+             "The typical home value is around $911,000 as it was back in 2015",
+             "a wrong figure trailed by a past year")
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("the other-time guard does not reach forward to excuse real drift",
+          code == 1 and any("$911,000" in f for f in added),
+          f"{len(added)} new failure(s)")
 
     # --------------------------------------------- 11. a hood-card is out of scope
     tmp = stage(repo)

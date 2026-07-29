@@ -4,7 +4,24 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
+**Last updated:** July 29, 2026, `bozeman` 2015 anchor sourced and closed (BATCH. The last open
+P0 from the rebase. The prose read "The Bozeman of 2015 had typical home values near $734,000.
+Today it's near $740,000", which put the v17 figure in the 2015 clause and the superseded v16
+figure in today's. No 2015 value had ever been in the file to restore, so it was sourced from the
+Zillow ZHVI city series rather than guessed: RegionID 44281, 2015-06-30 = $327,317 against
+2026-06-30 = $733,959, which matches DB Median Home to the thousand and confirms the DB's ZHVI
+vintage is June 2026. Same series, same month, eleven years apart, so the comparison is
+methodology-clean. It also shows "doubled" UNDERSTATES at x2.24, so the three surfaces carrying
+that claim now read "more than doubled". Three further stale items on the same page, none boarded:
+a `$740K` in the JSON-LD presented as current, a `$734,000with` run-together, and a Budget score of
+3 where v17 says 4. The fix then FAILED the gate, which is the more useful half of this
+entry: `check_statcard_faq` had no concept of a figure attributed to a past year, so a correct
+2015 value under a home-value noun read as a claim about today. Shipped with an OTHER-TIME guard
+alongside the existing other-place guard, same window, same backward-only bound, current year
+excluded so the "As of 2026," opener stays read. Four new assertions, harness now 21. Gate clean
+at 47 profiles.)
+
+**Before that:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
 P0 items the July 27 rebase left behind, both the same cause: v17 collapsed a price ordering that
 two pages argued from, so both wanted an ARGUMENT rewrite rather than a figure swap.
 `best-places-to-retire-in-florida.html` lost its budget ladder entirely, since Pensacola, Fort
@@ -17,14 +34,14 @@ than left to contradict the rewritten FAQ three screens up: six stale home figur
 Budget/D2 scores, none of which any check reads. 18 edits, two files. Two items boarded, both
 comparison pages with the same cause. Gate clean at 47 profiles.)
 
-**Before that:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
+**Earlier:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
 The profile stat-card, score-slot and prose/FAQ surfaces are now gated. New harness
 `tools/test_statcard_faq.py`, 16 assertions, five harnesses in the list. Every figure the check
 reports is fixed in the same commit, plus eight cross-city figures it deliberately excuses and three
 unanchored ones it cannot see. Four items boarded, two of them P0 editorial. Gate clean at 47
 profiles.)
 
-**Earlier:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
+**Previously:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
 reader-visible figures corrected across ten profiles, ten abbreviated monthly stat cards off by
 $300 to $600 and three home figures each contradicted by their own page. Every open item on this
 board now carries a P0-P4 rank; the scale and the two rules that make it hold are the first
@@ -289,6 +306,59 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
+## CLOSED July 29, 2026 (bozeman 2015 anchor) - shipped
+
+- **The last P0 from the ZHVI rebase, and the one that could not be fixed by swapping.** The board
+  item was right that the rebase had been applied to the wrong clause. What it could not know is
+  that there was nothing to restore: `$740,000` was the superseded v16 figure for TODAY, not a 2015
+  value that had been overwritten. The page had never carried a 2015 number.
+  **Sourced, not guessed.** Zillow ZHVI city-level series, RegionID 44281 (Bozeman city, MT), the
+  same RegionID Zillow's own Bozeman page uses. `2015-06-30 = $327,317`, `2026-06-30 = $733,959`.
+  Same series, same geography, same seasonal adjustment, same calendar month eleven years apart.
+  Rounded to `$327,000` per the site's whole-thousand convention.
+  **Rejected on the way there:** a local brokerage figure of roughly $300,000 for 2015. Wrong metric
+  (MLS median SALE price against a ZHVI typical-value index, which is the mixed-methodology
+  comparison MEDIAN-HOME-METHODOLOGY.md exists to prevent), and the same page contradicts itself
+  elsewhere, stating an 84.1% rise equal to $391,000 while giving endpoints that work out to 61%.
+  **The sourcing changed the argument.** June 2015 to June 2026 is x2.24, +124%, so "doubled"
+  understates rather than overstates. Corrected on all three surfaces that carried it: the intro
+  ("doubled in a decade"), the cons card ("roughly doubled since 2015") and the history paragraph.
+  Worth noting the decade claim is exact if anchored to 2016 instead: `2016-06-30 = $370,015` is
+  x1.98. 2015 was kept because the whole page, meta description included, is built on "post-2015".
+  **Three stale items on the same page, none of them boarded.** A `$740K` in the JSON-LD downsides
+  answer presented as the current typical value, the same `$734,000with` run-together shape found on
+  `st-augustine`, and "Budget scored 3 of 10" against a v17 D2 of 4.
+  **Side confirmation.** DB `Median Home` for Bozeman is `$734,000` and ZHVI `2026-06-30` is
+  `$733,959`, which pins the DB's ZHVI vintage to June 2026 and independently confirms the "as of
+  June 2026" caption on `best-places-to-retire-in-florida.html` is correct as written.
+  **The rebase overwrote a CORRECT figure, and git proves it.** Before `cff99a6` the sentence read
+  "The Bozeman of 2015 had typical home values near `$325,000`. Today it's near `$740,000`", which
+  was right, and had been stable since the profile was built. The rebase replaced the FIRST money
+  figure in the paragraph rather than the one describing today, so it destroyed the 2015 value and
+  left the superseded one standing. Swept all 45 profiles the rebase touched for the same shape,
+  a money figure sitting in a clause that names a past year: **Bozeman is the only one.**
+  **It also needed a validator change, which is the real lesson.** Restoring a sourced 2015 figure
+  FAILED the gate. `check_statcard_faq` grades every home figure against Median Home and had an
+  other-PLACE guard but no other-TIME guard, so a correct historical value under a home-value noun
+  read as a claim about today. Two wrong ways out were available and both were rejected: rewording
+  to drop the noun would have made the figure invisible to every money check on the site, which is
+  the P2 "money with no anchor" shape already boarded, and falling back to a geographic contrast
+  would have thrown away the sourcing. The guard shipped instead.
+  **The guard.** Same window and same backward-only bound as the other-place guard: walk back to
+  the nearest clause break, and if that window names a year older than the current one, the figure
+  is historical and is skipped. The current year cannot excuse, or the commonest opener on the site
+  stops being read. Note the corpus is protected twice, because in "As of 2026, the typical home
+  value is..." the comma already puts the year outside the window, which is why a New Year rollover
+  does not silently unwatch 47 profiles.
+  **Accepted false negative, recorded on purpose.** "Since 2015 the value has risen to $999,000"
+  is excused though it claims today. Reaching it needs tense parsing, which fails in worse ways.
+  The house style this implies, year BEFORE figure, wants a line in PROFILE-FORMATTING.md.
+  **Four assertions, harness 17 -> 21:** a past-year figure is silent; a current-year mention does
+  NOT excuse a wrong figure; the comma-walled "As of <year>," opener still fails on a wrong figure;
+  and a year AFTER the figure does not excuse it, pinning the bound against a later refactor.
+
+---
+
 ## CLOSED July 29, 2026 (v17 argument rewrites) - shipped
 
 - **Both P0 editorial items from the rebase, closed together because they were one cause.** v17
@@ -389,13 +459,7 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 
 
-- **[P0]** **`bozeman` states the same figure for 2015 and for today.** The prose reads "The Bozeman
-  of 2015 had typical home values near $734,000. Today it's near $740,000", in a paragraph whose whole
-  argument is that prices DOUBLED in about a decade. `$734,000` is the v17 figure for today, so the
-  rebase appears to have been applied to the wrong clause. Not touched, because the 2015 number has to
-  be sourced rather than guessed and the sentence cannot be repaired without it. Neither figure is
-  reachable by `check_statcard_faq`: the first is attributed to a past year and the second carries no
-  home-value noun.
+
 
 - **[P2]** **Money with no anchor at all is still unreadable, and it is not hypothetical.** Three
   figures in this batch were found by hand and by hand only, because they sit under no home-value

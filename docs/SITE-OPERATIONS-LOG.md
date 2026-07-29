@@ -202,6 +202,46 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-29 (second push) - bozeman 2015 anchor sourced
+
+**What shipped.** Six edits to `cities/bozeman/profile.html`. The boarded P0 (a 2015 clause holding
+today's figure), the "doubled" claim on three surfaces, and three unboarded stale items on the same
+page.
+
+**Where the number came from, and why it took a source rather than a guess.** Zillow ZHVI
+city-level series, RegionID 44281, `2015-06-30 = $327,317` against `2026-06-30 = $733,959`. The
+temptation was a readily-findable local-brokerage figure of about $300,000 for 2015. That is an MLS
+median SALE price and ours is a ZHVI typical-value index, so putting them in one sentence would have
+been the exact mixed-methodology comparison MEDIAN-HOME-METHODOLOGY.md prohibits, and it would have
+read as sourced. **When a historical figure is needed, the series has to match the series already on
+the page, not merely the city and the year.**
+
+**Sourcing can move the argument in the direction you did not expect.** The paragraph claimed prices
+doubled. The real multiple is x2.24, so the page was understating its own case on three surfaces.
+The reflex when a claim cannot be verified is to soften it; here the correct move was to strengthen
+it.
+
+**Side benefit worth recording.** DB `Median Home` `$734,000` matches ZHVI `2026-06-30` at
+`$733,959`, which pins the current DB's ZHVI vintage to June 2026. That resolves the open question
+on the `best-places-to-retire-in-florida.html` table caption: "as of June 2026" is correct as
+written and needs no change.
+
+**A rebase can destroy a correct figure, not just fail to update one.** Git shows the pre-rebase
+sentence read "The Bozeman of 2015 had typical home values near $325,000. Today it's near
+$740,000", correct and stable since the profile was built. `cff99a6` replaced the FIRST money
+figure in the paragraph instead of the one describing today. The mental model that a rebase can
+only leave figures STALE is wrong: it can also overwrite a correct historical one with a correct
+current one and leave no trace that anything was lost. All 45 profiles the rebase touched were
+swept for the same shape and Bozeman is the only instance.
+
+**The fix needed a validator change, and the shortcut was the wrong answer.** Restoring the sourced
+2015 figure failed the gate: `check_statcard_faq` had an other-PLACE guard but no other-TIME guard,
+so a correct historical value under a home-value noun read as a claim about today. The ninety-second
+fix was to reword until the check could not see it, which works by removing the home-value noun and
+therefore makes the figure invisible to every money check on the site. **When a correct edit trips a
+check, the question is whether the check is wrong, not how to phrase around it.** Here it was
+incomplete, and the guard that fixed it is nine lines.
+
 ### 2026-07-29 - v17 argument rewrites: Florida pillar and st-augustine
 
 **What shipped.** 18 edits across two files, all editorial rather than mechanical.

@@ -42,6 +42,13 @@ import urllib.request
 
 from html import unescape as html_unescape
 
+# Used only by the other-time guard in _sc_scan. Wall-clock rather than a constant so
+# the guard does not need editing every January; see the comment there for why the
+# rollover is safe on the current corpus.
+from datetime import date
+
+CURRENT_YEAR = date.today().year
+
 RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
@@ -1103,6 +1110,26 @@ def _sc_scan(rep, city, state, where, text, home, others):
             ls = max([text.rfind(ch, 0, m.start()) for ch in ".;!?,"] + [-1])
             before = text[ls + 1:m.start()]
             if any(re.search(r"\b" + re.escape(o) + r"\b", before) for o in others):
+                continue
+
+            # THE OTHER-TIME GUARD, same window and same backward bound as the guard
+            # above. A figure attributed to a PAST year is not a claim about today's
+            # typical value: Bozeman's "The Bozeman of 2015 had typical home values
+            # near $327,000" is correct and disagrees with Median Home by design.
+            #
+            # The CURRENT year must not excuse, or the commonest opener on this site
+            # stops being read. Note the real profiles are protected twice over: in
+            # "As of 2026, the typical home value is around $734,000" the year sits
+            # behind a comma and is already outside the window, which is why this
+            # guard survives a New Year rollover without unwatching 47 profiles.
+            #
+            # Bounded backward only, exactly like the place guard. "$327,000, back in
+            # 2015" is NOT excused, so the house style is year-before-figure.
+            # Known and accepted false negative: "Since 2015 the value has risen to
+            # $999,000" is excused though it claims today. Reaching it needs tense
+            # parsing, which fails in worse ways than this does.
+            yrs = [int(y) for y in re.findall(r"\b(?:19|20)\d{2}\b", before)]
+            if yrs and all(y < CURRENT_YEAR for y in yrs):
                 continue
 
             val = _hl_money(tok)
