@@ -202,6 +202,50 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-29 (third push) - pensacola vs. fort myers: the money argument rebuilt
+
+**What shipped.** 24 edits across `pensacola-vs-fort-myers-retirement.html` and one on
+`compare-retirement-cities.html`. The boarded P0 plus four defects the board did not carry.
+
+**The board called this an argument rewrite and it was right, but the interesting part is what
+replaced the argument.** v17 closed the gap the page was built on: `$108,000` to `$41,000`, D2
+8-vs-6 to tied at 7, tier 1-vs-2 to both Range 2, monthly floor `$600` to `$200`. The reflex is to
+find a different row for Pensacola to win on. There isn't one: under the 2-point checkmark rule the
+rebuilt table gives Pensacola a single mark (home value) against Fort Myers' four (D1, D3, D8, warm
+winters). **The fix was to change what the money figure MEANS rather than to hunt for a substitute.**
+`$41,000` stopped being Pensacola's saving and became Fort Myers' asking price, which turns
+tradeoff #1 into the setup and tradeoff #3 into the itemised answer. Those two blocks had been
+litigating the same premium against each other since the page was built; the rewrite is a better
+page than the pre-v17 one, not a salvage of it.
+
+**A rank that was never a rank.** The page claimed Lee Health "earns Fort Myers the #3 spot on our
+Top Cities for Healthcare list", on three surfaces. `top-cities-for-healthcare.html` is TIERED and
+alphabetical within tiers, and Fort Myers is the third card in **Tier 2**, not third overall. Someone
+counted cards. The near-miss worth recording: the first replacement drafted was "sits in the top
+tier of our healthcare list", which reads as a safe softening and is flatly false. **Softening an
+unverified claim is not the same as verifying it**, and both drafts would have passed the gate,
+because no check reads landing-page tier membership. Removed rather than reworded.
+
+**A scoring column read backwards for as long as the page has existed.** The climate row labelled
+`Hot summers (lower = milder)` is fed by `Climate Hot Sum`, which is SUMMER COMFORT: higher is
+better, per the rubric and per the DB (Bend 8, Scottsdale 1). The label inverted it, so the table
+implied Fort Myers had the milder summers while tradeoff #2, two screens down, correctly said
+Pensacola did. The prose was right and the structured surface was wrong, which is the opposite of
+the usual failure and the reason it survived: a reader who trusts the table never reaches the
+contradiction. Fixed here, boarded for `st-augustine-vs-pensacola-retirement.html`, which carries
+the identical label.
+
+**Two guard gaps found, neither fixed here.** `check_comparison_scores` skips the D4 and D10 rows on
+every comparison page, because `DIMS` holds the DB column names (`D4 Resil.`, `D10 Comm.`) and the
+pages spell the rows out in full, so the prefix match returns None and the row is skipped silently.
+And `check_hardcoded_counts` missed `"a 100-city retirement database"` in this page's JSON-LD,
+because its pattern wants `100 cities` and not `100-city`: the same hyphen-variant gap already
+boarded for `pick-and-compare.html`. Both boarded; a check change needs a planted-error test and
+this chat was scoped to one page.
+
+**Split closed.** The pillar page said Fort Myers `$310,000` while this page said `$372,000`. It was
+carried on purpose since Jul 29 and is now closed on both sides.
+
 ### 2026-07-29 (second push) - bozeman 2015 anchor sourced
 
 **What shipped.** Six edits to `cities/bozeman/profile.html`. The boarded P0 (a 2015 clause holding

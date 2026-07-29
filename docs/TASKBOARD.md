@@ -442,20 +442,27 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ## BOARDED - opened by the stat-card check (Jul 28)
 
-- **[P0]** **`pensacola-vs-fort-myers-retirement.html` is a page-level money-argument rewrite, not a
-  figure swap.** Found Jul 29 while scoping the Florida pillar item, same cause. The entire money
-  case rests on a gap v17 deleted: `$108,000` is now `$41,000`, "the budget dimension is not close:
-  Pensacola 8, Fort Myers 6" is now TIED at 7, "budget tier 1 vs. 2" and "a full budget tier of
-  difference" are now both Range 2, and "its monthly floor sits about $600 lower" is $200 ($5,000 vs
-  $5,200). The thesis sentence is inverted: "unlike some near-twin pairings, cost genuinely weighs
-  here" is exactly backwards, because on cost they now ARE near twins. Surfaces: verdict block,
-  tradeoff #1, hero tagline, both FAQ answers, both JSON-LD blobs, comparison table, profile card.
-  **The page already contradicts itself live**: the hero at L711 reads "both budget scores tied at
-  7", which is v17-correct, while tradeoff #1 at L850 reads "not close: Pensacola 8, Fort Myers 6".
-  Someone rebased the tagline and stopped. Runs under COMPARISON-PAGE-STANDARD-v2.md, so it wants
-  the propose-five-tradeoffs-then-draft cycle, not a BATCH edit.
-  Consequence carried on purpose until this ships: the pillar page now says Fort Myers `$310,000`
-  while this page still says `$372,000`. Known, not missed.
+- **[P2]** **`check_comparison_scores` cannot see the D4 or D10 rows on any comparison page.**
+  Found Jul 29 while rewriting the Pensacola pairing. The check matches
+  `<td class="metric">{dim_label}` as a PREFIX, and `DIMS` carries the DB's column names:
+  `D4 Resil.` and `D10 Comm.`, both with a trailing period. Comparison pages write the rows out
+  in full as `D4 Climate resilience & insurance` and `D10 Community & culture`, neither of which
+  starts with the DIMS label, so `re.search` returns None and the `if not m: continue` guard skips
+  them silently. Eight dimensions are checked on every comparison page and two are not, and the
+  gate reads 0/0 either way. Both rows happened to be correct on this page (2/1 and 7/7 against
+  v17), so nothing shipped as a fix here. The same shape as the D2-column incident this check was
+  written for: a check that cannot fail on a surface is indistinguishable from a check that passes.
+  Fix is to match on the `D<n>` token rather than the DB column name, with a planted-error test on
+  a D4 row before it ships.
+
+- **[P2]** **The summer row is polarity-inverted on `st-augustine-vs-pensacola-retirement.html`.**
+  Fixed on the Pensacola/Fort Myers page Jul 29, not on this one, which is still open as the P1
+  above and should take it in the same pass. `Climate Hot Sum` is SUMMER COMFORT, higher is better:
+  the rubric says so ("H = Summer comfort, 10 = very comfortable") and the DB confirms it (Bend 8,
+  Scottsdale 1). Both pages label the row `Hot summers (lower = milder)`, which inverts it and hands
+  the win to the wrong city. On Pensacola/Fort Myers the page also contradicted itself over it:
+  the table implied Fort Myers had the milder summers while tradeoff #2 correctly said Pensacola
+  did. No check reads climate rows at all, so this is hand-audit territory until one does.
 
 - **[P1]** **`st-augustine-vs-pensacola-retirement.html` carries a dead tier gap.** Same cause, found
   Jul 29. Smaller than the item above but still not mechanical: the price gap `$168,000` -> `$164,000`
