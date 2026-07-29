@@ -4,14 +4,27 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
+**Last updated:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
+P0 items the July 27 rebase left behind, both the same cause: v17 collapsed a price ordering that
+two pages argued from, so both wanted an ARGUMENT rewrite rather than a figure swap.
+`best-places-to-retire-in-florida.html` lost its budget ladder entirely, since Pensacola, Fort
+Myers and Delray Beach are now all D2=7 and all Range 2; the cheapest-FAQ is rebuilt on what the
+$73,000 of spread buys, and the banned "Of the Florida cities scored on RetireMeHere" opener is
+re-anchored to named cities and figures. `st-augustine` lost its price bracket, since v17 puts it
+above both Sarasota and Tampa; rebuilt on the scale mismatch, a town of 15,000 pricing above two
+Gulf Coast metros. The same page's eight-row comparison table was folded in by decision rather
+than left to contradict the rewritten FAQ three screens up: six stale home figures and five stale
+Budget/D2 scores, none of which any check reads. 18 edits, two files. Two items boarded, both
+comparison pages with the same cause. Gate clean at 47 profiles.)
+
+**Before that:** July 28, 2026, `check_statcard_faq` shipped with the 36 figures it reports (OPS.
 The profile stat-card, score-slot and prose/FAQ surfaces are now gated. New harness
 `tools/test_statcard_faq.py`, 16 assertions, five harnesses in the list. Every figure the check
 reports is fixed in the same commit, plus eight cross-city figures it deliberately excuses and three
 unanchored ones it cannot see. Four items boarded, two of them P0 editorial. Gate clean at 47
 profiles.)
 
-**Before that:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
+**Earlier:** July 28, 2026, P0 figure batch and board triage scale (BATCH + OPS. Thirteen
 reader-visible figures corrected across ten profiles, ten abbreviated monthly stat cards off by
 $300 to $600 and three home figures each contradicted by their own page. Every open item on this
 board now carries a P0-P4 rank; the scale and the two rules that make it hold are the first
@@ -19,7 +32,7 @@ section below. The stat-card + FAQ validator check that found all of this did NO
 P2, its findings are recorded on its own board item, and the 26 P1 figures it also found are
 deliberately still in place as its regression corpus. Gate clean at 47 profiles.)
 
-**Earlier:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
+**Previously:** July 28, 2026, Casper WY profile shipped as profile 47 (BUILD. Built from the
 live St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: one pillar, D5 Tax 10,
 with a cluster of three 8s (D2 Budget, D7 Outdoor, D9 Safety), so the MULTI-STRENGTH pattern
 applies: tax leads, cluster carries the character section. Hard-flagged weaknesses D1 Airport 4
@@ -276,6 +289,50 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
+## CLOSED July 29, 2026 (v17 argument rewrites) - shipped
+
+- **Both P0 editorial items from the rebase, closed together because they were one cause.** v17
+  collapsed a price ordering that two pages had built arguments on. Neither was fixable by swapping
+  figures: correcting the numbers alone would have published false claims in accurate digits.
+  **`best-places-to-retire-in-florida.html`, three prose surfaces.** The cheapest-FAQ ran a
+  three-city budget ladder. Under v17 Pensacola, Fort Myers and Delray Beach are ALL D2=7 and ALL
+  Range 2, so the ladder is gone entirely and not just the Pensacola/Fort Myers rung the item
+  described. Rebuilt on the spread: the budget score no longer separates them, so what the $73,000
+  between them buys does. Fort Myers is +$41K for healthcare 9 and airport 9 against resilience 1;
+  Delray is +$73K for walkability 8 and community 9 against healthcare 5; Pensacola holds the floor
+  and pays in Panhandle winters. Figures: Pensacola `$264,000` -> `$269,000` and `$4,900` ->
+  `$5,000`, Delray `$341,000` -> `$342,000`, Fort Myers `$372,000` -> `$310,000`. The banned
+  dataset-scoped opener is gone, re-anchored to named cities and figures. The `bestfor-why` value
+  card keeps Pensacola and Fort Myers as its named picks: Delray now has an equal claim on D2=7 /
+  Range 2, but that is a placement call and there is no Florida scoring-analysis doc to govern it.
+  **The same page's comparison table, folded in by decision.** Not part of the boarded item, which
+  scoped to three prose surfaces, but leaving it would have published a page disagreeing with
+  itself: six stale home figures (Pensacola `$266K`, Fort Myers `$312K`, Delray `$340K`, Tampa
+  `$377K`, St. Pete `$352K`, St. Augustine `$432K`) and five stale Budget/D2 scores (Naples 3->5,
+  St. Augustine 5->6, Sarasota 5->6, St. Pete 6->7, Delray 6->7). D3, D6, D9 and D4 all verified
+  correct. Row order is by home value and survived the rebase unchanged. Nothing on the site reads
+  this table.
+  **`cities/st-augustine/profile.html`, six figures in four places.** The old frame was a price
+  BRACKET, above Tampa and under Sarasota, meaning expensive but not extreme. v17 puts St. Augustine
+  above both, so the bracket could not be repaired. Rebuilt on the scale mismatch: a town of about
+  15,000 pricing above two Gulf Coast metros. Tampa `$400,000` -> `$380,000` x3, Sarasota `$462,000`
+  -> `$413,000` x2 (the inverting one), Fort Myers `$372,000` -> `$310,000` x1. Also closed the
+  `$433,000above` run-together in the JSON-LD, a doubled resilience clause that stated the same
+  thing twice in one sentence, and the cost-strip DB citation `v14` -> `Jul 27 v17` (0.78% and
+  $7,136 both verify).
+  **One v14 reference deliberately NOT relabelled.** The related-city picks comment records a
+  COMPUTATION, not a figure: "Sarasota and St. Petersburg tie as closest published Florida matches
+  (distance 11)". Recomputed under v17, the Manhattan D1-D10 distance does reproduce 11 for both,
+  which confirms the metric, but **Miami also lands at 11 and Miami is published**, so it is a
+  three-way tie now and stamping v17 on a two-way-tie claim would make it newly false. Dated
+  instead: `Jun 9 v14, not recomputed against v17`. Miami reviewed and rejected on editorial
+  grounds Jul 29 (not the same retiree as St. Augustine), so the picks themselves stand.
+  **What no check caught.** The five stale D2 scores in the table, and the banned "Of the Florida
+  cities scored on RetireMeHere" phrasing, which `check_superlatives` does not match. Both found by
+  hand.
+
+---
+
 ## CLOSED July 28, 2026 (P0 figure batch + triage scale) - shipped
 
 - **13 P0 figures fixed, and the scale that decided they were the only 13.** An OPS chat scoped
@@ -307,18 +364,30 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ## BOARDED - opened by the stat-card check (Jul 28)
 
-- **[P0]** **`st-augustine` cross-city comparison is broken by v17, not merely stale.** The profile
-  compares its own figure to three other cities, six occurrences in all, and every comparison figure
-  predates the rebase: Tampa `$400,000` x3 (now `$380,000`), Sarasota `$462,000` x2 (now
-  `$413,000`), Fort Myers `$372,000` x1 (now `$310,000`). Deliberately NOT swapped in this commit, because one of them
-  INVERTS: the page says St. Augustine sits "under Sarasota's $462,000", and at `$433,000` against a
-  Sarasota `$413,000` it no longer does. Fixing the figures alone would publish a false claim in
-  corrected numbers, which is worse than the stale version. The sentence has to be rewritten, which is
-  an editorial call and wants the same pass as the Florida pillar page below, since it is the same
-  cause: v17 collapsed a price ordering the prose was built on.
-  Consequence carried on purpose: `pensacola` names Fort Myers at `$310,000` after this commit while
-  `st-augustine` still names it at `$372,000`. Two pages, one city, two figures. That is known, not
-  missed, and it ends when this item ships.
+- **[P0]** **`pensacola-vs-fort-myers-retirement.html` is a page-level money-argument rewrite, not a
+  figure swap.** Found Jul 29 while scoping the Florida pillar item, same cause. The entire money
+  case rests on a gap v17 deleted: `$108,000` is now `$41,000`, "the budget dimension is not close:
+  Pensacola 8, Fort Myers 6" is now TIED at 7, "budget tier 1 vs. 2" and "a full budget tier of
+  difference" are now both Range 2, and "its monthly floor sits about $600 lower" is $200 ($5,000 vs
+  $5,200). The thesis sentence is inverted: "unlike some near-twin pairings, cost genuinely weighs
+  here" is exactly backwards, because on cost they now ARE near twins. Surfaces: verdict block,
+  tradeoff #1, hero tagline, both FAQ answers, both JSON-LD blobs, comparison table, profile card.
+  **The page already contradicts itself live**: the hero at L711 reads "both budget scores tied at
+  7", which is v17-correct, while tradeoff #1 at L850 reads "not close: Pensacola 8, Fort Myers 6".
+  Someone rebased the tagline and stopped. Runs under COMPARISON-PAGE-STANDARD-v2.md, so it wants
+  the propose-five-tradeoffs-then-draft cycle, not a BATCH edit.
+  Consequence carried on purpose until this ships: the pillar page now says Fort Myers `$310,000`
+  while this page still says `$372,000`. Known, not missed.
+
+- **[P1]** **`st-augustine-vs-pensacola-retirement.html` carries a dead tier gap.** Same cause, found
+  Jul 29. Smaller than the item above but still not mechanical: the price gap `$168,000` -> `$164,000`
+  is a swap, but the budget scores go 7-vs-5 -> 7-vs-6, and "Pensacola sits at budget tier 1 against
+  St. Augustine's tier 2" is false, both are Range 2. Tradeoff #1 is HEADLINED on the tier gap and
+  says "the price gap matches the tier gap", so that section needs rewriting rather than patching.
+  Also Pensacola `$264,000` x7 and St. Augustine `$432,000` x6 throughout, and the monthly range
+  `$4,900-$6,100` -> `$5,000-$6,200`.
+
+
 
 - **[P0]** **`bozeman` states the same figure for 2015 and for today.** The prose reads "The Bozeman
   of 2015 had typical home values near $734,000. Today it's near $740,000", in a paragraph whose whole
@@ -698,25 +767,7 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   `check_cards` list and say in the code why they are exempt. Leaving them listed-but-unread is the
   worst of the three, because the target list currently reads as coverage.
 
-- **[P0]** **`best-places-to-retire-in-florida.html` carries a stale comparison passage, found Jul 27.**
-  Not shipped in this batch: fixing it changes an ARGUMENT, not just figures, so it wants its own
-  pass. The passage repeats on three surfaces: the JSON-LD FAQ blob, the `bestfor-why` card, and the
-  visible FAQ answer. Against v17:
-    - Pensacola home `$264,000` -> `$269,000`; "budgets from about $4,900" -> `$5,000`.
-    - Delray Beach `$341,000` -> `$342,000`.
-    - Fort Myers `$372,000` -> `$310,000`, a $62K move.
-    - ORDERING IS NOW WRONG. The sentence reads "Delray Beach is next, then Fort Myers". v17 order
-      is Pensacola $269K, Fort Myers $310K, Delray Beach $342K, so Fort Myers is second.
-    - "Pensacola scores 8 of 10 on budget and sits in budget tier 1" is wrong twice: D2 is 7 and
-      Pensacola is Budget Range 2 as of the rebase. Note this is the SAME departure that took it off
-      the budget page in this batch.
-    - "Fort Myers scores 6 and sits in tier 2" -> D2 is 7. So Pensacola and Fort Myers are now BOTH
-      D2=7 and BOTH Range 2, which collapses the passage's whole contrast. That is the editorial
-      call: the trade-off has to be rewritten around resilience and healthcare, since it can no
-      longer be framed on a budget gap that no longer exists. Fort Myers D4=1 is still correct.
-  Also flagged while in there, not a v17 error: the passage opens "Of the Florida cities scored on
-  RetireMeHere, Pensacola is the cheapest". That is a rank scoped to our own dataset, which is the
-  banned shape, and `check_superlatives` does not catch this phrasing. Anchor it to the figure.
+
 
 - **[P3]** **The site nav is copy-pasted into 87 files in seven variants, and 46 of them cannot take a menu
   item at all.** Found while adding the budget pillar to the menu. There is no template, no include,

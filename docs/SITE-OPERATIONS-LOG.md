@@ -202,6 +202,32 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-29 - v17 argument rewrites: Florida pillar and st-augustine
+
+**What shipped.** 18 edits across two files, all editorial rather than mechanical.
+`best-places-to-retire-in-florida.html`: the cheapest-FAQ on three surfaces (JSON-LD, visible FAQ,
+`bestfor-why` card) plus all eight rows of the comparison table. `cities/st-augustine/profile.html`:
+six cross-city figures in four places, plus three cleanups.
+
+**The rule this batch is an example of.** When a data refresh moves a figure that prose ARGUES from,
+the figure swap is the smaller half of the job. Both pages here would have published false claims in
+accurate numbers if only the digits had been corrected: the Florida FAQ compared a budget gap that
+v17 had closed to zero, and st-augustine claimed to sit under a Sarasota figure it now sits above.
+Check whether a number is load-bearing before treating it as a swap.
+
+**Scope decision worth recording.** The Florida comparison table was NOT part of the boarded item,
+which named three prose surfaces. It was folded in anyway, because shipping the rewritten FAQ
+against a stale table would have left the page contradicting itself three screens apart. Six home
+figures and five Budget/D2 scores were stale there and no check reads that table.
+
+**Provenance, and when not to relabel.** Two `CityDatabase v14` references in st-augustine were
+treated differently. The cost-strip citation labels FIGURES (0.78%, $7,136) that verify against v17,
+so it was relabelled. The related-city comment records a COMPUTATION, and recomputing it under v17
+showed Miami now tying with Sarasota and St. Petersburg at distance 11, so relabelling would have
+made a stale-but-true note into a current-and-false one. It was dated instead. A citation that
+records how something was derived is not the same object as a citation that records where a number
+came from.
+
 ### 2026-07-28 (third push) - `check_statcard_faq`: three profile surfaces brought under the gate
 
 **What shipped.** `check_statcard_faq`, wired into the existing `profiles` group, plus
