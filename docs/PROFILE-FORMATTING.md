@@ -1,7 +1,7 @@
 # PROFILE FORMATTING
 
-**Version:** 1.6
-**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4); guide-page em-dash sweep completed and enforcement extended to guides July 14, 2026 (v1.5); NRC fixed list removed in favour of the live-repo enumeration July 25, 2026 (v1.6)
+**Version:** 1.7
+**Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4); guide-page em-dash sweep completed and enforcement extended to guides July 14, 2026 (v1.5); NRC fixed list removed in favour of the live-repo enumeration July 25, 2026 (v1.6); historical price figure rule added July 29, 2026 (v1.7)
 **Supersedes:** `BOLDING-CONVENTION.md` v2.1
 **Canonical reference:** `cities/st-louis/profile.html`
 
@@ -275,6 +275,45 @@ CSS is in the batch additions section of each profile's inline `<style>` block (
 
 ---
 
+## Historical price figures
+
+**The year goes BEFORE the figure, in the same clause.** This is not a stylistic
+preference. `check_statcard_faq` grades every home-value figure on a profile against DB
+`Median Home`, and its other-time guard is what allows a historical figure to differ.
+That guard walks BACKWARD from the figure to the nearest clause break (`.` `;` `!` `?`
+`,`) and skips the figure if that window names a year older than the current one. Write
+it any other way and the gate fails on a correct number.
+
+| Shape | Result |
+|---|---|
+| `The Bozeman of 2015 had typical home values near $327,000.` | passes |
+| `typical home values near $327,000, back in 2015` | **FAILS**, year lands after the figure |
+| `As of 2015, the typical home value is around $327,000` | **FAILS**, the comma walls the year outside the window |
+
+The third row is deliberate, not a defect. It is the same shape as the `As of 2026,`
+opener that 47 profiles use, and keeping it inside the check is what stops a New Year
+rollover from silently unwatching all of them.
+
+### Source discipline
+
+A historical figure must come from the **same series** as the current one: Zillow ZHVI,
+city level, same geography, same seasonal adjustment, and preferably the same calendar
+month so the comparison is like for like. The DB's ZHVI vintage is the month its
+`Median Home` column was built from.
+
+**Do not mix metrics in one sentence.** An MLS median SALE price and a ZHVI typical
+value are different measures and reading one against the other overstates or understates
+the move. Local brokerage pages are the usual source of this error, and they are easier
+to find than the ZHVI series, which is exactly why the rule needs writing down.
+
+### Known gap
+
+`Since 2015 the value has risen to $X` is excused by the guard although it claims
+today's figure. Reaching that shape would need tense parsing, which fails in worse ways.
+**Do not use that construction for a current figure**, because nothing will check it.
+
+---
+
 ## QA checklist for any profile being touched
 
 - [ ] `<meta name="color-scheme" content="light">` in `<head>`
@@ -294,6 +333,7 @@ CSS is in the batch additions section of each profile's inline `<style>` block (
 - [ ] Character section has 1-2 topic-sentence whole-clause bolds (or 1 if no clear second insight)
 - [ ] NRC callout present (if city is one of the 10 NRC cities)
 - [ ] **Zero em-dashes** (`—` or `&mdash;`) in body prose, meta tags, JSON-LD, or visible UI. Period / comma / colon / parentheses depending on context. Day-time "Anytime" placeholders use en-dash `–`, not em-dash. See Em-dash policy section.
+- [ ] Any historical price figure names its year BEFORE the figure and in the same clause, and is drawn from the same ZHVI series as the current figure (see Historical price figures)
 - [ ] Strong tag balance: `<strong>` count equals `</strong>` count
 
 ---

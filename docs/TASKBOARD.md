@@ -308,6 +308,14 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ## CLOSED July 29, 2026 (bozeman 2015 anchor) - shipped
 
+- **Follow-on, same day: `PROFILE-FORMATTING.md` v1.6 -> v1.7.** The guard imposes a house
+  style, year before the figure, and shipping it undocumented meant the next profile with a
+  price-history paragraph would hit the same wall from scratch. New section covers the clause
+  rule with the three shapes that pass and fail, the same-series sourcing requirement (ZHVI
+  against ZHVI, never an MLS median sale price), and the accepted false negative. One QA
+  checklist line added. Checked first that no file cites `PROFILE-FORMATTING.md v1.6`, so the
+  bump strands nothing, which is the check the July 25 MEDIAN-HOME bump failed.
+
 - **The last P0 from the ZHVI rebase, and the one that could not be fixed by swapping.** The board
   item was right that the rebase had been applied to the wrong clause. What it could not know is
   that there was nothing to restore: `$740,000` was the superseded v16 figure for TODAY, not a 2015
