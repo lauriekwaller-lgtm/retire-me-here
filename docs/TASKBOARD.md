@@ -4,7 +4,15 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, summer-comfort values corrected, Memphis 8 to 4 and
+**Last updated:** July 30, 2026, lists-section heading counts corrected on six profiles and the
+dead Memphis comparison CTA wired to its live page (BATCH. Both defects are the same shape: a page
+asserting something about itself that nothing in the toolchain reads. The heading spells a card
+count in words; the CTA said "Coming soon" about a page that has been live for weeks and was
+edited earlier the same day. `st-louis` is the CANONICAL, which is how the heading defect reached
+five other profiles. The wider finding is boarded: 8 of 20 live comparison pages have no CTA link
+from either of the two city profiles they compare.)
+
+**Before that:** July 30, 2026, summer-comfort values corrected, Memphis 8 to 4 and
 St. Petersburg 7 to 4, and the last two comparison pages relabelled (BATCH. Both checkmarks came
 off without being moved, because the gaps were never real. The finding worth keeping:
 `Climate Hot Sum` is an ORPHAN COLUMN. The matching engine never reads it, the rubric documents a
@@ -369,6 +377,37 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 30, 2026 (lists heading counts + Memphis compare CTA) - shipped
+
+- **Six profiles stated a lists-section card count that disagreed with the cards rendered
+  beside it.** `chattanooga`, `lexington` and `tucson` said "Two lists" over three cards;
+  `memphis`, `pittsburgh` and `st-louis` said "Three lists" over four. Heading corrected in
+  every case, cards untouched: all four Memphis destinations were verified reciprocal
+  (`top-cities-for-healthcare`, `top-cities-for-foodies`, `top-cities-for-arts-lovers`,
+  `best-places-to-retire-on-a-budget` each carry a live Memphis card), so the cards were right
+  and the sentence was wrong.
+
+- **`st-louis` is the canonical, which is the mechanism.** The Jul 14 `.lists-grid-four` fix
+  touched `st-louis`, `columbus`, `memphis` and `pittsburgh` because each had gained a fourth
+  card. The grid class was corrected; the heading above it was not, on any of them. `columbus`
+  escaped only because its heading carries no number at all.
+
+- **Nothing can see this class of defect.** The count lives in English prose in an `<h2>` and
+  the truth lives in the number of sibling `.list-card` anchors. No check compares them. Found
+  by reading the page. A `check_lists_heading_count` is boarded below.
+
+- **The Memphis comparison CTA pointed at the quiz.** `cities/memphis/profile.html` carried a
+  block headed "Memphis or Nashville?" whose paragraph ended "Coming soon." and whose button
+  read "Take the quiz" against `href="/"`. `nashville-vs-memphis-retirement.html` has been live
+  for weeks and was itself edited on Jul 30 in the summer-polarity batch. Wired to the real page
+  and relabelled "Compare Nashville vs. Memphis", matching the live pattern in
+  `cities/tampa/profile.html`. Placeholder text and the stale `(placeholder)` comment removed.
+
+- **`kansas-city` was checked and needs no edit.** It carries the same
+  `(placeholder - comparison page not yet built)` comment, but the block below it was quietly
+  repurposed into a working Midwest guide CTA. The comment is stale, the page is correct. Left
+  alone rather than stacked onto a verified change; boarded as a one-line cleanup.
 
 ## CLOSED July 30, 2026 (summer-comfort values) - shipped
 
@@ -1419,6 +1458,33 @@ Unlocked and ready to build now (both cities live):
 
 Unlocks pending a build:
 - (none)
+
+**[P1] 8 of 20 live comparison pages have no CTA link from either city profile.** Built, indexed,
+in `sitemap.xml`, and unreachable from the two pages whose readers most want them. Orphaned:
+`bend-vs-boulder`, `fort-collins-vs-boulder`, `knoxville-vs-chattanooga`, `knoxville-vs-nashville`,
+`san-antonio-vs-fort-worth`, `scottsdale-vs-santa-fe`, `st-louis-vs-kansas-city`, and
+`nashville-vs-memphis` until the Jul 30 fix above. The other 12 are correctly linked from both
+sides, so the pattern is established and this is wiring, not design. Needs a CTA block on roughly
+eleven profiles, each with its own short tradeoff paragraph, so it is an editorial batch and not a
+mechanical one. Build-order note: a comparison page ships without any step that returns to the two
+profiles, which is why this accumulates.
+
+**[P2] Add `check_comparison_cta_reciprocity` to the validator.** For every
+`*-vs-*-retirement.html` in the repo root, assert that both named city profiles link to it, and
+that no profile links to a comparison page that does not exist. Planted-error test required before
+ship, per the standing rule. Would have caught all 8 orphans and would catch the reverse case the
+day a comparison page is renamed.
+
+**[P3] Add `check_lists_heading_count` to the validator.** Parse the `lists-section` `<h2>`, map
+the number word to an integer, compare against the count of `.list-card` anchors in the same
+section, fail on mismatch and skip cleanly when the heading carries no number. Would have caught
+all six headings closed above. Planted-error test required.
+
+**[P3] Stale placeholder comment on `cities/kansas-city/profile.html`.** Line reads
+`<!-- COMPARE THESE: Kansas City vs. St. Louis (placeholder - comparison page not yet built) -->`
+above a block that is now a working Midwest guide CTA, and `st-louis-vs-kansas-city-retirement.html`
+is live regardless. Invisible to readers, misleading to the next person editing the file. Fold into
+the CTA wiring batch above.
 
 ---
 

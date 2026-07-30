@@ -202,6 +202,35 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-30 (fifth push) - lists heading counts, Memphis comparison CTA
+
+**What shipped.** Seven edits across six profiles: a corrected lists-section heading on
+`chattanooga`, `lexington`, `tucson`, `memphis`, `pittsburgh` and `st-louis`, plus a rewired
+comparison CTA on `memphis`. No new files, no database change, no scoring change. Gate clean at
+0 failures, 0 warnings on a fresh clone.
+
+**Both defects are self-description that nothing validates.** The lists heading spells its card
+count in English ("Three lists where Memphis earned its place") while the truth is the number of
+sibling `.list-card` anchors. The Memphis comparison block described its own target page as
+"Coming soon" while that page had been live for weeks. In each case the page made a claim about
+itself, the claim went stale, and no check in the toolchain reads the surface that carries it.
+Both were found by reading a live page, not by a run.
+
+**The canonical is the propagation path.** `cities/st-louis/profile.html` is the build template.
+Its heading said "Three" over four cards, so every profile built or retrofitted from it inherited
+the pattern. The Jul 14 `.lists-grid-four` batch corrected the grid class on four of these files
+and did not look at the sentence above the grid. This is the second time a canonical defect has
+reached the whole set (see 2026-07-29, stat-card labels): worth treating a canonical edit as a
+site-wide edit by default.
+
+**Wider finding, boarded not shipped.** A reciprocity sweep of all 20 live comparison pages
+against all 48 profiles found 8 pages with no CTA link from either of the two cities they
+compare. Wiring them needs a short tradeoff paragraph per profile, which is editorial work on
+roughly 11 files, so it is boarded as its own batch rather than stacked onto a verified fix. Two
+validator checks are boarded alongside it, `check_comparison_cta_reciprocity` and
+`check_lists_heading_count`, each pending a planted-error test.
+
+
 ### 2026-07-29 (fourth push) - Portland, ME shipped as profile 48
 
 **What shipped.** `cities/portland-me/profile.html` plus three photos, one line in
