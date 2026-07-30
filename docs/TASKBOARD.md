@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 29, 2026, D2 band-mover review closed, no change (BATCH, board only. The
+**Last updated:** July 30, 2026, st-augustine vs pensacola dead tier gap closed (BATCH. Both
+cities are Range 2 under v17, so the page's organising claim of a tier gap was false on five
+surfaces including the headline of tradeoff #1, which was rewritten rather than patched. Twenty
+stale v16 figures swapped. A duplicate `Budget dimension score` row in the Cost & money block was
+reading 5/10 against a correct 6/10 in the D-score rows on the same page, and is deleted: it is
+the unchecked copy of a checked number. Boarded P2 summer-row polarity taken in the same pass, plus two items
+that should never have been boarded separately: FAQ 4's "#4 spot on our Top Cities for Healthcare
+list", which describes a ranking that does not exist, and a second dead tier gap on
+`cities/pensacola/profile.html`. Two new items boarded, both about checks that cannot see the
+surface they should be reading. Gate clean at 0/0.)
+
+**Before that:** July 29, 2026, D2 band-mover review closed, no change (BATCH, board only. The
 last open piece of the ZHVI rebase, step 5. Charlottesville, Ann Arbor and Columbus all crossed a
 D2 median-home band when the figures were rebased. Reviewed against rubric step 4, cross-check
 against similar cities rather than the band table, since the rubric states D2 is affordability
@@ -15,7 +26,7 @@ defect, now logged as divergence (7) on the Rubric v3.3 item: the rubric publish
 3-4 band and the database has never once scored that range below 5, which will mis-score the next
 city anyone adds from the rubric alone.)
 
-**Before that:** July 29, 2026, stat-card labels unhidden site-wide (BATCH. Every profile was
+**Then:** July 29, 2026, stat-card labels unhidden site-wide (BATCH. Every profile was
 rendering its stats bar with the label row invisible, so readers saw `9/10` with nothing saying
 what was scored. Not a Bozeman bug and not new: it is in the St. Louis canonical, so all 48
 profiles inherited it. The stats bar's negative top margin was written to pull the card up over
@@ -344,6 +355,62 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
+## CLOSED July 30, 2026 (st-augustine vs pensacola) - shipped
+
+- **[P1] The dead tier gap is gone, and the tier was never the story.** Both cities are Range 2
+  under v17, so the page's organising claim, "Pensacola sits at budget tier 1 against
+  St. Augustine's tier 2", was false on five surfaces: hero tagline, verdict close, the table's
+  tier row, tradeoff #1, and both FAQ 1 and FAQ 3 in visible text and in FAQPage schema. Tradeoff
+  #1 was rewritten rather than patched, as boarded. The replacement argument is stronger than the
+  one it lost: the tier is a five-bucket instrument and both cities sit in the same bucket with
+  $164,000 of house between them, so the tier label FLATTENS this pairing instead of explaining
+  it, and the same flattening shows up again in a D2 that splits only 6 against 7. Figures swapped
+  throughout: Pensacola `$264,000` -> `$269,000` x7, St. Augustine `$432,000` -> `$433,000` x6,
+  the gap `$168,000` -> `$164,000` x6, and the monthly `$4,900-$6,100` -> `$5,000-$6,200`.
+
+- **The Cost & money block carried a second copy of D2 and it had drifted.** The block held a
+  `Budget dimension score` row reading 5/10 while the `D2 Budget` row twelve lines below read the
+  correct 6/10, on the same page, in the same table. `check_comparison_scores` reads the D-score
+  rows only, which is exactly why the July 13 D2 rebuild landed on one and not the other. The
+  duplicate row is deleted rather than corrected: a second copy of a checked number, sitting in an
+  unchecked region, is the defect. The tier row stays and now renders the Range 2 tie the way the
+  corrected Pensacola/Fort Myers page renders it, two plain cells and no mark.
+
+- **D2's checkmark came off.** 6 against 7 is one point, and the page already leaves D1 (6/7),
+  D3 (8/7) and D7 (6/7) unmarked. Pensacola still wins the two dollar rows outright, which is where
+  the money argument belongs.
+
+- **[P2] Summer polarity fixed in the same pass, as boarded.** `Hot summers (lower = milder)` ->
+  `Summer comfort (10 = most comfortable)`, matching the fix already live on Pensacola/Fort Myers.
+  Values were correct at 4 and 5; only the label inverted them. No prose on the page mentions
+  summer, so the label was the whole of it.
+
+- **One superlative-rule violation cleaned while FAQ 1 was open anyway.** "the gentlest resilience
+  score WE GIVE in Florida (3)" is scoped to our own scoring, which is the possessive form
+  SUPERLATIVE-LEDGER line 95 calls out. Re-anchored to named cities: 3 of 10, a point clear of
+  Pensacola, Sarasota and Tampa at 2. True against v17 and it fails loudly rather than silently if
+  a Florida city ever scores 3.
+
+- **FAQ 4's healthcare rank was false, not merely rot-prone, and false in the flattering
+  direction.** "it earns the #4 spot on our Top Cities for Healthcare list" describes a ranking
+  that does not exist: `top-cities-for-healthcare.html` is three tiers, alphabetical within each,
+  per the landing-page convention. St. Augustine is 4th ALPHABETICALLY in tier THREE, "Strategic
+  proximity to a top hospital", the weakest of the three, behind Annapolis, Frisco and Silver
+  Spring. The claim reads as fourth-best of 33 cities and it was sitting in FAQPage schema, which
+  is the copy an answer engine lifts. Replaced with the substance the tier actually encodes:
+  the strength is proximity, not a top-tier hospital inside the city. This was boarded as a
+  separate item and should not have been; it was one edit inside an FAQ block already open.
+
+- **A second dead tier gap, same root cause, found on `cities/pensacola/profile.html`.**
+  "a full budget tier below the peninsula's coastal cities" is false under v17: Pensacola is
+  Range 2 and so are Tampa, Sarasota, St. Petersburg, Fort Myers, Delray Beach and St. Augustine.
+  Only Naples and Miami sit above. Re-anchored to named cities and figures, `$87,000` against
+  St. Petersburg and `$144,000` against Sarasota. The missing space in `$269,000with` was in the
+  same sentence and went with it. Only file on the site carrying that phrase.
+
+- Caption data vintage `June 2026` -> `July 2026` per COMPARISON-PAGE-STANDARD-v2, since the
+  figures were refreshed from a new DB version. Schema `dateModified` bumped to 2026-07-30.
+
 ## CLOSED July 29, 2026 (pensacola vs fort myers) - shipped at `bf28c12`, see SITE-OPERATIONS-LOG 2026-07-29 (third push)
 
 - **[P0] The money argument rebuilt on the $41,000 frame.** Entry written Jul 29 as a continuity
@@ -574,6 +641,27 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   stats-bar pull-up stays smaller than its top padding would have caught this exact bug and
   nothing else, which may not earn its keep. Worth deciding deliberately rather than by default.
 
+- **[P2]** **43 run-together money figures across 40 of 48 profiles.** `$326,000with`,
+  `$223,000though`, `$858,000with`. Found Jul 30 while fixing a single instance on
+  `cities/pensacola/profile.html`, which turned out to be 1 of 44, not a typo. It is
+  template-inherited: 17 sit in the identical stat-card FAQ sentence "As of 2026, the typical home
+  value is around $X" and the rest in three close variants. Trailing words are `with` x28,
+  `though` x6, `but` x2, `and` x2. The Pensacola one is fixed only because it shared a sentence
+  with a false tier claim; the other 43 are untouched deliberately, since fixing 1 of 44 hides the
+  pattern. `check_statcard_faq` passes 21/21 and cannot see any of them, which is the more
+  interesting half: these are in FAQPage schema, so they are what gets quoted. Fix is one BATCH
+  plus a check with a planted-error test.
+
+- **[P2]** **`check_comparison_scores` cannot see the Cost & money block on any comparison page.**
+  Found Jul 30. Distinct from the D4/D10 item below, which is about the DIMS label prefix. This one
+  is about coverage: the check reads `<td class="metric">D<n> ...` rows ONLY, so typical home value,
+  estimated retiree budget and budget tier are unchecked on all 19 comparison pages. That is exactly
+  how `st-augustine-vs-pensacola` held a `Budget dimension score` of 5/10 twelve lines above a
+  `D2 Budget` of 6/10, in the same table, with the gate green. The July 13 D2 rebuild landed on the
+  row the check reads and not the row it does not. Worth a hand-audit of the other 18 pages BEFORE
+  writing the check, to size how much stale money is sitting in the blind spot. Ship with a
+  planted-error test on a cost row, together with the D4/D10 fix below.
+
 - **[P2]** **`check_comparison_scores` cannot see the D4 or D10 rows on any comparison page.**
   Found Jul 29 while rewriting the Pensacola pairing. The check matches
   `<td class="metric">{dim_label}` as a PREFIX, and `DIMS` carries the DB's column names:
@@ -586,23 +674,6 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   written for: a check that cannot fail on a surface is indistinguishable from a check that passes.
   Fix is to match on the `D<n>` token rather than the DB column name, with a planted-error test on
   a D4 row before it ships.
-
-- **[P2]** **The summer row is polarity-inverted on `st-augustine-vs-pensacola-retirement.html`.**
-  Fixed on the Pensacola/Fort Myers page Jul 29, not on this one, which is still open as the P1
-  above and should take it in the same pass. `Climate Hot Sum` is SUMMER COMFORT, higher is better:
-  the rubric says so ("H = Summer comfort, 10 = very comfortable") and the DB confirms it (Bend 8,
-  Scottsdale 1). Both pages label the row `Hot summers (lower = milder)`, which inverts it and hands
-  the win to the wrong city. On Pensacola/Fort Myers the page also contradicted itself over it:
-  the table implied Fort Myers had the milder summers while tradeoff #2 correctly said Pensacola
-  did. No check reads climate rows at all, so this is hand-audit territory until one does.
-
-- **[P1]** **`st-augustine-vs-pensacola-retirement.html` carries a dead tier gap.** Same cause, found
-  Jul 29. Smaller than the item above but still not mechanical: the price gap `$168,000` -> `$164,000`
-  is a swap, but the budget scores go 7-vs-5 -> 7-vs-6, and "Pensacola sits at budget tier 1 against
-  St. Augustine's tier 2" is false, both are Range 2. Tradeoff #1 is HEADLINED on the tier gap and
-  says "the price gap matches the tier gap", so that section needs rewriting rather than patching.
-  Also Pensacola `$264,000` x7 and St. Augustine `$432,000` x6 throughout, and the monthly range
-  `$4,900-$6,100` -> `$5,000-$6,200`.
 
 
 
