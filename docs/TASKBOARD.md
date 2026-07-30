@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 29, 2026, stat-card labels unhidden site-wide (BATCH. Every profile was
+**Last updated:** July 29, 2026, D2 band-mover review closed, no change (BATCH, board only. The
+last open piece of the ZHVI rebase, step 5. Charlottesville, Ann Arbor and Columbus all crossed a
+D2 median-home band when the figures were rebased. Reviewed against rubric step 4, cross-check
+against similar cities rather than the band table, since the rubric states D2 is affordability
+RELATIVE TO THE DATABASE AVERAGE. Every city in the DB between $495,000 and $571,000 scores D2 5
+or 6 without exception, so Charlottesville at 6 sits with St. George at $521K and Ann Arbor at 5
+sits with Pinehurst at $542K. No scores changed. The review's real output is a documentation
+defect, now logged as divergence (7) on the Rubric v3.3 item: the rubric publishes $525-$750K as a
+3-4 band and the database has never once scored that range below 5, which will mis-score the next
+city anyone adds from the rubric alone.)
+
+**Before that:** July 29, 2026, stat-card labels unhidden site-wide (BATCH. Every profile was
 rendering its stats bar with the label row invisible, so readers saw `9/10` with nothing saying
 what was scored. Not a Bozeman bug and not new: it is in the St. Louis canonical, so all 48
 profiles inherited it. The stats bar's negative top margin was written to pull the card up over
@@ -14,7 +25,7 @@ both widths, which is why the 2x2 mobile grid shows row 2's labels and not row 1
 reduced below the top padding at both widths, 8px clearance, 96 edits across 48 files. Found by
 reading a live page, not by any check.)
 
-**Before that:** July 29, 2026, Portland ME shipped as profile 48 (BUILD. Built from the live
+**Earlier:** July 29, 2026, Portland ME shipped as profile 48 (BUILD. Built from the live
 St. Louis canonical against CityDatabase_Jul_27_v17. Emphasis brief: three pillars, D3 Health 9,
 D6 Walk 9 and D10 Community 9, so the MULTI-PILLAR rule applies and all three land in the hero
 tagline and the opening character paragraph rather than one leading. Support at D1 Airport 8 and
@@ -31,7 +42,7 @@ than typed. Zero landing-page edits needed: all six Portland cards were already 
 links, none coming-soon, none carrying a money figure. Two items boarded. Gate clean at 48
 profiles.)
 
-**Before that:** July 29, 2026, `bozeman` 2015 anchor sourced and closed (BATCH. The last open
+**Previously:** July 29, 2026, `bozeman` 2015 anchor sourced and closed (BATCH. The last open
 P0 from the rebase. The prose read "The Bozeman of 2015 had typical home values near $734,000.
 Today it's near $740,000", which put the v17 figure in the 2015 clause and the superseded v16
 figure in today's. No 2015 value had ever been in the file to restore, so it was sourced from the
@@ -48,7 +59,7 @@ alongside the existing other-place guard, same window, same backward-only bound,
 excluded so the "As of 2026," opener stays read. Four new assertions, harness now 21. Gate clean
 at 47 profiles.)
 
-**Earlier:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
+**Previously:** July 29, 2026, the v17 argument rewrites shipped (BATCH, editorial. The two
 P0 items the July 27 rebase left behind, both the same cause: v17 collapsed a price ordering that
 two pages argued from, so both wanted an ARGUMENT rewrite rather than a figure swap.
 `best-places-to-retire-in-florida.html` lost its budget ladder entirely, since Pensacola, Fort
@@ -330,6 +341,30 @@ chat scoped to a single validator check turned up 44 wrong figures across 36 pro
 a headline monthly budget by $300 to $600. Twenty moved it by $100. Before today those two
 classes read identically on this board, and the effect was that the $100 ones felt as blocking
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
+
+---
+
+## CLOSED July 29, 2026 (pensacola vs fort myers) - shipped at `bf28c12`, see SITE-OPERATIONS-LOG 2026-07-29 (third push)
+
+- **[P0] The money argument rebuilt on the $41,000 frame.** Entry written Jul 29 as a continuity
+  repair: the item was removed from this board when the work shipped and no closed entry replaced
+  it, so the board could not show a P0 had been resolved even though the ops log carried the full
+  account. Recorded here in summary, with the log as the record of reference.
+  **What v17 broke.** `$108,000` -> `$41,000`, D2 8-vs-6 -> tied at 7, tier 1-vs-2 -> both Range 2,
+  monthly floor `$600` -> `$200`. The thesis sentence, "unlike some near-twin pairings, cost
+  genuinely weighs here", had inverted: on cost they now ARE near twins.
+  **What replaced it, which is the part worth keeping.** There was no substitute row for Pensacola
+  to win on. Under the 2-point checkmark rule the rebuilt table gives Pensacola one mark against
+  Fort Myers' four. Rather than hunt for a different win, the rewrite changed what the figure MEANS:
+  `$41,000` stopped being Pensacola's saving and became Fort Myers' asking price, turning tradeoff
+  #1 into the setup and tradeoff #3 into the itemised answer. 24 edits on the page plus one on
+  `compare-retirement-cities.html`, and four defects the board had not carried, including a "#3 on
+  our healthcare list" rank that was never a rank.
+  **Also closes** the cross-page split carried on purpose since the pillar rewrite: the pillar and
+  this page now agree that Fort Myers is `$310,000`.
+  **Two follow-ons were boarded from it** and remain open: the `check_comparison_dims` prefix-match
+  blind spot on `D4 Resil.` / `D10 Comm.`, and the inverted `Climate Hot Sum` label, fixed on this
+  page and still live on `knoxville-vs-chattanooga`.
 
 ---
 
@@ -890,6 +925,44 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 ---
 
 ## ACTIVE - boarded July 27, 2026 (validator blind spots found during the rebase)
+
+- **[P2] `check_docs` reads its profile count from the first regex hit anywhere in the board, so it
+  passes by coincidence.** Found Jul 29 while auditing board currency. The check's docstring asks
+  whether TASKBOARD and SITE-OPERATIONS-LOG are current with the live repo, and it tests that by
+  comparing a profile count. It finds that count with `re.search(r"(\d+)\s+profiles", board)`,
+  which takes the FIRST match in the file. Today that resolves to a fragment of narrative prose
+  inside a header entry, "so all 48 profiles inherited it", which happens to be right.
+  **Why it will break.** The board currently holds twelve `<N> profiles` strings reading
+  48, 48, 47, 47, 47, 47, 47, 46, 48, 48, 36, 45. Session notes routinely name historical counts.
+  The next entry written above the assertion that says 47 will fail the gate on a correct board.
+  Worse in the other direction: the deliberate claim the check exists to guard,
+  `**Verified live at last update:** N profiles`, could go stale and still pass because some
+  paragraph above it names the right number.
+  **Fix.** Anchor to the labelled assertion rather than the first match: read the
+  `**Verified live at last update:**` line specifically, so the board has exactly one place that
+  has to be true. Needs a planted-error test both ways, a stale assertion must fail and a
+  historical count in prose above it must NOT.
+  **Same family as two items already on this board:** the `check_comparison_dims` prefix-match on
+  `D4 Resil.` / `D10 Comm.`, and the `check_hardcoded_counts` hyphen variant that hides
+  "100-city database (v14)". Three instances of one pattern, a check that can pass for the wrong
+  reason. Worth reading the other checks for the same shape while in there.
+
+- **[P2] The recency chain has no structural check and silently grew a second `Before that:`.**
+  Found Jul 29. The header ladder is Last updated -> Before that -> Earlier -> Previously, and each
+  session is meant to demote the one above it. A chat inserted an entry without demoting, so two
+  `Before that:` blocks coexisted and nothing noticed. Three assertions would close it: exactly one
+  `**Last updated:**`, one `**Before that:**`, one `**Earlier:**`. Stateless, unambiguous, no
+  false-positive risk, and cheap enough to fold into `check_docs`.
+  **Deliberately NOT proposed: orphan detection.** Catching an item removed from the board with no
+  CLOSED entry is the failure that lost the `pensacola-vs-fort-myers` record, but it needs the
+  previous board version, which means git working-tree state. The gate runs on fresh clones where
+  that state is unreliable, and a check that behaves differently depending on how it was invoked is
+  worse than the gap it closes. Left uncaught on purpose.
+  **The cause this does not reach.** Board edits are remembered rather than structural: they live
+  in whatever apply script gets written that session. Three of five board updates on Jul 29 were
+  complete. A `tools/apply-template.py` skeleton with the board block pre-stubbed would make
+  omission require deletion rather than recall, which is the only fix that addresses the actual
+  failure mode. Not boarded as a task, because it is a convention decision rather than a defect.
 
 - **CLOSED Jul 27, 2026 (shipped).** ~~`best-places-to-retire-on-a-budget.html` roster is stale against v17.~~ Shipped exactly as decided: roster = R1 (30), prose = central estimate, both in one
   commit. Delta as boarded proved correct against v17: off Beaufort/Pensacola/Rio Rancho/Sioux Falls,
