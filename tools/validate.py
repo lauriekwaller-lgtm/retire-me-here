@@ -1639,12 +1639,25 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
         if not a or not b:
             continue
         for dim_key, dim_label in DIMS:
+            # Match the D-NUMBER, not the DIMS label. The label is the database
+            # column name and the page uses a reader-facing one: "D4 Resil." vs
+            # "D4 Climate resilience & insurance", "D8 Wellness" vs "D8 Active
+            # wellness", "D10 Comm." vs "D10 Community & culture". Prefix
+            # matching on the label silently skipped those three on all twenty
+            # pages from the day this check shipped. (?![0-9]) stops D1 from
+            # swallowing D10.
             m = re.search(
-                rf'<td class="metric">{re.escape(dim_label)}[^<]*</td>\s*'
+                rf'<td class="metric">{dim_key}(?![0-9])[^<]*</td>\s*'
                 rf'<td class="value[^"]*">(\d{{1,2}})/10[^<]*</td>\s*'
                 rf'<td class="value[^"]*">(\d{{1,2}})/10[^<]*</td>',
                 html, re.S)
             if not m:
+                # Never `continue` here. A row that cannot be found is the exact
+                # failure this check was written after: reading nothing and
+                # calling it clean.
+                rep.fail("comparison",
+                         f"{page}: no {dim_key} row found. The check cannot "
+                         f"verify a dimension it cannot locate.")
                 continue
             shown_a, shown_b = int(m.group(1)), int(m.group(2))
             for who, shown, row in ((a_slug, shown_a, a), (b_slug, shown_b, b)):
@@ -1662,6 +1675,153 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
                     rep.fail("comparison",
                              f"{page}: {who} {dim_label} shows {shown}/10, "
                              f"DB says {truth}/10.")
+
+
+
+# Pages whose cost rows are known stale as of 2026-07-30, with their exact
+# mismatch counts. A RATCHET, not an exemption: see check_comparison_cost_rows.
+# Lower each number as batches land. Delete the entry at zero. Delete this dict
+# when it is empty.
+COST_ROW_BASELINE = {
+    "asheville-vs-greenville-retirement.html": 2,
+    "bend-vs-boulder-retirement.html": 4,
+    "bloomington-vs-lexington-retirement.html": 3,
+    "fort-collins-vs-boulder-retirement.html": 4,
+    "knoxville-vs-chattanooga-retirement.html": 4,
+    "knoxville-vs-nashville-retirement.html": 4,
+    "madison-vs-ann-arbor-retirement.html": 5,
+    "madison-vs-columbus-retirement.html": 4,
+    "naples-vs-fort-myers-retirement.html": 4,
+    "naples-vs-sarasota-retirement.html": 4,
+    "nashville-vs-memphis-retirement.html": 4,
+    "san-antonio-vs-fort-worth-retirement.html": 3,
+    "santa-fe-vs-tucson-retirement.html": 4,
+    "sarasota-vs-tampa-retirement.html": 4,
+    "scottsdale-vs-santa-fe-retirement.html": 4,
+    "scottsdale-vs-tucson-retirement.html": 4,
+    "st-louis-vs-kansas-city-retirement.html": 4,
+    "tampa-vs-st-petersburg-retirement.html": 4,
+}
+
+# Two labels for the same row. The three-page variant says "(citywide)".
+HOME_LABELS = ("Typical home value (citywide)", "Typical home value")
+MONTHLY_LABEL = "Estimated retiree budget"
+TIER_LABEL = "Budget tier (1 = least expensive)"
+
+
+def _cost_row(html, label):
+    """Both value cells of a metric row, checkmark and whitespace stripped."""
+    m = re.search(
+        r'<td class="metric">' + re.escape(label) + r"</td>\s*"
+        r'<td class="value[^"]*">([^<]*)</td>\s*'
+        r'<td class="value[^"]*">([^<]*)</td>',
+        html, re.S)
+    if not m:
+        return None
+    return [re.sub(r"\s*\u2713", "", v).strip() for v in m.groups()]
+
+
+def _dashes(s):
+    """En dash, em dash and hyphen are the same separator for comparison."""
+    return re.sub(r"[\u2013\u2014-]", "-", s.replace(" ", ""))
+
+
+def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
+    """
+    The money rows on comparison pages were read by nothing.
+
+    On 2026-07-30 an audit of all twenty pages found 69 mismatches against the
+    database. Every one was in Typical home value, Estimated retiree budget or
+    Budget tier. NOT ONE was in D1-D10, because check_comparison_scores reads
+    those. Fort Myers was showing $372,000 against a database figure of
+    $310,000; San Antonio was a full budget tier out.
+
+    That is the whole lesson: the rows under a check held across twenty pages,
+    and the rows beside them drifted on eighteen. Coverage is not a property of
+    a page, it is a property of each field on it.
+
+    The baseline quarantines the known-bad pages so the gate can stay at 0/0
+    while they are repaired in batches. It fails in BOTH directions. A count
+    going up is new drift. A count going DOWN means a fix landed and the
+    baseline is now lying about the state of the site, which is how a
+    quarantine list quietly becomes a permanent exemption.
+    """
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    pages = sorted(set(re.findall(
+        r"([a-z0-9-]+)-vs-([a-z0-9-]+)-retirement\.html", hub)))
+
+    by_slug = {}
+    for key, row in db.items():
+        if row is None or "_" not in key:
+            continue
+        name = str(row.get("city", ""))
+        by_slug[name.lower().replace(" ", "-").replace(".", "")] = row
+
+    seen = set()
+    for a_slug, b_slug in pages:
+        page = f"{a_slug}-vs-{b_slug}-retirement.html"
+        html = fetch(page, local)
+        if not html:
+            continue
+        seen.add(page)
+        a, b = by_slug.get(a_slug), by_slug.get(b_slug)
+        if not a or not b:
+            continue
+
+        found = []
+        for labels in (HOME_LABELS, (MONTHLY_LABEL,), (TIER_LABEL,)):
+            for lab in labels:
+                r = _cost_row(html, lab)
+                if r:
+                    found.append((lab, r))
+                    break
+
+        if not found:
+            rep.fail("comparison",
+                     f"{page}: no cost rows found at all. Reading zero rows and "
+                     f"reporting clean is the fault this check exists to stop.")
+            continue
+
+        bad = []
+        for lab, cells in found:
+            for who, shown, row in ((a_slug, cells[0], a), (b_slug, cells[1], b)):
+                if lab in HOME_LABELS:
+                    truth = row.get("home_raw", "")
+                    if re.sub(r"[^$0-9,]", "", shown) != str(truth).strip():
+                        bad.append(f"{who} typical home shows {shown!r}, "
+                                   f"DB says {truth!r}")
+                elif lab == MONTHLY_LABEL:
+                    truth = str(row.get("monthly", "")).strip()
+                    if _dashes(shown) != _dashes(truth):
+                        bad.append(f"{who} retiree budget shows {shown!r}, "
+                                   f"DB says {truth!r}")
+                else:
+                    truth = row.get("range")
+                    digits = re.sub(r"[^0-9]", "", shown.split("of")[0])
+                    if digits != str(truth):
+                        bad.append(f"{who} budget tier shows {shown!r}, "
+                                   f"DB says {truth} of 5")
+
+        expected = COST_ROW_BASELINE.get(page, 0)
+        if len(bad) > expected:
+            for msg in bad:
+                rep.fail("comparison", f"{page}: {msg}")
+            if expected:
+                rep.fail("comparison",
+                         f"{page}: {len(bad)} cost mismatches against a baseline "
+                         f"of {expected}. This page got WORSE.")
+        elif len(bad) < expected:
+            rep.fail("comparison",
+                     f"{page}: {len(bad)} cost mismatches, baseline says "
+                     f"{expected}. A fix landed. Lower COST_ROW_BASELINE to "
+                     f"{len(bad)} in this same commit, or delete the entry if "
+                     f"it is now 0. A stale baseline is an exemption.")
+
+    for page in COST_ROW_BASELINE:
+        if page not in seen:
+            rep.fail("comparison",
+                     f"COST_ROW_BASELINE names {page}, which the hub does not "
+                     f"link. A renamed page must not retire its own coverage.")
 
 
 def check_dead_dimension_guards(rep, db, idx, slug_to_city, local):
@@ -2314,7 +2474,8 @@ def check_stray_artifacts(rep, local):
                      f"that belongs somewhere else.")
 
 
-HARNESSES = ("tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
+HARNESSES = ("tools/test_comparison_cost_rows.py",
+             "tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
              "tools/test_statcard_faq.py")
 
@@ -2448,6 +2609,7 @@ def main():
         check_superlatives(rep, db, idx, slug_to_city, args.local)
         check_dead_dimension_guards(rep, db, idx, slug_to_city, args.local)
         check_comparison_scores(rep, db, idx, slug_to_city, args.local)
+        check_comparison_cost_rows(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:

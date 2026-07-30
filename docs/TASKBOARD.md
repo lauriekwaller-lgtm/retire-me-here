@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, lists-section heading counts corrected on six profiles and the
+**Last updated:** July 30, 2026, comparison cost-row coverage shipped (OPS. The gate could not
+see Typical home value, Estimated retiree budget or Budget tier on any of the 20 comparison pages,
+and 18 of them had drifted, 69 figures. Not one D1-D10 score was wrong anywhere, which is the
+finding: the rows under a check held, the rows beside them did not. Also fixed dimension-label
+matching, which had silently skipped D4, D8 and D10 on every page since the check shipped. The 69
+are quarantined in a two-way ratchet and repaired in tiers, see the P0. Note this lands on top of
+the same-day lists-heading batch from a parallel session; that batch boarded a
+`check_lists_heading_count`, which is the same defect class as this one, a page asserting something
+about itself that nothing reads.)
+
+**Before that:** July 30, 2026, lists-section heading counts corrected on six profiles and the
 dead Memphis comparison CTA wired to its live page (BATCH. Both defects are the same shape: a page
 asserting something about itself that nothing in the toolchain reads. The heading spells a card
 count in words; the CTA said "Coming soon" about a page that has been live for weeks and was
@@ -409,6 +419,34 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   repurposed into a working Midwest guide CTA. The comment is stale, the page is correct. Left
   alone rather than stacked onto a verified change; boarded as a one-line cleanup.
 
+## CLOSED July 30, 2026 (comparison cost-row coverage) - shipped
+
+- **`check_comparison_scores` was matching dimension rows by DIMS LABEL, and three never
+  matched.** The label is the database column name, the page uses a reader-facing one.
+  "D3 Health" is a prefix of "D3 Healthcare" so D3 worked; "D4 Resil.", "D8 Wellness" and
+  "D10 Comm." are not prefixes of "D4 Climate resilience & insurance", "D8 Active wellness"
+  and "D10 Community & culture", so all three were skipped on all twenty pages from the day the
+  check shipped, and the loop did `continue` on no match so nothing ever said so. Now matched on
+  the D-number token with `(?![0-9])` so D1 cannot swallow D10, and a missing row FAILS. The board
+  had this as D4 and D10; D8 was the third. All three are correct everywhere today, so this closed
+  a hole rather than surfacing errors.
+
+- **`check_comparison_cost_rows` is new and covers the rows that actually drifted.** Typical home
+  value, Estimated retiree budget, Budget tier. The Jul 30 audit found 69 mismatches on 18 of 20
+  pages and NOT ONE was in D1-D10. The rows under a check held across twenty pages; the rows
+  beside them drifted on eighteen. Fort Myers was showing $372,000 against a DB figure of
+  $310,000, San Antonio was a full budget tier out, Ann Arbor a tier the other way.
+
+- **The baseline is a ratchet and fails in both directions.** The 18 known-bad pages are
+  quarantined with exact counts so the gate holds at 0/0 during repair. Going UP is new drift.
+  Going DOWN also fails, because a baseline that outlives its fix is how a quarantine list
+  quietly becomes a permanent exemption. Lower the number in the same commit as the batch;
+  delete the entry at zero; delete the dict when it is empty.
+
+- Planted-error test at `tools/test_comparison_cost_rows.py`, 8 assertions, including one that
+  plants a D8 error specifically to guard the label fix, and one that deletes the cost rows
+  outright to prove the check fails loudly rather than reading zero and reporting clean.
+
 ## CLOSED July 30, 2026 (summer-comfort values) - shipped
 
 - **Memphis 8 -> 4 and St. Petersburg 7 -> 4 in `Climate Hot Sum`.** Both were the only
@@ -781,7 +819,30 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   interesting half: these are in FAQPage schema, so they are what gets quoted. Fix is one BATCH
   plus a check with a planted-error test.
 
-- **[P2]** **`check_comparison_scores` cannot see the Cost & money block on any comparison page.**
+- **[P0]** **69 stale cost figures on 18 of 20 comparison pages. Quarantined, not fixed.**
+  Audited Jul 30 across every DB-derived field. All 69 are in Typical home value, Estimated
+  retiree budget or Budget tier; zero are in D1-D10. The ZHVI rebase never reached these pages.
+  Now held by `COST_ROW_BASELINE` in the validator, so the gate stays honest while they are
+  repaired. Attack in three tiers, hardest first, lowering the baseline in each commit:
+    - **Tier 1, argument rewrites, one page per pass.** `st-louis-vs-kansas-city` (gap
+      $15,000 -> $65,000, a 333% change, any "same price" framing is dead);
+      `san-antonio-vs-fort-worth` (gap +145% AND San Antonio drops tier 2 -> 1);
+      `madison-vs-ann-arbor` (Ann Arbor rises tier 2 -> 3, gap +39%);
+      `bloomington-vs-lexington` (gap $37,000 -> $16,000, near noise on a $321,000 house, so
+      the "meaningfully cheaper" spine of the page probably cannot stand).
+    - **Tier 2, figures plus prose reconciliation, 2-3 per batch.** `sarasota-vs-tampa`,
+      `knoxville-vs-nashville`, `knoxville-vs-chattanooga` on gap movement of 30-50%; plus
+      `naples-vs-fort-myers`, `naples-vs-sarasota`, `nashville-vs-memphis`, which move under 12%
+      but cite the gap 8 to 14 times each, so volume puts them here.
+    - **Tier 3, mechanical, one script.** The remaining 8, all under 6% gap movement, several
+      citing the gap zero times.
+  OPEN QUESTION before Tier 3: most monthly estimates are off by exactly $100, which smells like
+  a `BUDGET-METHODOLOGY.md` recompute rather than drift. Confirm, and Tier 3 grows.
+  SECOND: Memphis $195,000 -> $147,000 and St. Louis $235,000 -> $192,000 are NRC cities.
+  Check the comparison pages use the citywide-plus-callout convention before swapping, or a
+  $147,000 figure ends up stranded beside prose about Germantown at $280K-$500K.
+
+
   Found Jul 30. Distinct from the D4/D10 item below, which is about the DIMS label prefix. This one
   is about coverage: the check reads `<td class="metric">D<n> ...` rows ONLY, so typical home value,
   estimated retiree budget and budget tier are unchecked on all 19 comparison pages. That is exactly
