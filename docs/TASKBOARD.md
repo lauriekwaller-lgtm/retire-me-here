@@ -4,7 +4,22 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, st-augustine vs pensacola dead tier gap closed (BATCH. Both
+**Last updated:** July 30, 2026, summer-comfort values corrected, Memphis 8 to 4 and
+St. Petersburg 7 to 4, and the last two comparison pages relabelled (BATCH. Both checkmarks came
+off without being moved, because the gaps were never real. The finding worth keeping:
+`Climate Hot Sum` is an ORPHAN COLUMN. The matching engine never reads it, the rubric documents a
+weight the code does not implement, and both city profiles had been quietly contradicting it for
+months. No quiz result was ever affected. An earlier read of this session claimed otherwise, from
+the rubric doc rather than the code.)
+
+**Before that:** July 30, 2026, summer-polarity label cleared on 6 of 8 pages (BATCH. The two
+held back are the story: `nashville-vs-memphis` and `tampa-vs-st-petersburg` sit on DB
+`Climate Hot Sum` values that contradict every other climate column for the same city, and that
+column carries 0.35 weight in the Mild Year-Round match score, so it is a QUIZ defect, not a
+display one. Both escalated to P1 pending a scoring decision. Also closed the Jul 30 ranking-CTA
+sweep, 15 files, which had shipped with no board entry.)
+
+**Before that:** July 30, 2026, st-augustine vs pensacola dead tier gap closed (BATCH. Both
 cities are Range 2 under v17, so the page's organising claim of a tier gap was false on five
 surfaces including the headline of tradeoff #1, which was rewritten rather than patched. Twenty
 stale v16 figures swapped. A duplicate `Budget dimension score` row in the Cost & money block was
@@ -354,6 +369,81 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 30, 2026 (summer-comfort values) - shipped
+
+- **Memphis 8 -> 4 and St. Petersburg 7 -> 4 in `Climate Hot Sum`.** Both were the only
+  outliers in their comparison set. Every city in the DB with HEAT 7 and HUM 9 scores 4:
+  Naples, Fort Myers, Sarasota, Delray Beach, Tampa, St. Augustine, Corpus Christi. The only
+  other exceptions are Pensacola at 5, justified by latitude at Jan 52F, and Wilmington NC at 6,
+  which is boarded. St. Petersburg at 7 was the highest score in Florida, above St. Augustine
+  130 miles north, with identical HEAT, identical HUM and a January mean one degree off Tampa's.
+  Memphis at 8 was the most summer-comfortable city in the entire southern set while being
+  hotter than Nashville on every other column.
+
+- **The two city profiles were already right and had been contradicting the DB.**
+  `cities/memphis/profile.html` says "Summers are hot and humid (HUM 9, HEAT 8)" and
+  `cities/st-petersburg/profile.html` says "summers are long, hot, and humid". Both cite HEAT
+  and HUM rather than the summer score, which is why they stayed correct while the score drifted.
+  Neither needed an edit.
+
+- **Both checkmarks came off without being moved.** Nashville 5 vs Memphis 4 is a one-point gap
+  and Tampa 4 vs St. Petersburg 4 is a tie, so both fall under the 2-point rule on their own.
+  The marks were a SYMPTOM of the bad values, exactly as boarded: only an implausible gap was
+  ever wide enough to generate one in this column.
+
+- **`Climate Hot Sum` is an orphan column, and that is the real finding.** `getCityScore` in
+  `index.html` destructures W, M, HUM, HEAT and janF, and never touches H. The rubric's
+  Mild Year-Round formula gives summer comfort a 0.35 weight; the CODE does not implement it and
+  uses `10 - 1.15 * max(0, HEAT - 3)` instead. So no quiz result was ever affected by either bad
+  value. The column is maintained in the DB and published on comparison pages while being
+  consumed by nothing, which is precisely why it drifted unnoticed.
+
+## CLOSED July 30, 2026 (summer polarity, 6 of 8) - shipped
+
+- **Six pages relabelled `Hot summers (lower = milder)` -> `Summer comfort (10 = most
+  comfortable)`.** `bloomington-vs-lexington`, `knoxville-vs-chattanooga`, `madison-vs-columbus`,
+  `naples-vs-fort-myers`, `naples-vs-sarasota`, `st-louis-vs-kansas-city`. No values changed; the
+  label was reversing the meaning of correct numbers. A reader seeing Naples at 4 under the old
+  label concluded "fairly mild summers" when 4 means the opposite, and Naples' own HEAT column
+  agrees at 7 of 10 exposure. Third and fourth sightings of this label were already fixed on
+  `pensacola-vs-fort-myers` (Jul 29) and `st-augustine-vs-pensacola` (Jul 30).
+
+- **Prose checked on all six before relabelling.** Four mention summer not at all.
+  `bloomington-vs-lexington` says "warm and humid but not extreme on either side", consistent with
+  7 and 6. `st-louis-vs-kansas-city` says "hot, humid summers", which sits a little awkwardly
+  beside 7 and 7 but is not contradicted by it; that tension is boarded as the calibration
+  question, not treated as a defect here.
+
+- **Two pages held back and escalated to P1.** See the open items. The audit that was supposed to
+  confirm a mechanical relabel instead found two DB values that do not survive scrutiny, and the
+  column turns out to carry 0.35 weight in the Mild Year-Round climate score, so it is a quiz
+  defect rather than a display one.
+
+## CLOSED July 30, 2026 (ranking CTA) - shipped
+
+- **`rank all every city on RetireMeHere` on 15 pages.** A fossil of the hardcoded-count fix:
+  someone replaced `all 99 cities` with the count-free `every city on RetireMeHere` to satisfy
+  `check_hardcoded_counts` and the `all` was left stranded. Byte-identical across 8 landing pages,
+  6 comparison pages and `compare-retirement-cities.html`, all in the `quiz-cta-h3` block.
+  Fixed to `we'll rank every city on RetireMeHere for you`. Diffed against a pristine clone before
+  shipping: 15 files, 15 lines, one word each. The word `all` appears 1,079 times site-wide and the
+  other 1,064 were untouched, because the anchor was the full 44-character string including the
+  `<span class="accent">` markup, not the word.
+
+- **A hand edit on `top-cities-for-healthcare.html` shipped a rendering bug to production while
+  doing it.** The `all` was deleted along with the space in front of the span, so the page read
+  `we'll rankevery city on RetireMeHere for you` on live main. Deleting `all ` and deleting `all`
+  are indistinguishable in an editor. This is the argument FOR the apply-script convention on
+  edits that look too small to script: a scripted swap names both the old and the new string in
+  full and cannot make that mistake. Fixed in the same push.
+
+- **This is the second sighting in one day of a defect class the gate cannot see, and the first
+  one that reached production.** `rankevery` and `$269,000with` are the same shape: a character
+  immediately followed by a letter where a space belongs. The boarded P2 has been rewritten from
+  "43 run-together money figures" to the general pattern, because that is what the check needs to
+  match. Site-wide scan for the `[a-z]<span class="accent">[a-z]` variant came back clean, so
+  `rankevery` was the only instance of that particular shape.
 
 ## CLOSED July 30, 2026 (st-augustine vs pensacola) - shipped
 
@@ -804,6 +894,87 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   San Antonio and St. Louis are reachable no other way. The variable-slot rule fires only on a
   `N/10` value, so `Healthcare: Barnes-Jewish` is out of scope, and a `N/10` under an unmapped label
   is a FAIL rather than a skip.
+
+- **[CLOSED Jul 30]** **Two DB summer-comfort values do not survive scrutiny, and they feed the QUIZ, not just
+  two pages.** Found Jul 30 while clearing the inverted summer label. `Climate Hot Sum` carries
+  0.35 weight in the Mild Year-Round climate score, so this is a matching-engine defect that
+  happens to also be visible on two comparison pages.
+    - **Memphis = 8.** Memphis is hotter than Nashville on every other column (HEAT 8 vs 7,
+      HUM 9 vs 8, Jan 42F vs 39F) and scores THREE POINTS MORE COMFORTABLE. At 8 it is the most
+      summer-comfortable city in the entire southern set, ahead of Knoxville 6, St. Louis 7 and
+      Kansas City 7, all of which are cooler in July. Memphis is Mississippi Delta. Compare
+      New Orleans 2, Miami 2, San Antonio 3, Tampa 4. A defensible value is 3 to 4.
+    - **St. Petersburg = 7 against Tampa = 4.** Identical HEAT (7), identical HUM (9), Jan means
+      one degree apart, twenty miles apart. St. Pete's peninsula breeze is real but it is not
+      three points of it. One of the two is wrong; the pair cannot both be right.
+  Both need a scoring decision from Laurie, not a mechanical fix, because the correct value is a
+  judgment against the rubric anchors. Everything downstream waits on it: the DB cell, `index.html`,
+  the two profiles, the two comparison pages, and the quiz.
+
+- **[CLOSED Jul 30]** **`nashville-vs-memphis` and `tampa-vs-st-petersburg` carried the inverted summer
+  label, deliberately.** Held back from the Jul 30 batch. Relabelling them without fixing the DB
+  first would convert a currently-buried wrong number into a prominent confident claim: the table
+  would assert Memphis has 8 of 10 summer comfort. Worse on `nashville-vs-memphis`, where the PROSE
+  is factually RIGHT about reality (it says Memphis "sits in the Mississippi Delta and is
+  meaningfully hotter") while citing the numbers through the inverted label, explicitly, in the
+  words "hot summers (5 vs. 8, where lower is milder)". Two errors currently cancel and the page
+  reads correctly by accident. Fixing either one alone breaks it. Four prose sites need rewriting,
+  including the claim that "Nashville wins every climate-comfort row". Both pages also carry a
+  checkmark on the wrong city, which is a SYMPTOM of the bad value rather than a separate bug:
+  the 2-point rule means only an implausible gap is wide enough to generate a mark in this column.
+
+- **[P3]** **Visible FAQ text and FAQPage schema are out of sync on 6 pages, 7 Q&As.** Audited
+  Jul 30 across all 24 pages carrying FAQ schema. Two were fixed in the same pass because this
+  batch already opened those files: `nashville-vs-memphis` Q2 (`Franklin/Brentwood` in schema vs
+  `Franklin and Brentwood` visible) and `tampa-vs-st-petersburg` Q5 (schema reads "and Tampa Bay
+  is among", visible reads "with Tampa Bay among"). Still open: `bend-vs-boulder` Q2,
+  `san-antonio-vs-fort-worth` Q2, `scottsdale-vs-santa-fe` Q3 and Q5, `visit-before-you-decide` Q2.
+  All seven are wording-level, none change a figure, so this is P3 rather than P2. The check is
+  cheap and mechanical: parse the JSON-LD, strip tags from the visible pairs, compare normalised.
+  Worth shipping WITH the check rather than as a one-off sweep, since nothing prevents recurrence.
+
+- **[P2]** **A published figure on `nashville-vs-memphis` matches no formula anyone can find.**
+  The page cited "a mild-year-round score of 7 vs. 5" in two places. The rubric's documented
+  formula (W*0.40 + H*0.35 + M*0.25) gives 6 and 6. The code in `getCityScore` gives 4 and 3.
+  Neither is 7 and 5. The clause was CUT on Jul 30 rather than recomputed, because publishing a
+  third unsourced number would be worse than publishing none. Two questions behind it: where did
+  7 and 5 come from, and do other comparison pages cite a mild-year-round score from the same
+  unknown source? Grep before assuming this page is the only one.
+
+- **[P2]** **The rubric documents a climate formula the code does not run.** Second instance of
+  rubric-vs-code drift, alongside the D1 filter item already boarded. `scoring_rubric_v3.2`
+  publishes Mild Year-Round as (Winter x 0.40) + (Summer comfort x 0.35) + (Humidity x 0.25).
+  `getCityScore` implements a worst-of-winter-and-summer model driven by janF, HEAT and HUM, and
+  never reads `Climate Hot Sum` at all. Warm & Dry, Four Seasons and Cool/Mountain also differ
+  from their documented forms. Either the rubric or the code is the spec; right now neither is,
+  and the rubric is the one being used to score new cities by hand. Fold into the Rubric v3.3 item.
+
+- **[P3]** **`Climate Hot Sum` is maintained but unread. Decide whether to keep it.** It is
+  published on comparison pages and hand-maintained across 99 rows, and no code path consumes it.
+  Either wire it into the climate scoring, in which case the two bad values were a live defect
+  waiting to happen, or retire the column and drive the comparison rows off HEAT and HUM, which
+  are what the engine and the profiles already use. Leaving it as decorative data guarantees it
+  drifts again.
+
+- **[P4]** **Wilmington NC scores 6 on `Climate Hot Sum` with HEAT 7 and HUM 9.** Same twin group
+  as the Florida 4s. May be justified by latitude the way Pensacola's 5 is, may not. Cheap to
+  settle next time the climate columns are open.
+
+- **[P2]** **Climate rows have no validator coverage of any kind.** Nothing reads them, which is why
+  an inverted label survived on eight pages and two bad DB values survived in the quiz. Two checks
+  worth having, each with a planted-error test: (1) label-to-column polarity, asserting the rendered
+  label agrees with the column's direction, and (2) a DB-side consistency assertion that
+  `Climate Hot Sum` does not contradict `HEAT (0-10)` beyond a tolerance. On the second, note the
+  crude form (`10 - HEAT`) has a correlation of only -0.693 and flags plausible cities like
+  Burlington and Traverse City, so the check needs to be RELATIVE (within-pair, or against
+  same-region peers) rather than absolute, or it will cry wolf.
+
+- **[P3]** **Open question from the same audit: is `Climate Hot Sum` calibrated absolutely or on a
+  curve?** St. Louis and Kansas City both score 7 with HEAT 8 and 8/7 humidity, and
+  `st-louis-vs-kansas-city` describes "hot, humid summers" in prose two paragraphs from a 7 of 10
+  comfort score. If the column is graded relative to the database rather than absolutely, that is
+  fine and should be written down. If it is meant to be absolute, a cluster of Midwest cities is
+  three points high. Not blocking, but it decides whether the check above is even well-defined.
 
 - **[P1]** **Latent label bug on `knoxville-vs-chattanooga`: inverted climate scale.** The summer row is labeled
   "Hot summers (lower = milder)" but populated from `Climate Hot Sum`, which the rubric defines as summer
