@@ -202,6 +202,35 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-30 (sixth push) - CTA cost-debt gate
+
+**What shipped.** One new file, `tools/test_comparison_cta_debt.py`, and three edits to
+`tools/validate.py`: a new check, its ratchet constant, and its harness registration. No content
+change of any kind. No database change. Gate clean at 0 failures, 0 warnings on a fresh clone,
+harness 7.
+
+**Why a gate and not a fix.** Two repairs are open at the same time and they pull against each
+other. The orphaned-CTA item wants CTA blocks added to roughly eleven profiles. The cost-row item
+has 69 stale figures quarantined across eighteen comparison pages, being repaired in tiers. Doing
+the first while the second is open wires new reader traffic into money the validator already knows
+is wrong.
+
+**Neither existing check could see it.** `check_comparison_cost_rows` reads the comparison page.
+Nothing reads a profile's outbound links at all. Both checks would have stayed correct about their
+own surface while the site got worse across the join between them, which is the coverage lesson
+from the cost rows restated one level up: coverage is a property of each field, and now of each
+edge, not of a page.
+
+**Shape.** `CTA_COST_DEBT_BASELINE = 21`, failing in both directions. Up is a new CTA into
+known-bad figures. Down means a page left quarantine and the constant is overstating the debt, so
+it must be lowered in the same commit. The number falls on its own as tiers land, because deleting
+a `COST_ROW_BASELINE` entry retires every edge into it: Tier 3 takes it from 21 to 11.
+
+**Judgment call worth flagging.** The check gates DEBT, not linking. Adding a CTA to one of the
+two comparison pages that were never quarantined still passes, so the orphaned-CTA batch is not
+blocked outright, only steered. Two of the seven planted-error assertions exist to hold that line.
+
+
 ### 2026-07-30 (fifth push) - lists heading counts, Memphis comparison CTA
 
 **What shipped.** Seven edits across six profiles: a corrected lists-section heading on

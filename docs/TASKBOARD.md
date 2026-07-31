@@ -4,7 +4,16 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, comparison cost-row coverage shipped (OPS. The gate could not
+**Last updated:** July 30, 2026, the CTA cost-debt gate shipped (OPS, step 1 of 3 in the cost-row
+repair. Two open items pull against each other: the orphaned-CTA P1 wants CTA blocks added to
+roughly eleven profiles, and the cost-row P0 has 69 stale figures quarantined across eighteen
+comparison pages. Wiring the first while the second is open sends readers into money the validator
+already knows is wrong, and NEITHER item's check can see it happening, because one reads the
+comparison page and the other reads nothing on the profile at all. The new check counts the EDGES
+between them, 21 today, and ratchets both ways like the baseline it rides on. Nothing was found
+wrong: this is a gate on a repair in flight, not a fix.)
+
+**Before that:** July 30, 2026, comparison cost-row coverage shipped (OPS. The gate could not
 see Typical home value, Estimated retiree budget or Budget tier on any of the 20 comparison pages,
 and 18 of them had drifted, 69 figures. Not one D1-D10 score was wrong anywhere, which is the
 finding: the rows under a check held, the rows beside them did not. Also fixed dimension-label
@@ -387,6 +396,31 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 30, 2026 (CTA cost-debt gate) - shipped
+
+- **`check_comparison_cta_cost_debt` counts the edges between two open repairs.** 21 profile CTA
+  links currently point at one of the 18 comparison pages quarantined in `COST_ROW_BASELINE`.
+  Adding a CTA to a quarantined page now fails the gate; so does the count falling without
+  `CTA_COST_DEBT_BASELINE` being lowered in the same commit. Nothing on the site changed.
+
+- **The gap it closes is between two checks, not inside one.** `check_comparison_cost_rows` reads
+  the comparison page and knows exactly which figures are stale. Nothing reads a profile's
+  outbound links. So the orphaned-CTA batch could have wired eleven profiles into known-bad money
+  with the gate at 0/0 the whole way, and each check would have been correct about its own
+  surface. This is the same shape as the coverage lesson from the cost rows themselves: the rows
+  under a check held, the rows beside them drifted.
+
+- **The count falls on its own as batches land, and that is deliberate.** Deleting a
+  `COST_ROW_BASELINE` entry retires every edge into it, so the debt drops without anyone touching
+  a profile. The downward failure then forces the constant down in the same commit, which is what
+  stops it becoming a number nobody trusts. Tier 3 will take it from 21 to 11.
+
+- Planted-error test at `tools/test_comparison_cta_debt.py`, 7 assertions, harness now 7. Two of
+  the seven exist only to pin down what is being counted: a second CTA to an ALREADY-linked
+  quarantined page must fail (counting distinct pages instead of links passes a naive test and
+  misses this), and a relative `href` with no leading slash must still be counted (every CTA on
+  the site today is written with one).
 
 ## CLOSED July 30, 2026 (lists heading counts + Memphis compare CTA) - shipped
 
@@ -838,6 +872,9 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
       citing the gap zero times.
   OPEN QUESTION before Tier 3: most monthly estimates are off by exactly $100, which smells like
   a `BUDGET-METHODOLOGY.md` recompute rather than drift. Confirm, and Tier 3 grows.
+  GATED Jul 30 by `check_comparison_cta_cost_debt`: 21 profile CTA links point into the 18
+  quarantined pages, and that number cannot rise while this P0 is open. Do the orphaned-CTA P1
+  after this one, or do it only on the two pages that were never quarantined.
   SECOND: Memphis $195,000 -> $147,000 and St. Louis $235,000 -> $192,000 are NRC cities.
   Check the comparison pages use the citywide-plus-callout convention before swapping, or a
   $147,000 figure ends up stranded beside prose about Germantown at $280K-$500K.
