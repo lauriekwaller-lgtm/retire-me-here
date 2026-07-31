@@ -1143,11 +1143,12 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   interesting half: these are in FAQPage schema, so they are what gets quoted. Fix is one BATCH
   plus a check with a planted-error test.
 
-- **[P0]** **69 stale cost figures on 18 of 20 comparison pages. Quarantined, not fixed.**
-  Audited Jul 30 across every DB-derived field. All 69 are in Typical home value, Estimated
-  retiree budget or Budget tier; zero are in D1-D10. The ZHVI rebase never reached these pages.
-  Now held by `COST_ROW_BASELINE` in the validator, so the gate stays honest while they are
-  repaired. Attack in three tiers, hardest first, lowering the baseline in each commit:
+- **[P0]** **24 stale cost figures left on 6 of 20 comparison pages. Was 69 on 18.**
+  Audited Jul 30 across every DB-derived field. All 69 were in Typical home value, Estimated
+  retiree budget or Budget tier; zero were in D1-D10. The ZHVI rebase never reached these pages.
+  Held by `COST_ROW_BASELINE` in the validator, so the gate stays honest while they are repaired.
+  **Tier 3 and Tier 1 are closed (Jul 30 and Jul 31). Everything remaining is Tier 2**, six pages
+  at 4 mismatches each. Attack in three tiers, hardest first, lowering the baseline in each commit:
     - **Tier 1, argument rewrites, one page per pass.** ~~`st-louis-vs-kansas-city` (gap
       $15,000 -> $65,000, a 333% change, any "same price" framing is dead)~~ **CLOSED Jul 30**,
       eleven surfaces, not the one the headline suggested;
@@ -1170,14 +1171,24 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
       only and undercounted the real surface by a factor of six, and the "under 6% gap movement"
       criterion was wrong on two of the eight. Size by grepping the page for the figure, and tier
       by whether the page ARGUES from it.
-  OPEN QUESTION before Tier 3: most monthly estimates are off by exactly $100, which smells like
-  a `BUDGET-METHODOLOGY.md` recompute rather than drift. Confirm, and Tier 3 grows.
-  GATED Jul 30 by `check_comparison_cta_cost_debt`: 21 profile CTA links point into the 18
-  quarantined pages, and that number cannot rise while this P0 is open. Do the orphaned-CTA P1
-  after this one, or do it only on the two pages that were never quarantined.
-  SECOND: Memphis $195,000 -> $147,000 and St. Louis $235,000 -> $192,000 are NRC cities.
-  Check the comparison pages use the citywide-plus-callout convention before swapping, or a
-  $147,000 figure ends up stranded beside prose about Germantown at $280K-$500K.
+  ~~OPEN QUESTION before Tier 3: most monthly estimates are off by exactly $100, which smells like
+  a `BUDGET-METHODOLOGY.md` recompute rather than drift.~~ **ANSWERED Jul 30, and the answer is
+  no.** Across the eight Tier 3 pages the monthly deltas run 0, +$100, +$200 and -$100, in both
+  directions, tracking each city's own median-home move. Ordinary rebase drift, not a recompute.
+  GATED Jul 30 by `check_comparison_cta_cost_debt`, and the number has fallen with the repair:
+  **7 profile CTA links now point into the 6 quarantined pages, down from 21 into 18.** It cannot
+  rise while this P0 is open. Do the orphaned-CTA P1 after this one, or do it only on the pages
+  that are no longer quarantined, which is now fourteen of twenty rather than two.
+  SECOND, and now down to one city: Memphis $195,000 -> $147,000 is an NRC city and
+  `nashville-vs-memphis` is still ahead in Tier 2. Check it uses the citywide-plus-callout
+  convention before swapping, or a $147,000 figure ends up stranded beside prose about Germantown
+  at $280K-$500K. The St. Louis half of this note is done: `st-louis-vs-kansas-city` shipped
+  Jul 30 and the convention was already settled on that page.
+  THIRD, added Jul 31 after all four Tier 1 pages: **size a page by grepping it, never by its
+  baseline number.** The baseline counts three table rows. Tier 3 was 30 by that count and 184 in
+  reality; `st-louis-vs-kansas-city` was 4 and eleven load-bearing surfaces. The same figures sit
+  in prose, visible FAQ text, FAQPage schema, `og:description` and `twitter:description`, and no
+  check reads any of those copies.
 
 
   Found Jul 30. Distinct from the D4/D10 item below, which is about the DIMS label prefix. This one
