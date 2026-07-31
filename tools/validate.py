@@ -1683,7 +1683,6 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
 # Lower each number as batches land. Delete the entry at zero. Delete this dict
 # when it is empty.
 COST_ROW_BASELINE = {
-    "bloomington-vs-lexington-retirement.html": 3,
     "knoxville-vs-chattanooga-retirement.html": 4,
     "knoxville-vs-nashville-retirement.html": 4,
     "naples-vs-fort-myers-retirement.html": 4,
@@ -1817,7 +1816,7 @@ def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
 # quarantined. A RATCHET in both directions, riding on COST_ROW_BASELINE:
 # see check_comparison_cta_cost_debt. When COST_ROW_BASELINE is deleted this
 # constant is necessarily 0; delete the constant and the check with it.
-CTA_COST_DEBT_BASELINE = 9
+CTA_COST_DEBT_BASELINE = 7
 
 # Any anchor in a profile pointing at a comparison page, leading slash optional.
 PROFILE_COMPARISON_HREF = re.compile(

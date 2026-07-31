@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, `madison-vs-ann-arbor` rewritten (BATCH, Tier 1 page 3 of 4. The
+**Last updated:** July 31, 2026, `bloomington-vs-lexington` rewritten and TIER 1 IS CLOSED (BATCH,
+page 4 of 4. This is the one page where the gap NARROWS, $37,000 to $16,000, with the monthly
+spread halving from $200 to $100, so the board was right that the "meaningfully cheaper" spine
+could not stand. The real find is older than the rebase: the page counts the same money twice, in
+tradeoff #2 and again in FAQ 3, presenting the monthly saving and the insurance saving as separate
+advantages that add up to a lower all-in cost. BUDGET-METHODOLOGY.md section 4 puts homeowners
+insurance INSIDE the monthly estimate, so Bloomington's $1,155 a year on insurance is already most
+of the $1,200 a year its monthly figure shows. A thin margin was being presented as decisive.
+Baseline 27 to 24 over six pages, CTA debt 9 to 7. Also: the checkmark rule is now MEASURED across
+all twenty pages, and the Madison edit from earlier today went the wrong way. See the P1.)
+
+**Before that:** July 31, 2026, `madison-vs-ann-arbor` rewritten (BATCH, Tier 1 page 3 of 4. The
 gap widens $76,000 to $106,000 and Ann Arbor crosses into budget tier 3 while Madison stays at 2,
 which kills two of the five items on tradeoff #2's list of what the cities SHARE, plus the same
 claim in FAQ 2 in visible copy and in schema. Direction does not invert here, Madison was and stays
@@ -437,6 +448,49 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 31, 2026 (bloomington-vs-lexington, Tier 1) - shipped. TIER 1 COMPLETE.
+
+- **Three quarantined figures, and the only Tier 1 gap that closes.** Bloomington $296,000 ->
+  $321,000, Lexington $333,000 -> $337,000, Bloomington's monthly $4,600-$5,700 ->
+  $4,700-$5,800. The gap narrows from $37,000 to $16,000 and the monthly spread halves from $200
+  to $100. `COST_ROW_BASELINE` 27 to 24 over six pages; `CTA_COST_DEBT_BASELINE` 9 to 7.
+  **Tier 1 is now closed**: all four pages done, 24 mismatches left, all in Tier 2.
+
+- **The page counted the same money twice, and that predates the rebase.** Tradeoff #2 said
+  Bloomington's lower home price "combined with" a monthly estimate below Lexington's makes the
+  all-in cost of ownership "meaningfully below". FAQ 3 said the monthly saving "plus" the buy-in
+  saving, then called insurance "the standout difference" on top of both.
+  `BUDGET-METHODOLOGY.md` section 4 lists homeowners insurance as a HOUSING LINE ITEM of the
+  monthly estimate, `HO Insur Est $/yr / 12`. So the $1,155 a year insurance advantage is INSIDE
+  the $1,200 a year monthly advantage and is very nearly all of it. Adding them made a 2% monthly
+  difference read as a decisive one. Both instances corrected, with the arithmetic written onto
+  the page so the next reader can check it rather than trust it.
+  **Defect class worth naming: a derived figure that is a COMPONENT of another derived figure on
+  the same page.** Nothing in the toolchain models which figures contain which. Worth a look on
+  any page that totals a cost advantage, and there are several.
+
+- **Checkmarks left alone here, correctly, and that is how the rule got settled.** This page marks
+  only the two-point D3 gap and leaves all three one-point gaps unmarked, matching its own caption:
+  "ties and near-ties are left unmarked."
+
+- **[P1] The `madison-vs-ann-arbor` checkmark edit from earlier today went the WRONG WAY and should
+  be reverted.** The rule was boarded as unsettled that morning, and it is now measured across all
+  twenty comparison pages. **Eleven pages leave every one-point gap unmarked** (the two-point rule):
+  `bloomington-vs-lexington`, `fort-collins-vs-boulder`, `knoxville-vs-chattanooga`,
+  `knoxville-vs-nashville`, `madison-vs-columbus`, `naples-vs-fort-myers`, `naples-vs-sarasota`,
+  `pensacola-vs-fort-myers`, `san-antonio-vs-fort-worth`, `scottsdale-vs-santa-fe`,
+  `st-augustine-vs-pensacola`, `tampa-vs-st-petersburg`. Four mark them (`nashville-vs-memphis`,
+  `santa-fe-vs-tucson`, `sarasota-vs-tampa`, `scottsdale-vs-tucson`) and three are internally
+  inconsistent (`asheville-vs-greenville`, `bend-vs-boulder`, `st-louis-vs-kansas-city`).
+  The CAPTIONS diverge too, and that is the root: most say "ties and near-ties are left unmarked",
+  while `madison-vs-ann-arbor` says only "ties are left unmarked". The Madison edit was defensible
+  against its own caption and wrong against the site, and it moved that page from MIXED to fully
+  stronger-city, further from the majority. Revert the D2 mark, review its D4 and D9 marks under
+  the two-point rule, and restore the "and near-ties" clause to its caption.
+  Then: write the two-point rule into `COMPARISON-PAGE-STANDARD-v2`, fix the seven off-convention
+  pages, and gate it. The check is cheap once the rule is written: for every marked dimension cell,
+  assert the gap is 2 or more and the mark sits on the stronger value. Planted-error test required.
 
 ## CLOSED July 31, 2026 (madison-vs-ann-arbor, Tier 1) - shipped
 
@@ -1102,8 +1156,11 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
       not just the magnitude, on the two remaining Tier 1 pages;
       ~~`madison-vs-ann-arbor` (Ann Arbor rises tier 2 -> 3, gap +39%)~~ **CLOSED Jul 31**, and the
       sizing was accurate for once: direction holds, so only the shared-items list broke;
-      `bloomington-vs-lexington` (gap $37,000 -> $16,000, near noise on a $321,000 house, so
-      the "meaningfully cheaper" spine of the page probably cannot stand).
+      ~~`bloomington-vs-lexington` (gap $37,000 -> $16,000, near noise on a $321,000 house, so
+      the "meaningfully cheaper" spine of the page probably cannot stand)~~ **CLOSED Jul 31**, and
+      the spine could not stand, for a bigger reason than the narrower gap: the page was adding
+      the insurance saving to the monthly saving, and insurance is INSIDE the monthly estimate.
+    - **TIER 1 IS COMPLETE.** 24 mismatches remain, all Tier 2, all six pages.
     - **Tier 2, figures plus prose reconciliation, 2-3 per batch.** `sarasota-vs-tampa`,
       `knoxville-vs-nashville`, `knoxville-vs-chattanooga` on gap movement of 30-50%; plus
       `naples-vs-fort-myers`, `naples-vs-sarasota`, `nashville-vs-memphis`, which move under 12%

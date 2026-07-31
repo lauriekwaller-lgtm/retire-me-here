@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (fourth push) - bloomington-vs-lexington rewritten, Tier 1 complete
+
+**What shipped.** One comparison page rewritten, plus both validator ratchets lowered in the same
+commit: `COST_ROW_BASELINE` from 27 mismatches over seven pages to 24 over six, and
+`CTA_COST_DEBT_BASELINE` from 9 to 7. No new files, no database change, no scoring change. Gate
+clean at 0 failures, 0 warnings on a fresh clone. **Tier 1 of the cost-figure repair is complete**;
+everything left is Tier 2.
+
+**The only Tier 1 gap that narrows.** Bloomington $296,000 to $321,000, Lexington $333,000 to
+$337,000, so the housing gap closes from $37,000 to $16,000, and Bloomington's monthly estimate
+rose enough to halve the monthly spread from $200 to $100. Every other page in this repair had a
+gap widen or invert.
+
+**The page was counting the same money twice, and had been before the rebase.** Tradeoff #2 and
+FAQ 3 both presented the monthly advantage and the insurance advantage as separate savings that
+combine into a lower all-in cost of ownership. BUDGET-METHODOLOGY.md section 4 lists homeowners
+insurance as a housing line item of the monthly estimate, at HO Insur Est / 12, so Bloomington's
+$1,155 a year insurance advantage is already inside the $1,200 a year its monthly figure shows,
+and is very nearly the whole of it. Adding them turned a 2% monthly difference into a decisive
+one. Corrected in both places, with the arithmetic written onto the page.
+
+**Defect class worth carrying forward:** a published derived figure that is a COMPONENT of another
+published derived figure on the same page. Nothing in the toolchain knows which figures contain
+which, so any page that totals up a cost advantage can do this silently. Several do total one.
+
+**The checkmark rule is now measured, and yesterday's Madison edit was wrong.** Across all twenty
+comparison pages, eleven leave every one-point score gap unmarked, four mark them, and three are
+internally inconsistent. The captions diverge the same way: most say "ties and near-ties are left
+unmarked" while madison-vs-ann-arbor says only "ties are left unmarked". The Madison edit followed
+its own caption and moved that page away from the site majority. Boarded as a P1 to revert, with
+the two-point rule to be written into COMPARISON-PAGE-STANDARD-v2, the seven off-convention pages
+brought into line, and a gate added.
+
+
 ### 2026-07-31 (third push) - madison-vs-ann-arbor rewritten
 
 **What shipped.** One comparison page rewritten, plus both validator ratchets lowered in the same
