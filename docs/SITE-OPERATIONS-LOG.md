@@ -202,6 +202,35 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (sixth push) - Tier 2 batch A, three comparison pages rewritten
+
+**What shipped.** Three comparison pages repaired against `CityDatabase_Jul_27_v17.xlsx`, with both
+validator ratchets lowered in the same commit: `COST_ROW_BASELINE` from 24 mismatches over six pages
+to 12 over three, and `CTA_COST_DEBT_BASELINE` from 7 to 5. No new files, no database change, no
+scoring change. Gate clean at 0 failures, 0 warnings on a fresh clone.
+
+**What moved.** Sarasota $462,000 to $413,000 and Tampa $400,000 to $380,000, narrowing that gap
+from $62,000 to $33,000. Knoxville $368,000 to $377,000 and Nashville $460,000 to $437,000, from
+$92,000 to $60,000. Chattanooga $328,000 to $324,000, which against the new Knoxville figure WIDENS
+that gap from $40,000 to $53,000. Every monthly range moved except Knoxville's floor. No price
+ordering inverted.
+
+**Sizing, again by grepping.** Twelve table cells were quarantined; 82 figure surfaces carried the
+figures. The copies nothing reads: Article schema descriptions, `meta name="description"`, hero
+taglines, verdict boxes, a tradeoff HEADING that carried the gap in its text, and the profile-card
+blurbs at the foot of each page.
+
+**Two live prose errors, both D2.** Sarasota vs. Tampa claimed a 6-to-5 budget split in three places
+against a table and a database that both say 6 and 6. Knoxville vs. Chattanooga claimed "budget
+scores 9 against 8" against two 8s. The D2 column is the repeat offender in every instance of this
+defect class so far, because the July 13 D2 rebuild landed on the table rows the check reads and
+never touched the prose copies it does not.
+
+**Four dataset-scoped claims.** Two visible on Knoxville vs. Chattanooga, "the midpoint of our
+100-city database", and one in each Knoxville page's Article schema, "from a 100-city retirement
+database". Banned by the superlative rule and wrong on the count. The hyphenated form is invisible
+to `check_hardcoded_counts`; it is on three further files and is boarded with them.
+
 ### 2026-07-31 (fifth push) - checkmark rule settled, written, and gated
 
 **What shipped.** No new comparison page and no figure change. Twenty-two checkmarks

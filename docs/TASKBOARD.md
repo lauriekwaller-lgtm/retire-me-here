@@ -4,7 +4,12 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, the CHECKMARK RULE settled at two points on dimension rows,
+**Last updated:** July 31, 2026, TIER 2 BATCH A of the comparison cost-figure repair shipped
+(BATCH; sarasota-vs-tampa, knoxville-vs-nashville, knoxville-vs-chattanooga; 12 cells over 82 surfaces;
+COST_ROW_BASELINE 24 to 12, CTA_COST_DEBT_BASELINE 7 to 5; two live D2 prose errors and four
+dataset-scoped claims corrected on the way).
+
+**Before that:** July 31, 2026, the CHECKMARK RULE settled at two points on dimension rows,
 written into COMPARISON-PAGE-STANDARD-v2 and gated by `check_comparison_checkmarks` (BATCH; 22
 marks off eight pages, one on, five captions and five sub-heads onto the current template, one
 wrong prose score corrected on `santa-fe-vs-tucson`).
@@ -453,6 +458,60 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 31, 2026 (Tier 2 batch A: sarasota-vs-tampa, knoxville-vs-nashville, knoxville-vs-chattanooga) - shipped
+
+- **Twelve quarantined cells, 82 figure surfaces, and the baseline was wrong by a factor of
+  seven again.** Sized by grepping each page: 25 raw occurrences on `sarasota-vs-tampa`, 30 on
+  `knoxville-vs-nashville`, 27 on `knoxville-vs-chattanooga`, against a baseline of 4 apiece.
+  The extra copies sit in prose, visible FAQ, FAQPage schema, ARTICLE schema, `meta name` and
+  `og`/`twitter` descriptions, the hero tagline, the verdict box, a tradeoff HEADING, and the
+  profile-card blurbs at the foot of the page. `COST_ROW_BASELINE` 24 -> 12 over three pages;
+  `CTA_COST_DEBT_BASELINE` 7 -> 5, recounted rather than assumed: neither Knoxville page has a
+  single profile CTA pointing at it, so only `sarasota-vs-tampa` retired edges, and it retired two.
+
+- **Direction holds on all three. Sizes move a lot.** `sarasota-vs-tampa` $62,000 -> $33,000, a
+  47% narrowing, so the page's "Tampa simply costs less" spine now carries the number: 8% on the
+  house, $200 to $300 a month. `knoxville-vs-nashville` $92,000 -> $60,000 and 25% -> 16%, with
+  the monthly advantage halving from $500-$600 to a flat $300, which is why "several hundred
+  dollars lighter" had to become a figure. `knoxville-vs-chattanooga` is the one page in Tier 2
+  where the gap WIDENS, $40,000 -> $53,000, 11% -> 14%, so "none of the wins are large" was
+  retired rather than renumbered.
+
+- **[P1 -> CLOSED] Two live prose errors, both D2, both contradicting their own tables.**
+  `sarasota-vs-tampa` said "Tampa's budget dimension scores 6 to Sarasota's 5" in THREE places
+  (tradeoff, visible FAQ, FAQPage schema); the table and v17 both say 6 and 6, a tie.
+  `knoxville-vs-chattanooga` said "budget scores 9 against 8"; both are 8. That is the fourth and
+  fifth instance of the same defect class in four days, and the D2 column is the repeat offender
+  every time, because the July 13 D2 rebuild landed on table rows and never touched prose copies.
+  **Worth a check.** For every dimension, if prose states "N of 10" or "N against M" beside a
+  dimension keyword, assert N appears in that dimension's table row. Cheap, and it would have
+  caught all five.
+
+- **[P1 -> CLOSED] Four dataset-scoped claims, on pages nothing was watching.**
+  `knoxville-vs-chattanooga` twice: "comfortably above the midpoint of our 100-city database".
+  Both Knoxville pages once each in ARTICLE SCHEMA: "from a 100-city retirement database". Banned
+  by the superlative rule outright, and wrong on the count as well, since there are 99 cities.
+  `check_superlatives` does not fire because the phrase is not a superlative, and
+  `check_hardcoded_counts` does not fire because of the hyphen, which is the same blind spot as
+  the boarded `pick-and-compare.html` line 918 item.
+
+- **[P1] STILL OPEN and now sized: the hyphenated hardcoded count is on FIVE files, not one.**
+  `compare-retirement-cities.html`, `pick-and-compare.html`, `where-should-i-retire-quiz.html`
+  and, until this batch, both Knoxville pages. `check_hardcoded_counts` reads "100 cities" and
+  misses "100-city". One regex closes it. Do it with the count fix, not separately, or the next
+  page built from an old template puts it straight back.
+
+- **Prose claims of the form "sweeps every cost row" are false on every page that has them**, and
+  they contradict the visible table, which leaves identical rows unmarked. Three fixed here
+  (`knoxville-vs-nashville`, `knoxville-vs-chattanooga` twice). Both Tennessee pairings share a
+  state property tax rate and insurance estimate, so two of five cost rows are always ties.
+  Check the remaining Tier 2 pages for the same phrasing before renumbering them.
+
+- **Next: Tier 2 batch B**, `naples-vs-fort-myers`, `naples-vs-sarasota`, `nashville-vs-memphis`,
+  12 mismatches. `nashville-vs-memphis` carries the NRC convention question from the P0: Memphis
+  $195,000 -> $147,000 is a neighborhood-callout city and the page must use citywide-plus-callout
+  or it strands a $147,000 figure beside prose about Germantown.
 
 ## CLOSED July 31, 2026 (checkmark rule, BATCH) - shipped
 
