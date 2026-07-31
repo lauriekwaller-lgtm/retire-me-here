@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, `san-antonio-vs-fort-worth` rewritten (BATCH, Tier 1 page 2 of 4.
+**Last updated:** July 31, 2026, `madison-vs-ann-arbor` rewritten (BATCH, Tier 1 page 3 of 4. The
+gap widens $76,000 to $106,000 and Ann Arbor crosses into budget tier 3 while Madison stays at 2,
+which kills two of the five items on tradeoff #2's list of what the cities SHARE, plus the same
+claim in FAQ 2 in visible copy and in schema. Direction does not invert here, Madison was and stays
+the cheaper city, so the spine held and four sentences went. The find worth keeping is a checkmark
+defect that predates the rebase: this page declares "checkmarks mark the stronger city in each row"
+twice, with no two-point threshold, and then leaves D2 unmarked at Madison 6 against Ann Arbor 5.
+Marked now, along with the monthly row and the tier row that stopped being a tie. Baseline 32 to 27
+over seven pages, CTA debt 11 to 9.)
+
+**Before that:** July 31, 2026, `san-antonio-vs-fort-worth` rewritten (BATCH, Tier 1 page 2 of 4.
 The board sized this one as "gap +145% AND San Antonio drops tier 2 to 1". Both true, and both
 undersold it: the SIGN INVERTS. The page had San Antonio $20,000 more expensive than Fort Worth;
 under v17 it is $49,000 cheaper and a full budget tier lower. Every sentence ordering the two on
@@ -427,6 +437,42 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 31, 2026 (madison-vs-ann-arbor, Tier 1) - shipped
+
+- **Five quarantined figures, and a tier crossing.** Madison $413,000 -> $435,000, Ann Arbor
+  $489,000 -> $541,000, both monthly ranges, and Ann Arbor's tier 2 -> 3. The gap widens from
+  $76,000 to $106,000. `COST_ROW_BASELINE` 32 to 27 over seven pages;
+  `CTA_COST_DEBT_BASELINE` 11 to 9, because both city profiles link to this page and retiring it
+  from quarantine retires two edges.
+
+- **The rewrite is small because the direction holds.** Madison was the cheaper city and still is,
+  so unlike `san-antonio-vs-fort-worth` nothing had to be reversed. What broke is a SHARED-ITEMS
+  list: tradeoff #2 opens by naming five things the two cities have in common, and the budget tier
+  and the monthly estimate are two of them. Neither is true now. Same claim restated in FAQ 2 in
+  visible copy and in FAQPage schema, and in tradeoff #3's "After that it gets more even". Four
+  sentences, one derived property-tax range, and the meta/og/twitter/hero/verdict gap figure.
+
+- **[CLOSED HERE] A checkmark defect that has nothing to do with the rebase.** The page states its
+  own rule twice, in the table sub-head and in the caption: "Checkmarks mark the stronger city in
+  each row; ties are left unmarked." No two-point threshold anywhere in
+  `COMPARISON-PAGE-STANDARD-v2` either. By that rule the page was UNDER-marking: `D2 Budget` read
+  Madison 6 against Ann Arbor 5 with no mark on either row cell, and `Estimated retiree budget`
+  had none while the figures differed. Both marked for Madison. The `D4` and `D9` marks at
+  one-point gaps are correct under the stated rule and were left alone.
+  **Worth settling site-wide:** an earlier session recorded a "checkmarks only at 2+ point gaps"
+  convention, and this page's own caption says otherwise. One of the two is wrong and nothing
+  reads either. Boarded below.
+
+- **[P2] NEW: the checkmark rule is not written down anywhere that a check could read it, and two
+  versions of it are in circulation.** This page's caption says stronger city wins the mark, ties
+  unmarked, full stop. Working notes from an earlier comparison-page pass say marks only appear at
+  a two-point score gap. Under the first rule `madison-vs-ann-arbor` was under-marked on D2; under
+  the second, its D4 and D9 marks are both wrong. They cannot both be right, `st-louis-vs-kansas-city`
+  was reasoned about using the two-point version as recently as Jul 30, and no validator check
+  reads a checkmark at all. Settle which rule governs, write it into
+  `COMPARISON-PAGE-STANDARD-v2`, then audit all twenty pages against it. Cheap check once the rule
+  exists: compare each marked cell against the DB and assert the mark sits on the stronger value.
 
 ## CLOSED July 31, 2026 (san-antonio-vs-fort-worth, Tier 1) - shipped
 
@@ -1054,7 +1100,8 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
       ~~`san-antonio-vs-fort-worth` (gap +145% AND San Antonio drops tier 2 -> 1)~~
       **CLOSED Jul 31**, and the sizing missed that the price ordering INVERTS. Check the sign,
       not just the magnitude, on the two remaining Tier 1 pages;
-      `madison-vs-ann-arbor` (Ann Arbor rises tier 2 -> 3, gap +39%);
+      ~~`madison-vs-ann-arbor` (Ann Arbor rises tier 2 -> 3, gap +39%)~~ **CLOSED Jul 31**, and the
+      sizing was accurate for once: direction holds, so only the shared-items list broke;
       `bloomington-vs-lexington` (gap $37,000 -> $16,000, near noise on a $321,000 house, so
       the "meaningfully cheaper" spine of the page probably cannot stand).
     - **Tier 2, figures plus prose reconciliation, 2-3 per batch.** `sarasota-vs-tampa`,

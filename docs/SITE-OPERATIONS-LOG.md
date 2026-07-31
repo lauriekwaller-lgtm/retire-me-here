@@ -202,6 +202,38 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (third push) - madison-vs-ann-arbor rewritten
+
+**What shipped.** One comparison page rewritten, plus both validator ratchets lowered in the same
+commit: `COST_ROW_BASELINE` from 32 mismatches over eight pages to 27 over seven, and
+`CTA_COST_DEBT_BASELINE` from 11 to 9. No new files, no database change, no scoring change. Every
+figure read from `CityDatabase_Jul_27_v17.xlsx`. Gate clean at 0 failures, 0 warnings on a fresh
+clone.
+
+**What moved.** Madison $413,000 to $435,000, Ann Arbor $489,000 to $541,000, so the housing gap
+goes from $76,000 to $106,000. Both monthly ranges moved, turning a $200 difference into $400 at
+the low end and $500 at the high. Ann Arbor crossed into budget tier 3 while Madison stayed at 2.
+
+**Why it needed prose work and not a swap.** Tradeoff #2 opens by listing five things the two
+cities share, and the budget tier and the monthly estimate are two of the five. The same claim sits
+in FAQ 2 in visible copy and in FAQPage schema, and tradeoff #3 said the money "gets more even"
+after the house. All of that is now false. Unlike the San Antonio pairing the direction never
+inverted, so the page's argument held and four sentences were rewritten rather than the premise.
+
+**A checkmark defect predating the rebase, fixed here.** The page declares its rule twice: the
+stronger city in each row takes the mark, ties are unmarked, with no score-gap threshold. It was
+under-marking against its own rule, leaving `D2 Budget` unmarked at Madison 6 against Ann Arbor 5
+and the monthly row unmarked while the figures differed. Both are marked now, as is the tier row
+that has stopped being a tie.
+
+**Boarded, because two versions of the checkmark rule are in circulation.** This page's caption
+says stronger-city-wins. Working notes from an earlier comparison pass say marks only at a
+two-point gap, and `st-louis-vs-kansas-city` was reasoned about that way on Jul 30. Under one rule
+this page was under-marked; under the other its D4 and D9 marks are wrong. Nothing in the toolchain
+reads a checkmark, so neither version is enforced. Settle it, write it into
+COMPARISON-PAGE-STANDARD-v2, audit all twenty pages, then gate it.
+
+
 ### 2026-07-31 (first push) - san-antonio-vs-fort-worth rewritten
 
 **What shipped.** One comparison page rewritten, plus `COST_ROW_BASELINE` lowered from 35
