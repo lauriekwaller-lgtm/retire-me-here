@@ -4,7 +4,13 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, TIER 2 BATCH A of the comparison cost-figure repair shipped
+**Last updated:** July 31, 2026, the COMPARISON COST-FIGURE REPAIR IS COMPLETE
+(BATCH; Tier 2 batch B closed naples-vs-fort-myers, naples-vs-sarasota and
+nashville-vs-memphis; COST_ROW_BASELINE emptied and the CTA cost-debt ratchet,
+check and harness deleted; four more live D2 prose errors, a monthly gap that was
+never right, and batch A's missed caption-vintage bump all corrected).
+
+**Before that:** July 31, 2026, TIER 2 BATCH A of the comparison cost-figure repair shipped
 (BATCH; sarasota-vs-tampa, knoxville-vs-nashville, knoxville-vs-chattanooga; 12 cells over 82 surfaces;
 COST_ROW_BASELINE 24 to 12, CTA_COST_DEBT_BASELINE 7 to 5; two live D2 prose errors and four
 dataset-scoped claims corrected on the way).
@@ -458,6 +464,65 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 31, 2026 (Tier 2 batch B: naples-vs-fort-myers, naples-vs-sarasota, nashville-vs-memphis) - shipped. COST-FIGURE REPAIR COMPLETE.
+
+- **The P0 is closed. All twenty comparison pages agree with v17 on every cost row.**
+  `COST_ROW_BASELINE` is now empty, and `CTA_COST_DEBT_BASELINE` and
+  `check_comparison_cta_cost_debt` were DELETED in the same commit, which is what that
+  function's docstring asks for at zero debt. `check_comparison_cost_rows` survives as a plain
+  assertion rather than a ratchet, which is the state it was built to reach. Final tally for the
+  repair: 20 pages, 8 batches, and a baseline that counted three table rows per page against a
+  reality of roughly 25 to 30 figure surfaces per page throughout.
+
+- **All three gaps WIDEN, two by enough to change the sentences around them.**
+  `naples-vs-fort-myers` $213,000 -> $239,000 and 36% -> 44%, so two roundings that read "worth
+  more than $200,000" now understate the table by nearly $40,000 and were rewritten to
+  "nearly $240,000". `nashville-vs-memphis` $265,000 -> $290,000 and 58% -> 66%.
+  `naples-vs-sarasota` $123,000 -> $136,000, and its 25% survives untouched at 24.8%.
+  No price ordering inverted.
+
+- **[P1 -> CLOSED] Four more live D2 prose errors, and `naples-vs-fort-myers` disagreed with
+  ITSELF three ways.** That page variously claimed "budget scoring 7 vs. 3", "budget scores 6 vs.
+  5", and "budget score of 7 against Naples' 3" on four surfaces; v17 and its own table both say
+  7 and 5. `nashville-vs-memphis` claimed "Memphis's budget score of 7 against Nashville's 5"
+  when v17 has Memphis at **10, a perfect score**, and Nashville at 7, understating both cities
+  and erasing one of the highest budget scores on the site. That is instances six through nine of
+  the same defect class in four days, **D2 every single time**. The proposed check in the batch A
+  entry above is no longer speculative: it would have caught nine of nine.
+
+- **[P1 -> CLOSED] A figure that was never right, and the first CROSS-PAGE contamination in this
+  repair.** `naples-vs-sarasota` said the monthly budget ran "roughly $1,300 lower". On the old
+  figures the gap was $700 to $900; on the new ones it is $800 to $900. It was never $1,300 on
+  any version of the data. `naples-vs-fort-myers` genuinely was $1,000 to $1,300, and the number
+  appears to have been carried across when the second page was built from the first. Worth
+  knowing that the quarantine list would never have surfaced this: the figure is derived, it sits
+  in prose, and it was wrong before the repair started.
+
+- **[P1 -> CLOSED] A dataset-scoped superlative of a new shape: scoped to the COMPARISON SET, not
+  the city database.** `naples-vs-sarasota` said it had "more identical rows than any other
+  pairing here". Re-anchored to the figure, four of ten dimensions tie outright (D3, D4, D5, D7),
+  which stays true as pages are added. Plus the two remaining `100-city retirement database`
+  strings in Article schema, matching the four cleared in batch A.
+
+- **CORRECTION TO BATCH A, shipped here.** The caption data-vintage bump required by
+  COMPARISON-PAGE-STANDARD-v2 ("update the month whenever scores are refreshed from a new DB
+  version") was missed on all three batch A pages. `sarasota-vs-tampa` and
+  `knoxville-vs-chattanooga` still read `June 2026` under refreshed July figures; all three had
+  stale `dateModified`. Fixed here for all six Tier 2 pages. **The rule is prose in a doc and
+  nothing reads it**, which is how it was missed twice: it was also missed on the Tier 3 batch and
+  caught by hand then too.
+
+- **[P2] NEW: gate the data vintage, since it has now been missed twice by hand.**
+  If a page's cost rows are read from the DB, its caption month and its schema `dateModified`
+  should not be older than the DB file's own version date. Both are already parsed by other
+  checks. This is the third convention in this repair that lived only as prose in
+  COMPARISON-PAGE-STANDARD-v2 and drifted (checkmarks, cost-row marks, vintage).
+
+- **[P1] STILL OPEN, unchanged: the hyphenated hardcoded count on three remaining files.**
+  `compare-retirement-cities.html`, `pick-and-compare.html`, `where-should-i-retire-quiz.html`.
+  `check_hardcoded_counts` reads "100 cities" and misses "100-city". Six instances cleared across
+  Tier 2 by hand; the last three need the regex, not another manual pass.
 
 ## CLOSED July 31, 2026 (Tier 2 batch A: sarasota-vs-tampa, knoxville-vs-nashville, knoxville-vs-chattanooga) - shipped
 

@@ -20,9 +20,11 @@ direction of error:
     1. a wrong home value on a clean page fails
     2. a wrong monthly estimate on a clean page fails
     3. a wrong budget tier on a clean page fails
-    4. FIXING a mismatch on a quarantined page fails, demanding the baseline be
-       lowered. A quarantine list that outlives its fixes is an exemption, and
-       this is the assertion that stops COST_ROW_BASELINE becoming permanent.
+    4. a page whose baseline says it is dirty but which is actually clean fails,
+       demanding the baseline come down. A quarantine list that outlives its
+       fixes is an exemption, and this is the assertion that stopped
+       COST_ROW_BASELINE becoming permanent. It IS now empty, as of
+       2026-07-31, so this assertion synthesises the quarantine it needs.
     5. ADDING a mismatch to a quarantined page fails, so quarantine is not a
        licence to keep breaking that page
     6. deleting the cost rows entirely fails LOUDLY rather than reading zero
@@ -51,13 +53,16 @@ import tempfile
 # puts it there. Asserted below anyway.
 CLEAN_PAGE = "st-augustine-vs-pensacola-retirement.html"
 
-# The quarantined page used by the ratchet assertions is DERIVED, never named.
-# It used to be a literal, `asheville-vs-greenville`, alongside a literal
-# `$464,000` as its correct home value. Tier 3 of the cost-figure repair took
-# that page out of quarantine and this harness failed on the gate, which is the
-# worst place to discover that a test is pinned to the thing it is watching.
-# Every tier batch would have done it again. Derived from COST_ROW_BASELINE and
-# the database at run time, the tiers can land without touching this file.
+# The ratchet assertions are SYNTHESISED, not borrowed from the live site.
+# Twice now this harness has broken because it was pinned to state it did not
+# own. First it named `asheville-vs-greenville` and a literal `$464,000`, and
+# Tier 3 took that page out of quarantine. Then it DERIVED a page from
+# COST_ROW_BASELINE instead, which held until 2026-07-31, when the repair
+# finished, the quarantine went empty, and the harness failed on the gate of the
+# very commit that completed the job it was watching. It now writes its own
+# COST_ROW_BASELINE entry into a staged copy of validate.py, so it depends on
+# the ratchet CODE existing and on nothing else. Delete these two assertions
+# only when the ratchet itself is deleted.
 
 
 def _rows(repo, page, db_by_slug):
@@ -100,40 +105,26 @@ def _wrong_value(label, truth):
     return "5 of 5" if not truth.startswith("5") else "1 of 5"
 
 
-def pick_dirty(repo):
+def quarantine(repo, page, count):
     """
-    A quarantined page carrying BOTH a wrong cell and a right one.
+    Write a COST_ROW_BASELINE entry into a STAGED copy of validate.py.
 
-    The wrong one is set correct, which must demand the baseline be lowered.
-    The right one is broken, which must fail as new drift. A page with only one
-    kind cannot carry both assertions.
+    The ratchet assertions used to be planted in a really-quarantined page, and
+    that stopped working the moment the repair finished and the quarantine went
+    empty: this harness failed on the gate of the very commit that completed the
+    job it was watching. Same lesson as pinning a harness to a named page, one
+    level up. The ratchet CODE still exists in validate.py, so it still needs
+    covering; the harness now SYNTHESISES the quarantine it needs instead of
+    borrowing one from the site's live state.
     """
-    sys.path.insert(0, os.path.join(repo, "tools"))
-    import validate as V                                    # noqa: E402
-    db = V.load_db(os.path.join(repo, V.DEFAULT_DB))
-    by_slug = {}
-    for key, row in db.items():
-        if row is None or "_" not in key:
-            continue
-        name = str(row.get("city", ""))
-        by_slug[name.lower().replace(" ", "-").replace(".", "")] = row
-
-    if CLEAN_PAGE in V.COST_ROW_BASELINE:
-        sys.exit(f"{CLEAN_PAGE} is quarantined; it cannot carry the clean-page "
-                 f"assertions. Re-derive this harness.")
-
-    for page in sorted(V.COST_ROW_BASELINE):
-        rows = _rows(repo, page, by_slug)
-        bad = [r for r in rows if not r[4]]
-        good = [r for r in rows if r[4]]
-        if bad and good:
-            fix = bad[0]
-            brk = good[0]
-            return (page,
-                    (fix[0], fix[1], fix[3]),
-                    (brk[0], brk[1], _wrong_value(brk[0], brk[3])))
-    sys.exit("no quarantined page carries both a wrong cell and a right one; "
-             "the ratchet assertions cannot be planted. Re-derive this harness.")
+    path = os.path.join(repo, "tools", "validate.py")
+    s = open(path, encoding="utf-8").read()
+    marker = "COST_ROW_BASELINE = {}"
+    if s.count(marker) != 1:
+        sys.exit("COST_ROW_BASELINE is not the empty dict this harness expects "
+                 "to overwrite. Re-derive this harness.")
+    open(path, "w", encoding="utf-8").write(
+        s.replace(marker, f'COST_ROW_BASELINE = {{{page!r}: {count}}}', 1))
 
 
 def stage(repo):
@@ -224,22 +215,22 @@ def main():
     check("wrong budget tier on a clean page fails", "budget tier" in out)
     shutil.rmtree(tmp)
 
-    # 4. the ratchet: fixing a quarantined page must demand a lower baseline
-    dirty_page, (fix_lab, fix_which, fix_val), (brk_lab, brk_which, brk_val) = \
-        pick_dirty(repo)
+    # 4. the ratchet, down: a quarantined page that is actually clean must
+    #    demand the baseline come down, never pass quietly.
     tmp, r = stage(repo)
-    cell(r, dirty_page, fix_lab, fix_which, fix_val)          # correct value
+    quarantine(r, CLEAN_PAGE, 1)
     out = run(r)
-    check("fixing a quarantined page fails until the baseline is lowered",
+    check("a quarantined page that is now clean fails until the baseline drops",
           "Lower COST_ROW_BASELINE" in out)
     shutil.rmtree(tmp)
 
-    # 5. quarantine is not a licence to break the page further
+    # 5. the ratchet, up: quarantine is not a licence to break the page further.
     tmp, r = stage(repo)
-    cell(r, dirty_page, brk_lab, brk_which, brk_val)
+    quarantine(r, CLEAN_PAGE, 1)
+    cell(r, CLEAN_PAGE, "Typical home value", 0, "$999,000")
+    cell(r, CLEAN_PAGE, "Budget tier (1 = least expensive)", 0, "5 of 5")
     out = run(r)
-    check("adding a mismatch to a quarantined page fails",
-          "got WORSE" in out)
+    check("adding a mismatch to a quarantined page fails", "got WORSE" in out)
     shutil.rmtree(tmp)
 
     # 6. no rows at all must fail loudly, never read zero and report clean

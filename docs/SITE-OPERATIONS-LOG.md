@@ -202,6 +202,38 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (seventh push) - Tier 2 batch B; the comparison cost-figure repair is complete
+
+**What shipped.** The last three comparison pages repaired against `CityDatabase_Jul_27_v17.xlsx`,
+plus the removal of the scaffolding the repair needed: `COST_ROW_BASELINE` is now empty, and
+`CTA_COST_DEBT_BASELINE` and `check_comparison_cta_cost_debt` were deleted in the same commit, as
+that function's docstring asks at zero debt. `check_comparison_cost_rows` remains as a plain
+assertion. No new files, no database change, no scoring change. Gate clean at 0 failures, 0
+warnings on a fresh clone.
+
+**What moved.** Naples $585,000 to $549,000, Fort Myers $372,000 to $310,000, widening that gap
+from $213,000 to $239,000 and 36% to 44%. Sarasota $462,000 to $413,000 against the same Naples
+figure, $123,000 to $136,000, with its 25% surviving at 24.8%. Nashville $460,000 to $437,000 and
+Memphis $195,000 to $147,000, from $265,000 to $290,000 and 58% to 66%. Every monthly range moved.
+No ordering inverted.
+
+**Four more live D2 prose errors, taking the run to nine in four days.** Naples vs. Fort Myers
+carried three mutually contradictory versions of the same budget claim across four surfaces, none
+matching its own table. Nashville vs. Memphis understated Memphis at 7 when v17 has it at 10, a
+perfect score. D2 is the offender in all nine, which continues to trace to the July 13 D2 rebuild
+landing on table rows and not on prose.
+
+**A figure that was never right.** Naples vs. Sarasota claimed a monthly gap of "roughly $1,300"
+that was $700 to $900 before this repair and is $800 to $900 after it. The value matches the gap on
+Naples vs. Fort Myers and appears to have been carried across when the page was built from that
+template. The quarantine list could not have surfaced it: derived, in prose, and wrong from the
+start.
+
+**Correction to batch A.** The caption data-vintage bump required by COMPARISON-PAGE-STANDARD-v2
+was missed on all three of its pages, and stale `dateModified` values with it. Corrected here across
+all six Tier 2 pages. That rule has now been missed by hand twice, on Tier 3 and on Tier 2, and is
+boarded to be gated.
+
 ### 2026-07-31 (sixth push) - Tier 2 batch A, three comparison pages rewritten
 
 **What shipped.** Three comparison pages repaired against `CityDatabase_Jul_27_v17.xlsx`, with both

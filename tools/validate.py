@@ -1809,11 +1809,17 @@ def check_comparison_checkmarks(rep, db, idx, slug_to_city, local):
 # mismatch counts. A RATCHET, not an exemption: see check_comparison_cost_rows.
 # Lower each number as batches land. Delete the entry at zero. Delete this dict
 # when it is empty.
-COST_ROW_BASELINE = {
-    "naples-vs-fort-myers-retirement.html": 4,
-    "naples-vs-sarasota-retirement.html": 4,
-    "nashville-vs-memphis-retirement.html": 4,
-}
+# EMPTIED 2026-07-31. The comparison cost-figure repair is complete: all twenty
+# pages now agree with the database on every cost row, so there is nothing left
+# to quarantine. check_comparison_cost_rows stays and is now a plain assertion
+# rather than a ratchet, which is the point it was built to reach.
+#
+# What the ratchet was for, in case one is ever needed again: it let a known-bad
+# figure stay published while the repair was staged over several batches, without
+# letting a NEW bad figure in beside it. It failed in both directions, so a page
+# leaving quarantine forced the constant down in the same commit and the number
+# never drifted from reality.
+COST_ROW_BASELINE = {}
 
 # Two labels for the same row. The three-page variant says "(citywide)".
 HOME_LABELS = ("Typical home value (citywide)", "Typical home value")
@@ -1934,93 +1940,6 @@ def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
             rep.fail("comparison",
                      f"COST_ROW_BASELINE names {page}, which the hub does not "
                      f"link. A renamed page must not retire its own coverage.")
-
-
-# Profile CTA links pointing at a comparison page whose cost rows are still
-# quarantined. A RATCHET in both directions, riding on COST_ROW_BASELINE:
-# see check_comparison_cta_cost_debt. When COST_ROW_BASELINE is deleted this
-# constant is necessarily 0; delete the constant and the check with it.
-CTA_COST_DEBT_BASELINE = 5
-
-# Any anchor in a profile pointing at a comparison page, leading slash optional.
-PROFILE_COMPARISON_HREF = re.compile(
-    r'href="/?([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)(?:[?#][^"]*)?"')
-
-
-def check_comparison_cta_cost_debt(rep, db, idx, slug_to_city, local):
-    """
-    Do not send readers from a profile to a page with known-bad money on it.
-
-    Two repairs are in flight at once and they pull against each other. The
-    orphaned-CTA item wants CTA blocks added to roughly eleven profiles. The
-    cost-row item has 69 stale figures quarantined in COST_ROW_BASELINE across
-    eighteen pages. Doing the first while the second is open wires new traffic
-    into pages the validator already knows are wrong, and neither item's own
-    check can see that happening: COST_ROW_BASELINE only reads the comparison
-    page, and no check reads the profile's outbound links at all.
-
-    So this counts the EDGES between the two, not the pages. 11 today, down
-    from 21 when it shipped, because Tier 3 retired eight pages. It fails
-    in both directions, for the same reason COST_ROW_BASELINE does:
-
-      - going UP is a new CTA pointed at known-bad figures, which is the thing
-        to stop while the repair is in flight
-      - going DOWN means a page left quarantine (or a CTA was removed) and the
-        constant is now overstating the debt, which is how a ratchet quietly
-        turns into a number nobody trusts
-
-    Note the count falls on its own as batches land, because deleting a
-    COST_ROW_BASELINE entry retires every edge into it. That is intended: the
-    same commit that lowers one lowers the other.
-    """
-    if not COST_ROW_BASELINE:
-        if CTA_COST_DEBT_BASELINE:
-            rep.fail("comparison",
-                     f"COST_ROW_BASELINE is empty but CTA_COST_DEBT_BASELINE is "
-                     f"{CTA_COST_DEBT_BASELINE}. There is no debt left to count. "
-                     f"Delete CTA_COST_DEBT_BASELINE and "
-                     f"check_comparison_cta_cost_debt.")
-        return
-
-    read = 0
-    edges = []
-    for slug, (city, state) in sorted(slug_to_city.items()):
-        html = fetch(f"cities/{slug}/profile.html", local)
-        if html is None:
-            continue
-        read += 1
-        for page in PROFILE_COMPARISON_HREF.findall(html):
-            if page in COST_ROW_BASELINE:
-                edges.append((slug, page))
-
-    if not read:
-        # The failure this codebase keeps rediscovering: iterate over nothing,
-        # count zero, report clean. Zero edges and zero profiles read are the
-        # same number and must not be the same result.
-        rep.fail("comparison",
-                 "check_comparison_cta_cost_debt read zero profiles. It counted "
-                 "nothing rather than finding nothing.")
-        return
-
-    debt = len(edges)
-    if debt == CTA_COST_DEBT_BASELINE:
-        return
-
-    listing = ", ".join(f"{s} -> {p.replace('-retirement.html', '')}"
-                        for s, p in sorted(edges))
-    if debt > CTA_COST_DEBT_BASELINE:
-        rep.fail("comparison",
-                 f"{debt} profile CTA links now point at comparison pages with "
-                 f"quarantined cost rows, against a baseline of "
-                 f"{CTA_COST_DEBT_BASELINE}. A CTA was wired to a page whose "
-                 f"figures the validator already knows are stale. Fix the page's "
-                 f"cost rows first, or hold the CTA. Current edges: {listing}")
-    else:
-        rep.fail("comparison",
-                 f"{debt} profile CTA links point at quarantined comparison "
-                 f"pages, baseline says {CTA_COST_DEBT_BASELINE}. Debt fell. "
-                 f"Lower CTA_COST_DEBT_BASELINE to {debt} in this same commit. "
-                 f"Current edges: {listing}")
 
 
 def check_dead_dimension_guards(rep, db, idx, slug_to_city, local):
@@ -2675,7 +2594,6 @@ def check_stray_artifacts(rep, local):
 
 HARNESSES = ("tools/test_comparison_cost_rows.py",
              "tools/test_comparison_checkmarks.py",
-             "tools/test_comparison_cta_debt.py",
              "tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
              "tools/test_statcard_faq.py")
@@ -2812,7 +2730,6 @@ def main():
         check_comparison_scores(rep, db, idx, slug_to_city, args.local)
         check_comparison_checkmarks(rep, db, idx, slug_to_city, args.local)
         check_comparison_cost_rows(rep, db, idx, slug_to_city, args.local)
-        check_comparison_cta_cost_debt(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:
