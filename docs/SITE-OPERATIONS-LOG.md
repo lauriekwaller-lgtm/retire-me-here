@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (fifth push) - checkmark rule settled, written, and gated
+
+**What shipped.** No new comparison page and no figure change. Twenty-two checkmarks
+removed from eight pages, one added, five captions and five table sub-heads brought onto
+the current template, one wrong score corrected in prose, the rule written into
+`COMPARISON-PAGE-STANDARD-v2`, and `check_comparison_checkmarks` shipped with
+`tools/test_comparison_checkmarks.py` behind it. Gate clean at 0 failures, 0 warnings on
+a fresh clone. Database unchanged: `CityDatabase_Jul_27_v17.xlsx`.
+
+**The rule.** On dimension rows D1-D10, a cell is marked only where the score gap is two
+points or more, the mark sits on the higher score, and shading and the literal tick
+character always travel together. Cost rows are out of scope, having no score gap.
+Climate rows keep the older clause in the standard that allows a marked 9 vs. 10 with
+inline context, because readers feel that one and the numbers alone do not say so.
+
+**Why it diverged.** Not two competing rules. Five pages never got the caption update the
+other fifteen got, kept saying "ties are left unmarked" where the rest say "ties and
+near-ties", and their tables correctly followed their own captions. The July 31 Madison
+edit was defensible against that page's stale caption and wrong against the site.
+
+**What measuring added that the board did not have.** `naples-vs-fort-myers` was
+UNDER-marking a two-point D2 gap, so the check asserts the rule in both directions.
+`santa-fe-vs-tucson` carried a prose score of "Santa Fe's 6" against a table and a
+database that both say 5. All 200 dimension cells otherwise agree with v17, including
+the D4 and D10 rows that were invisible to `check_comparison_scores` until the label fix,
+and shading/tick parity is clean on every page. The two clean audits are now asserted so
+they stay clean.
+
+**Boarded, not fixed.** Cost-row and climate-row marks are inconsistent by a different
+measure and nothing gates them; a cost row needs a percentage threshold nobody has
+written. And the standard is filed with a space in its filename,
+`COMPARISON-PAGE-STANDARD-v2 .md`, which is why several sessions concluded it contained
+no checkmark rule: it was never opened.
+
 ### 2026-07-31 (fourth push) - bloomington-vs-lexington rewritten, Tier 1 complete
 
 **What shipped.** One comparison page rewritten, plus both validator ratchets lowered in the same

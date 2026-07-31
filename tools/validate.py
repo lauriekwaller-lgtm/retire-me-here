@@ -1678,6 +1678,133 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
 
 
 
+# A checkmark is an EDITORIAL claim, not an arithmetic one. It says the gap is big
+# enough for a retiree to plan around, not that one number is larger. Two points on
+# a ten-point dimension is where that becomes true, and it is what most of the site
+# was already doing: measured on 2026-07-31, twelve of twenty pages left every
+# one-point gap unmarked, four marked them, three were internally inconsistent, and
+# one (madison-vs-ann-arbor) had been edited the wrong way that morning.
+#
+# The rule is written in COMPARISON-PAGE-STANDARD-v2, under Table rules. Change it
+# there first; this constant only enforces it.
+CHECKMARK_MIN_GAP = 2
+
+
+def check_comparison_checkmarks(rep, db, idx, slug_to_city, local):
+    """
+    Nothing read a checkmark until 2026-07-31, and two rules were in circulation.
+
+    check_comparison_scores keeps the NUMBERS in these tables correct, and it has:
+    all 200 dimension cells across the twenty pages agreed with the database on the
+    day this check was written. What drifted was the layer on top of the numbers.
+    Five pages never got the caption update that the other fifteen got, so they kept
+    saying "ties are left unmarked" while the rest said "ties and near-ties", and
+    their tables followed their own captions. A page can be arithmetically perfect
+    and still tell the reader something the site does not mean.
+
+    Scope is DIMENSION rows only, D1-D10, where a gap is a difference of scores on a
+    shared 1-10 scale and higher is always better. Deliberately NOT the cost rows
+    (dollar figures have no score gap; check_comparison_cost_rows owns those values)
+    and NOT the climate rows, which keep the older context rule in the standard: a
+    mark on heat 9 vs. 10 is allowed WITH an inline explanation, because readers
+    genuinely feel that one. Both exclusions are stated in the standard, not
+    invented here.
+
+    Four things are asserted on every dimension row:
+
+      1. a marked row has a gap of CHECKMARK_MIN_GAP or more
+      2. a row with a gap that large is marked
+      3. the mark sits on the HIGHER score, never the lower one
+      4. shading and the literal tick character always travel together, on exactly
+         one cell. The standard requires both because CSS-only checkmarks are
+         invisible to scrapers and answer engines, and a cell carrying one without
+         the other is half a mark.
+    """
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    pages = sorted(set(re.findall(
+        r"([a-z0-9-]+)-vs-([a-z0-9-]+)-retirement\.html", hub)))
+
+    if not pages:
+        # Same lesson as everywhere else in this file: reading nothing is a failure,
+        # not a pass.
+        rep.fail("comparison",
+                 "no comparison pages found on compare-retirement-cities.html; "
+                 "check_comparison_checkmarks verified nothing.")
+        return
+
+    for a_slug, b_slug in pages:
+        page = f"{a_slug}-vs-{b_slug}-retirement.html"
+        html = fetch(page, local)
+        if not html:
+            continue
+
+        seen = 0
+        for dim_key, dim_label in DIMS:
+            m = re.search(
+                rf'<td class="metric">{dim_key}(?![0-9])[^<]*</td>\s*'
+                rf'<td class="value([^"]*)">(\d{{1,2}})/10([^<]*)</td>\s*'
+                rf'<td class="value([^"]*)">(\d{{1,2}})/10([^<]*)</td>',
+                html, re.S)
+            if not m:
+                rep.fail("comparison",
+                         f"{page}: no {dim_key} row found, so its checkmark was "
+                         f"not verified.")
+                continue
+            seen += 1
+
+            cells = ((a_slug, m.group(1), int(m.group(2)), m.group(3)),
+                     (b_slug, m.group(4), int(m.group(5)), m.group(6)))
+            gap = abs(cells[0][2] - cells[1][2])
+            marked = []
+
+            for who, cls, score, tail in cells:
+                shaded = "winner" in cls
+                ticked = "\u2713" in tail
+                if shaded != ticked:
+                    half = ("shaded but carries no tick character" if shaded
+                            else "ticked but not shaded")
+                    rep.fail("comparison",
+                             f"{page}: {dim_key} {who} cell is {half}. The "
+                             f"standard requires both: the shading is for the "
+                             f"reader, the character is for the scrapers.")
+                if shaded or ticked:
+                    marked.append((who, score))
+
+            if len(marked) == 2:
+                rep.fail("comparison",
+                         f"{page}: {dim_key} marks BOTH cities. A checkmark names "
+                         f"one stronger city; two marks name none.")
+                continue
+            if not marked:
+                if gap >= CHECKMARK_MIN_GAP:
+                    hi = max(cells, key=lambda c: c[2])
+                    rep.fail("comparison",
+                             f"{page}: {dim_key} is {cells[0][2]} against "
+                             f"{cells[1][2]}, a {gap}-point gap, and neither cell "
+                             f"is marked. At {CHECKMARK_MIN_GAP} points or more "
+                             f"the stronger city ({hi[0]}) takes the mark.")
+                continue
+
+            who, score = marked[0]
+            other = cells[1][2] if who == cells[0][0] else cells[0][2]
+            if gap < CHECKMARK_MIN_GAP:
+                shape = "a tie" if gap == 0 else f"a {gap}-point gap"
+                rep.fail("comparison",
+                         f"{page}: {dim_key} marks {who} on {shape} "
+                         f"({cells[0][2]} against {cells[1][2]}). Ties and "
+                         f"single-point gaps are left unmarked as near-ties; "
+                         f"the caption on this page says so.")
+            elif score < other:
+                rep.fail("comparison",
+                         f"{page}: {dim_key} marks {who} at {score}/10 against "
+                         f"{other}/10. The mark is on the WEAKER city.")
+
+        if seen == 0:
+            rep.fail("comparison",
+                     f"{page}: not one D1-D10 row was readable. The checkmark "
+                     f"check read zero rows here and would otherwise report clean.")
+
+
 # Pages whose cost rows are known stale as of 2026-07-30, with their exact
 # mismatch counts. A RATCHET, not an exemption: see check_comparison_cost_rows.
 # Lower each number as batches land. Delete the entry at zero. Delete this dict
@@ -2550,6 +2677,7 @@ def check_stray_artifacts(rep, local):
 
 
 HARNESSES = ("tools/test_comparison_cost_rows.py",
+             "tools/test_comparison_checkmarks.py",
              "tools/test_comparison_cta_debt.py",
              "tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
@@ -2685,6 +2813,7 @@ def main():
         check_superlatives(rep, db, idx, slug_to_city, args.local)
         check_dead_dimension_guards(rep, db, idx, slug_to_city, args.local)
         check_comparison_scores(rep, db, idx, slug_to_city, args.local)
+        check_comparison_checkmarks(rep, db, idx, slug_to_city, args.local)
         check_comparison_cost_rows(rep, db, idx, slug_to_city, args.local)
         check_comparison_cta_cost_debt(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)

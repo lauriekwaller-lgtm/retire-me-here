@@ -37,6 +37,29 @@ A/B review. The Scottsdale vs. Tucson FINAL file is the reference build.
   preference-match field; on a page that also shows heat severity 10/10 it reads
   as a contradiction and damages credibility. Use a "Winters" row with a short
   plain description instead.
+- **Dimension rows (D1-D10): mark only at a gap of TWO POINTS or more.** The mark
+  is an editorial claim, not an arithmetic one: it says the gap is big enough for
+  a retiree to plan around, not that one number is larger. A one-point gap is a
+  near-tie, and both cells stay unmarked. The two scores are already in the cells;
+  the reader can see them.
+  Settled 2026-07-31 by measuring all twenty live pages rather than by argument.
+  Twelve already left every one-point gap unmarked, four marked them, three were
+  internally inconsistent, and the split tracked FIVE PAGES THAT NEVER GOT THE
+  CAPTION UPDATE the other fifteen got, not two competing rules.
+- The standard caption sentence is exactly: "Checkmarks mark the stronger city in
+  each row; ties and near-ties are left unmarked." A page that omits "and
+  near-ties" is on the old template and its table will drift to match its caption,
+  which is how this divergence happened.
+- **Prose follows the same line.** A one-point difference may be REPORTED with both
+  numbers ("slightly safer, 7 of 10 to 6"; "Tucson edges the airport comparison, 6
+  of 10 to 5"). It may NOT be described as a row a city "takes" or "sweeps", because
+  that is a claim about a mark the table no longer makes. Nothing checks prose; this
+  one is on the writer.
+- Cost rows are OUT of scope: dollar figures have no score gap and no threshold is
+  written yet. Their values are gated by check_comparison_cost_rows; their marks are
+  not gated by anything, and are inconsistent across the twenty pages as of
+  2026-07-31 (see TASKBOARD).
+- Climate rows keep the context rule below, NOT the two-point rule.
 - Don't mark a winner on 1-point gaps that are practically identical (e.g.
   humidity 1 vs. 2 between two deserts). Add short context instead
   ("1/10, very dry"). A winner mark on heat 9 vs. 10 is fine WITH context

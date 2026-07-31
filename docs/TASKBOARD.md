@@ -4,7 +4,12 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, `bloomington-vs-lexington` rewritten and TIER 1 IS CLOSED (BATCH,
+**Last updated:** July 31, 2026, the CHECKMARK RULE settled at two points on dimension rows,
+written into COMPARISON-PAGE-STANDARD-v2 and gated by `check_comparison_checkmarks` (BATCH; 22
+marks off eight pages, one on, five captions and five sub-heads onto the current template, one
+wrong prose score corrected on `santa-fe-vs-tucson`).
+
+**Before that:** July 31, 2026, `bloomington-vs-lexington` rewritten and TIER 1 IS CLOSED (BATCH,
 page 4 of 4. This is the one page where the gap NARROWS, $37,000 to $16,000, with the monthly
 spread halving from $200 to $100, so the board was right that the "meaningfully cheaper" spine
 could not stand. The real find is older than the rebase: the page counts the same money twice, in
@@ -449,6 +454,75 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
+## CLOSED July 31, 2026 (checkmark rule, BATCH) - shipped
+
+- **The rule is TWO POINTS on dimension rows, and it is now written down and gated.**
+  `CHECKMARK_MIN_GAP = 2` in `tools/validate.py`, the prose rule in
+  `COMPARISON-PAGE-STANDARD-v2`, and `check_comparison_checkmarks` with
+  `tools/test_comparison_checkmarks.py` behind it. Twenty-two marks came off eight
+  pages, one went on, five captions and five sub-heads were brought onto the current
+  template. Scope is D1-D10 rows only: cost rows have no score gap, climate rows keep
+  the older context rule that allows a marked 9 vs. 10 WITH an inline explanation.
+
+- **The board said two rules were in circulation. Measuring found one rule and five
+  stale pages.** The caption divergence maps almost exactly onto the mark behaviour:
+  `asheville-vs-greenville`, `madison-vs-ann-arbor`, `santa-fe-vs-tucson`,
+  `sarasota-vs-tampa` and `scottsdale-vs-tucson` still carried the v1 `compare-sub`
+  ("The shaded, checkmarked cell on each row is the stronger one. Ties are left
+  unmarked.") AND the short caption, while the other fifteen had replaced the sub with
+  a pattern sentence and moved to "ties and near-ties". Their tables followed their own
+  captions, correctly. It was never a disagreement about the rule; it was five pages
+  that never got the template update.
+  **Correction to the entry below:** it lists twelve pages and calls them eleven. The
+  list was right, the count was wrong.
+
+- **The rule was under-marking too, which the previous entry did not have.**
+  `naples-vs-fort-myers` D2 Budget reads Naples 5 against Fort Myers 7, a two-point
+  gap, and NEITHER cell was marked, on a page whose own sub-head says Fort Myers
+  "sweeps the money rows". The only case site-wide, which is why the check asserts the
+  rule in BOTH directions rather than only "marked implies a gap of 2+". Mark added to
+  Fort Myers.
+
+- **[P1 -> CLOSED] A live prose error, carry-forward #5 for the third time.**
+  `santa-fe-vs-tucson` read "Tucson takes the budget dimension 8 of 10 to Santa Fe's
+  6." The table on the same page says 5 and so does v17. One surface only, not
+  duplicated into the FAQ. Corrected to 5. Found by scanning prose for the dimensions
+  whose marks were changing, which is the only reason it surfaced at all.
+
+- **Prose survived the removals almost everywhere, and that is the evidence the
+  two-point rule was always the intended one.** Most pages already hedge one-point
+  gaps in words: "slightly safer (7 of 10 to 6)", "Tucson also edges the airport
+  comparison", "Active wellness modestly favors Boulder (8 against 7)". Only
+  `bend-vs-boulder` described the MARKS rather than the numbers, in a sub-head that
+  enumerated rows Boulder and Bend each "take" (four of which lose their mark) and in
+  two "Bend takes healthcare / safety" sentences. Rewritten to name the marked rows and
+  the near-ties separately. The rule this produced is now in the standard: report a
+  one-point gap with both numbers, never as a row a city "takes".
+
+- **Two audits that came back clean and are now gated so they stay that way.** All 200
+  dimension cells across the twenty pages agree with v17, including the D4 and D10 rows
+  `check_comparison_scores` could not see until the label fix. Shading and the literal
+  tick character agree on every marked cell on every page. Both are asserted by the new
+  check.
+
+- **[P2] NEW: cost-row and climate-row marks are inconsistent site-wide by a different
+  measure, and nothing gates either.** Deliberately out of scope here, boarded with the
+  evidence. `knoxville-vs-chattanooga` leaves a $300/mo gap unmarked while
+  `asheville-vs-greenville` marks a $700 one; `bloomington-vs-lexington` marks a
+  $16,000 home-value gap while other pages leave larger ones alone. On climate,
+  `nashville-vs-memphis` and `st-louis-vs-kansas-city` mark one-point rows with NO
+  inline context, against the clause in the standard that permits such a mark only with
+  context. A cost row needs a percentage threshold, not a point threshold, and nobody
+  has written one. Do it as its own BATCH, not inside a Tier 2 page.
+
+- **[P2] NEW: the standard is filed as `docs/COMPARISON-PAGE-STANDARD-v2 .md`, with a
+  SPACE before the extension.** Four sessions have referred to it by the clean name and
+  nothing matches it; `raw.githubusercontent.com` 404s on every obvious spelling. It is
+  why an earlier session concluded the doc had no checkmark rule in it: the doc was
+  never opened. It does have one, the climate-context clause, which this batch had to
+  reconcile with rather than overwrite. Rename to `COMPARISON-PAGE-STANDARD-v2.md` in
+  the next OPS batch and grep the docs for the old string.
+
 ## CLOSED July 31, 2026 (bloomington-vs-lexington, Tier 1) - shipped. TIER 1 COMPLETE.
 
 - **Three quarantined figures, and the only Tier 1 gap that closes.** Bloomington $296,000 ->
@@ -474,8 +548,13 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   only the two-point D3 gap and leaves all three one-point gaps unmarked, matching its own caption:
   "ties and near-ties are left unmarked."
 
-- **[P1] The `madison-vs-ann-arbor` checkmark edit from earlier today went the WRONG WAY and should
-  be reverted.** The rule was boarded as unsettled that morning, and it is now measured across all
+- **[CLOSED Jul 31, second batch] The `madison-vs-ann-arbor` checkmark edit from earlier today went
+  the WRONG WAY and should be reverted.** DONE: reverted, together with that page's D4 and D9 marks,
+  its caption and its sub-head, and all seven other off-convention pages, in the checkmark-rule
+  batch above. Two corrections to what follows. The list of pages leaving every one-point gap
+  unmarked has TWELVE names in it and is called eleven; the list is right. And the divergence was
+  not two rules, it was five pages still on the v1 caption template.
+  The rule was boarded as unsettled that morning, and it is now measured across all
   twenty comparison pages. **Eleven pages leave every one-point gap unmarked** (the two-point rule):
   `bloomington-vs-lexington`, `fort-collins-vs-boulder`, `knoxville-vs-chattanooga`,
   `knoxville-vs-nashville`, `madison-vs-columbus`, `naples-vs-fort-myers`, `naples-vs-sarasota`,
@@ -518,8 +597,12 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   convention, and this page's own caption says otherwise. One of the two is wrong and nothing
   reads either. Boarded below.
 
-- **[P2] NEW: the checkmark rule is not written down anywhere that a check could read it, and two
-  versions of it are in circulation.** This page's caption says stronger city wins the mark, ties
+- **[CLOSED Jul 31, second batch] The checkmark rule is not written down anywhere that a check could
+  read it, and two versions of it are in circulation.** DONE: settled at TWO POINTS on dimension
+  rows, written into `COMPARISON-PAGE-STANDARD-v2` under Table rules, and gated by
+  `check_comparison_checkmarks` with `tools/test_comparison_checkmarks.py` behind it. Cost rows and
+  climate rows are excluded, for reasons recorded in the closed entry above.
+  This page's caption says stronger city wins the mark, ties
   unmarked, full stop. Working notes from an earlier comparison-page pass say marks only appear at
   a two-point score gap. Under the first rule `madison-vs-ann-arbor` was under-marked on D2; under
   the second, its D4 and D9 marks are both wrong. They cannot both be right, `st-louis-vs-kansas-city`
