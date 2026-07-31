@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, Tier 3 of the comparison cost-figure repair shipped (BATCH, step
+**Last updated:** July 30, 2026, `st-louis-vs-kansas-city` rewritten (BATCH, step 3 of 3 and the
+first Tier 1 page. The page was built on the two cities costing the same. Under v17 they do not:
+the citywide gap is $65,000 where the page asserted $15,000, and the monthly estimates are $500
+apart where it said $200. Tradeoff #2 was HEADLINED on "structurally identical", so the swap was
+never available. The neighborhood argument survived and got sharper: St. Louis' retiree
+neighborhoods run $420K to $575K against a $192,000 citywide figure, two to three times the
+median, so the citywide gap favors St. Louis and the neighborhood FLOORS do not. Baseline 39 to
+35 over nine pages. CTA debt unchanged at 11, because no profile links to this page, which is
+itself the orphaned-comparison-page P1.)
+
+**Before that:** July 30, 2026, Tier 3 of the comparison cost-figure repair shipped (BATCH, step
 2 of 3. Eight pages, 30 quarantined table mismatches to zero, both ratchets lowered in the same
 commit: COST_ROW_BASELINE 69 to 39 across ten remaining pages, CTA_COST_DEBT_BASELINE 21 to 11.
 The finding is the SIZE. The board called Tier 3 mechanical at 30 figures, meaning the 30 table
@@ -406,6 +416,45 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 30, 2026 (st-louis-vs-kansas-city, Tier 1) - shipped
+
+- **Four quarantined figures, and the page could not absorb them as a swap.** St. Louis
+  $235,000 -> $192,000, Kansas City $250,000 -> $257,000, and both monthly ranges. The gap moves
+  from $15,000 to $65,000, a 333% change and the reason this was Tier 1. `COST_ROW_BASELINE` 39
+  to 35 over nine pages.
+
+- **The same-price claim was load-bearing on eleven surfaces, not one.** Tradeoff #2's H3, its
+  opening sentence, the meta description, `og:description`, `twitter:description`, the hero
+  tagline, the verdict paragraph twice, FAQ 1 and FAQ 2 in visible text AND in FAQPage schema.
+  The board sized this page as an argument rewrite on the strength of the headline alone, which
+  was right, but the headline was the smallest part of it. Same lesson as Tier 3 one page up: the
+  figure the check reads is one copy among many.
+
+- **The neighborhood argument survives and is now doing real work.** It used to elaborate a
+  non-gap: the cities cost the same, and here is why the citywide number misleads anyway. It now
+  RESOLVES a real one. St. Louis' retiree neighborhoods run $420K to $575K against a $192,000
+  citywide median, two to three times the figure; Kansas City's run $300K to $900K against
+  $257,000. So the $65,000 citywide advantage does not survive into the neighborhoods retirees
+  actually buy in, because St. Louis' floor sits above Kansas City's. That is a better paragraph
+  than the one it replaces.
+
+- **Checkmarks did not move and were checked, not assumed.** St. Louis stays marked on both cost
+  rows because it is still cheaper on both after the swap. D2 stays unmarked at 9 against 8, a
+  one-point gap under the two-point rule. FAQ visible text and FAQPage schema were rewritten in
+  the same pass and normalise equal, so this page does not join the six on the P3 sync item.
+
+- **Two judgment calls, flagged in the script rather than buried.** Tradeoff #1 opened "Most
+  cost-matched pairings split healthcare narrowly", which a $65,000 gap does not support though
+  the budget TIER still does; it now reads "Most pairings this close on budget". FAQ 1's clause
+  "because little else separates them" was dropped rather than rewritten, since D7 and D8 are
+  also two-point gaps and the clause was loose before this batch touched it.
+
+- **CTA debt unchanged at 11, and that is the item talking to itself.** Retiring a page from
+  quarantine normally retires every profile CTA edge into it. This one retires none, because
+  neither `cities/st-louis/profile.html` nor `cities/kansas-city/profile.html` links to it. It is
+  one of the eight orphans on the P1. `cities/kansas-city/profile.html` still carries the stale
+  comment calling this page a placeholder that has not been built.
 
 ## CLOSED July 30, 2026 (Tier 3 cost figures) - shipped
 
@@ -935,8 +984,9 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   retiree budget or Budget tier; zero are in D1-D10. The ZHVI rebase never reached these pages.
   Now held by `COST_ROW_BASELINE` in the validator, so the gate stays honest while they are
   repaired. Attack in three tiers, hardest first, lowering the baseline in each commit:
-    - **Tier 1, argument rewrites, one page per pass.** `st-louis-vs-kansas-city` (gap
-      $15,000 -> $65,000, a 333% change, any "same price" framing is dead);
+    - **Tier 1, argument rewrites, one page per pass.** ~~`st-louis-vs-kansas-city` (gap
+      $15,000 -> $65,000, a 333% change, any "same price" framing is dead)~~ **CLOSED Jul 30**,
+      eleven surfaces, not the one the headline suggested;
       `san-antonio-vs-fort-worth` (gap +145% AND San Antonio drops tier 2 -> 1);
       `madison-vs-ann-arbor` (Ann Arbor rises tier 2 -> 3, gap +39%);
       `bloomington-vs-lexington` (gap $37,000 -> $16,000, near noise on a $321,000 house, so

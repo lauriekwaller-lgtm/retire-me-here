@@ -202,6 +202,42 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-30 (eighth push) - st-louis-vs-kansas-city rewritten
+
+**What shipped.** One comparison page rewritten, plus `COST_ROW_BASELINE` lowered from 39
+mismatches over ten pages to 35 over nine in the same commit. No new files, no database change, no
+scoring change. Every figure read from `CityDatabase_Jul_27_v17.xlsx`. Gate clean at 0 failures, 0
+warnings on a fresh clone.
+
+**Why a rewrite and not a swap.** The page was organised around the two cities costing the same.
+Under v17 St. Louis is $192,000 citywide against Kansas City's $257,000, a $65,000 gap where the
+page asserted $15,000, and the monthly estimates are $500 apart at both ends where it said $200.
+Tradeoff #2 was headlined "The cost story: structurally identical", so there was no figure to
+swap; the premise was the thing that was wrong.
+
+**The claim was load-bearing on eleven surfaces.** The H3 and its opening sentence, the meta
+description, both social card descriptions, the hero tagline, the verdict paragraph twice, and FAQ
+1 and FAQ 2 in both visible text and FAQPage schema. Worth recording because the board sized this
+page from its headline: the headline was correct about the defect and wrong about the size, the
+same way Tier 3's quarantine count was.
+
+**The neighborhood argument got better, not weaker.** It previously explained why a non-gap should
+be ignored. It now resolves a real one: St. Louis' retiree neighborhoods run $420K to $575K
+against a $192,000 citywide median while Kansas City's run $300K to $900K against $257,000, so the
+citywide advantage does not survive into the neighborhoods retirees actually buy in. The NRC
+convention on this page was already settled, "Typical home value (citywide)" plus named
+neighborhoods, so no methodology decision was needed.
+
+**Verified rather than assumed.** Checkmarks stay on St. Louis for both cost rows because it is
+still cheaper on both. D2 stays unmarked at 9 against 8 under the two-point rule. FAQ visible text
+and schema were rewritten together and normalise equal.
+
+**CTA debt unchanged at 11.** Retiring a page from quarantine usually retires the profile CTA
+edges into it. This one has none: neither city profile links to it, because it is one of the eight
+orphans on the open P1. `cities/kansas-city/profile.html` still carries a comment describing this
+page as not yet built.
+
+
 ### 2026-07-30 (seventh push) - Tier 3 comparison cost figures
 
 **What shipped.** 184 figure edits across eight comparison pages, plus both validator ratchets

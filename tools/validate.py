@@ -1692,7 +1692,6 @@ COST_ROW_BASELINE = {
     "nashville-vs-memphis-retirement.html": 4,
     "san-antonio-vs-fort-worth-retirement.html": 3,
     "sarasota-vs-tampa-retirement.html": 4,
-    "st-louis-vs-kansas-city-retirement.html": 4,
 }
 
 # Two labels for the same row. The three-page variant says "(citywide)".
