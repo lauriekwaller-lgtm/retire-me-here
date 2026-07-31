@@ -1690,7 +1690,6 @@ COST_ROW_BASELINE = {
     "naples-vs-fort-myers-retirement.html": 4,
     "naples-vs-sarasota-retirement.html": 4,
     "nashville-vs-memphis-retirement.html": 4,
-    "san-antonio-vs-fort-worth-retirement.html": 3,
     "sarasota-vs-tampa-retirement.html": 4,
 }
 

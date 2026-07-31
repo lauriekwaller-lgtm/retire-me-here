@@ -202,6 +202,43 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (first push) - san-antonio-vs-fort-worth rewritten
+
+**What shipped.** One comparison page rewritten, plus `COST_ROW_BASELINE` lowered from 35
+mismatches over nine pages to 32 over eight in the same commit. No new files, no database change,
+no scoring change. Every figure read from `CityDatabase_Jul_27_v17.xlsx`, and every neighborhood
+figure re-checked against the two city profiles rather than sourced fresh. Gate clean at 0
+failures, 0 warnings on a fresh clone.
+
+**The price ordering was backwards, not stale.** The page had San Antonio at $320,000 against Fort
+Worth's $300,000. Under v17 San Antonio is $251,000, so it is $49,000 cheaper and a full budget
+tier lower, with a monthly estimate $300 to $400 lighter. The board had sized this page by the
+magnitude of the gap change, +145%, which is correct and does not convey that every sentence
+ordering the two cities on price now says the opposite of the truth. Worth carrying into the
+remaining Tier 1 pages: check the sign, not only the size.
+
+**A second error, unrelated to the rebase.** FAQ 1 claimed five exact dimension ties including
+budget. San Antonio scores D2 8 against Fort Worth's 7, which the page's own scored table states
+correctly twelve lines above. `check_comparison_scores` reads the table row and not the paragraph,
+so both passed. This is the second batch running in which prose restating a checked number was the
+thing that had drifted, after the Asheville tier claim in Tier 3.
+
+**The neighborhood argument was already right.** Both bands and all nine neighborhood figures were
+current against the profiles, so tradeoff #3 and FAQ 2 kept their substance and only their opening
+premise changed. The bands still overlap almost exactly, which means the page's conclusion holds
+on better reasoning than before: San Antonio's citywide advantage is a fact about the territory
+each city averages over, not about what a retiree pays.
+
+**One boarded FAQ-sync mismatch closed in passing.** Q2's schema copy wrote the neighborhood bands
+long form and the visible copy wrote them short. Both now use the short form and normalise equal,
+leaving six of the seven boarded Jul 30.
+
+**Open question boarded, not answered.** This page tells the reader that San Antonio's Safety
+score is built on retiree-target neighborhoods and Fort Worth's is not. That is rubric v3.2, but
+v1.2 of the median-home methodology retired the neighborhood carve-out and nobody has recorded
+whether D9 went with it. Left in place and folded into the Rubric v3.3 item.
+
+
 ### 2026-07-30 (eighth push) - st-louis-vs-kansas-city rewritten
 
 **What shipped.** One comparison page rewritten, plus `COST_ROW_BASELINE` lowered from 39

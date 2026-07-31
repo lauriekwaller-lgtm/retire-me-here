@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, `st-louis-vs-kansas-city` rewritten (BATCH, step 3 of 3 and the
+**Last updated:** July 31, 2026, `san-antonio-vs-fort-worth` rewritten (BATCH, Tier 1 page 2 of 4.
+The board sized this one as "gap +145% AND San Antonio drops tier 2 to 1". Both true, and both
+undersold it: the SIGN INVERTS. The page had San Antonio $20,000 more expensive than Fort Worth;
+under v17 it is $49,000 cheaper and a full budget tier lower. Every sentence ordering the two on
+price was backwards rather than stale. A second live error came out of the same read and has
+nothing to do with cost rows: FAQ 1 claimed five exact dimension ties including budget, while the
+page's own D2 row twelve lines above says 8 against 7. Four tie, and San Antonio wins budget. The
+neighborhood-band argument survived untouched, every figure in it re-checked against both
+profiles, so the page's CONCLUSION stands and only its premise was wrong. Baseline 35 to 32 over
+eight pages.)
+
+**Before that:** July 30, 2026, `st-louis-vs-kansas-city` rewritten (BATCH, step 3 of 3 and the
 first Tier 1 page. The page was built on the two cities costing the same. Under v17 they do not:
 the citywide gap is $65,000 where the page asserted $15,000, and the monthly estimates are $500
 apart where it said $200. Tradeoff #2 was HEADLINED on "structurally identical", so the swap was
@@ -416,6 +427,55 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 31, 2026 (san-antonio-vs-fort-worth, Tier 1) - shipped
+
+- **Three quarantined figures, and the price ordering inverts.** San Antonio $320,000 ->
+  $251,000, its monthly $5,100-$6,400 -> $4,700-$5,800, its tier 2 -> 1. Fort Worth was correct on
+  all three. The page presented San Antonio as $20,000 dearer; it is $49,000 cheaper. The board
+  recorded the magnitude, +145%, and not the sign, which is the more useful half: a stale figure
+  reads as approximately right, a reversed one reads as confidently wrong.
+
+- **A live error the cost check could never see, found by reading the page.** FAQ 1 said "five of
+  the ten are exact ties: budget, healthcare, climate resilience, walkability, and active
+  wellness". D2 is San Antonio 8 against Fort Worth 7, which the scored table on the same page
+  states correctly. So the page contradicted itself twelve lines apart, and
+  `check_comparison_scores` passed both times because it reads the table row and not the
+  paragraph. Corrected to four ties, with San Antonio taking budget alongside tax friendliness,
+  outdoor recreation, safety and community. Same shape as the `asheville-vs-greenville` tier
+  claim closed in Tier 3, and the second sighting in two batches: **prose that restates a checked
+  number is unchecked, and it drifts in the same places every time.**
+
+- **The neighborhood argument needed nothing.** Tradeoff #3 and FAQ 2 already carried both bands
+  with figures, and all nine were re-checked against `cities/fort-worth/profile.html` and
+  `cities/san-antonio/profile.html` and are current. The bands still overlap almost exactly, so
+  the page's conclusion, that the cost side should not decide this move, survives its premise
+  being wrong. Only the opening sentence and the H3 were rewritten. Nothing was invented: every
+  neighborhood figure on this page is already published on a profile.
+
+- **One boarded P3 closes for free.** This page's FAQ Q2 is one of the seven visible-versus-schema
+  mismatches boarded Jul 30: the schema wrote the bands long form, `$350,000 to $550,000`, and the
+  visible copy wrote them short, `$350K to $550K`. Q2 was being rewritten anyway, so both now use
+  the short form and normalise equal. **Six remain on that item, not seven:** `bend-vs-boulder`
+  Q2, `scottsdale-vs-santa-fe` Q3 and Q5, `visit-before-you-decide` Q2.
+
+- **Checkmarks added, and that is a judgment call.** The three cost rows carried no mark, which
+  was right when the figures were $20,000 apart inside one tier. San Antonio now wins all three on
+  a $49,000 gap, a $300-$400 monthly gap and a full tier, so it takes the mark on all three, in
+  line with every other comparison page. Easy to reverse if the house rule is that cost rows go
+  unmarked when the neighborhood bands contradict them.
+
+- **[P2] NEW: the D9 neighborhood-basis claim on this page has no settled methodology behind it.**
+  Tradeoff #4 and FAQ 5 both say San Antonio's Safety score is built on its retiree-target areas
+  and Fort Worth's is not, and warn the reader not to compare them directly. That is rubric v3.2's
+  documented treatment of D2, D6 and D9 for high-variance cities. But
+  `MEDIAN-HOME-METHODOLOGY.md` v1.2 retired the eight-city neighborhood carve-out, and
+  `BUDGET-METHODOLOGY.md` section 4 says flatly that no city uses a neighborhood basis, both of
+  which are about MEDIAN HOME. Nobody has said whether D9 went with it. So this page publishes a
+  methodology caveat that may describe a retired practice, on the one dimension where it would
+  change how a reader reads a score. Left untouched here because it is a rubric decision and not
+  a figure, and folded into the Rubric v3.3 item. San Antonio is the only page in the set making
+  this claim.
 
 ## CLOSED July 30, 2026 (st-louis-vs-kansas-city, Tier 1) - shipped
 
@@ -987,7 +1047,9 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
     - **Tier 1, argument rewrites, one page per pass.** ~~`st-louis-vs-kansas-city` (gap
       $15,000 -> $65,000, a 333% change, any "same price" framing is dead)~~ **CLOSED Jul 30**,
       eleven surfaces, not the one the headline suggested;
-      `san-antonio-vs-fort-worth` (gap +145% AND San Antonio drops tier 2 -> 1);
+      ~~`san-antonio-vs-fort-worth` (gap +145% AND San Antonio drops tier 2 -> 1)~~
+      **CLOSED Jul 31**, and the sizing missed that the price ordering INVERTS. Check the sign,
+      not just the magnitude, on the two remaining Tier 1 pages;
       `madison-vs-ann-arbor` (Ann Arbor rises tier 2 -> 3, gap +39%);
       `bloomington-vs-lexington` (gap $37,000 -> $16,000, near noise on a $321,000 house, so
       the "meaningfully cheaper" spine of the page probably cannot stand).
