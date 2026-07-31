@@ -1683,24 +1683,16 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
 # Lower each number as batches land. Delete the entry at zero. Delete this dict
 # when it is empty.
 COST_ROW_BASELINE = {
-    "asheville-vs-greenville-retirement.html": 2,
-    "bend-vs-boulder-retirement.html": 4,
     "bloomington-vs-lexington-retirement.html": 3,
-    "fort-collins-vs-boulder-retirement.html": 4,
     "knoxville-vs-chattanooga-retirement.html": 4,
     "knoxville-vs-nashville-retirement.html": 4,
     "madison-vs-ann-arbor-retirement.html": 5,
-    "madison-vs-columbus-retirement.html": 4,
     "naples-vs-fort-myers-retirement.html": 4,
     "naples-vs-sarasota-retirement.html": 4,
     "nashville-vs-memphis-retirement.html": 4,
     "san-antonio-vs-fort-worth-retirement.html": 3,
-    "santa-fe-vs-tucson-retirement.html": 4,
     "sarasota-vs-tampa-retirement.html": 4,
-    "scottsdale-vs-santa-fe-retirement.html": 4,
-    "scottsdale-vs-tucson-retirement.html": 4,
     "st-louis-vs-kansas-city-retirement.html": 4,
-    "tampa-vs-st-petersburg-retirement.html": 4,
 }
 
 # Two labels for the same row. The three-page variant says "(citywide)".
@@ -1828,7 +1820,7 @@ def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
 # quarantined. A RATCHET in both directions, riding on COST_ROW_BASELINE:
 # see check_comparison_cta_cost_debt. When COST_ROW_BASELINE is deleted this
 # constant is necessarily 0; delete the constant and the check with it.
-CTA_COST_DEBT_BASELINE = 21
+CTA_COST_DEBT_BASELINE = 11
 
 # Any anchor in a profile pointing at a comparison page, leading slash optional.
 PROFILE_COMPARISON_HREF = re.compile(
@@ -1847,7 +1839,8 @@ def check_comparison_cta_cost_debt(rep, db, idx, slug_to_city, local):
     check can see that happening: COST_ROW_BASELINE only reads the comparison
     page, and no check reads the profile's outbound links at all.
 
-    So this counts the EDGES between the two, not the pages. 21 today. It fails
+    So this counts the EDGES between the two, not the pages. 11 today, down
+    from 21 when it shipped, because Tier 3 retired eight pages. It fails
     in both directions, for the same reason COST_ROW_BASELINE does:
 
       - going UP is a new CTA pointed at known-bad figures, which is the thing

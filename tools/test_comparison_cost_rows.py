@@ -47,9 +47,93 @@ import sys
 import tempfile
 
 # A page with zero cost mismatches, used for the "clean page breaks" assertions.
+# Safe to name: it is not in COST_ROW_BASELINE and nothing in the repair plan
+# puts it there. Asserted below anyway.
 CLEAN_PAGE = "st-augustine-vs-pensacola-retirement.html"
-# A quarantined page, used for the ratchet assertions.
-DIRTY_PAGE = "asheville-vs-greenville-retirement.html"
+
+# The quarantined page used by the ratchet assertions is DERIVED, never named.
+# It used to be a literal, `asheville-vs-greenville`, alongside a literal
+# `$464,000` as its correct home value. Tier 3 of the cost-figure repair took
+# that page out of quarantine and this harness failed on the gate, which is the
+# worst place to discover that a test is pinned to the thing it is watching.
+# Every tier batch would have done it again. Derived from COST_ROW_BASELINE and
+# the database at run time, the tiers can land without touching this file.
+
+
+def _rows(repo, page, db_by_slug):
+    """[(label, which, shown, truth, ok)] for every cost cell on a page."""
+    sys.path.insert(0, os.path.join(repo, "tools"))
+    import validate as V                                    # noqa: E402
+    html = open(os.path.join(repo, page), encoding="utf-8").read()
+    a_slug, b_slug = page.replace("-retirement.html", "").split("-vs-")
+    a, b = db_by_slug.get(a_slug), db_by_slug.get(b_slug)
+    out = []
+    for labels in (V.HOME_LABELS, (V.MONTHLY_LABEL,), (V.TIER_LABEL,)):
+        for lab in labels:
+            cells = V._cost_row(html, lab)
+            if cells:
+                break
+        if not cells:
+            continue
+        for which, (shown, row) in enumerate(((cells[0], a), (cells[1], b))):
+            if row is None:
+                continue
+            if lab in V.HOME_LABELS:
+                truth = str(row.get("home_raw", "")).strip()
+                ok = re.sub(r"[^$0-9,]", "", shown) == truth
+            elif lab == V.MONTHLY_LABEL:
+                truth = str(row.get("monthly", "")).strip()
+                ok = V._dashes(shown) == V._dashes(truth)
+            else:
+                truth = f"{row.get('range')} of 5"
+                ok = re.sub(r"[^0-9]", "", shown.split("of")[0]) == str(row.get("range"))
+            out.append((lab, which, shown, truth, ok))
+    return out
+
+
+def _wrong_value(label, truth):
+    """A value guaranteed to disagree with the database, for the given row."""
+    if label.startswith("Typical home value"):
+        return "$1"
+    if label.startswith("Estimated retiree budget"):
+        return "$1\u2013$2/mo"
+    return "5 of 5" if not truth.startswith("5") else "1 of 5"
+
+
+def pick_dirty(repo):
+    """
+    A quarantined page carrying BOTH a wrong cell and a right one.
+
+    The wrong one is set correct, which must demand the baseline be lowered.
+    The right one is broken, which must fail as new drift. A page with only one
+    kind cannot carry both assertions.
+    """
+    sys.path.insert(0, os.path.join(repo, "tools"))
+    import validate as V                                    # noqa: E402
+    db = V.load_db(os.path.join(repo, V.DEFAULT_DB))
+    by_slug = {}
+    for key, row in db.items():
+        if row is None or "_" not in key:
+            continue
+        name = str(row.get("city", ""))
+        by_slug[name.lower().replace(" ", "-").replace(".", "")] = row
+
+    if CLEAN_PAGE in V.COST_ROW_BASELINE:
+        sys.exit(f"{CLEAN_PAGE} is quarantined; it cannot carry the clean-page "
+                 f"assertions. Re-derive this harness.")
+
+    for page in sorted(V.COST_ROW_BASELINE):
+        rows = _rows(repo, page, by_slug)
+        bad = [r for r in rows if not r[4]]
+        good = [r for r in rows if r[4]]
+        if bad and good:
+            fix = bad[0]
+            brk = good[0]
+            return (page,
+                    (fix[0], fix[1], fix[3]),
+                    (brk[0], brk[1], _wrong_value(brk[0], brk[3])))
+    sys.exit("no quarantined page carries both a wrong cell and a right one; "
+             "the ratchet assertions cannot be planted. Re-derive this harness.")
 
 
 def stage(repo):
@@ -141,8 +225,10 @@ def main():
     shutil.rmtree(tmp)
 
     # 4. the ratchet: fixing a quarantined page must demand a lower baseline
+    dirty_page, (fix_lab, fix_which, fix_val), (brk_lab, brk_which, brk_val) = \
+        pick_dirty(repo)
     tmp, r = stage(repo)
-    cell(r, DIRTY_PAGE, "Typical home value", 0, "$464,000")   # correct value
+    cell(r, dirty_page, fix_lab, fix_which, fix_val)          # correct value
     out = run(r)
     check("fixing a quarantined page fails until the baseline is lowered",
           "Lower COST_ROW_BASELINE" in out)
@@ -150,10 +236,10 @@ def main():
 
     # 5. quarantine is not a licence to break the page further
     tmp, r = stage(repo)
-    cell(r, DIRTY_PAGE, "Budget tier (1 = least expensive)", 0, "5 of 5")
+    cell(r, dirty_page, brk_lab, brk_which, brk_val)
     out = run(r)
     check("adding a mismatch to a quarantined page fails",
-          "got WORSE" in out or "budget tier" in out)
+          "got WORSE" in out)
     shutil.rmtree(tmp)
 
     # 6. no rows at all must fail loudly, never read zero and report clean

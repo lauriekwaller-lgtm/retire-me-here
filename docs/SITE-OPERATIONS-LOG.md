@@ -202,6 +202,55 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-30 (seventh push) - Tier 3 comparison cost figures
+
+**What shipped.** 184 figure edits across eight comparison pages, plus both validator ratchets
+lowered in the same commit: `COST_ROW_BASELINE` from 69 mismatches over eighteen pages to 39 over
+ten, and `CTA_COST_DEBT_BASELINE` from 21 to 11. No new files, no database change, no scoring
+change. Every figure read from `CityDatabase_Jul_27_v17.xlsx`. Gate clean at 0 failures, 0
+warnings on a fresh clone.
+
+**Pages.** `asheville-vs-greenville`, `bend-vs-boulder`, `fort-collins-vs-boulder`,
+`madison-vs-columbus`, `santa-fe-vs-tucson`, `scottsdale-vs-santa-fe`, `scottsdale-vs-tucson`,
+`tampa-vs-st-petersburg`.
+
+**30 quarantined mismatches, 184 actual edits.** This is the operational finding. The quarantine
+count comes from `check_comparison_cost_rows`, which reads three table rows per page. Each of
+those figures is restated three to fourteen more times on the same page, in prose, in visible FAQ
+text, in the FAQPage schema, and in `og:description` and `twitter:description`. None of those
+copies is read by any check. The lesson generalises past this batch: a baseline number describes a
+check's coverage, not a defect's size, and using it to plan work will undercount by whatever the
+check cannot see.
+
+**Derived figures are copies of copies.** Six of the eight pages publish the home-price gap as its
+own number, which no database column contains. Those were recomputed, not swapped. Every ratio
+claim was re-derived as well; four came out unchanged and were left alone, which is why the diff
+looks smaller than the audit.
+
+**Three edits were not mechanical.** `asheville-vs-greenville` claimed "Asheville's tier 3" twelve
+lines below a table row correctly reading `2 of 5`, a pre-existing error the cost-row check cannot
+see because it reads the row that was right. `fort-collins-vs-boulder` published a percentage
+computed on the wrong denominator, wrong before the rebase too, and was recomputed rather than
+carried forward. `tampa-vs-st-petersburg` published a single-value monthly delta that is now a
+range. All three are written up on the board.
+
+**The batch broke a harness, and the harness was right to break.**
+`tools/test_comparison_cost_rows.py` hardcoded the page it used for its ratchet assertions, which
+Tier 3 released from quarantine. Every tier batch would have hit this. Both the page and its
+expected values are now derived from `COST_ROW_BASELINE` and the database at run time, so the
+remaining tiers can land without editing the test. A test pinned to the thing it watches fails on
+the gate, and a failure on the gate invites editing the test rather than the code.
+
+**Two Tier 3 pages did not meet the tiering criterion.** Tier 3 was defined as gap movement under
+6%; `santa-fe-vs-tucson` moved 10.9% and `scottsdale-vs-tucson` 6.4%, because Tucson's median fell
+while its pair partners rose. Both batched safely anyway, for a different reason: neither page
+publishes a gap figure. Recorded because it changes how Tier 1 and Tier 2 should be sized.
+
+**Open question closed.** The suspected uniform $100 monthly offset, which would have implied a
+budget recompute rather than drift, is not there. The deltas run 0, +$100, +$200 and -$100 and
+track each city's own median move. Ordinary rebase drift.
+
+
 ### 2026-07-30 (sixth push) - CTA cost-debt gate
 
 **What shipped.** One new file, `tools/test_comparison_cta_debt.py`, and three edits to

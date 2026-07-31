@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 30, 2026, the CTA cost-debt gate shipped (OPS, step 1 of 3 in the cost-row
+**Last updated:** July 30, 2026, Tier 3 of the comparison cost-figure repair shipped (BATCH, step
+2 of 3. Eight pages, 30 quarantined table mismatches to zero, both ratchets lowered in the same
+commit: COST_ROW_BASELINE 69 to 39 across ten remaining pages, CTA_COST_DEBT_BASELINE 21 to 11.
+The finding is the SIZE. The board called Tier 3 mechanical at 30 figures, meaning the 30 table
+cells the check counts; the actual edit was 184, because every table figure has three to fourteen
+copies of itself in prose, in the FAQ, in the FAQPage schema and in the `og:description` meta, and
+NONE of those copies is read by anything. `fort-collins-vs-boulder` alone carries the same gap
+figure fourteen times. The check counts what it can see, and what it can see was 16% of the
+defect. Three edits were not mechanical at all and are written up in the closed entry.)
+
+**Before that:** July 30, 2026, the CTA cost-debt gate shipped (OPS, step 1 of 3 in the cost-row
 repair. Two open items pull against each other: the orphaned-CTA P1 wants CTA blocks added to
 roughly eleven profiles, and the cost-row P0 has 69 stale figures quarantined across eighteen
 comparison pages. Wiring the first while the second is open sends readers into money the validator
@@ -396,6 +406,73 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 30, 2026 (Tier 3 cost figures) - shipped
+
+- **Eight pages, 184 edits, 30 quarantined mismatches to zero.** `asheville-vs-greenville`,
+  `bend-vs-boulder`, `fort-collins-vs-boulder`, `madison-vs-columbus`, `santa-fe-vs-tucson`,
+  `scottsdale-vs-santa-fe`, `scottsdale-vs-tucson`, `tampa-vs-st-petersburg`. Every figure taken
+  from `CityDatabase_Jul_27_v17.xlsx`, none from research. Both ratchets lowered in this commit:
+  `COST_ROW_BASELINE` 69 to 39 over ten pages, `CTA_COST_DEBT_BASELINE` 21 to 11.
+
+- **30 versus 184 is the entry worth keeping.** The board sized Tier 3 from the check's own count,
+  which reads three table rows per page. The same figures are restated three to fourteen times per
+  page in prose, in visible FAQ text, in the FAQPage schema and in `og:description` and
+  `twitter:description` meta tags. `fort-collins-vs-boulder` carries its gap figure fourteen
+  times; `bend-vs-boulder` and `scottsdale-vs-santa-fe` carry theirs ten. A quarantine count is a
+  count of what one check can see, and it was 16% of the real surface here. Size Tier 1 and Tier 2
+  by grepping the page, not by reading the baseline.
+
+- **DERIVED figures move too, and they are not in any table.** The gap between two home values is
+  a published number on six of these eight pages and is a copy of a copy. Recomputed rather than
+  left: Bend $238,000 to $235,000, Fort Collins $411,000 to $403,000, Madison $178,000 to
+  $184,000, Santa Fe $262,000 to $268,000. Every ratio claim was re-derived and four survived
+  unchanged, which is why they are not in the diff: Bend stays "roughly 25% less" (24.2%),
+  Scottsdale/Santa Fe stays "roughly 31% less" (31.2%), Tucson stays "about 38% of Scottsdale"
+  (38.0%), and Santa Fe/Tucson's "nearly double" and "barely half" both get MORE true, 1.71x to
+  1.81x.
+
+- **Three edits were not mechanical and are called out rather than buried.**
+    - `asheville-vs-greenville` prose read "Asheville's tier 3" against a DB tier of 2 and a table
+      row reading `2 of 5` on the same page. Wrong before the rebase and nothing to do with it.
+      `check_comparison_cost_rows` reads the table row, which was correct, so the check was
+      passing over a false claim twelve lines below the true one. Exactly the shape of the
+      `st-augustine-vs-pensacola` duplicate-row incident: the unchecked copy of a checked number.
+    - `fort-collins-vs-boulder` read "roughly $411,000 or 74% less". $411,000 is 74% of Fort
+      Collins' own price, not of the gap to Boulder, so the sentence was arithmetically wrong in
+      the old figures too. Recomputed on the correct basis as "41% less" rather than swapped to a
+      new wrong number. Judgment call: the alternative was carrying the broken basis forward at
+      "71%".
+    - `tampa-vs-st-petersburg` read "about $300 lower across the range". Under v17 the gap is $200
+      at the low end and $300 at the high, so it now reads "about $200 to $300 lower".
+
+- **Tier 3 broke the cost-row harness, and that is a finding, not an accident of ordering.**
+  `tools/test_comparison_cost_rows.py` named `asheville-vs-greenville` as its quarantined page and
+  carried `$464,000` as that page's correct home value, both as literals. Releasing the page from
+  quarantine made assertion 4 unplantable and the harness failed on the gate. EVERY tier batch
+  would have done this, and a harness that fails on the gate is the worst possible place to learn
+  that a test is pinned to the thing it watches, because the obvious move is to edit the test until
+  it goes green. Both the page and the values are now derived from `COST_ROW_BASELINE` and the
+  database at run time: the harness looks for a quarantined page carrying both a wrong cell and a
+  right one, sets the wrong one correct to test the downward ratchet, and breaks the right one to
+  test the upward. Tier 1 and Tier 2 will not need to touch it. Assertion 5 also tightened from
+  `"got WORSE" in out or "budget tier" in out` to `"got WORSE"` alone; the `or` branch would have
+  passed on any budget-tier failure anywhere in the run, including one the assertion did not cause.
+  The new `test_comparison_cta_debt.py` was written this way from the start for the same reason.
+
+- **The board's tiering criterion does not survive the arithmetic on two pages.** Tier 3 was
+  defined as gap movement under 6%. `santa-fe-vs-tucson` moves 10.9% ($238,000 to $264,000) and
+  `scottsdale-vs-tucson` moves 6.4% ($500,000 to $532,000), because Tucson is the only Tier 3 city
+  whose median went DOWN in the rebase while everything around it went up. Both were still safe to
+  batch, but for a different reason than the one boarded: neither page publishes a gap figure at
+  all, so there was nothing derived to rewrite. Movement is the wrong proxy. What decides whether
+  a page is mechanical is whether it ARGUES from the number.
+
+- **The "$100 recompute" open question is answered, and the answer is no.** The board suspected
+  the monthly estimates were off by a uniform $100, implying a `BUDGET-METHODOLOGY.md` recompute
+  rather than drift. Across the eight pages the monthly deltas run 0, +$100, +$200 and -$100, in
+  both directions, and they track each city's own median-home move. This is ordinary rebase drift.
+  Tier 3 does not grow.
 
 ## CLOSED July 30, 2026 (CTA cost-debt gate) - shipped
 
@@ -868,8 +945,11 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
       `knoxville-vs-nashville`, `knoxville-vs-chattanooga` on gap movement of 30-50%; plus
       `naples-vs-fort-myers`, `naples-vs-sarasota`, `nashville-vs-memphis`, which move under 12%
       but cite the gap 8 to 14 times each, so volume puts them here.
-    - **Tier 3, mechanical, one script.** The remaining 8, all under 6% gap movement, several
-      citing the gap zero times.
+    - **Tier 3, mechanical, one script. CLOSED Jul 30**, 8 pages, 184 edits, baseline 69 -> 39.
+      Read the closed entry before sizing Tier 1 or Tier 2: the quarantine count is table rows
+      only and undercounted the real surface by a factor of six, and the "under 6% gap movement"
+      criterion was wrong on two of the eight. Size by grepping the page for the figure, and tier
+      by whether the page ARGUES from it.
   OPEN QUESTION before Tier 3: most monthly estimates are off by exactly $100, which smells like
   a `BUDGET-METHODOLOGY.md` recompute rather than drift. Confirm, and Tier 3 grows.
   GATED Jul 30 by `check_comparison_cta_cost_debt`: 21 profile CTA links point into the 18
