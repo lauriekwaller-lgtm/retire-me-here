@@ -30,7 +30,18 @@ A/B review. The Scottsdale vs. Tucson FINAL file is the reference build.
   literal character travels with the text.
 - Caption must include: scoring sentence, checkmark/tie explanation, and a
   data-freshness line: "Data: RetireMeHere city database, [Month Year]." Update
-  the month whenever scores are refreshed from a new DB version.
+  the month whenever scores are refreshed from a new DB version, AND bump the
+  schema `dateModified` in the same edit. Both are gated by
+  `check_comparison_vintage` against `DB_VERSION_DATE`; they were missed by hand
+  twice while this rule was prose only.
+- **A score restated in prose is not checked by the row it restates.** Eleven live
+  contradictions between a page's prose and its own table were found in four days,
+  every one of them on D2. Gated by `check_comparison_prose_scores`. Write the same
+  numbers the table carries, or do not write numbers.
+- **Never state a city count**, in copy, in schema, or in a meta description. Not
+  "100-city", not "99-city", not "our 100-city database". It rots on the next city
+  added and it is the same disease as a self-scoped superlative. Same for a matchup
+  count: the hub said "Nineteen" against a real twenty.
 - Budget tier label is "(1 = least expensive)" and values read "X of 5". There
   are FIVE tiers. Never write "of 4".
 - Do NOT include the "Mild year-round" climate score as a row. It is a quiz

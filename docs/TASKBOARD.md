@@ -4,7 +4,13 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, the COMPARISON COST-FIGURE REPAIR IS COMPLETE
+**Last updated:** July 31, 2026, three prose-only conventions closed and gated (OPS;
+23 hardcoded city counts across 11 files, a matchup count wrong by one on the hub, two
+more D2 prose-score errors taking that run to eleven, and 23 stale data-vintage values;
+`check_comparison_prose_scores` and `check_comparison_vintage` shipped,
+`check_hardcoded_counts` rewritten after being blind three separate ways).
+
+**Before that:** July 31, 2026, the COMPARISON COST-FIGURE REPAIR IS COMPLETE
 (BATCH; Tier 2 batch B closed naples-vs-fort-myers, naples-vs-sarasota and
 nashville-vs-memphis; COST_ROW_BASELINE emptied and the CTA cost-debt ratchet,
 check and harness deleted; four more live D2 prose errors, a monthly gap that was
@@ -464,6 +470,64 @@ classes read identically on this board, and the effect was that the $100 ones fe
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
 
 ---
+
+## CLOSED July 31, 2026 (hardcoded counts, prose scores, data vintage - OPS) - shipped
+
+- **Three conventions that lived only as prose in a doc, all three drifted, all three now gated.**
+  `check_hardcoded_counts` rewritten, `check_comparison_prose_scores` and
+  `check_comparison_vintage` shipped, each with a planted-error harness. Plus a new
+  `meta_content()` surface helper. 40 content edits across 15 files.
+
+- **[P1 -> CLOSED] The count was 23 instances across 11 files, not 3.** The earlier sizing on
+  this board was wrong, from a `grep -lc` that collapsed its own output; correcting it is how the
+  real number surfaced. `check_hardcoded_counts` was shipped, passing, and blind to every one of
+  them THREE separate ways: the regex matched `100 cities` but not the adjectival `100-city`; the
+  page set read index, the profiles and the comparison pages but silently excluded the hub
+  ITSELF, `pick-and-compare.html` and `where-should-i-retire-quiz.html`, which held twelve of the
+  23; and no text surface on the site ever read `<meta ... content="...">`, which held four more.
+  **A check that reads the wrong pages reports clean for the same reason a check that reads no
+  pages does.** Two instances read `99-city`, correct today, retired with the rest.
+
+- **[P1 -> CLOSED] `pick-and-compare.html` line 920 was wrong three ways in nine words.**
+  "Scores are 1 to 10 from the RetireMeHere 100-city database (v14)": the count is wrong, the
+  version is three releases stale against v17, and the hyphen hid the whole string from the one
+  check that would have caught it.
+
+- **[P1 -> CLOSED] The hub told readers "Nineteen honest head-to-head matchups" on two surfaces.**
+  There are twenty, and the hub links all twenty. Both are `og:description` and
+  `twitter:description`, so the wrong number was what Google, Facebook and every answer engine
+  quoted back. Now count-free. **Judgment call to override if you want it:** a corrected "Twenty"
+  is wrong again on page 21, which is the failure this policy exists to prevent, so the number
+  came out rather than getting bumped.
+
+- **[P1 -> CLOSED] Prose scores are now gated, and the check found instances ten and eleven while
+  it was being written.** `madison-vs-columbus` said Columbus had "a budget score of 7 to
+  Madison's 6" above a row reading 8; `scottsdale-vs-tucson` said "cost (8 of 10 vs. 3 of 10)" on
+  two surfaces against a row reading 4. **Eleven instances in four days and D2 in all eleven**,
+  which continues to trace to the July 13 D2 rebuild editing table rows and nothing else.
+  The check binds a number pair TIGHTLY to the dimension word; an earlier cut used a proximity
+  window and flagged 219 claims on 20 pages, nearly all of them the neighbouring dimension in a
+  list. It now matches 90 real claims site-wide and, after this batch, disagrees with none.
+
+- **[P2 -> CLOSED] Data vintage gated.** Eleven captions said June 2026 and twelve `dateModified`
+  values predated `CityDatabase_Jul_27_v17.xlsx`, on pages whose every cost row is asserted
+  against that database and passes. The caption was understating the data and the schema was
+  telling Google the pages were older than they are. New `DB_VERSION_DATE` constant sits beside
+  `DEFAULT_DB` and self-checks against the filename, so the two cannot drift apart.
+
+- **[P2] NEW: two em-dash fallbacks in `index.html` that would render if they ever fired.**
+  `city.medianHome || '—'` and `city.monthlyEst || '—'` in the enrichment stat-card
+  builder. Every city in v17 has both fields, so neither has ever fired, which is why
+  `check_emdash` has never seen one: it scopes out script placeholders and these are only em
+  dashes at render time. Harmless today and a rendered em dash on the day a field goes blank.
+  Two-character fix to `'n/a'` whenever `index.html` is next open. The other 271 literals on the
+  site are all in CSS and HTML comments, correctly scoped out, and were audited during this batch.
+
+- **[P2] NEW: the meta description surface is newly readable and only ONE check reads it.**
+  `meta_content()` exists now, and `check_hardcoded_counts` uses it. `check_superlatives` and
+  `check_emdash` do not, and both have exactly the same blind spot they had before this batch.
+  Cheap to extend, worth doing deliberately rather than discovering it the same way again: read
+  the descriptions on all 69 pages by hand once, first, so the size is known before the regex runs.
 
 ## CLOSED July 31, 2026 (Tier 2 batch B: naples-vs-fort-myers, naples-vs-sarasota, nashville-vs-memphis) - shipped. COST-FIGURE REPAIR COMPLETE.
 

@@ -202,6 +202,36 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-07-31 (eighth push) - hardcoded counts, prose scores, data vintage
+
+**What shipped.** Two new checks, one rewritten check, one new surface helper, three planted-error
+harnesses, and 40 content edits across 15 files. No database change, no scoring change, no new page.
+Gate clean at 0 failures, 0 warnings on a fresh clone.
+
+**The count.** 23 live instances of the adjectival "100-city" (and two of "99-city") across 11
+files. `check_hardcoded_counts` had been shipped and passing throughout, blind three ways: its
+regex knew only "100 cities", its page set excluded the comparison hub itself, `pick-and-compare`
+and the quiz, and no text surface on the site read meta description attributes. All three closed.
+`pick-and-compare.html` line 920 was the worst single instance: wrong count, stale version "(v14)"
+against v17, and hidden by the hyphen. The hub's `og:description` and `twitter:description` claimed
+"Nineteen honest head-to-head matchups" against a real twenty.
+
+**Prose scores.** `check_comparison_prose_scores` asserts that a score restated in prose matches the
+table row it restates, set-equal, on comparison pages only. It found two more live instances while
+being written, `madison-vs-columbus` and `scottsdale-vs-tucson`, taking the run to eleven in four
+days with D2 the offender in all eleven. The binding is adjacency, not proximity: a window-based
+first cut flagged 219 claims, nearly all of them a neighbouring dimension in the same list.
+
+**Data vintage.** `check_comparison_vintage` asserts the caption month and the schema
+`dateModified` are not older than `DB_VERSION_DATE`, a new constant beside `DEFAULT_DB` that
+self-checks against the database filename. Eleven captions and twelve dateModified values were
+behind. The rule was already written in COMPARISON-PAGE-STANDARD-v2 and had been missed by hand
+twice.
+
+**The pattern across all three.** Every one of these was a convention that existed only as prose in
+a governing doc, and every one drifted within weeks of being written down. The check is the
+convention; the doc is the explanation.
+
 ### 2026-07-31 (seventh push) - Tier 2 batch B; the comparison cost-figure repair is complete
 
 **What shipped.** The last three comparison pages repaired against `CityDatabase_Jul_27_v17.xlsx`,

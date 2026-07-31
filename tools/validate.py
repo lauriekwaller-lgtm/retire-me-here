@@ -55,6 +55,12 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # that adds the new xlsx.
 DEFAULT_DB = "docs/CityDatabase_Jul_27_v17.xlsx"
 
+# The date in DEFAULT_DB's filename, as a date. check_docs asserts the two agree,
+# so this cannot drift from the file it describes; bump both in the same commit.
+# It exists because a page's stated data vintage has to be checked against
+# SOMETHING, and the filename is the only place the database records its own age.
+DB_VERSION_DATE = date(2026, 7, 27)
+
 # Tolerated deviation on home-value prose before we call it stale.
 HOME_TOLERANCE = 0.03
 
@@ -1491,6 +1497,30 @@ BANNED_SUPERLATIVE = re.compile(
 # below asks a human to check them for truth.
 
 
+def meta_content(html):
+    """
+    Text that reaches readers through meta/og/twitter description attributes.
+
+    visible_text() strips whole tags, so everything inside a `content="..."`
+    attribute is invisible to it, and script_strings() only reads <script>. That
+    left the description attributes unread by every text-scanning check on the
+    site. Four hardcoded city counts lived there undetected, two of them also
+    carrying a matchup count that was wrong by one.
+
+    These strings are what Google, Facebook and every AI answer engine quote back
+    as the page's summary, so a claim here reaches more readers than most body
+    copy does.
+    """
+    out = []
+    for tag in re.findall(r"<meta\b[^>]*>", html, re.I):
+        if not re.search(r'(?:name|property)\s*=\s*"[^"]*(?:description|title)"',
+                         tag, re.I):
+            continue
+        m = re.search(r'content\s*=\s*"([^"]*)"', tag, re.I)
+        if m:
+            out.append(html_unescape(m.group(1)))
+    return " ... ".join(out)
+
 def script_strings(html):
     """
     Prose that lives inside <script> as data, then renders to the reader through JS.
@@ -1546,6 +1576,201 @@ def emdash_forms(surface):
     return found
 
 
+# ---- prose scores -------------------------------------------------------
+
+# A dimension named in prose, and the vocabulary each one is actually written
+# with on these pages. Deliberately NARROW. "budget" excludes "budget tier",
+# which is a 1-5 field and would collide with the 1-10 scale on every page.
+PROSE_DIMS = (
+    ("D1", r"airport(?: access)?"),
+    ("D2", r"budget(?!\s+tier)|affordabilit(?:y|ies)|cost of living|(?<![\w$])cost"),
+    ("D3", r"healthcare"),
+    ("D4", r"climate resilience|disaster resilience"),
+    ("D5", r"tax(?:es|-friendliness| friendliness)?"),
+    ("D6", r"walkabilit(?:y|ies)"),
+    ("D7", r"outdoor recreation"),
+    ("D8", r"active wellness|wellness(?: infrastructure)?"),
+    ("D9", r"safety"),
+    ("D10", r"community(?:[- ]and[- ]culture)?"),
+)
+
+_SEP = r"(?:to|against|vs\.?|versus)"
+_CITY = r"(?:[A-Z][\w.]*(?:\s+[A-Z][\w.]*){0,2}(?:'s|')\s*)?"
+_NUM = r"(\d{1,2})(?:\s*of\s*10)?"
+
+# Three shapes, all of which bind the pair TIGHTLY to the dimension word. An
+# earlier cut used a proximity window instead and flagged 219 claims on 20 pages,
+# nearly all of them the neighbouring dimension in a list like "taxes (8 of 10
+# vs. 5), healthcare (8 vs. 7), outdoor recreation (9 of 10 vs. 7)". Adjacency is
+# what makes this check usable; a window is not.
+PROSE_SHAPES = (
+    r"{k}\s*(?:dimension\s+)?(?:scores?|scoring)\s+(?:of\s+)?" + _NUM
+    + r"\s*" + _SEP + r"\s*" + _CITY + _NUM,
+    r"{k}\s*\(\s*(?:a\s+perfect\s+)?" + _NUM
+    + r"\s*" + _SEP + r"\s*" + _CITY + _NUM + r"\s*[),]",
+    r"{k}\s+at\s+" + _NUM + r"\s*" + _SEP + r"\s*" + _CITY + _NUM,
+)
+
+
+def check_comparison_prose_scores(rep, db, idx, slug_to_city, local):
+    """
+    A score restated in prose must match the table row it restates.
+
+    ELEVEN live instances of this in four days, and D2 EVERY SINGLE TIME:
+
+      sarasota-vs-tampa       "budget dimension scores 6 to Sarasota's 5"   (x3)
+      knoxville-vs-chattanooga "budget scores 9 against 8"
+      naples-vs-fort-myers    "7 vs. 3", "6 vs. 5", "7 against Naples' 3"   (x4)
+      nashville-vs-memphis    "budget score of 7 against Nashville's 5"
+      madison-vs-columbus     "budget score of 7 to Madison's 6"
+      scottsdale-vs-tucson    "cost (8 of 10 vs. 3 of 10)"
+
+    naples-vs-fort-myers managed to disagree with itself three different ways on
+    one page. Every one of these sat above or below a table row that was correct,
+    and check_comparison_scores read the row and passed, because a checked number
+    restated in prose is an UNCHECKED number. The July 13 D2 rebuild edited table
+    rows and nothing else, which is why the whole run is D2.
+
+    The assertion is set equality, not ordered: {prose} == {table}. Ordered would
+    additionally catch a swap ("Tucson 8 to Santa Fe 5" when it is Santa Fe that
+    scores 8), but naming which city owns which number means resolving city names
+    in free prose, and a check that is wrong occasionally is worse than one that
+    is narrow. Set equality caught all eleven.
+
+    Scope is the comparison pages, where a table exists to check prose against.
+    Profiles have no such table; their scores are checked at the source.
+    """
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    pages = sorted(set(re.findall(
+        r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub)))
+    if not pages:
+        rep.fail("comparison",
+                 "no comparison pages found on compare-retirement-cities.html; "
+                 "check_comparison_prose_scores verified nothing.")
+        return
+
+    read = 0
+    for page in pages:
+        html = fetch(page, local)
+        if not html:
+            continue
+        read += 1
+        prose = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(
+            r"<style.*?</style>", " ", html, flags=re.S)))
+
+        for key, words in PROSE_DIMS:
+            m = re.search(
+                rf'<td class="metric">{key}(?![0-9])[^<]*</td>\s*'
+                rf'<td class="value[^"]*">(\d{{1,2}})/10[^<]*</td>\s*'
+                rf'<td class="value[^"]*">(\d{{1,2}})/10[^<]*</td>',
+                html, re.S)
+            if not m:
+                continue
+            table = {int(m.group(1)), int(m.group(2))}
+
+            for shape in PROSE_SHAPES:
+                pat = shape.replace("{k}", "(?:" + words + ")")
+                for pm in re.finditer(pat, prose, re.I):
+                    said = {int(pm.group(1)), int(pm.group(2))}
+                    if said != table:
+                        quote = re.sub(r"\s+", " ", pm.group(0)).strip()
+                        rep.fail("comparison",
+                                 f"{page}: prose says \"{quote}\" but the "
+                                 f"{key} row reads "
+                                 f"{m.group(1)}/10 and {m.group(2)}/10. A score "
+                                 f"restated in prose is not checked by the row "
+                                 f"it restates.")
+
+    if not read:
+        rep.fail("comparison",
+                 "check_comparison_prose_scores read zero comparison pages. It "
+                 "verified nothing rather than finding nothing.")
+
+
+# ---- data vintage -------------------------------------------------------
+
+CAPTION_VINTAGE = re.compile(r"city database,\s*(\w+)\s+(\d{4})")
+DATE_MODIFIED = re.compile(r'"dateModified"\s*:\s*"(\d{4})-(\d{2})-(\d{2})"')
+MONTHS = ("January", "February", "March", "April", "May", "June", "July",
+          "August", "September", "October", "November", "December")
+
+
+def check_comparison_vintage(rep, db, idx, slug_to_city, local):
+    """
+    A page's stated data vintage must not predate the database it was read from.
+
+    COMPARISON-PAGE-STANDARD-v2 says to update the caption month "whenever scores
+    are refreshed from a new DB version". That rule lived only as prose in a doc,
+    and was missed BY HAND TWICE: on the Tier 3 cost-figure batch and again on
+    Tier 2 batch A, where three pages shipped refreshed July figures still
+    captioned June 2026, with dateModified values up to seven weeks stale.
+
+    Every comparison page's cost rows are asserted against the CURRENT database by
+    check_comparison_cost_rows, and that check passes. So every page's figures
+    are, by construction, verified against DB_VERSION_DATE. A caption claiming an
+    older vintage is therefore understating the data, and a stale dateModified
+    tells Google the page is older than it is.
+
+    Both surfaces are checked because they drift independently: the caption is
+    visible copy and dateModified is schema, and Tier 2 batch A managed to leave
+    one right and the other wrong on the same page.
+    """
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    pages = sorted(set(re.findall(
+        r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub)))
+    if not pages:
+        rep.fail("comparison",
+                 "no comparison pages found on compare-retirement-cities.html; "
+                 "check_comparison_vintage verified nothing.")
+        return
+
+    floor = f"{DB_VERSION_DATE.year:04d}-{DB_VERSION_DATE.month:02d}"
+    read = 0
+    for page in pages:
+        html = fetch(page, local)
+        if not html:
+            continue
+        read += 1
+
+        cap = CAPTION_VINTAGE.search(html)
+        if not cap:
+            rep.fail("comparison",
+                     f"{page}: no \"Data: RetireMeHere city database, "
+                     f"[Month Year]\" caption found. The standard requires one, "
+                     f"and a missing caption reads as no vintage at all.")
+        else:
+            month, year = cap.group(1), int(cap.group(2))
+            if month not in MONTHS:
+                rep.fail("comparison",
+                         f"{page}: caption vintage month \"{month}\" is not a "
+                         f"month name.")
+            elif f"{year:04d}-{MONTHS.index(month) + 1:02d}" < floor:
+                rep.fail("comparison",
+                         f"{page}: caption says the data is from {month} {year}, "
+                         f"but its figures are checked against "
+                         f"{os.path.basename(DEFAULT_DB)} "
+                         f"({DB_VERSION_DATE.isoformat()}). Bump the caption "
+                         f"month when figures are refreshed.")
+
+        dm = DATE_MODIFIED.search(html)
+        if not dm:
+            rep.fail("comparison",
+                     f"{page}: no schema dateModified found. "
+                     f"COMPARISON-PAGE-STANDARD-v2 requires it on the Article "
+                     f"node.")
+        elif "-".join(dm.groups()) < DB_VERSION_DATE.isoformat():
+            rep.fail("comparison",
+                     f"{page}: dateModified {'-'.join(dm.groups())} predates "
+                     f"{os.path.basename(DEFAULT_DB)} "
+                     f"({DB_VERSION_DATE.isoformat()}), so the page claims to be "
+                     f"older than the figures it carries.")
+
+    if not read:
+        rep.fail("comparison",
+                 "check_comparison_vintage read zero comparison pages. It "
+                 "verified nothing rather than finding nothing.")
+
+
 def check_hardcoded_counts(rep, db, idx, slug_to_city, local):
     """
     A hardcoded city count is a claim that rots. Same disease as a self-scoped
@@ -1558,20 +1783,56 @@ def check_hardcoded_counts(rep, db, idx, slug_to_city, local):
 
     Policy: no number. "every city on RetireMeHere". Nothing to drift, nothing to
     maintain, correct forever.
+
+    THREE blind spots, all closed 2026-07-31, all found by hand rather than by
+    this check, which is the reason the count survived here for six weeks after
+    the July 13 sweep:
+
+      1. THE HYPHEN. "100-city database" is the adjectival form and the old
+         pattern only matched "100 cities". 23 live instances.
+      2. THE PAGE SET. It read index.html, the profiles, and the comparison pages
+         linked from the hub, which silently excluded the hub ITSELF,
+         pick-and-compare.html and where-should-i-retire-quiz.html. Twelve of the
+         23 were on exactly those three pages.
+      3. THE META ATTRIBUTE. visible_text() strips whole tags, so
+         `<meta name="description" content="... 100-city ...">` was invisible to
+         both surfaces. Four of the 23 lived there, including two that were also
+         wrong about the matchup count.
+
+    The lesson worth keeping: this check was written, shipped, and passing while
+    23 violations of the exact rule it enforces were live. A check that reads the
+    wrong pages reports clean for the same reason a check that reads no pages
+    does.
     """
-    pat = re.compile(r"\b(?:9[0-9]|1[0-9]{2})\+? (?:scored |ranked |US |U\.S\. )?cities\b", re.I)
+    pat = re.compile(
+        r"\b(?:9[0-9]|1[0-9]{2})\+?[- ](?:scored |ranked |US |U\.S\. )?cit(?:y|ies)\b",
+        re.I)
+
     pages = {"index.html": idx}
     for slug in slug_to_city:
         h = fetch(f"cities/{slug}/profile.html", local)
         if h:
             pages[f"cities/{slug}/profile.html"] = h
     hub = fetch("compare-retirement-cities.html", local) or ""
-    for page in sorted(set(re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub))):
+    # The hub, the picker and the quiz are the three highest-traffic pages that
+    # make this claim, and none of them was being read.
+    standalone = ["compare-retirement-cities.html", "pick-and-compare.html",
+                  "where-should-i-retire-quiz.html"]
+    for page in sorted(set(re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub))
+                       ) + standalone:
         h = fetch(page, local)
         if h:
             pages[page] = h
-    for page, html in pages.items():
-        for surface in (visible_text(html), script_strings(html)):
+
+    if len(pages) < 2:
+        rep.fail("counts",
+                 "check_hardcoded_counts read fewer than two pages. It counted "
+                 "nothing rather than finding nothing.")
+        return
+
+    for page, html in sorted(pages.items()):
+        for surface in (visible_text(html), script_strings(html),
+                        meta_content(html)):
             for m in pat.finditer(re.sub(r"\s+", " ", surface)):
                 rep.fail("counts",
                          f'{page}: "{m.group(0)}" — hardcoded city count. It drifts every '
@@ -2436,6 +2697,22 @@ def check_docs(rep, db_path, idx, sitemap, slug_to_city, local):
                          f"DEFAULT_DB points at {db_name}, but docs/ contains "
                          f"{dbs[0]}. One of the two is wrong.")
 
+    stamp = re.search(r"CityDatabase_([A-Za-z]{3})_(\d{1,2})_", db_name)
+    if not stamp:
+        rep.fail("docs",
+                 f"cannot read a date out of {db_name}. DB_VERSION_DATE has "
+                 f"nothing to check itself against, and every comparison page's "
+                 f"data vintage is measured from it.")
+    else:
+        mon = ["jan", "feb", "mar", "apr", "may", "jun",
+               "jul", "aug", "sep", "oct", "nov", "dec"].index(
+                   stamp.group(1).lower()) + 1
+        if (DB_VERSION_DATE.month, DB_VERSION_DATE.day) != (mon, int(stamp.group(2))):
+            rep.fail("docs",
+                     f"DB_VERSION_DATE disagrees with DEFAULT_DB: the constant "
+                     f"says {DB_VERSION_DATE.isoformat()}, the filename says "
+                     f"{stamp.group(1)} {stamp.group(2)}. Bump both together.")
+
 
 def check_db(rep, db_path):
     """Database hygiene. Standard library only, same as load_db."""
@@ -2594,6 +2871,9 @@ def check_stray_artifacts(rep, local):
 
 HARNESSES = ("tools/test_comparison_cost_rows.py",
              "tools/test_comparison_checkmarks.py",
+             "tools/test_comparison_prose_scores.py",
+             "tools/test_comparison_vintage.py",
+             "tools/test_hardcoded_counts.py",
              "tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
              "tools/test_statcard_faq.py")
@@ -2730,6 +3010,8 @@ def main():
         check_comparison_scores(rep, db, idx, slug_to_city, args.local)
         check_comparison_checkmarks(rep, db, idx, slug_to_city, args.local)
         check_comparison_cost_rows(rep, db, idx, slug_to_city, args.local)
+        check_comparison_prose_scores(rep, db, idx, slug_to_city, args.local)
+        check_comparison_vintage(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:
