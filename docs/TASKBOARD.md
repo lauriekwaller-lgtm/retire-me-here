@@ -465,17 +465,21 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
   line with every other comparison page. Easy to reverse if the house rule is that cost rows go
   unmarked when the neighborhood bands contradict them.
 
-- **[P2] NEW: the D9 neighborhood-basis claim on this page has no settled methodology behind it.**
-  Tradeoff #4 and FAQ 5 both say San Antonio's Safety score is built on its retiree-target areas
-  and Fort Worth's is not, and warn the reader not to compare them directly. That is rubric v3.2's
-  documented treatment of D2, D6 and D9 for high-variance cities. But
-  `MEDIAN-HOME-METHODOLOGY.md` v1.2 retired the eight-city neighborhood carve-out, and
-  `BUDGET-METHODOLOGY.md` section 4 says flatly that no city uses a neighborhood basis, both of
-  which are about MEDIAN HOME. Nobody has said whether D9 went with it. So this page publishes a
-  methodology caveat that may describe a retired practice, on the one dimension where it would
-  change how a reader reads a score. Left untouched here because it is a rubric decision and not
-  a figure, and folded into the Rubric v3.3 item. San Antonio is the only page in the set making
-  this claim.
+- **The D9 neighborhood-basis caveat on this page is CORRECT, and was briefly boarded as a defect
+  in error.** Tradeoff #4 and FAQ 5 tell the reader San Antonio's Safety score is built on
+  retiree-target areas and Fort Worth's is citywide. The first read of this batch flagged that as a
+  possible fossil of the retired eight-city carve-out, since `MEDIAN-HOME-METHODOLOGY.md` v1.2
+  dropped it and `BUDGET-METHODOLOGY.md` section 4 says no city uses a neighborhood basis. Both of
+  those are about MEDIAN HOME. The Rubric v3.3 item already settles the rest, at divergence (5):
+  the D2/D6/D9 grouping becomes D6/D9 precisely because **D9 is still genuinely
+  neighborhood-scored**, with Memphis and San Antonio both at D9=7 where the rubric's own anchor
+  puts their citywide figures at 1-2. So the practice is consistent across the site, the page is
+  right, and nothing needs rescoring. The stale artifact is the rubric .docx, not any score.
+  The wrong version of this entry shipped in `c20fd1f` and is corrected here. Recorded rather than
+  quietly deleted, because a duplicate item that CONTRADICTS a resolved one is a worse failure than
+  a missing item, and the cause is worth naming: the board was not searched before the item was
+  written. The remaining rescoring exposure on Rubric v3.3 is (7), the D2 anchor bands, which were
+  calibrated against the pre-rebase median-home column.
 
 ## CLOSED July 30, 2026 (st-louis-vs-kansas-city, Tier 1) - shipped
 

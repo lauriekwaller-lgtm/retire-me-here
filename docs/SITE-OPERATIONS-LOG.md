@@ -233,10 +233,15 @@ each city averages over, not about what a retiree pays.
 long form and the visible copy wrote them short. Both now use the short form and normalise equal,
 leaving six of the seven boarded Jul 30.
 
-**Open question boarded, not answered.** This page tells the reader that San Antonio's Safety
-score is built on retiree-target neighborhoods and Fort Worth's is not. That is rubric v3.2, but
-v1.2 of the median-home methodology retired the neighborhood carve-out and nobody has recorded
-whether D9 went with it. Left in place and folded into the Rubric v3.3 item.
+**A near-miss on the board, corrected in a follow-up commit.** This page tells the reader that
+San Antonio's Safety score is built on retiree-target neighborhoods and Fort Worth's is not. That
+looked like a fossil of the carve-out retired by MEDIAN-HOME-METHODOLOGY.md v1.2, and shipped in
+`c20fd1f` as a new P2 saying the methodology was unsettled. It is settled: the Rubric v3.3 item
+already records at divergence (5) that D9 remains neighborhood-scored by design and only the D2
+grouping was retired. The page is correct, no rescore is implied, and the stale artifact is the
+rubric .docx rather than any score. The board entry is corrected in the following commit. Cause
+worth keeping: the board was not searched before a new item was written, which is how a duplicate
+came to contradict a resolved entry.
 
 
 ### 2026-07-30 (eighth push) - st-louis-vs-kansas-city rewritten
