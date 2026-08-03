@@ -1771,6 +1771,100 @@ def check_comparison_vintage(rep, db, idx, slug_to_city, local):
                  "verified nothing rather than finding nothing.")
 
 
+def check_comparison_cta_reciprocity(rep, db, idx, slug_to_city, local):
+    """
+    A comparison page ships without any step that returns to the two profiles.
+
+    Eight of the twenty live pages were built, indexed, listed in sitemap.xml and
+    reachable from nowhere a reader actually starts. Every figure ON those pages
+    sat under three separate checks the whole time. Nothing read the EDGE, so it
+    accumulated for months, and the half-wired state is the one that hides best:
+    nashville-vs-memphis was linked from Memphis and not from Nashville between
+    July 30 and today, which reads as done from either end you happen to open.
+
+    Two directions, asserted independently:
+
+      1. every page the hub lists is linked from BOTH profiles it names. The two
+         city slugs come out of the filename, which is why the -vs- convention is
+         worth keeping literal.
+      2. every comparison href on a profile points at a page that exists. That is
+         the case a rename creates, it leaves a dead CTA on a live profile, and no
+         other check on this gate would see it.
+
+    The link form asserted is the absolute href every CTA on the site already
+    uses. A relative href resolves fine for a reader and still fails here on
+    purpose: one form site-wide is what makes the edge greppable at all. The
+    leading boundary in the pattern is not decoration either. A bare substring
+    test for href="/page" is satisfied by data-href="/page", so the check would
+    pass on markup that links nothing.
+    """
+    hub = fetch("compare-retirement-cities.html", local) or ""
+    pairs = sorted(set(re.findall(
+        r"([a-z0-9-]+)-vs-([a-z0-9-]+)-retirement\.html", hub)))
+
+    if not pairs:
+        rep.fail("comparison",
+                 "no comparison pages found on compare-retirement-cities.html; "
+                 "check_comparison_cta_reciprocity verified nothing.")
+        return
+
+    profiles = {}
+    for slug in sorted(slug_to_city):
+        html = fetch(f"cities/{slug}/profile.html", local)
+        if html is not None:
+            profiles[slug] = html
+
+    if not profiles:
+        rep.fail("comparison",
+                 "no city profiles could be read; "
+                 "check_comparison_cta_reciprocity verified nothing.")
+        return
+
+    def links(html, page):
+        return re.search(r'(?<![-\w])href="/' + re.escape(page) + r'"', html)
+
+    edges = 0
+    for a_slug, b_slug in pairs:
+        page = f"{a_slug}-vs-{b_slug}-retirement.html"
+        for slug in (a_slug, b_slug):
+            if slug not in profiles:
+                rep.fail("comparison",
+                         f"{page} compares {slug}, and there is no published "
+                         f"profile at cities/{slug}/profile.html to link back "
+                         f"from. Either the page names a city that is not built "
+                         f"or the profile is missing from PUBLISHED_PROFILES.")
+                continue
+            edges += 1
+            if not links(profiles[slug], page):
+                rep.fail("comparison",
+                         f"cities/{slug}/profile.html carries no CTA to /{page}, "
+                         f"the page that compares it. The reader who wants that "
+                         f"matchup is standing on this profile and cannot get "
+                         f"there.")
+
+    if not edges:
+        rep.fail("comparison",
+                 "check_comparison_cta_reciprocity matched no profile and page "
+                 "pairs; it verified nothing.")
+
+    # Direction 2. Deduped first: the same page is linked from two profiles by
+    # design, and in a bare run every one of these is an HTTP round trip.
+    outbound = {}
+    for slug in sorted(profiles):
+        for href in re.findall(
+                r'(?<![-\w])href="/([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)"',
+                profiles[slug]):
+            outbound.setdefault(href, []).append(slug)
+
+    for href in sorted(outbound):
+        if fetch(href, local) is None:
+            for slug in outbound[href]:
+                rep.fail("comparison",
+                         f"cities/{slug}/profile.html links /{href}, which does "
+                         f"not exist. A renamed or deleted comparison page "
+                         f"leaves a dead CTA on a live profile.")
+
+
 def check_hardcoded_counts(rep, db, idx, slug_to_city, local):
     """
     A hardcoded city count is a claim that rots. Same disease as a self-scoped
@@ -2871,6 +2965,7 @@ def check_stray_artifacts(rep, local):
 
 HARNESSES = ("tools/test_comparison_cost_rows.py",
              "tools/test_comparison_checkmarks.py",
+             "tools/test_comparison_cta_reciprocity.py",
              "tools/test_comparison_prose_scores.py",
              "tools/test_comparison_vintage.py",
              "tools/test_hardcoded_counts.py",
@@ -3012,6 +3107,7 @@ def main():
         check_comparison_cost_rows(rep, db, idx, slug_to_city, args.local)
         check_comparison_prose_scores(rep, db, idx, slug_to_city, args.local)
         check_comparison_vintage(rep, db, idx, slug_to_city, args.local)
+        check_comparison_cta_reciprocity(rep, db, idx, slug_to_city, args.local)
         check_hardcoded_counts(rep, db, idx, slug_to_city, args.local)
         check_numeric_cells(rep, db, idx, slug_to_city, args.local)
     if "emdash" in groups:

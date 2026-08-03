@@ -4,7 +4,14 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** July 31, 2026, three prose-only conventions closed and gated (OPS;
+**Last updated:** August 3, 2026, THE ORPHANED COMPARISON PAGES ARE WIRED (BATCH; fifteen
+missing CTA edges added across twelve profiles, closing the eight-page P1, and
+`check_comparison_cta_reciprocity` shipped with an eight-assertion harness so the edge cannot
+rot again. First ship of the three-week growth cycle: this is the 80% growth side, not debt,
+because comparison pages carry the site's best engagement and 40% of them were unreachable
+from the two pages whose readers want them.)
+
+**Before that:** July 31, 2026, three prose-only conventions closed and gated (OPS;
 23 hardcoded city counts across 11 files, a matchup count wrong by one on the hub, two
 more D2 prose-score errors taking that run to eleven, and 23 stale data-vintage values;
 `check_comparison_prose_scores` and `check_comparison_vintage` shipped,
@@ -468,6 +475,49 @@ chat scoped to a single validator check turned up 44 wrong figures across 36 pro
 a headline monthly budget by $300 to $600. Twenty moved it by $100. Before today those two
 classes read identically on this board, and the effect was that the $100 ones felt as blocking
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
+
+---
+
+## CLOSED August 3, 2026 (comparison CTA reciprocity) - shipped
+
+- **Fifteen missing edges, not eight.** The P1 counted PAGES with no link from either side, which
+  undercounts the work: `nashville-vs-memphis` was already half-wired, and three profiles sit in
+  two matchups each. Sized by grepping every profile for every hub-listed page rather than trusting
+  the board number. Twelve profiles edited: `bend`, `boulder`, `chattanooga`, `fort-collins`,
+  `fort-worth`, `kansas-city`, `knoxville`, `nashville`, `san-antonio`, `santa-fe`, `scottsdale`,
+  `st-louis`. Five of them carry two rivals and use the two-button flex row from the Tampa
+  canonical; the rest use the single-button block from `cities/memphis/profile.html`.
+
+- **Three of the twelve already had a block in the head-to-head slot, and none of the three was
+  doing the job.** `kansas-city` held a Midwest guide CTA under a comment announcing a comparison
+  page "not yet built" that has been live for weeks. `santa-fe` and `scottsdale` each linked
+  Tucson and not each other, which is the failure mode that reads as done: the slot is filled, the
+  section renders, and the missing edge is invisible unless you enumerate. Each of the three was
+  replaced wholesale rather than appended to, so the blurb argues about the rivals actually linked.
+
+- **Every blurb figure re-derived from `CityDatabase_Jul_27_v17.xlsx` before drafting.** Nothing was
+  carried from the comparison pages themselves, which are a derived surface. One claim was cut in
+  draft: the Fort Collins blurb named taxes as a tradeoff axis, and both cities are in Colorado on
+  a D5 of 7. A tradeoff paragraph that names an axis with no gap on it is the prose version of a
+  checkmark on a tie.
+
+- **`check_comparison_cta_reciprocity` asserts the EDGE, in both directions.** Every hub-listed
+  page is linked from both profiles named in its filename, and every comparison href on a profile
+  points at a page that exists. The second direction is the rename case and nothing else on the
+  gate reads it. Harness at `tools/test_comparison_cta_reciprocity.py`, eight assertions, harness
+  count now eleven.
+
+- **The check had a real bug that the harness caught, and the assertion stayed in.** The first
+  draft tested `'href="/page"' in html`, which is satisfied by `data-href="/page"`. The check would
+  have passed on markup that links nothing. Fixed with a leading boundary in the pattern, and
+  assertion 5 exists to pin it down. Assertion 4 pins the matching decision that a relative href
+  does not count: it resolves fine for a reader, and one absolute form site-wide is what makes this
+  greppable at all.
+
+- **Build-order finding, unchanged and now guarded.** A comparison page ships without any step that
+  returns to the two profiles. That is why this accumulated for months while every figure on those
+  same pages sat under three separate checks. The gate now fails the day a page ships unwired, so
+  the COMPARE chat no longer depends on remembering.
 
 ---
 
@@ -2139,32 +2189,21 @@ Unlocked and ready to build now (both cities live):
 Unlocks pending a build:
 - (none)
 
-**[P1] 8 of 20 live comparison pages have no CTA link from either city profile.** Built, indexed,
-in `sitemap.xml`, and unreachable from the two pages whose readers most want them. Orphaned:
-`bend-vs-boulder`, `fort-collins-vs-boulder`, `knoxville-vs-chattanooga`, `knoxville-vs-nashville`,
-`san-antonio-vs-fort-worth`, `scottsdale-vs-santa-fe`, `st-louis-vs-kansas-city`, and
-`nashville-vs-memphis` until the Jul 30 fix above. The other 12 are correctly linked from both
-sides, so the pattern is established and this is wiring, not design. Needs a CTA block on roughly
-eleven profiles, each with its own short tradeoff paragraph, so it is an editorial batch and not a
-mechanical one. Build-order note: a comparison page ships without any step that returns to the two
-profiles, which is why this accumulates.
+~~**[P1] 8 of 20 live comparison pages have no CTA link from either city profile.**~~ CLOSED
+August 3, 2026. Fifteen edges added across twelve profiles. See the CLOSED section below.
 
-**[P2] Add `check_comparison_cta_reciprocity` to the validator.** For every
-`*-vs-*-retirement.html` in the repo root, assert that both named city profiles link to it, and
-that no profile links to a comparison page that does not exist. Planted-error test required before
-ship, per the standing rule. Would have caught all 8 orphans and would catch the reverse case the
-day a comparison page is renamed.
+~~**[P2] Add `check_comparison_cta_reciprocity` to the validator.**~~ CLOSED August 3, 2026,
+shipped in the same commit as the wiring it guards.
 
 **[P3] Add `check_lists_heading_count` to the validator.** Parse the `lists-section` `<h2>`, map
 the number word to an integer, compare against the count of `.list-card` anchors in the same
 section, fail on mismatch and skip cleanly when the heading carries no number. Would have caught
 all six headings closed above. Planted-error test required.
 
-**[P3] Stale placeholder comment on `cities/kansas-city/profile.html`.** Line reads
-`<!-- COMPARE THESE: Kansas City vs. St. Louis (placeholder - comparison page not yet built) -->`
-above a block that is now a working Midwest guide CTA, and `st-louis-vs-kansas-city-retirement.html`
-is live regardless. Invisible to readers, misleading to the next person editing the file. Fold into
-the CTA wiring batch above.
+~~**[P3] Stale placeholder comment on `cities/kansas-city/profile.html`.**~~ CLOSED August 3,
+2026, folded into the CTA wiring batch as boarded. The block it sat above was a Midwest guide CTA
+occupying the head-to-head slot; it is now the real head-to-head, and the Midwest guide keeps its
+link from the lists section on the same profile.
 
 ---
 

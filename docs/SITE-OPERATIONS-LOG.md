@@ -202,6 +202,37 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-03 - comparison CTA reciprocity
+
+**What shipped.** Fifteen CTA edges added across twelve city profiles, one new check, one new
+planted-error harness, and two doc updates. No database change, no scoring change, no new page.
+Gate clean at 0 failures, 0 warnings on a fresh clone.
+
+**What was actually broken.** Eight of the twenty live comparison pages could not be reached from
+either profile they compare. The board carried this as an eight-page item; enumerated against the
+repo it is fifteen missing edges over twelve profiles, because one page was already half-wired and
+three profiles appear in two matchups. Size by grepping, never by the board number, holds again.
+
+**The half-wired state is the one that hides.** `nashville-vs-memphis` was linked from Memphis and
+not from Nashville for four days and read as finished from whichever end you opened.
+`santa-fe` and `scottsdale` were worse: both had a populated head-to-head section linking Tucson,
+so the slot looked filled while the edge between the two of them did not exist.
+
+**Editorial, not mechanical.** Each block carries a one-sentence tradeoff blurb written from the
+database rather than from the comparison page it links, since a comparison page is a derived
+surface. Five blocks carry two rivals and use the two-button flex row from the Tampa canonical.
+One blurb claim was cut in draft: naming taxes as a Fort Collins against Boulder tradeoff, where
+both cities are Colorado at D5 7. An axis with no gap on it is the prose version of a checkmark on
+a tie.
+
+**`check_comparison_cta_reciprocity`.** Asserts that every hub-listed page is linked from both
+profiles its filename names, and that every comparison href on a profile points at a page that
+exists. The second direction is the rename case, which nothing else on this gate reads. The check
+shipped with a bug its own harness caught: the first draft used a bare substring test for
+`href="/page"`, which `data-href="/page"` satisfies, so it would have passed on markup that links
+nothing. The boundary fix is in, and the assertion that found it stayed in the harness.
+
+
 ### 2026-07-31 (eighth push) - hardcoded counts, prose scores, data vintage
 
 **What shipped.** Two new checks, one rewritten check, one new surface helper, three planted-error
