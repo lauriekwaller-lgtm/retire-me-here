@@ -202,6 +202,55 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-06 - Burlington VT shipped as profile 49
+
+**What shipped.** One new city profile at `cities/burlington/profile.html` with hero, detail and
+lifestyle photos, plus the `PUBLISHED_PROFILES` routing entry, the sitemap entry, four corrected
+Burlington figures in `index.html`, the board and this entry. No database change and no scoring
+change. Gate clean at 0 failures, 0 warnings on a fresh clone with the package applied.
+
+**Baselines re-derived, not trusted.** Live main was pulled and every figure re-read from
+`docs/CityDatabase_Jul_27_v17.xlsx` before anything was written: Range 3, Monthly Est
+$6,000-$7,500/mo, Median Home $520,000, PropTax 1.51%, HO insurance $1,063/yr, D1 6, D2 5, D3 8,
+D5 3, D6 7, D7 9, D8 7, D9 7, D10 8, D4 Resil. 7.
+
+**Emphasis brief, MULTI-STRENGTH.** One pillar (D7 Outdoor 9) over a cluster at 8 (D3, D10) and
+7 (D6, D8, D9). Under the skill's advisory the profile leads with the pillar but gives the
+cluster real weight in the character section, because a single-pillar city written to its pillar
+alone reads as one trick. D5 Tax 3 is the only hard flag and leads the "No if" column.
+
+**Judgment calls, all reversible.**
+1. No Neighborhood Reality Check. Retiree-target towns bracket the $520,000 citywide figure
+   (South Burlington ~$485K below it, Shelburne and the Hill Section above), which is section 4's
+   "adds noise rather than clarity" case rather than the St. Louis case.
+2. Stat slot four went to healthcare on a D3/D10 tie at 8, on the reasoning that retirees weight
+   healthcare hardest and D10 already carries the character section and a list card.
+3. The healthcare stat card states "Level I trauma" rather than a bed count. UVMMC bed counts in
+   public sources run 481, 562 and 620 depending on what is being counted, and a contested number
+   has no business being a headline fact.
+4. Lists section shows four of five live placements. Best Places to Retire and Avoid Natural
+   Disasters was dropped because Burlington sits in that page's second-tier bucket on the back of
+   the July 2023 flooding, while hikers, arts, foodies and LGBTQ retirees are all top-tier. The
+   card stays live on that page.
+
+**Four figures corrected in index.html.** Property tax read 1.42% on three surfaces against a DB
+PropTax Rate of 1.51, and the D2 scoreNote read a $506K citywide median attributed to Redfin
+against a DB Median Home of $520,000. The Redfin attribution was dropped with the figure: an MLS
+median sale price and a ZHVI typical value are different measures and should not be swapped under
+one source line. Corrected in the same commit as the profile so the surfaces cannot disagree.
+Worth recording: correcting the highlight in `index.html` alone FAILED the gate, because
+`pick-and-compare.html` carries its own copy of the same string and `check_figures` compares them.
+The check caught a half-finished fix that would otherwise have shipped as a new inconsistency.
+
+**One conflict deliberately left open.** DB `Ann Snow in` is 70; `index.html` says approximately
+80; the NOAA normal is about 81. The profile uses 70 per the data-source rule, and the DB cell is
+boarded as a P2 rather than quietly reconciled, because editing live copy down to match a suspect
+database cell propagates the error instead of finding it.
+
+**No landing-page edits.** All seven Burlington cards were already live `city-card` links, five
+on landing pages and two on guides, none of them coming-soon, so `check_cards` had nothing to
+promote. Burlington is Range 3, so the budget-page roster predicate does not reach it.
+
 ### 2026-08-03 (second push) - knoxville-vs-asheville shipped, growth cycle boarded
 
 **What shipped.** One new comparison page at `knoxville-vs-asheville-retirement.html`, wired from

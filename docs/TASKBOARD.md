@@ -4,7 +4,19 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 3, 2026, `knoxville-vs-asheville` shipped and the three-week growth
+**Last updated:** August 6, 2026, Burlington VT shipped as profile 49 (BUILD; 49 profiles
+live. First Wave 1 city of the growth cycle. Emphasis brief ran MULTI-STRENGTH, not MULTI-PILLAR:
+one pillar at D7 Outdoor 9 with a cluster at D3 Health 8 and D10 Community 8, so the hero leads
+with the outdoor pillar and the character section carries the cluster. Three judgment calls,
+each noted in the ops log entry: no Neighborhood Reality Check, because the retiree-target towns
+bracket the citywide figure rather than sitting above it; stat slot four went to healthcare over
+arts on a tie at eight; and three Burlington figures in `index.html` were corrected against the
+database on the way through, property tax at three surfaces and the D2 median at one. No landing
+page needed touching: all seven Burlington cards were already live links, not coming-soon.
+`check_figures` caught the property-tax fix mid-build: `pick-and-compare.html` keeps its own copy
+of every highlight string, so a one-surface correction is a hard failure, correctly.)
+
+**Before that:** August 3, 2026, `knoxville-vs-asheville` shipped and the three-week growth
 cycle is finally on the board (COMPARE; 21 comparison pages live. The page ships WIRED: CTA blocks
 on both profiles in the same commit, which is what `check_comparison_cta_reciprocity` now requires
 and is the whole point of having built it yesterday. The cycle plan itself ran its entire first
@@ -522,8 +534,9 @@ gate existed so Wave 3 would not be built into a crawl problem. There is no craw
 proceeds.
 
 **Build order:**
-- **Wave 1 (in flight):** Burlington VT, Fayetteville AR, Saratoga Springs NY, La Crosse WI.
-  Burlington runs AHEAD of Fayetteville. Fayetteville scores four points higher, 71 to 67, so this
+- **Wave 1 (in flight):** Fayetteville AR, Saratoga Springs NY, La Crosse WI.
+  Burlington VT shipped August 6 as profile 49 and is closed below.
+  Burlington ran AHEAD of Fayetteville. Fayetteville scores four points higher, 71 to 67, so this
   inverts score order on purpose: it is the order the builds are actually happening in, and the
   board records the real order, not the intended one. Portland ME was on the original wave list
   and is not on this one because it shipped July 29, ahead of the cycle.
@@ -534,6 +547,62 @@ proceeds.
 points clear of Fayetteville AR at 71, and it is still unscheduled because it has no live pairing
 partner: it ships one profile and unlocks zero comparison pages, which is the wrong shape for a
 cycle whose second lever is comparisons.
+
+---
+
+## CLOSED August 6, 2026 (Burlington VT, BUILD) - shipped
+
+**What shipped.** One new profile at `cities/burlington/profile.html` with three photos, the
+routing entry in `PUBLISHED_PROFILES`, the sitemap entry, this board and the ops log. Built from
+the live St. Louis canonical against `CityDatabase_Jul_27_v17.xlsx`. Gate clean at zero failures
+and zero warnings on a fresh clone.
+
+**Emphasis.** D7 Outdoor 9 is the only pillar. Support sits at D3 Health 8, D10 Community 8, and
+D6 Walk, D8 Wellness and D9 Safety all at 7. D5 Tax 3 is the single hard flag and leads the "No
+if" column, because a permanent annual tax drag binds harder than a preference does. D2 at 5 and
+D1 at 6 fill out the honest counterweight. That shape is the MULTI-STRENGTH advisory, so the
+profile leads with the outdoor pillar and gives the eight-cluster real weight in the character
+section rather than reading as a ski page.
+
+**No NRC callout, deliberately.** `MEDIAN-HOME-METHODOLOGY.md` section 4 makes this judgment,
+not a binary test. Citywide is $520,000; the retiree-target areas run South Burlington around
+$485K, Williston $500K to $700K, Shelburne $600K to $900K and the Hill Section $600K to $1M and
+up. Two of the four sit at or below the citywide figure, so it brackets the range rather than
+understating it, which is the doc's explicit "adds noise rather than clarity" case. The spread is
+handled in the hood cards and the method callout instead. Reversible in one edit if the read is
+wrong.
+
+**Three index.html figures corrected against the database.** Property tax was live at 1.42% on
+three separate surfaces (the highlight string, a cons bullet, and the D5 scoreNote) against a DB
+`PropTax Rate %` of 1.51. The D2 scoreNote carried a citywide median of $506K attributed to
+Redfin against a DB `Median Home` of $520,000, and the attribution went with the figure because
+an MLS-shaped source does not belong on a ZHVI-shaped number. All four corrected in the same
+commit as the profile, so the profile and the card cannot disagree. `pick-and-compare.html` keeps
+its own copy of the highlight string and `check_figures` compares the two surfaces character for
+character, so fixing `index.html` alone failed the gate on the first run. Both moved together.
+
+**One conflict left open on purpose.** The DB has `Ann Snow in` at 70 for Burlington; the
+`index.html` cons bullet says roughly 80 inches. NOAA's Burlington normal is nearer 81, so the
+database cell is the more likely error and editing live copy DOWN to match a suspect cell would
+be the wrong direction. The profile uses 70 per the DB rule. Boarded as a P2 below rather than
+silently reconciled.
+
+**Board-count trap, noted for the next build.** `check_docs` reads the first
+`(\d+)\s+profiles` match in this file. Before this entry that match was in July 29 historical
+prose ("all 48 profiles inherited it"), a sentence that is correct as history and must not be
+edited. The Last-updated paragraph now carries "49 profiles" above it. The next build has to do
+the same thing or the count silently reverts to being graded against a sentence about last month.
+
+---
+
+## OPEN P2 - Burlington snowfall figure, DB vs live copy (opened August 6, 2026)
+
+`CityDatabase_Jul_27_v17.xlsx` gives Burlington `Ann Snow in` = 70. The `index.html` cons bullet
+says approximately 80 inches, and NOAA's 1991-2020 normal for Burlington is about 81. One of the
+two is wrong and the DB is the likelier candidate. Check the cell against the NOAA normal, correct
+whichever is wrong, and sweep the profile and `index.html` together so the two surfaces agree.
+Low priority: both figures land a reader in the same place, which is why it can wait, and also why
+it would otherwise never get found.
 
 ---
 
