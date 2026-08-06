@@ -4,7 +4,27 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 6, 2026, Burlington VT shipped as profile 49 (BUILD; 49 profiles
+**Last updated:** August 6, 2026 (second push), `burlington-vs-portland-me` shipped
+(COMPARE; 49 profiles live, 22 comparison pages live. The pairing splits two marks each,
+which is the honest result rather than a convenient one. Three judgment calls, all noted in
+the ops log entry: the two headline cost rows ship UNMARKED because they point in opposite
+directions and the monthly ranges overlap almost entirely, so a mark on either would assert
+a cost verdict the property-tax row contradicts on the same page; the climate figure rows
+ship unmarked for the same reason in reverse, since every winter figure favours Portland and
+marking all three would read as a sweep on gaps of four degrees and eight inches; and the
+page stays off the Climate Warm W scores entirely, because W has Portland at two against
+Burlington's three while Portland is warmer, drier of snow and sunnier on the figures printed
+in the same table.
+
+FOUND WHILE BUILDING, P1, OPS: `check_comparison_scores` and `check_comparison_cost_rows`
+resolve a page's cities by lowercasing the DB city name, so `portland-me` does not resolve
+to the Portland row and BOTH checks skip this entire page at their `if not a or not b:
+continue` guard, including the Burlington cells beside it. That is the silent-no-op shape
+this validator exists to refuse: neither check reports anything, and both count as clean.
+`check_comparison_checkmarks` is unaffected because it reads only the table.
+Every figure on the page was verified against the database by hand instead.)
+
+**Before that:** August 6, 2026, Burlington VT shipped as profile 49 (BUILD; 49 profiles
 live. First Wave 1 city of the growth cycle. Emphasis brief ran MULTI-STRENGTH, not MULTI-PILLAR:
 one pillar at D7 Outdoor 9 with a cluster at D3 Health 8 and D10 Community 8, so the hero leads
 with the outdoor pillar and the character section carries the cluster. Three judgment calls,

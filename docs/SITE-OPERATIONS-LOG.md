@@ -202,6 +202,70 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-06 (second push) - burlington-vs-portland-me shipped
+
+**What shipped.** One new comparison page at `burlington-vs-portland-me-retirement.html`,
+plus the hub card and JSON-LD ItemList position twenty-two, the sitemap entry, COMPARE THESE
+CTA blocks on both profiles, the board and this entry. No new photo assets: both profiles are
+published, so og:image points at the Burlington hero and the two profile cards carry lazy
+thumbnails. No database change and no scoring change. Gate clean at 0 failures, 0 warnings on
+a fresh clone with the package applied.
+
+**Baselines re-derived, not trusted.** Live main was pulled and both rows re-read from
+`docs/CityDatabase_Jul_27_v17.xlsx` before anything was drafted. Burlington: Range 3, Monthly
+Est $6,000-$7,500/mo, Median Home $520,000, PropTax 1.51%, HO insurance $1,063/yr, D1 6, D2 5,
+D3 8, D4 7, D5 3, D6 7, D7 9, D8 7, D9 7, D10 8. Portland ME: Range 3, Monthly Est
+$5,900-$7,300/mo, Median Home $571,000, PropTax 0.98%, HO insurance $1,335/yr, D1 8, D2 5,
+D3 9, D4 8, D5 4, D6 9, D7 7, D8 6, D9 4, D10 9.
+
+**The page's actual finding.** Burlington's house is cheaper by $51,000 and costs more to hold.
+Property tax on the two medians is about $7,852 against $5,596, so Burlington runs about $2,256
+a year higher there; insurance runs the other way by $272; net about $1,984 a year, roughly $165
+a month. That lands almost exactly on the Monthly Est gap, so the database is internally coherent
+and neither figure should be "corrected" against the other. The page states explicitly that
+property tax and insurance are already inside Monthly Est, because counting them additively is
+the double-count that shipped once before.
+
+**Judgment call one: the two headline cost rows ship unmarked.** Burlington wins median home,
+Portland wins Monthly Est, budget tier ties at three. Marking each on its own row would have
+split a single axis into two competing verdicts, and a lone median-home mark to Burlington would
+assert "Burlington is cheaper" on a page whose own property-tax row says otherwise. The monthly
+ranges overlap almost entirely ($6,000-$7,500 against $5,900-$7,300), so that gap is not a clear
+differential under the standard either. Property tax and insurance ARE marked, one to each city,
+because each of those rows is unambiguous within itself; that is what puts the inversion in the
+table rather than only in prose.
+
+**Judgment call two: the climate figure rows ship unmarked.** January mean, snowfall and sunshine
+all favour Portland, by four degrees, eight inches and eight points. Climate rows keep the context
+rule rather than the two-point rule, and marking all three would have read as a climate sweep on
+differences that are real but modest. The prose says plainly that Portland is milder on every
+figure and still not mild.
+
+**Judgment call three: the page stays off Climate Warm W.** W has Portland at two against
+Burlington's three, meaning the model rates Portland's winter as the harsher, while the Jan-mean,
+snowfall and sunshine rows printed in the same table all say the opposite. Prose built on W would
+have contradicted the page's own figures, which is exactly what `check_comparison_prose_scores`
+exists to catch. The page uses the plain figures. The W row itself is boarded for an OPS look and
+was NOT changed here.
+
+**Validator gap found while building, boarded P1.** `check_comparison_scores` and
+`check_comparison_cost_rows` both build their city lookup by lowercasing the DB city name and
+replacing spaces with hyphens, which yields `portland` and never `portland-me`. The page slug is
+`portland-me`, so `by_slug.get(b_slug)` returns None and both checks hit `if not a or not b:
+continue` and skip THE WHOLE PAGE, Burlington's cells included. Neither reports anything; both
+count as clean. This is the silent-no-op shape the rest of this validator refuses by design, and
+it will apply to every future state-suffixed slug, not just this one. `check_comparison_checkmarks`
+is unaffected because it reads only the table markup. Every figure on this page was verified
+against the database by hand in place of the missing coverage. The fix belongs in an OPS pass:
+resolve through `slug_to_city`, which already carries `portland-me`, and fail rather than
+`continue` when a slug cannot be resolved.
+
+**Doc debt, boarded P3, not done here.** Architecture item six of `COMPARISON-PAGE-STANDARD-v2 .md`
+requires every new comparison page to add pill links to all other live matchups "until the hub page
+exists". The hub exists and no live page carries the full set; every one carries a curated handful.
+The rule is dead in practice and live in the doc, and following it literally would mean editing
+twenty-one files for no reader benefit. It should be struck from the standard.
+
 ### 2026-08-06 - Burlington VT shipped as profile 49
 
 **What shipped.** One new city profile at `cities/burlington/profile.html` with hero, detail and
