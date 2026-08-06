@@ -202,7 +202,64 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
-### 2026-08-03 - comparison CTA reciprocity
+### 2026-08-03 (second push) - knoxville-vs-asheville shipped, growth cycle boarded
+
+**What shipped.** One new comparison page at `knoxville-vs-asheville-retirement.html`, wired from
+both city profiles in the same commit, plus the hub card, ItemList position 21, the sitemap entry,
+the three-week growth cycle boarded in full, and two corrections found while in the files. No
+database change, no scoring change. Gate clean at 0 failures, 0 warnings on a fresh clone.
+
+**Baselines re-derived, not trusted.** Live main was pulled and every number re-read from
+`docs/CityDatabase_Jul_27_v17.xlsx` before anything was written. Two board assertions were wrong:
+"Live profiles: 47" against a real 48, and the memory of Portland ME as an unbuilt Wave 1 city when
+it shipped July 29. Both corrected. This is the argument for re-deriving rather than reading the
+board: the board is a record of intent and drifts from the repo between sessions.
+
+**The cycle plan was untracked for a week.** It was drafted at the end of the CTA-reciprocity
+session and never committed, so the 80/20 split, the three rules, the wave order and the week-1
+indexing gate all governed real work while living nowhere. Reconstructed onto the board in full.
+The wave order as boarded puts Burlington VT ahead of Fayetteville AR, which inverts score order,
+71 to 67, because that is the order the builds are actually happening in.
+
+**The Traverse City line is a reconstruction, flagged as such.** Traverse City MI at 73 is the
+highest-scoring unbuilt city and is on no wave. The repo records no reason anywhere. The reason
+boarded, that it has no live pairing partner and so unlocks zero comparison pages, is consistent
+with the cycle's own logic but was supplied here, not recovered. Overwrite it if the real reason
+was different.
+
+**Editorial finding worth keeping: a wide dimension gap is not always a quality gap.** D3 reads
+Knoxville 8, Asheville 5, and the obvious sentence to write is that Asheville's hospital is weak.
+It is not. Mission Hospital is US News seventh in North Carolina, high performing in seventeen
+adult procedures, and a Healthgrades top-50 hospital eleven years running. What Asheville lacks is
+a second system, while Knoxville carries UT Medical Center and Covenant Health Parkwest ranked
+first and second in the metro independently. Mission's real weakness is on a different axis: two of
+five stars for patient experience and a February 2024 CMS immediate jeopardy finding, since lifted.
+The score is right; the obvious explanation for it was wrong.
+
+**Containment caught in draft.** The money block wanted to add the $166 a year insurance advantage
+to the $500 a month budget advantage. `BUDGET-METHODOLOGY.md` section 4 puts insurance inside the
+monthly estimate, so those do not add. Same defect as bloomington-vs-lexington, caught before
+publishing this time rather than in a later audit. The page now says so explicitly.
+
+**Airport route counts softened on purpose.** McGhee Tyson's own site publishes two different
+counts on two pages, 25 and "more than 30", while independent trackers say 41. The page uses "more
+than thirty", the airport's own conservative figure, true under every source. Asheville Regional
+publishes 26 across five airlines consistently and is stated exactly. The standard's rule is
+verify against the airport's own figures or soften; it does not cover the case where the airport
+disagrees with itself, and softening is the safe reading.
+
+**Also corrected.** The hub carried "let the quiz score all 100", a hardcoded city count that
+`check_hardcoded_counts` cannot see because its pattern requires the word "cities" after the
+digits. Replaced with count-free language. No matchup count was restored to the hub: the July 31
+chat deleted it rather than correcting it, and that remains the right state.
+
+**Two P4s boarded.** Two climate-row conventions are live across the comparison pages, and
+`check_docs` is reading a line-wrapped `48` in July 29 prose as its profile-count anchor rather
+than the "Live profiles:" line. Both are in the board.
+
+---
+
+### 2026-08-03 (first push) - comparison CTA reciprocity
 
 **What shipped.** Fifteen CTA edges added across twelve city profiles, one new check, one new
 planted-error harness, and two doc updates. No database change, no scoring change, no new page.

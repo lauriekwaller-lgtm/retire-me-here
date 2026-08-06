@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 3, 2026, THE ORPHANED COMPARISON PAGES ARE WIRED (BATCH; fifteen
+**Last updated:** August 3, 2026, `knoxville-vs-asheville` shipped and the three-week growth
+cycle is finally on the board (COMPARE; 21 comparison pages live. The page ships WIRED: CTA blocks
+on both profiles in the same commit, which is what `check_comparison_cta_reciprocity` now requires
+and is the whole point of having built it yesterday. The cycle plan itself ran its entire first
+week untracked because it was drafted in a chat and never boarded, which is the same failure that
+lost the Wave 1 batch, so it is reconstructed in full below rather than summarised. Also corrected
+on the way: the board's own live-profile count, and a hardcoded city count on the hub that
+`check_hardcoded_counts` cannot see because its pattern needs the word "cities" to follow the
+digits.)
+
+**Before that:** August 3, 2026, THE ORPHANED COMPARISON PAGES ARE WIRED (BATCH; fifteen
 missing CTA edges added across twelve profiles, closing the eight-page P1, and
 `check_comparison_cta_reciprocity` shipped with an eight-assertion harness so the edge cannot
 rot again. First ship of the three-week growth cycle: this is the 80% growth side, not debt,
@@ -475,6 +485,129 @@ chat scoped to a single validator check turned up 44 wrong figures across 36 pro
 a headline monthly budget by $300 to $600. Twenty moved it by $100. Before today those two
 classes read identically on this board, and the effect was that the $100 ones felt as blocking
 as the $600 ones. Nothing was wrong with the finding. What was missing was the rank.
+
+---
+
+## ACTIVE - three-week growth cycle (boarded August 3, 2026)
+
+Unranked. This is the work, not a finding about the work: same exception the build queue and the
+comparison queue carry.
+
+Drafted at the end of the CTA-reciprocity session and never committed, so it governed its entire
+first week while being untracked. Reconstructed here from that session. This is the second time in
+three weeks: the Wave 1 batch of Fayetteville AR, Saratoga Springs NY and La Crosse WI was carried
+in a chat for the same reason. A plan that lives in a chat is a plan that dies with the chat.
+
+**The split: 80% growth, 20% debt.** The binding constraint on this site is DEMAND, not
+correctness. Internal quality work is invisible to a search engine. Profile volume and comparison
+pages are the two levers that move impressions, so they take four days in five and the debt queue
+takes one.
+
+**Three rules, for the whole cycle:**
+
+1. **One debt day per week, hard-capped.** Not "about a day". When the day ends, the remaining P1s
+   and P2s roll to next week untouched. The cap exists because debt work is more legible than
+   growth work and will eat the cycle if allowed to argue for itself.
+2. **No new validator check unless the defect it catches is reader-visible.** Every check written
+   in the last fortnight was justified and the queue is still growing faster than it drains. A
+   machine-only surface is a P2 by this board's own scale and does not earn a check during a
+   growth cycle.
+3. **Graded on leading indicators, not clicks.** Pages indexed, impressions, average position.
+   There is a six to twelve week lag between publishing and clicks, so grading this cycle on
+   clicks grades week one's work against week minus six's traffic and concludes, wrongly, that the
+   cycle failed.
+
+**Week-1 indexing gate: PASSED.** Seventy-nine pages indexed, zero in discovered-not-indexed. The
+gate existed so Wave 3 would not be built into a crawl problem. There is no crawl problem. Wave 3
+proceeds.
+
+**Build order:**
+- **Wave 1 (in flight):** Burlington VT, Fayetteville AR, Saratoga Springs NY, La Crosse WI.
+  Burlington runs AHEAD of Fayetteville. Fayetteville scores four points higher, 71 to 67, so this
+  inverts score order on purpose: it is the order the builds are actually happening in, and the
+  board records the real order, not the intended one. Portland ME was on the original wave list
+  and is not on this one because it shipped July 29, ahead of the cycle.
+- **Wave 2:** Raleigh NC, Boise ID, Colorado Springs CO, Sedona AZ, Flagstaff AZ.
+- **Wave 3:** Park City UT, Jackson Hole WY and the rest. Unblocked by the gate above.
+
+**Why Traverse City MI is not on any wave.** At 73 it is the highest-scoring unbuilt city, two
+points clear of Fayetteville AR at 71, and it is still unscheduled because it has no live pairing
+partner: it ships one profile and unlocks zero comparison pages, which is the wrong shape for a
+cycle whose second lever is comparisons.
+
+---
+
+## CLOSED August 3, 2026 (knoxville-vs-asheville, COMPARE) - shipped
+
+**What shipped.** One new comparison page, wired from both profiles in the same commit, plus the
+hub card, the ItemList position, the sitemap entry, and this board. First page built under the
+growth cycle boarded above, and the first one to ship wired by default rather than as a follow-up.
+
+**The pairing is lopsided and the page says so.** Knoxville takes eight of the ten dimensions or
+ties them. Asheville's case rests on three: outdoor recreation at 10 against 8, walkability at 7
+against 5, community at 9 against 8. What makes it a real decision rather than a walkover is that
+Asheville's three are the ones people move to the mountains FOR, and Knoxville's two widest,
+healthcare at 8 against 5 and tax friendliness at 9 against 6, are the ones people only notice
+after they arrive.
+
+**The healthcare gap is not a quality gap and the page had to say so.** The obvious read of D3 8
+against 5 is that Asheville's hospital is weak. It is not: US News rates Mission seventh in North
+Carolina and high performing in seventeen adult procedures, and Healthgrades has named it a top-50
+hospital for eleven consecutive years. What Asheville lacks is a SECOND system. Knoxville carries
+UT Medical Center and Covenant Health Parkwest, ranked first and second in the metro
+independently. Mission's own trouble is on the other axis: two of five stars for patient
+experience, and a CMS immediate jeopardy finding in February 2024, since lifted. Writing "Asheville
+has worse hospitals" would have been wrong and checkable; writing "Asheville has one hospital
+system" is right and is the thing a retiree can act on.
+
+**Containment, caught in draft rather than in a later audit.** The money block wanted to list the
+$166 a year insurance advantage next to the $500 a month budget advantage. BUDGET-METHODOLOGY.md
+section 4 puts insurance INSIDE the monthly estimate, so that is the bloomington-vs-lexington
+defect exactly: a component of a derived figure presented as a second, additive advantage. The
+page now states explicitly that the insurance line is part of the $500 rather than on top of it.
+
+**Airport figures softened deliberately.** McGhee Tyson's own site gives two different route counts
+on two different pages, 25 and "more than 30", against 41 on the independent trackers. The page
+says "more than thirty", which is the airport's own conservative figure and true under every
+source. Asheville Regional publishes 26 across five airlines consistently, so that one is stated
+exactly. The standard says verify against the airport's own published figures or soften; when the
+airport disagrees with itself, soften.
+
+**Two conventions were in circulation and one had to be picked.** Climate row labels differ across
+live pages: `asheville-vs-greenville` uses Winters / Summer heat severity / Summer humidity, which
+is what COMPARISON-PAGE-STANDARD-v2 describes, while `knoxville-vs-chattanooga` still carries the
+older four-row form with "Warm winters" as a score row, which the standard explicitly rules out.
+Built on the former. The older form on the Knoxville pages is now a known divergence and is
+boarded below.
+
+**Also corrected while in the files.** The board asserted 47 live profiles against a real 48;
+Portland ME shipped July 29 and the line was never updated. And the hub carried "let the quiz score
+all 100", a live hardcoded city count that `check_hardcoded_counts` cannot see, because its pattern
+requires the word "cities" to follow the digits and this one does not.
+
+**No matchup count was restored to the hub.** The July 31 OPS chat found the hub's count wrong by
+one and deleted it rather than correcting it, which was right: a count in words rots exactly like a
+count in digits. There is nothing on the hub to bump when a page ships, and that is the intended
+state.
+
+---
+
+## BOARDED - opened by the knoxville-vs-asheville build (Aug 3)
+
+**[P4] Two climate-row conventions are live across the comparison pages.**
+COMPARISON-PAGE-STANDARD-v2 describes Winters / Summer heat severity (10 = worst) / Summer humidity
+(10 = worst), and explicitly rules out showing a "Mild year-round" style score row. At least
+`knoxville-vs-chattanooga` and `knoxville-vs-nashville` still carry the older four-row form with
+"Warm winters", "Summer comfort", "Humidity" and "Extreme heat exposure". Nothing reads climate
+rows, so this is invisible to the gate and to readers who only see one page. Fix while already in
+those files; do not make it a job. Count the real spread by grepping first, never from this entry.
+
+**[P4] `check_docs` reads a line-wrapped number as its profile-count anchor.** The first
+`(\d+)\s+profiles` match in this board is not the "Live profiles:" line. It is a wrapped `48` at
+the end of a July 29 sentence about stat-card labels, where the digits and the word land on
+different lines. It happens to be correct today. It will silently go stale, and the next session to
+write a digit-formatted profile count anywhere above it will shadow it instead. Either give the
+check an explicit anchor to read, or keep spelling profile counts out in words above that line.
 
 ---
 
@@ -1790,7 +1923,7 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 ## ACTIVE - city profile builds
 
 - **Next in queue:** open. Casper shipped Jul 28.
-- Live profiles: 47. Casper shipped Jul 28; Tulsa Jul 24; Roanoke the same day; San Antonio Jul 19; Fort Collins,
+- Live profiles: 48. Portland ME shipped Jul 29; Casper Jul 28; Tulsa Jul 24; Roanoke the same day; San Antonio Jul 19; Fort Collins,
   Prescott, Knoxville and Savannah shipped earlier in the same window.
 - NRC city count: **17 profiles carry a callout**, not 10 and not 12. Both the June count and the
   Jul 24 "San Antonio makes 11, Tulsa makes 12" note were wrong. Closed Jul 25: neither
@@ -2178,13 +2311,14 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ## ACTIVE - comparison pages
 
-Live: 20. Shipped since last board update: San Antonio vs Fort Worth, Knoxville vs Nashville, Fort Collins vs Boulder,
+Live: 21. Shipped since last board update: Knoxville vs Asheville, San Antonio vs Fort Worth, Knoxville vs Nashville, Fort Collins vs Boulder,
 Knoxville vs Chattanooga, Bend vs Boulder, Bloomington vs Lexington, Madison vs Ann Arbor,
 Madison vs Columbus, and others.
 
 Unlocked and ready to build now (both cities live):
-- **Knoxville vs Asheville**
 - **Arizona three-way cluster** (Prescott now live, so this is unblocked)
+
+~~**Knoxville vs Asheville**~~ SHIPPED August 3, 2026. See the CLOSED section above.
 
 Unlocks pending a build:
 - (none)
