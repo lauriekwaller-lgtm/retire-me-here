@@ -4,7 +4,18 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 6, 2026 (second push), `burlington-vs-portland-me` shipped
+**Last updated:** August 7, 2026, comparison cross-link rule retired and board hygiene
+boarded (OPS; 49 profiles live, 22 comparison pages live, no site change.
+`COMPARISON-PAGE-STANDARD-v2` item 6 required every new comparison page to link to ALL other live
+pages and to update all of them on every ship. It had already expired on its own terms: its
+sunset clause was "until the hub page exists", the hub exists, lists every matchup and is linked
+from all 22 pages. It had also never been followed. Measured across all 22: 1 to 4 outbound links
+per page, none ever at 21. Replaced with the curated 2-to-4 pattern already in practice, with the
+retired text kept inline so it is not reinvented. Three items boarded below, one of them a
+priority RAISE on an item that was already open and that I nearly double-boarded by not grepping
+this board first.)
+
+**Before that:** August 6, 2026 (second push), `burlington-vs-portland-me` shipped
 (COMPARE; 49 profiles live, 22 comparison pages live. The pairing splits two marks each,
 which is the honest result rather than a convenient one. Three judgment calls, all noted in
 the ops log entry: the two headline cost rows ship UNMARKED because they point in opposite
@@ -570,6 +581,33 @@ cycle whose second lever is comparisons.
 
 ---
 
+## BOARDED - opened August 6, 2026 (board hygiene + comparison standard)
+
+**[P2] This board is 40% closed-work archive and should be split.** Measured August 7, 2026:
+220,557 characters, 2,848 lines, of which 87,628 characters across 27 `## CLOSED` sections are
+completed work. It grew by 6,340 characters in a single day. The board's own purpose statement is "what is in flight, what is next, and what
+is parked", and none of those three describes a closed item. Move the `## CLOSED` sections to
+`docs/TASKBOARD-ARCHIVE.md` and leave the live board holding only open work.
+
+The reason this is safe: every shipped item is currently recorded THREE times. Once in the
+Last-updated ladder at the top of this board, once in a full `## CLOSED` section further down,
+and once in section 7 of `SITE-OPERATIONS-LOG.md`. The Burlington build wrote all three and the
+CLOSED section and the ops-log entry were close to duplicates. The `## CLOSED` copy is the
+redundant one and the largest; the ladder stays as the scannable recent history and the ops log
+stays as the permanent narrative record. `check_docs` reads only `TASKBOARD.md`, so the archive
+file is invisible to the gate and no validator change is needed.
+
+What this does NOT fix: the count anchor above. Roughly a third of the 27 historical profile
+counts sit in the front-matter ladder, above the first `## CLOSED` heading, which is exactly
+where the current first match lives. Do not ship the split believing it closed the P2 above.
+
+**[P4] One comparison page sits below the new link floor.** `COMPARISON-PAGE-STANDARD-v2` item 6
+now sets two related matchups as the minimum. `bloomington-vs-lexington-retirement.html` carries
+one. Fix while already in that file; do not make it a job. Nothing gates this, which is why it
+needs writing down. Re-count by grepping before acting, never from this entry.
+
+---
+
 ## CLOSED August 6, 2026 (Burlington VT, BUILD) - shipped
 
 **What shipped.** One new profile at `cities/burlington/profile.html` with three photos, the
@@ -691,7 +729,19 @@ COMPARISON-PAGE-STANDARD-v2 describes Winters / Summer heat severity (10 = worst
 rows, so this is invisible to the gate and to readers who only see one page. Fix while already in
 those files; do not make it a job. Count the real spread by grepping first, never from this entry.
 
-**[P4] `check_docs` reads a line-wrapped number as its profile-count anchor.** The first
+**[P2, RAISED from P4 on August 7, 2026] `check_docs` reads a line-wrapped number as its
+profile-count anchor.** Raised because the Burlington build had to work around it by hand:
+the fix was to place "49 profiles" in the new head paragraph so it would shadow the July 29
+sentence. That works, and it is a workaround that every future build must remember to repeat,
+which is exactly the shape of thing that gets forgotten once. The real fix is an explicit
+labelled field, `**Live profiles:** 49`, near the top of this board, with `check_docs` reading
+that field rather than the first loose regex match anywhere in the file. Under the harness rule
+that check change ships with a planted-error harness: one fixture where the field disagrees with
+reality, one where the field is missing entirely, so the check cannot silently no-op. There are
+currently 31 digit-formatted profile counts in this file, ranging from 4 to 49. The check is
+reading the first of 27 landmines and passing by coincidence. Original entry follows.
+
+The first
 `(\d+)\s+profiles` match in this board is not the "Live profiles:" line. It is a wrapped `48` at
 the end of a July 29 sentence about stat-card labels, where the digits and the word land on
 different lines. It happens to be correct today. It will silently go stale, and the next session to

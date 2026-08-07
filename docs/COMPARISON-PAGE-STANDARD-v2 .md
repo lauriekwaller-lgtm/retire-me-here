@@ -18,9 +18,25 @@ A/B review. The Scottsdale vs. Tucson FINAL file is the reference build.
    The biggest practical difference · Each city's signature strength · The honest
    shared downside.
 5. "Read the full profile" section with two outlined profile cards (teal + terra).
-6. "More city matchups" pill links to ALL other live comparison pages (update
-   every existing comparison page when a new one ships — this keeps the
-   comparison cluster interlinked until the hub page exists).
+6. "More city matchups" pills: a SHORT CURATED SET of 2 to 4 related matchups,
+   plus the link to `compare-retirement-cities.html`. Choose pairings a reader of
+   THIS page would plausibly want next: a shared city, a shared region, or the
+   same tradeoff argued from a different angle. Not whatever shipped most
+   recently. Two is the floor; four is the ceiling.
+
+   RETIRED RULE, kept here so it is not reinvented. This item used to read: link
+   to ALL other live comparison pages, and update every existing comparison page
+   whenever a new one ships. That rule carried its own sunset clause, "until the
+   hub page exists". The hub now exists, lists every matchup, and is linked from
+   all 22 comparison pages, so the condition it was waiting on has been met.
+
+   It was also never followed at scale. On August 7, 2026, with 22 pages live,
+   the real spread was 1 to 4 outbound links per page and no page had ever
+   carried 21. The curated set is the better pattern anyway: 20 undifferentiated
+   pills are not navigation, and an all-pages rule turns every new matchup into
+   an N-file edit that nobody will do. Retired rather than enforced, because an
+   unenforced rule in a standards doc is worse than no rule. The next person to
+   read it literally would have done the wrong work carefully.
 7. Visible FAQ (5 Qs) + quiz CTA + footer.
 
 ## Table rules

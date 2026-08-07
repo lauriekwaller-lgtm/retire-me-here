@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-07 - comparison cross-link rule retired, board hygiene boarded
+
+**What shipped.** One governing-doc edit and three board items. No HTML changed, no database
+change, no scoring change. Gate clean at 0 failures, 0 warnings.
+
+**The retired rule.** `COMPARISON-PAGE-STANDARD-v2` item 6 required every comparison page to link
+to ALL other live comparison pages, and required updating every existing page whenever a new one
+shipped. Three findings, in the order they mattered:
+
+1. The rule had already expired on its own terms. Its text ended "until the hub page exists".
+   `compare-retirement-cities.html` exists, lists all 22 matchups, and is linked from all 22
+   comparison pages. The condition it was waiting on was met and nobody went back to close it.
+2. It was never followed at scale. Measured: 1 to 4 outbound links per page across 22 pages. No
+   page has ever carried 21.
+3. The practice that replaced it is better. A curated 2-to-4 set of related matchups is
+   navigation; 21 undifferentiated pills are a wall.
+
+Replaced with the curated pattern and the reasoning kept inline so it does not get reinvented.
+The general lesson, worth more than this instance: a rule nobody follows is not neutral. It is a
+trap for whoever reads the doc literally and does the wrong work carefully. Retiring it is the
+change; documenting why is what stops it coming back.
+
+**Priority raise, not a new item.** The `check_docs` profile-count anchor went P4 to P2. It was
+already boarded on August 3 by the knoxville-vs-asheville build. I proposed it in the Burlington
+session as though it were new, without grepping the board first, which is precisely the failure
+the board exists to prevent and would have produced two entries for one defect. Raised because
+the Burlington build had to hand-work around it and every future build now has to remember the
+same workaround.
+
+**Board split boarded, not done.** 40% of `TASKBOARD.md` is closed-work archive, and every
+shipped item is recorded three times across the board ladder, the board's CLOSED sections, and
+this log. Boarded as a P2 with the explicit warning that the split does not fix the count anchor,
+because a third of the historical counts live in the front matter and would survive it.
+
 ### 2026-08-06 (second push) - burlington-vs-portland-me shipped
 
 **What shipped.** One new comparison page at `burlington-vs-portland-me-retirement.html`,
