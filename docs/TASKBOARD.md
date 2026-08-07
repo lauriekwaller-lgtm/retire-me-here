@@ -4,7 +4,74 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 7, 2026, Fayetteville AR profile shipped
+**Last updated:** August 7, 2026 (second push), budget-label defect raised P2 to P0
+(OPS; 50 profiles live, 22 comparison pages live, no site change. Board only. The defect
+below is live and stays live until the BATCH ships.)
+
+**P0, LIVE, CONVERSION PATH: the quiz budget question shows three identical options.**
+
+`renderBudget()` in `index.html` (currently near line 6751) builds Step three of four from a
+local `BUDGET_LABELS` array whose middle three entries are byte-identical:
+
+```
+Under $5,500 / month        -> range 1
+$8,900-$11,000 / month      -> range 2
+$8,900-$11,000 / month      -> range 3
+$8,900-$11,000 / month      -> range 4
+$9,000+ / month             -> range 5
+```
+
+A reader is asked the single highest-leverage question in the quiz and handed three buttons
+they cannot tell apart. Each sets a different `quizState.budget`, and that value drives a hard
+candidate filter (`budgetRange <= quizState.budget + 1`), the alignment bonus, and the
+over-budget penalty. Three indistinguishable buttons therefore return three different result
+sets. This is the primary conversion path and it has been wrong for an unknown length of time.
+
+Three findings that go with it:
+
+ONE. The correct band set already exists in the same file, about twenty lines below, as
+`budgetLabels` in the results prose: `under $5,500`, `$5,500-6,499`, `$6,500-7,499`,
+`$7,500-8,999`, `$9,000+`. Distinct, ascending, non-overlapping. So the quiz array was never
+filled past its first and last slots, and the paste source was one `$8,900-$11,000` line.
+
+TWO. `BUDGET_OPTIONS`, near line 6352, is dead code carrying the same defect plus a stray
+`Range 5:` prefix on all five labels. It is referenced nowhere. DELETE it rather than fixing
+it, or someone repairs it later and it still does nothing.
+
+THREE. Neither label set is derived from the database. Read off `CityDatabase_Jul_27_v17`,
+the real low-end bands are: Range one $3,800 to $4,900, Range two $5,000 to $5,800, Range
+three $5,900 to $6,600, Range four $6,900 to $8,000, Range five $8,900 and up. The results
+prose set is directionally right and internally consistent; it is still approximate.
+
+**Fix spec, one BATCH:**
+
+1. Derive one label set from the DB low-end bands: `under $5,000`, `$5,000-5,899`,
+   `$5,900-6,899`, `$6,900-8,899`, `$8,900+`.
+2. Write it ONCE as a module-level constant and reference it from both `renderBudget()` and
+   the results prose. Two surfaces holding two copies is what produced this; a fix that leaves
+   two copies has fixed nothing.
+3. Delete `BUDGET_OPTIONS` entirely.
+4. Reconcile `scoring_rubric_v3_2` to the same bands. Its current text puts Range one at under
+   $3,500/mo, which is an empty set: no city in the database is under $3,800.
+5. New validator check `check_budget_labels`, with a planted-error harness before it ships,
+   per the no-silent-no-op rule. It must assert, and FAIL rather than warn, that: the label set
+   is exactly five entries; all five strings are distinct; the bands ascend and do not overlap;
+   the thresholds match the DB `Budget Range` low-end bands; and exactly one label array exists
+   in `index.html`. Zero matches must be a failure, not a pass.
+
+**Why this was graded P2 first, recorded so the mistake is not repeated.** It was boarded as
+documentation drift between the rubric and the DB field, which is real and is item four above.
+The rubric was read; the rendered quiz was not. A doc-versus-data disagreement and a live
+broken control surface look identical from the spreadsheet, and only one of them costs
+conversions. The lesson generalises past this item: when a doc and the data disagree about a
+field, check what the USER sees that field through before grading the severity.
+
+**Priority consequence:** this outranks everything currently on the board, including the Wave
+one and Wave two profile queue. New profiles feed a quiz whose budget filter is not doing what
+the reader asked for, so profile volume is currently being poured into a broken funnel. The
+growth-versus-debt split is suspended until this ships.
+
+**Before that:** August 7, 2026, Fayetteville AR profile shipped
 (BUILD; 50 profiles live, 22 comparison pages live. First build with no pillar: nothing in the
 row reaches nine, so the hero and opening paragraph lead the four-way cluster at eight
 (affordability, healthcare, outdoor, community) rather than picking a favourite. Recorded as a
@@ -25,10 +92,11 @@ Wrong twice: the rate is graduated, not flat, and 4.4% was the 2025 figure. The 
 3.9%. Fixed. Tax scoreNotes across all profiles carry a year-stamped figure and nothing in the
 toolchain ages them; worth a dated sweep.
 
-FOUND WHILE BUILDING, P2, OPS: the DB `Budget Range` field has drifted from the v3.2 rubric
-definition. The rubric puts Range 1 at under $3,500/mo; live Range 1 profiles ship at $4,100 to
-$6,100. Fayetteville sits at the top edge of the observed band and is consistent with practice,
-so nothing was changed here. Either the rubric or the field needs to move.
+~~FOUND WHILE BUILDING, P2, OPS: the DB `Budget Range` field has drifted from the v3.2 rubric
+definition.~~ **RAISED TO P0 and superseded, August 7 2026, second push.** The grade was wrong.
+This is not doc drift; the same disagreement is live in the quiz budget question as three
+identical options on the conversion path. Full item and fix spec at the head of this board.
+The doc-reconciliation half survives as item four of that spec.
 
 FOUND WHILE BUILDING, P3, OPS: the live NRC roster greps to thirteen cities. The board and
 `PROFILE-FORMATTING` history both record ten. The live enumeration is authoritative; the prose

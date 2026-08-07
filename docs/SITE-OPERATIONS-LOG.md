@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-07 (second entry)
+
+**Budget-label defect raised P2 to P0 (OPS).** Board only. No site change: `index.html` was not
+touched, and the defect ships live until the fixing BATCH. Files: `docs/TASKBOARD.md`, this log.
+
+`renderBudget()` in `index.html` renders the quiz budget question from a local `BUDGET_LABELS`
+array whose middle three entries are byte-identical strings. Three indistinguishable buttons,
+each setting a different `quizState.budget`, which drives a hard candidate filter, the
+alignment bonus and the over-budget penalty. Three different result sets behind three buttons a
+reader cannot tell apart, on Step three of four of the primary conversion path.
+
+Correct bands already exist twenty lines below as `budgetLabels` in the results prose, so the
+quiz array was never filled past its first and last slots. `BUDGET_OPTIONS` near line 6352 is
+dead code with the same defect and is marked for deletion rather than repair. Neither set is
+derived from the database; the fix spec on the board derives one set from the v17 low-end
+bands, writes it once, and references it from both surfaces.
+
+**Two process notes worth keeping.**
+
+First, the original P2 grade was wrong and the reason is generalisable. The item was boarded
+from the rubric-versus-database disagreement, which is real, and the rendered quiz was never
+opened. A doc-versus-data mismatch and a live broken control look the same from the
+spreadsheet. When a doc and the data disagree about a field, open what the reader sees that
+field through before setting a priority.
+
+Second, the validator read 0 failures 0 warnings across every run in this session, including
+the pre-deploy gate for the Fayetteville profile, while this sat live. Nothing in the toolchain
+reads quiz option labels. `check_budget_labels` is specified on the board with a planted-error
+harness required before it ships, and with zero matches defined as a failure, per the
+no-silent-no-op rule.
+
+**Priority consequence:** this outranks the Wave one and Wave two profile queue. The
+growth-versus-debt split is suspended until the fixing BATCH ships.
+
 ### 2026-08-07
 
 **Fayetteville, AR profile shipped (BUILD).** 50 profiles live. Files: new
