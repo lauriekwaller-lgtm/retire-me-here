@@ -202,6 +202,38 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-07
+
+**Fayetteville, AR profile shipped (BUILD).** 50 profiles live. Files: new
+`cities/fayetteville/{profile.html,hero.jpg,detail.jpg,lifestyle.jpg}`; edits to `index.html`
+(PUBLISHED_PROFILES plus eleven copy corrections), `sitemap.xml`,
+`best-places-to-retire-on-a-budget.html`, `docs/TASKBOARD.md`, this log.
+
+Built from live `cities/st-louis/profile.html`. Not an NRC city, so the Neighborhood Reality
+Check callout and the `.reality-check` CSS were both stripped; the `lists-grid-four` rule inside
+the shared media query was kept.
+
+Judgment calls, all overridable:
+1. No dimension reaches nine. The hero tagline and opening character paragraph carry all four
+   eights rather than leading with one. The skill has no tuning for this shape.
+2. Stat card four is Outdoors ("40+ trail mi") over Community, because the D2 figure is already
+   spent on two cards and the Greenway is the asset Fayetteville owns rather than borrows.
+3. Healthcare card uses "425 beds" per the deployed Prescott pattern rather than a hospital name.
+4. Crystal Bridges is attributed to Bentonville everywhere it appears, in body copy and in the
+   `index.html` D10 note, rather than being folded into Fayetteville's own culture claim.
+5. Lists section ships with one card. Precedent is live Prescott.
+
+Photos: all three from Brandon Rush via Wikimedia Commons. Hero (Square, poppies) and lifestyle
+(Razorback Greenway at Lake Fayetteville) are CC0. Detail (534 Willow Avenue, Washington-Willow
+Historic District) is CC BY-SA 3.0, so the crop is offered under the same licence and that is
+stated in both the photo credit and the footer. Detail crop carries a 2.7% upscale, inside the
+ten percent ceiling. Four candidate images were rejected before these: two were Burlington VT,
+one was a three-megapixel University of Arkansas frame that could not make the portrait spec
+without a thirty percent upscale, and one was a lower-resolution Willow Avenue shot.
+
+Affiliate codes confirmed by the operator before build and checked for collisions against all
+live profiles: expedia `iSurfAX`, vrbo `32xKR9x`.
+
 ### 2026-08-07 - comparison cross-link rule retired, board hygiene boarded
 
 **What shipped.** One governing-doc edit and three board items. No HTML changed, no database

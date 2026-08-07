@@ -4,7 +4,37 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 7, 2026, comparison cross-link rule retired and board hygiene
+**Last updated:** August 7, 2026, Fayetteville AR profile shipped
+(BUILD; 50 profiles live, 22 comparison pages live. First build with no pillar: nothing in the
+row reaches nine, so the hero and opening paragraph lead the four-way cluster at eight
+(affordability, healthcare, outdoor, community) rather than picking a favourite. Recorded as a
+SKILL GAP: `retiremehere-city-profile` tunes for MULTI-PILLAR at nine-plus and a MULTI-STRENGTH
+advisory that assumes a standout exists, and has no case for a flat cluster. Budget card on
+`best-places-to-retire-on-a-budget` promoted from coming-soon to live. Lists section ships with a
+single card under `lists-grid`, matching the deployed Prescott pattern; Fayetteville is on no
+other landing list.
+
+FOUND WHILE BUILDING, P1, OPS: four instances of Lake Leatherwood in `index.html` Fayetteville
+copy, one of them reading "Lake Leatherwood trails in city". Lake Leatherwood City Park is in
+Eureka Springs, about forty-five minutes northeast. Fixed in this ship (pros, D6, D7, D8). The
+class of defect is a regional asset absorbed into a city's own copy; the same shape is worth a
+sweep across every profile that borrows from a nearby town.
+
+FOUND WHILE BUILDING, P1, OPS: `index.html` Fayetteville D5 read "Arkansas income tax 4.4% flat".
+Wrong twice: the rate is graduated, not flat, and 4.4% was the 2025 figure. The 2026 top rate is
+3.9%. Fixed. Tax scoreNotes across all profiles carry a year-stamped figure and nothing in the
+toolchain ages them; worth a dated sweep.
+
+FOUND WHILE BUILDING, P2, OPS: the DB `Budget Range` field has drifted from the v3.2 rubric
+definition. The rubric puts Range 1 at under $3,500/mo; live Range 1 profiles ship at $4,100 to
+$6,100. Fayetteville sits at the top edge of the observed band and is consistent with practice,
+so nothing was changed here. Either the rubric or the field needs to move.
+
+FOUND WHILE BUILDING, P3, OPS: the live NRC roster greps to thirteen cities. The board and
+`PROFILE-FORMATTING` history both record ten. The live enumeration is authoritative; the prose
+that says ten should be struck.)
+
+**Before that:** August 7, 2026, comparison cross-link rule retired and board hygiene
 boarded (OPS; 49 profiles live, 22 comparison pages live, no site change.
 `COMPARISON-PAGE-STANDARD-v2` item 6 required every new comparison page to link to ALL other live
 pages and to update all of them on every ship. It had already expired on its own terms: its
