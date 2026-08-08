@@ -202,6 +202,30 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-08 (fifth push) - Saratoga Springs NY profile (51)
+
+Profile fifty-one. Built from live `cities/st-louis/profile.html`, non-NRC, so the callout and
+its CSS were stripped. Three photos: Saratoga Race Course (Joshua Adams, Unsplash) as hero,
+Congress Park (Tyler A. McNeil, Wikimedia Commons, CC BY-SA 4.0, crop offered under the same
+licence) as the portrait detail, Saratoga Lake with Snake Hill (Peter Flass, Wikimedia Commons,
+CC BY 3.0) as the lifestyle square. Two Lake George candidates were rejected: Lake George
+village is twenty-five miles north and is not this city, and one of the two carried an Unsplash
+geotag naming Saratoga Springs for a photograph that plainly shows Lake George.
+
+Three lists carry Saratoga cards already, all live rather than coming-soon, so no landing page
+needed editing: arts lovers, natural disasters, LGBTQ retirees. Three list cards, so
+`lists-grid` rather than `lists-grid-four`.
+
+Corrections riding along, all found in the ranked-brief step and all silent to the validator:
+`index.html` highlight and `pros[0]` claimed a perfect ten on community against a database
+eight, `pick-and-compare.html` carried the same highlight, the `culture_walkable` pairings
+block carried `s1: 10`, and `value-navigator.html` badged Range three against a database
+Budget Range of four.
+
+Open item boarded, not fixed: database Median Home for Saratoga Springs is $663,000 against a
+late-June 2026 Zillow ZHVI of $618,681. The profile displays the database figure per the
+data-source rule.
+
 ### 2026-08-08 (fourth push) - check_budget_labels shipped; the P0 is closed
 
 **Files:** new `tools/test_budget_labels.py`, `tools/validate.py`, `docs/TASKBOARD.md`, this log.

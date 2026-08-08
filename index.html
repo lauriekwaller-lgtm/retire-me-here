@@ -3074,8 +3074,8 @@ const CITIES = [
     monthlyEst: "$6,900–$8,600/mo", medianHome: "$663,000", budgetRange: 4,
     scores: { D1:6, D2:4, D3:6, D4:8, D5:2, D6:8, D7:7, D8:6, D9:8, D10:8 },
     climate: { W:2, H:7, M:6, HUM:6, HEAT:5, janF:22, snow:60, sun:52 },
-    highlight: "Perfect 10 community. Horse racing, SPAC, mineral springs, extraordinary arts calendar. One of the most distinctive small cities in America.",
-    pros: ["Perfect 10 community: a distinctive cultural identity","Saratoga Race Course, SPAC performing arts, mineral spring culture","Most walkable small city in Upstate NY","84th percentile safety"],
+    highlight: "Saratoga Race Course has run since 1863 and SPAC brings New York City Ballet and the Philadelphia Orchestra every summer. Walkable Victorian downtown, mineral springs and 2,400-acre Saratoga Spa State Park inside the city limits, 84th percentile safety. New York taxes are the tradeoff.",
+    pros: ["SPAC: New York City Ballet in July, the Philadelphia Orchestra for three weeks in August","Saratoga Race Course since 1863; mineral springs and Saratoga Spa State Park in the city limits","Walkable Victorian downtown: walkability 8 of 10","84th percentile safety"],
     cons: ["Brutal winters: January average 22°F, significant snow","NY income tax among the worst nationally for retirees","ALB airport regional; NYC 3 hrs for major international","Expensive: $663K median and high property taxes"]
   },
   {
@@ -7918,6 +7918,7 @@ function renderEditorialDetail(city, en) {
 function showCityDetail(cityName, cityState) {
   // Cities with full standalone profile pages: redirect there instead of inline view
   const PUBLISHED_PROFILES = {
+    'Saratoga Springs_NY': 'cities/saratoga-springs/profile.html',
     'Fayetteville_AR': 'cities/fayetteville/profile.html',
     'Burlington_VT': 'cities/burlington/profile.html',
     'Boulder_CO': 'cities/boulder/profile.html',
@@ -8197,7 +8198,7 @@ const EXPLORE_PRESETS = {
     cities: [
       { name: 'Portland', state: 'ME', type: 'Small City / Coastal', s1: 10, s2: 9 },
       { name: 'Santa Barbara', state: 'CA', type: 'Small City / Coastal', s1: 10, s2: 8 },
-      { name: 'Saratoga Springs', state: 'NY', type: 'Historic / Arts', s1: 10, s2: 8 },
+      { name: 'Saratoga Springs', state: 'NY', type: 'Historic / Arts', s1: 8, s2: 8 },
       { name: 'Annapolis', state: 'MD', type: 'Small City / Coastal', s1: 9, s2: 8 },
       { name: 'Ann Arbor', state: 'MI', type: 'College Town', s1: 9, s2: 8 },
     ]

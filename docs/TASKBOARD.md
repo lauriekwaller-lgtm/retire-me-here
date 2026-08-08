@@ -4,7 +4,41 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 8, 2026, budget-label P0 fixed, push one of two
+**Last updated:** August 8, 2026, Saratoga Springs NY profile shipped
+(BUILD; 51 profiles live, 22 comparison pages live. Three stale "Perfect 10 community" claims
+corrected in the same commit.)
+
+**SHIPPED, August 8 2026: Saratoga Springs, NY (Wave 1).**
+
+Fourth-range city, and the first profile built on a dimension vector with no pillar at all.
+Nothing scores 9 or 10. Four dimensions tie at eight (walkability, safety, community,
+resilience), outdoor supports at seven, and two hard flags bind: tax at two and budget at
+four. The hero tagline and opening character paragraph carry the cluster rather than leading
+with the arts, which is the emphasis the ranked brief exists to force.
+
+**Three stale claims corrected, found during the brief step.** Live `index.html` asserted
+"Perfect 10 community" in both the `highlight` string and `pros[0]`, `pick-and-compare.html`
+carried the same highlight, and the `culture_walkable` pairings block carried `s1: 10`.
+The database says D10 Comm. is eight. Separately `value-navigator.html` badged Saratoga as
+Range three against a database Budget Range of four, while Frisco on the same page at the
+same monthly figures badged Range four correctly. None of the four trips any existing check.
+`pros[2]` also carried "Most walkable small city in Upstate NY", an outside-world superlative
+with no citation behind it, replaced with the walkability score.
+
+**Boarded, not fixed: the Saratoga home-value gap.** The database carries Median Home at
+$663,000. The live Zillow ZHVI page for Saratoga Springs read $618,681 at the end of June
+2026, a gap of about seven per cent. The data-source rule says the profile displays the
+database figure and it does, in every one of the five places the profile names a home value.
+Flagged for the next database pass rather than reconciled here, on the Burlington snowfall
+precedent: a build chat is the wrong place to overwrite a database cell.
+
+**No Neighborhood Reality Check.** The callout test is whether the citywide figure understates
+the retiree-target budget. Here it overstates the cheap end and understates only the east
+side, and the outer towns run below it, so the method callout in the neighborhoods section
+carries that spread instead. The `.reality-check` CSS was stripped from the clone so the
+profile does not register in the NRC roster grep.
+
+**Before that:** August 8, 2026, budget-label P0 fixed, push one of two
 (OPS; 50 profiles live, 22 comparison pages live. `index.html` only. The quiz budget question
 now renders five distinct ascending bands from one constant. The guard is not yet written;
 until push two ships, nothing in the toolchain reads quiz option labels.)
