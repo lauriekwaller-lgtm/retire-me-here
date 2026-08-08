@@ -27,8 +27,18 @@ is twenty-nine per cent over that reader's stated budget and its typical month i
 cent over.
 
 The set actually shipped is the MIDPOINT of each range's `Monthly Est` span, rounded at the seams:
-`Under $5,500`, `$5,500-$6,499`, `$6,500-$7,499`, `$7,500-$8,999`, `$9,000+`. Midpoints by range
+`Under $5,500`, `$5,500-$6,500`, `$6,500-$7,500`, `$7,500-$9,000`, `$9,000+`. Midpoints by range
 are R1 $4,300-5,550, R2 $5,600-6,550, R3 $6,600-7,400, R4 $7,750-9,000, R5 $9,950+.
+
+**Labels rounded, August 8 2026 second push.** The displayed labels were rounded to clean hundreds.
+A column of figures ending in 499 and 999 is harder to read at a glance than one ending in round
+hundreds, and this is the single highest-leverage question in the quiz. The numeric `min`/`max`
+edges on `BUDGET_BANDS` are unchanged and stay exact and non-overlapping, so the assignment math is
+untouched and only the display copy moved. The two now disagree by one dollar at each seam, which
+means a reader stating exactly $6,500 sees that figure named in two bands. Deliberate: at the
+boundary the two bands admit result sets that differ by one range and the reader is better placed
+than we are to pick. Consequence for push two: `check_budget_labels` must assert each label's upper
+figure against the NEXT band's `min`, not against its own `max`, or the rounding reads as an error.
 
 A finding that corrects item ONE below: the results-prose `budgetLabels` set was NOT approximate.
 It is the midpoint bands, derived correctly, rounded at the seams. It was right and it was the

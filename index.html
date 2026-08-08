@@ -6366,11 +6366,17 @@ const MUST_HAVE_THRESHOLD = 7;
 // min/max are the reader-facing band edges in dollars per month; max is null on
 // the open-ended top band. check_budget_labels asserts these against the DB.
 // ---------------------------------------------------------------------------
+// `label` is display copy, rounded to clean hundreds for readability. `min`/`max`
+// are the real band edges and stay exact and non-overlapping. The two therefore
+// disagree by one dollar at each seam, on purpose: a reader stating exactly
+// $6,500 sees it named in two bands and picks either. Nothing reads `label` as a
+// number. check_budget_labels asserts each label's upper figure against the NEXT
+// band's `min`, not against this band's `max`.
 const BUDGET_BANDS = [
   { range: 1, label: 'Under $5,500',  min: 0,    max: 5499 },
-  { range: 2, label: '$5,500–$6,499', min: 5500, max: 6499 },
-  { range: 3, label: '$6,500–$7,499', min: 6500, max: 7499 },
-  { range: 4, label: '$7,500–$8,999', min: 7500, max: 8999 },
+  { range: 2, label: '$5,500–$6,500', min: 5500, max: 6499 },
+  { range: 3, label: '$6,500–$7,500', min: 6500, max: 7499 },
+  { range: 4, label: '$7,500–$9,000', min: 7500, max: 8999 },
   { range: 5, label: '$9,000+',       min: 9000, max: null },
 ];
 

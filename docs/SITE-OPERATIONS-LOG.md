@@ -202,6 +202,32 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-08 (second push) - budget band labels rounded
+
+**Files:** `index.html`, `docs/TASKBOARD.md`, this log. Display copy only.
+
+The five band labels shipped this morning read `$5,500-$6,499`, `$6,500-$7,499`, `$7,500-$8,999`.
+Rounded to `$5,500-$6,500`, `$6,500-$7,500`, `$7,500-$9,000`. Operator call, on readability: a
+column of figures ending in 499 and 999 is harder to scan than round hundreds, and this is the
+highest-leverage question in the quiz.
+
+The numeric `min`/`max` fields on `BUDGET_BANDS` were NOT changed. They remain exact and
+non-overlapping, because they are the assignment math and the thing the guard will assert. Only
+the `label` string moved. The split is now explicit in a comment above the constant so that a
+later reader does not see the one-dollar disagreement and "correct" it back.
+
+**The trade, recorded so it is not relitigated.** Display and edges now disagree by one dollar at
+each seam. A reader stating exactly $6,500 sees it named in two bands. At a boundary the two
+adjacent bands admit result sets one range apart, and the reader knows better than the quiz does
+whether they sit above or below their own stated figure. The precision that was lost was false
+precision: it implied the bands know something about $6,499 that they do not.
+
+**Consequence for push two.** `check_budget_labels` must assert each label's upper figure against
+the NEXT band's `min`, not against its own `max`. Written that way the rounding is legal and a
+genuine mis-set band still fails. Written the obvious way, it fails on correct data on day one.
+Worth stating because a guard that fires on its own correct input gets loosened rather than fixed,
+and a loosened guard is how the original defect survived.
+
 ### 2026-08-08 - budget-label P0 fixed (push one of two)
 
 **Files:** `index.html`, `docs/TASKBOARD.md`, this log. Push one of two; the guard is push two.
