@@ -36,6 +36,7 @@ import json
 import os
 import pathlib
 import re
+import statistics
 import subprocess
 import sys
 import urllib.request
@@ -2297,6 +2298,234 @@ def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
                      f"link. A renamed page must not retire its own coverage.")
 
 
+def check_budget_labels(rep, db, idx):
+    """
+    The quiz budget question, which is the highest-leverage control on the site.
+
+    On 2026-08-07 this rendered from a local BUDGET_LABELS array inside
+    renderBudget() whose middle three entries were byte-identical strings. Three
+    buttons a reader could not tell apart, each setting a different
+    quizState.budget, each driving a different hard candidate filter. It sat live
+    for an unknown length of time and the gate read 0 failures 0 warnings through
+    every session, because nothing in the toolchain had ever read a quiz option
+    label. That is the hole this check closes.
+
+    Five assertions, all FAIL rather than warn:
+
+      1. BUDGET_BANDS exists and parses. Not finding it is a FAILURE, never a
+         quiet pass: zero matches is the silent-no-op shape this validator exists
+         to refuse.
+      2. Exactly five bands, numbered 1..5 in order, five DISTINCT labels.
+      3. The numeric edges ascend, do not overlap, and leave no gap; the top band
+         is open-ended.
+      4. Each label's upper figure equals the NEXT band's `min`, not its own
+         `max`. The labels are rounded to clean hundreds while the edges are
+         exact, so they disagree by one dollar at every seam ON PURPOSE. Asserted
+         this way the rounding is legal and a genuinely mis-set band still fails.
+         Asserted the obvious way this fires on correct data, and a check that
+         fires on its own correct input gets loosened rather than fixed.
+      5. The boundaries are still where the DATABASE puts them, recomputed here
+         at run time from Monthly Est. A check holding its own hardcoded copy of
+         the five strings would be a fourth copy of the thing that broke, and it
+         would pass forever while the database moved underneath it.
+
+    Plus: no second copy. Each label string must appear exactly once in
+    index.html, and the three retired identifiers must not come back. Two copies
+    of the band set is the precise condition that produced the original defect,
+    so a fix that permits a second copy has fixed nothing.
+
+    On assertion 5, and it is a policy decision made executable. The bands are
+    derived from the MIDPOINT of each range's Monthly Est span, not its low end.
+    The low end is the cheapest month a city ever has, and the candidate filter
+    already grants one range of deliberate stretch (budgetRange <= budget + 1),
+    so low-end labels would stack a second undocumented stretch on the first. The
+    boundary-versus-median test below FAILS on a low-end derivation, by design.
+    If that policy is ever reversed the reversal has to be made here, deliberately
+    and in writing, rather than by quietly editing five strings.
+
+    The test is against the MEDIAN midpoint of each range rather than per-city
+    containment. Five of ninety-nine cities straddle a boundary (Fayetteville,
+    Knoxville, St. George, Charlottesville, Boulder all sit within $50 of one),
+    because Budget Range is not a pure function of the midpoint. Per-city
+    containment would therefore fail on correct data on day one. Medians move
+    slowly and separate cleanly.
+    """
+    m = re.search(r"const BUDGET_BANDS = \[(.*?)\];", idx, re.S)
+    if not m:
+        rep.fail("engine",
+                 "index.html: BUDGET_BANDS not found. The quiz budget question is "
+                 "the primary conversion path and nothing else on this site reads "
+                 "its labels. Finding nothing here is a failure, not a pass.")
+        return
+
+    bands = []
+    for line in m.group(1).splitlines():
+        e = re.search(r"range:\s*(\d+)\s*,\s*label:\s*'([^']*)'\s*,\s*"
+                      r"min:\s*(\d+)\s*,\s*max:\s*(\d+|null)", line)
+        if e:
+            bands.append({"range": int(e.group(1)), "label": e.group(2),
+                          "min": int(e.group(3)),
+                          "max": None if e.group(4) == "null" else int(e.group(4))})
+
+    if len(bands) != 5:
+        rep.fail("engine",
+                 f"index.html: BUDGET_BANDS parsed {len(bands)} bands, expected 5. "
+                 f"Either a band is missing or an entry no longer matches the "
+                 f"expected shape and is being skipped silently.")
+        return
+
+    # --- 2. numbering and distinctness -------------------------------------
+    if [b["range"] for b in bands] != [1, 2, 3, 4, 5]:
+        rep.fail("engine",
+                 f"index.html: BUDGET_BANDS ranges are "
+                 f"{[b['range'] for b in bands]}, expected 1 through 5 in order. "
+                 f"quizState.budget indexes this array positionally.")
+
+    labels = [b["label"] for b in bands]
+    if len(set(labels)) != 5:
+        dupes = sorted({l for l in labels if labels.count(l) > 1})
+        rep.fail("engine",
+                 f"index.html: BUDGET_BANDS has duplicate labels: "
+                 f"{', '.join(repr(d) for d in dupes)}. Each button sets a "
+                 f"different quizState.budget and returns a different result set, "
+                 f"so identical labels ask the reader to choose blind. This is the "
+                 f"exact defect of 2026-08-07.")
+
+    # --- 3. edges ascend, contiguous, top open -----------------------------
+    for i, b in enumerate(bands[:-1]):
+        nxt = bands[i + 1]
+        if b["max"] is None:
+            rep.fail("engine",
+                     f"index.html: BUDGET_BANDS range {b['range']} has an "
+                     f"open-ended max but is not the last band.")
+            continue
+        if b["max"] < b["min"]:
+            rep.fail("engine",
+                     f"index.html: BUDGET_BANDS range {b['range']} has max "
+                     f"{b['max']} below min {b['min']}.")
+        if b["max"] + 1 != nxt["min"]:
+            rep.fail("engine",
+                     f"index.html: BUDGET_BANDS ranges {b['range']} and "
+                     f"{nxt['range']} are not contiguous: max {b['max']} then min "
+                     f"{nxt['min']}. A reader whose budget falls in the gap, or in "
+                     f"the overlap, has no correct answer.")
+    if bands[-1]["max"] is not None:
+        rep.fail("engine",
+                 "index.html: BUDGET_BANDS top band must be open-ended (max: null). "
+                 "A capped top band silently excludes anyone above it.")
+
+    # --- 4. labels agree with the edges, allowing the rounding convention ---
+    def figures(s):
+        return [int(x.replace(",", "")) for x in re.findall(r"\$([\d,]+)", s)]
+
+    for i, b in enumerate(bands):
+        f = figures(b["label"])
+        if not f:
+            rep.fail("engine",
+                     f"index.html: BUDGET_BANDS range {b['range']} label "
+                     f"{b['label']!r} carries no dollar figure.")
+            continue
+        if i == 0:
+            if len(f) != 1 or f[0] != bands[1]["min"]:
+                rep.fail("engine",
+                         f"index.html: BUDGET_BANDS band 1 label {b['label']!r} "
+                         f"should name {bands[1]['min']}, the floor of band 2.")
+        elif i == len(bands) - 1:
+            if len(f) != 1 or f[0] != b["min"]:
+                rep.fail("engine",
+                         f"index.html: BUDGET_BANDS band 5 label {b['label']!r} "
+                         f"should name its own floor, {b['min']}.")
+        else:
+            if len(f) != 2:
+                rep.fail("engine",
+                         f"index.html: BUDGET_BANDS range {b['range']} label "
+                         f"{b['label']!r} should name two figures.")
+                continue
+            if f[0] != b["min"]:
+                rep.fail("engine",
+                         f"index.html: BUDGET_BANDS range {b['range']} label opens "
+                         f"at {f[0]} but the band opens at {b['min']}.")
+            if f[1] != bands[i + 1]["min"]:
+                rep.fail("engine",
+                         f"index.html: BUDGET_BANDS range {b['range']} label closes "
+                         f"at {f[1]}; it must name {bands[i + 1]['min']}, the floor "
+                         f"of the next band. Labels round to clean hundreds while "
+                         f"the edges stay exact, so the label names the next floor, "
+                         f"not this band's max ({b['max']}).")
+
+    # --- 5. the boundaries are still where the database puts them ----------
+    mids = {}
+    for row in db_cities(db):
+        found = re.findall(r"[\d,]+", str(row.get("monthly", "")))
+        if len(found) < 2:
+            continue
+        lo = int(found[0].replace(",", ""))
+        hi = int(found[-1].replace(",", ""))
+        mids.setdefault(int(row["range"]), []).append((lo + hi) / 2.0)
+
+    if len(mids) != 5:
+        rep.fail("engine",
+                 f"index.html/database: Monthly Est midpoints resolved for "
+                 f"{len(mids)} budget ranges, expected 5. The band check cannot "
+                 f"run against the data and is not reporting clean.")
+        return
+
+    medians = {r: statistics.median(v) for r, v in mids.items()}
+    for i in range(4):
+        boundary = bands[i + 1]["min"]
+        lower, upper = medians[i + 1], medians[i + 2]
+        if not (lower < boundary < upper):
+            rep.fail("engine",
+                     f"index.html: the boundary at ${boundary:,} between quiz "
+                     f"ranges {i + 1} and {i + 2} no longer sits between what the "
+                     f"database says those cities cost. Median Monthly Est midpoint "
+                     f"is ${lower:,.0f} for range {i + 1} and ${upper:,.0f} for "
+                     f"range {i + 2}. Bands are derived from the MIDPOINT of each "
+                     f"range, not its low end: the candidate filter already grants "
+                     f"one range of stretch and low-end labels would stack a second "
+                     f"on top. If that policy is being reversed, change it here.")
+
+    # --- no second copy ----------------------------------------------------
+    for dead in ("BUDGET_LABELS", "BUDGET_OPTIONS", "budgetLabels"):
+        if dead in idx:
+            rep.fail("engine",
+                     f"index.html: `{dead}` is back. The band set lives once, as "
+                     f"BUDGET_BANDS. Two copies is what produced the 2026-08-07 "
+                     f"defect; one of them was never filled in past its first and "
+                     f"last slots and nobody rendered the other.")
+
+    if idx.count("const BUDGET_BANDS = [") != 1:
+        rep.fail("engine",
+                 f"index.html: found {idx.count('const BUDGET_BANDS = [')} "
+                 f"BUDGET_BANDS declarations, expected exactly 1.")
+
+    for b in bands:
+        if idx.count(b["label"]) != 1:
+            rep.fail("engine",
+                     f"index.html: the label {b['label']!r} appears "
+                     f"{idx.count(b['label'])} times. Each band string must exist "
+                     f"exactly once; a second occurrence is a second copy of the "
+                     f"band set by another name.")
+
+    # --- both consumers actually read it -----------------------------------
+    rb = re.search(r"function renderBudget\(container\)\s*\{(.*?)\n\}", idx, re.S)
+    if not rb:
+        rep.fail("engine", "index.html: renderBudget() not found.")
+        return
+    # Comments are stripped before the membership test. Without this, a `//` line
+    # merely MENTIONING the constant satisfies the check while the code below it
+    # builds the buttons from something else. The harness caught exactly that on
+    # this check's first run, which is the argument for planted-error harnesses
+    # in one sentence: the check was written to close a silent-pass hole and
+    # shipped with a smaller one inside it.
+    body = re.sub(r"//[^\n]*", "", rb.group(1))
+    if "BUDGET_BANDS" not in body:
+        rep.fail("engine",
+                 "index.html: renderBudget() does not reference BUDGET_BANDS. The "
+                 "quiz buttons are being built from something else, which is the "
+                 "original defect returning under a new name.")
+
+
 def check_dead_dimension_guards(rep, db, idx, slug_to_city, local):
     """
     A guard on a dimension key that is not in DIMENSIONS can never fire.
@@ -2963,7 +3192,8 @@ def check_stray_artifacts(rep, local):
                      f"that belongs somewhere else.")
 
 
-HARNESSES = ("tools/test_comparison_cost_rows.py",
+HARNESSES = ("tools/test_budget_labels.py",
+             "tools/test_comparison_cost_rows.py",
              "tools/test_comparison_checkmarks.py",
              "tools/test_comparison_cta_reciprocity.py",
              "tools/test_comparison_prose_scores.py",
@@ -3101,6 +3331,7 @@ def main():
         check_roster(rep, db, args.local)
     if "superlatives" in groups:
         check_superlatives(rep, db, idx, slug_to_city, args.local)
+        check_budget_labels(rep, db, idx)
         check_dead_dimension_guards(rep, db, idx, slug_to_city, args.local)
         check_comparison_scores(rep, db, idx, slug_to_city, args.local)
         check_comparison_checkmarks(rep, db, idx, slug_to_city, args.local)

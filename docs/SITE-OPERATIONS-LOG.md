@@ -202,6 +202,52 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-08 (fourth push) - check_budget_labels shipped; the P0 is closed
+
+**Files:** new `tools/test_budget_labels.py`, `tools/validate.py`, `docs/TASKBOARD.md`, this log.
+No site change. Push two of two on the budget-label P0.
+
+Push one fixed the quiz budget labels. This stops them rotting again. `check_budget_labels` asserts
+that BUDGET_BANDS exists and parses; that there are exactly five bands numbered one to five with
+five distinct labels; that the numeric edges ascend, do not overlap and leave no gap with the top
+band open-ended; that each label's upper figure names the next band's floor rather than its own
+max; and that the boundaries still sit where the database puts them. That last one is recomputed
+from Monthly Est at run time. A check holding its own copy of the five strings would have been a
+fourth copy of the thing that broke and would have passed forever while the database moved
+underneath it.
+
+**The harness found a hole in the check before either shipped, and this is the entry's real
+content.** `tools/test_budget_labels.py` plants eleven defects. On the first run, ten passed and
+one failed: the assertion that `renderBudget()` still reads the constant was satisfied by the
+constant's name appearing in a COMMENT inside that function, so replacing the actual loop with an
+empty array still passed. A check written specifically to close a silent-pass hole had a smaller
+silent-pass hole inside it, and no amount of reading it would have shown that. Fixed by stripping
+comments before the membership test.
+
+The generalisable point, and the reason the no-check-without-a-harness rule exists: **a check
+cannot test itself, and reviewing a check tells you what it was intended to do rather than what it
+does.** The only way to know a check can fail is to make it fail. Ten of eleven passing on the
+first attempt is roughly the hit rate to expect, which means roughly one in eleven checks shipped
+without a harness is decorative.
+
+**The database assertion encodes a policy on purpose.** The bands derive from the midpoint of each
+range's Monthly Est span, not the low end, because the candidate filter already grants one range of
+deliberate stretch and low-end labels would stack a second on top of it. The low-end set originally
+specified on the board is planted in the harness as a defect that must be rejected. If that
+decision is ever reversed the gate will fail until someone edits the check deliberately, which is
+the intent: a policy argued out once should not be reversible by quietly editing five strings.
+
+**A note on the per-city test that was NOT written.** Asserting that every city's Monthly Est
+midpoint falls inside its own band would fail on correct data today: five of ninety-nine cities sit
+within fifty dollars of a boundary (Fayetteville, Knoxville, St. George, Charlottesville, Boulder),
+because Budget Range is not a pure function of the midpoint. The check tests the boundaries against
+the MEDIAN midpoint of each range instead, which separates cleanly and moves slowly. A check that
+fires on its own correct input gets loosened rather than fixed, and a loosened check is how the
+original defect survived a clean gate for weeks.
+
+**The suspension is lifted.** The growth-versus-debt split resumes. Next build is Saratoga Springs
+NY, then fayetteville-vs-bentonville.
+
 ### 2026-08-08 (third push) - scoring rubric converted to markdown; D4 restored
 
 **Files:** new `docs/SCORING-RUBRIC.md` (v3.3), `docs/TASKBOARD.md`, this log.

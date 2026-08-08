@@ -48,11 +48,39 @@ copy nobody rendered. The quiz array was the wrong one.
 `index.html` were compared to v17 on both `budgetRange` and `monthlyEst`. Zero mismatches. The
 labels were the only thing wrong; no data repair rode along.
 
-**STILL OPEN, P0, push two: `check_budget_labels` is not written.** Item five of the spec below,
-unchanged, with the thresholds asserted against the midpoint bands rather than the low-end bands.
-It must recompute the bands from the database at run time. A check that hardcodes five strings is
-a fourth copy of the thing that broke and will pass forever while the database moves underneath
-it. Planted-error harness before it ships, zero matches defined as a failure.
+**CLOSED, August 8 2026, push two of two: `check_budget_labels` shipped with its harness.**
+The P0 is now fully closed: the labels were fixed in push one and are guarded from push two.
+
+The check makes five assertions, all FAIL rather than warn: BUDGET_BANDS exists and parses;
+exactly five bands, numbered one to five in order, with five distinct labels; the numeric edges
+ascend, do not overlap and leave no gap, with the top band open-ended; each label's upper figure
+names the NEXT band's floor rather than its own max, which is what makes the deliberate rounding
+seam legal while a genuinely wrong figure still fails; and the boundaries still sit where the
+database puts them, recomputed at run time from Monthly Est rather than hardcoded. It also refuses
+a second copy of the band set under any name, and refuses a renderBudget() that no longer reads
+the constant. Missing BUDGET_BANDS entirely is a loud failure, never a quiet pass.
+
+`tools/test_budget_labels.py` plants eleven defects and requires the gate to catch each one,
+including the original defect reproduced exactly.
+
+**Two findings worth keeping.**
+
+ONE. The harness caught a hole in the check on its first run, before either shipped. The
+"renderBudget still reads the constant" assertion was matching the constant's name inside a
+COMMENT, so gutting the code beneath it still passed. A check written specifically to close a
+silent-pass hole shipped with a smaller silent-pass hole inside it, and only the planted-error
+harness found it. This is the strongest evidence yet for the no-check-without-a-harness rule:
+the rule is not about catching careless checks, it is that a check cannot test itself.
+
+TWO. The database assertion encodes a POLICY, not just a threshold, and does so deliberately. The
+bands derive from the MIDPOINT of each range's Monthly Est span. The low-end derivation originally
+specified in this fix spec is planted in the harness as a defect and must be rejected, because the
+candidate filter already grants one range of stretch and low-end labels would stack a second on
+top. If that decision is ever reversed, the gate fails until someone changes the check on purpose.
+A reversal cannot happen by quietly editing five strings.
+
+**Growth-versus-debt split resumes.** The suspension is lifted. Next build: Fayetteville AR is
+shipped, so Saratoga Springs NY, then the fayetteville-vs-bentonville comparison.
 
 **CLOSED, August 8 2026: `scoring_rubric_v3_2` converted to markdown and committed.** Now
 `docs/SCORING-RUBRIC.md` at v3.3. Budget ranges reconciled to the shipped `BUDGET_BANDS`, which
