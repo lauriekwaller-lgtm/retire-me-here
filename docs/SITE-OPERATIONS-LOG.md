@@ -202,6 +202,47 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-08 (third push) - scoring rubric converted to markdown; D4 restored
+
+**Files:** new `docs/SCORING-RUBRIC.md` (v3.3), `docs/TASKBOARD.md`, this log.
+
+`scoring_rubric_v3_2.docx` lived in project knowledge and never in the repo, with no version
+history, in breach of section 4a. Converted to markdown, committed to `docs/`, version bumped to
+3.3 because the content changed. **The `.docx` must now be deleted rather than kept.** A superseded
+copy left in place is the two-copies condition 4a exists to prevent, and it reads as authoritative
+to anyone who opens it.
+
+**The find that justifies the version bump: the rubric documented nine of the ten dimensions the
+site scores.** v3.2 stated that "the standalone D4 dimension has been retired because it duplicated
+information already captured in monthlyEst and budgetRange, and was not used by the matching
+engine", and carried no D4 section. Every clause of that was true when written and none of it is
+true now. D4 is `D4 Resil.` in the database, scored one to nine across all ninety-nine cities with
+a written rationale each; it sits in the `DIMENSIONS` array in `index.html` as "Climate Resilience
+& Insurance" where the reader sets it as a priority like any other dimension; and it takes a full
+priority weight in the match calculation. The old D4 was a daily-cost sub-score and was genuinely
+retired into D2. The slot was later reused for resilience and the rubric was never revisited.
+
+**This is the same defect class as the budget labels, one week apart, and that is the point.** A
+governing document described a surface that had moved underneath it, and nothing in the toolchain
+compares the two. The budget labels were caught because a reader would eventually have hit them.
+The D4 gap would not surface that way at all: the quiz behaves correctly, the scores are real, and
+only someone scoring a new city against the written standard would find that the standard has no
+entry for a dimension worth up to four times weight. **The generalisable rule: when a slot is
+reused for a new concept, the retirement note for the old concept becomes a false statement about
+the new one.** Retiring something and reusing its identifier are two separate edits and the second
+one is the one that gets skipped.
+
+**Also reconciled.** The rubric's budget ranges read Range 1 as under $3,500 per month, an empty
+set against a database whose cheapest city starts at $3,800, and matched nothing rendered anywhere.
+Replaced with the five bands now in `BUDGET_BANDS`, carrying the derivation, the
+midpoint-not-low-end reasoning and the label-rounding convention. That closes item four of the P0
+fix spec, which could not ship in the first two pushes because the file was not in the repo.
+
+**Three further drifts were flagged inline rather than silently fixed**, because each needs a
+decision rather than an edit: the symmetric budget-bonus table in the rubric versus the asymmetric
+bonus actually implemented in `index.html`; D4 having no published band anchors at all; and
+dimension names differing between the rubric and the quiz on D6 and D8. All boarded.
+
 ### 2026-08-08 (second push) - budget band labels rounded
 
 **Files:** `index.html`, `docs/TASKBOARD.md`, this log. Display copy only.

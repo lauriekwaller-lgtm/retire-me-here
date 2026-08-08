@@ -54,7 +54,46 @@ It must recompute the bands from the database at run time. A check that hardcode
 a fourth copy of the thing that broke and will pass forever while the database moves underneath
 it. Planted-error harness before it ships, zero matches defined as a failure.
 
-**STILL OPEN, P1, ITEM FOUR CANNOT SHIP AS SPECIFIED: `scoring_rubric_v3_2` is not in the repo.**
+**CLOSED, August 8 2026: `scoring_rubric_v3_2` converted to markdown and committed.** Now
+`docs/SCORING-RUBRIC.md` at v3.3. Budget ranges reconciled to the shipped `BUDGET_BANDS`, which
+closes item four of the P0 fix spec. The `.docx` in project knowledge is superseded and should be
+DELETED, not kept: leaving it is the two-copies condition 4a exists to prevent, and it is the exact
+shape that produced the St. Paul divergence.
+
+FOUND WHILE CONVERTING, P1, OPS: **the rubric documented nine of the ten dimensions the site
+scores.** v3.2 stated that D4 had been retired and carried no D4 section at all. D4 is live: it is
+`D4 Resil.` in the database, scored one to nine on all ninety-nine cities, it appears in the
+`DIMENSIONS` array in `index.html` as "Climate Resilience & Insurance" where the reader can set it
+as a priority, and it takes a full priority weight in the match calculation like every other
+dimension. The retirement was real but applied to the OLD D4, a daily-cost sub-score folded into
+D2; the slot was later reused for resilience and the rubric never caught up. Section restored in
+v3.3. This is the same defect class as the budget labels: a governing document describing a surface
+nobody re-opened after the code moved underneath it.
+
+FOUND WHILE CONVERTING, P2, OPS: **D4 is the only dimension with no published band anchors.** There
+is no table saying what separates a seven from a five. Ninety-nine scores exist with individual
+rationales in `D4-resilience-scores-all-100.md`, but a new city cannot be scored against a written
+standard, and two people scoring the same city would not reliably agree. Write the anchors FROM the
+existing ninety-nine rationales rather than inventing them, then add them to the D4 section.
+
+FOUND WHILE CONVERTING, P2, OPS: **the budget alignment bonus table in the rubric does not describe
+the implementation.** The rubric gives a symmetric table keyed on absolute difference (0 = +6,
+1 = +4, 2 = +2). `index.html` implements an ASYMMETRIC bonus that rewards being under budget and
+penalises being over: one under scores five, one over scores two. The implementation is what
+readers get. Decide which is correct and make the other match; flagged inline in the rubric so
+neither is assumed authoritative meanwhile.
+
+FOUND WHILE CONVERTING, P3, OPS: **dimension names differ between the rubric and the quiz.** D6 is
+"Walkability" in the rubric and "Walkability & Transit" in `DIMENSIONS`; D8 is "Active Wellness" and
+"Sports & Fitness". Cosmetic, but it means a search for either name finds only half the surfaces.
+
+FOUND WHILE CONVERTING, P3, OPS: **the eight-city retiree-target-neighborhood list in the rubric is
+not the same list as the Neighborhood Reality Check roster** in `MEDIAN-HOME-METHODOLOGY.md`, and
+neither document says how they relate. One is scoring methodology and one is an editorial callout;
+they overlap without being identical. Relates to the open P3 on the NRC roster count. State the
+relationship explicitly in both docs.
+
+**Superseded item, retained for the record. P1: `scoring_rubric_v3_2` is not in the repo.**
 Found while fixing. `docs/` holds no scoring rubric under any filename; the only copy is a `.docx`
 in project knowledge. That is a section 4a breach of the same shape as the
 `MEDIAN-HOME-AUDIT-REFERENCE` gap already recorded in `SITE-OPERATIONS-LOG` section 4: a governing
