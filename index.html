@@ -6349,12 +6349,29 @@ const D1_THRESHOLDS = { 'Must Have': 8, 'Very Important': 6, 'Somewhat Important
 
 // Generic Must Have threshold applied to all priority dimensions
 const MUST_HAVE_THRESHOLD = 7;
-const BUDGET_OPTIONS = [
-  { label: 'Range 5: Under $5,500/mo', range: 1 },
-  { label: 'Range 5: $8,900–$11,000/mo', range: 2 },
-  { label: 'Range 5: $8,900–$11,000/mo', range: 3 },
-  { label: 'Range 5: $8,900–$11,000/mo', range: 4 },
-  { label: 'Range 5: $9,000+/mo', range: 5 },
+// ---------------------------------------------------------------------------
+// BUDGET BANDS - single source of truth for the quiz budget question.
+//
+// Derived from the MIDPOINT of each Budget Range's Monthly Est span in
+// CityDatabase_Jul_27_v17: R1 $4,300-5,550, R2 $5,600-6,550, R3 $6,600-7,400,
+// R4 $7,750-9,000, R5 $9,950+. Midpoint, not low end: monthlyEst is a range,
+// and matching a reader's stated all-in budget against the cheapest month a
+// city ever has would stack a second stretch on top of the deliberate one-range
+// headroom the candidate filter already grants (budgetRange <= budget + 1).
+//
+// Rendered by BOTH renderBudget() (Step 3 buttons) and the results prose.
+// Two surfaces holding two copies is what produced the P0 defect this replaces.
+// DO NOT add a second array. If the v17 bands move, change them here.
+//
+// min/max are the reader-facing band edges in dollars per month; max is null on
+// the open-ended top band. check_budget_labels asserts these against the DB.
+// ---------------------------------------------------------------------------
+const BUDGET_BANDS = [
+  { range: 1, label: 'Under $5,500',  min: 0,    max: 5499 },
+  { range: 2, label: '$5,500–$6,499', min: 5500, max: 6499 },
+  { range: 3, label: '$6,500–$7,499', min: 6500, max: 7499 },
+  { range: 4, label: '$7,500–$8,999', min: 7500, max: 8999 },
+  { range: 5, label: '$9,000+',       min: 9000, max: null },
 ];
 
 
@@ -6748,21 +6765,15 @@ function setPriority(key, value) {
 
 
 function renderBudget(container) {
-  const BUDGET_LABELS = [
-    { label: 'Under $5,500 / month', range: 1 },
-    { label: '$8,900–$11,000 / month', range: 2 },
-    { label: '$8,900–$11,000 / month', range: 3 },
-    { label: '$8,900–$11,000 / month', range: 4 },
-    { label: '$9,000+ / month', range: 5 },
-  ];
+  // Renders from the module-level BUDGET_BANDS. No local copy.
   let html = `<div class="question-card">
     <div class="q-step">Step 3 of 4: Budget</div>
     <div class="q-title">What's your monthly household budget, all-in?</div>
     <div class="q-subtitle">Total monthly cost for a couple: housing (mortgage, property taxes, homeowners insurance), healthcare, utilities, food, transportation, and lifestyle.</div>
     <div class="budget-options">`;
-  BUDGET_LABELS.forEach(opt => {
+  BUDGET_BANDS.forEach(opt => {
     const sel = quizState.budget === opt.range ? 'selected' : '';
-    html += `<button class="budget-btn ${sel}" onclick="setBudget(${opt.range})">${opt.label}</button>`;
+    html += `<button class="budget-btn ${sel}" onclick="setBudget(${opt.range})">${opt.label} / month</button>`;
   });
   html += `</div></div>
     <div class="quiz-nav">
@@ -6986,8 +6997,8 @@ function generateWhyMatch(city) {
 
   
   if (quizState.budget && city.budgetRange <= quizState.budget) {
-    const budgetLabels = ['under $5,500','$5,500–6,499','$6,500–7,499','$7,500–8,999','$9,000+'];
-    parts.push(`Your budget of ${budgetLabels[quizState.budget-1]}/mo fits here: ${city.name} is comfortably within reach.`);
+    const band = BUDGET_BANDS[quizState.budget - 1];
+    parts.push(`Your budget of ${band.label.toLowerCase()}/mo fits here: ${city.name} is comfortably within reach.`);
   }
 
 

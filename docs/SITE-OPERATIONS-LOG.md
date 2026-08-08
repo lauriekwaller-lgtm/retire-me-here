@@ -202,6 +202,53 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-08 - budget-label P0 fixed (push one of two)
+
+**Files:** `index.html`, `docs/TASKBOARD.md`, this log. Push one of two; the guard is push two.
+
+The quiz budget question rendered three byte-identical options. Fixed. `BUDGET_BANDS` is now a
+single module-level constant in `index.html`, read by `renderBudget()` for the Step three buttons
+and by the results prose for the "your budget fits here" line. The local `BUDGET_LABELS` array
+inside `renderBudget()` is gone and `BUDGET_OPTIONS` is deleted rather than repaired.
+
+**The spec was overridden on which statistic to derive from, and this is the part worth keeping.**
+The board called for the database `Budget Range` LOW-END bands. `Monthly Est` is a range, and its
+low end is the cheapest month a city ever has. The candidate filter already grants one range of
+deliberate stretch, commented as such at the filter. Deriving the labels from the low end puts a
+second, undocumented stretch on top of the first, and the two compound in the same direction. A
+reader stating $6,200 would have selected Range three, admitting every Range four city, Boulder
+among them at $8,000-$10,000 per month. Shipped instead on midpoints: `Under $5,500`,
+`$5,500-$6,499`, `$6,500-$7,499`, `$7,500-$8,999`, `$9,000+`.
+
+The generalisable form: when a label set maps a reader's single number onto a stored range, name
+which statistic of that range the mapping uses, and check whether any other stage of the pipeline
+is already applying slack in the same direction. Two stages each granting a reasonable-looking
+stretch produce an unreasonable one.
+
+**A correction to yesterday's entry.** That entry called the results-prose set "directionally
+right and internally consistent; still approximate." It is not approximate. It is the midpoint
+bands, derived correctly and rounded at the seams. The correct set had been in the file the whole
+time, twenty lines from the broken one, in the surface nobody looks at. The defect was never a
+missing derivation. It was two copies, one of which was never filled in past its first and last
+slots, and no gate that could tell.
+
+**Checked while in there.** All ninety-nine rows of the `CITIES` array were compared to v17 on
+`budgetRange` and `monthlyEst`. Zero mismatches on either field. Worth recording because the
+reader-facing filter runs on the `CITIES` copy, not on the database, so a drift there would have
+been a second silent defect behind the first one.
+
+**Found while fixing, P1:** `scoring_rubric_v3_2` is not in `docs/` under any filename. The only
+copy is a `.docx` in project knowledge. Same shape as the `MEDIAN-HOME-AUDIT-REFERENCE` gap in
+section 4 above: a governing document outside the repo, no version history, in the place 4a
+forbids. Boarded to convert to markdown, commit, reconcile its budget ranges to the shipped bands,
+and delete the outside copy. Item four of the original fix spec cannot ship as a repo edit until
+that happens.
+
+**Still open, push two:** `check_budget_labels` with its planted-error harness, asserting the
+midpoint bands, recomputed from the database at run time rather than hardcoded. Until it ships,
+nothing in the toolchain reads quiz option labels, which is the condition that let this run live
+under a clean gate for an unknown length of time.
+
 ### 2026-08-07 (second entry)
 
 **Budget-label defect raised P2 to P0 (OPS).** Board only. No site change: `index.html` was not

@@ -4,11 +4,59 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 7, 2026 (second push), budget-label defect raised P2 to P0
-(OPS; 50 profiles live, 22 comparison pages live, no site change. Board only. The defect
-below is live and stays live until the BATCH ships.)
+**Last updated:** August 8, 2026, budget-label P0 fixed, push one of two
+(OPS; 50 profiles live, 22 comparison pages live. `index.html` only. The quiz budget question
+now renders five distinct ascending bands from one constant. The guard is not yet written;
+until push two ships, nothing in the toolchain reads quiz option labels.)
 
-**P0, LIVE, CONVERSION PATH: the quiz budget question shows three identical options.**
+**SHIPPED, August 8 2026: the quiz budget question renders five distinct bands.**
+
+`BUDGET_BANDS` is now a module-level constant in `index.html`, referenced by `renderBudget()`
+and by the results prose. `BUDGET_OPTIONS` is deleted. The local `BUDGET_LABELS` array inside
+`renderBudget()` is deleted. One array, two consumers.
+
+**Bands shipped, and why midpoint rather than low end.** The fix spec below called for deriving
+labels from the DB `Budget Range` LOW-END bands (`under $5,000`, `$5,000-5,899`, `$5,900-6,899`,
+`$6,900-8,899`, `$8,900+`). That was the wrong statistic and was overridden. `Monthly Est` is a
+range; its low end is the cheapest month a city ever has. The candidate filter already grants a
+deliberate one-range stretch (`budgetRange <= quizState.budget + 1`, commented as such), so
+deriving the labels from the low end stacks a second undocumented stretch on top of it. Worked
+example: a reader stating $6,200 would select Range three under low-end labels, admitting all
+twelve Range four cities, including Boulder at $8,000-$10,000 per month. Boulder's cheapest month
+is twenty-nine per cent over that reader's stated budget and its typical month is forty-five per
+cent over.
+
+The set actually shipped is the MIDPOINT of each range's `Monthly Est` span, rounded at the seams:
+`Under $5,500`, `$5,500-$6,499`, `$6,500-$7,499`, `$7,500-$8,999`, `$9,000+`. Midpoints by range
+are R1 $4,300-5,550, R2 $5,600-6,550, R3 $6,600-7,400, R4 $7,750-9,000, R5 $9,950+.
+
+A finding that corrects item ONE below: the results-prose `budgetLabels` set was NOT approximate.
+It is the midpoint bands, derived correctly, rounded at the seams. It was right and it was the
+copy nobody rendered. The quiz array was the wrong one.
+
+**Reconciliation checked while fixing.** All ninety-nine rows of the `CITIES` array in
+`index.html` were compared to v17 on both `budgetRange` and `monthlyEst`. Zero mismatches. The
+labels were the only thing wrong; no data repair rode along.
+
+**STILL OPEN, P0, push two: `check_budget_labels` is not written.** Item five of the spec below,
+unchanged, with the thresholds asserted against the midpoint bands rather than the low-end bands.
+It must recompute the bands from the database at run time. A check that hardcodes five strings is
+a fourth copy of the thing that broke and will pass forever while the database moves underneath
+it. Planted-error harness before it ships, zero matches defined as a failure.
+
+**STILL OPEN, P1, ITEM FOUR CANNOT SHIP AS SPECIFIED: `scoring_rubric_v3_2` is not in the repo.**
+Found while fixing. `docs/` holds no scoring rubric under any filename; the only copy is a `.docx`
+in project knowledge. That is a section 4a breach of the same shape as the
+`MEDIAN-HOME-AUDIT-REFERENCE` gap already recorded in `SITE-OPERATIONS-LOG` section 4: a governing
+document living outside `docs/`, with no version history, in the one place 4a forbids. Its budget
+ranges are also now wrong in a second way: they read Range one under $3,500 per month, which is an
+empty set against a database whose cheapest city starts at $3,800, and they now disagree with the
+shipped bands as well. Convert it to markdown, commit it to `docs/`, reconcile the ranges to the
+five bands above, and delete the outside copy. Do not reconcile the `.docx` in place; that
+perpetuates the breach.
+
+**Original item, retained for the record. P0, LIVE, CONVERSION PATH: the quiz budget question
+shows three identical options.**
 
 `renderBudget()` in `index.html` (currently near line 6751) builds Step three of four from a
 local `BUDGET_LABELS` array whose middle three entries are byte-identical:
