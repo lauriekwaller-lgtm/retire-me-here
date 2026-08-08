@@ -202,6 +202,65 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-08 (sixth push) - fayetteville-vs-bentonville-retirement.html shipped
+
+Shipped after the Saratoga Springs profile the same day, so all counts below are post-Saratoga:
+51 profiles, 23 comparison pages.
+
+**Files:** new `fayetteville-vs-bentonville-retirement.html`; edits to
+`compare-retirement-cities.html`, `cities/fayetteville/profile.html`,
+`cities/bentonville/profile.html`, `sitemap.xml`, `docs/TASKBOARD.md`, this log.
+No database change, no score change.
+
+Twenty-third comparison page. Both DB rows re-derived from
+`docs/CityDatabase_Jul_27_v17.xlsx` at the start of the session per section 4a; nothing was
+inherited from the COMPARE brief.
+
+**The ledger.** D2 budget 8 against 6 is the only dimension gap clearing the two-point bar. D1, D4,
+D5, D7, D8 and D10 are level. D3 and D6 favour Fayetteville by a point, D9 favours Bentonville by a
+point; all three are near-ties and ship unmarked, per the two-point rule. Cost rows carry three
+marks to Fayetteville (home value, monthly estimate, budget tier) on clear differentials. Property
+tax and insurance are identical figures and ship unmarked. The climate block ships entirely
+unmarked, because Jan mean, snowfall, sunshine and heat severity are identical across both cities.
+Four checkmarks on the whole table is the honest result of the pairing, not a build shortfall.
+
+**The structural decision, recorded because it was raised.** The brief proposed cutting the
+five-block tradeoff narrative to three on the grounds that a pairing this tight cannot support five
+tradeoffs. The premise was wrong and no override was taken. `COMPARISON-PAGE-STANDARD-v2` item 4 is
+not five tradeoffs; it is a fixed arc of five named blocks, two of which ("What they share", "The
+honest shared downside") are explicitly about similarity and become easier to write, not harder, as
+dimensions converge. The page ships with all five. Anyone tempted to reopen this on the next tight
+pairing should read item 4 before reading the argument.
+
+**Three flags carried in from the brief were stale and are closed.** (1) The affiliate-codes
+spreadsheet no longer lists Fayetteville AR under state code AK; the row reads AR and there are
+zero AK rows. Nothing to correct. (2) The brief stated that neither profile mentioned the other. In
+fact each already referenced the other substantively as metro geography: Fayetteville's profile
+points readers to Crystal Bridges thirty minutes north, Bentonville's points to Washington Regional
+thirty-five minutes south. What was genuinely missing was the reciprocal comparison CTA, which is
+gated by `check_comparison_cta_reciprocity` and could not have shipped without it. (3) The hub was
+at twenty-two pages, not twenty-one.
+
+**Slug resolution confirmed rather than assumed, and it paid for itself.** `Fayetteville` and
+`Bentonville` lowercase cleanly onto their slugs, so `check_comparison_scores` and
+`check_comparison_cost_rows` genuinely ran on this page. That mattered: the first gate run failed
+four times on cell formatting inherited from `burlington-vs-portland-me`, which was used as the
+reference build. The monthly cells carried `&ndash;` and the checkmarks carried `&#10003;`, and
+neither entity form is normalised by `_cost_row()` or `_dashes()`. The reason the reference build
+carries them and passes is that `portland-me` does not resolve, so that page is the ONE page of the
+23 on the hub that these two checks silently skip. The new page ships with the literal en dash and
+the literal tick character.
+
+Three consequences boarded as P1: the skip has a measured size (one page, not many); the same
+lookup has a worse second mode, where Wilmington DE and Wilmington NC collide on one key so a
+future wilmington page would be validated against the wrong row rather than skipped; and fixing the
+slug resolution will immediately surface two real cost-row failures on
+`burlington-vs-portland-me`, which should be fixed in the same commit so the gate does not look
+like the slug fix broke something.
+
+**Boarded, not fixed:** the Wilmington slug collision, and a `Climate Hot Sum` inconsistency
+between two cities thirty minutes apart with identical heat severity. Both are in TASKBOARD.
+
 ### 2026-08-08 (fifth push) - Saratoga Springs NY profile (51)
 
 Profile fifty-one. Built from live `cities/st-louis/profile.html`, non-NRC, so the callout and

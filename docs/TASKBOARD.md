@@ -4,9 +4,72 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 8, 2026, fayetteville-vs-bentonville shipped
+(COMPARE; 51 profiles live, 23 comparison pages live. New page, hub card and schema entry,
+reciprocal CTAs on both profiles, sitemap. No DB change, no score change.)
+
+**SHIPPED, August 8 2026: fayetteville-vs-bentonville-retirement.html.**
+
+The tightest pairing on the site so far. One dimension of ten clears the two-point bar, D2 budget
+at 8 against 6. Six dimensions are dead level, and D1, D5, D7, D8 and D10 are identical figures,
+not merely close. Both cities are served by XNA, both carry a 0.56% effective property tax rate,
+both carry the same $3,733 insurance estimate, and Jan mean, annual snowfall and annual sun are
+identical at 36F, 11in and 60%. Four checkmarks ship on the whole table: three cost rows and D2,
+all to Fayetteville. The climate block ships entirely unmarked.
+
+**The five-versus-three question was raised and dropped rather than answered.** The COMPARE brief
+proposed overriding COMPARISON-PAGE-STANDARD-v2's five-block narrative down to three, on the
+grounds that six tied dimensions leave nothing to trade off. That rests on reading item 4 as five
+tradeoffs. It is not: it is a fixed arc, and two of its five blocks, "What they share" and "The
+honest shared downside", are about similarity and get STRONGER as the pairing tightens. Burlington
+vs. Portland ME ships those headings verbatim. No override was taken and the standard is unchanged.
+
+**Two findings boarded, not fixed here.** See P1 and P2 below.
+
 **Last updated:** August 8, 2026, Saratoga Springs NY profile shipped
-(BUILD; 51 profiles live, 22 comparison pages live. Three stale "Perfect 10 community" claims
+(BUILD; fifty-one profiles live, twenty-two comparison pages live. Three stale "Perfect 10 community" claims
 corrected in the same commit.)
+
+**P1 (measured August 8, COMPARE fayetteville-vs-bentonville): the slug-resolution item now has a
+size, a second failure mode, and a landmine behind it.**
+
+*Size.* Of the 23 pages the hub lists, exactly one is silently skipped by both
+`check_comparison_scores` and `check_comparison_cost_rows`: `burlington-vs-portland-me`, because
+`portland-me` does not resolve. Every other page genuinely runs. That is a smaller blast radius
+than the open item implied, and it is worth having the number rather than the fear.
+
+*Second failure mode, worse than skipping.* The lookup is built as
+`name.lower().replace(" ","-").replace(".","")` with no state suffix, so Wilmington DE and
+Wilmington NC both key to `wilmington` and the dict keeps whichever row is built last. A future
+wilmington comparison page would not be skipped; it would be validated against the WRONG city's
+figures and pass. Keying on City plus ST closes both this and the skip.
+
+*The landmine.* Fixing the slug resolution will not be a no-op. The moment `portland-me` resolves,
+`burlington-vs-portland-me` starts being checked for the first time, and its two
+`Estimated retiree budget` cells fail immediately: they carry `&ndash;` where `_dashes()` only
+normalises literal en dash, em dash and hyphen, so the entity never matches the DB string. Expect
+two cost-row failures the same commit the slug fix lands. Fix them together or the gate will look
+like the slug fix broke something.
+
+*Knock-on for anyone templating.* `burlington-vs-portland-me` is the most recent page and the
+natural reference build, but it is also the one page these checks have never read. It is not a safe
+source for cell-level conventions. Comparison tables need the literal en dash and the literal tick
+character; entity forms pass unnoticed only on a page nothing is checking. Confirmed August 8:
+Fayetteville and Bentonville both resolve, so both checks genuinely ran on the new page, which is
+how the entity problem was caught at all.
+
+**P2 (raised August 8, COMPARE fayetteville-vs-bentonville): Climate preference fields disagree
+across one metro.** Fayetteville and Bentonville sit thirty minutes apart and carry identical
+`Jan Mean F` (36), `Ann Snow in` (11), `Ann Sun %` (60), `HUM` (7) and `HEAT` (7). Their quiz
+preference-match fields do not agree: `Climate Hot Sum` 6 against 3, `Climate Warm W` 5 against 4,
+`Climate Dryness M` 4 against 6. A three-point spread on hot-summer fit between two cities with the
+same heat severity is not defensible. Across the DB `Climate Hot Sum` tracks inversely with `HEAT`
+(Burlington HEAT 4 / Hot Sum 9; Portland HEAT 3 / Hot Sum 8), which puts Bentonville's 3 at HEAT 7
+as the likely bad cell rather than Fayetteville's 6. This does not touch any rendered page, since
+the standard bars preference-match rows from comparison tables, but it does change quiz matching: a
+reader asking for hot summers gets one of these two cities and not the other, on what looks like a
+data error. Do not correct a single cell in isolation; audit `Climate Hot Sum` against `HEAT`
+across all 99 rows and fix the class.
 
 **SHIPPED, August 8 2026: Saratoga Springs, NY (Wave 1).**
 
