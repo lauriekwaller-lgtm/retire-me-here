@@ -3146,6 +3146,94 @@ STRAY_ROOT = re.compile(
 CITY_FILES = {"profile.html", "hero.jpg", "detail.jpg", "lifestyle.jpg"}
 
 
+SITE = "https://retiremehere.com"
+
+
+def check_canonicals(rep, sitemap, local):
+    """
+    Every page in the sitemap must carry exactly one self-referencing canonical.
+
+    This check exists because of what Search Console showed on August 9 2026. The
+    site serves the same HTML at more than one URL in two separate ways, and only
+    one of them was defended:
+
+      1. Netlify serves foo.html at BOTH /foo and /foo.html. Eleven pages were
+         indexed under both forms. That one was already survivable: every root
+         page carried a canonical pointing at the .html form, so the duplicates
+         stayed at a handful of impressions each.
+
+      2. index.html carried NO canonical at all, and the site links to it as
+         `index.html?city=NAME&state=ST` in 471 places across 98 distinct query
+         strings, plus bare `index.html` 300 times and `/` 256 times. Every one
+         of those is a separate indexable URL serving byte-identical homepage
+         HTML. Two were already in the index (?city=Flagstaff, ?city=Sedona).
+
+    The difference between (1) and (2) is only that somebody remembered the
+    canonical on the landing pages and did not on the homepage. Nothing checked.
+    So this check reads the page list from sitemap.xml rather than from a glob:
+    the sitemap is the list of URLs we are asking Google to index, so a page that
+    is in the sitemap and disagrees with itself about its own address is exactly
+    the defect worth failing on, and a page missing from the sitemap is caught by
+    check_routing already.
+
+    Asserted, per sitemap entry:
+      - the file is readable
+      - it contains exactly one rel="canonical" (two is worse than none: it is
+        undefined which one Google honours)
+      - the canonical href equals the sitemap <loc> for that page, character for
+        character, including the trailing-slash form of the homepage
+
+    And, loudly, that the sitemap yielded a page list at all. A canonical check
+    that parses zero <loc> elements and reports clean is the failure mode this
+    codebase keeps rediscovering.
+    """
+    locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", sitemap)
+    if not locs:
+        rep.fail("canonicals", "sitemap.xml yielded no <loc> entries, so no page "
+                               "was checked; the sitemap is unreadable or its "
+                               "shape has changed")
+        return
+
+    checked = 0
+    for loc in locs:
+        if not loc.startswith(SITE):
+            rep.fail("canonicals", f"sitemap entry {loc} is not on {SITE}")
+            continue
+
+        rest = loc[len(SITE):].lstrip("/")
+        path = rest if rest else "index.html"
+
+        html = fetch(path, local)
+        if html is None:
+            rep.fail("canonicals", f"{path} is in the sitemap but could not be read")
+            continue
+
+        found = re.findall(r'<link\s+rel="canonical"\s+href="([^"]*)"', html)
+        if not found:
+            rep.fail("canonicals",
+                     f'{path} has no rel="canonical". It is reachable at more '
+                     f"than one URL (Netlify serves /{rest} and /{rest}.html; "
+                     f"index.html additionally answers every ?city= query string) "
+                     f"and nothing tells Google which address is the real one")
+            continue
+        if len(found) > 1:
+            rep.fail("canonicals",
+                     f"{path} has {len(found)} canonical tags "
+                     f"({', '.join(found)}); which one is honoured is undefined")
+            continue
+        if found[0] != loc:
+            rep.fail("canonicals",
+                     f"{path} canonical is {found[0]} but its sitemap entry is "
+                     f"{loc}; the page and the sitemap disagree about its address")
+            continue
+
+        checked += 1
+
+    if checked == 0:
+        rep.fail("canonicals", f"{len(locs)} sitemap entries, none of them checked "
+                               f"clean; the check read nothing it understood")
+
+
 def check_stray_artifacts(rep, local):
     """Repo-root strays and city-folder debris: the wrong-shape hand-off, caught."""
     if not local:
@@ -3201,7 +3289,8 @@ HARNESSES = ("tools/test_budget_labels.py",
              "tools/test_hardcoded_counts.py",
              "tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
-             "tools/test_statcard_faq.py")
+             "tools/test_statcard_faq.py",
+             "tools/test_canonicals.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -3315,6 +3404,7 @@ def main():
 
     if "routing" in groups:
         check_routing(rep, db, idx, sitemap, args.local, slug_to_city)
+        check_canonicals(rep, sitemap, args.local)
 
     if "figures" in groups:
         check_figures(rep, db, idx)
