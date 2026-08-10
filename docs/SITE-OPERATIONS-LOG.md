@@ -202,6 +202,75 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-10 - SEO and funnel session, five pushes, no new pages
+
+No page built, no database change, no score change. Counts unchanged at 51 profiles and 23
+comparison pages. This session was diagnostic first and the edits followed from the data.
+
+**Files:** edits to `index.html`, `privacy.html`, `sitemap.xml`, `visit-before-you-decide.html`,
+`tools/validate.py`, five guide pages, forty-one pages carrying a quiz CTA,
+`where-should-i-retire-quiz.html`, `docs/TASKBOARD.md`, this log. New:
+`tools/test_canonicals.py`.
+
+**Duplicate URLs, and the half that was already defended.** All forty-five root pages already
+carried self-referencing canonicals pointing at the `.html` form, which is why Netlify serving
+both `/foo` and `/foo.html` never cost more than fifty-seven impressions in total. `index.html`
+carried none, and the site links to it as `index.html?city=NAME&state=ST` in 471 places across
+ninety-eight distinct query strings, plus bare `index.html` three hundred times and `/` two
+hundred and fifty-six. Up to a hundred URLs serving byte-identical homepage HTML with nothing
+declaring which was real; two were already indexed. Same defect class as the extensionless
+variants, roughly twenty times the surface, invisible because the landing pages happened to be
+right. `check_canonicals` now reads the page list from `sitemap.xml` and asserts each page's
+canonical equals its own `<loc>`, so a page and the sitemap can no longer disagree silently.
+
+**Netlify Pretty URLs: checked, inert, left alone.** The checkbox is ticked but the parent Asset
+optimization section is off, confirmed by loading a `.html` URL and watching it stay. A redirect
+block enforcing the `.html` form would work today and become an infinite redirect loop on every
+landing page the moment Asset optimization were ever switched on. Not worth that exposure to
+recover fifty-seven impressions the canonicals already handle. **Decision: no redirect block, now
+or later, unless the URL form itself changes.**
+
+**affiliate-policy.html, found by the new check on its first run.** In the sitemap since
+2026-06-26 and linked from `visit-before-you-decide.html`, but the file has never existed. A 404
+served to readers and advertised to Google. The disclosure paragraph on that page is itself
+complete: partner names, that a commission is earned, that it costs the reader nothing. Only the
+trailing "read our full affiliate policy" pointer was dead. Link and sitemap entry removed;
+writing the page remains open.
+
+**Guide titles.** All five ran sixty-eight to eighty-six characters against Google's roughly
+sixty-character cut, so each was clipped mid-descriptor with a brand name occupying the opening
+twenty. `active-frontier.html` ranks position 5 for "best cities for retirees" and converted at
+2.4% against roughly 6% typical for that position. Descriptive phrasing moved to the front on all
+five; every URL left untouched, so nothing could lose a ranking. og:title and twitter:title kept
+in sync on the three pages that carry them.
+
+**Query data killed a planned edit, correctly.** `urban-walkabout.html` shows 924 impressions at
+position 8.32 with one click. Its query report is dominated by Walk Score lookups for specific
+cities (Winter Garden FL, Cedar Rapids, Melbourne FL, Cohasset), none of them in the database.
+Google is matching the page to a question it cannot answer, which is not a title problem and not
+recoverable by retitling. One row in that report, "walkable cities for retirees" at position 37,
+is the actual audience. Retitled toward that rather than toward the phantom impressions.
+
+**Results screen.** Of 193 quiz completions in twenty-eight days, six requested a report. The
+offer was not broken; it was ignored. Three causes, all structural: the restart bar sat between
+the city cards and the offer and read as end-of-page; all five reports rendered every time with
+ten controls; and `getRecommendedReports()` already personalised but only added a badge without
+reordering, so a recommended report could sit fourth of five under a heading asking the reader to
+choose. Recommended now sort to the top, the remainder collapse behind a toggle, the restart bar
+moved below. A `reports_expand` event was added so the next read can separate placement from offer.
+`report_request` still fires on actual email submission, so the number stays comparable to the six.
+
+**Internal links.** See TASKBOARD for the orphan finding. Forty-one quiz CTAs repointed. Nav and
+footer links deliberately left on `index.html`: site-wide repeated links are discounted anyway and
+rerouting them would tax every on-site visitor. Existing anchor-text variation across those
+buttons was preserved rather than normalised.
+
+**Two hardcoded city counts** removed from `where-should-i-retire-quiz.html`, which claimed the
+quiz ranks "100" cities in two visible sentences while the FAQPage schema on the same page already
+said "every city on RetireMeHere" correctly. Visible prose had drifted from the structured data it
+mirrors, which is the failure mode already recorded here: prose restating a checked number is
+itself unchecked and drifts independently.
+
 ### 2026-08-08 (sixth push) - fayetteville-vs-bentonville-retirement.html shipped
 
 Shipped after the Saratoga Springs profile the same day, so all counts below are post-Saratoga:

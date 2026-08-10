@@ -4,6 +4,62 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 10, 2026, SEO and funnel session
+(51 profiles live, 23 comparison pages live. Five pushes. No new page, no DB change,
+no score change.)
+
+**SHIPPED, August 10 2026: five commits, all driven by Search Console and GA4 rather than
+by the build queue.**
+
+`458c378` canonical on index.html and privacy.html, `check_canonicals` plus planted-error
+harness, dead affiliate-policy link and sitemap entry removed.
+`dcc5317` guide title tags front-loaded.
+Results screen: recommended reports sorted to top, remainder collapsed, restart bar moved
+below the offer.
+Quiz CTA on forty-one pages repointed to `where-should-i-retire-quiz.html`; two hardcoded
+city counts removed from that page.
+
+**The finding that reframed the session.** Search Console: 340 clicks across ninety days,
+235 of them in the last twenty-eight. Daily search clicks went from roughly 1.7 to 8.4, a
+fivefold rise, while impressions only doubled. The site is not flat; a ninety-day average
+was hiding a steep recent climb. `where-should-i-retire-quiz.html` accounts for 134 of the
+gained clicks on its own, at position 5.07 for "where should i retire", and its top query
+gained only 39 of those, so the rest arrived through a long tail of the same question.
+
+**The orphan.** A grep of all ninety-seven pages found exactly one reference to
+`where-should-i-retire-quiz.html` in the repo: its own canonical URL. No page linked to it.
+Google reached it through sitemap.xml alone. Every quiz CTA on the site pointed at
+`index.html`, which competes for the same intent and sits at position 16.8. Internal equity
+was flowing to the weaker of the two pages. Forty-one CTAs now point at the stronger one.
+
+**What the numbers actually say about page types.** Themed and landing pages earn about
+2.6 search clicks per page per month, comparison pages about 1.4, city profile pages 0.20.
+GA4 caps profile views at 112 a month via `breakdown_click` and the real figure is nearer
+sixty, so profiles are not search assets and are barely internal ones either. Building more
+of them to attract search traffic is answered: do not.
+
+**Funnel, twenty-eight days.** 341 users, 216 quiz starts, 193 completions (89% of starters,
+which is excellent and should not be touched), 64 clicks into a city, 6 report requests.
+The drop is entirely after the results screen.
+
+**Channel mix, twenty-eight days.** Organic Search 372 sessions (70%), Direct 103, Organic
+Social 43, Unassigned 24, AI Assistant 11 at a 73% engagement rate, the highest of any
+channel. Pinterest is a minority channel; the assumption that it was carrying the site was
+wrong. Internal traffic filter confirmed Active, so these are clean.
+
+**WATCH, four to six weeks.** `quiz_start` for regression from the CTA reroute (the path to
+the quiz is now one click longer from forty-one pages; this is the first change to reverse
+if starts fall). `reports_expand` against `report_request` to separate a placement problem
+from an offer problem. Position on "where should i retire" for movement off 5.07.
+
+**PARKED.** Landing-page typography and visual treatment, operator-flagged as long-standing
+dissatisfaction, deliberately not addressed in a session about measurement.
+
+**OPEN.** `affiliate-policy.html` was never written; the sitemap entry and the
+`visit-before-you-decide.html` link to it were removed rather than the page created. The
+disclosure paragraph on that page is complete and carries the substance. Decide whether a
+standalone policy page is wanted.
+
 **Last updated:** August 8, 2026, fayetteville-vs-bentonville shipped
 (COMPARE; 51 profiles live, 23 comparison pages live. New page, hub card and schema entry,
 reciprocal CTAs on both profiles, sitemap. No DB change, no score change.)
