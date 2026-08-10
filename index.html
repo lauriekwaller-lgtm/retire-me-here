@@ -2548,14 +2548,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
     <p id="resultsSubtitle">Based on your priorities, here are your best retirement city matches.</p>
   </div>
   <div class="results-grid" id="resultsGrid"></div>
-  <div class="restart-bar">
-    <button class="btn-secondary" onclick="restartQuiz()">← Retake Quiz</button>
-  </div>
-
   <div class="results-reports-section" id="resultsReportsSection">
     <div style="font-size:16px;font-weight:700;color:var(--terra);text-align:center;margin-bottom:4px">Free In-Depth Reports: Delivered Instantly</div>
-    <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;font-style:italic;">Pick the topic that matters most to you.</div>
+    <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;font-style:italic;">Chosen for you, based on the priorities you just ranked.</div>
     <div class="results-report-list" id="results-reports-icons"></div>
+  </div>
+
+  <div class="restart-bar">
+    <button class="btn-secondary" onclick="restartQuiz()">← Retake Quiz</button>
   </div>
 
 </div>
@@ -6644,10 +6644,9 @@ function renderReportIcons(containerId, panelSuffix) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  container.innerHTML = reports.map(r => {
+  const rowHTML = (r) => {
     const isRec = recommended.includes(r.key);
     const recBadge = isRec ? `<span class="rec-badge-row">⭐ For You</span>` : '';
-    const gaEvent = `if(typeof gtag!=='undefined'){gtag('event','report_request',{'event_category':'Reports','event_label':'${r.name}'})}`;
     return `<div class="report-row ${isRec ? 'rec-row' : ''}">
       <div class="report-row-icon">${r.icon}</div>
       <div class="report-row-content">
@@ -6659,7 +6658,46 @@ function renderReportIcons(containerId, panelSuffix) {
         <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('${r.key}')">Get Free</button>
       </div>
     </div>`;
-  }).join('');
+  };
+
+  // Everywhere except the results screen, behaviour is unchanged: all reports,
+  // in their declared order, no toggle.
+  if (!showRecs) {
+    container.innerHTML = reports.map(rowHTML).join('');
+    return;
+  }
+
+  // On the results screen the quiz has already answered "which of these is for
+  // me", so lead with that answer and let the rest be asked for.
+  const picked = reports.filter(r => recommended.includes(r.key));
+  const rest = reports.filter(r => !recommended.includes(r.key));
+
+  // getRecommendedReports() always returns at least one key, but if that ever
+  // changes, fall back to the full list rather than rendering an empty panel.
+  if (picked.length === 0) {
+    container.innerHTML = reports.map(rowHTML).join('');
+    return;
+  }
+
+  container.innerHTML =
+    picked.map(rowHTML).join('') +
+    `<div id="more-reports" style="display:none">${rest.map(rowHTML).join('')}</div>` +
+    `<button type="button" id="more-reports-toggle" onclick="toggleMoreReports()" ` +
+    `style="display:block;margin:14px auto 0;background:none;border:none;` +
+    `color:var(--mid);font-size:13px;text-decoration:underline;cursor:pointer;">` +
+    `See all ${reports.length} reports</button>`;
+}
+
+function toggleMoreReports() {
+  const more = document.getElementById('more-reports');
+  const btn = document.getElementById('more-reports-toggle');
+  if (!more || !btn) return;
+  const isOpen = more.style.display !== 'none';
+  more.style.display = isOpen ? 'none' : '';
+  btn.textContent = isOpen ? 'See all reports' : 'Show fewer';
+  if (!isOpen && typeof gtag !== 'undefined') {
+    gtag('event', 'reports_expand', {event_category: 'Reports', event_label: 'results'});
+  }
 }
 
 function showReportSignup(e, key, name, available) {
