@@ -195,7 +195,7 @@ Each rebuild increments the DB filename (current: CityDatabase_Jun_9_v14.xlsx). 
 
 ## 12. Future enhancements
 
-**Cash-buyer toggle.** A reader who funded the move from prior home-sale proceeds drops the P&I line entirely. A site-level toggle that switches between mortgaged and cash views would broaden the audience without compromising the published number's default framing. Defer until traffic signal warrants the engineering.
+**Cash-buyer toggle.** Implemented, generalised, and moved. See section 14. The shipped form takes an equity amount rather than a binary cash-or-mortgage switch, because a binary produces a false answer for the large middle of the audience who arrive with some home-sale proceeds but not the full purchase price.
 
 **HOA-inclusive variant.** Naples, The Villages, Scottsdale active-adult communities, Sun City, and similar markets carry meaningful HOA fees. A flag in the DB plus a card-level note ("HOA fees common, typically $X/mo") would preserve accuracy without altering the headline number.
 
@@ -245,3 +245,87 @@ time one is added. Absolute dollar thresholds do not drift.
 Budget Range. It did not touch D2. The D2 column therefore stayed scored against the pre-June
 budget figures, which were far too low, producing a uniform downward offset across the database:
 72 of 99 cities were wrong, mean shift +0.97. Rebuilt 2026-07-13.
+
+
+---
+
+## 14. Equity-adjusted variant (added 2026-08-10)
+
+**Status: a variant, not a replacement.** The published `Monthly Est` column, every city profile
+figure, every comparison page cost row, and D2 scoring all continue to use the section 3 formula
+unchanged: a couple aged 65+ buying with 20% down at the documented PMMS rate. Nothing in the
+database changes. This section documents a second view computed from the same inputs, for readers
+who are not buying with 20% down.
+
+**Why a binary toggle was rejected.** Section 12 anticipated a cash-buyer switch. Building it that
+way would answer correctly for two groups, the reader with no equity and the reader paying cash
+outright, and incorrectly for everyone between them, which is most people who relocate in
+retirement. The variant therefore takes an equity figure and lets the two former cases fall out of
+it as endpoints.
+
+### 14.1 The formula
+
+One term of section 3 varies. Everything else is untouched.
+
+```
+loan          = max(0, Median Home - equity)
+P&I_adjusted  = amortise(loan, PMMS rate, 30 years)
+central_eq    = central - P&I_published + P&I_adjusted
+```
+
+where `P&I_published` is the section 4 line item, amortised on `Median Home × 0.80`.
+
+Equivalently: `central_eq = base + P&I_adjusted`, where `base` is the central estimate with
+principal and interest removed.
+
+**Property tax and homeowners insurance are retained in full,** computed on `Median Home` exactly
+as section 4 specifies. They attach to the house, not to the loan, so an outright buyer still pays
+both. Dropping them alongside P&I is the obvious error here and it understates an outright buyer's
+cost by several hundred dollars a month in high-tax and high-insurance markets.
+
+**The rate is the same PMMS figure named in section 4.** One quarterly rate update moves both the
+published number and this variant, because both read the same documented input. That is the entire
+reason this section exists.
+
+**The section 3 range spread does not apply.** The 0.90 and 1.12 multipliers produce the published
+`Budget Range` and are not recomputed here. The equity-adjusted figure is a central estimate only.
+
+### 14.2 Known limitation: this figure must never drive a ranking
+
+Removing P&I strips out most of the cost variance between cities, because P&I is the largest and
+most locally variable line item. Ranking the database by `central_eq` at high equity therefore
+inverts: modelled at full cash purchase, Jackson Hole WY comes out as the least expensive city in
+the database, ahead of Memphis, because once a $2M house is paid for what remains is groceries.
+
+That output is arithmetically correct and false as an answer to any question a reader is asking.
+
+**Rule: `central_eq` is a filter, never a sort key.** A surface using it shows which cities fall
+within a reader's means and then ranks the survivors by the ten-dimension scores. Presenting an
+equity-adjusted cost ranking, or any "cheapest places to retire" claim derived from one, is
+prohibited by this document.
+
+The equity input naturally suppresses the inversion in normal use, since a reader entering
+$200,000 cannot service the remaining loan on a $2M house and Jackson Hole correctly drops out.
+The prohibition covers the case where equity is set high enough that it does not.
+
+### 14.3 What this variant does not model
+
+**Renters.** Section 2's mortgaged framing is stated there to approximate a renter, on the grounds
+that a landlord's P&I plus taxes plus insurance plus margin roughly passes through to rent. That
+reasoning does not survive the equity adjustment: a renter's costs do not fall because the reader
+has home-sale proceeds. A rent view needs its own basis and is not this one.
+
+**Single retirees.** Section 2's couple-aged-65+ assumption is unchanged and unaffected by equity.
+Healthcare and food scale per person while housing does not, so a single reader is misestimated by
+this variant exactly as much as by the published figure, no more and no less. Any surface using
+either must state the couple assumption plainly.
+
+**HOA fees.** Still out, per section 12, and the omission is proportionally larger here: as P&I
+falls, an unmodelled $400/mo HOA becomes a bigger share of a smaller total.
+
+### 14.4 Refresh
+
+No separate cadence. This variant has no inputs of its own. It reads `Median Home`, `PropTax Rate
+%`, `HO Insur Est $/yr` and the PMMS rate, all already covered by section 11. Any surface computing
+it must derive it at run time from the current database rather than storing precomputed figures,
+so that a database rebuild propagates without a second update step.
