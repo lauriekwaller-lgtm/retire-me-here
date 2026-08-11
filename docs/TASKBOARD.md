@@ -4,11 +4,11 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 10, 2026, affordability calculator plus CTA repoint
-(51 profiles live, 23 comparison pages live. One new page, no DB change,
-no score change.)
+**Last updated:** August 11, 2026, State Tax Facts schema plus validator coverage
+(51 profiles live, 23 comparison pages live. No new pages. DB bumped to v18,
+which adds a sheet and changes no city figure and no score.)
 
-**NEXT UP, scoped Aug 10 2026, not started: a tax filtering tool.** Strongest remaining tool
+**IN FLIGHT, schema shipped Aug 11 2026: a tax filtering tool.** Strongest remaining tool
 candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the
 queries are question-shaped, which is the shape the quiz page already ranks for.
 
@@ -24,10 +24,19 @@ So this is a data-structuring job before it is a build job. The facts already ex
 as prose: `docs/D5-TAX-METHODOLOGY.md` section six carries per-state anchors with exactly the
 detail a filter needs. Turning that into discrete state-level fields is the work.
 
-Two decisions belong to the operator before any code. Whether the new fields live as a second
-sheet in the CityDatabase or as a separately governed doc. And whether populating them counts as
-a scoring change needing sign-off, since sourcing tax facts not currently in the database crosses
-the data-source rule, which says stop and ask rather than score from research.
+Both operator decisions are made and shipped. The fields live as a State Tax Facts sheet
+inside the CityDatabase (v18), one row per live state, thirty-nine rows, keyed on ST, with
+closed enum vocabularies and the PropTax mirror populated from the City Database sheet.
+Populating the remaining columns is a data addition, not a scoring change, gated by a one-time
+D5-versus-facts reconciliation before the tool launches; any D5 that moves in that pass is a
+scoring change and goes through the normal process. No front-loading of states without cities:
+the validator now forces the facts row for a new state into the same commit as its first city.
+
+Remaining, in order: the population pass (one session, thirty-nine states, Tax Foundation,
+AARP and Kiplinger as sources, Tax Year stamped per row), which must also add the completeness
+check and retire the blank-enum tolerance in `check_taxfacts`; the D5 reconciliation;
+`D5-TAX-METHODOLOGY.md` to v1.1 so scoring a new state means filling its facts row; then the
+tool build itself.
 
 Side benefit worth weighing: SCORING-RUBRIC.md flags that tax figures in profile `scoreNotes`
 carry year stamps that nothing in the toolchain ages, and Arkansas was already found described

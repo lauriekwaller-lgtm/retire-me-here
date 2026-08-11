@@ -54,7 +54,7 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_27_v17.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_27_v18.xlsx"
 
 # The date in DEFAULT_DB's filename, as a date. check_docs asserts the two agree,
 # so this cannot drift from the file it describes; bump both in the same commit.
@@ -3408,6 +3408,153 @@ def check_db(rep, db_path):
                      f"See docs/D5-TAX-METHODOLOGY.md.")
 
 
+# Enum vocabularies for the State Tax Facts sheet. Closed sets, deliberately:
+# the sheet exists so a filter can run on these columns, and a filter cannot run
+# on "mostly exempt" or "exempt over 65". Nuance goes in the Note column; the
+# enum column carries one word a reader's yes-or-no question maps onto.
+TAXFACTS_ENUMS = {
+    "Income Tax Type": ("None", "Flat", "Graduated"),
+    "SS Treatment": ("Exempt", "Partial", "Taxed"),
+    "Retirement Income Treatment": ("Exempt", "Partial", "Taxed"),
+    "Estate Tax": ("Yes", "No"),
+    "Inheritance Tax": ("Yes", "No"),
+}
+TAXFACTS_NUMERIC = ("Top Rate %", "Sales Tax Combined %",
+                    "PropTax Rate %", "Tax Year")
+
+
+def check_taxfacts(rep, db_path):
+    """
+    The State Tax Facts sheet: one row per live state, no more, no less.
+
+    D5 is a composite and cannot drive discrete filters (see
+    docs/D5-TAX-METHODOLOGY.md), so the facts behind it live in their own sheet,
+    keyed on ST. This check holds that sheet to three promises:
+
+    1. COVERAGE, both ways. Every state with a city in the City Database has
+       exactly one facts row, and no facts row names a state without a city.
+       Strict in both directions on purpose: rows nothing reads are where this
+       site's worst defects have hidden, so speculative rows are refused, and
+       the row for a new state is forced into the same commit as its first city.
+    2. ENUMS are closed. A fact column carries a listed value or is blank.
+       Blank is tolerated ONLY until the population pass ships; the population
+       commit must add a completeness check and retire that tolerance. Free
+       text never passes: a filter built on these columns would silently drop
+       every row it cannot match.
+    3. THE PROPTAX MIRROR. PropTax Rate % lives in both sheets because existing
+       consumers read the City Database column. The facts sheet owns the value;
+       this check fails the moment the two copies disagree, so the duplication
+       can never drift silently.
+    """
+    try:
+        rows = _read_xlsx(db_path, "State Tax Facts")
+    except KeyError:
+        rep.fail("db",
+                 "the State Tax Facts sheet is missing from "
+                 f"{os.path.basename(db_path)}. The tax-facts checks verified "
+                 "nothing; the schema shipped with DB v18 and should not have "
+                 "gone away.")
+        return
+
+    header = {i: str(v).replace("\n", " ").strip()
+              for i, v in rows[1].items() if str(v).strip()}
+    col = {name: i for i, name in header.items()}
+    missing_cols = [c for c in ("ST", "PropTax Rate %")
+                    + tuple(TAXFACTS_ENUMS) + TAXFACTS_NUMERIC
+                    if c not in col]
+    if missing_cols:
+        rep.fail("db",
+                 f"State Tax Facts is missing columns {missing_cols}. "
+                 f"The schema changed out from under this check.")
+        return
+
+    # Canonical per-state PropTax from the City Database sheet, and the state
+    # roster the coverage promise is measured against.
+    db_rows = _read_xlsx(db_path, "City Database")
+    db_header = {i: str(v).replace("\n", " ").strip()
+                 for i, v in db_rows[1].items() if str(v).strip()}
+    db_col = {name: i for i, name in db_header.items()}
+    db_ptax = {}
+    for r in db_rows[2:]:
+        if not str(r.get(db_col["City"], "")).strip():
+            continue
+        st = str(r.get(db_col["ST"], "")).strip()
+        db_ptax[st] = r.get(db_col["PropTax Rate %"])
+
+    facts_states = {}
+    for r in rows[2:]:
+        if not r:
+            continue
+        st = str(r.get(col["ST"], "")).strip()
+        if not st:
+            rep.fail("db", "State Tax Facts: a data row has a blank ST cell "
+                           "but is not empty. Every row must be keyed.")
+            continue
+        if st in facts_states:
+            rep.fail("db", f"duplicate State Tax Facts row for {st}")
+        facts_states[st] = r
+
+        for name, allowed in TAXFACTS_ENUMS.items():
+            v = str(r.get(col[name], "")).strip()
+            if v and v not in allowed:
+                rep.fail("db",
+                         f"State Tax Facts, {st}: {name} is {v!r}, which is "
+                         f"not a recognized value. Allowed: "
+                         f"{'/'.join(allowed)} or blank until the population "
+                         f"pass. Nuance belongs in the Note column.")
+
+        for name in TAXFACTS_NUMERIC:
+            v = r.get(col[name])
+            if v is None or str(v).strip() == "":
+                continue
+            try:
+                float(v)
+            except (TypeError, ValueError):
+                rep.fail("db",
+                         f"State Tax Facts, {st}: {name} is {v!r}, not a "
+                         f"number. Scripts reading this column will silently "
+                         f"skip it.")
+
+        mirror = r.get(col["PropTax Rate %"])
+        canon = db_ptax.get(st)
+        if st in db_ptax:
+            if mirror is None or str(mirror).strip() == "":
+                rep.fail("db",
+                         f"State Tax Facts, {st}: PropTax Rate % is blank but "
+                         f"the City Database carries {canon}. The mirror is "
+                         f"the one populated column and may not regress.")
+            else:
+                try:
+                    drift = abs(float(mirror) - float(canon)) > 1e-9
+                except (TypeError, ValueError):
+                    drift = True
+                if drift:
+                    rep.fail("db",
+                             f"State Tax Facts, {st}: PropTax Rate % is "
+                             f"{mirror}, which disagrees with the City "
+                             f"Database value {canon}. The facts sheet owns "
+                             f"this figure; fix whichever copy is wrong and "
+                             f"keep them identical.")
+
+    if not facts_states:
+        rep.fail("db",
+                 "check_taxfacts read zero state rows from State Tax Facts. "
+                 "It verified nothing rather than finding nothing.")
+        return
+
+    for st in sorted(set(db_ptax) - set(facts_states)):
+        rep.fail("db",
+                 f"{st} has a city in the database but has no row in State "
+                 f"Tax Facts. The facts row for a new state ships in the same "
+                 f"commit as its first city.")
+    for st in sorted(set(facts_states) - set(db_ptax)):
+        rep.fail("db",
+                 f"State Tax Facts has a row for {st}, but {st} has no city "
+                 f"in the database. Speculative rows are refused: a row "
+                 f"nothing reads is where defects hide. Add it with the "
+                 f"state's first city.")
+
+
 # ---------------------------------------------------------------- main
 
 # ------------------------------------------------------------------- harnesses
@@ -3595,7 +3742,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_highlight_homes.py", "tools/test_emdash_forms.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
              "tools/test_statcard_faq.py",
-             "tools/test_canonicals.py")
+             "tools/test_canonicals.py",
+             "tools/test_taxfacts.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -3745,6 +3893,7 @@ def main():
         check_affiliate(rep, slug_to_city, args.local)
     if "db" in groups:
         check_db(rep, args.db)
+        check_taxfacts(rep, args.db)
     if "docs" in groups:
         check_docs(rep, args.db, idx, sitemap, slug_to_city, args.local)
     if "layout" in groups:

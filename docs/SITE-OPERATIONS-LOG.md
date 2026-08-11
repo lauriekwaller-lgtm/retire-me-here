@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-11 - State Tax Facts schema shipped (DB v18)
+
+**Files:** new `docs/CityDatabase_Jul_27_v18.xlsx` (replaces v17, which is deleted)
+and `tools/test_taxfacts.py`. Edits to `tools/validate.py` and `docs/TASKBOARD.md`.
+No page changes, no score change, no city figure change.
+
+**What happened.** The tax filtering tool needs discrete state-level facts, and D5
+cannot supply them: it is a composite, and no composite answers "does this state tax
+Social Security" with a yes or a no. So v18 adds a State Tax Facts sheet, one row per
+live state, keyed on ST: income tax type, top rate, Social Security treatment,
+retirement income treatment plus a note column, combined sales tax, property tax
+rate, estate and inheritance tax, tax year, source. Enum columns carry closed
+vocabularies so a filter can run on them; nuance goes in the note column.
+
+**Populated now: the ST keys and the PropTax mirror only.** Property tax was already
+in the City Database at one value per state, so the mirror ships live and
+`check_taxfacts` fails the moment the two copies disagree. Every other column is
+blank until the population pass, which is its own session and must add the
+completeness check when it lands. Blank until then is deliberate: the alternative
+was populating from research inside a schema session, and data entered in a hurry
+next to data entered carefully ends up indistinguishable from it.
+
+**The version stamp.** v17 to v18 with the date kept at Jul 27, per section 5 of
+this log: the version number is canonical, the date is informational, and the date
+records the vintage of the city figures, none of which moved. Bumping the date would
+have failed every comparison caption for no reason.
+
+**Coverage is strict in both directions and that is the design.** A state with a
+city and no facts row fails the gate, so a new state's facts arrive with its first
+city, fresh, rather than pre-loaded and rotting unread. A facts row without a city
+also fails, so speculative rows cannot accumulate. Front-loading the eleven missing
+states was considered and rejected: rows nothing reads are where this site's worst
+defects have hidden.
+
 ### 2026-08-10 (third session) - last stray quiz CTA repointed
 
 **Files:** `pick-and-compare.html`, `docs/TASKBOARD.md`, this log. No new pages, no
