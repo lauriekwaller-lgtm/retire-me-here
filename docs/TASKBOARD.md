@@ -4,9 +4,35 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 10, 2026, affordability calculator session
+**Last updated:** August 10, 2026, affordability calculator plus CTA repoint
 (51 profiles live, 23 comparison pages live. One new page, no DB change,
 no score change.)
+
+**NEXT UP, scoped Aug 10 2026, not started: a tax filtering tool.** Strongest remaining tool
+candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the
+queries are question-shaped, which is the shape the quiz page already ranks for.
+
+**The finding that decides whether it can be built at all: D5 will not drive it.** D5 is a single
+composite blending five things, tax on Social Security, tax on pensions and IRAs, overall income
+rate, property tax and sales tax. That is right for the quiz, which weighs tradeoffs, and wrong
+for a filter, because it will not run backwards. Montana and Oregon sit one band apart, but
+Montana taxes Social Security and Oregon exempts it, and neither score says which. A reader
+searching for states that do not tax Social Security needs a yes or no, and no composite can
+produce one.
+
+So this is a data-structuring job before it is a build job. The facts already exist in the repo
+as prose: `docs/D5-TAX-METHODOLOGY.md` section six carries per-state anchors with exactly the
+detail a filter needs. Turning that into discrete state-level fields is the work.
+
+Two decisions belong to the operator before any code. Whether the new fields live as a second
+sheet in the CityDatabase or as a separately governed doc. And whether populating them counts as
+a scoring change needing sign-off, since sourcing tax facts not currently in the database crosses
+the data-source rule, which says stop and ask rather than score from research.
+
+Side benefit worth weighing: SCORING-RUBRIC.md flags that tax figures in profile `scoreNotes`
+carry year stamps that nothing in the toolchain ages, and Arkansas was already found described
+as a flat rate when it is graduated. Structured tax fields would give the validator something to
+check that prose against.
 
 **CLOSED, August 10 2026: the last body quiz CTA still pointing at `index.html`.**
 
@@ -2831,15 +2857,28 @@ check an explicit anchor to read, or keep spelling profile counts out in words a
 - **[P2]** **No vintage check on `Median Home`.** The rebase fixed the values; nothing prevents the column
   ageing into a patchwork again. Add a gate check that flags any DB figure more than N% off the
   current ZHVI CSV, as boarded on July 26. This is the mechanism fix, not the data fix.
-- **[P2]** **A `Monthly Est == f(Median Home)` assertion would have caught 31 cities. Now unblocked.**
-  The doc dependency is CLOSED as of the July 27 doc push: BUDGET-METHODOLOGY.md sections 5 and 6
-  now publish the exact per-state multipliers as tables rather than ranges, and the formula is
-  confirmed to reproduce all 99 rows of v17 exactly, zero mismatches, on both the Monthly Est
-  string and the Budget Range integer. Nothing further is needed from the docs. What remains is
-  building the check itself and its planted-error test. Asserting it on the gate makes an entire
-  class of drift impossible. Highest-value single check on this board.
-- **[P1]** **DB title cell still reads "100 cities"** against 99 rows, and `pick-and-compare.html` line 918
-  still hardcodes "100-city database (v14)". Both invisible to `check_hardcoded_counts`.
+- **CLOSED Aug 10, 2026 (shipped).** ~~**A `Monthly Est == f(Median Home)` assertion would have
+  caught 31 cities.**~~ Built as assertion three of `check_afford_data`, with
+  `tools/test_afford_data.py` as the planted-error harness. It runs the full sections 3 to 6
+  formula over every row on every deploy and asserts it rebuilds both the `Monthly Est` string
+  and the `Budget Range` integer. Shipped as part of the affordability calculator rather than on
+  its own, because that page had to reproduce the formula anyway.
+
+  Building it surfaced one thing the docs could not have told us. Section 5 never said whether
+  the state modifier or the climate adjustment is applied first to the utilities line, and the
+  two orders disagree on six cities. The order actually used was recovered from the database,
+  written into section 5 in the same commit, and is now asserted. So the July 27 claim that
+  nothing further was needed from the docs was not quite right: the tables were exact, the
+  order of operations was missing.
+- **[P1]** **DB title cell is stale on three counts.** Row one of the `City Database` sheet reads
+  `RetireMeHere - City Database (June 2026, v3.3 - 100 cities)`. The file is `_Jul_27_v17`, holds
+  ninety-nine rows, and v3.3 is the SCORING-RUBRIC version, not the database version. Invisible to
+  `check_hardcoded_counts`, which reads HTML and never opens the xlsx.
+
+  Half of this item is now done: the `pick-and-compare.html` half is fixed and the string is gone
+  from that file. Re-verified Aug 10, 2026. The database half is a binary edit and needs the
+  operator, not an apply script. Worth doing at the next DB touch rather than opening the file
+  for it alone.
 
 ---
 
