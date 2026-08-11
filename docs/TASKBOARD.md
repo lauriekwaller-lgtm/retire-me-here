@@ -8,6 +8,22 @@ When a job moves, edit the line here (or ask Claude to). If it is not on this bo
 (51 profiles live, 23 comparison pages live. One new page, no DB change,
 no score change.)
 
+**CLOSED, August 10 2026: the last body quiz CTA still pointing at `index.html`.**
+
+`pick-and-compare.html` was missed by the batch earlier the same day, which keyed on
+`class="quiz-cta-btn"` while that page uses `class="cta-btn"` for the same button. It
+was the only page on the site carrying a header quiz button and no link at all to
+`where-should-i-retire-quiz.html`. Found by diffing the two sets, forty-three against
+forty-two, rather than by re-reading the batch. Its CTA copy also said three minutes
+where the rest of the site says two; corrected in the same edit.
+
+**The header buttons stay pointed at `index.html`, decided rather than deferred.** All
+forty-three of them. Forty-two of those pages already reach the landing page through
+their body CTA, and a second link from the same page to the same destination buys
+little, so repointing the headers would have added friction across the whole site to
+gain new link equity from one page. Someone clicking a header button labelled Quiz
+wants to take it, not read about it. Revisit only if the landing page stops ranking.
+
 **SHIPPED, August 10 2026 (second session): `where-can-i-afford-to-retire.html`.**
 
 The first tool on the site that takes a figure from the reader about their own money.

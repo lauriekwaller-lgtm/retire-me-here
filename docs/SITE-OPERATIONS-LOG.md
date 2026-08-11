@@ -202,6 +202,37 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-10 (third session) - last stray quiz CTA repointed
+
+**Files:** `pick-and-compare.html`, `docs/TASKBOARD.md`, this log. No new pages, no
+database change, no score change.
+
+**What happened.** The batch earlier today repointed forty-one body quiz CTAs to
+`where-should-i-retire-quiz.html`. It matched on `class="quiz-cta-btn"`.
+`pick-and-compare.html` styles the identical button as `class="cta-btn"`, so it was
+never matched and kept sending readers to `index.html`.
+
+**How it surfaced, which is the part worth keeping.** Not by re-reading the batch, and
+not by grepping for the old href, which would have returned the header buttons and the
+landing page's own CTA as false positives. By taking the set of pages with a header
+quiz button and the set of pages linking to the landing page and diffing them:
+forty-three against forty-two, one page in the gap, and the gap named the page. A
+batch that keys on a class name silently skips every page that styles the same element
+differently, and the only reliable check is on the property that matters, which is
+whether a link exists, not whether a selector matched.
+
+**Also fixed.** That page's CTA copy said the quiz takes three minutes. The landing
+page and every other CTA say two. The repoint would have sent readers straight from
+one number to the other.
+
+**Decided, not deferred: the header buttons stay on `index.html`.** All forty-three.
+The case for repointing them was link equity to the page that ranks. It does not hold
+up: forty-two of the forty-three already link to the landing page from their body CTA,
+and a second link from the same page to the same target adds little. So the gain would
+have been new equity from one page, bought with an extra click for every reader who
+presses a header button expecting the quiz to start. Recorded here so it is not
+reopened from first principles in three months.
+
 ### 2026-08-10 (second session) - where-can-i-afford-to-retire.html shipped
 
 **Files:** new `where-can-i-afford-to-retire.html` and `tools/test_afford_data.py`.
