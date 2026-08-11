@@ -1,6 +1,6 @@
 # D5 Tax Friendliness: Methodology
 
-**Version 1.0 — July 12, 2026**
+**Version 1.1 — August 11, 2026**
 Authoritative for all D5 scoring. Governs `D5 Tax` in the City Database.
 Companion to `scoring_rubric_v3_2` (D5 section) and `BUDGET-METHODOLOGY.md`.
 
@@ -51,12 +51,26 @@ column in the database, not looser scoring. Twelve states currently carry an
 inherited 1-point spread (DE, FL, ID, KY, NC, NM, PA, SC, TN, TX, UT, WI). These pass
 the check and are unreviewed.
 
-## 4. How to score a new state
+## 4. How to score a new state (v1.1)
 
-Read the rubric's five D5 bands and place the state in one. Anchor on how the state
-treats **pension, IRA and 401(k) withdrawals**, because that is the money a relocating
-retiree actually draws down. Then adjust within the band for Social Security
-treatment, sales tax, and property tax.
+Scoring a new state is filling in its facts row.
+
+**Step one: populate the state's row in the State Tax Facts sheet** of the
+CityDatabase (schema shipped in v18, populated in v19): income tax type and top
+rate, Social Security treatment, retirement income treatment with the mechanism
+in the Note column, combined sales tax, property tax mirror, estate and
+inheritance status, Tax Year, and source. Enums are closed (None/Flat/Graduated,
+Exempt/Partial/Taxed, Yes/No); nuance goes in the Note, never the enum. The
+validator refuses a city in a state without a facts row and refuses a facts row
+without a city, so the row and the state's first city ship in the same commit.
+
+**Step two: assign D5 from the facts against the rubric's five bands.** Anchor on
+**Retirement Income Treatment**, because pension, IRA and 401(k) money is what a
+relocating retiree actually draws down. Then adjust within the band for Social
+Security treatment, sales tax, property tax, and death taxes, all now read from
+the row rather than researched fresh. Comparators live in the sheet: Iowa (8) is
+the exempt-income-with-property-tax anchor, Oregon (down at 2 to 3) the
+full-taxation anchor.
 
 Score the state once. Apply it to every city in that state.
 
@@ -100,3 +114,22 @@ The rubric's own 3–4 band names **Charleston (SC)** as an exemplar, but the da
 scores Charleston 6. South Carolina exempts Social Security and grants a large 65+
 deduction, so the database is right and the rubric example is stale. Fix in rubric v3.3
 so the two documents stop contradicting each other.
+
+## 8. Corrections applied (v19 to v19.1)
+
+**Philadelphia D5: 6 to 7 (August 11, 2026, operator approved).** Pennsylvania
+unifies at 7. The populated facts sheet made the tension visible: PA fully
+exempts pension, IRA and 401(k) withdrawals and Social Security, and the flat
+3.07 percent falls almost entirely on wages a retiree does not earn, so the
+5-6 band's own words ("some retirement income taxed") cannot hold a 6. The
+in-set anchor is Iowa at 8: retirement income exempt, comparable property tax
+(1.33 against PA's 1.26), no inheritance tax. Pennsylvania's inheritance tax,
+4.5 percent on children from the first dollar with no exemption threshold, is
+the one-notch difference: 7, not 8.
+
+The prior Philadelphia-below-Pittsburgh spread rested on nothing but the
+combined sales-tax difference (8 percent in Philadelphia against 7 in Allegheny
+County), a local add-on no other state's cities are differentiated on.
+Chattanooga remains the lone deliberate local-variance exception, per section 6.
+Philadelphia's wage tax is irrelevant to D5: it does not touch retirement
+income.

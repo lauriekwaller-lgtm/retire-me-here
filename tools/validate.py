@@ -54,7 +54,7 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_27_v19.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_27_v19.1.xlsx"
 
 # The date in DEFAULT_DB's filename, as a date. check_docs asserts the two agree,
 # so this cannot drift from the file it describes; bump both in the same commit.

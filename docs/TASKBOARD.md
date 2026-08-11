@@ -4,9 +4,9 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 11, 2026, second session, State Tax Facts population pass
-(51 profiles live, 23 comparison pages live. No new pages. DB bumped to v19,
-which fills the facts sheet and changes no city figure and no score.)
+**Last updated:** August 11, 2026, third session, Pennsylvania D5 unified plus methodology v1.1
+(51 profiles live, 23 comparison pages live. No new pages. DB bumped to v19.1:
+one score change, operator approved, Philadelphia D5 from six to seven.)
 
 **IN FLIGHT, schema shipped Aug 11 2026: a tax filtering tool.** Strongest remaining tool
 candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the
@@ -36,13 +36,22 @@ Population pass shipped Aug 11 2026 (v19): all thirty-nine states populated acro
 column, Tax Year stamped 2026, sources on every row; the completeness check shipped in the
 same commit and the blank-enum tolerance is retired. The D5 reconciliation ran against the
 populated facts: no score is flat-out wrong, and the tolerated one-point spreads stand as
-documented. One tension for the operator: Pennsylvania scores six and seven while the facts
-read retirement income fully exempt, which the rubric's own second clause (exempt income,
-higher property taxes, plus an inheritance tax) reads closer to seven or eight. Moving it is
-a scoring change and is not made here.
+documented. The Pennsylvania tension is resolved: operator approved Aug 11 2026, Pennsylvania unified at
+seven, Philadelphia moved from six with Pittsburgh unchanged, anchored to Iowa at eight minus
+the inheritance tax. Rationale recorded in `D5-TAX-METHODOLOGY.md` section eight. Every
+surface carrying the score moved in the same commit: the database, the quiz city array, the
+pick-and-compare array, and the affordability calculator array.
 
-Remaining, in order: `D5-TAX-METHODOLOGY.md` to v1.1 so scoring a new state means filling
-its facts row and reading the sheet; then the tool build itself.
+Methodology shipped to v1.1 in the same commit: scoring a new state now means filling its
+facts row and reading the sheet. Remaining: the tool build itself.
+
+New hygiene item, priority P2, found during the reconciliation: the Scores by Dimension
+sheet in the CityDatabase is a stale second copy of the canonical scores. It carries
+eighty-nine rows against ninety-nine cities, and spot checks show drifted values (for
+example Philadelphia D2 reads five there against nine in the City Database). No validator
+check reads it and no page renders from it. Decide: delete the sheet, or bring it under
+validation. Left untouched in v19.1 rather than cosmetically patching one cell of a sheet
+that is wrong elsewhere.
 
 Side benefit worth weighing: SCORING-RUBRIC.md flags that tax figures in profile `scoreNotes`
 carry year stamps that nothing in the toolchain ages, and Arkansas was already found described

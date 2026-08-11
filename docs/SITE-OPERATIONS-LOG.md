@@ -202,6 +202,37 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-11 (third session) - Pennsylvania D5 unified at 7; methodology v1.1 (DB v19.1)
+
+**Files:** new `docs/CityDatabase_Jul_27_v19.1.xlsx` (replaces v19, deleted). Edits to
+`index.html`, `pick-and-compare.html`, `where-can-i-afford-to-retire.html`,
+`docs/D5-TAX-METHODOLOGY.md`, `tools/validate.py` (DEFAULT_DB only), `docs/TASKBOARD.md`,
+this log. One score change, operator approved: Philadelphia D5 from 6 to 7. No other
+figure moved; the v19.1 workbook differs from v19 by exactly one cell, verified.
+
+**Why.** The populated facts sheet surfaced the tension the July corrections missed:
+Pennsylvania fully exempts retirement income, so the 5-6 band's "some retirement income
+taxed" cannot hold Philadelphia's 6. Iowa at 8 is the in-set anchor (exempt income,
+comparable property tax, no inheritance tax); Pennsylvania's inheritance tax is the
+one-notch difference, landing the state at 7. The old one-point Philadelphia spread
+rested only on a local sales-tax add-on no other state's cities are differentiated on.
+Full rationale in `D5-TAX-METHODOLOGY.md` section 8.
+
+**Surfaces.** Four carriers of the score moved together: the City Database cell, the
+quiz CITIES array in `index.html`, the embedded array in `pick-and-compare.html`, and
+the score array in `where-can-i-afford-to-retire.html`. The Philadelphia profile
+carries no numeric D5 and its tax prose already tells the exempt-income story, so it
+needed nothing. No comparison page includes Philadelphia.
+
+**Methodology v1.1 shipped in the same commit.** Scoring a new state is now
+"fill the facts row, then assign D5 from the row against the bands." The research
+step and the scoring step were the same work done twice; the sheet is where it gets
+written down once.
+
+**Found and boarded, not fixed:** the Scores by Dimension sheet is a stale second
+copy (89 rows against 99 cities, drifted values, nothing reads it). Boarded P2 for
+delete-or-validate rather than silently patching one cell of it here.
+
 ### 2026-08-11 (second session) - State Tax Facts population pass (DB v19)
 
 **Files:** new `docs/CityDatabase_Jul_27_v19.xlsx` (replaces v18, deleted). Edits to
