@@ -202,6 +202,66 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-10 (second session) - where-can-i-afford-to-retire.html shipped
+
+**Files:** new `where-can-i-afford-to-retire.html` and `tools/test_afford_data.py`.
+Edits to `tools/validate.py`, `sitemap.xml`, `index.html`,
+`where-should-i-retire-quiz.html`, `best-places-to-retire-on-a-budget.html`,
+`docs/TASKBOARD.md`, this log. No database change, no score change. Counts unchanged
+at fifty-one profiles and twenty-three comparison pages.
+
+**What it is.** An affordability calculator built on BUDGET-METHODOLOGY.md section 14,
+the equity-adjusted variant added earlier the same day. The reader gives home equity, a
+monthly budget, and whether they are buying or renting. Cities that come in at or under
+the budget are shown, ordered by their combined score across nine dimensions: all of
+them except D2 Budget, which is excluded because cost is already the filter and
+counting it twice would push a cash-rich reader toward cheap housing for a mortgage
+payment they are not making. Static
+prose sits above the tool so the page has something to index; the hero anchors straight
+down to the calculator.
+
+**The rule that shaped the design.** Section 14.2: the equity-adjusted figure is a
+filter and never a sort key. Principal and interest is the largest and most locally
+variable line in the budget, so taking it out flattens the differences between cities
+and a cost ranking at high equity puts the expensive resort town on top. The page
+filters on cost and ranks on scores, and the reason is written into the script comment
+next to the sort so that a future edit has to argue with it rather than not notice it.
+
+**Verification before hand-off.** The page's own JavaScript was extracted and run
+against the database in Node: it reproduces the published `Monthly Est` string and
+`Budget Range` integer for all ninety-nine cities with zero mismatches. Ranges of
+equity and budget were exercised across the input space, including both ends, and
+checked for cities silently dropping out through a missing state multiplier. None do.
+
+**One ambiguity in section 5, settled by the data.** The utilities line reads "baseline
+$400/mo per couple, multiplied by a state cost-of-living modifier" and then lists
+climate adjustments, without saying whether the adjustment lands before or after the
+multiplier. Applying the modifier to (400 + adjustment) disagrees with the published
+`Monthly Est` on six cities: Palm Springs, Fort Collins, St. Louis, Knoxville,
+Bentonville and Tulsa. Adding the adjustment after the multiplier reproduces all
+ninety-nine exactly. The latter is correct and is now asserted by
+`check_afford_data`. Section 5 should get a clarifying clause at the next
+methodology-doc audit. Done in this commit: section 5 now states the order explicitly.
+
+**Second copy of the database, defended.** The page embeds Median Home, the property
+tax rate, the insurance estimate, two climate fields and ten scores per city, because
+section 14.4 requires run-time derivation and a personalised figure cannot be
+precomputed. `check_afford_data` asserts roster, cells, the page's constants against
+section 6, and finally that the formula rebuilds the published column from the page's
+own inputs. `tools/test_afford_data.py` plants one error of each kind and asserts each
+is caught.
+
+**Not an orphan on day one.** The August 10 first-session finding was that the quiz
+page had exactly one reference to it in the whole repo, its own canonical, and reached
+Google through the sitemap alone. This page ships with links from `index.html` header
+and mobile navigation, the quiz page, and the budget landing page.
+
+**Known limits, stated on the page rather than hidden.** Renting uses the published
+mortgaged figure and ignores equity, per section 14.3, because a landlord does not
+lower rent when a reader sells a house and the database has no rent column. Single
+retirees are overestimated by roughly $300 a month. HOA fees are excluded and the
+omission grows proportionally as equity rises.
+
 ### 2026-08-10 - SEO and funnel session, five pushes, no new pages
 
 No page built, no database change, no score change. Counts unchanged at 51 profiles and 23

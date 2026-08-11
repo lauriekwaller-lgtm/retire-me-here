@@ -87,6 +87,52 @@ DIMS = [
     ("D10", "D10 Comm."),
 ]
 
+# BUDGET-METHODOLOGY.md section 6, transcribed. Exact values, never ranges: an
+# earlier version of that document published them as bands ("low-cost rural states
+# 0.88-0.95"), which is not precise enough to recompute a city from and silently
+# collapsed real distinctions (OR and CO were both "1.07-1.08" but are 1.08 and 1.07).
+#
+# These cover the states with a city in the database and nothing else. That is
+# deliberate: an unexercised value is an unverified value. A city in a 40th state
+# needs both multipliers derived first, per section 6, and check_afford_data fails
+# on a state present in one place and absent from the other rather than defaulting.
+AFFORD_COL = {
+    "AL": 0.88, "AR": 0.88, "OK": 0.88,
+    "KY": 0.90, "LA": 0.90,
+    "IN": 0.92, "TN": 0.92,
+    "IA": 0.93, "MO": 0.93, "SD": 0.93,
+    "OH": 0.94, "SC": 0.94,
+    "GA": 0.95, "MI": 0.95, "NC": 0.95, "WI": 0.95,
+    "TX": 0.96,
+    "NM": 0.98, "PA": 0.98,
+    "DE": 1.00, "ID": 1.00, "ME": 1.00, "WY": 1.00,
+    "FL": 1.02, "MN": 1.02, "MT": 1.02,
+    "AZ": 1.03, "UT": 1.03, "VA": 1.03,
+    "NH": 1.05, "NV": 1.05, "VT": 1.05,
+    "CO": 1.07, "MD": 1.07,
+    "OR": 1.08,
+    "WA": 1.10,
+    "MA": 1.15, "NY": 1.15,
+    "CA": 1.20,
+}
+
+# A separate scale from AFFORD_COL, and the two do not track each other: TX is 0.96
+# on cost of living but 1.05 on Medigap; MN is 1.02 and 0.95.
+AFFORD_MEDIGAP = {
+    "SD": 0.88,
+    "IA": 0.90, "WY": 0.90,
+    "AL": 0.92, "AR": 0.92, "KY": 0.92, "OK": 0.92, "TN": 0.92,
+    "MN": 0.95, "WI": 0.95,
+    "AZ": 1.00, "CO": 1.00, "DE": 1.00, "GA": 1.00, "ID": 1.00, "IN": 1.00,
+    "LA": 1.00, "MD": 1.00, "ME": 1.00, "MI": 1.00, "MO": 1.00, "MT": 1.00,
+    "NC": 1.00, "NH": 1.00, "NM": 1.00, "NV": 1.00, "OH": 1.00, "OR": 1.00,
+    "SC": 1.00, "UT": 1.00, "VA": 1.00, "VT": 1.00, "WA": 1.00,
+    "PA": 1.05, "TX": 1.05,
+    "FL": 1.15,
+    "CA": 1.25, "MA": 1.25,
+    "NY": 1.40,
+}
+
 RANGE_RE = re.compile(r"(\$\d{1,2},\d{3})\s*(?:–|—|to|-)\s*(\$\d{1,2},\d{3})")
 MONEY_RE = re.compile(r"\$\d{3}K|\$\d{3},\d{3}|\$\d(?:\.\d{1,2})?M")
 
@@ -588,6 +634,260 @@ def check_figures(rep, db, idx):
                 rep.fail("figures",
                          f"CITY_ENRICHMENT {city}: modal home {first.group(0)}, "
                          f"DB says ${round(row['home'] / 1000)}K")
+
+
+AFFORD_PAGE = "where-can-i-afford-to-retire.html"
+
+# Every column the page embeds, and the database column it must equal. The page
+# recomputes its monthly figures at run time from these inputs, per
+# BUDGET-METHODOLOGY.md section 14.4, which forbids storing precomputed figures so
+# that a database rebuild propagates without a second update step. That design is
+# only safe if the inputs cannot drift, which is what check_afford_data enforces.
+AFFORD_FIELDS = {
+    "h": ("home", "Median Home"),
+    "t": ("proptax", "PropTax Rate %"),
+    "i": ("insurance", "HO Insur Est $/yr"),
+    "w": ("warm", "Climate Warm W"),
+    "x": ("heat", "HEAT (0-10)"),
+}
+
+AFFORD_ROW = re.compile(
+    r'\{n:"((?:[^"\\]|\\.)*)",s:"([A-Z]{2})",h:(\d+),t:([\d.]+),i:(\d+),'
+    r'w:(\d+),x:(\d+),d:\[(\d+(?:,\d+){9})\]\}')
+
+AFFORD_CONSTANTS = (
+    ("PMMS_RATE",    r"var PMMS_RATE\s*=\s*([\d.]+)",    0.0652),
+    ("DOWN_FRAC",    r"var DOWN_FRAC\s*=\s*([\d.]+)",    0.20),
+    ("TERM_MONTHS",  r"var TERM_MONTHS\s*=\s*(\d+)",     360),
+    ("PART_B",       r"PART_B\s*=\s*([\d.]+)",           202.90),
+    ("PART_D",       r"PART_D\s*=\s*([\d.]+)",           38.99),
+    ("MEDIGAP_BASE", r"MEDIGAP_BASE\s*=\s*([\d.]+)",     165),
+    ("OOP",          r"OOP\s*=\s*([\d.]+)",              150),
+    ("UTIL_BASE",    r"UTIL_BASE\s*=\s*([\d.]+)",        400),
+    ("FOOD_BASE",    r"FOOD_BASE\s*=\s*([\d.]+)",        750),
+    ("DISC_BASE",    r"DISC_BASE\s*=\s*([\d.]+)",        500),
+)
+
+
+def afford_central(row):
+    """
+    BUDGET-METHODOLOGY.md sections 3 through 6 in full: the published central
+    monthly estimate for a couple aged 65+ buying with 20% down.
+
+    Written out here rather than imported, because there is nowhere to import it
+    from. The formula lives in a markdown document and in the page's JavaScript,
+    and the point of this function is to be a THIRD, independent statement that
+    the other two get checked against.
+    """
+    home = row["home"]
+    col = AFFORD_COL[row["state"]]
+    mg = AFFORD_MEDIGAP[row["state"]]
+
+    r = 0.0652 / 12                          # Freddie Mac PMMS, week of 06/11/2026
+    pi = (home * 0.80) * r / (1 - (1 + r) ** -360)
+
+    prop_tax = home * (row["proptax"] / 100.0) / 12
+    insurance = row["insurance"] / 12.0
+    healthcare = 2 * 202.90 + 2 * 38.99 + 2 * 165 * mg + 150
+
+    adj = 0
+    heat, warm = row["heat"], row["warm"]
+    adj += 80 if heat >= 8 else 40 if heat >= 6 else -20 if heat <= 3 else 0
+    adj += 80 if warm <= 3 else 30 if warm <= 5 else -30 if warm >= 9 else 0
+
+    # The multiplier lands on the baseline, THEN the climate adjustment is added.
+    # Not the other way round: applying COL to (400 + adj) disagrees with the
+    # published Monthly Est on six cities. Section 5 does not say which order, so
+    # the database settles it, and this comment is the record of that.
+    utilities = 400 * col + adj
+
+    walk = row["scores"]["D6"]
+    transport = 400 if walk >= 8 else 550 if walk >= 6 else 650 if walk >= 4 else 700
+
+    return (pi + prop_tax + insurance + healthcare + utilities
+            + 750 * col + transport + 500 * col)
+
+
+def check_afford_data(rep, db_path, local):
+    """
+    where-can-i-afford-to-retire.html carries its own copy of the city inputs.
+
+    It has to. The page computes a personalised monthly cost from an equity figure
+    the reader types, which no precomputed column can answer, and section 14.4 of
+    BUDGET-METHODOLOGY.md requires it to derive that at run time from current data.
+    So the page holds Median Home, the property tax rate, the insurance estimate,
+    two climate fields and all ten dimension scores for every city, in an
+    AFFORD_CITIES array.
+
+    A second copy of the database is exactly the drift this validator exists for.
+    The July 27 ZHVI rebase moved fourteen cities across a tier boundary; a page
+    holding a stale Median Home would have gone on quoting the old mortgage to
+    every reader, silently, and the only symptom would have been figures that were
+    merely plausible.
+
+    Four assertions, in order of how badly each one fails:
+
+      1. ROSTER. Same cities, same states, no extras, no omissions, no duplicates.
+         A city added to the database and not to the page is invisible to every
+         reader of this tool, and nothing else on the site would notice.
+      2. CELLS. Every embedded field equals its database cell.
+      3. ARITHMETIC. The page's inputs, run through the published formula, must
+         rebuild the Monthly Est string and the Budget Range integer the database
+         publishes. This is the gate section 9 calls for under Reproducibility. It
+         catches what 1 and 2 cannot: data that is perfect and CONSTANTS that have
+         drifted, which is the failure that produces plausible wrong numbers.
+      4. CONSTANTS. The page's rate, baselines and per-state multipliers match the
+         ones this file computes with. Assertion 3 would mostly cover this, but it
+         fails as a puzzle ("Boise is $80 out") instead of as an answer ("the Idaho
+         cost-of-living modifier on the page says 1.02, section 6 says 1.00").
+
+    And, because this codebase keeps rediscovering it: a page that cannot be read,
+    or an array that parses to nothing, fails loudly rather than comparing zero
+    cities and reporting clean.
+    """
+    html = fetch(AFFORD_PAGE, local)
+    if html is None:
+        rep.fail("figures",
+                 f"{AFFORD_PAGE} could not be read, so its embedded city data was "
+                 f"never compared to the database. If the page was renamed, rename it "
+                 f"here too; if it was retired, delete this check deliberately.")
+        return
+
+    rows = AFFORD_ROW.findall(html)
+    if not rows:
+        rep.fail("figures",
+                 f"{AFFORD_PAGE}: the AFFORD_CITIES array parsed to zero rows. Either "
+                 f"the array is gone or its shape has changed, and either way this "
+                 f"check just compared nothing to the database.")
+        return
+
+    # ---- 4. constants, read out of the page ------------------------------
+    for label, pattern, expected in AFFORD_CONSTANTS:
+        m = re.search(pattern, html)
+        if not m:
+            rep.fail("figures",
+                     f"{AFFORD_PAGE}: constant {label} not found, so the formula "
+                     f"cannot be checked against BUDGET-METHODOLOGY.md sections 4-5")
+        elif abs(float(m.group(1)) - expected) > 1e-9:
+            rep.fail("figures",
+                     f"{AFFORD_PAGE}: {label} is {m.group(1)}, methodology says "
+                     f"{expected}. Every monthly figure on the page is wrong.")
+
+    for var, table, sect in (("COL_MOD", AFFORD_COL, "cost-of-living"),
+                             ("MEDIGAP_MOD", AFFORD_MEDIGAP, "Medigap")):
+        m = re.search(r"var %s\s*=\s*\{(.*?)\};" % var, html, re.S)
+        if not m:
+            rep.fail("figures",
+                     f"{AFFORD_PAGE}: the {var} table was not found, so the per-state "
+                     f"{sect} multipliers were never checked")
+            continue
+        on_page = {k: float(v)
+                   for k, v in re.findall(r"([A-Z]{2}):\s*([\d.]+)", m.group(1))}
+        for st in sorted(set(on_page) | set(table)):
+            want_v, got_v = table.get(st), on_page.get(st)
+            if want_v is None:
+                rep.fail("figures", f"{AFFORD_PAGE}: {var} carries {st}, which "
+                                    f"BUDGET-METHODOLOGY.md section 6 does not list")
+            elif got_v is None:
+                rep.fail("figures", f"{AFFORD_PAGE}: {var} is missing {st}. Every {st} "
+                                    f"city computes as NaN and drops out of the results "
+                                    f"without a word")
+            elif abs(want_v - got_v) > 1e-9:
+                rep.fail("figures", f"{AFFORD_PAGE}: {var}[{st}] is {got_v}, section 6 "
+                                    f"says {want_v}")
+
+    # ---- the database, read for the columns load_db does not carry -------
+    raw = _read_xlsx(db_path, "City Database")
+    header = {i: str(v).replace("\n", " ").strip()
+              for i, v in raw[1].items() if str(v).strip()}
+    col = {name: i for i, name in header.items()}
+    missing = [c for _, c in AFFORD_FIELDS.values() if c not in col]
+    if missing:
+        rep.fail("figures",
+                 f"{os.path.basename(db_path)}: columns {missing} are missing, and "
+                 f"{AFFORD_PAGE} is built out of them")
+        return
+
+    want = {}
+    for r in raw[2:]:
+        city = str(r.get(col["City"], "")).strip()
+        if not city:
+            continue
+        state = str(r.get(col["ST"], "")).strip()
+        want[(city, state)] = {
+            "state": state,
+            "home": money_to_int(str(r.get(col["Median Home"], "")).strip()),
+            "proptax": round(float(r[col["PropTax Rate %"]]), 2),
+            "insurance": int(r[col["HO Insur Est $/yr"]]),
+            "warm": int(r[col["Climate Warm W"]]),
+            "heat": int(r[col["HEAT (0-10)"]]),
+            "scores": {k: int(r[col[c]]) for k, c in DIMS},
+            "monthly": str(r.get(col["Monthly Est"], "")).strip(),
+            "range": int(r[col["Budget Range"]]),
+        }
+
+    # ---- 1. roster -------------------------------------------------------
+    got = {}
+    for name, st, home, tax, ins, warm, heat, dims in rows:
+        key = (name, st)
+        if key in got:
+            rep.fail("figures", f"{AFFORD_PAGE}: {name}, {st} appears in "
+                                f"AFFORD_CITIES more than once")
+        got[key] = {
+            "home": int(home), "proptax": float(tax), "insurance": int(ins),
+            "warm": int(warm), "heat": int(heat),
+            "scores": dict(zip([k for k, _ in DIMS],
+                               [int(v) for v in dims.split(",")])),
+        }
+
+    for city, st in sorted(set(got) - set(want)):
+        rep.fail("figures", f"{AFFORD_PAGE}: {city}, {st} is in AFFORD_CITIES but not "
+                            f"in the database")
+    for city, st in sorted(set(want) - set(got)):
+        rep.fail("figures", f"{AFFORD_PAGE}: {city}, {st} is in the database but has "
+                            f"no AFFORD_CITIES row, so no reader of this tool can ever "
+                            f"be shown it")
+
+    # ---- 2. cells --------------------------------------------------------
+    for city, st in sorted(set(got) & set(want)):
+        page, db_row = got[(city, st)], want[(city, st)]
+        for field, label in AFFORD_FIELDS.values():
+            if abs(float(page[field]) - float(db_row[field])) > 1e-9:
+                rep.fail("figures",
+                         f"{AFFORD_PAGE}: {city}, {st} {label} is {page[field]}, "
+                         f"database says {db_row[field]}")
+        for dim, _ in DIMS:
+            if page["scores"][dim] != db_row["scores"][dim]:
+                rep.fail("figures",
+                         f"{AFFORD_PAGE}: {city}, {st} {dim} is {page['scores'][dim]}, "
+                         f"database says {db_row['scores'][dim]}")
+
+    # ---- 3. arithmetic ---------------------------------------------------
+    checked = 0
+    for city, st in sorted(set(got) & set(want)):
+        db_row = want[(city, st)]
+        central = afford_central(db_row)
+        lo = int(round(central * 0.90 / 100.0)) * 100
+        hi = int(round(central * 1.12 / 100.0)) * 100
+        rebuilt = f"${lo:,}\u2013${hi:,}/mo"
+        if rebuilt != db_row["monthly"]:
+            rep.fail("figures",
+                     f"{city}, {st}: the published formula rebuilds Monthly Est as "
+                     f"{rebuilt}, the database says {db_row['monthly']}. One of the two "
+                     f"drifted, and {AFFORD_PAGE} quotes readers the formula.")
+        tier = (1 if central < 5500 else 2 if central < 6500 else
+                3 if central < 7500 else 4 if central < 9000 else 5)
+        if tier != db_row["range"]:
+            rep.fail("figures",
+                     f"{city}, {st}: the formula puts the central estimate at "
+                     f"${round(central):,}, which is Budget Range {tier}; the database "
+                     f"says {db_row['range']}")
+        checked += 1
+
+    if checked == 0:
+        rep.fail("figures",
+                 f"{AFFORD_PAGE}: not one city was checked. The page and the database "
+                 f"have no city in common, which is not a state to report clean from.")
 
 
 def check_tiers(rep, db, idx):
@@ -1912,7 +2212,8 @@ def check_hardcoded_counts(rep, db, idx, slug_to_city, local):
     # The hub, the picker and the quiz are the three highest-traffic pages that
     # make this claim, and none of them was being read.
     standalone = ["compare-retirement-cities.html", "pick-and-compare.html",
-                  "where-should-i-retire-quiz.html"]
+                  "where-should-i-retire-quiz.html",
+                  "where-can-i-afford-to-retire.html"]
     for page in sorted(set(re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", hub))
                        ) + standalone:
         h = fetch(page, local)
@@ -2571,7 +2872,7 @@ def check_tag_balance(rep, db, idx, sitemap, slug_to_city, local):
     TAGS = ("strong", "em", "b", "i", "span", "a")
 
     targets = ["index.html", "pick-and-compare.html", "compare-retirement-cities.html",
-               "visit-before-you-decide.html"]
+               "visit-before-you-decide.html", "where-can-i-afford-to-retire.html"]
     targets += [f"cities/{s}/profile.html" for s in slug_to_city]
     targets += re.findall(r"([a-z0-9-]+-vs-[a-z0-9-]+-retirement\.html)", sitemap)
     targets += ["value-navigator.html", "active-frontier.html", "wellness-blueprint.html",
@@ -2683,6 +2984,7 @@ def check_superlatives(rep, db, idx, slug_to_city, local):
         )) + [
             "compare-retirement-cities.html", "pick-and-compare.html",
             "where-should-i-retire-quiz.html", "visit-before-you-decide.html",
+            "where-can-i-afford-to-retire.html",
             "best-places-to-retire-on-a-budget.html",
             "best-places-to-retire-in-florida.html",
             "best-places-to-retire-in-the-midwest.html",
@@ -2838,6 +3140,8 @@ def check_emdash(rep, idx, sitemap, slug_to_city, local):
         # and now plain TARGET MEMBERSHIP. Each carried exactly one live em
         # dash on the day it was added.
         "privacy.html", "scouting-trip-workbook.html",
+        # Added with the page itself, 2026-08-10.
+        "where-can-i-afford-to-retire.html",
     ]
     if GUIDES_TOO:
         named += ["value-navigator.html", "active-frontier.html",
@@ -3280,7 +3584,8 @@ def check_stray_artifacts(rep, local):
                      f"that belongs somewhere else.")
 
 
-HARNESSES = ("tools/test_budget_labels.py",
+HARNESSES = ("tools/test_afford_data.py",
+             "tools/test_budget_labels.py",
              "tools/test_comparison_cost_rows.py",
              "tools/test_comparison_checkmarks.py",
              "tools/test_comparison_cta_reciprocity.py",
@@ -3408,6 +3713,7 @@ def main():
 
     if "figures" in groups:
         check_figures(rep, db, idx)
+        check_afford_data(rep, args.db, args.local)
         check_tiers(rep, db, idx)
         check_highlight_homes(rep, db, idx, args.local)
         check_highlight_surfaces(rep, idx, args.local)

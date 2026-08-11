@@ -57,6 +57,14 @@ Federal components (Medicare Part B at $202.90/person and Part D at $38.99/perso
 ### Utilities
 Baseline $400/mo per couple, multiplied by a state cost-of-living modifier (see Section 6). Climate adjustments: HEAT score 8+ adds $80 (heavy summer AC), HEAT 6–7 adds $40, HEAT ≤3 subtracts $20. Climate Warm-W 1–3 adds $80 (heavy winter heating), 4–5 adds $30, 9+ subtracts $30.
 
+**Order of operations, added 2026-08-10.** The modifier lands on the baseline, and the climate adjustment is added to the result:
+
+```
+utilities = (400 × COL) + climate adjustment
+```
+
+Not `(400 + adjustment) × COL`. The sentence above did not say which, and the two are not equivalent: the second reading disagrees with the published `Monthly Est` on six cities (Palm Springs, Fort Collins, St. Louis, Knoxville, Bentonville, Tulsa), while the first reproduces all 99 exactly. This was recovered from the database on 2026-08-10 while building `where-can-i-afford-to-retire.html`, which is one time more than it should have needed recovering. Section 9 claims this document is complete enough to reproduce every row; on this line it was not. `check_afford_data` now asserts it on every deploy.
+
 **Sources:** BLS Consumer Expenditure Survey 65+ households (2024 reference year); EIA state-level residential electricity rates.
 
 ### Food

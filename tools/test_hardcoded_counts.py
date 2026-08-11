@@ -184,20 +184,37 @@ def main():
     tmp, r = stage(repo)
     path = os.path.join(r, "tools", "validate.py")
     s = open(path, encoding="utf-8").read()
-    s = s.replace('    pages = {"index.html": idx}\n'
-                  '    for slug in slug_to_city:\n'
-                  '        h = fetch(f"cities/{slug}/profile.html", local)\n'
-                  '        if h:\n'
-                  '            pages[f"cities/{slug}/profile.html"] = h\n',
-                  '    pages = {}\n'
-                  '    slug_to_city = {}\n', 1)
-    s = s.replace('    standalone = ["compare-retirement-cities.html", "pick-and-compare.html",\n'
-                  '                  "where-should-i-retire-quiz.html"]\n',
-                  '    standalone = []\n', 1)
-    s = s.replace('    hub = fetch("compare-retirement-cities.html", local) or ""\n'
-                  '    # The hub, the picker and the quiz are the three highest-traffic pages that\n'
-                  '    # make this claim, and none of them was being read.\n',
-                  '    hub = ""\n', 1)
+    def blind(s, old, new):
+        """Neuter one block of validate.py, asserting the anchor was there.
+
+        These anchors are copies of validate.py source, so they drift the moment
+        that file is edited: adding a page to the `standalone` list below broke
+        the second one on 2026-08-10. A silent no-op here leaves the check fully
+        armed and the assertion below fails for a reason that has nothing to do
+        with what it is testing. Fail on the anchor instead."""
+        if s.count(old) != 1:
+            raise SystemExit(
+                "harness anchor error: this block of validate.py no longer reads "
+                "as this file expects, so check_hardcoded_counts was never "
+                "neutered and assertion 7 is testing nothing.\n  anchor: "
+                + repr(old[:120]))
+        return s.replace(old, new, 1)
+
+    s = blind(s, '    pages = {"index.html": idx}\n'
+                 '    for slug in slug_to_city:\n'
+                 '        h = fetch(f"cities/{slug}/profile.html", local)\n'
+                 '        if h:\n'
+                 '            pages[f"cities/{slug}/profile.html"] = h\n',
+                 '    pages = {}\n'
+                 '    slug_to_city = {}\n')
+    s = blind(s, '    standalone = ["compare-retirement-cities.html", "pick-and-compare.html",\n'
+                 '                  "where-should-i-retire-quiz.html",\n'
+                 '                  "where-can-i-afford-to-retire.html"]\n',
+                 '    standalone = []\n')
+    s = blind(s, '    hub = fetch("compare-retirement-cities.html", local) or ""\n'
+                 '    # The hub, the picker and the quiz are the three highest-traffic pages that\n'
+                 '    # make this claim, and none of them was being read.\n',
+                 '    hub = ""\n')
     open(path, "w", encoding="utf-8").write(s)
     out = run(r)
     check("reading fewer than two pages fails loudly",

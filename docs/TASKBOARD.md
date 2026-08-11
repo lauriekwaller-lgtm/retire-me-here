@@ -4,9 +4,54 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 10, 2026, SEO and funnel session
-(51 profiles live, 23 comparison pages live. Five pushes. No new page, no DB change,
+**Last updated:** August 10, 2026, affordability calculator session
+(51 profiles live, 23 comparison pages live. One new page, no DB change,
 no score change.)
+
+**SHIPPED, August 10 2026 (second session): `where-can-i-afford-to-retire.html`.**
+
+The first tool on the site that takes a figure from the reader about their own money.
+Three inputs, cash down, monthly budget, and buying or renting. Affordability filters,
+the dimension scores rank. Implements BUDGET-METHODOLOGY.md section 14, added the
+same day: one term of the section 3 formula varies, principal and interest is amortised
+on typical home value minus equity instead of on eighty percent of it, and property tax
+and homeowners insurance are retained in full because they attach to the house and not
+to the loan.
+
+Section 14.2 forbids ranking on the equity-adjusted figure, because removing the
+mortgage strips out most of the cost variance between cities and a cost ranking at high
+equity inverts. Cost filters and never sorts. The page says so in prose, and the reason
+is written into the script comment so the next editor does not helpfully add a sort.
+
+`check_afford_data` plus `tools/test_afford_data.py` ship with it. The page holds its
+own copy of six database columns for all ninety-nine cities, which is a second copy of
+the database and therefore exactly the drift this validator exists for. The check
+asserts roster, then every cell, then that the page's own inputs rebuild the published
+`Monthly Est` string and `Budget Range` integer through the formula. That last assertion
+is the `Monthly Est == f(Median Home)` gate BUDGET-METHODOLOGY.md section 9 has been
+asking for; it now runs on every deploy.
+
+The page was added to all four hand-maintained target lists in the same commit:
+`check_emdash`, `check_superlatives`, `check_hardcoded_counts`, `check_tag_balance`.
+Each of those has previously shipped clean over a page it was not reading.
+
+**The rank excludes D2 Budget.** Nine dimensions, not ten. Cost is already the filter,
+so including D2 in the ordering would let price decide the outcome twice, and it does
+the most damage to exactly the reader this page is for: someone arriving with a large
+cash-down figure gets pushed toward cheap-housing cities on account of a mortgage
+payment they are not making. `RANK_SKIP` names the excluded index rather than hiding
+it in a loop bound. Scores render out of 90.
+
+**Section 5 of BUDGET-METHODOLOGY.md gained an order-of-operations clause** in this
+commit. The utilities line never said whether the climate adjustment lands before or
+after the state multiplier, and the two readings disagree on six cities. The order was
+recovered from the database while building this page, which is one recovery more than
+it should have needed. Now written down, and asserted.
+
+**One thing left open.** The renting option uses the published mortgaged figure and
+ignores the cash input, per section 14.3, because the database has no rent column and
+inventing one would break the data-source rule. Stated plainly on the page in three
+places. A real rent basis needs its own data source and is a separate job.
 
 **SHIPPED, August 10 2026: five commits, all driven by Search Console and GA4 rather than
 by the build queue.**
