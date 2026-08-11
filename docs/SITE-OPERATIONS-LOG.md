@@ -202,6 +202,42 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-11 (second session) - State Tax Facts population pass (DB v19)
+
+**Files:** new `docs/CityDatabase_Jul_27_v19.xlsx` (replaces v18, deleted). Edits to
+`tools/validate.py`, `tools/test_taxfacts.py`, `docs/TASKBOARD.md`, this log. No page
+changes, no score change, no city figure change. The date stamp stays Jul 27 for the
+same reason as v18: the version is canonical, the date records city-figure vintage.
+
+**What happened.** All thirty-nine state rows populated: income tax type and top rate
+from the Tax Foundation's 2026 table, Social Security treatment from the 2026
+eight-state list (six of ours: CO, MN, MT, NM, UT, VT), combined sales tax from the
+Tax Foundation midyear 2026 table, estate and inheritance status from 2026 reporting
+(estate: MA, MD, ME, MN, NY, OR, VT, WA; inheritance: KY, MD, PA), retirement income
+treatment classified per row with the mechanism in the Note column. Tax Year 2026 on
+every row. One correction against the named source of record: South Carolina's 2026
+reform (Act 110, signed March 2026, retroactive to January 1) replaced the bracket
+system with 1.99 and 5.21 percent, so SC carries 5.21, not the pre-reform 6.0 in the
+Tax Foundation's February table.
+
+**Classification rule worth recording.** Retirement Income Treatment is Exempt only
+when relief is broad (no income tax, or a blanket exemption like PA and IA); Partial
+requires relief that reaches private pensions and IRA money; government-pension
+carve-outs alone do not earn Partial, or nearly every state would qualify. Nuance
+lives in the Note column, never in the enum.
+
+**The blank tolerance is retired.** `check_taxfacts` now fails any blank enum,
+numeric, Note, or Source cell, and bounds Tax Year to 2025 through the current year.
+Two new planted-error assertions hold the retirement in place. No wall-clock aging
+of Tax Year: staleness is the annual June rebuild's job per the Section 2 calendar,
+matching how every other vintage check anchors to DB_VERSION_DATE rather than today.
+
+**D5 reconciliation.** Ran facts against every state's D5. Seven of eight raw flags
+dissolve on the rubric's own offset language (AZ's 8 is the "taxed at a low rate"
+band verbatim; MD, ME, NY are held down by local income taxes and death taxes; DE 9,
+ID 7, NC 7 are the documented tolerated spreads). Pennsylvania is the one live
+tension, boarded for an operator decision. No scores moved in this commit.
+
 ### 2026-08-11 - State Tax Facts schema shipped (DB v18)
 
 **Files:** new `docs/CityDatabase_Jul_27_v18.xlsx` (replaces v17, which is deleted)

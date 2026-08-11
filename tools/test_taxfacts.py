@@ -25,6 +25,9 @@ to catch it.
        exists to refuse.
     6. A DELETED SHEET fails LOUDLY, same reason, different failure path (the
        sheet lookup itself, not the row scan).
+    7. A BLANKED ENUM CELL fails. The population pass (v19) retired the
+       blank tolerance; this assertion keeps it retired.
+    8. A REMOVED TAX YEAR CELL fails: the same retirement, numeric side.
 
 All plants are made with the standard library only, by rewriting worksheet XML
 inside the xlsx zip. The facts sheet is written as inlineStr cells precisely so
@@ -189,6 +192,22 @@ def main():
     out = run(r)
     check("a deleted sheet fails loudly rather than passing",
           "sheet is missing" in out)
+    shutil.rmtree(tmp)
+
+    # 7. a blanked enum cell: the blank tolerance stays retired
+    tmp, r = stage(repo)
+    d3 = re.search(r'<c r="D3"[^>]*>.*?</c>', sheet_xml).group(0)
+    rewrite_zip(db_path(r), {part: lambda s: s.replace(d3, "", 1)})
+    out = run(r)
+    check("a blanked enum cell fails", "is blank" in out)
+    shutil.rmtree(tmp)
+
+    # 8. a removed Tax Year cell: numeric completeness holds too
+    tmp, r = stage(repo)
+    k3 = re.search(r'<c r="K3"[^>]*>.*?</c>', sheet_xml).group(0)
+    rewrite_zip(db_path(r), {part: lambda s: s.replace(k3, "", 1)})
+    out = run(r)
+    check("a removed Tax Year cell fails", "Tax Year is blank" in out)
     shutil.rmtree(tmp)
 
     passed = sum(1 for _, ok in RESULTS if ok)

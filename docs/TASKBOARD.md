@@ -4,9 +4,9 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 11, 2026, State Tax Facts schema plus validator coverage
-(51 profiles live, 23 comparison pages live. No new pages. DB bumped to v18,
-which adds a sheet and changes no city figure and no score.)
+**Last updated:** August 11, 2026, second session, State Tax Facts population pass
+(51 profiles live, 23 comparison pages live. No new pages. DB bumped to v19,
+which fills the facts sheet and changes no city figure and no score.)
 
 **IN FLIGHT, schema shipped Aug 11 2026: a tax filtering tool.** Strongest remaining tool
 candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the
@@ -32,11 +32,17 @@ D5-versus-facts reconciliation before the tool launches; any D5 that moves in th
 scoring change and goes through the normal process. No front-loading of states without cities:
 the validator now forces the facts row for a new state into the same commit as its first city.
 
-Remaining, in order: the population pass (one session, thirty-nine states, Tax Foundation,
-AARP and Kiplinger as sources, Tax Year stamped per row), which must also add the completeness
-check and retire the blank-enum tolerance in `check_taxfacts`; the D5 reconciliation;
-`D5-TAX-METHODOLOGY.md` to v1.1 so scoring a new state means filling its facts row; then the
-tool build itself.
+Population pass shipped Aug 11 2026 (v19): all thirty-nine states populated across every
+column, Tax Year stamped 2026, sources on every row; the completeness check shipped in the
+same commit and the blank-enum tolerance is retired. The D5 reconciliation ran against the
+populated facts: no score is flat-out wrong, and the tolerated one-point spreads stand as
+documented. One tension for the operator: Pennsylvania scores six and seven while the facts
+read retirement income fully exempt, which the rubric's own second clause (exempt income,
+higher property taxes, plus an inheritance tax) reads closer to seven or eight. Moving it is
+a scoring change and is not made here.
+
+Remaining, in order: `D5-TAX-METHODOLOGY.md` to v1.1 so scoring a new state means filling
+its facts row and reading the sheet; then the tool build itself.
 
 Side benefit worth weighing: SCORING-RUBRIC.md flags that tax figures in profile `scoreNotes`
 carry year stamps that nothing in the toolchain ages, and Arkansas was already found described

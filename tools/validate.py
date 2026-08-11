@@ -54,7 +54,7 @@ RAW = "https://raw.githubusercontent.com/lauriekwaller-lgtm/retire-me-here/main"
 # The database already lives in the repo, in docs/. That is the canonical copy the
 # validator reads. Update this constant when you bump the version, in the same commit
 # that adds the new xlsx.
-DEFAULT_DB = "docs/CityDatabase_Jul_27_v18.xlsx"
+DEFAULT_DB = "docs/CityDatabase_Jul_27_v19.xlsx"
 
 # The date in DEFAULT_DB's filename, as a date. check_docs asserts the two agree,
 # so this cannot drift from the file it describes; bump both in the same commit.
@@ -3436,11 +3436,12 @@ def check_taxfacts(rep, db_path):
        Strict in both directions on purpose: rows nothing reads are where this
        site's worst defects have hidden, so speculative rows are refused, and
        the row for a new state is forced into the same commit as its first city.
-    2. ENUMS are closed. A fact column carries a listed value or is blank.
-       Blank is tolerated ONLY until the population pass ships; the population
-       commit must add a completeness check and retire that tolerance. Free
-       text never passes: a filter built on these columns would silently drop
-       every row it cannot match.
+    2. ENUMS are closed and COMPLETE. Every fact column carries a listed
+       value: blank stopped being legal when the population pass shipped
+       (v19), because a blank cell in a filter column is a row the tool
+       silently drops. Free text never passes for the same reason, and
+       every row carries its Note and Source, so no enum is a claim with
+       no reason written down.
     3. THE PROPTAX MIRROR. PropTax Rate % lives in both sheets because existing
        consumers read the City Database column. The facts sheet owns the value;
        this check fails the moment the two copies disagree, so the duplication
@@ -3459,7 +3460,8 @@ def check_taxfacts(rep, db_path):
     header = {i: str(v).replace("\n", " ").strip()
               for i, v in rows[1].items() if str(v).strip()}
     col = {name: i for i, name in header.items()}
-    missing_cols = [c for c in ("ST", "PropTax Rate %")
+    missing_cols = [c for c in ("ST", "PropTax Rate %",
+                                "Retirement Income Note", "Source")
                     + tuple(TAXFACTS_ENUMS) + TAXFACTS_NUMERIC
                     if c not in col]
     if missing_cols:
@@ -3496,16 +3498,26 @@ def check_taxfacts(rep, db_path):
 
         for name, allowed in TAXFACTS_ENUMS.items():
             v = str(r.get(col[name], "")).strip()
-            if v and v not in allowed:
+            if not v:
+                rep.fail("db",
+                         f"State Tax Facts, {st}: {name} is blank. The "
+                         f"population pass shipped in v19; a blank "
+                         f"filter column is a row the tool silently "
+                         f"drops.")
+            elif v not in allowed:
                 rep.fail("db",
                          f"State Tax Facts, {st}: {name} is {v!r}, which is "
                          f"not a recognized value. Allowed: "
-                         f"{'/'.join(allowed)} or blank until the population "
-                         f"pass. Nuance belongs in the Note column.")
+                         f"{'/'.join(allowed)}. Nuance belongs in the "
+                         f"Note column.")
 
         for name in TAXFACTS_NUMERIC:
             v = r.get(col[name])
             if v is None or str(v).strip() == "":
+                rep.fail("db",
+                         f"State Tax Facts, {st}: {name} is blank. The "
+                         f"population pass shipped in v19 and every "
+                         f"numeric column carries a figure.")
                 continue
             try:
                 float(v)
@@ -3514,6 +3526,26 @@ def check_taxfacts(rep, db_path):
                          f"State Tax Facts, {st}: {name} is {v!r}, not a "
                          f"number. Scripts reading this column will silently "
                          f"skip it.")
+
+        for name in ("Retirement Income Note", "Source"):
+            v = str(r.get(col[name], "")).strip()
+            if not v:
+                rep.fail("db",
+                         f"State Tax Facts, {st}: {name} is blank. "
+                         f"Every row records its mechanism and its "
+                         f"source; a bare enum is a claim with no "
+                         f"reason written down.")
+
+        ty = r.get(col["Tax Year"])
+        try:
+            if not (2025 <= int(float(ty)) <= CURRENT_YEAR):
+                rep.fail("db",
+                         f"State Tax Facts, {st}: Tax Year is {ty}, "
+                         f"outside 2025..{CURRENT_YEAR}. A vintage "
+                         f"from the future is a typo; one before "
+                         f"2025 predates the sheet.")
+        except (TypeError, ValueError):
+            pass  # already failed as non-numeric above
 
         mirror = r.get(col["PropTax Rate %"])
         canon = db_ptax.get(st)
