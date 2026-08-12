@@ -202,6 +202,18 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-12 - tax tool fixup: URL deep linking and heading scope
+
+**Files:** edits to `states-that-dont-tax-retirement-income.html`,
+`docs/DEPLOY-taxtool.md`, `docs/TASKBOARD.md`, this log. The first tool bundle
+deployed before two improvements landed; this commit carries them. Filter state
+now syncs to the URL query string both ways, making every filter combination a
+shareable landing page (the canonical tag keeps variants one page for search),
+and the filter heading reads "every state with a RetireMeHere city" so the
+state count reads as scope, not omission. The operator's first phrasing for
+that heading was rejected by the superlatives check, working as designed. No
+DB change, no score change, no validator change.
+
 ### 2026-08-11 (fourth session) - the tax filter tool ships
 
 **Files:** new `states-that-dont-tax-retirement-income.html` and
@@ -217,8 +229,11 @@ database. Surviving states render as cards carrying the enum chips, the note
 prose from the sheet, and city chips with each city's D5, linking through the
 standard `index.html?city=` route. Checkbox semantics are strict: the box means
 the state does not tax it for anyone, so Partial states are excluded when a box
-is checked and explain themselves in the note when it is not. Counts on the
-page are computed from the arrays; the copy carries no numbers that can rot.
+is checked and explain themselves in the note when it is not. Filter state
+syncs to the URL query string in both directions, so every filter combination
+is a shareable deep link and a Pinterest pin can land on its exact answer;
+the canonical tag keeps the variants one page for search. Counts on the page
+are computed from the arrays; the copy carries no numbers that can rot.
 
 **Plumbing.** The page is a clone of the calculator's shell (same header,
 styles, footer, GA), with TAXFACTS and TAXCITIES embedded as generated JSON

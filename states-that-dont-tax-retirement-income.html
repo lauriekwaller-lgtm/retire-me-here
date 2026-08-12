@@ -595,7 +595,7 @@ a.final-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba
   <!-- ============ FILTER TOOL ============ -->
   <section class="q-section" id="filter">
     <p class="q-section-eyebrow">THE FILTER</p>
-    <h2 class="q-section-h2">Your rules, applied to every state.</h2>
+    <h2 class="q-section-h2">Your rules, applied to every state with a RetireMeHere city.</h2>
 
     <div class="tf-panel">
       <div class="tf-checks">
@@ -711,7 +711,34 @@ function card(f) {
     + '<div class="tf-cities"><span class="tf-cities-label">Cities here</span>' + cityChips + '</div></div>';
 }
 
+function applyParams() {
+  const q = new URLSearchParams(location.search);
+  ['income','ss','ret','estate','inherit'].forEach(k => {
+    if (q.get(k) === '1') els[k].checked = true;
+  });
+  if (q.has('ptax')) {
+    const v = parseFloat(q.get('ptax'));
+    if (!isNaN(v)) els.ptax.value = Math.min(Math.max(v, 0), ptaxMax);
+  }
+  if (q.has('sales')) {
+    const v = parseFloat(q.get('sales'));
+    if (!isNaN(v)) els.sales.value = Math.min(Math.max(v, 0), salesMax);
+  }
+}
+
+function syncURL() {
+  const q = new URLSearchParams();
+  ['income','ss','ret','estate','inherit'].forEach(k => {
+    if (els[k].checked) q.set(k, '1');
+  });
+  if (parseFloat(els.ptax.value) < ptaxMax) q.set('ptax', els.ptax.value);
+  if (parseFloat(els.sales.value) < salesMax) q.set('sales', els.sales.value);
+  const qs = q.toString();
+  history.replaceState(null, '', qs ? '?' + qs : location.pathname);
+}
+
 function render() {
+  syncURL();
   const pmax = parseFloat(els.ptax.value), smax = parseFloat(els.sales.value);
   els.vptax.textContent = (pmax >= ptaxMax ? 'any' : pmax.toFixed(2) + '%');
   els.vsales.textContent = (smax >= salesMax ? 'any' : smax.toFixed(1) + '%');
@@ -733,6 +760,7 @@ function render() {
   document.getElementById(id).addEventListener('change', render));
 els.ptax.addEventListener('input', render);
 els.sales.addEventListener('input', render);
+applyParams();
 render();
 </script>
 

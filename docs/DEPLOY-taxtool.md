@@ -42,7 +42,9 @@ The page the whole tax thread was for: five checkbox filters and two sliders
 over the State Tax Facts sheet, state cards with enum chips, the sheet's note
 prose, and city chips carrying each city's D5 and linking through the standard
 `index.html?city=` route. Checkboxes are strict (the box means the state does
-not tax it for anyone); Partial states explain themselves in the note. All
+not tax it for anyone); Partial states explain themselves in the note. Filter
+state syncs to the URL both ways, so combinations deep-link: `?ret=1&inherit=1`
+opens pre-filtered, one landing page per pin, canonical kept on the bare URL. All
 counts computed from the arrays; the copy carries no figures that can rot; the
 tax-year vintage renders from the data. Shell cloned from the calculator so
 header, styles, footer, and GA match.
