@@ -595,7 +595,7 @@ a.final-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba
   <!-- ============ FILTER TOOL ============ -->
   <section class="q-section" id="filter">
     <p class="q-section-eyebrow">THE FILTER</p>
-    <h2 class="q-section-h2">Your rules, applied to every state with a RetireMeHere city.</h2>
+    <h2 class="q-section-h2">Your rules, applied.</h2>
 
     <div class="tf-panel">
       <div class="tf-checks">
@@ -749,7 +749,7 @@ function render() {
     (!els.estate.checked || f.estate === 'No') &&
     (!els.inherit.checked || f.inherit === 'No') &&
     f.ptax <= pmax + 1e-9 && f.sales <= smax + 1e-9);
-  els.count.innerHTML = 'Showing <strong>' + shown.length + '</strong> of ' + TAXFACTS.length + ' states';
+  els.count.innerHTML = 'Showing <strong>' + shown.length + '</strong> of the ' + TAXFACTS.length + ' states with a profiled retirement city';
   els.results.innerHTML = shown.length
     ? shown.map(card).join('')
     : '<p class="tf-empty">No state passes every filter you have set. Loosen one and watch what comes back: the tradeoff you relax first is usually the one you care about least.</p>';

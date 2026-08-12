@@ -202,6 +202,14 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-12 (second entry) - tax tool heading polish: scope moves to the counter
+
+One-line copy change on `states-that-dont-tax-retirement-income.html`: the filter
+H2 reads "Your rules, applied." and the counter line carries the scope, "Showing
+N of the 39 states with a profiled retirement city", both numbers computed from
+the array. A brand name mid-headline read awkward; scope reads naturally beside a
+count. No data change, no board change (board date already 2026-08-12).
+
 ### 2026-08-12 - tax tool fixup: URL deep linking and heading scope
 
 **Files:** edits to `states-that-dont-tax-retirement-income.html`,
