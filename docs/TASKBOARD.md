@@ -4,9 +4,9 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 11, 2026, third session, Pennsylvania D5 unified plus methodology v1.1
-(51 profiles live, 23 comparison pages live. No new pages. DB bumped to v19.1:
-one score change, operator approved, Philadelphia D5 from six to seven.)
+**Last updated:** August 11, 2026, fourth session, the tax filter tool is live
+(51 profiles live, 23 comparison pages live. One new page,
+states-that-dont-tax-retirement-income.html. No DB change, no score change.)
 
 **IN FLIGHT, schema shipped Aug 11 2026: a tax filtering tool.** Strongest remaining tool
 candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the
@@ -42,8 +42,15 @@ the inheritance tax. Rationale recorded in `D5-TAX-METHODOLOGY.md` section eight
 surface carrying the score moved in the same commit: the database, the quiz city array, the
 pick-and-compare array, and the affordability calculator array.
 
-Methodology shipped to v1.1 in the same commit: scoring a new state now means filling its
-facts row and reading the sheet. Remaining: the tool build itself.
+Methodology shipped to v1.1: scoring a new state now means filling its facts row and
+reading the sheet. The tool build shipped Aug 11 2026, fourth session:
+`states-that-dont-tax-retirement-income.html`, five checkbox filters and two sliders over
+the facts sheet, state cards with the note prose and city chips linking through the
+standard `index.html?city=` route. The page embeds TAXFACTS and TAXCITIES as generated
+JSON; `check_taxtool_data` (figures group) compares every field, note, and city D5 to the
+workbook on every run, with a seven-plant harness at `tools/test_taxtool.py`. Cross-linked
+both ways with the affordability calculator; sitemap entry added. This closes the tax
+thread that opened with the D5 scoping session.
 
 New hygiene item, priority P2, found during the reconciliation: the Scores by Dimension
 sheet in the CityDatabase is a stale second copy of the canonical scores. It carries

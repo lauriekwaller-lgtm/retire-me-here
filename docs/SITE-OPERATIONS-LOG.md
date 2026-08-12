@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-11 (fourth session) - the tax filter tool ships
+
+**Files:** new `states-that-dont-tax-retirement-income.html` and
+`tools/test_taxtool.py`. Edits to `tools/validate.py`, `sitemap.xml`,
+`where-can-i-afford-to-retire.html` (one cross-link), `docs/TASKBOARD.md`, this
+log. No DB change, no score change, no city figure change.
+
+**What it is.** The reason the whole tax thread existed: a filter over the State
+Tax Facts sheet. Five checkboxes (no income tax, Social Security not taxed,
+retirement withdrawals not taxed, no estate tax, no inheritance tax) and two
+sliders (property tax, sales tax) against every state with a city in the
+database. Surviving states render as cards carrying the enum chips, the note
+prose from the sheet, and city chips with each city's D5, linking through the
+standard `index.html?city=` route. Checkbox semantics are strict: the box means
+the state does not tax it for anyone, so Partial states are excluded when a box
+is checked and explain themselves in the note when it is not. Counts on the
+page are computed from the arrays; the copy carries no numbers that can rot.
+
+**Plumbing.** The page is a clone of the calculator's shell (same header,
+styles, footer, GA), with TAXFACTS and TAXCITIES embedded as generated JSON
+between explicit end markers. `check_taxtool_data` joins the figures group
+beside `check_afford_data` and holds the same promises: two-way rosters for
+both arrays, every field and every note equal to its workbook cell, every city
+D5 equal to its City Database cell, and loud failure when the page or arrays
+cannot be read. Notes are compared as exact strings because the note is the
+product. Seven planted errors in `tools/test_taxtool.py`, wired into the
+harness group.
+
+**Copy discipline.** Zero em-dashes; no dataset-scoped superlatives; the FAQ
+answers explain mechanisms (estate against inheritance, what Partial means,
+where the data comes from) without enumerating states or counts, so the prose
+cannot drift against the sheet; the tax-year vintage renders from the data
+rather than living in the copy.
+
 ### 2026-08-11 (third session) - Pennsylvania D5 unified at 7; methodology v1.1 (DB v19.1)
 
 **Files:** new `docs/CityDatabase_Jul_27_v19.1.xlsx` (replaces v19, deleted). Edits to

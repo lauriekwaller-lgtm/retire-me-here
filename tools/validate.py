@@ -636,6 +636,153 @@ def check_figures(rep, db, idx):
                          f"DB says ${round(row['home'] / 1000)}K")
 
 
+
+TAXTOOL_PAGE = "states-that-dont-tax-retirement-income.html"
+
+
+def check_taxtool_data(rep, db_path, local):
+    """
+    The state tax filter carries two embedded copies of database content:
+    TAXFACTS (the State Tax Facts sheet, one object per state) and TAXCITIES
+    (every city with its D5). It has to: the page is static and filters
+    client-side. An embedded copy is the drift this validator exists for, so
+    every field on the page is compared to its workbook cell on every run.
+
+    Three promises:
+
+      1. ROSTER, both ways, both arrays. Every facts state is on the page and
+         every page state is in the sheet; every database city appears under
+         its state and no invented city appears anywhere. A state added to the
+         sheet and not to the page is invisible to every reader of this tool.
+      2. CELLS. Every enum, rate, and note on the page equals its sheet cell.
+         Notes are compared as exact strings: the note IS the product here,
+         and a note claiming an exemption the sheet no longer records is a lie
+         the reader cannot detect.
+      3. D5. Each city chip's score equals its City Database cell. The
+         Philadelphia correction (v19.1) touched four embedded arrays; this is
+         the check that would have caught a missed fifth.
+
+    And the standing rule: a page that cannot be read, or an array that parses
+    to nothing, fails loudly rather than comparing zero states and reporting
+    clean.
+    """
+    html = fetch(TAXTOOL_PAGE, local)
+    if html is None:
+        rep.fail("figures",
+                 f"{TAXTOOL_PAGE} could not be read, so its embedded tax data "
+                 f"was never compared to the database. If the page was renamed, "
+                 f"rename it here too; if it was retired, delete this check "
+                 f"deliberately.")
+        return
+
+    fm = re.search(r"const TAXFACTS = (\[.*?\]); /\*END_TAXFACTS\*/", html, re.S)
+    cm = re.search(r"const TAXCITIES = (\{.*?\}); /\*END_TAXCITIES\*/", html, re.S)
+    if not fm or not cm:
+        rep.fail("figures",
+                 f"{TAXTOOL_PAGE}: the TAXFACTS or TAXCITIES block could not be "
+                 f"parsed. Either the arrays are gone or their end markers "
+                 f"moved, and either way this check just compared nothing.")
+        return
+    try:
+        page_facts = {f["st"]: f for f in json.loads(fm.group(1))}
+        page_cities = json.loads(cm.group(1))
+    except (ValueError, KeyError, TypeError):
+        rep.fail("figures",
+                 f"{TAXTOOL_PAGE}: the embedded arrays are not valid JSON, so "
+                 f"nothing was compared and the page's own script is broken "
+                 f"for every reader.")
+        return
+    if not page_facts:
+        rep.fail("figures",
+                 f"{TAXTOOL_PAGE}: TAXFACTS parsed to zero states. This check "
+                 f"verified nothing rather than finding nothing.")
+        return
+
+    fr = _read_xlsx(db_path, "State Tax Facts")
+    fh = {i: str(v).replace("\n", " ").strip()
+          for i, v in fr[1].items() if str(v).strip()}
+    fc = {n: i for i, n in fh.items()}
+    sheet = {}
+    for r in fr[2:]:
+        st = str(r.get(fc["ST"], "")).strip()
+        if st:
+            sheet[st] = r
+
+    for st in sorted(set(sheet) - set(page_facts)):
+        rep.fail("figures",
+                 f"{TAXTOOL_PAGE}: {st} is in the State Tax Facts sheet but is "
+                 f"not on the page. Every reader filtering states will never "
+                 f"see it.")
+    for st in sorted(set(page_facts) - set(sheet)):
+        rep.fail("figures",
+                 f"{TAXTOOL_PAGE}: the page carries {st}, which is not in the "
+                 f"State Tax Facts sheet. Invented states do not get shown to "
+                 f"readers.")
+
+    FIELDS = (("itype", "Income Tax Type", False), ("top", "Top Rate %", True),
+              ("ss", "SS Treatment", False),
+              ("ret", "Retirement Income Treatment", False),
+              ("sales", "Sales Tax Combined %", True),
+              ("ptax", "PropTax Rate %", True), ("estate", "Estate Tax", False),
+              ("inherit", "Inheritance Tax", False), ("ty", "Tax Year", True))
+    for st in sorted(set(sheet) & set(page_facts)):
+        pf, row = page_facts[st], sheet[st]
+        for key, colname, numeric in FIELDS:
+            want, got = row.get(fc[colname]), pf.get(key)
+            if numeric:
+                try:
+                    bad = abs(float(want) - float(got)) > 1e-9
+                except (TypeError, ValueError):
+                    bad = True
+            else:
+                bad = str(want).strip() != str(got).strip()
+            if bad:
+                rep.fail("figures",
+                         f"{TAXTOOL_PAGE}: {st} {key} is {got!r}, which "
+                         f"disagrees with the State Tax Facts cell {want!r}. "
+                         f"The page filters readers on a fact the database "
+                         f"does not hold.")
+        want_note = str(row.get(fc["Retirement Income Note"], "")).strip()
+        if str(pf.get("note", "")).strip() != want_note:
+            rep.fail("figures",
+                     f"{TAXTOOL_PAGE}: the note for {st} does not match the "
+                     f"sheet. Prose restating checked data is itself data; a "
+                     f"drifted note is a claim the reader cannot verify.")
+
+    cr = _read_xlsx(db_path, "City Database")
+    chh = {i: str(v).replace("\n", " ").strip()
+           for i, v in cr[1].items() if str(v).strip()}
+    ccc = {n: i for i, n in chh.items()}
+    db_cities = {}
+    for r in cr[2:]:
+        city = str(r.get(ccc["City"], "")).strip()
+        if not city:
+            continue
+        st = str(r.get(ccc["ST"], "")).strip()
+        db_cities.setdefault(st, {})[city] = int(float(r[ccc["D5 Tax"]]))
+
+    page_by_state = {st: {c["n"]: c["d5"] for c in lst}
+                     for st, lst in page_cities.items()}
+    for st in sorted(set(db_cities) | set(page_by_state)):
+        want, got = db_cities.get(st, {}), page_by_state.get(st, {})
+        for city in sorted(set(want) - set(got)):
+            rep.fail("figures",
+                     f"{TAXTOOL_PAGE}: {city}, {st} is missing from the page's "
+                     f"city list. A city added to the database and not here is "
+                     f"invisible to every reader of this tool.")
+        for city in sorted(set(got) - set(want)):
+            rep.fail("figures",
+                     f"{TAXTOOL_PAGE}: the page lists {city}, {st}, which is "
+                     f"not in the database.")
+        for city in sorted(set(want) & set(got)):
+            if want[city] != got[city]:
+                rep.fail("figures",
+                         f"{TAXTOOL_PAGE}: {city}, {st} shows D5 as "
+                         f"{got[city]}, the database says {want[city]}. A "
+                         f"stale score on a live surface is exactly the "
+                         f"failure the v19.1 correction swept for.")
+
+
 AFFORD_PAGE = "where-can-i-afford-to-retire.html"
 
 # Every column the page embeds, and the database column it must equal. The page
@@ -3775,7 +3922,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_roster.py", "tools/test_stray_artifacts.py",
              "tools/test_statcard_faq.py",
              "tools/test_canonicals.py",
-             "tools/test_taxfacts.py")
+             "tools/test_taxfacts.py",
+             "tools/test_taxtool.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -3894,6 +4042,7 @@ def main():
     if "figures" in groups:
         check_figures(rep, db, idx)
         check_afford_data(rep, args.db, args.local)
+        check_taxtool_data(rep, args.db, args.local)
         check_tiers(rep, db, idx)
         check_highlight_homes(rep, db, idx, args.local)
         check_highlight_surfaces(rep, idx, args.local)
