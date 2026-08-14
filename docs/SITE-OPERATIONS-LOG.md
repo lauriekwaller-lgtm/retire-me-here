@@ -202,6 +202,40 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-14 - unparsable JSON-LD on the tax tool; check_jsonld shipped
+
+**Files:** edits to `states-that-dont-tax-retirement-income.html`,
+`tools/validate.py`, new `tools/test_jsonld.py`, `docs/TASKBOARD.md`, this log.
+No DB change, no score change, no copy change.
+
+Search Console reported one Unparsable structured data issue: "Parsing error:
+Missing ',' or ']' in array declaration". The FAQPage node inside `@graph` on the
+tax tool had shipped without its opening brace, so `"@type"` and `"mainEntity"`
+sat loose in the array, with a spare `]` closing the hole further down. Google
+drops an unparsable block whole, so the three-question FAQ rich result on the
+newest tool page was never eligible from the day the tool shipped, August 11. The
+page itself rendered correctly throughout, because browsers do not read JSON-LD.
+
+Why a clean gate did not catch it: the validator was already reading that file
+for figures, superlatives, em-dashes and tag balance, and had no check asking
+whether the one machine-readable block on the page was machine-readable.
+`check_tag_balance` strips `<script>` bodies before counting, by design, so the
+schema block was the one region of the page nothing inspected.
+
+So `check_jsonld` ships with the fix, in the tags group. It globs every `.html`
+in the checkout rather than reading a named target list, because the page this
+shipped on would not have been on a hand-maintained list, and it fails loudly on
+zero blocks found. A scan of the repo before the fix found eighty-one JSON-LD
+blocks across profiles, comparison pages, landing pages and tools, of which
+exactly one did not parse, matching what Search Console reported. Harness
+`tools/test_jsonld.py`, six assertions, plants the shipped defect on the page it
+shipped on and the same defect in a city profile, so a future page cannot fall
+off coverage silently.
+
+After deploy, request validation in Search Console under Unparsable structured
+data. The fix is invisible to a reader, so that round trip is the only
+confirmation that matters.
+
 ### 2026-08-12 (second entry) - tax tool heading polish: scope moves to the counter
 
 One-line copy change on `states-that-dont-tax-retirement-income.html`: the filter

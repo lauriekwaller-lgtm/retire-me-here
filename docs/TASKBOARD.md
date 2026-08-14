@@ -4,7 +4,8 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 12, 2026, tax tool fixup, deep linking plus heading scope
+**Last updated:** August 14, 2026, unparsable JSON-LD on the tax tool fixed,
+check_jsonld added to the tags group
 (51 profiles live, 23 comparison pages live. No new pages, no DB change,
 no score change.)
 

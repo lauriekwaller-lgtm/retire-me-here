@@ -3039,6 +3039,63 @@ def check_tag_balance(rep, db, idx, sitemap, slug_to_city, local):
                          f"({opens - closes:+d})")
 
 
+JSONLD_BLOCK = re.compile(
+    r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', re.S | re.I)
+
+
+def check_jsonld(rep, local):
+    """
+    Every JSON-LD block in the checkout must parse as JSON.
+
+    Added 2026-08-14 after Search Console reported one Unparsable structured data
+    issue: "Parsing error: Missing ',' or ']' in array declaration" on
+    states-that-dont-tax-retirement-income.html. The FAQPage node inside @graph had
+    lost its opening brace, so its "@type" and "mainEntity" keys sat loose in the
+    array, and a spare "]" closed the hole further down. Browsers never read
+    JSON-LD, so the page rendered perfectly and looked fine for three days. The
+    cost is not cosmetic: Google drops an unparsable block whole, so the FAQ rich
+    result never had a chance to appear.
+
+    A whole-checkout glob, not a named target list, because the page this shipped
+    on is not on any list a hand-maintained enumeration would have carried. A block
+    that parses but is semantically wrong is out of scope; this catches the class
+    Search Console calls critical, the block it cannot read at all.
+
+    LOCAL MODE ONLY: the pre-deploy gate is the moment to catch it, and globbing
+    the live site would cost one fetch per page.
+    """
+    if not local:
+        return                           # see LOCAL MODE ONLY above
+
+    root = pathlib.Path(local)
+    seen = 0
+
+    for path in sorted(root.rglob("*.html")):
+        if any(part in (".git", "node_modules", "__pycache__") for part in path.parts):
+            continue
+        try:
+            body = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        rel = path.relative_to(root).as_posix()
+        for n, m in enumerate(JSONLD_BLOCK.finditer(body), 1):
+            seen += 1
+            try:
+                json.loads(m.group(1))
+            except ValueError as exc:
+                rep.fail("tags",
+                         f"{rel}: JSON-LD block {n} does not parse, {exc}. Google "
+                         f"drops an unparsable block whole, so every rich result on "
+                         f"the page is lost. Look for a missing brace, bracket or "
+                         f"comma.")
+
+    if seen == 0:
+        rep.fail("tags",
+                 "no JSON-LD blocks found anywhere in the checkout; nothing was "
+                 "checked. Either the site has lost its structured data or this "
+                 "check is looking in the wrong place.")
+
+
 def load_ledger(local):
     """
     docs/SUPERLATIVE-LEDGER.md. One reviewed claim per row:
@@ -3923,7 +3980,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_statcard_faq.py",
              "tools/test_canonicals.py",
              "tools/test_taxfacts.py",
-             "tools/test_taxtool.py")
+             "tools/test_taxtool.py",
+             "tools/test_jsonld.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4070,6 +4128,7 @@ def main():
         check_emdash(rep, idx, sitemap, slug_to_city, args.local)
     if "tags" in groups:
         check_tag_balance(rep, db, idx, sitemap, slug_to_city, args.local)
+        check_jsonld(rep, args.local)
     if "affiliate" in groups:
         check_affiliate(rep, slug_to_city, args.local)
     if "db" in groups:
