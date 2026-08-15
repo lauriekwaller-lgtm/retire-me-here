@@ -4,10 +4,9 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 14, 2026, unparsable JSON-LD on the tax tool fixed,
-check_jsonld added to the tags group
+**Last updated:** August 15, 2026, sitewide font sweep to system B plus new favicon
 (51 profiles live, 23 comparison pages live. No new pages, no DB change,
-no score change.)
+no score change. Playfair and Fraunces retired everywhere; thin weights gone.)
 
 **IN FLIGHT, schema shipped Aug 11 2026: a tax filtering tool.** Strongest remaining tool
 candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the

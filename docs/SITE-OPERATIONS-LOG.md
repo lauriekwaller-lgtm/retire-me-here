@@ -202,6 +202,30 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-15 - sitewide font sweep to system B; favicon 2
+
+**Files:** every .html page (typography only, no content changes), favicon.svg,
+favicon.ico, favicon-16/32/48/192.png, apple-touch-icon.png, `tools/validate.py`,
+new `tools/test_typography.py`, `docs/TASKBOARD.md`, this log.
+
+**What changed.** Operator reviewed a side-by-side preview with real site copy and
+chose system B: Playfair Display and Fraunces retired sitewide, display type is now
+bold Libre Franklin over the existing DM Sans body. Every font-weight 300 retired:
+large display rules became 800, body rules became 400 (thin gray text on the sand
+background was the biggest readability cost for a retiree audience). text-wrap:
+balance added to centered headline and subline rules, ending single-word orphan
+lines on tablets. Eight different Google Fonts links collapsed to one canonical
+request, and dropping two families makes every page lighter. The favicon's slab
+serif R (the university letter) is replaced by a minimal map-pin mark in the site
+teal, regenerated at every size.
+
+**Enforcement.** `check_typography` joins the layout group: any page referencing a
+retired family, any 300 weight, or any non-canonical Google Fonts request fails the
+gate, with a scanned-file floor so an empty scan can never pass as clean. Planted
+error harness at `tools/test_typography.py`. This matters because new pages are
+built by cloning existing ones; without the check, the next profile cloned from a
+stale template would quietly reintroduce the retired fonts.
+
 ### 2026-08-14 - unparsable JSON-LD on the tax tool; check_jsonld shipped
 
 **Files:** edits to `states-that-dont-tax-retirement-income.html`,

@@ -3921,6 +3921,75 @@ def check_canonicals(rep, sitemap, local):
                                f"clean; the check read nothing it understood")
 
 
+RETIRED_FONTS = ("Playfair", "Fraunces")
+CANON_FONTS_LINK_FAMILIES = ("Libre+Franklin", "DM+Sans")
+
+
+def check_typography(rep, local):
+    """
+    The August 2026 font sweep, held in place.
+
+    System B is the site's type system: bold Libre Franklin display over DM
+    Sans body, nothing else, no thin weights. This check exists because new
+    pages are built by cloning existing ones, so a single stale template would
+    quietly reintroduce the retired fonts on every page built from it. Three
+    rules, each a gate failure:
+
+      1. No page references Playfair Display or Fraunces, anywhere, including
+         Google Fonts requests. They are retired, not discouraged.
+      2. No font-weight 300. Thin type on the sand background was the site's
+         biggest readability cost for a retiree audience; the sweep mapped
+         display rules to 800 and body rules to 400.
+      3. Every Google Fonts css2 request is the canonical two-family link.
+         Eight variants existed before the sweep; one exists after.
+
+    And the standing rule: this check counts what it scanned, and fewer than
+    fifty pages is itself a failure, because a scan of nothing must never
+    report clean.
+    """
+    if not local:
+        return
+    import os as _os
+    import re as _re
+    scanned = 0
+    for root, dirs, files in _os.walk("."):
+        dirs[:] = [d for d in dirs if d not in (".git", "node_modules")]
+        for fn in files:
+            if not fn.endswith(".html"):
+                continue
+            path = _os.path.join(root, fn)
+            try:
+                s = open(path, encoding="utf-8").read()
+            except OSError:
+                continue
+            scanned += 1
+            if _re.search("font-family[^;{}]*(?:Playfair|Fraunces)"
+                          "|Playfair\\+Display|family=Fraunces|Fraunces:ital", s):
+                rep.fail("layout",
+                         f"{path} loads or declares a retired font family "
+                         f"(Playfair Display or Fraunces). "
+                         f"If this page was cloned from an old template, "
+                         f"re-clone from a current one; the type system is "
+                         f"bold Libre Franklin over DM Sans, nothing else.")
+            if _re.search(r"font-weight:\s*300", s):
+                rep.fail("layout",
+                         f"{path} carries a font-weight 300 rule. Thin weights "
+                         f"are retired: display rules are 800, body rules 400.")
+            for m in _re.finditer(r"https://fonts\.googleapis\.com/css2\?[^\"\']*", s):
+                link = m.group(0)
+                fams = _re.findall(r"family=([A-Za-z+]+)", link)
+                bad = [f for f in fams if f not in CANON_FONTS_LINK_FAMILIES]
+                if bad:
+                    rep.fail("layout",
+                             f"{path} requests non-canonical font families "
+                             f"{bad} from Google Fonts. The canonical link "
+                             f"loads Libre Franklin and DM Sans only.")
+    if scanned < 50:
+        rep.fail("layout",
+                 f"check_typography scanned only {scanned} pages. It verified "
+                 f"nothing rather than finding nothing.")
+
+
 def check_stray_artifacts(rep, local):
     """Repo-root strays and city-folder debris: the wrong-shape hand-off, caught."""
     if not local:
@@ -3981,7 +4050,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_canonicals.py",
              "tools/test_taxfacts.py",
              "tools/test_taxtool.py",
-             "tools/test_jsonld.py")
+             "tools/test_jsonld.py",
+             "tools/test_typography.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4138,6 +4208,7 @@ def main():
         check_docs(rep, args.db, idx, sitemap, slug_to_city, args.local)
     if "layout" in groups:
         check_stray_artifacts(rep, args.local)
+        check_typography(rep, args.local)
     # Last: it shells out once per harness and is the slowest group by a wide margin,
     # so everything cheap has already had its say by the time it starts.
     if "harness" in groups:
