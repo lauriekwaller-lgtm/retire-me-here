@@ -219,6 +219,7 @@ main { max-width: 880px; margin: 0 auto; padding: 0 24px; }
   color: var(--terra); text-transform: uppercase; margin-bottom: 18px;
 }
 .q-hero-h1 {
+  text-wrap: balance;
   font-family: 'Libre Franklin', sans-serif;
   font-size: clamp(36px, 5vw, 56px);
   font-weight: 800; line-height: 1.05;
@@ -566,8 +567,7 @@ a.final-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba
   <section class="q-hero">
     <p class="q-hero-eyebrow">STATE TAX FILTER</p>
     <h1 class="q-hero-h1">
-      Which states will not tax<br>
-      <span class="accent">your retirement?</span>
+      Which states will not tax <span class="accent">your retirement?</span>
     </h1>
     <p class="q-hero-sub">
       A single tax score buries the detail that decides real moves. A state can skip income tax
@@ -582,10 +582,10 @@ a.final-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba
   </section>
 
   <!-- ============ HOW IT WORKS ============ -->
-  <section class="q-section">
+  <section class="q-section" style="text-align:center">
     <p class="q-section-eyebrow">HOW IT WORKS</p>
     <h2 class="q-section-h2">Check what matters. Watch the map shrink.</h2>
-    <p style="font-size:15.5px; color:var(--mid); line-height:1.65; max-width:640px;">
+    <p style="text-wrap:balance; font-size:15.5px; color:var(--mid); line-height:1.65; max-width:640px; margin:0 auto;">
       Every state with a RetireMeHere city is on this page, each with its income tax structure,
       Social Security and retirement withdrawal treatment, combined sales tax, effective property
       tax, and estate and inheritance status, summarized in plain English. Each filter you apply

@@ -202,6 +202,17 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-15 (second entry) - centering polish after the font sweep
+
+Operator review on laptop and iPhone found three wrap and centering misses,
+one shared root: the sweep's balance heuristic looked for centering inside the
+same CSS rule, and these elements inherit centering from a parent. Fixed: both
+tool-page hero H1s gain text-wrap balance and lose their hard <br> (the tax
+tool stranded the word "tax" on iPhone widths); the tax tool's how-it-works
+section is centered with its paragraph box auto-centered; index.html's
+hero-subline and hero-headline gain balance (the subline stranded "retirement
+life." on laptop widths). Cosmetic only; no data, score, or validator change.
+
 ### 2026-08-15 - sitewide font sweep to system B; favicon 2
 
 **Files:** every .html page (typography only, no content changes), favicon.svg,
