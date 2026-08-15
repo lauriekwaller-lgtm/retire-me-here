@@ -213,6 +213,18 @@ section is centered with its paragraph box auto-centered; index.html's
 hero-subline and hero-headline gain balance (the subline stranded "retirement
 life." on laptop widths). Cosmetic only; no data, score, or validator change.
 
+### 2026-08-15 (fourth entry) - favicon v2 (operator artwork); subline balance on the right element
+
+Two operator-review fixes. The outline favicon read as a gender symbol at tab
+size, because thin strokes collapse at 16px; replaced with the operator's
+filled teardrop artwork, all sizes generated from the provided PNG, vector
+recreated in the site palette. And the homepage subline fix from the earlier
+centering polish had landed on the legacy .hero-subline rule while the live
+hero uses rmh-* classes; text-wrap balance now sits on .rmh-sub-wrap p, the
+rule the visible copy actually uses. Lesson: patch the element the browser
+renders, verified from the markup, not the rule whose name matches the
+complaint. Cosmetic only; no data, score, or validator change.
+
 ### 2026-08-15 (P0) - quiz buttons dead; fixed; check_js_parse ships
 
 **Files:** `index.html` (one line), `tools/validate.py`, new
