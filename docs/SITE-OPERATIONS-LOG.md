@@ -202,6 +202,45 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-15 (fifth entry) - favicon v3, Work Sans R
+
+**Files:** the eight favicon assets at the repo root, `docs/TASKBOARD.md`,
+`docs/HANDOFF-favicon-rollout.md`, this log. No HTML.
+
+**Why it moved again.** The v2 teardrop read as a hot-air balloon at tab size,
+not a pin. Two causes, both structural: the head carried no knockout circle, so
+there was nothing to identify it as a pin rather than any other teardrop, and
+the taper ran long enough that the silhouette read as something suspended. The
+ground ellipse detached from the tip at 16px and became a third object.
+
+**What shipped.** A capital R in Work Sans 600, cream #F7F3ED on the existing
+teal #2A5E5A tile, same rounded-rect geometry as before (rx 6 on a 32 viewBox).
+Weight 600 rather than 700: at 16px the counter is the whole ballgame, and the
+lighter weight holds it open where 700 starts to fill. Cap height sits at 65% of
+the tile edge, optically lifted by just over one percent, which is what a lone
+capital in a square needs to stop looking like it is sliding out the bottom.
+
+**Why a letter after rejecting one.** The original R was set in a high-contrast
+serif in a filled tile, which is the shape of a university seal. That was a
+typeface problem, not a strategy problem. A geometric sans fixes it and keeps
+the one property a letter mark has that a picture does not: it matches the name
+the reader just typed into the address bar.
+
+**Two defects fixed in passing.** `apple-touch-icon.png` shipped with a rounded
+transparent tile; iOS ignores alpha, composites over black, and applies its own
+corner mask, so the old file could show dark corners on a home screen. It is now
+full bleed and opaque, per the intent already written into
+HANDOFF-favicon-rollout.md. And `favicon-512.png` carried a white centre where
+the rest of the set carried cream; the set is now internally consistent.
+
+**No cache-busting query added.** netlify.toml declares no headers block, so
+these assets serve under Netlify's default revalidate policy and will turn over
+on their own. Adding `?v=3` would have meant a 99-file diff for a cosmetic
+change. Hard-refresh to see it locally: favicon caching in the browser is far
+stickier than the HTTP cache.
+
+Cosmetic only; no data, score, or validator change.
+
 ### 2026-08-15 (second entry) - centering polish after the font sweep
 
 Operator review on laptop and iPhone found three wrap and centering misses,

@@ -4,10 +4,13 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 15, 2026, P0 quiz restored, check_js_parse added
+**Last updated:** August 15, 2026, favicon v3 shipped, P0 quiz restored, check_js_parse added
 (51 profiles live, 23 comparison pages live. The font sweep injected CSS into
 the quiz script and killed it; fixed, and the gate now parses every inline
-script with node so page JavaScript can never silently break again.)
+script with node so page JavaScript can never silently break again. Favicon
+moved off the teardrop to a Work Sans R in the teal tile: the teardrop read as
+a balloon at tab size, and a letter that matches the name a reader just typed
+is the one thing a favicon is reliably good at.)
 
 **IN FLIGHT, schema shipped Aug 11 2026: a tax filtering tool.** Strongest remaining tool
 candidate. State-level scope, so roughly thirty-nine rows rather than ninety-nine, and the

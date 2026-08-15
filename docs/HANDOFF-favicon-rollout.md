@@ -1,6 +1,16 @@
 # HANDOFF: Favicon Rollout
 
-**Design locked:** Cream background, deep-orange half-sun with five rays, teal horizon line. Cream #F5E6CD, Orange #B85C3A, Teal #2A5E5A.
+**Design (v3, current):** Capital R in Work Sans 600, cream #F7F3ED on a deep-teal
+#2A5E5A rounded tile (rx 6 on a 32 viewBox). Shipped August 15, 2026.
+
+**Superseded designs, kept for the record:** v1 was cream background, deep-orange
+half-sun with five rays, teal horizon line (Cream #F5E6CD, Orange #B85C3A, Teal
+#2A5E5A). v2 was the filled teardrop on teal, retired because it read as a
+balloon at 16px rather than a pin.
+
+**The file list, rollout steps and verification below still apply as written.**
+Only the artwork changed; every path, filename and HTML reference is unchanged,
+which is why a favicon revision now touches no HTML at all.
 
 ## Files generated (in favicon-files.zip)
 
