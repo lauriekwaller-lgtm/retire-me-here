@@ -3043,6 +3043,73 @@ JSONLD_BLOCK = re.compile(
     r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', re.S | re.I)
 
 
+def check_js_parse(rep, local):
+    """
+    Every inline script on every page must parse as JavaScript.
+
+    This check exists because on August 15, 2026 the quiz shipped dead: a
+    sitewide CSS sweep matched blocks by braces, one match landed inside a
+    JS function body, the injected declaration was a syntax error, the error
+    killed the whole script, and the quiz engine lived in that script. Three
+    layers of gating passed it, because check_tag_balance strips script
+    bodies by design, check_jsonld reads only ld+json, and nothing parsed
+    JavaScript. Now something does: node --check on every inline script,
+    JSON-LD excluded.
+
+    node is required, and its absence is a FAILURE, not a skip: a gate that
+    silently stops verifying JS is the exact hole this check fills.
+    """
+    if not local:
+        return
+    import os as _os
+    import re as _re
+    import shutil as _shutil
+    import subprocess as _sp
+    import tempfile as _tf
+    if not _shutil.which("node"):
+        rep.fail("tags",
+                 "check_js_parse needs node and node was not found, so no "
+                 "JavaScript was verified. Install node or run the gate in "
+                 "Codespaces; do not ship unverified scripts.")
+        return
+    scanned = 0
+    for root, dirs, files in _os.walk("."):
+        dirs[:] = [d for d in dirs if d not in (".git", "node_modules")]
+        for fn in files:
+            if not fn.endswith(".html"):
+                continue
+            path = _os.path.join(root, fn)
+            try:
+                s = open(path, encoding="utf-8").read()
+            except OSError:
+                continue
+            for m in _re.finditer(
+                    r"<script(?![^>]*src)(?![^>]*ld\+json)[^>]*>(.*?)</script>",
+                    s, _re.S):
+                body = m.group(1)
+                if not body.strip():
+                    continue
+                scanned += 1
+                with _tf.NamedTemporaryFile("w", suffix=".js",
+                                            delete=False) as f:
+                    f.write(body)
+                    p = f.name
+                r = _sp.run(["node", "--check", p],
+                            capture_output=True, text=True)
+                _os.unlink(p)
+                if r.returncode != 0:
+                    first = (r.stderr.strip().splitlines() or ["?"])[0]
+                    rep.fail("tags",
+                             f"{path}: an inline script does not parse as "
+                             f"JavaScript ({first}). One syntax error kills "
+                             f"every function in the script, including the "
+                             f"ones the page's buttons call.")
+    if scanned < 50:
+        rep.fail("tags",
+                 f"check_js_parse parsed only {scanned} scripts. It verified "
+                 f"nothing rather than finding nothing.")
+
+
 def check_jsonld(rep, local):
     """
     Every JSON-LD block in the checkout must parse as JSON.
@@ -4051,7 +4118,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_taxfacts.py",
              "tools/test_taxtool.py",
              "tools/test_jsonld.py",
-             "tools/test_typography.py")
+             "tools/test_typography.py",
+             "tools/test_js_parse.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4199,6 +4267,7 @@ def main():
     if "tags" in groups:
         check_tag_balance(rep, db, idx, sitemap, slug_to_city, args.local)
         check_jsonld(rep, args.local)
+        check_js_parse(rep, args.local)
     if "affiliate" in groups:
         check_affiliate(rep, slug_to_city, args.local)
     if "db" in groups:

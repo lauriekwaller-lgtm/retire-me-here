@@ -213,6 +213,37 @@ section is centered with its paragraph box auto-centered; index.html's
 hero-subline and hero-headline gain balance (the subline stranded "retirement
 life." on laptop widths). Cosmetic only; no data, score, or validator change.
 
+### 2026-08-15 (P0) - quiz buttons dead; fixed; check_js_parse ships
+
+**Files:** `index.html` (one line), `tools/validate.py`, new
+`tools/test_js_parse.py`, `docs/TASKBOARD.md`, this log.
+
+**What broke.** The font sweep's text-wrap balance pass matched CSS blocks by
+braces, and exactly one match sitewide landed inside JavaScript instead:
+`function renderIntro(container) { text-wrap: balance;` on index.html. A CSS
+declaration inside a function body is a syntax error; one syntax error kills
+the entire script; the quiz engine lives in that script; both quiz buttons
+called dead code. The operator caught it in production. Duration of breakage:
+from the sweep deploy to this fix.
+
+**Why the gate missed it.** Nothing parsed JavaScript. check_tag_balance
+strips script bodies by design, check_jsonld reads only ld+json blocks, and
+check_typography reads CSS. A sweep that edits mixed HTML and JS by regex had
+no JS-shaped safety net. That is a designed gap meeting an undesigned edit.
+
+**The fix and the class-closer.** The injected declaration is removed and
+every inline script on index parses again. check_js_parse joins the tags
+group: node --check on every inline script of every page, JSON-LD excluded,
+node's absence a loud failure rather than a skip, with a scanned-scripts
+floor. Planted-error harness at tools/test_js_parse.py. Any future edit that
+breaks page JavaScript, from any tool or session, now fails the gate before
+it ships.
+
+**Lesson recorded.** Sweeps that regex mixed-content files must be followed
+by parsing every language in the file, not only the language the sweep
+targeted. The post-conditions verified the CSS outcome and never asked
+whether the JavaScript still ran.
+
 ### 2026-08-15 - sitewide font sweep to system B; favicon 2
 
 **Files:** every .html page (typography only, no content changes), favicon.svg,
