@@ -4,7 +4,7 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 15, 2026, favicon v3 shipped, P0 quiz restored, check_js_parse added
+**Last updated:** August 16, 2026, link-form conversion, 404 ?city= links to direct hrefs
 (51 profiles live, 23 comparison pages live. The font sweep injected CSS into
 the quiz script and killed it; fixed, and the gate now parses every inline
 script with node so page JavaScript can never silently break again. Favicon
@@ -3125,6 +3125,18 @@ link from the lists section on the same profile.
   0 data cells changed outside it, `load_db()` output identical old vs new.
   Gate: `python3 tools/validate.py --local .` reads PRE-DEPLOY GATE, **0 failures, 0 warnings**.
 
+- Aug 16, 2026: LINK-FORM CONVERSION shipped. 404 city links across 63 files converted from
+  `index.html?city=NAME&state=ST` (JS redirect via PUBLISHED_PROFILES, which crawlers do not
+  execute) to direct `cities/<slug>/profile.html` hrefs. 218 links for cities with no profile yet
+  were left on the ?city= form deliberately and are listed by the apply script. Effect on internal
+  link graph: profiles with zero crawlable inbound links went 12 -> 4, and one-inbound went 22 -> 7.
+  The four remaining zero-inbound pages are globetrotter-guide, wellness-blueprint, privacy, and
+  scouting-trip-workbook, which are lead-magnet and utility pages rather than profiles. Zero broken
+  internal links after conversion; PUBLISHED_PROFILES left in place so old inbound ?city= URLs and
+  the quiz flow still resolve. Prompted by three pages sitting at "Discovered, currently not
+  indexed" in Search Console; note that those three (Kansas City profile, Knoxville vs. Asheville,
+  Knoxville vs. Nashville) already had 3, 5 and 6 inbound links, so this is not a targeted fix for
+  them and may not move them. It removes a structural handicap on the 34 under-linked profiles.
 - Jul 23, 2026: DB `Highlight` COLUMN RECONCILED. `docs/CityDatabase_Jul_13_v16_4_climate.xlsx` ->
   **`docs/CityDatabase_Jul_23_v16_5_highlights.xlsx`**; `DEFAULT_DB` and the SITE-OPERATIONS-LOG
   "Current:" line updated in the same commit, old file deleted.

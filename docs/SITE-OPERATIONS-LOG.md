@@ -202,6 +202,36 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-16 - link-form conversion, ?city= to direct hrefs
+
+**Files:** 63 HTML files (11 landing pages, 5 guide pages, 47 city profiles),
+`docs/TASKBOARD.md`, this log. No database change, no scoring change.
+
+**The problem.** Every landing page and guide linked cities as
+`index.html?city=NAME&state=ST`. `index.html` reads the query string and looks
+the city up in `PUBLISHED_PROFILES` to redirect. That works for a human with
+JavaScript on. It does not work for a crawler, which sees 623 links all pointing
+at `index.html` and nothing pointing at the profiles. Twelve profiles had zero
+crawlable inbound links and 22 had exactly one, so several live profiles
+(Savannah, Miami, Salt Lake City, Tulsa) were reachable only through the
+sitemap.
+
+**What changed.** 404 links converted to direct hrefs where PUBLISHED_PROFILES
+had a matching entry and the target file existed. 218 links left untouched
+because those cities are scored but have no profile yet; those still need
+`index.html` to route them into the finder. PUBLISHED_PROFILES itself was not
+touched, so any external or bookmarked `?city=` URL still resolves.
+
+**Verified.** Zero broken internal .html links after conversion. Zero-inbound
+profiles 12 -> 4, one-inbound 22 -> 7. Second run of the apply script is a clean
+no-op. `python3 tools/validate.py --local .` at 0 failures, 0 warnings.
+
+**Honest expectation.** This is crawl hygiene, not a traffic lever. It makes the
+under-linked profiles eligible to be discovered and indexed on their own merits.
+It does not make them rank. The three Search Console pages that prompted the
+work already had adequate inbound links, so their status is more likely a
+site-authority question than a technical one.
+
 ### 2026-08-15 (fifth entry) - favicon v3, Work Sans R
 
 **Files:** the eight favicon assets at the repo root, `docs/TASKBOARD.md`,
