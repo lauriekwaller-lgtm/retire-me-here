@@ -4,7 +4,7 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 16, 2026, link-form conversion, 404 ?city= links to direct hrefs
+**Last updated:** August 17, 2026, matchup pills + Search Console read; Wave 2/3 suspended
 (51 profiles live, 23 comparison pages live. The font sweep injected CSS into
 the quiz script and killed it; fixed, and the gate now parses every inline
 script with node so page JavaScript can never silently break again. Favicon
@@ -3125,6 +3125,33 @@ link from the lists section on the same profile.
   0 data cells changed outside it, `load_db()` output identical old vs new.
   Gate: `python3 tools/validate.py --local .` reads PRE-DEPLOY GATE, **0 failures, 0 warnings**.
 
+- Aug 17, 2026: STRATEGY SUPERSESSION, boarded late. On Aug 15 the operator asked where city
+  profiles stood given weak traffic, and the answer given was that profiles are conversion
+  inventory rather than acquisition pages, that 51 is enough, and that build energy should move
+  to comparison pages, tools and pins. The operator acted on it: the tax tool and the affordability
+  calculator both shipped after that conversation. The decision never reached this board. The
+  three-week growth cycle boarded Aug 3, with its Wave 2 profile list, sat here looking current for
+  two weeks and misled a later session into recommending profile builds that had already been
+  called off. That is the third time a plan has lived only in a chat. THE WAVE 2 AND WAVE 3 PROFILE
+  LISTS ARE SUSPENDED. They are not cancelled: build a profile when demand names it, not on a
+  schedule. Everything else in the Aug 3 cycle stands, including the 80/20 split and the one-debt-
+  day cap, with growth now meaning comparison pages, tools and pins.
+- Aug 17, 2026: MATCHUP PILL PASS shipped, and FIRST FULL SEARCH CONSOLE READ.
+  Two pushes. First, link-form conversion: 404 `?city=` links across 63 files converted to direct
+  profile hrefs, zero-inbound profiles 12 -> 4. Second, curated matchup pills: 28 added across 19
+  comparison pages under COMPARISON-PAGE-STANDARD-v2 item 6, no page over the four-pill ceiling.
+  Every comparison page now has at least two peer inbound links; Burlington vs. Portland ME went
+  0 -> 3, San Antonio vs. Fort Worth 0 -> 2, Fayetteville vs. Bentonville 0 -> 2, Naples vs. Fort
+  Myers 0 -> 3, Sarasota vs. Tampa 3 -> 5. THE P4 BELOW IS CLOSED BY THIS: bloomington-vs-lexington
+  now carries four pills, above the item 6 floor.
+  The pill pass shipped WITHOUT a board or ops-log entry, against the same-commit rule. This entry
+  is the retroactive fix and the reason the rule exists.
+  The Search Console read (3 months to Aug 17, 8,974 impressions, 403 clicks) is written up in
+  SITE-OPERATIONS-LOG section 7. The four findings that change priorities: the quiz page earns 64%
+  of all site clicks at position 4.8; `urban-walkabout.html` draws 947 impressions and 1 click on
+  Walk Score vocabulary it never meant to match; comparison pages are held back by POSITION, not by
+  missing pages, so new pages are the wrong lever; and Google has indexed both URL forms for three
+  pages, splitting them.
 - Aug 16, 2026: LINK-FORM CONVERSION shipped. 404 city links across 63 files converted from
   `index.html?city=NAME&state=ST` (JS redirect via PUBLISHED_PROFILES, which crawlers do not
   execute) to direct `cities/<slug>/profile.html` hrefs. 218 links for cities with no profile yet

@@ -202,6 +202,55 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-17 - first full Search Console read, and two crawl-structure pushes
+
+**Files:** 63 HTML files (link-form), 19 comparison pages (matchup pills),
+`docs/TASKBOARD.md`, this log. No database change, no scoring change.
+
+**What shipped.** Two pushes. Link-form conversion turned 404 `?city=NAME&state=ST`
+links into direct `cities/<slug>/profile.html` hrefs wherever PUBLISHED_PROFILES
+had a match; 218 links for cities without profiles were left alone deliberately.
+Profiles with zero crawlable inbound links went 12 to 4. Then 28 curated matchup
+pills across 19 comparison pages, so no comparison page is orphaned from its
+peers. Neither push changed a score or a figure.
+
+**The Search Console read, 3 months to Aug 17: 8,974 impressions, 403 clicks.**
+
+*The quiz is the business.* `where-should-i-retire-quiz.html` alone: 1,521
+impressions, 257 clicks, position 4.8, CTR 16.9%. That is 64% of every click the
+site earned. The whole top of the query list is quiz phrasing. Nothing else is
+close, and this is the asset to protect and feed.
+
+*947 impressions of noise.* `urban-walkabout.html` sits at position 8.4 with one
+click. It matches Walk Score's own stock vocabulary ("citywide", "car dependent",
+"average walk score") and pulls people looking up a single city's walk score, who
+want walkscore.com. Meanwhile "walkable cities for retirees", the query the page
+was written for, sits at position 37 with one impression. Fix is body vocabulary,
+not the title, which is already correct. Low priority: zero clicks means zero cost.
+
+*Comparison pages are limited by position, not by count.* 23 pages, 2,194
+impressions, 36 clicks, most at position 7 to 21. "tampa vs sarasota for retirees"
+draws 78 impressions and the page exists, at position 15. Building more pages that
+also land at 15 adds impressions and no clicks. This is why the matchup pill pass
+was chosen over new comparison builds, and it supersedes any earlier plan to build
+comparison pages by volume.
+
+*Two vocabulary findings.* Zero of 23 comparison titles contain "retirees", yet the
+two largest comparison queries both use it. And city profiles are NOT dead: "is
+bentonville arkansas a good place to retire" ranks at position 9. The losing shape
+is "best places to retire in Florida" (position 51, 329 impressions, zero clicks).
+The winning shape is the question.
+
+*Duplicate URL forms are real.* Netlify serves every page with and without `.html`
+and no redirect between them. Google has indexed both for `naples-vs-sarasota`
+(position 21 vs 7.4), `pensacola-vs-fort-myers` and `visit-before-you-decide`.
+A redirect is boarded and not yet built.
+
+**Measurement discipline.** Grade all of the above on impressions and average
+position, not clicks, and not before October. An earlier read in this session
+misdiagnosed a URL-form split from a rendered copy of a page rather than the repo;
+the repo was always correct. Pull from the repo, not from a rendering.
+
 ### 2026-08-16 - link-form conversion, ?city= to direct hrefs
 
 **Files:** 63 HTML files (11 landing pages, 5 guide pages, 47 city profiles),
