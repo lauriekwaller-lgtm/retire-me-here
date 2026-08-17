@@ -3156,7 +3156,10 @@ link from the lists section on the same profile.
   rules in `netlify.toml`, `/:page -> /:page.html` and `/cities/:slug/profile ->
   profile.html`; root-safe because `/:page` cannot match `/` and neither rule is forced, so
   existing files always win. Live curl checks after deploy: `/` 200, an extensionless
-  comparison URL 301, its `.html` form 200. (3) D2 DRIFT AUDIT: all 99 CITY_ENRICHMENT D2
+  comparison URL 301, its `.html` form 200. CORRECTED same day, measured live: the non-forced
+  rules were shadowed by Netlify's native extensionless serving and never fired; replaced with
+  three explicit `force = true` rules for exactly the three split pages, placeholders
+  forbidden under force. (3) D2 DRIFT AUDIT: all 99 CITY_ENRICHMENT D2
   prose figures and all 99 `monthlyEst` fields brace-parsed and compared to DB `Monthly Est`;
   ZERO mismatches; the July 9 finding was repaired in the interim and `$4,500-$5,500` no
   longer appears anywhere. Closes the open D2-drift item. (4) ST. PAUL ITEM: stale twice over;

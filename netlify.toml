@@ -26,35 +26,41 @@
   force = true
 
 # --- Canonical URL form: .html wins -----------------------------------------
-# Netlify serves every page at two addresses, with and without .html, and
-# Google indexed both forms for three pages (found in the 2026-08-17 Search
-# Console read: naples-vs-sarasota, pensacola-vs-fort-myers,
-# visit-before-you-decide). Canonical tags, og:url, the sitemap and every
-# internal link already use .html, so the .html form is the one that wins and
-# extensionless traffic 301s to it.
+# Google indexed both URL forms (with and without .html) for three pages,
+# found in the 2026-08-17 Search Console read. Canonical tags, og:url, the
+# sitemap and every internal link use .html, so extensionless traffic 301s to
+# the .html form.
 #
-# ROOT SAFETY, tested reasoning: the homepage carries the quiz redirect and
-# must never be caught. `/:page` is a single-segment placeholder that requires
-# a NON-EMPTY segment, so it cannot match `/`. Neither rule uses force, so any
-# request whose path matches a real deployed file (/favicon.ico,
-# /site.webmanifest, /scouting-trip-workbook.pdf, every .html page itself) is
-# served as-is and the redirect never fires. Only pathnames that match no file
-# reach these rules, which is exactly the extensionless set.
+# CORRECTED 2026-08-17, second push, measured live: the first version used two
+# non-forced placeholder rules and they never fired. Netlify natively serves
+# foo.html for /foo, so from its resolver's view an extensionless path always
+# "matches content" and a non-forced redirect is shadowed. The same mechanism
+# that protects the root swallows the redirect.
 #
-# Query strings pass through Netlify redirects unchanged, so a stray
-# /index?city=NAME&state=ST still lands on /index.html?city=... and routes.
+# force = true is required, and a forced PLACEHOLDER is forbidden: force on
+# "/:page" would redirect /robots.txt, /sitemap.xml, /favicon.ico, the
+# scouting-trip PDF, and every .html page itself into /<name>.html garbage.
+# So: explicit forced rules, one per page Google has actually split, nothing
+# generic. If Search Console shows a new split, add that page here the same
+# way; every other page is already consolidated by its canonical tag.
 
 [[redirects]]
-  from = "/:page"
-  to = "/:page.html"
+  from = "/naples-vs-sarasota-retirement"
+  to = "/naples-vs-sarasota-retirement.html"
   status = 301
+  force = true
 
-# Same form one level down, for profile URLs. Not yet observed in Search
-# Console, but it is the identical defect and the rule above cannot reach it.
 [[redirects]]
-  from = "/cities/:slug/profile"
-  to = "/cities/:slug/profile.html"
+  from = "/pensacola-vs-fort-myers-retirement"
+  to = "/pensacola-vs-fort-myers-retirement.html"
   status = 301
+  force = true
+
+[[redirects]]
+  from = "/visit-before-you-decide"
+  to = "/visit-before-you-decide.html"
+  status = 301
+  force = true
 
 # --- Notes ---
 # 1. This hides the files from normal web access. It is not encryption; the

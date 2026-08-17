@@ -228,6 +228,17 @@ are untouchable. Verify live after deploy: `curl -I` on `/` expects 200 with no 
 header, on `/naples-vs-sarasota-retirement` expects 301 to the `.html` form, and on the
 `.html` form itself expects 200.
 
+**Correction, same day, measured live.** The root check passed and the redirect check did
+not: the extensionless URL served 200. Netlify natively serves `foo.html` for `/foo`, so a
+non-forced redirect on an extensionless path is always shadowed; the design that kept the
+root safe also made the rules inert. Replaced with three explicit `force = true` rules, one
+per page Google actually split, and nothing generic: a forced placeholder would redirect
+`/robots.txt`, `/sitemap.xml`, the favicons, the PDF, and every `.html` page into
+`/<name>.html` garbage. Explicit `from` paths make force safe. New splits get a new explicit
+rule; everything else is consolidated by its canonical tag. The lesson for the log: a
+non-forced Netlify redirect to a path the platform can already resolve is dead
+configuration, and the live curl is the only test that would ever have said so.
+
 **Audited, no edits.** All 99 D2 prose figures and all 99 `monthlyEst` fields in `index.html`
 agree with DB `Monthly Est`: the July 9 drift was repaired in the interim. The St. Paul DB
 item was stale: v19.1 already carries the single figure `$301,000` from the Jul 27 rebase,
