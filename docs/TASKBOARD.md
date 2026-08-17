@@ -211,6 +211,17 @@ vs. Portland ME ships those headings verbatim. No override was taken and the sta
 (BUILD; fifty-one profiles live, twenty-two comparison pages live. Three stale "Perfect 10 community" claims
 corrected in the same commit.)
 
+**CLOSED, August 17 2026 (BATCH): the slug-resolution P1.** Both checks now resolve every
+comparison slug through PUBLISHED_PROFILES into a `(City, ST)` database key via a shared
+`_comparison_row()` helper, and every miss FAILS loudly instead of skipping. The landmine fired
+exactly as sized below: the moment `portland-me` resolved, the gate threw the two predicted
+`&ndash;` budget-cell failures on `burlington-vs-portland-me`, fixed to literal en dash in the
+same commit (its caption entity converted too, matching every sibling page).
+`tools/test_comparison_slugs.py` ships alongside, 5 plants: control, wrong score on the
+state-suffixed page, wrong cost cell on it, unresolvable slug fails loudly, and a slug rebound
+to Wilmington DE fails, which is the wrong-city landmine made executable. Gate 0/0.
+The original sizing, kept for the record:
+
 **P1 (measured August 8, COMPARE fayetteville-vs-bentonville): the slug-resolution item now has a
 size, a second failure mode, and a landmine behind it.**
 
@@ -3136,6 +3147,22 @@ link from the lists section on the same profile.
   LISTS ARE SUSPENDED. They are not cancelled: build a profile when demand names it, not on a
   schedule. Everything else in the Aug 3 cycle stands, including the 80/20 split and the one-debt-
   day cap, with growth now meaning comparison pages, tools and pins.
+- Aug 17, 2026 (second push): BATCH SESSION, four queue items resolved. (1) P1 SLUG RESOLUTION
+  CLOSED: `check_comparison_scores` / `check_comparison_cost_rows` rewired through a shared
+  `_comparison_row()` resolver (PUBLISHED_PROFILES -> (City, ST) -> db), every miss a loud
+  failure; `burlington-vs-portland-me` checked for the first time and its two predicted
+  `&ndash;` budget cells fixed to literal en dash in the same commit; harness
+  `tools/test_comparison_slugs.py` (5 plants) registered. (2) DUPLICATE URL FORMS: two 301
+  rules in `netlify.toml`, `/:page -> /:page.html` and `/cities/:slug/profile ->
+  profile.html`; root-safe because `/:page` cannot match `/` and neither rule is forced, so
+  existing files always win. Live curl checks after deploy: `/` 200, an extensionless
+  comparison URL 301, its `.html` form 200. (3) D2 DRIFT AUDIT: all 99 CITY_ENRICHMENT D2
+  prose figures and all 99 `monthlyEst` fields brace-parsed and compared to DB `Monthly Est`;
+  ZERO mismatches; the July 9 finding was repaired in the interim and `$4,500-$5,500` no
+  longer appears anywhere. Closes the open D2-drift item. (4) ST. PAUL ITEM: stale twice over;
+  the Jul 27 rebase already set the single figure `$301,000` (recorded further down this
+  board) and the pre-rebase `$297,000` prescription is superseded. No DB change made.
+  `urban-walkabout` vocabulary deliberately untouched per its own opportunistic-only rule.
 - Aug 17, 2026: MATCHUP PILL PASS shipped, and FIRST FULL SEARCH CONSOLE READ.
   Two pushes. First, link-form conversion: 404 `?city=` links across 63 files converted to direct
   profile hrefs, zero-inbound profiles 12 -> 4. Second, curated matchup pills: 28 added across 19

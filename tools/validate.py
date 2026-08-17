@@ -2411,6 +2411,47 @@ def check_numeric_cells(rep, db, idx, slug_to_city, local):
                            f'It is silently dropped from every price check.')
 
 
+def _comparison_row(rep, db, slug_to_city, page, slug):
+    """
+    Resolve one comparison-page slug to its City Database row, loudly.
+
+    Until 2026-08-17 the two table checks below each built their own lookup from
+    the lowercased city NAME with no state. Two defects, both silent:
+
+      1. A state-suffixed slug never resolved. burlington-vs-portland-me was on
+         the hub from the day it shipped and neither check had ever read it,
+         because "Portland" keys to "portland" while the page says "portland-me".
+         The page fell straight through `if not a or not b: continue`.
+      2. Same-name cities collided. Wilmington DE and Wilmington NC both keyed
+         to "wilmington" and the dict kept whichever row built last, so a future
+         Wilmington page would have validated against the WRONG CITY's figures
+         and passed.
+
+    PUBLISHED_PROFILES is the one map that already knows slug -> (City, ST), and
+    check_routing keeps it honest against the profile files and the sitemap.
+    Resolve through it, keyed into the db by the (City, ST) tuple form, matching
+    the pattern the rest of the toolchain uses. Every miss is a FAILURE: a page
+    this function cannot resolve is a page the caller is not covering, and an
+    uncovered page reported as clean is the defect both callers were shipped
+    with.
+    """
+    if slug not in slug_to_city:
+        rep.fail("comparison",
+                 f"{page}: slug {slug!r} is not in PUBLISHED_PROFILES, so this "
+                 f"page cannot be resolved to a city and its table is NOT being "
+                 f"checked. An unresolvable slug is uncovered work, never a "
+                 f"quiet skip.")
+        return None
+    city, state = slug_to_city[slug]
+    row = db.get(f"{city}_{state}")
+    if not row:
+        rep.fail("comparison",
+                 f"{page}: {city}, {state} (slug {slug!r}) has no City Database "
+                 f"row, so its half of the table is unverifiable.")
+        return None
+    return row
+
+
 def check_comparison_scores(rep, db, idx, slug_to_city, local):
     """
     Comparison pages hardcode every D1-D10 score in a table. Nothing checked them.
@@ -2427,21 +2468,15 @@ def check_comparison_scores(rep, db, idx, slug_to_city, local):
     pages = sorted(set(re.findall(
         r"([a-z0-9-]+)-vs-([a-z0-9-]+)-retirement\.html", hub)))
 
-    by_slug = {}
-    for key, row in db.items():
-        if row is None or "_" not in key:
-            continue
-        name = str(row.get("city", ""))
-        by_slug[name.lower().replace(" ", "-").replace(".", "")] = row
-
     for a_slug, b_slug in pages:
         page = f"{a_slug}-vs-{b_slug}-retirement.html"
         html = fetch(page, local)
         if not html:
             continue
-        a, b = by_slug.get(a_slug), by_slug.get(b_slug)
+        a = _comparison_row(rep, db, slug_to_city, page, a_slug)
+        b = _comparison_row(rep, db, slug_to_city, page, b_slug)
         if not a or not b:
-            continue
+            continue    # _comparison_row already failed loudly
         for dim_key, dim_label in DIMS:
             # Match the D-NUMBER, not the DIMS label. The label is the database
             # column name and the page uses a reader-facing one: "D4 Resil." vs
@@ -2672,13 +2707,6 @@ def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
     pages = sorted(set(re.findall(
         r"([a-z0-9-]+)-vs-([a-z0-9-]+)-retirement\.html", hub)))
 
-    by_slug = {}
-    for key, row in db.items():
-        if row is None or "_" not in key:
-            continue
-        name = str(row.get("city", ""))
-        by_slug[name.lower().replace(" ", "-").replace(".", "")] = row
-
     seen = set()
     for a_slug, b_slug in pages:
         page = f"{a_slug}-vs-{b_slug}-retirement.html"
@@ -2686,9 +2714,10 @@ def check_comparison_cost_rows(rep, db, idx, slug_to_city, local):
         if not html:
             continue
         seen.add(page)
-        a, b = by_slug.get(a_slug), by_slug.get(b_slug)
+        a = _comparison_row(rep, db, slug_to_city, page, a_slug)
+        b = _comparison_row(rep, db, slug_to_city, page, b_slug)
         if not a or not b:
-            continue
+            continue    # _comparison_row already failed loudly
 
         found = []
         for labels in (HOME_LABELS, (MONTHLY_LABEL,), (TIER_LABEL,)):
@@ -4106,6 +4135,7 @@ def check_stray_artifacts(rep, local):
 HARNESSES = ("tools/test_afford_data.py",
              "tools/test_budget_labels.py",
              "tools/test_comparison_cost_rows.py",
+             "tools/test_comparison_slugs.py",
              "tools/test_comparison_checkmarks.py",
              "tools/test_comparison_cta_reciprocity.py",
              "tools/test_comparison_prose_scores.py",

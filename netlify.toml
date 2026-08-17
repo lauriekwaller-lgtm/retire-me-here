@@ -25,6 +25,37 @@
   status = 404
   force = true
 
+# --- Canonical URL form: .html wins -----------------------------------------
+# Netlify serves every page at two addresses, with and without .html, and
+# Google indexed both forms for three pages (found in the 2026-08-17 Search
+# Console read: naples-vs-sarasota, pensacola-vs-fort-myers,
+# visit-before-you-decide). Canonical tags, og:url, the sitemap and every
+# internal link already use .html, so the .html form is the one that wins and
+# extensionless traffic 301s to it.
+#
+# ROOT SAFETY, tested reasoning: the homepage carries the quiz redirect and
+# must never be caught. `/:page` is a single-segment placeholder that requires
+# a NON-EMPTY segment, so it cannot match `/`. Neither rule uses force, so any
+# request whose path matches a real deployed file (/favicon.ico,
+# /site.webmanifest, /scouting-trip-workbook.pdf, every .html page itself) is
+# served as-is and the redirect never fires. Only pathnames that match no file
+# reach these rules, which is exactly the extensionless set.
+#
+# Query strings pass through Netlify redirects unchanged, so a stray
+# /index?city=NAME&state=ST still lands on /index.html?city=... and routes.
+
+[[redirects]]
+  from = "/:page"
+  to = "/:page.html"
+  status = 301
+
+# Same form one level down, for profile URLs. Not yet observed in Search
+# Console, but it is the identical defect and the rule above cannot reach it.
+[[redirects]]
+  from = "/cities/:slug/profile"
+  to = "/cities/:slug/profile.html"
+  status = 301
+
 # --- Notes ---
 # 1. This hides the files from normal web access. It is not encryption; the
 #    repo itself is where access control lives (keep the repo private if the

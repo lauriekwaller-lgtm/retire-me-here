@@ -202,6 +202,38 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-17 (second entry) - slug resolver P1 closed, URL-form 301s
+
+**Files:** `tools/validate.py`, `tools/test_comparison_slugs.py` (new),
+`burlington-vs-portland-me-retirement.html`, `netlify.toml`, `docs/TASKBOARD.md`, this log.
+No database change, no scoring change.
+
+**The slug fix.** Both comparison table checks resolved cities by lowercased NAME with no
+state, so `portland-me` never resolved and `burlington-vs-portland-me` was never read by
+either check, and Wilmington DE/NC keyed identically so a future page would have validated
+against the wrong city and passed. The fix resolves through PUBLISHED_PROFILES into
+`(City, ST)` db keys via one shared `_comparison_row()`, and a slug that cannot resolve is
+now a FAILURE, never a skip. The predicted landmine fired on the first run: exactly two
+budget-cell failures on the newly covered page, whose `&ndash;` entities had never been
+compared to the database. Fixed to literal en dash (cells and caption) in the same commit.
+`tools/test_comparison_slugs.py` covers both original defects plus the loud-miss contract
+with five plants, including rebinding the slug to Wilmington DE and asserting failure.
+
+**The 301s.** Netlify serves every page with and without `.html`; Google indexed both forms
+for three pages. Every canonical signal already says `.html`, so two non-forced rules send
+extensionless traffic there: `/:page` and `/cities/:slug/profile`. Root safety is structural:
+`/:page` requires a non-empty segment so it cannot match `/`, and non-forced rules never fire
+when the path matches a real file, so the homepage, the PDF, favicons and every `.html` page
+are untouchable. Verify live after deploy: `curl -I` on `/` expects 200 with no Location
+header, on `/naples-vs-sarasota-retirement` expects 301 to the `.html` form, and on the
+`.html` form itself expects 200.
+
+**Audited, no edits.** All 99 D2 prose figures and all 99 `monthlyEst` fields in `index.html`
+agree with DB `Monthly Est`: the July 9 drift was repaired in the interim. The St. Paul DB
+item was stale: v19.1 already carries the single figure `$301,000` from the Jul 27 rebase,
+and the older `$297,000` prescription is superseded. `urban-walkabout` left alone per its
+opportunistic-only rule.
+
 ### 2026-08-17 - first full Search Console read, and two crawl-structure pushes
 
 **Files:** 63 HTML files (link-form), 19 comparison pages (matchup pills),
