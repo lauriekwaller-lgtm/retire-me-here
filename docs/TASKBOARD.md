@@ -4,6 +4,52 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 18, 2026 (second entry), tampa-vs-naples comparison page
+(51 profiles live, 24 comparison pages live. The one true missing-page finding
+in the Aug 17 Search Console export is now built: "tampa vs naples for
+retirees", forty-four impressions at position thirty-five with no page behind
+it. Title carries "for Retirees" rather than "for Retirement", the first page
+on the site to do so, deliberately, as a free test on a query with no ranking
+to protect. Reciprocal CTAs added on both profiles; hub card and ItemList
+position twenty-four added.)
+
+**SHIPPED, August 18 2026: three garbled strings and five stale price figures.**
+The garbled ones are remnants of the superlative scrub, all rendering to
+readers: "with our databSt. Pete's Walk Score" in the tampa-vs-st-petersburg
+tradeoff block, "and os Walk Score" in that page's FAQ answer (both anchors,
+visible copy and FAQPage schema), and "$549Konthly costs" in the Naples cons
+array in index.html.
+
+**P2, OPEN: check_highlight_homes reads only self-labelled home figures.**
+Found while repairing the fifth defect above and worth stating precisely,
+because the first diagnosis was wrong. Tampa's highlight said Naples "matches
+it at $585K" against a database $549,000. The initial reading was that
+cross_city() had skipped it. It had not: HL_HOME_FIG requires a figure
+anchored to a home-value noun ("typical home value", "median home"), and a
+bare "$585K" is never a candidate at all, so the cross-city gate is never
+reached. That gate is currently inert; across all one hundred and
+ninety-eight highlight strings, zero anchored figures are being skipped for
+naming another city.
+
+The measured hole: thirty-two dollar figures in highlight strings are read by
+neither highlight pattern. Most are correctly out of scope (neighborhood
+ranges, a museum construction cost, an estate-tax threshold). Five were price
+claims and all five disagreed with the database. Tampa on Naples, $585K
+against $549,000. Chattanooga on Asheville, $462K against $464,000. Corpus
+Christi on Pensacola, $264K against $269,000. New Orleans on its own citywide
+median, $250K against $248,000. Tulsa on its own citywide median, $194K
+against $223,000, which is the largest miss and which the Tulsa profile
+already had right in its rendered copy. All five repaired in this commit, on
+both mirrored surfaces.
+
+The last two are the finding worth keeping: they are not cross-city at all.
+"Citywide median $194K" says median without saying home, so the anchor never
+matches. The fix is two changes to the check, and neither ships without a
+planted-error harness: extend HL_NOUN to catch a bare "citywide median $X",
+and resolve a cross-city figure against the NAMED city's row instead of
+skipping it. Keyed on (City, ST), because a name-only lookup is how the two
+Wilmingtons collided before.
+
 **Last updated:** August 18, 2026, for-retirees vocabulary pass
 (51 profiles live, 23 comparison pages live. Descriptions and one subheading
 per comparison page now carry "for retirees", the phrase both of the largest

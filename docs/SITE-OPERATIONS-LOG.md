@@ -202,6 +202,83 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-18 (second entry) - tampa-vs-naples-retirement.html
+
+**Files:** new `tampa-vs-naples-retirement.html`; edits to `sitemap.xml`,
+`compare-retirement-cities.html`, `cities/tampa/profile.html`,
+`cities/naples/profile.html`, `docs/TASKBOARD.md`, this log. Plus the four
+text repairs below. No database change, no scoring change.
+
+**Why this pairing.** The Aug 17 Search Console read named exactly one genuine
+content gap: "tampa vs naples for retirees", forty-four impressions, position
+thirty-five, no page. Every other finding in that export was a page that
+existed and underperformed.
+
+**Scores, read from `docs/CityDatabase_Jul_27_v19.1.xlsx`.** Tampa 10-6-10-2-9-6-6-7-6-8
+against Naples 8-5-10-2-9-5-6-10-9-8. Three marks at a two-point gap or more:
+D1 to Tampa, D8 and D9 to Naples. D2 and D6 are one-point gaps, reported in
+prose with both numbers and left unmarked in the table. Five outright ties,
+including healthcare at a perfect ten in both cities and climate resilience at
+two. Cost rows: $380,000 against $549,000, $5,400-$6,700 against $6,400-$7,900,
+tier 2 of 5 against 3 of 5, all three marked to Tampa. Warm winters is 9
+against 10, a one-point climate gap, so it carries inline context (January mean
+61F against 65F) rather than a mark, per the climate rule in the standard.
+
+**Colour claims verified before publishing.** Tampa to Naples is about 165
+miles on I-75, roughly two and a half to three hours. RSW is about 35 miles
+north of Naples, roughly 45 minutes outside of season, and carried over eleven
+million passengers in 2025. TPA sits six miles west of downtown with nonstop
+service to roughly 100 destinations. The in-town Naples field is described as
+private and charter aviation rather than an airline network, which is the
+softened form: sources disagree on whether it currently carries any scheduled
+service.
+
+**Title convention broken on purpose.** "Tampa vs. Naples for Retirees",
+against "for Retirement" on the other twenty-three. The Aug 18 vocabulary pass
+deliberately left existing titles alone to protect rankings; this page has none
+to protect, so it is the free test of the phrasing the query actually uses.
+Recorded here so the divergence is a decision rather than a drift.
+
+**Three garbled strings repaired in the same commit.**
+`tampa-vs-st-petersburg` carried "with our databSt. Pete's Walk Score of 94
+leads Florida" in tradeoff 3 and "and os Walk Score of 94" in FAQ 4, the
+latter in both the visible copy and the FAQPage schema; `index.html` carried
+"$549Konthly costs $6,500+" in the Naples cons array. All three are cut-scar
+text from the superlative scrub, and all three render.
+
+**Five stale price figures repaired, and a correction to how the gap was
+first described.** Tampa's highlight said Naples "matches it at $585K"
+against a database $549,000. That was first written up as `cross_city()`
+skipping the figure. It is not: `HL_HOME_FIG` only matches a figure anchored
+to a home-value noun, and a bare "$585K" is never a candidate, so the
+cross-city gate is never reached. Measured across all 198 highlight strings,
+that gate is currently inert: zero anchored figures are skipped for naming
+another city. The wrong diagnosis is recorded here rather than deleted,
+because the next session would otherwise go reading `cross_city()` and find
+it innocent.
+
+What the audit actually found: 32 dollar figures in highlight strings are
+read by neither highlight pattern. Most are correctly out of scope. Five were
+price claims and every one disagreed with the database: Tampa on Naples
+($585K vs $549,000), Chattanooga on Asheville ($462K vs $464,000), Corpus
+Christi on Pensacola ($264K vs $269,000), New Orleans on its own citywide
+median ($250K vs $248,000), and Tulsa on its own citywide median ($194K vs
+$223,000). The Tulsa figure is the largest miss and its own profile already
+carried $223K in rendered copy, with the $194K surviving only in a build
+comment. Every one is mirrored byte for byte in `pick-and-compare.html`, so
+all ten edits landed in one run; `check_highlight_surfaces` fails if the two
+surfaces ever disagree.
+
+The New Orleans and Tulsa cases are the ones that generalise: neither is
+cross-city. "Citywide median $194K" says median without saying home, so the
+anchor never matches. The validator fix is on the board as P2, with the
+harness requirement attached.
+
+**Verified.** Anchor counts asserted before any write; the apply script refuses
+to write anything if one is off; second run is a clean no-op; JSON-LD reparsed;
+`python3 tools/validate.py --local .` at 0 failures, 0 warnings on a fresh
+clone.
+
 ### 2026-08-18 - for-retirees vocabulary pass
 
 **Files:** all 23 comparison pages, `docs/TASKBOARD.md`, this log.
