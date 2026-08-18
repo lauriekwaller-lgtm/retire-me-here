@@ -202,6 +202,41 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-18 - for-retirees vocabulary pass
+
+**Files:** all 23 comparison pages, `docs/TASKBOARD.md`, this log.
+No database change, no scoring change, no title change.
+
+**The finding.** Search Console (Aug 17 read, section above): the two largest
+comparison queries are "tampa vs sarasota for retirees" (78 impressions) and
+"tampa vs naples for retirees" (44). Zero of 23 comparison pages used
+"for retirees" in a description or subheading; the phrase lived only in FAQ
+questions and scattered body prose. Comparison pages are limited by position,
+not count, so vocabulary alignment across all 23 existing pages is the lever.
+
+**What changed, per page.** The meta description's single "for retirement"
+became "for retirees"; the title and URL slug still carry "retirement", so
+both tokens now reach Google. On the five pages whose JSON-LD Article
+description mirrors the meta byte for byte (asheville-vs-greenville,
+burlington-vs-portland-me, fayetteville-vs-bentonville, knoxville-vs-asheville,
+sarasota-vs-tampa) the schema copy moved in the same edit; the other eighteen
+carry independently written schema descriptions and were left alone. One
+subheading per page gained the phrase: the fifteen newer-template pages now
+head their FAQ "X vs. Y for retirees: the questions people actually ask",
+which is the query shape verbatim, and the eight older-template pages read
+"Side by side, scored for retirees." dateModified moved to 2026-08-18 on all
+23. og:description and twitter:description untouched, judgment call recorded
+on the board.
+
+**Verified.** Anchor counts asserted before every write; JSON-LD re-parsed on
+every page after edit; em-dash count unchanged; second run of the apply script
+is a clean no-op; `python3 tools/validate.py --local .` at 0 failures,
+0 warnings on a fresh clone.
+
+**Measurement.** Impressions and average position on the comparison set, not
+clicks, and nothing graded before October. The two named queries are the
+specific rows to watch.
+
 ### 2026-08-17 (second entry) - slug resolver P1 closed, URL-form 301s
 
 **Files:** `tools/validate.py`, `tools/test_comparison_slugs.py` (new),

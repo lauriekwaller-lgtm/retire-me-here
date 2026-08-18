@@ -4,6 +4,11 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 18, 2026, for-retirees vocabulary pass
+(51 profiles live, 23 comparison pages live. Descriptions and one subheading
+per comparison page now carry "for retirees", the phrase both of the largest
+comparison queries use and no page used. Titles untouched by design.)
+
 **Last updated:** August 17, 2026, matchup pills + Search Console read; Wave 2/3 suspended
 (51 profiles live, 23 comparison pages live. The font sweep injected CSS into
 the quiz script and killed it; fixed, and the gate now parses every inline
@@ -3136,6 +3141,21 @@ link from the lists section on the same profile.
   0 data cells changed outside it, `load_db()` output identical old vs new.
   Gate: `python3 tools/validate.py --local .` reads PRE-DEPLOY GATE, **0 failures, 0 warnings**.
 
+- Aug 18, 2026: FOR-RETIREES VOCABULARY PASS shipped (BATCH). The Aug 17 Search Console read
+  found the two largest comparison queries both say "for retirees" (tampa vs sarasota, 78
+  impressions; tampa vs naples, 44) while zero comparison pages used the phrase in a description
+  or subheading. All twenty-three comparison pages edited, titles deliberately untouched: meta
+  description's single "for retirement" moved to "for retirees" (the retirement token survives
+  in title and slug); the JSON-LD Article description moved with it on the five pages where it
+  mirrors the meta byte for byte, and was left alone on the eighteen that carry independent
+  schema copy; one subheading per page gained the phrase (newer template: the faq h2 now reads
+  "X vs. Y for retirees: the questions people actually ask", the exact query shape; older
+  template: "Side by side, scored for retirees."); dateModified bumped to 2026-08-18 on all
+  twenty-three since schema and rendered content both moved. og and twitter descriptions
+  untouched, judgment call: social surfaces, not ranking surfaces, most already carry distinct
+  copy. Grade on impressions and position, not clicks, and not before October, per the
+  measurement rule in ops log section 7. NEXT: tampa-vs-naples-retirement, the one true
+  missing-page finding, as its own COMPARE session.
 - Aug 17, 2026: STRATEGY SUPERSESSION, boarded late. On Aug 15 the operator asked where city
   profiles stood given weak traffic, and the answer given was that profiles are conversion
   inventory rather than acquisition pages, that 51 is enough, and that build energy should move
