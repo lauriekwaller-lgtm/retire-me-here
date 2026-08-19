@@ -4,6 +4,88 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 18, 2026 (third entry), board hygiene: supersession
+marker, highlight-figure audit, growth queue empty
+(51 profiles live, 24 comparison pages live. No code, no site change. Three
+board jobs: the Aug 3 growth-cycle section is now marked superseded in place,
+the cross-city figure audit is written down, and the growth queue is recorded
+as empty.)
+
+**P2, OPEN: stale cross-city price figures in the two string layers no check
+reads.** Opened by the tampa-vs-naples session, August 18 2026. Home values are
+copied into three places on index.html: the `highlight` field, the `pros` and
+`cons` arrays, and the CITY_ENRICHMENT D1-D10 score notes. `check_highlight_homes`
+reads the first and nothing reads the other two. All three render, so this is a
+reader-visible defect and clears the growth-cycle rule against machine-only
+checks.
+
+Twelve stale cross-city claims found by hand audit against the database, all
+live before this session, worst first: Paducah says Memphis is $195K against a
+database $147,000; Frisco says San Antonio is $320K against $251,000; Casper
+says Boise is $314K against $508,000; Naples says Fort Myers is $372K against
+$310,000; Corpus Christi says Fort Myers is $372K against $310,000; Naples says
+Sarasota is $462K against $413,000; Paducah says Tulsa is $194K against
+$223,000; Frisco says Georgetown is $457K against $428,000; Missoula says
+Durango is $704K against $768,000; Missoula says Bozeman is $740K against
+$734,000; Corpus Christi says Pensacola is $264K in two separate fields against
+$269,000; and New Orleans states its own citywide median as $250K in a score
+note against $248,000.
+
+Two are worse than a stale number. Paducah's reads that its $192K home is under
+Tulsa at $194K and Memphis at $195K; Memphis is actually $147,000, so the
+comparison points the wrong way, which is the check-the-sign-of-the-gap rule
+failing in prose. Casper's reads "$314K typical home value, below Boise
+($314K)": the parenthetical repeats Casper's own figure rather than Boise's.
+
+**This is the same drift, one layer down.** The July 23 2026 entry further down
+this board repaired sixteen drifted figures in the database Highlight column and
+names "Memphis $170K/$195K" and "San Antonio $260K/$320K" among them. Those are
+the same numbers still sitting in the pros arrays and score notes today. The
+repair moved the layer that had a check and left the two that did not.
+
+**Correction on the record, because the first diagnosis was wrong.** The Tampa
+entry that started this said Naples "matches it at $585K" against $549,000, and
+that was first written up as `cross_city()` skipping the figure. It is not:
+HL_HOME_FIG only matches a figure anchored to a home-value noun, so a bare
+"$585K" is never a candidate and the cross-city gate is never reached. Measured
+across all one hundred and ninety-eight highlight strings, that gate is
+currently inert: zero anchored figures are being skipped for naming another
+city.
+
+**Fix spec, for the next debt day, in this order.** Extend the check first, let
+the check produce the list, then repair all layers for a city in one pass. Do
+not repair from the twelve above; it is a hand audit and the check will find
+more. Three parts, none of which ships without a planted-error harness:
+(a) widen HL_NOUN to catch a bare "citywide median $X", which is what hid the
+New Orleans and Tulsa figures and which is not a cross-city case at all;
+(b) read all three string layers, not just `highlight`;
+(c) resolve a cross-city figure against the NAMED city's row instead of skipping
+it, keyed on (City, ST).
+
+The (City, ST) key is not optional. Wilmington DE's score note reads "Greenville
+(~$1.085M)", meaning the Delaware neighborhood, not Greenville SC. A name-keyed
+pass will silently "correct" a correct figure to $333,000. This is the second
+time the two-Wilmington shape has produced a trap; the first closed the slug
+resolution P1 on August 17.
+
+**Two figures currently disagree with themselves,** created by this session and
+not pre-existing: Corpus Christi's highlight now reads $269K for Pensacola while
+its pros array and score note still read $264K, and New Orleans' highlight reads
+$248K while its score note reads $250K. Repairing one layer without its siblings
+is the containment rule failing. They ride along in the batch above rather than
+getting a hotfix.
+
+**OPEN, August 18 2026: the growth queue has no named item in it.** The Aug 17
+Search Console read produced exactly one missing-page finding, tampa-vs-naples,
+and it shipped this session. Nothing else is boarded as the next growth job, so
+the next session is an OPS pick rather than a build, and it should start from
+the Search Console read in SITE-OPERATIONS-LOG section 7 rather than from this
+board. The strongest unworked finding there: the quiz page earns sixty-four
+percent of every click the site gets, at position 4.8 and a 16.9 percent
+click-through rate. That is a concentration finding and it has never been
+worked. Whether the right response is to defend it, widen it, or route from it
+is the question to answer before building anything else.
+
 **Last updated:** August 18, 2026 (second entry), tampa-vs-naples comparison page
 (51 profiles live, 24 comparison pages live. The one true missing-page finding
 in the Aug 17 Search Console export is now built: "tampa vs naples for
@@ -1094,7 +1176,27 @@ as the $600 ones. Nothing was wrong with the finding. What was missing was the r
 
 ---
 
-## ACTIVE - three-week growth cycle (boarded August 3, 2026)
+## SUPERSEDED IN PART, August 17 2026 - three-week growth cycle (boarded August 3, 2026)
+
+> **READ THIS BEFORE ACTING ON ANYTHING BELOW.** The Wave 2 and Wave 3 profile
+> lists in this section are SUSPENDED. They were called off in a chat on
+> August 15 2026 and boarded on August 17 as a STRATEGY SUPERSESSION; search
+> this board for "STRATEGY SUPERSESSION" for the full entry. Profiles are
+> conversion inventory, not acquisition pages. Build a profile when demand
+> names it, not on a schedule.
+>
+> What still stands from this section: the 80/20 growth-to-debt split, the
+> one-debt-day-per-week hard cap, the reader-visible test for new validator
+> checks, and grading on leading indicators. "Growth" in those rules now means
+> comparison pages, tools and pins.
+>
+> This marker exists because the section below reads as current and sits above
+> the decision that replaced it. As of August 18 2026 it had misled FOUR
+> sessions into recommending profile builds that were already called off, the
+> most recent being the session that shipped tampa-vs-naples. A superseded plan
+> that is not marked superseded outranks the decision that superseded it, every
+> time, because it is what a reader hits first.
+
 
 Unranked. This is the work, not a finding about the work: same exception the build queue and the
 comparison queue carry.

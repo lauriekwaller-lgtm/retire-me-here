@@ -202,6 +202,51 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-18 (third entry) - board hygiene, no site change
+
+**Files:** `docs/TASKBOARD.md`, this log. Nothing else. No code, no HTML, no
+database, no scoring change.
+
+**Why a commit for two documents.** Three findings from the tampa-vs-naples
+session existed only in a chat at the end of it: the cross-city figure audit,
+the reason four sessions in a row have recommended suspended profile builds,
+and the fact that the growth queue is now empty. This board records, twice in
+its own text, that a plan living in a chat is a plan that dies with the chat.
+This is that rule being applied rather than restated.
+
+**The supersession marker.** The Aug 3 growth-cycle section now opens with a
+blockquote naming what in it is dead (the Wave 2 and Wave 3 profile lists) and
+what still stands (the 80/20 split, the one-debt-day cap, the reader-visible
+test for new checks, leading-indicator grading). The Aug 17 entry already
+recorded that this section had misled a later session; it did so again on
+August 18, in the session that shipped tampa-vs-naples, where the next-build
+recommendation was Fayetteville AR. Four occurrences, one cause, and the cause
+is ordering: a superseded section that reads as current and sits above the
+decision that replaced it is what a reader hits first, so it wins. The fix is
+in-place annotation rather than deletion, because the section's surviving rules
+are still load-bearing.
+
+**The audit.** Full detail on the board. In summary: home values are copied
+into three string layers on index.html and only one of them is read by a check;
+twelve cross-city price claims across the unread two disagree with the
+database; two of them state a comparison that points the wrong way; and the
+same stale figures appear by name in the July 23 2026 entry as things already
+repaired in the layer that has a check. Fix spec and harness requirement are
+boarded as a P2 for the next debt day, with the (City, ST) keying called out
+because Wilmington DE's "Greenville" means the Delaware neighborhood and a
+name-keyed pass would corrupt a correct figure.
+
+**Recorded against this session, not softened.** Two entries now disagree with
+themselves because the tampa-vs-naples session repaired the highlight layer and
+left the sibling fields alone. That is the containment rule failing in the same
+week it is written down.
+
+**Verified.** Anchor counts asserted before any write; the apply script refuses
+to write if one is off; second run is a clean no-op; `python3 tools/validate.py
+--local .` at 0 failures, 0 warnings on a fresh clone, including check_docs,
+which reads the profile and comparison-page counts out of the first lines of
+the board.
+
 ### 2026-08-18 (second entry) - tampa-vs-naples-retirement.html
 
 **Files:** new `tampa-vs-naples-retirement.html`; edits to `sitemap.xml`,
