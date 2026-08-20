@@ -202,6 +202,57 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-19 (second entry) - Deep Dive consolidation, three commits
+
+**Files:** 52 per commit across three commits (51 city profiles plus
+index.html), then this log and `docs/TASKBOARD.md`. No database change, no
+scoring change, no new pages.
+
+**Context.** The MailerLite free plan dropped to three automations on June 16
+2026 with enforcement from August 13. The account ran six. Delivery had stopped
+for anything new. The operator restructured to two automations, reusing the
+former Active Frontier automation and form (g4M1M8) as the joint delivery for
+all five reports, which is why no form ID changed anywhere in the repo. Verified
+live before any code shipped: a fresh test subscriber receives the joint email.
+
+**Commit 1, consolidation.** Four of the five pills on every page pointed at
+forms whose automations had just been paused, so the site was offering four
+routes to silence. Profiles: chips and hidden embeds replaced by one visible
+form. index.html: renderReportIcons rewritten to a single stated offer,
+REPORT_MODAL_DATA collapsed, four dead embeds removed, lead-in copy corrected,
+two now-unreferenced functions deleted. Eight structural variants of the profile
+block were found and normalised in one regex pass; two profiles (miami,
+prescott) carried no picker comment and shorter capture-sub copy, caught by the
+anchor guard rather than by inspection.
+
+**Commit 2, layout.** The band explained the reports and the MailerLite form
+beneath it explained them again, pushing the names and the field down. Site-side
+explanation removed, names lead. Data Sources moved below the reports block in
+both detail renderers.
+
+**Commit 3, wrap fix.** Icon and name bound into one non-breaking unit.
+
+**The correction that matters most.** The P1 boarded this morning claimed
+index.html had no email capture. That was false. Full detail on the board; the
+short version is that a working capture system (renderReportIcons,
+openReportModal, openSignupModal, returnMlForms, mlFormVault) sits directly
+beside dead plumbing with zero call sites, and the session read the dead half
+and described it as live. This was the third instance of the same error in one
+week. The rule going forward: presence of plumbing is not evidence of a live
+feature; check call sites and element ids before describing runtime behaviour.
+
+**What was verified, and what was not.** Every commit: fresh clone, apply,
+`python3 tools/validate.py --local .` at 0 failures 0 warnings, second run a
+clean no-op, node syntax check on the extracted index.html script blocks, and a
+file-count diff against the pull. What was NOT verified: any of it in a browser.
+The operator's screenshots caught two presentation defects the toolchain cannot
+see, the ragged name line and a results-screen card that reads as a footer. Both
+are boarded.
+
+**Grading note.** Key events are still unwired, so none of today's work is
+measurable yet. Grade the capture on signup rate per results-screen session once
+events exist, not on list size, and not before October.
+
 ### 2026-08-19 - OPS: demand read, funnel read, email capture restructure
 
 **Files:** `docs/TASKBOARD.md`, this log. No code, no HTML, no database, no

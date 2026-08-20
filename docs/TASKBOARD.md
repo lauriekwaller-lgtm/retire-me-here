@@ -4,6 +4,120 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 19, 2026 (second entry), Deep Dive consolidation
+shipped; email delivery restored
+(51 profiles live, 24 comparison pages live. Three commits shipped today after
+the OPS read. Email capture now works end to end for the first time since
+August 13.)
+
+**SHIPPED, August 19 2026.**
+
+*MailerLite, operator side, no repo change.* Restructured from six automations
+to two, which is under the free-plan cap of three and closes the upgrade
+question. The Visit workbook keeps its own automation. The five themed reports
+now share one joint delivery on the former Active Frontier automation and form
+(g4M1M8), which is why no form IDs changed on the site. Verified live: a fresh
+test subscriber receives the joint email. Per-link click reporting replaces the
+five-form picker as the interest signal, which is revealed preference at the
+point of reading rather than a choice made before the reader knows what is
+inside. Form copy rewritten to "Deep Dive Reports", with the five lenses as a
+bulleted list and a single-email promise ("the reports will arrive in one
+message within a minute").
+
+*Commit 1, consolidation, 52 files.* Five chips and five embeds collapsed to one
+visible form on all 51 profiles. index.html: renderReportIcons rewritten to a
+single stated offer, REPORT_MODAL_DATA collapsed to one deepdive entry, four
+dead embeds removed, both lead-in strings corrected, toggleMoreReports and
+getRecommendedReports deleted as unreferenced. This was urgent rather than
+cosmetic: four of the five pills pointed at forms whose automations had just
+been paused, so every page was offering four routes to silence.
+
+*Commit 2, layout, 52 files.* The site-side explanation paragraph removed from
+the capture band, since the MailerLite form immediately below carries its own
+description and the band was explaining the reports twice. Report names now
+lead. Data Sources moved below the reports block in BOTH detail renderers, the
+editorial and the legacy.
+
+*Commit 3, wrap fix, 52 files.* Each icon and report name is now one
+non-breaking unit, so a name no longer starts a line with its icon stranded at
+the end of the previous one.
+
+**CORRECTION: the P1 boarded earlier today was wrong.** It said email capture
+was absent from index.html. It is not, and never was. index.html has a working
+capture: renderReportIcons draws report rows on the quiz results screen and on
+every city detail screen, openReportModal and openSignupModal drive preview and
+signup modals, and returnMlForms moves the rendered MailerLite node between the
+modal and a hidden vault (id mlFormVault). All of it has live call sites and all
+of it works. What misled the session was dead plumbing sitting beside the
+working system: showReportSignup, showReportSignupResults, submitReport and
+submitReportResults, all with zero call sites, plus three form stubs commented
+"Hidden Netlify form registration" that carry no data-netlify attribute and were
+therefore never registered with Netlify either.
+
+**This is the THIRD instance of the same error in one week,** and the pattern is
+now the finding rather than any individual mistake. Cross-city figures were
+asserted to be skipped by a check that never reached them. Email capture was
+asserted to be silently discarding submissions from a UI that does not render.
+Delivery was asserted to be broken when six subscribers show sent, opened and
+clicked. In every case the mistake was reading code and asserting runtime
+behaviour without checking whether that code is reachable. The operator's own
+testing corrected all three. Working rule for future sessions, stated here so it
+survives: presence of plumbing is not evidence of a live feature. Check call
+sites and element ids before describing behaviour, and treat any assertion about
+runtime that has not been verified in a browser as unverified.
+
+**What is actually true about capture placement, corrected.** Capture exists on
+all 51 profiles and on index.html. The remaining problem is presentation, not
+absence. On the quiz results screen the offer renders as a single full-width row
+inheriting .report-row styling designed for a list of five, which at desktop
+width reads as a beige footer strip rather than an offer, and the email field
+sits behind a modal click at the highest-intent moment on the site. Six signups
+since April is a presentation outcome.
+
+**P1, OPEN: the results-screen offer does not look like an offer.** Rebuild it
+as a centred, width-constrained band matching the profile treatment, with the
+email field inline rather than behind the modal. The inline field is achievable
+without new machinery: returnMlForms currently returns the node to mlFormVault,
+so give it a results-screen home slot to prefer, falling back to the vault when
+that slot is absent. Defensive, two lines. City detail screens keep the modal
+but need the same restyle so the card stops reading as a footer. RISK: this
+touches the only working capture path on index.html and cannot be verified
+without a browser. Test after: finish a quiz and confirm the field appears; open
+a city detail and confirm its modal still loads the form; return to results and
+confirm the field is still there. The third case is the one the change exists
+for.
+
+**P2, OPEN: the report-name line centres badly on narrow screens.** The wrap fix
+shipped today only stopped names splitting from their icons. The line still
+centre-wraps into a ragged three-then-two shape. Fix with flex, a gap and
+justify-content:center so each line centres as a unit, or stack on mobile.
+
+**P2, OPEN: deep-dive-reports.html plus a nav tab.** Operator proposal, endorsed.
+One page: the five reports, a short line each, the form, no picker. Nav item on
+all 52 pages in second or third position, never first, since the quiz stays the
+lead. Value beyond navigation: it is a real Pinterest destination during travel,
+and a canonical target for the #deep-dive-reports anchors already on 51
+profiles. Scope it as a proper build, not a tweak: sitemap, canonical, JSON-LD,
+nav across 52 files, validator coverage. No star badge; use the existing gold
+accent.
+
+**P2, OPEN: dead capture code on index.html.** The four zero-call-site functions
+and the three unregistered Netlify stubs described above. Delete them when the
+results-screen rebuild ships, since that work is in the same code. Cost so far:
+one session, three wrong diagnoses.
+
+**Still open from earlier entries, unchanged:** the twelve stale cross-city
+figures and the three-layer validator extension; key events for signup and
+affiliate click, which remain unwired so nothing shipped today is gradeable; and
+the profile-to-tools routing, still the largest lever at current scale, with two
+hundred and two users reaching a profile against six reaching a tool.
+
+**Operator constraint, for planning.** Laptop available roughly ten days from
+August 19, then travel with an iPad and phone only. Travel work is pins and
+possibly Reddit. Anything requiring a repo commit needs to happen before then.
+Hold Reddit until the capture presentation work ships, since sending hard-won
+traffic at the current results-screen card wastes it.
+
 **Last updated:** August 19, 2026, OPS: quiz demand read, funnel read, email
 capture restructure
 (51 profiles live, 24 comparison pages live. No site change. The growth pick
