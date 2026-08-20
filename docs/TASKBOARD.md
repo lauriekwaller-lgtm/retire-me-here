@@ -4,6 +4,149 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
+**Last updated:** August 19, 2026, OPS: quiz demand read, funnel read, email
+capture restructure
+(51 profiles live, 24 comparison pages live. No site change. The growth pick
+opened on Aug 18 is now made: the funnel converts until the point where money
+or an email could happen, and email capture is absent from the two pages
+carrying most of the traffic.)
+
+**THE READ, August 19 2026. Two exports, one conclusion.**
+
+*Search Console, quiz page, three months to Aug 17.* Two hundred and
+seventy-one clicks on one thousand five hundred and seventy-six impressions,
+position 4.7. One hundred and twenty-eight clicks are attributed to named
+queries and the rest sit in the anonymised tail, which converts BETTER than the
+head, nineteen percent against fifteen. Of the named ones, "where should i
+retire quiz" alone takes seventy-two, and the top five take ninety-three
+percent. Eleven queries drew a click and every one is a variant of the same
+phrase. Fifteen of eighteen queries contain the word "quiz". ZERO branded
+queries: nobody searches the site name, so every click is discovery and there
+is no brand demand to fall back on.
+
+*The trend is the finding that reframes the concentration.* Zero impressions
+until mid-June. Weekly clicks since: thirteen, thirteen, fourteen, thirty-eight,
+sixty-one, thirty-two, forty-four, forty-nine. Click-through went nine and a
+half percent in the middle third of the window to twenty-one percent in the
+last. This is an eight-week-old ranking still climbing, not a mature asset on a
+plateau, so the sixty-four percent click concentration is what "exactly one
+thing has matured" looks like rather than a structural fragility. The first
+impressions predate the June 21 quiz subtitle change, so this is ordinary
+maturation and there is nothing to reverse-engineer.
+
+*GA4, twenty-eight days to Aug 18, three hundred and sixty active users.* The
+handoff works. The ranking page bounces at 4.9 percent. Two hundred and two
+users of three hundred and sixty, fifty-six percent, reached a city profile.
+Average engagement is four minutes fifty. The Aug 15 thesis is confirmed by
+behaviour: fifty profiles pulled two hundred and two users while earning almost
+no search traffic of their own, which is what conversion inventory looks like.
+Acquisition is google organic two hundred and fifty-one users of three hundred
+and sixty; Pinterest delivered about eleven users across fifty sessions, which
+is worth calibrating against how this board has treated that channel.
+
+*Where it breaks.* The state tax tool and the affordability calculator, which
+carry the financial-advisor affiliate inventory, drew SIX users between them.
+Traffic flows Google to quiz to profile and stops. No key events are configured,
+so signups and affiliate clicks are unmeasured and no change made now can be
+graded.
+
+**P1, OPEN: email capture is absent from the two pages that carry the traffic.**
+Six signups since April. The cause is placement, not demand and not a defect.
+Capture exists ONLY on the fifty-one city profiles, near the bottom, behind a
+five-chip picker that requires choosing a guide before a field appears.
+index.html, the quiz engine, two hundred and sixty-three users in twenty-eight
+days, has no rendered capture at all. The quiz landing page, one hundred and
+ninety-eight users, has none either. The offer has never once appeared at the
+moment of intent, so the six-signup number is not yet evidence that the guides
+are unenticing and must not be read as such.
+
+**THE MAILERLITE CONSTRAINT, and why delivery stopped.** MailerLite changed the
+free plan on June 16 2026: two hundred and fifty subscribers, two thousand five
+hundred monthly emails, and caps of three automations, three forms, one landing
+page. Enforcement began August 13 2026. The account carries six automations, the
+five themed guides plus the Visit workbook, against a cap of three. Confirmed
+live on Aug 19: the six real subscribers all show emails sent, opened and
+clicked, and a fresh test subscriber shows zero emails sent. The stack is
+HEALTHY. Delivery stopped because the account is over the feature cap, and a
+paused automation cannot be reactivated without upgrading. Nothing about this is
+a code defect and no repo change fixes it.
+
+**DECISION, operator, Aug 19 2026: restructure to two automations, do not
+upgrade.** Twelve dollars a month to run six delivery pipes for six subscribers
+inverts the infrastructure against the audience. Keep the Visit workbook on its
+own automation, since it serves a different moment (visit planning, post-
+shortlist) and is the strongest fit for a reader who just finished the quiz.
+Collapse the five themed guides into ONE joint automation delivering all five as
+links. Two automations against a cap of three, one slot spare, pricing question
+closed. The interest signal survives and improves: per-link click reporting
+tells us which of the five people actually want, which is revealed preference at
+the moment of reading rather than a choice made before anyone knows what is
+inside. Free-tier caveat to confirm in the dashboard, not from a chat: whether a
+segment can be built directly from a link click or only viewed in the report.
+Multi-trigger automations are not on the free plan, so every form must assign
+the same group per automation for the single trigger to catch it.
+
+**Sequence is one-way and matters.** Get under the cap BEFORE editing, because a
+restricted account cannot create or edit automations. Pause four, restructure
+the survivors, retest with a genuinely fresh address, confirm delivery, and only
+then build anything on the site. Any capture built before delivery is confirmed
+collects addresses and sends silence, which is worse than having no capture,
+because those are people who raised their hand.
+
+**THE WORK ORDER, ten laptop days from Aug 19 2026, then travel.**
+Dashboard first, no laptop needed: restructure to two automations, retest,
+confirm delivery. Then, in order:
+1. One offer on the quiz RESULTS screen, ungated, single field, no chip picker.
+   Highest-intent moment on the site and currently the emptiest.
+2. The same single offer on the quiz landing page, one hundred and ninety-eight
+   users and zero asks.
+3. Simplify the profile capture from five chips to one offer pointing at the
+   joint guides group.
+4. Wire the key events, signup and affiliate click, so the next change is
+   gradeable.
+5. Profile-to-tools routing with the remaining days: two hundred and two users
+   reach a profile, six reach a tool.
+Do NOT spend laptop days on pins. Pins are the one item on this list that works
+from an iPad, and they are the correct travel activity. Calibrate expectations
+to the eleven users they delivered in twenty-eight days. Hold Reddit until
+delivery is confirmed.
+
+**DO NOT GATE THE RESULTS.** Operator instinct, endorsed on the data: fifty-six
+percent of users reach a profile and that flow is the healthiest metric the site
+has. A gate trades the best behavioural number for a handful of emails on a
+funnel still growing. Capture goes AFTER value is delivered, as an enhancement,
+never as a toll.
+
+**Realistic scale, so nothing is over-invested.** At three hundred and sixty
+users a month a good capture rate returns seven to ten signups a month against
+the current one and a half. That is a five-fold gain on a small number. Email is
+an owned asset and a slow one; it will not pay this year. The routing work is
+the larger lever at this scale.
+
+**P2, OPEN: dead capture code on index.html.** The page carries orphaned
+plumbing for a capture that does not exist: functions showReportSignup,
+showReportSignupResults, submitReport and submitReportResults, the CSS for
+report-icon-btn, and three hidden form stubs commented "Hidden Netlify form
+registration". NONE of the referenced element ids exist as markup, and no form
+carries the data-netlify attribute that Netlify requires to register a form at
+deploy time, so the stubs were never live either. If those functions were ever
+called they would throw on a null element. Delete when the real capture ships.
+Recorded because this code cost a session two wrong diagnoses in one hour: first
+that the quiz was silently discarding submissions, then that delivery was
+broken. Code that looks like a shipped feature and is not is a trap, and this
+board's own principle covers it: the defects that survive longest live in
+surfaces nothing reads.
+
+**Corrections on the record, August 19 2026.** Two assertions made in session and
+disproved by the operator, both from inferring live behaviour out of code without
+checking reachability. (1) "Every visitor who typed an email into the quiz result
+screen was told check your inbox and lost" was FALSE; the UI does not render and
+nobody was ever offered a form there. (2) "Delivery is broken" was FALSE; the six
+real subscribers show sent, opened and clicked. The operator's test signup and
+her reading of her own dashboard corrected both. The general lesson, worth more
+than either: presence of plumbing is not evidence of a live feature, and the same
+error appears twice in the same week in the cross-city figure work.
+
 **Last updated:** August 18, 2026 (third entry), board hygiene: supersession
 marker, highlight-figure audit, growth queue empty
 (51 profiles live, 24 comparison pages live. No code, no site change. Three

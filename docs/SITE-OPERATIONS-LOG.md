@@ -202,6 +202,80 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-19 - OPS: demand read, funnel read, email capture restructure
+
+**Files:** `docs/TASKBOARD.md`, this log. No code, no HTML, no database, no
+scoring change. Full detail on the board; this entry records method, sources and
+what was got wrong.
+
+**Sources.** Search Console export filtered to
+`where-should-i-retire-quiz.html`, three months to Aug 17 2026. GA4 Reports
+snapshot, property Retire Me Here, twenty-eight days to Aug 18 2026. The two
+windows differ, so absolute numbers are not comparable across them. MailerLite
+dashboard, read live by the operator.
+
+**What the exports answered.** The three questions boarded on Aug 18 were query
+spread, branded share, and whether quiz traffic hands off. Spread: one phrase
+family, top five queries ninety-three percent of attributed clicks, but a
+substantial anonymised tail converting better than the head. Branded: zero, so
+the concentration is genuine discovery. Handoff: yes, decisively, 4.9 percent
+bounce on the ranking page and fifty-six percent of all users reaching a city
+profile at four minutes fifty engagement. The fragile reading of the
+concentration is dead; the eight-week trend line shows a ranking still climbing
+rather than a plateau.
+
+**What replaced the question.** The funnel converts right up to the point where
+money or an email could happen. Two tools carrying affiliate inventory drew six
+users in twenty-eight days against two hundred and two reaching profiles. No key
+events are configured, so nothing downstream is measurable in either direction.
+
+**The email finding, and the correction that matters.** Two diagnoses were
+asserted in session and both were wrong. First: that `index.html` was silently
+discarding quiz-result submissions via unregistered Netlify forms. The forms are
+unregistered, but the capture UI does not render at all; every element id the
+handlers reference is absent from the markup. Nobody has ever been offered that
+form. Second: that delivery was broken. The operator's dashboard shows all six
+real subscribers with emails sent, opened and clicked. Both errors came from
+reading code and asserting behaviour without checking whether the code was
+reachable, which is the same failure as the cross-city figure work earlier in the
+week: presence of plumbing treated as evidence of a live feature.
+
+**What is actually true.** Capture exists only on the fifty-one profiles, below
+the fold, behind a five-chip picker. The quiz engine and the quiz landing page,
+carrying two hundred and sixty-three and one hundred and ninety-eight users
+respectively, ask for nothing. Six signups since April is a placement outcome,
+not a demand signal, and the guides cannot be judged until an offer has appeared
+at the moment of intent.
+
+**Why delivery stopped, which is not a defect.** MailerLite reduced the free plan
+on June 16 2026 to two hundred and fifty subscribers, two thousand five hundred
+monthly emails, three automations, three forms and one landing page, and began
+enforcing on August 13 2026. The account runs six automations. A fresh test
+subscriber records but shows zero emails sent; the six historical subscribers,
+all pre-enforcement, delivered normally. Paused automations cannot be
+reactivated without upgrading, so the pause order is irreversible in practice
+and the restructure must be decided once rather than iterated.
+
+**Operator decision, recorded rather than recommended.** Do not upgrade.
+Restructure to two automations: the Visit workbook keeps its own, the five
+themed guides collapse into one joint delivery email. This was the operator's
+structure, not the one proposed in session, and it is better: it stays under the
+cap with a slot spare, preserves the workbook's distinct moment, and recovers the
+interest signal through per-link click reporting, which is revealed preference at
+the point of reading rather than a choice made before the reader knows what is
+inside.
+
+**Measurement note.** At three hundred and sixty users a month, a healthy capture
+rate returns seven to ten signups a month. Grade the capture work on signup rate
+per session on the results screen, not on list size, and not before October.
+Nothing about email will move revenue this year; it is boarded as an owned asset
+with a slow curve, and the profile-to-tools routing is the larger lever at
+current scale.
+
+**Verified.** Anchor counts asserted before any write; second run is a clean
+no-op; `python3 tools/validate.py --local .` at 0 failures, 0 warnings on a fresh
+clone, `check_docs` included.
+
 ### 2026-08-18 (third entry) - board hygiene, no site change
 
 **Files:** `docs/TASKBOARD.md`, this log. Nothing else. No code, no HTML, no
