@@ -2553,7 +2553,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   <div class="results-grid" id="resultsGrid"></div>
   <div class="results-reports-section" id="resultsReportsSection">
     <div style="font-size:16px;font-weight:700;color:var(--terra);text-align:center;margin-bottom:4px">Free In-Depth Reports: Delivered Instantly</div>
-    <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;font-style:italic;">Chosen for you, based on the priorities you just ranked.</div>
+    <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:16px;font-style:italic;">All five, free, delivered to your inbox.</div>
     <div class="results-report-list" id="results-reports-icons"></div>
   </div>
 
@@ -6634,75 +6634,26 @@ function renderPriorities(container) {
 }
 
 function renderReportIcons(containerId, panelSuffix) {
-  const showRecs = panelSuffix === 'results';
-  const recommended = showRecs ? getRecommendedReports() : [];
-  const reports = [
-    { key: 'globetrotter', icon: '✈️', name: 'The Globetrotter Guide', desc: 'Airport access & travel ease: ranked across all cities', mlId: 'fwB9NA' },
-    { key: 'wellness', icon: '🏥', name: 'The Wellness Blueprint', desc: 'Healthcare quality & hospital rankings by city', mlId: 'f03tJB' },
-    { key: 'value', icon: '💰', name: 'The Value Navigator', desc: 'Real cost of living, taxes & budget ranges by city', mlId: 'W6rMh2' },
-    { key: 'walkabout', icon: '🚶', name: 'The Urban Walkabout', desc: 'True walkability scores & neighborhood analysis', mlId: 'dJJ40D' },
-    { key: 'frontier', icon: '🏔️', name: 'The Active Frontier', desc: 'Outdoor recreation, fitness & active lifestyle fit', mlId: 'g4M1M8' },
-  ];
-
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const rowHTML = (r) => {
-    const isRec = recommended.includes(r.key);
-    const recBadge = isRec ? `<span class="rec-badge-row">⭐ For You</span>` : '';
-    return `<div class="report-row ${isRec ? 'rec-row' : ''}">
-      <div class="report-row-icon">${r.icon}</div>
+  // One offer since the five themed reports were consolidated into a single
+  // joint delivery (MailerLite g4M1M8) on 2026-08-19. The five names are shown
+  // so the reader knows what arrives, but they are not a choice to make: a
+  // five-way decision at this point suppressed signups.
+  container.innerHTML = `
+    <div class="report-row rec-row">
       <div class="report-row-content">
-        <div class="report-row-name">${r.name} ${recBadge}</div>
-        <div class="report-row-desc">${r.desc}</div>
+        <div class="report-row-name">Get all five Deep Dive Reports</div>
+        <div class="report-row-desc">The same ten-dimension scoring you just saw, applied to five different kinds of retirement. One email, all five.</div>
+        <div class="report-row-desc" style="margin-top:6px">&#9992;&#65039; Globetrotter Guide &middot; &#127973; Wellness Blueprint &middot; &#128176; Value Navigator &middot; &#128694; Urban Walkabout &middot; &#127956;&#65039; Active Frontier</div>
       </div>
       <div class="report-row-actions">
-        <button class="btn-rr-preview" onclick="openReportModal('${r.key}')">Preview</button>
-        <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('${r.key}')">Get Free</button>
+        <button class="btn-rr-preview" onclick="openReportModal('deepdive')">Preview</button>
+        <button class="btn-rr-get ml-onclick-form" onclick="openSignupModal('deepdive')">Get all five free</button>
       </div>
     </div>`;
-  };
-
-  // Everywhere except the results screen, behaviour is unchanged: all reports,
-  // in their declared order, no toggle.
-  if (!showRecs) {
-    container.innerHTML = reports.map(rowHTML).join('');
-    return;
-  }
-
-  // On the results screen the quiz has already answered "which of these is for
-  // me", so lead with that answer and let the rest be asked for.
-  const picked = reports.filter(r => recommended.includes(r.key));
-  const rest = reports.filter(r => !recommended.includes(r.key));
-
-  // getRecommendedReports() always returns at least one key, but if that ever
-  // changes, fall back to the full list rather than rendering an empty panel.
-  if (picked.length === 0) {
-    container.innerHTML = reports.map(rowHTML).join('');
-    return;
-  }
-
-  container.innerHTML =
-    picked.map(rowHTML).join('') +
-    `<div id="more-reports" style="display:none">${rest.map(rowHTML).join('')}</div>` +
-    `<button type="button" id="more-reports-toggle" onclick="toggleMoreReports()" ` +
-    `style="display:block;margin:14px auto 0;background:none;border:none;` +
-    `color:var(--mid);font-size:13px;text-decoration:underline;cursor:pointer;">` +
-    `See all ${reports.length} reports</button>`;
 }
-
-function toggleMoreReports() {
-  const more = document.getElementById('more-reports');
-  const btn = document.getElementById('more-reports-toggle');
-  if (!more || !btn) return;
-  const isOpen = more.style.display !== 'none';
-  more.style.display = isOpen ? 'none' : '';
-  btn.textContent = isOpen ? 'See all reports' : 'Show fewer';
-  if (!isOpen && typeof gtag !== 'undefined') {
-    gtag('event', 'reports_expand', {event_category: 'Reports', event_label: 'results'});
-  }
-}
-
 function showReportSignup(e, key, name, available) {
   document.querySelectorAll('.report-icon-btn').forEach(function(b) { b.classList.remove('selected'); });
   e.currentTarget.classList.add('selected');
@@ -7281,26 +7232,6 @@ function generateBestFor(city) {
   }
 
   return desc;
-}
-
-function getRecommendedReports() {
-  
-  const recommended = [];
-  const topPrios = DIMENSIONS.filter(d =>
-    quizState.priorities[d.key] === 'Must Have' ||
-    quizState.priorities[d.key] === 'Very Important'
-  ).map(d => d.key);
-
-  if (topPrios.includes('D1')) recommended.push('globetrotter');
-  if (topPrios.includes('D3')) recommended.push('wellness');
-  if (topPrios.includes('D5') || topPrios.includes('D2')) recommended.push('value');
-  if (topPrios.includes('D6')) recommended.push('walkabout');
-  if (topPrios.includes('D7') || topPrios.includes('D8')) recommended.push('frontier');
-
-  
-  if (recommended.length === 0) recommended.push('value', 'wellness');
-
-  return recommended.slice(0, 2);
 }
 
 function buildCityCardHTML(city, i, rankLabels) {
@@ -7888,7 +7819,7 @@ function renderEditorialDetail(city, en) {
     <section class="ed-section" style="background:var(--white);">
       <div class="ed-section-wrap">
         <h3 style="font-family: 'Libre Franklin', sans-serif;font-size:24px;font-weight: 700;margin-bottom:8px;">Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you: each report covers every city on RetireMeHere.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Five reports, one email. Each covers every city on RetireMeHere.</p>
         <div id="city-detail-reports"></div>
       </div>
     </section>
@@ -8162,7 +8093,7 @@ function showCityDetail(cityName, cityState) {
 
       <div class="detail-section" style="padding-bottom:0;">
         <h3>Free In-Depth Reports</h3>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Pick the topic that matters most to you: each report covers every city on RetireMeHere.</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Five reports, one email. Each covers every city on RetireMeHere.</p>
         <div id="city-detail-reports"></div>
       </div>
 
@@ -8372,64 +8303,17 @@ window.addEventListener('DOMContentLoaded', function() {
 
 // ── REPORT PREVIEW MODAL ──
 const REPORT_MODAL_DATA = {
-  globetrotter: {
-    icon: '✈️', title: 'The Globetrotter Guide',
-    desc: "Staying connected to family and the world shouldn't be a struggle. We've ranked every city on RetireMeHere by airport access, drive time to major hubs, and the quality of connections available to active retirees who travel.",
+  deepdive: {
+    icon: '\u{1F4D8}', title: 'The Deep Dive Reports',
+    desc: "Five reports, one email. Each applies the same ten-dimension scoring used on every city here to a different kind of retirement, and each is honest about what a place costs you as well as what it gives you.",
     features: [
-      { icon: '📍', text: 'Drive time to nearest major hub airport for every city' },
-      { icon: '✈️', text: 'Number of airlines, nonstop routes, and hub status ranked' },
-      { icon: '⚠️', text: 'Honest tradeoffs: beautiful cities with serious airport gaps identified' },
-      { icon: '🏆', text: 'Key takeaways: which regions dominate, which surprise you' },
+      { icon: '\u2708\uFE0F', text: 'Globetrotter Guide: airport access, hubs and nonstop routes' },
+      { icon: '\u{1F3E5}', text: 'Wellness Blueprint: healthcare quality and hospital strength' },
+      { icon: '\u{1F4B0}', text: 'Value Navigator: real cost of living, taxes and budget ranges' },
+      { icon: '\u{1F6B6}', text: 'Urban Walkabout: walkability and neighborhood texture' },
+      { icon: '\u{1F3D4}\uFE0F', text: 'Active Frontier: outdoor recreation and active lifestyle fit' },
     ],
-    cities: ['Naples, FL', 'Scottsdale, AZ', 'Charleston, SC', 'Chattanooga, TN', 'Santa Fe, NM'],
-    mlId: 'fwB9NA'
-  },
-  wellness: {
-    icon: '🏥', title: 'The Wellness Blueprint',
-    desc: "When your health is on the line, proximity to great medical care matters enormously. This report ranks every city by hospital quality, specialist availability, and what retirees with serious conditions need to know.",
-    features: [
-      { icon: '🏥', text: 'US News, Healthgrades, and Leapfrog ratings for every city\'s hospitals' },
-      { icon: '⭐', text: 'National rankings: which cities have truly elite care vs. adequate care' },
-      { icon: '⚠️', text: 'Red flags identified: cities where serious specialist needs require travel' },
-      { icon: '🏆', text: 'Key takeaway: Naples and Scottsdale lead; Palm Springs is a gap' },
-    ],
-    cities: ['Naples, FL', 'Scottsdale, AZ', 'Sarasota, FL', 'Chattanooga, TN', 'Palm Springs, CA'],
-    mlId: 'f03tJB'
-  },
-  value: {
-    icon: '💰', title: 'The Value Navigator',
-    desc: "The real cost of retirement living goes beyond home prices. This report covers monthly budget ranges, tax burden, housing costs, and what a retired couple actually needs to live comfortably in each city.",
-    features: [
-      { icon: '🏠', text: 'Typical home value and monthly rental estimates for every city' },
-      { icon: '📋', text: 'State tax burden on Social Security, 401(k), IRA, and pension income' },
-      { icon: '💵', text: 'Realistic monthly budget ranges for a retired couple' },
-      { icon: '🏆', text: 'Key takeaway: Chattanooga and Tucson lead on value; Naples tops the range' },
-    ],
-    cities: ['Chattanooga, TN', 'Tucson, AZ', 'Greenville, SC', 'Naples, FL', 'Scottsdale, AZ'],
-    mlId: 'W6rMh2'
-  },
-  walkabout: {
-    icon: '🚶', title: 'The Urban Walkabout',
-    desc: "Walk Score tells only part of the story. This report looks at which neighborhoods are genuinely walkable, where car dependence is unavoidable, and which cities punch above their weight for on-foot living.",
-    features: [
-      { icon: '🗺️', text: 'Walk Scores and neighborhood-level walkability analysis for each city' },
-      { icon: '🚌', text: 'Transit options, trolleys, and bike infrastructure rated' },
-      { icon: '⚠️', text: 'The walkability illusion: cities that look walkable but aren\'t for retirees' },
-      { icon: '🏆', text: 'Key takeaway: Savannah\'s squares and Charleston\'s peninsula are the walkable Southern classics' },
-    ],
-    cities: ['Savannah, GA', 'Charleston, SC', 'Santa Fe, NM', 'Scottsdale, AZ', 'Naples, FL'],
-    mlId: 'dJJ40D'
-  },
-  frontier: {
-    icon: '🏔️', title: 'The Active Frontier',
-    desc: "For retirees who define retirement as doing more, not less. This report ranks cities by outdoor recreation variety, trail access, golf, pickleball, fitness infrastructure, and year-round usability.",
-    features: [
-      { icon: '🥾', text: 'Hiking, cycling, kayaking, and outdoor recreation scored for every city' },
-      { icon: '⛳', text: 'Golf, pickleball, tennis, and fitness infrastructure rated' },
-      { icon: '📅', text: 'Year-round usability: how many months outdoor life is truly comfortable' },
-      { icon: '🏆', text: 'Key takeaway: Tucson and Chattanooga surprise; Naples leads the coast' },
-    ],
-    cities: ['Tucson, AZ', 'Chattanooga, TN', 'Naples, FL', 'Scottsdale, AZ', 'Bend, OR'],
+    cities: ['Asheville, NC', 'Naples, FL', 'Santa Fe, NM', 'Tucson, AZ', 'Chattanooga, TN'],
     mlId: 'g4M1M8'
   }
 };
@@ -8687,10 +8571,6 @@ function closeReportModal(e) {
     <div class="rr-modal-box" id="rrModalBox"></div>
   </div>
   <div id="mlFormVault" style="display:none" aria-hidden="true">
-    <div class="ml-form-wrap" id="mlwrap-fwB9NA"><div class="ml-embedded" data-form="fwB9NA"></div></div>
-    <div class="ml-form-wrap" id="mlwrap-f03tJB"><div class="ml-embedded" data-form="f03tJB"></div></div>
-    <div class="ml-form-wrap" id="mlwrap-W6rMh2"><div class="ml-embedded" data-form="W6rMh2"></div></div>
-    <div class="ml-form-wrap" id="mlwrap-dJJ40D"><div class="ml-embedded" data-form="dJJ40D"></div></div>
     <div class="ml-form-wrap" id="mlwrap-g4M1M8"><div class="ml-embedded" data-form="g4M1M8"></div></div>
   </div>
 
