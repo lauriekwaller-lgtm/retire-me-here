@@ -202,6 +202,103 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-21 - key events wired, affiliate and signup
+
+**Files:** `index.html`, all 51 city profiles, `visit-before-you-decide.html`,
+`docs/TASKBOARD.md`, this log. One commit, 55 files. No database change, no
+scoring change, no new pages, and nothing a visitor sees.
+
+**Why.** Three commits shipped Aug 20 and none of them was measurable. The
+grading rule on the board is signup rate per results-screen session, a fraction
+whose numerator lived in MailerLite and whose denominator lived in GA4 with
+nothing joining them. Affiliate clicks, the actual revenue path, fired nothing
+at all from any of the 52 pages carrying a link.
+
+**Baselines re-derived from live main before building, and the brief was wrong
+in two places.** The brief said every GA4 event on the site lived in
+`index.html`; `pick-and-compare.html` and `where-can-i-afford-to-retire.html`
+each carry their own, so the sweep had to look wider than the brief scoped it.
+The brief also said the affiliate inventory was one Expedia and one Vrbo per
+page; `visit-before-you-decide.html` carries a third merchant, Hotels.com. Had
+merchant been hardcoded to the two named brands, as the brief's framing
+invited, Hotels.com clicks would have been silently mislabelled. Merchant is
+read off the href instead. Both corrections came from grepping rather than
+inheriting, which is the rule that keeps earning its place.
+
+**What shipped.** One identical block on 53 pages, two delegated listeners on
+`document`, both in the capture phase. `affiliate_click` carries merchant and
+page slug. `signup_submit` carries which of the three MailerLite form homes the
+node occupied at submit. Delegation from `document` is what makes the second
+one survive `returnMlForms()` moving the node between the vault, the results
+band and the modal; capture phase is what stops a downstream `stopPropagation`
+from silencing either. Nothing is hardcoded per page, so the block is
+byte-identical on all 53 and a new profile inherits it.
+
+**The MailerLite question, which the brief correctly named as the one genuine
+unknown, resolved.** The embed is the JavaScript-snippet variant
+(`universal.js` plus `<div class="ml-embedded" data-form="g4M1M8">`), not the
+classic HTML embed, so the `ml_webform_success_<id>` global that older guidance
+points at does not exist here. What does exist is a real `<form>` element
+rendered into our own DOM, not an iframe, which is why a delegated submit
+listener is possible. That is a better hook than the `MutationObserver` on
+success markup the brief anticipated, because an observer couples to
+MailerLite's rendered success state and fails silently on a restyle, while a
+submit listener couples only to the presence of a form. The observer was not
+needed and was not shipped, so there is no fragility to board on that count.
+Separately, GA4 enhanced measurement captures `form_start` and `form_submit` on
+this embed with no code, and is worth enabling as an independent second signal,
+but it cannot separate the results band from the city-detail modal because both
+are the same form ID on the same URL. Ours can.
+
+**Scope boundary held.** `signup_submit` measures an attempted submit, not a
+confirmed subscriber, and the event name says so. Confirmed subscribers are
+counted exactly by MailerLite already, so GA4 only ever needed to supply the
+denominator plus an attempt signal. Framing it that way removed the hard half
+of the problem rather than solving it.
+
+**Dead plumbing, swept repo-wide.** `submitProfileCapture` had zero call sites
+and called `openSignupModal('value')`, a key that stopped existing at the Aug 19
+consolidation, so it would have returned silently even if it had been reachable.
+Deleted, along with the `quiz-results` Netlify stub it was the only poster to,
+six `.rsp-` CSS rules with zero usages in markup or JS, and a `report-signup`
+stub that had been registered twice. One `report-signup` stub is kept: the Aug
+20 entry said clearing the stubs belonged with this session IF the fallback
+path were retired, and it is not being retired, so the stub stays with it.
+
+**Renames.** `report_request` fired on the signup modal opening and is now
+`signup_modal_open`. `report_signup` fires only on the Netlify fallback and is
+now `signup_submit_fallback`. Judgment call: this breaks GA4 continuity under
+the old names, accepted because neither had honest volume and the historical
+data stays queryable.
+
+**Verified.** Fresh clone, single apply script, `python3 tools/validate.py
+--local .` at 0 failures 0 warnings, second run of the script a clean no-op,
+anchor counts asserted before any write and re-asserted after. Beyond the gate:
+the shipped block was extracted from the built files and exercised under jsdom
+across 33 cases, covering all three form homes, the reparent-and-return case,
+both merchants plus the third one the brief missed, and the negative cases
+(internal links, the word "affiliated" in prose, unrelated forms, the Netlify
+stub). The test discriminates rather than merely passing: five planted defects,
+five caught, including the capture-phase removal and the container-bound
+listener. Neither test is in the repo, for the same reason as Aug 20.
+
+**NOT verified.** Any of it in a real browser, and specifically whether
+MailerLite emits a native submit event on its rendered form. jsdom stands in a
+hand-built form node because `universal.js` does not run there, so our listener
+logic is proven and MailerLite's event emission is assumed. Following the
+standing rule, nothing here is described as working until DebugView has been
+watched on production. `affiliate_click` has no third-party dependency and is
+the lower-risk half; if one of the two arrives and the other does not, that is
+the expected shape of the failure and the fallback is enhanced measurement.
+
+**Inert until the operator acts.** Marking both as key events, registering
+`merchant`, `surface` and `city_slug` as custom dimensions, and enabling Form
+interactions are all GA4 admin steps. Shipping the code and skipping them
+changes nothing anyone can read.
+
+**Grading.** Unchanged. Signup rate per results-screen session, graded no
+earlier than October, now that the denominator exists.
+
 ### 2026-08-20 (second entry) - embed spacing, timing copy, and a missed log entry
 
 **Files:** `index.html` and all 51 profiles (spacing, shipped separately),

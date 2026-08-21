@@ -4,10 +4,105 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 20, 2026, results-screen capture band shipped
-(51 profiles live, 24 comparison pages live. The quiz results screen now asks
-for an email inline, at the moment of highest intent, instead of behind a modal
-click.)
+**Last updated:** August 21, 2026, key events wired
+(51 profiles live, 24 comparison pages live. Affiliate clicks and signup
+submits now emit GA4 events. The capture path is measurable for the first
+time.)
+
+**SHIPPED, August 21 2026. Key events, 53 files.**
+
+*What was dark.* Affiliate clicks, the revenue path, fired nothing from any of
+the 52 pages carrying a link. The 51 profiles fired no GA4 event of any kind.
+A successful signup on the results screen produced no event whatsoever, because
+`report_signup` only ever fired on the Netlify fallback path that a real
+MailerLite submit never touches. Not a wrong number: no number.
+
+*Two events, two delegated listeners, one identical block on 53 pages.*
+`affiliate_click` carries merchant and page slug; `signup_submit` carries which
+of the three form homes the node was in at the moment of submit. Both delegate
+from `document` in the CAPTURE phase. Capture is doing real work here, not
+decoration: it means a downstream `stopPropagation` cannot silence either
+event, and delegation from document means the listener survives the MailerLite
+node being reparented between the vault, the results band and the modal, which
+is the exact hazard the Aug 20 mechanism created. Merchant is read off the
+href rather than hardcoded, and the page slug off `location.pathname`, so the
+block is byte-identical everywhere and a new profile inherits instrumentation
+without anyone remembering to wire it.
+
+*Dead plumbing swept repo-wide, not region-wide.* `submitProfileCapture`
+deleted: zero call sites, and it called `openSignupModal('value')`, a key that
+stopped existing at the Aug 19 consolidation, so it would have returned
+silently even if reached. With it went the orphaned `quiz-results` Netlify stub
+it was the only poster to, six `.rsp-` CSS rules with zero usages anywhere in
+markup or JS, and a DUPLICATE `report-signup` stub that had been registered
+twice. One `report-signup` stub is KEPT deliberately: `submitSignupModal` is a
+real fallback for the case where the MailerLite wrapper node is missing, that
+fallback is not being retired, so the stub stays.
+
+*Names now match what they measure.* `report_request` fired when the signup
+modal OPENED, so it is now `signup_modal_open`. `report_signup` fires only on
+the Netlify fallback, so it is now `signup_submit_fallback` and no longer
+impersonates the real signal. `profile_capture` went with its dead function.
+JUDGMENT CALL: renaming breaks GA4 continuity under the old names. Accepted
+because both had near-zero honest volume and the old data stays queryable.
+
+*THE FINDING, and it is the useful part of this session.* MailerLite's
+JavaScript-snippet embed renders a real `<form>` into our DOM rather than an
+iframe, which is why a delegated `submit` listener works at all. That is a
+markedly better hook than the `MutationObserver` on success markup the brief
+anticipated as a last resort: an observer is coupled to MailerLite's rendered
+success state and breaks silently when they restyle it, whereas a submit
+listener is coupled only to there being a form. The observer was NOT needed and
+was NOT shipped. Second finding: GA4 enhanced measurement captures `form_start`
+and `form_submit` on this embed with no code at all, which is worth switching
+on as an independent second signal, but it cannot distinguish the results band
+from the city-detail modal because both are the same form on the same URL. Ours
+can. That is the reason to have both.
+
+*What `signup_submit` does and does not mean.* It counts an attempted submit,
+which is what the name says. It does not count a confirmed subscriber, and it
+should not: MailerLite already counts those exactly. The board's grading ratio
+needs a denominator GA4 alone can supply and a numerator MailerLite already
+holds, so the hard half of this problem was never ours to solve.
+
+**OPERATOR ACTION REQUIRED, GA4 admin, not in the repo. The code is inert until
+this is done.**
+1. Admin > Events, mark `affiliate_click` and `signup_submit` as key events.
+   Firing an event is not the same as GA4 reporting it as a conversion.
+2. Admin > Custom definitions, register `merchant`, `surface` and `city_slug`
+   as custom dimensions (event-scoped). Without this the events arrive but
+   every breakdown reads "(not set)".
+3. Admin > Data streams > Enhanced measurement, confirm Form interactions is
+   ON, for the independent second signal above.
+4. Then verify in DebugView, on production: click an affiliate link on any
+   profile, and complete one real signup from the results band. This is the
+   ONLY real verification available. The validator cannot see analytics and
+   neither can jsdom.
+
+**NOT VERIFIED, and this is the honest limit.** Everything above about our own
+listener logic was exercised under jsdom across 33 cases including the
+reparenting case, and the test discriminates: five planted defects, five
+caught. But jsdom stands in a hand-built form node, because universal.js does
+not run there. So it is PROVEN that our listener fires correctly on a real form
+element in each of the three homes, and it is UNPROVEN that MailerLite emits a
+native submit event on that element in a browser. If step 4 above shows
+`affiliate_click` arriving but `signup_submit` never arriving, that is the
+assumption that failed, and the fallback is the enhanced-measurement
+`form_submit` signal rather than an observer.
+
+**P2, OPEN, new: the tool pages carry no affiliate inventory at all.** The tax
+tool and the affordability calculator are described on this board as the
+highest-intent inventory on the site and neither has a single affiliate link on
+it. The instrumentation now shipped will faithfully report zero from both,
+forever, until that changes. Not this session, but it is now measurable the day
+it does.
+
+**P2, OPEN, restated with a second instance: the capture path still has no
+regression coverage in the repo.** Boarded Aug 20 after the node-lifetime test
+could not ship. This session wrote a second node test, for the events, that
+also cannot ship for the same reason. Two tests now live outside the repo. The
+decision is unchanged and is now more expensive to keep deferring: add a node
+harness group to the gate, or accept that this path is hand-tested forever.
 
 **SHIPPED, August 20 2026, later entries.**
 

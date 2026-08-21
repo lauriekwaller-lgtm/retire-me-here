@@ -1297,12 +1297,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 .ri-badge.available { background: var(--teal-lt); color: var(--teal); }
 .ri-badge.coming { background: var(--sand); color: var(--light); }
 .report-signup-panel { background: var(--white); border-radius: 14px; padding: 18px; border: 2px solid var(--teal); }
-.rsp-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
-.rsp-sub { font-size: 12px; color: var(--mid); margin-bottom: 12px; }
-.rsp-form { display: flex; flex-direction: column; gap: 8px; }
-.rsp-input { padding: 11px 14px; border: 2px solid #ede9e3; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; }
-.rsp-input:focus { border-color: var(--teal); }
-.rsp-btn { background: var(--teal); color: white; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px; border: none; border-radius: 10px; cursor: pointer; }
 .climate-choice-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
 
 /* Region cards */
@@ -2389,26 +2383,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 </head>
 <body>
 
-<!-- NETLIFY FORM - required for form detection at deploy time -->
-<form hidden method='post' name='report-signup'><input type='hidden' name='form-name' value='report-signup' />
-  <input type="hidden" name="report-name">
-  <input type="email" name="email">
-  <input type="text" name="bot-field">
-</form>
-
 <!-- Hidden Netlify form registration -->
 <form method='POST' name='report-signup' style='display:none'>
   <input type="hidden" name="form-name" value="report-signup">
   <input type="email" name="email">
   <input type="text" name="report-name">
-  <input type="text" name="bot-field">
-</form>
-
-<!-- Hidden Netlify form for quiz results email gate -->
-<form method='POST' name='quiz-results' style='display:none'>
-  <input type="hidden" name="form-name" value="quiz-results">
-  <input type="email" name="email">
-  <input type="text" name="city">
   <input type="text" name="bot-field">
 </form>
 
@@ -7492,46 +7471,6 @@ function revealMatch(e, cardId, cityName, cityState) {
   }
 }
 
-function submitProfileCapture(e, cityName) {
-  e.preventDefault();
-  const emailEl = document.getElementById('profileEmail');
-  const email = emailEl ? emailEl.value.trim() : '';
-  if (!email || !email.includes('@')) {
-    if (emailEl) { emailEl.focus(); emailEl.style.outline = '2px solid var(--terra)'; }
-    return;
-  }
-
-  // Submit to Netlify
-  const data = new URLSearchParams({
-    'form-name': 'quiz-results',
-    'email': email,
-    'city': cityName,
-    'bot-field': ''
-  });
-  fetch('/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: data.toString()
-  }).catch(() => {});
-
-  // Open the Value Navigator signup (MailerLite embedded form) to complete delivery
-  openSignupModal('value');
-
-  // GA event
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'profile_capture', { event_category: 'Engagement', event_label: cityName });
-  }
-
-  // Show success message
-  const capture = document.getElementById(`profileCapture-${cityName.replace(/\s/g,'-')}`);
-  if (capture) {
-    capture.innerHTML = `<div class="capture-success">
-      <strong>✓ Almost there!</strong>
-      Enter your email in the form that just opened and the Value Navigator guide will be on its way to your inbox.
-    </div>`;
-  }
-}
-
 function getTopDimsForUser(city) {
   const topByPriority = DIMENSIONS.filter(d =>
     quizState.priorities[d.key] === 'Must Have' || quizState.priorities[d.key] === 'Very Important'
@@ -8455,7 +8394,7 @@ function openSignupModal(key) {
   const r = REPORT_MODAL_DATA[key];
   if (!r) return;
   if (typeof gtag !== 'undefined') {
-    gtag('event', 'report_request', {event_category: 'Reports', event_label: r.title});
+    gtag('event', 'signup_modal_open', {event_category: 'Signup', event_label: r.title});
   }
   returnMlForms();
   returnMlForms();
@@ -8531,7 +8470,7 @@ function submitSignupModal(key, reportTitle) {
       document.getElementById('signup-form-wrap').style.display = 'none';
       document.getElementById('signup-confirm').style.display = 'block';
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'report_signup', {event_category: 'Reports', event_label: reportTitle});
+        gtag('event', 'signup_submit_fallback', {event_category: 'Signup', event_label: reportTitle});
       }
     })
     .catch(() => {
@@ -8722,6 +8661,67 @@ function closeReportModal(e) {
   update();
 })();
 /* === END SAMPLE-MATCHES CAROUSEL BEHAVIOR === */
+</script>
+
+<!-- RMH-ANALYTICS-V1 -->
+<script>
+/* RetireMeHere event instrumentation. Two delegated listeners, both passive.
+   Nothing here changes what a visitor sees or blocks any default action. */
+(function () {
+  function pageSlug() {
+    var p = location.pathname || '';
+    var m = p.match(/\/cities\/([^\/]+)\//);
+    if (m) { return m[1]; }
+    var f = p.split('/').pop().replace(/\.html$/, '');
+    return f || 'home';
+  }
+
+  function send(name, params) {
+    if (typeof gtag !== 'function') { return; }
+    gtag('event', name, params);
+  }
+
+  /* Outbound affiliate clicks. Merchant is read off the href rather than
+     hardcoded, so a third merchant on a page is counted without a code
+     change. GA4 sends via sendBeacon, which survives the navigation. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) { return; }
+    var a = t.closest('a[href*="/affiliate/"]');
+    if (!a) { return; }
+    var host = '';
+    try {
+      host = new URL(a.href, location.href).hostname.replace(/^www\./, '');
+    } catch (err) { return; }
+    if (!host) { return; }
+    send('affiliate_click', {
+      event_category: 'Affiliate',
+      event_label: pageSlug(),
+      merchant: host.split('.')[0],
+      surface: pageSlug()
+    });
+  }, true);
+
+  /* MailerLite signup submits, labelled by which of the three homes the form
+     node was sitting in at the moment of submit. This measures an attempted
+     submit, which is what the event name says. Confirmed subscribers are
+     counted by MailerLite and are not what this number is for. */
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (!f || !f.closest) { return; }
+    if (!f.closest('.ml-form-wrap')) { return; }
+    var where = 'profile';
+    if (f.closest('#mlFormSlot')) { where = 'modal'; }
+    else if (f.closest('#mlFormHomeResults')) { where = 'results_band'; }
+    else if (f.closest('#mlFormVault')) { where = 'vault'; }
+    send('signup_submit', {
+      event_category: 'Signup',
+      event_label: where,
+      surface: where,
+      city_slug: pageSlug()
+    });
+  }, true);
+})();
 </script>
 
 </body>

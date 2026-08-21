@@ -2013,5 +2013,66 @@ html { scroll-padding-top: 64px; }
 /* ===== END STICKY CHIP NAV BEHAVIOR ===== */
 </script>
 
+<!-- RMH-ANALYTICS-V1 -->
+<script>
+/* RetireMeHere event instrumentation. Two delegated listeners, both passive.
+   Nothing here changes what a visitor sees or blocks any default action. */
+(function () {
+  function pageSlug() {
+    var p = location.pathname || '';
+    var m = p.match(/\/cities\/([^\/]+)\//);
+    if (m) { return m[1]; }
+    var f = p.split('/').pop().replace(/\.html$/, '');
+    return f || 'home';
+  }
+
+  function send(name, params) {
+    if (typeof gtag !== 'function') { return; }
+    gtag('event', name, params);
+  }
+
+  /* Outbound affiliate clicks. Merchant is read off the href rather than
+     hardcoded, so a third merchant on a page is counted without a code
+     change. GA4 sends via sendBeacon, which survives the navigation. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) { return; }
+    var a = t.closest('a[href*="/affiliate/"]');
+    if (!a) { return; }
+    var host = '';
+    try {
+      host = new URL(a.href, location.href).hostname.replace(/^www\./, '');
+    } catch (err) { return; }
+    if (!host) { return; }
+    send('affiliate_click', {
+      event_category: 'Affiliate',
+      event_label: pageSlug(),
+      merchant: host.split('.')[0],
+      surface: pageSlug()
+    });
+  }, true);
+
+  /* MailerLite signup submits, labelled by which of the three homes the form
+     node was sitting in at the moment of submit. This measures an attempted
+     submit, which is what the event name says. Confirmed subscribers are
+     counted by MailerLite and are not what this number is for. */
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (!f || !f.closest) { return; }
+    if (!f.closest('.ml-form-wrap')) { return; }
+    var where = 'profile';
+    if (f.closest('#mlFormSlot')) { where = 'modal'; }
+    else if (f.closest('#mlFormHomeResults')) { where = 'results_band'; }
+    else if (f.closest('#mlFormVault')) { where = 'vault'; }
+    send('signup_submit', {
+      event_category: 'Signup',
+      event_label: where,
+      surface: where,
+      city_slug: pageSlug()
+    });
+  }, true);
+})();
+</script>
+
 </body>
 </html>
