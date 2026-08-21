@@ -202,6 +202,71 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-20 - results-screen capture band, inline email field
+
+**Files:** `index.html`, all 51 city profiles, `docs/TASKBOARD.md`, this log.
+One commit, 53 files. No database change, no scoring change, no new pages.
+
+**What changed and why.** The Aug 19 work fixed what the offer said; this fixes
+where it sits and what it asks for. On the quiz results screen the Deep Dive
+offer rendered as a single full-width row inheriting `.report-row`, styling
+designed for a list of five, and the email field was behind a modal click. That
+is the highest-intent moment on the site and it was the weakest ask on it. The
+row is now a centred band on the deep teal ground, 820px inner, gold eyebrow,
+the same headline the profiles carry, the five names, then the MailerLite field
+inline. Preview survives as an underlined link under the field.
+
+**Mechanism.** `mlFormHome()` returns the results-screen slot when it exists and
+the hidden vault otherwise; `returnMlForms()` asks it instead of hardcoding the
+vault. That is the whole change to the capture path, and the vault behaviour is
+unchanged on first load and on every page where the results screen has not
+rendered.
+
+**The hazard that was found while building, and how it is guarded.** MailerLite
+renders each `.ml-embedded` node once per page load, and moving the field inline
+puts that node inside the very container `renderReportIcons` rewrites. Order is
+what saves it: the reference is taken and the node parked in the vault before
+`innerHTML` is touched, then moved into the fresh slot. Look it up after the
+rewrite instead and it is already orphaned, with no second render coming, so the
+field disappears on a quiz retake and stays gone for the session. Both
+directions were run under jsdom against the built file: shipped order survives
+the retake, planted lookup-after-rewrite destroys the node and reports zero
+wraps. Neither the validator nor a node parse can see this.
+
+**City detail screens.** Modal kept, card restyled: centred, 560px, white on a
+terra hairline, buttons side by side. It stops reading as a footer strip.
+
+**Name line.** The five report names are now a centred flex row with a gap, on
+index.html and on all 51 profiles. The middot separators were removed rather
+than restyled, because a separator that wraps to the start of a line is worse
+than none. Judgment call, noted on the board, cheap to reverse.
+
+**Dead code.** Four zero-call-site functions deleted. The three unregistered
+Netlify stubs kept: `submitSignupModal` still posts `form-name=report-signup` on
+the fallback path, and the stub is the only surviving record of that intent.
+
+**Verified.** Fresh clone, apply, `python3 tools/validate.py --local .` at 0
+failures 0 warnings, second run of the script a clean no-op, anchor counts
+asserted before any write, file count diffed against the pull. Beyond the gate:
+the whole page was loaded under jsdom and the capture path exercised end to end
+across eight scenarios, including the one this change exists for, which is
+returning to the results screen after the modal has borrowed the form node. The
+test discriminates: it fails on planted defects rather than passing on anything.
+That test is NOT in the repo. It needs node and jsdom, and the toolchain is
+python; wiring a second runtime into the gate is a decision, not a tweak, so it
+is boarded rather than smuggled in.
+
+**NOT verified.** Any of it in a real browser, and nothing at all about
+MailerLite's own behaviour: jsdom stands in a hand-built form node for the embed,
+because universal.js does not run there. So the node-lifetime logic is tested and
+MailerLite's rendering is not. Following the Aug 19 rule, nothing here is
+described as working until the four-step test on the board has been run on
+production.
+
+**Grading.** Unchanged from Aug 19. Key events are still unwired, so this is not
+measurable yet. Grade on signup rate per results-screen session once events
+exist, not on list size, and not before October.
+
 ### 2026-08-19 (second entry) - Deep Dive consolidation, three commits
 
 **Files:** 52 per commit across three commits (51 city profiles plus

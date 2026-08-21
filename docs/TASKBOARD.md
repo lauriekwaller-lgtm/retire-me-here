@@ -4,11 +4,76 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 19, 2026 (second entry), Deep Dive consolidation
-shipped; email delivery restored
-(51 profiles live, 24 comparison pages live. Three commits shipped today after
-the OPS read. Email capture now works end to end for the first time since
-August 13.)
+**Last updated:** August 20, 2026, results-screen capture band shipped
+(51 profiles live, 24 comparison pages live. The quiz results screen now asks
+for an email inline, at the moment of highest intent, instead of behind a modal
+click.)
+
+**SHIPPED, August 20 2026.**
+
+*One commit, 53 files.* index.html plus all 51 profiles, plus this board and the
+ops log.
+
+*The results-screen band, P1 closed.* The offer was a single full-width
+.report-row inheriting styling built for a list of five, which at desktop width
+read as a beige footer strip, and the email field sat behind a modal click. It
+is now a centred, width-constrained band on the deep teal ground, matching the
+profile capture treatment: gold eyebrow, the same headline the profiles carry,
+the five report names, then the MailerLite field inline. The preview modal
+survives as a small underlined link below the field, for readers who want to
+know what arrives before they hand over an address.
+
+*The mechanism, as boarded.* returnMlForms now asks mlFormHome() where the node
+belongs: the results-screen slot when it has been rendered, the hidden vault
+otherwise. Two functions, no new machinery, and the vault path is untouched on
+first load and on every page where the results screen has never rendered. One
+hazard was found while building and is guarded. MailerLite renders each embed
+once per page load, and the form node now lives INSIDE the container that
+renderReportIcons rewrites. If the node is looked up after the rewrite it is
+already orphaned and the field is gone for the rest of the session, which a quiz
+retake would trigger. renderReportIcons therefore takes the reference and parks
+the node in the vault before touching innerHTML, then moves it into the fresh
+slot. Confirmed both directions in a jsdom run: the shipped order survives a
+retake, a planted lookup-after-rewrite variant destroys the node.
+
+*City detail screens.* Modal kept, card restyled. Centred, width-constrained,
+white on a terra hairline border, buttons side by side and centred. It no longer
+reads as a footer.
+
+*The name line, P2 closed.* The August 19 wrap fix bound each icon to its name
+but the line still centre-wrapped ragged, because the middot separators
+stranded at line ends. The line is now a centred flex row with a gap, on
+index.html and on all 51 profiles, so each wrapped line centres as a unit. The
+separators are gone: a middot cannot strand if it does not exist, and a
+pseudo-element separator would have landed at the start of a wrapped line
+instead, which is worse. JUDGMENT CALL, easy to reverse if the spaced list
+reads as too loose at desktop width.
+
+*Dead code, partially cleared.* showReportSignup, showReportSignupResults,
+submitReport and submitReportResults deleted after confirming zero call sites
+repo-wide (the earlier greps double-counted: each name is a substring of its
+Results twin). The three unregistered Netlify form stubs and the .rsp-* CSS
+were left in place, because submitSignupModal still posts form-name
+report-signup on the fallback path and that stub is the only remaining record of
+the intent. Clearing them belongs with wiring the key events, not here.
+
+**P2, OPEN, new: the capture path has no regression coverage in the repo.** The
+jsdom test written for this session caught the node-lifetime hazard and proves
+the modal-borrow-and-return case, but it needs node and jsdom and the toolchain
+is python. Decide once: either add a node harness group to the gate, or accept
+that the capture path is browser-tested by hand at each change. Do not leave it
+implicit, because this is the second time in a week that a defect sat in a
+surface no check reads.
+
+**NOT VERIFIED IN A BROWSER.** The validator gate passes and cannot see any of
+this. Test after deploy, in this
+order, because the third case is the one the change exists for:
+1. Finish a quiz. The email field appears inline in the teal band.
+2. Open a city detail from the results. The modal still loads the form.
+3. Close it, go back to results. The field is still there.
+4. Retake the quiz. The field is still there.
+If step 3 or 4 shows an empty white box, the node was destroyed rather than
+parked; revert the commit rather than patching forward.
 
 **SHIPPED, August 19 2026.**
 
@@ -74,7 +139,7 @@ width reads as a beige footer strip rather than an offer, and the email field
 sits behind a modal click at the highest-intent moment on the site. Six signups
 since April is a presentation outcome.
 
-**P1, OPEN: the results-screen offer does not look like an offer.** Rebuild it
+**P1, CLOSED August 20: the results-screen offer does not look like an offer.** Rebuild it
 as a centred, width-constrained band matching the profile treatment, with the
 email field inline rather than behind the modal. The inline field is achievable
 without new machinery: returnMlForms currently returns the node to mlFormVault,
@@ -87,7 +152,7 @@ a city detail and confirm its modal still loads the form; return to results and
 confirm the field is still there. The third case is the one the change exists
 for.
 
-**P2, OPEN: the report-name line centres badly on narrow screens.** The wrap fix
+**P2, CLOSED August 20: the report-name line centres badly on narrow screens.** The wrap fix
 shipped today only stopped names splitting from their icons. The line still
 centre-wraps into a ragged three-then-two shape. Fix with flex, a gap and
 justify-content:center so each line centres as a unit, or stack on mobile.
@@ -101,7 +166,7 @@ profiles. Scope it as a proper build, not a tweak: sitemap, canonical, JSON-LD,
 nav across 52 files, validator coverage. No star badge; use the existing gold
 accent.
 
-**P2, OPEN: dead capture code on index.html.** The four zero-call-site functions
+**P2, PARTIALLY DONE August 20: dead capture code on index.html.** Four functions deleted; the three Netlify stubs and the .rsp-* CSS remain, deliberately, until key events are wired. The four zero-call-site functions
 and the three unregistered Netlify stubs described above. Delete them when the
 results-screen rebuild ships, since that work is in the same code. Cost so far:
 one session, three wrong diagnoses.
