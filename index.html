@@ -8427,7 +8427,7 @@ function openReportModal(key) {
         </div>
       </div>
       <button class="rr-modal-cta" onclick="openSignupModal('${key}')">Get This Report Free →</button>
-      <div class="rr-modal-free">Delivered to your inbox in minutes. No spam, ever.</div>
+      <div class="rr-modal-free">Sent to your inbox. No spam, ever.</div>
     </div>
   `;
   document.getElementById('rrModalOverlay').classList.add('open');
@@ -8463,9 +8463,9 @@ function openSignupModal(key) {
   box.innerHTML = `
     <div class="rr-modal-header">
       <button class="rr-modal-close" onclick="closeReportModal()">✕</button>
-      <div class="rr-modal-series">Free: Delivered Instantly</div>
+      <div class="rr-modal-series">Free: One Email, All Five</div>
       <div class="rr-modal-title">${r.icon} ${r.title}</div>
-      <div class="rr-modal-desc">Enter your email below and we'll send it right to your inbox.</div>
+      <div class="rr-modal-desc">Enter your email below and we'll send them to your inbox.</div>
     </div>
     <div class="rr-modal-body">
       <div class="ml-form-slot" id="mlFormSlot"></div>
@@ -8492,9 +8492,9 @@ function showEmailFallbackModal(key) {
   box.innerHTML = `
     <div class="rr-modal-header">
       <button class="rr-modal-close" onclick="closeReportModal()">✕</button>
-      <div class="rr-modal-series">Free: Delivered Instantly</div>
+      <div class="rr-modal-series">Free: One Email, All Five</div>
       <div class="rr-modal-title">${r.icon} ${r.title}</div>
-      <div class="rr-modal-desc">Enter your email and we'll send it right to your inbox.</div>
+      <div class="rr-modal-desc">Enter your email and we'll send them to your inbox.</div>
     </div>
     <div class="rr-modal-body">
       <div id="signup-form-wrap">

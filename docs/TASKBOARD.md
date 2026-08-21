@@ -9,6 +9,44 @@ When a job moves, edit the line here (or ask Claude to). If it is not on this bo
 for an email inline, at the moment of highest intent, instead of behind a modal
 click.)
 
+**SHIPPED, August 20 2026, later entries.**
+
+*Form spacing, 52 files, index.html plus all 51 profiles.* The MailerLite form
+rendered flattened on our pages: bullets hanging outside the text column, copy
+below the list sitting flush against it. Cause was ours, not MailerLite's. Both
+index.html and every profile open with a global reset, `* { margin: 0; padding:
+0; }`, which reaches inside the embed and strips the ul's left padding and every
+list and paragraph margin. The builder preview looks correct because the reset
+is not there, which is why this read as a MailerLite problem. Fixed by restoring
+padding and vertical rhythm scoped to `.ml-form-wrap`, so nothing outside the
+form is reachable. Verified in a browser by the operator.
+
+*LESSON, worth keeping.* A third-party embed inherits our global reset. Anything
+we style with a universal selector styles their markup too, and their preview
+cannot see it. Next time an embed looks wrong, check our reset before editing
+theirs.
+
+*PROCESS FAILURE on that commit: it shipped without a board or log entry.* The
+standing rule is that TASKBOARD.md and SITE-OPERATIONS-LOG.md travel in the same
+commit as the code. This one did not, because the fix was treated as a quick
+follow-up to the capture band rather than as a change in its own right. The
+record is reconstructed in the timing-copy commit that follows, one commit late.
+Noted rather than quietly backfilled: a rule that bends for small changes is not
+a rule, and "small" is exactly when it will bend.
+
+*Timing copy, index.html.* A real signup on August 20 arrived well outside the
+promised window. Nothing was broken: free-plan automations queue and delivery
+time is not ours to control, so the promise was the defect. Five strings in the
+modal path rewritten, "Free: Delivered Instantly" twice among them. "Check your
+inbox in a few minutes" left alone, already honest. The results band makes no
+timing claim; that went out with the rebuild. Profile capture copy never made
+one.
+
+*Operator action, MailerLite side, not in the repo.* The form's own line still
+reads "within a minute". Change it in the builder to a few minutes. It is the
+sentence a reader actually looks at while waiting, so it matters more than any
+of the five above.
+
 **SHIPPED, August 20 2026.**
 
 *One commit, 53 files.* index.html plus all 51 profiles, plus this board and the

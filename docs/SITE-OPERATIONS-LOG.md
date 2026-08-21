@@ -202,6 +202,50 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-20 (second entry) - embed spacing, timing copy, and a missed log entry
+
+**Files:** `index.html` and all 51 profiles (spacing, shipped separately),
+`index.html`, `docs/TASKBOARD.md`, this log (timing copy). No database change,
+no scoring change, no new pages.
+
+**Embed spacing.** With the field inline on the results screen, the MailerLite
+form got looked at closely for the first time and was rendering wrong: bullets
+hanging outside the text column, the closing paragraph flush against the list.
+The cause was our own global reset, `* { margin: 0; padding: 0; }`, at the top
+of index.html and of every profile. It reaches inside the embed and strips the
+ul's left padding and all list and paragraph margins. MailerLite's builder
+preview looks correct because the reset is not in it. Fixed by restoring padding
+and rhythm scoped to `.ml-form-wrap`. Operator confirmed in a browser.
+
+**The generalisable bit.** A universal selector styles third-party embedded
+markup too, and the third party cannot see it. When an embed looks wrong on our
+pages, suspect our reset before their builder. This one cost a wrong first
+diagnosis: the difference was initially read as MailerLite's styling rather than
+ours.
+
+**Process failure, recorded not buried.** The spacing commit shipped with no
+board or log entry, breaking the standing rule that documentation travels in the
+same commit as the code. It was treated as a follow-up rather than a change.
+Reconstructed here, one commit late. The rule exists precisely for changes that
+feel too small to log, because those are the ones a future operator finds
+unexplained.
+
+**Timing copy.** A real signup arrived well outside the window the copy
+promised. This is expected behaviour for a free-plan automation, where sends
+queue and delivery time is not controllable, so the defect was the promise. Five
+strings rewritten in the modal path, including "Free: Delivered Instantly"
+twice. Left alone: "Check your inbox in a few minutes", already accurate. The
+rebuilt results band carries no timing claim and the profile capture copy never
+did, so the exposure was confined to the modal.
+
+**Still operator-side.** The MailerLite form's own line, "within a minute", is
+in the builder and not in the repo. It is the sentence a subscriber reads while
+waiting, so it outranks all five above.
+
+**Verified.** `python3 tools/validate.py --local .` at 0 failures 0 warnings,
+second run of each script a clean no-op, anchor counts asserted before any
+write. Spacing verified in a browser by the operator; timing copy is text only.
+
 ### 2026-08-20 - results-screen capture band, inline email field
 
 **Files:** `index.html`, all 51 city profiles, `docs/TASKBOARD.md`, this log.
