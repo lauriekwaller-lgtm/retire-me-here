@@ -1211,6 +1211,21 @@ html { scroll-padding-top: 64px; }
   background: transparent;
   box-shadow: none;
 }
+
+/* ── ML EMBED, SPACING RESTORED ──
+   The global reset at the top of this file zeroes padding and margin on
+   everything, including the markup MailerLite renders inside the embed. That
+   is why the bullets hang outside the text column and the copy below them sits
+   flush against the list. These rules restore the defaults inside the form and
+   nowhere else. If MailerLite's form copy is restructured later, adjust here
+   rather than in the builder: the builder cannot see this reset. */
+.ml-form-wrap ul,
+.ml-form-wrap ol { padding-left: 24px; margin: 0 0 16px; }
+.ml-form-wrap li { margin-bottom: 5px; }
+.ml-form-wrap li:last-child { margin-bottom: 0; }
+.ml-form-wrap li > p { margin-top: 10px; }
+.ml-form-wrap p { margin: 0 0 12px; }
+.ml-form-wrap p:last-child { margin-bottom: 0; }
 .capture-form input[type="email"] {
   flex: 1 1 240px;
   padding: 15px 20px;
