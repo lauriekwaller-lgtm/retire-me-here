@@ -402,6 +402,17 @@ a.btn-quiz-primary:hover {
 }
 .calc-note strong { color: var(--dark); }
 
+/* Affiliate offer, attached to a result the reader has already been given.
+   Never in front of the answer: the offer follows the value, it is not a toll. */
+.rmh-scout { font-size: 12.5px; line-height: 1.5; margin-top: 6px; color: var(--light); }
+.rmh-scout a, .rmh-scout a:link, .rmh-scout a:visited {
+  color: var(--terra); font-weight: 600; text-decoration: underline;
+}
+.rmh-disclosure {
+  text-align: center; font-size: 12.5px; line-height: 1.5; color: var(--light);
+  font-style: italic; max-width: 620px; margin: 0 auto 22px;
+}
+
 /* RESULTS */
 .res-head { text-wrap: balance;
   margin: 40px 0 6px; text-align: center;
@@ -703,6 +714,7 @@ a.final-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba
 
     <h3 class="res-head" id="resHead">Your matches</h3>
     <p class="res-sub" id="resSub"></p>
+    <p class="rmh-disclosure">Some booking links below are partner links from Expedia Group. RetireMeHere may earn a small commission if you book through them, at no additional cost to you.</p>
     <div id="resEmpty"></div>
     <div class="res-list" id="resList"></div>
     <div class="res-more" id="resMore"></div>
@@ -782,6 +794,41 @@ a.final-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba
   </div>
   <p class="site-footer-copy">&#169; RetireMeHere &#183; Real data, honest tradeoffs.</p>
 </footer>
+
+<!-- RMH-AFFILIATE-CODES-V1 -->
+<script>
+/* Affiliate codes, GENERATED from docs/AFFILIATE-CODES.csv. Do not hand-edit.
+   tools/validate.py fails the gate if this map and that table disagree, which is
+   the whole reason a second copy of the codes is allowed to exist here at all.
+
+   Keyed on city AND state. Wilmington DE and Wilmington NC are both in the
+   database and carry genuinely different codes, so a name-only key silently
+   books one city's commission to the other. */
+var RMH_AFF = {"Alexandria|VA":["Yqz4jAj","LZlVI2F"],"Ann Arbor|MI":["IeQ9cCk","tcuYYXo"],"Annapolis|MD":["vF4AMMC","lKqHfBM"],"Asheville|NC":["FOuEXma","oQkoG60"],"Beaufort|NC":["ZZgwxvi","P9uCYVd"],"Bend|OR":["jkBLWmX","0eJKMG6"],"Bentonville|AR":["MDZHXK7","HciOuBz"],"Bloomington|IN":["itQICbR","2uegw40"],"Boise|ID":["TdKMYxQ","H3Tdjfk"],"Boulder|CO":["hpMVyuD","kgUFHvs"],"Bozeman|MT":["mygnAoX","UHOPsDU"],"Burlington|VT":["Gy4FiIj","xedaytz"],"Carlsbad|CA":["ScSdm83","yKnWZ6j"],"Carmel-by-the-Sea|CA":["XWYd6FI","nlIRAzU"],"Casper|WY":["6IpJUiE","IzoiqjQ"],"Charleston|SC":["L62eBHc","znrY1rF"],"Charlottesville|VA":["ze687dk","3SaYwoh"],"Chattanooga|TN":["5n5rg29","ue494yy"],"Coeur d’Alène|ID":["hIWyyWI","DTNRneS"],"Colorado Springs|CO":["o2n8MgV","22LnWvR"],"Columbus|OH":["Y6rhsep","Ynr2wEs"],"Corpus Christi|TX":["BbI5ZLe","GRmw7GI"],"Delray Beach|FL":["5e4KOfW","FtNfsXJ"],"Des Moines|IA":["tyKQkfy","g2yE5d2"],"Durango|CO":["rEdanQx","fVT4V0i"],"Eugene|OR":["lpcA4dU","vfnr3wb"],"Eureka Springs|AR":["ZveTqXE","7BVF6Ui"],"Fairhope|AL":["LOT5TrP","Jrir8VX"],"Fayetteville|AR":["iSurfAX","32xKR9x"],"Flagstaff|AZ":["9PVjgVY","RWVyxJx"],"Fort Collins|CO":["yPOj569","SLc9Yla"],"Fort Myers|FL":["Poq50QB","8cG5dTP"],"Fort Worth|TX":["BSb2aOS","ciU6O7S"],"Frisco|TX":["vtqMm4b","jUGTrEA"],"Georgetown|TX":["WZmeAbX","Q1illZU"],"Grand Junction|CO":["SXX6fs4","TAMisKL"],"Greenville|SC":["AduSjsM","NiHUSwi"],"Hilton Head|SC":["nOKQWcy","A6BjmfY"],"Hot Springs|AR":["sOgB8aQ","01PjM4R"],"Indianapolis|IN":["Uo5RSEp","la0lRcA"],"Iowa City|IA":["mbhbk4Y","rvVq5w4"],"Jackson Hole|WY":["dlGD3xE","9reuiuf"],"Johnson City|TN":["g4LtxDT","OrWn8HL"],"Kansas City|MO":["i9QpeL2","8rQgUGL"],"Knoxville|TN":["li0IQHG","7yEisGo"],"La Crosse|WI":["4P8Cyrt","pEnuo64"],"Las Vegas|NV":["eZVbY24","se8gZkp"],"Lexington|KY":["taAi5Nq","1gkEWLC"],"Madison|WI":["KEBaKDv","mSzGaPa"],"Memphis|TN":["bUHIJSM","TbxTUJx"],"Miami|FL":["wnnRYZQ","AfgL1UN"],"Missoula|MT":["GNERSCG","P0l8AWJ"],"Napa|CA":["v1hdSmv","tnVg2Gx"],"Naples|FL":["oepeovY","wgwjnod"],"Nashua|NH":["tv9F543","iTvfwoP"],"Nashville|TN":["sI5ApoO","39Puqsn"],"New Orleans|LA":["1swzxsv","1t5SdOd"],"Paducah|KY":["YO0mODP","eh6KNht"],"Palm Springs|CA":["UnVkVKC","2sDeO78"],"Park City|UT":["j0TnxQp","u2APErC"],"Pensacola|FL":["KHhS1av","WskNTZx"],"Philadelphia|PA":["uepPDUd","wtbAaHe"],"Pinehurst|NC":["NbHJWKw","yNFugh8"],"Pittsburgh|PA":["3CTAm5P","8gExrBX"],"Portland|ME":["ANdLtb2","5S0HDOP"],"Prescott|AZ":["H9UU0NZ","g8SNRrW"],"Provincetown|MA":["GFhpfSE","pNT8pHF"],"Raleigh|NC":["uBa19iT","kU2Cctg"],"Rehoboth Beach|DE":["YLURPSK","x6ExhZE"],"Rio Rancho|NM":["QihSVT8","kJQ2wDu"],"Roanoke|VA":["MNvajpA","MQ72k48"],"Salt Lake City|UT":["2skhBdf","YgkRNvp"],"San Antonio|TX":["iydlIgP","c3GNB5N"],"Santa Barbara|CA":["A6hiLrq","C5ZzIlk"],"Santa Fe|NM":["WNj03mT","K8dLjNg"],"Sarasota|FL":["WdaDmLp","ctYxMZr"],"Saratoga Springs|NY":["sl8dEUv","Gx2IoHs"],"Savannah|GA":["Xt9JueE","PJSJP13"],"Scottsdale|AZ":["oeEIzcB","LPAH1US"],"Sedona|AZ":["rWqz6j4","nkThBx1"],"Silver Spring|MD":["n5yaEHG","UHdNZWU"],"Sioux Falls|SD":["VCFua9O","x6F6Ko7"],"Spokane|WA":["eVZ7RGr","B4pMUyy"],"St. Augustine|FL":["kFcFEUP","nQ3pbM5"],"St. George|UT":["VfaRs5E","IQTKf5Z"],"St. Louis|MO":["eTDBF97","xIs5uC4"],"St. Paul|MN":["nKPWa5O","xrlH4jN"],"St. Petersburg|FL":["6ddz6VY","vkuhi4m"],"Steamboat Springs|CO":["IFD6gjY","6Rf9dwP"],"Sun Valley|ID":["ChPibWS","KdCQHS2"],"Tampa|FL":["Xo8UEy1","Y5KNqpg"],"Traverse City|MI":["Sw4lz6S","N7QYB0q"],"Tucson|AZ":["6m6ks7T","UhuXakc"],"Tulsa|OK":["TtKUzzx","W5AR3HO"],"Vail|CO":["Npj3gvs","FxeWBcC"],"Virginia Beach|VA":["eveWLyW","mFcBRza"],"Whitefish|MT":["UVgr2cM","Q6EMHQi"],"Wilmington|DE":["eejj4o3","qPZztOj"],"Wilmington|NC":["AMxHIfz","UdntQyR"]}; /*END_RMH_AFF*/
+
+function rmhAff(city, state) {
+  var r = RMH_AFF[city + '|' + state];
+  if (!r) { return null; }
+  return {
+    expedia: 'https://expedia.com/affiliate/' + r[0],
+    vrbo: 'https://vrbo.com/affiliate/' + r[1]
+  };
+}
+
+/* One rendering of the offer, used by every result on the page, so the wording
+   and the rel attributes cannot drift between render paths. Returns an empty
+   string for a city with no row rather than a broken link. */
+function rmhScoutLine(city, state) {
+  var a = rmhAff(city, state);
+  if (!a) { return ''; }
+  return '<div class="rmh-scout">Scout it in person: ' +
+    '<a href="' + a.expedia + '" rel="sponsored nofollow">hotels on Expedia</a>' +
+    ' &middot; ' +
+    '<a href="' + a.vrbo + '" rel="sponsored nofollow">a week on Vrbo</a>' +
+    '</div>';
+}
+</script>
+<!-- END RMH-AFFILIATE-CODES-V1 -->
 
 <script>
 /* ============================================================================
@@ -1091,6 +1138,7 @@ function cardHTML(r, rank, over) {
       '<div class="res-city">' + c.n + ' <span class="st">' + c.s + '</span></div>' +
       '<div class="res-meta">Typical home ' + dollars(c.h) + '</div>' +
       '<div class="res-fin">' + financeLine(r) + '</div>' +
+      rmhScoutLine(c.n, c.s) +
     '</div>' +
     '<div class="res-score">' + r.total + '/90</div>' +
     '<div class="res-money' + (over ? ' over-col' : '') + '">' + dollars(r.cost) +
@@ -1197,6 +1245,67 @@ document.addEventListener('click', function (e) {
     }
   }
 });
+</script>
+
+<!-- RMH-ANALYTICS-V1 -->
+<script>
+/* RetireMeHere event instrumentation. Two delegated listeners, both passive.
+   Nothing here changes what a visitor sees or blocks any default action. */
+(function () {
+  function pageSlug() {
+    var p = location.pathname || '';
+    var m = p.match(/\/cities\/([^\/]+)\//);
+    if (m) { return m[1]; }
+    var f = p.split('/').pop().replace(/\.html$/, '');
+    return f || 'home';
+  }
+
+  function send(name, params) {
+    if (typeof gtag !== 'function') { return; }
+    gtag('event', name, params);
+  }
+
+  /* Outbound affiliate clicks. Merchant is read off the href rather than
+     hardcoded, so a third merchant on a page is counted without a code
+     change. GA4 sends via sendBeacon, which survives the navigation. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) { return; }
+    var a = t.closest('a[href*="/affiliate/"]');
+    if (!a) { return; }
+    var host = '';
+    try {
+      host = new URL(a.href, location.href).hostname.replace(/^www\./, '');
+    } catch (err) { return; }
+    if (!host) { return; }
+    send('affiliate_click', {
+      event_category: 'Affiliate',
+      event_label: pageSlug(),
+      merchant: host.split('.')[0],
+      surface: pageSlug()
+    });
+  }, true);
+
+  /* MailerLite signup submits, labelled by which of the three homes the form
+     node was sitting in at the moment of submit. This measures an attempted
+     submit, which is what the event name says. Confirmed subscribers are
+     counted by MailerLite and are not what this number is for. */
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (!f || !f.closest) { return; }
+    if (!f.closest('.ml-form-wrap')) { return; }
+    var where = 'profile';
+    if (f.closest('#mlFormSlot')) { where = 'modal'; }
+    else if (f.closest('#mlFormHomeResults')) { where = 'results_band'; }
+    else if (f.closest('#mlFormVault')) { where = 'vault'; }
+    send('signup_submit', {
+      event_category: 'Signup',
+      event_label: where,
+      surface: where,
+      city_slug: pageSlug()
+    });
+  }, true);
+})();
 </script>
 
 </body>

@@ -202,6 +202,70 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-22 - affiliate inventory on the tool pages
+
+**Files:** `where-can-i-afford-to-retire.html`, `pick-and-compare.html`,
+`tools/validate.py`, `tools/test_affiliate.py` (new), `docs/TASKBOARD.md`, this
+log. One commit, 6 files. No database change, no scoring change, no new pages.
+
+**Why.** The board describes the tax tool and the affordability calculator as
+the highest-intent inventory on the site and neither carried a single affiliate
+link. The Aug 21 instrumentation would have reported zero from both, forever.
+
+**Baselines re-derived from live main before building, and two inherited facts
+were wrong.** The database is `CityDatabase_Jul_27_v19.1.xlsx`, not the v17 a
+session summary carried. And `check_affiliate` was not the empty stub it was
+assumed to be: it already enforced duplicate detection and brand presence across
+the 51 profiles, and its docstring explicitly argued that a codes spreadsheet
+should never exist. Reading it first is the only reason its logic was extended
+rather than duplicated beside it.
+
+**Scope changed mid-session, on evidence.** The brief scoped three tool pages.
+The tax tool was cut after a grep showed it has exactly one inbound link on the
+site, from the affordability calculator, with no nav entry anywhere. Its results
+are states while codes are cities, so every placement option there required
+picking an arbitrary city to represent a state; that would have been a bad
+tradeoff even on a well-linked page, and on a page two hops deep with no route
+in it earns nothing at all. The brief's own ordering rule, inventory before
+routing, holds for pages that have traffic and inverts for pages that do not.
+
+**What shipped.** `RMH_AFF`, a generated map keyed on city AND state, inlined
+byte-identical on both pages from `docs/AFFILIATE-CODES.csv`. Option 1 of the
+three the brief listed, chosen after checking option 2's diff: extending the
+existing arrays would have meant editing 99 `AFFORD_CITIES` lines and the
+minified `TAXCITIES` blob AND rewriting two anchored validator regexes AND
+re-deriving the plant targets in two existing harnesses. Four load-bearing
+things touched to avoid one duplication that the new check neutralises anyway.
+Offers render inside the result, after the answer, never in the page frame.
+Pick-and-compare has two render paths, a wide table and a stacked mobile view,
+and both were edited; doing only the table would have monetised desktop and
+left mobile blank with no visible symptom.
+
+**Three findings, none of which came from the page looking wrong.**
+`visit-before-you-decide.html` had never been checked by anything, because the
+old check only looped city profiles. It is using Bend's Expedia code as its
+generic code, so generic-page Expedia clicks are booked to Bend. Its Vrbo and
+Hotels.com codes are in no row of the table, and the table has no hotels column
+because exactly one Hotels.com link exists on the site. All three are declared
+by value in `GENERIC_AFF_CODES` rather than by exempting the page, so a typo
+there still fails.
+
+**And the one worth more than the rest.** All 51 profiles carry a section with
+`class="visit-before-you-decide"` and not one carries an href to the page of
+that name. The class matching the page name is exactly why this reads as linked.
+Boarded P1 for the routing session.
+
+**Verified.** Fresh clone, `python3 tools/validate.py --local .` at 0 failures 0
+warnings, apply script idempotent on second run, anchor counts asserted before
+any write. `tools/test_affiliate.py` plants fifteen defects and catches fifteen,
+including four silent-no-op traps: an emptied table, an emptied map, a removed
+map, and a changed link format. Beyond the gate, both tools were driven end to
+end under jsdom across 23 cases, because a broken calculator is worse than a
+calculator with no affiliate link and a parse check cannot tell the difference.
+NOT VERIFIED, and the honest limit: no click has been made in a real browser, so
+`affiliate_click` firing from these two pages is proven in test and assumed in
+production until DebugView confirms it, exactly as on Aug 21.
+
 ### 2026-08-21 - key events wired, affiliate and signup
 
 **Files:** `index.html`, all 51 city profiles, `visit-before-you-decide.html`,

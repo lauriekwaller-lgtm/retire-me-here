@@ -4,10 +4,85 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 21, 2026, key events wired
-(51 profiles live, 24 comparison pages live. Affiliate clicks and signup
-submits now emit GA4 events. The capture path is measurable for the first
-time.)
+**Last updated:** August 22, 2026, tool-page affiliate inventory
+(51 profiles live, 24 comparison pages live. The affordability calculator and
+pick-and-compare now carry affiliate links attached to results, and every code
+on the site is tied to docs/AFFILIATE-CODES.csv by the gate.)
+
+**SHIPPED, August 22 2026. Tool-page affiliate inventory, 6 files.**
+
+*The gap.* The Aug 21 session made affiliate clicks measurable and would have
+reported zero from the tool pages forever, because no tool page carried a link.
+Someone who has just learned that Pensacola fits their budget is closer to
+booking a scouting trip than someone who has read a profile, and was handed
+nothing.
+
+*What shipped.* A generated code map, `RMH_AFF`, byte-identical on the
+affordability calculator and pick-and-compare, keyed on city AND state and
+generated from `docs/AFFILIATE-CODES.csv`. Both merchants offered on every
+result, in the result, after the answer. Never in the page frame and never in
+front of the answer. `RMH-ANALYTICS-V1` added to both pages in the same commit,
+byte-identical to the copy on the 51 profiles and index, so the links emit
+`affiliate_click` rather than earning silently. Both pages also gained an
+affiliate disclosure, which neither had.
+
+*The validator work, done first so the placement landed covered.*
+`check_affiliate` was NOT empty, and its docstring argued that a spreadsheet of
+codes should never exist because it would be a stale copy of the HTML. That was
+right while every link sat on a profile and stopped being right when the tool
+pages needed codes for cities that have no profile: 99 cities carry codes and 51
+have profiles. The stale-copy objection was answered rather than ignored, by
+tying the table to every page on every run. It now enforces unique slugs, unique
+codes per brand, both codes on every row, the roster against the database in
+both directions, every code on every profile against its row, and the inlined
+maps against the table cell by cell. New harness `tools/test_affiliate.py`,
+fifteen planted defects, fifteen caught.
+
+*THREE FINDINGS, from grepping rather than inheriting.*
+1. `visit-before-you-decide.html` had never been checked by anything: the old
+   check only ever looped city profiles. It carries three affiliate links.
+2. That page is using **Bend's Expedia code** as its generic code, so every
+   generic-page Expedia click is booked to Bend's per-city reporting. Its Vrbo
+   code and its Hotels.com code appear in no row of the table. All three are now
+   declared by value in `GENERIC_AFF_CODES`, so the gate reads the known state as
+   clean and a SECOND city code on a generic page still fails.
+3. None of the four tool pages carried an affiliate disclosure of any kind.
+
+*Verified.* Fresh clone, `python3 tools/validate.py --local .` at 0 failures 0
+warnings. Beyond the gate, both tools were driven end to end under jsdom across
+23 cases: the calculator still renders and still re-renders when the budget
+moves, pick-and-compare still builds a comparison in BOTH the wide table and the
+stacked mobile view, every card links its own city's codes, and the two
+Wilmingtons resolve to different codes.
+
+**DECIDED, August 22 2026: the tax tool gets NO affiliate links.** Two reasons,
+and the second is the real one. Its results are STATES while affiliate codes are
+CITIES, so any link there has to pick a city to represent a state and D5 ties
+constantly within a state, which makes the pick arbitrary. More decisively, the
+page has exactly ONE inbound link on the whole site, from the affordability
+calculator, so it sits two hops deep with no nav entry. Inventory on a page
+nobody can reach earns nothing. Revisit if and when it gets routing.
+
+**DECIDED, August 22 2026: `compare-retirement-cities.html` gets NO affiliate
+links.** Navigational hub, no city data, no result state, so there is no moment
+of intent to attach an offer to.
+
+**P1, OPEN, new and the largest finding of this session: the pillar page is
+orphaned.** All 51 profiles end with a "Visit Before You Decide" section and NOT
+ONE of them links to `visit-before-you-decide.html`. The section class matches
+the page name, which is why this reads as linked until you grep for an href. The
+page carries three affiliate links, already has the analytics block, and is
+reachable only from `index.html`. This is a one-line-per-profile fix and it is
+worth more than anything shipped this session. Belongs to the routing session.
+
+**P2, OPEN, new: the tools have no nav entry.** The header nav offers Home, Find
+a City, Top Cities For, and Find My Match. The affordability calculator, the tax
+tool, and pick-and-compare are not in it. The tax tool decision above is
+downstream of this.
+
+**P2, OPEN, new: Bend's Expedia code is doing duty as a generic code.** See
+finding 2 above. Either get a non-city code from Partnerize or accept the
+attribution, but decide it rather than leaving it.
 
 **SHIPPED, August 21 2026. Key events, 53 files.**
 

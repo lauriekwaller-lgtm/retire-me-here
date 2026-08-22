@@ -32,6 +32,7 @@ checked, and drift accumulated silently across 100 cities and 80 pages.
 """
 
 import argparse
+import csv
 import json
 import os
 import pathlib
@@ -3482,47 +3483,313 @@ def check_emdash(rep, idx, sitemap, slug_to_city, local):
                      f"{page}: {total} em-dash(es) in {where} [{spellings}]{note}")
 
 
-def check_affiliate(rep, slug_to_city, local):
+AFF_CSV = "docs/AFFILIATE-CODES.csv"
+
+AFF_LINK = re.compile(
+    r"https?://(?:www\.)?(expedia|hotels|vrbo)\.com/affiliate/([A-Za-z0-9]+)", re.I)
+
+AFF_COL = {"expedia": "expedia_code", "vrbo": "vrbo_code"}
+
+AFF_REQUIRED_COLS = ("city", "state", "slug", "expedia_code", "vrbo_code", "source")
+
+# Codes that deliberately sit on a page that is not about one city. Declared BY
+# VALUE rather than by exempting the page, so that a typo or an unrecorded code on
+# that same page still fails.
+#
+# The Expedia entry is Bend, OR's code, doing duty as the generic code on
+# visit-before-you-decide.html. It earns, but every generic-page Expedia click is
+# booked to Bend's per-city reporting. Boarded Aug 22 2026: either get a non-city
+# code from Partnerize or accept the attribution. Listed here so the gate reads the
+# known state as clean, and so a SECOND city code on a generic page still fails.
+#
+# The CSV has no hotels column because exactly one Hotels.com link exists on the
+# site. If a second appears, give hotels a column instead of growing this set.
+GENERIC_AFF_CODES = {
+    ("expedia", "jkBLWmX"),   # = Bend, OR. See note above.
+    ("vrbo", "DGMzUEy"),
+    ("hotels", "5dmhdQb"),
+}
+
+# Pages carrying a GENERATED copy of the code table, inlined so results can be linked
+# at render time. A second copy of the codes is only tolerable because the check below
+# compares it to the CSV on every run; without that this list is the drift.
+AFF_MAP_PAGES = ("where-can-i-afford-to-retire.html", "pick-and-compare.html")
+
+AFF_MAP_RE = re.compile(r"var RMH_AFF = (\{.*?\}); /\*END_RMH_AFF\*/", re.S)
+
+# Remote mode cannot glob. The gate is --local, which reads from disk; this list is
+# only for the post-deploy receipt.
+AFF_REMOTE_PAGES = ("visit-before-you-decide.html",
+                    "where-can-i-afford-to-retire.html",
+                    "states-that-dont-tax-retirement-income.html",
+                    "pick-and-compare.html",
+                    "compare-retirement-cities.html")
+
+
+def load_affiliate_table(rep, local):
     """
-    Affiliate codes, read from the profiles themselves.
+    docs/AFFILIATE-CODES.csv, the affiliate code table.
 
-    The profiles ARE the record. There is no spreadsheet, deliberately: a separate
-    list of codes is a stale copy of data that lives in the HTML, and a half-current
-    reference is worse than none, because eventually someone trusts it.
+    Returns {(City, ST): row}, or None if the file cannot be trusted. None means
+    STOP, not "nothing to check": every caller returns rather than iterating an
+    empty dict, because a check that compares zero codes and reports clean is the
+    exact failure this file exists to prevent.
 
-    A duplicated code is the dangerous failure. It does not error and it does not look
-    broken. It just quietly sends a Savannah reader to Charleston's hotel page. Nobody
-    catches that by eye.
+    Keyed on city AND state. Wilmington DE and Wilmington NC are both in the
+    database and carry genuinely different codes, so a name-only key silently
+    collides them and books one city's commission to the other.
     """
-    LINK = re.compile(
-        r"https?://(?:www\.)?(expedia|hotels|vrbo)\.com/affiliate/([A-Za-z0-9]+)", re.I)
-    BRANDS = {"expedia", "vrbo"}
+    raw = fetch(AFF_CSV, local)
+    if raw is None:
+        rep.fail("affiliate",
+                 f"{AFF_CSV} could not be read, so not one affiliate code on the "
+                 f"site was checked against anything. If it moved, update AFF_CSV; "
+                 f"if it was retired, delete this check deliberately.")
+        return None
 
-    seen = {}          # (brand, code) -> slug
-    for slug in sorted(slug_to_city):
-        html = fetch(f"cities/{slug}/profile.html", local)
-        if html is None:
+    rows = list(csv.DictReader(raw.lstrip("\ufeff").splitlines()))
+    if not rows:
+        rep.fail("affiliate",
+                 f"{AFF_CSV} parsed to zero rows. The table is empty or its format "
+                 f"changed, and every affiliate assertion below would have passed "
+                 f"by checking nothing.")
+        return None
+
+    missing_cols = [c for c in AFF_REQUIRED_COLS if c not in (rows[0].keys() or {})]
+    if missing_cols:
+        rep.fail("affiliate",
+                 f"{AFF_CSV} is missing column(s) {missing_cols}. Expected "
+                 f"{list(AFF_REQUIRED_COLS)}.")
+        return None
+
+    table = {}
+    seen_slug, seen_code = {}, {}
+    for i, r in enumerate(rows, start=2):          # row 1 is the header
+        r = {k: (v or "").strip() for k, v in r.items()}
+        city, state, slug = r["city"], r["state"], r["slug"]
+
+        if not city or not state:
+            rep.fail("affiliate", f"{AFF_CSV} line {i}: blank city or state. "
+                                  f"Every row must key on both.")
             continue
-        found = {}
-        for brand, code in LINK.findall(html):
-            brand = brand.lower()
-            found.setdefault(brand, set()).add(code)
-            owner = seen.get((brand, code))
-            if owner and owner != slug:
+
+        key = (city, state)
+        if key in table:
+            rep.fail("affiliate", f"{AFF_CSV} line {i}: {city}, {state} appears "
+                                  f"twice. One of the two rows is being ignored, "
+                                  f"and nothing says which.")
+            continue
+
+        for brand, col in sorted(AFF_COL.items()):
+            code = r[col]
+            if not code:
+                rep.fail("affiliate", f"{AFF_CSV} line {i}: {city}, {state} has no "
+                                      f"{brand} code. A blank code is a link that "
+                                      f"earns nothing.")
+                continue
+            owner = seen_code.get((brand, code))
+            if owner and owner != key:
                 rep.fail("affiliate",
-                         f"{slug}: {brand} code {code} is ALSO used by {owner}. "
-                         f"A duplicated code sends readers to the wrong city and "
+                         f"{AFF_CSV}: {brand} code {code} is on both "
+                         f"{owner[0]}, {owner[1]} and {city}, {state}. A shared "
+                         f"code books one city's commission to the other and "
                          f"fails silently.")
-            seen.setdefault((brand, code), slug)
+            seen_code.setdefault((brand, code), key)
 
-        for brand in sorted(BRANDS - set(found)):
-            rep.fail("affiliate", f"{slug}: no {brand} affiliate link on the profile")
-        for brand, cs in sorted(found.items()):
-            if len(cs) > 1:
+        if not slug:
+            rep.fail("affiliate", f"{AFF_CSV} line {i}: {city}, {state} has no slug.")
+        else:
+            prior = seen_slug.get(slug)
+            if prior:
                 rep.fail("affiliate",
-                         f"{slug}: {len(cs)} different {brand} codes on one profile "
-                         f"({', '.join(sorted(cs))}). Only one is being credited.")
+                         f"{AFF_CSV}: slug {slug!r} is on both {prior[0]}, "
+                         f"{prior[1]} and {city}, {state}. Slugs address profile "
+                         f"directories and must be unique.")
+            seen_slug.setdefault(slug, key)
 
+        table[key] = r
+
+    return table
+
+
+def check_affiliate(rep, db, slug_to_city, local):
+    """
+    Affiliate codes, anchored to docs/AFFILIATE-CODES.csv.
+
+    HISTORY, because this docstring used to say the opposite. Until August 2026 the
+    profiles WERE the record and there was deliberately no spreadsheet, on the
+    argument that a separate list is a stale copy of data that lives in the HTML.
+    That argument was sound while every affiliate link sat on a city profile. It
+    stopped being sound when the tool pages needed codes at RENDER time, from cities
+    that have no profile: 99 cities carry codes, only 51 have a profile, so the
+    profiles can no longer be the whole record. The CSV became the record on Aug 21.
+    The stale-copy objection was never wrong, it was simply answered a different way:
+    by this check, which ties every code on every page back to the table on every run.
+
+    A duplicated code is still the dangerous failure. It does not error and it does
+    not look broken. It just quietly sends a Savannah reader to Charleston's hotel
+    page, and nobody catches that by eye.
+
+    Four assertions, in order of how badly each one fails:
+
+      1. TABLE INTEGRITY. Unique slugs, unique codes per brand, both codes on every
+         row, no duplicate city+state. Handled in load_affiliate_table above.
+      2. ROSTER. Every database city has a row and every row is a database city. A
+         city added to the database and not here has no code the day it gets a
+         profile, and the profile check below is what would catch it, late.
+      3. CITY SURFACES. Every code on cities/<slug>/profile.html equals that city's
+         row. Both brands present, one code each.
+      4. GENERIC SURFACES. A page that is not about one city may only carry a code
+         named in GENERIC_AFF_CODES. Declared by value rather than by exempting the
+         page, so a typo on that same page still fails.
+    """
+    table = load_affiliate_table(rep, local)
+    if table is None:
+        return
+
+    # --- 2. roster, both directions -------------------------------------------
+    db_keys = {(c["city"], c["state"]) for c in db_cities(db)}
+    for key in sorted(db_keys - set(table)):
+        rep.fail("affiliate",
+                 f"{key[0]}, {key[1]} is in the database but has no row in "
+                 f"{AFF_CSV}. It has no affiliate code, so it will earn nothing "
+                 f"the day it gets a profile.")
+    for key in sorted(set(table) - db_keys):
+        rep.fail("affiliate",
+                 f"{key[0]}, {key[1]} is in {AFF_CSV} but not in the database. "
+                 f"Either the city was renamed and the table was not, or the "
+                 f"state abbreviation is wrong.")
+
+    # --- 3 and 4. every affiliate URL that ships ------------------------------
+    pages = {}
+    if local:
+        root = pathlib.Path(local)
+        for p in sorted(root.glob("*.html")) + sorted(root.glob("cities/*/profile.html")):
+            rel = str(p.relative_to(root))
+            html = fetch(rel, local)
+            if html:
+                pages[rel] = html
+    else:
+        for slug in slug_to_city:
+            html = fetch(f"cities/{slug}/profile.html", local)
+            if html:
+                pages[f"cities/{slug}/profile.html"] = html
+        for page in AFF_REMOTE_PAGES:
+            html = fetch(page, local)
+            if html:
+                pages[page] = html
+
+    if not pages:
+        rep.fail("affiliate",
+                 "no pages could be read, so no affiliate link on the site was "
+                 "checked. This check reported clean without looking at anything.")
+        return
+
+    by_slug = {r["slug"]: k for k, r in table.items()}
+    links_seen = 0
+
+    for page, html in sorted(pages.items()):
+        found = [(b.lower(), c) for b, c in AFF_LINK.findall(html)]
+        links_seen += len(found)
+        m = re.match(r"cities/([^/]+)/profile\.html$", page)
+
+        if m:
+            slug = m.group(1)
+            key = by_slug.get(slug)
+            if key is None:
+                rep.fail("affiliate",
+                         f"{page}: slug {slug!r} has no row in {AFF_CSV}, so its "
+                         f"codes cannot be checked against anything.")
+                continue
+            row = table[key]
+            per_brand = {}
+            for brand, code in found:
+                per_brand.setdefault(brand, set()).add(code)
+            for brand, col in sorted(AFF_COL.items()):
+                got = per_brand.get(brand, set())
+                want = row[col]
+                if not got:
+                    rep.fail("affiliate", f"{page}: no {brand} affiliate link")
+                elif got != {want}:
+                    rep.fail("affiliate",
+                             f"{page}: {brand} code {sorted(got)} does not match "
+                             f"{AFF_CSV}, which says {want} for {key[0]}, {key[1]}.")
+            for brand in sorted(set(per_brand) - set(AFF_COL)):
+                for code in sorted(per_brand[brand]):
+                    if (brand, code) not in GENERIC_AFF_CODES:
+                        rep.fail("affiliate",
+                                 f"{page}: {brand} code {code} is not in "
+                                 f"{AFF_CSV} and is not a declared generic code.")
+        else:
+            for brand, code in found:
+                if (brand, code) in GENERIC_AFF_CODES:
+                    continue
+                owner = None
+                for k, r in table.items():
+                    col = AFF_COL.get(brand)
+                    if col and r[col] == code:
+                        owner = k
+                        break
+                if owner:
+                    rep.fail("affiliate",
+                             f"{page} is not a city page but carries {owner[0]}'s "
+                             f"{brand} code {code}. Every click here is booked to "
+                             f"{owner[0]}, {owner[1]}. Either declare it in "
+                             f"GENERIC_AFF_CODES deliberately or get a non-city "
+                             f"code for this page.")
+                else:
+                    rep.fail("affiliate",
+                             f"{page}: {brand} code {code} is in no row of "
+                             f"{AFF_CSV} and is not a declared generic code. It is "
+                             f"a typo, or a code nobody recorded.")
+
+    # --- 5. the inlined code maps on the tool pages -------------------------
+    for page in AFF_MAP_PAGES:
+        html = pages.get(page) or fetch(page, local)
+        if html is None:
+            rep.fail("affiliate",
+                     f"{page} could not be read, so its inlined code map was never "
+                     f"compared to {AFF_CSV}.")
+            continue
+        m = AFF_MAP_RE.search(html)
+        if not m:
+            rep.fail("affiliate",
+                     f"{page} carries no RMH_AFF map. Either the block was dropped, "
+                     f"or its format changed and this check is now watching nothing.")
+            continue
+        try:
+            inlined = json.loads(m.group(1))
+        except ValueError as err:
+            rep.fail("affiliate", f"{page}: RMH_AFF did not parse as JSON ({err}).")
+            continue
+        if not inlined:
+            rep.fail("affiliate",
+                     f"{page}: RMH_AFF parsed to zero cities. Every result on the "
+                     f"page renders with no link, silently.")
+            continue
+
+        want = {f"{c}|{st}": [table[(c, st)]["expedia_code"],
+                              table[(c, st)]["vrbo_code"]] for (c, st) in table}
+        for key in sorted(set(want) - set(inlined)):
+            rep.fail("affiliate",
+                     f"{page}: {key.replace('|', ', ')} is in {AFF_CSV} but not in "
+                     f"RMH_AFF, so that city renders with no affiliate link.")
+        for key in sorted(set(inlined) - set(want)):
+            rep.fail("affiliate",
+                     f"{page}: RMH_AFF has {key.replace('|', ', ')}, which is in no "
+                     f"row of {AFF_CSV}.")
+        for key in sorted(set(want) & set(inlined)):
+            if list(inlined[key]) != want[key]:
+                rep.fail("affiliate",
+                         f"{page}: RMH_AFF gives {key.replace('|', ', ')} "
+                         f"{list(inlined[key])}, {AFF_CSV} says {want[key]}. The "
+                         f"page is booking commission to the wrong code.")
+
+    if links_seen == 0:
+        rep.fail("affiliate",
+                 f"{len(pages)} pages were read and not one affiliate link was "
+                 f"found. The link format changed and this check is now watching "
+                 f"nothing.")
 
 # ---------------------------------------------------------------------------
 # Docs currency
@@ -4149,7 +4416,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_taxtool.py",
              "tools/test_jsonld.py",
              "tools/test_typography.py",
-             "tools/test_js_parse.py")
+             "tools/test_js_parse.py",
+             "tools/test_affiliate.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4299,7 +4567,7 @@ def main():
         check_jsonld(rep, args.local)
         check_js_parse(rep, args.local)
     if "affiliate" in groups:
-        check_affiliate(rep, slug_to_city, args.local)
+        check_affiliate(rep, db, slug_to_city, args.local)
     if "db" in groups:
         check_db(rep, args.db)
         check_taxfacts(rep, args.db)
