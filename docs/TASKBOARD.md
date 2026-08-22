@@ -119,8 +119,55 @@ nobody can reach earns nothing. Revisit if and when it gets routing.
 links.** Navigational hub, no city data, no result state, so there is no moment
 of intent to attach an offer to.
 
-**P1, OPEN, new and the largest finding of this session: the pillar page is
-orphaned.** All 51 profiles end with a "Visit Before You Decide" section and NOT
+**P1, CLOSED August 22 2026. All 51 profiles now link to the pillar.** The
+entry below is kept for the finding. What shipped, and the reasoning, is here.
+
+*Placement, decided rather than defaulted.* The link sits AFTER the affiliate
+block and after the disclosure, as a 15px teal text link, not a button. The
+profile already carries that city's Expedia and Vrbo links a few lines above.
+This was a second path added beside a converting one, not a fix for a dead end,
+so it was sized to serve the reader who is not ready to book without stepping in
+front of the reader who is. Below the disclosure for a second reason: the
+disclosure reads "if you book through these links" and the pillar link is not a
+booking link, so it stays outside that sentence's scope.
+
+*What can be graded, and what cannot.* A before-and-after read on per-city
+affiliate clicks is NOT available. `affiliate_click` shipped Aug 21 and holds
+operator test clicks only, so there is no baseline and there will not be a
+useful one before this ships. What IS readable, in October, is the ratio on the
+same surface over the same period: `pillar_click` against `affiliate_click`,
+both carrying `surface` = city slug. That says whether anyone uses the link. It
+does not say what it displaced, and no entry should claim otherwise.
+
+*The gain that starts from a real zero.* The pillar page's three affiliate links
+previously received traffic from `index.html` only. Any `affiliate_click` with
+`surface: visit-before-you-decide` after this ships is attributable to this
+change.
+
+*New event.* `pillar_click`, added to the RMH-ANALYTICS-V1 block on all 51
+profiles. It reuses `surface` and `city_slug` and needs no new GA4 custom
+dimension. Anchored on `data-rmh-pillar`, not on the href, so a future nav entry
+pointing at the same page does not silently fold into this number.
+
+*The finding that came out of shipping it, and it is the more useful half.* The
+link was planted first and the gate was run against a deliberate typo in the
+href on one profile. It passed at 0 failures, 0 warnings. Nothing on the site
+defended this link: not an affiliate link, so `check_affiliate` skips it, not a
+canonical, not a sitemap entry, and tag balance sees a well-formed anchor either
+way. A single fat-fingered character would have restored the exact orphaning
+this entry exists to close, silently, with a clean gate. `check_pillar_links`
+and `tools/test_pillar_links.py` were written before hand-off. The check asserts
+51 profiles read and fails loudly at zero.
+
+*A second-order catch worth recording.* The first draft of that check tested the
+whole file for `data-rmh-pillar` and passed even with the attribute stripped off
+the anchor, because the analytics block contains the selector
+`a[data-rmh-pillar]`. The harness caught it. The check now inspects the anchor
+tag. This is the standing argument for planted-error harnesses: the check was
+wrong in a way that would have read as working forever.
+
+**P1, ORIGINAL TEXT, superseded August 22 2026: the pillar page is orphaned.**
+All 51 profiles end with a "Visit Before You Decide" section and NOT
 ONE of them links to `visit-before-you-decide.html`. The section class matches
 the page name, which is why this reads as linked until you grep for an href. The
 page carries three affiliate links, already has the analytics block, and is

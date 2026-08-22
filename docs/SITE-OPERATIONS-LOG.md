@@ -202,6 +202,75 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-22 (fifth entry) - the orphaned pillar, closed
+
+**What was wrong.** Every one of the 51 city profiles ends with a section
+called "Visit Before You Decide". None of them linked to the page called
+`visit-before-you-decide.html`. The section class matched the page name, which
+is exactly why nobody caught it: it reads as linked until you grep for an href.
+The page was reachable from `index.html` and nowhere else.
+
+**What shipped.** One text link at the foot of the visit section on all 51
+profiles, plus a `pillar_click` event so the click can be read in October.
+
+**In plain terms, what the decision was about.** The visit section already
+sells a trip. It carries that city's Expedia link and Vrbo link, both of which
+pay. Adding a link to a general how-to page in the same box risks pulling
+clicks off the two links that earn money and onto one that does not. But a
+reader who has not decided to book yet, who wants to know how to run a scouting
+trip at all, previously had nowhere to go and simply left.
+
+So the link went below the affiliate links and below the disclosure, styled as
+a quiet text link rather than a button. Ready readers meet the booking links
+first. Not-ready readers get a destination instead of an exit. If it does siphon
+clicks, it siphons few, because it is the last and plainest thing in the box.
+
+**The honest limit on measurement, recorded so it is not overclaimed later.**
+This cannot be graded as a before-and-after. `affiliate_click` only started
+collecting on Aug 21 and holds nothing but operator test clicks, so there is no
+"before" to compare against. What October can show is the ratio between
+`pillar_click` and `affiliate_click` on the same profile over the same period.
+That answers "does anyone use it", not "what did it cost". The board entry
+claims only the first.
+
+**The one number that is clean.** The pillar page's own three affiliate links
+had one inbound route, `index.html`. That is a real zero. Any affiliate click
+from `surface: visit-before-you-decide` after today is attributable to this
+change and nothing else.
+
+**The thing this session found by accident, and it matters more than the link.**
+Before writing any check, the link was planted with a deliberate typo in the
+address on one profile, to see whether the validator would catch it. It did not.
+The full gate read 0 failures, 0 warnings with a dead link sitting on Tucson.
+
+In plain terms: nothing on this site was watching internal links. The validator
+watches affiliate links, canonicals, sitemap entries, scores and figures. A plain
+link from one page to another was invisible to it. So a single mistyped character
+would have quietly recreated the exact problem this session was convened to fix,
+on one profile, with a clean gate saying everything was fine. That is the failure
+shape this codebase keeps meeting: not a loud break, a silent one that reports
+success.
+
+`check_pillar_links` was written and shipped in the same commit, with
+`tools/test_pillar_links.py` behind it. It asserts that it read 51 profiles and
+fails loudly if it read zero.
+
+Then the harness caught the check being wrong. The first version looked for the
+click hook anywhere in the file and passed even when the hook was removed from
+the link, because the analytics script mentions the hook by name a few hundred
+lines below. It now looks at the link itself. Had that shipped, the check would
+have reported a pass forever while defending nothing. This is the whole argument
+for planted-error tests in one paragraph.
+
+**Build notes.** The apply script anchored on the affiliate disclosure
+paragraph, which is byte-identical across all 51 files and appears exactly once
+in each. That deliberately avoids anchoring on `</section>`, where
+`cities/asheville/profile.html` carries a trailing space that would have made a
+naive count report 50 and refuse to write. The disclosure paragraph's bottom
+margin changed from `0` to `20px`, since it is no longer the last element in the
+box. Gate read 0 failures, 0 warnings on a fresh clone before and after.
+
+
 ### 2026-08-22 (fourth entry) - closing a stale P1, and a page that was about to be fixed for the wrong reason
 
 **Files:** `docs/TASKBOARD.md`, this log. No code change, no database change.

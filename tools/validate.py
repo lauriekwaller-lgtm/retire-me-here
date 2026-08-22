@@ -1272,6 +1272,59 @@ def check_routing(rep, db, idx, sitemap, local, slug_to_city):
             rep.fail("routing", f"PUBLISHED_PROFILES key {key!r} has no DB row")
 
 
+def check_pillar_links(rep, slug_to_city, local):
+    """Every profile must link to the scouting-trip pillar, with the click hook.
+
+    Added Aug 22 2026, immediately after the link itself, because a planted typo
+    in the href passed the entire gate. Nothing else defends this link: it is
+    not an affiliate link, not a canonical, not a sitemap entry, and tag balance
+    sees a well-formed anchor either way. A dead href here silently restores the
+    exact condition the routing session existed to fix.
+    """
+    href = "/visit-before-you-decide.html"
+
+    if fetch("visit-before-you-decide.html", local) is None:
+        rep.fail("pillar", "visit-before-you-decide.html does not exist, but the "
+                           "profiles link to it")
+
+    seen = 0
+    for slug in sorted(slug_to_city):
+        html = fetch(f"cities/{slug}/profile.html", local)
+        if html is None:
+            continue
+        seen += 1
+
+        n = html.count(f'href="{href}"')
+        if n == 0:
+            rep.fail("pillar",
+                     f"cities/{slug}/profile.html has no pillar link: expected "
+                     f'href="{href}". The page is orphaned from this profile.')
+            continue
+        if n > 1:
+            rep.fail("pillar",
+                     f"cities/{slug}/profile.html carries {n} pillar links, "
+                     f"expected 1")
+
+        # The hook must be on the ANCHOR. Testing the whole file is not enough:
+        # the analytics block contains the selector a[data-rmh-pillar], so a
+        # file-wide substring test passes even with the attribute stripped off
+        # the link. The Aug 22 harness caught exactly that in the first draft.
+        tag = re.search(r'<a\s[^>]*href="' + re.escape(href) + r'"[^>]*>', html)
+        if tag and 'data-rmh-pillar' not in tag.group(0):
+            rep.fail("pillar",
+                     f"cities/{slug}/profile.html links to the pillar but the "
+                     f"anchor carries no data-rmh-pillar attribute, so "
+                     f"pillar_click cannot fire and the link reads as measured "
+                     f"when it is not")
+
+    # The silent-no-op guard. A check that reads nothing must say so.
+    if seen == 0:
+        rep.fail("pillar", "no profile pages were readable: the pillar-link check "
+                           "ran against 0 profiles and would have reported clean")
+    elif seen != 51:
+        rep.fail("pillar", f"the pillar-link check read {seen} profiles, expected 51")
+
+
 def check_profiles(rep, db, slug_to_city, local):
     """Profile pages: monthly ranges and the citywide home stat card vs DB."""
     for slug, (city, state) in sorted(slug_to_city.items()):
@@ -4429,7 +4482,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_jsonld.py",
              "tools/test_typography.py",
              "tools/test_js_parse.py",
-             "tools/test_affiliate.py")
+             "tools/test_affiliate.py",
+             "tools/test_pillar_links.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4544,6 +4598,7 @@ def main():
     if "routing" in groups:
         check_routing(rep, db, idx, sitemap, args.local, slug_to_city)
         check_canonicals(rep, sitemap, args.local)
+        check_pillar_links(rep, slug_to_city, args.local)
 
     if "figures" in groups:
         check_figures(rep, db, idx)

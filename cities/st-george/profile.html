@@ -1896,7 +1896,10 @@ html { scroll-padding-top: 64px; }
 
   <p style="font-family: 'Libre Franklin', sans-serif; font-size: 17px; line-height: 1.6; color: #333; margin: 0 0 24px;">Book a week in a rental in SunRiver or near downtown and you'll know whether the trails, and the heat, fit. <a href="https://vrbo.com/affiliate/IQTKf5Z" rel="sponsored nofollow" style="color: #C4724A; font-weight: 600; text-decoration: underline;">Browse St. George rentals on Vrbo →</a></p>
 
-  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; line-height: 1.5; color: #666; font-style: italic; margin: 0 0 20px;">RetireMeHere may earn a small commission if you book through these links, at no additional cost to you. We recommend services we'd use ourselves. Costco Travel, AAA, and direct hotel booking are often competitive, especially for members. Price the trip three ways before you book.</p>
+
+  <!-- RMH-PILLAR-LINK-V1 -->
+  <p style="font-family: 'Libre Franklin', sans-serif; font-size: 15px; line-height: 1.5; margin: 0; padding-top: 16px;"><a href="/visit-before-you-decide.html" data-rmh-pillar="1" style="color: #2A5E5A; text-decoration: underline;">How to plan a retirement scouting trip →</a></p>
 </section>
   
 <!-- QUIZ CTA -->
@@ -2034,6 +2037,25 @@ html { scroll-padding-top: 64px; }
       event_category: 'Signup',
       event_label: where,
       surface: where,
+      city_slug: pageSlug()
+    });
+  }, true);
+
+  /* Profile to pillar clicks. This is NOT an affiliate click and is
+     deliberately not counted as one. It reuses surface and city_slug, the
+     dimensions already registered in GA4, so it needs no new admin step.
+     Read as a ratio against affiliate_click on the same surface over the
+     same period: that says whether anyone uses the link, not what it
+     displaced. There is no before-baseline and there will not be one. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) { return; }
+    var a = t.closest('a[data-rmh-pillar]');
+    if (!a) { return; }
+    send('pillar_click', {
+      event_category: 'Navigation',
+      event_label: pageSlug(),
+      surface: pageSlug(),
       city_slug: pageSlug()
     });
   }, true);
