@@ -507,7 +507,43 @@ Traffic flows Google to quiz to profile and stops. No key events are configured,
 so signups and affiliate clicks are unmeasured and no change made now can be
 graded.
 
-**P1, OPEN: email capture is absent from the two pages that carry the traffic.**
+**P1, CLOSED August 22 2026. Read the correction before the entry below: both
+halves are resolved and neither resolved the way this entry expected.** The
+entry as written names two pages and is stale on both. It is kept for the
+reasoning, which still holds, and for the six-signup baseline.
+
+*`index.html`, closed August 20.* The results screen now carries the MailerLite
+field inline, on the deep teal band, at the moment the matches are revealed.
+This entry's claim that index.html "has no rendered capture at all" has been
+false since that commit.
+
+*`where-should-i-retire-quiz.html`, closed August 22 as NOT APPLICABLE, and this
+is the part worth reading.* This entry counts it as a page missing capture. It
+is not a destination. It is a search landing page built to rank and hand the
+reader off to the quiz, and it carries two CTAs that both go there. Capture does
+not belong on it: a reader who arrives, reads a headline and clicks through has
+been given nothing yet, and an email ask at that moment is a toll in front of
+the value rather than an offer after it. That is the standing board instruction,
+DO NOT GATE ANYTHING, and it applies here even though the surface looks like an
+opportunity. The offer reaches these same people two clicks later on the results
+screen, where it already exists.
+
+*The number that will be misread, flagged now so it is not acted on.* GA4 shows
+this page at roughly 4 seconds average engagement against 4m 56s for
+`index.html`. Four seconds looks like a bounce and IS NOT one. It is a doorway
+page performing its function: land, orient, click through. Do not rewrite,
+consolidate, or "fix" this page on the strength of that figure.
+
+*What it actually needs, and it is small.* The handoff is unmeasured. 218 views
+and 190 users in the window, and nothing records what fraction take either CTA
+to the quiz versus leaving. One click event on both CTAs makes 4 seconds
+readable: a high click-through means the page works, a low one means the handoff
+leaks. The page also has no `RMH-ANALYTICS-V1` block, which matters here not for
+signups but because that block is where any click instrumentation on the page
+would live. Belongs to the routing session, which is about exactly this.
+
+**P1, ORIGINAL TEXT, superseded August 22 2026: email capture is absent from the
+two pages that carry the traffic.**
 Six signups since April. The cause is placement, not demand and not a defect.
 Capture exists ONLY on the fifty-one city profiles, near the bottom, behind a
 five-chip picker that requires choosing a guide before a field appears.

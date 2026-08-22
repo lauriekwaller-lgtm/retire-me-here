@@ -202,6 +202,54 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-22 (fourth entry) - closing a stale P1, and a page that was about to be fixed for the wrong reason
+
+**Files:** `docs/TASKBOARD.md`, this log. No code change, no database change.
+
+**Why.** The board carried a P1 reading "email capture is absent from the two
+pages that carry the traffic." It was accurate when written. The Aug 20 commit
+put the MailerLite field inline on the results screen, which closed half of it
+and left the board asserting, in the present tense, that `index.html` has no
+rendered capture at all. That is the same failure class as the NOT VERIFIED
+caveats corrected earlier today: an entry that was true when written and went
+quietly false when something downstream shipped. The board is long enough that
+nobody rereads the older sections, so a stale P1 survives by being buried.
+
+**The second half was stale for a different and more interesting reason.** The
+entry counts `where-should-i-retire-quiz.html` as a page missing capture. It has
+none, so the fact is right and the conclusion is wrong. That page is a search
+landing page, built to rank and to hand the reader off to the quiz, with two
+CTAs that both go there. Capture does not belong on it. A reader four seconds in
+has been given nothing, and an email ask at that point is a toll in front of the
+value rather than an offer after it, which is the standing DO NOT GATE
+instruction. These same people meet the offer two clicks later on the results
+screen.
+
+**The figure that nearly caused the wrong fix.** GA4 shows the page at about 4
+seconds average engagement against 4m 56s for `index.html`, on 218 views and 190
+users. Read cold, that is a bounce, and the natural conclusion is a duplicate
+page competing with `index.html` for the same query, best consolidated away.
+That conclusion was drawn in session and was wrong. The page is a doorway and 4
+seconds is it working. The operator supplied the intent, which no amount of
+grepping would have recovered, and the board now carries the warning so the
+number is not acted on later by someone without that context.
+
+**What the page actually needs.** Not capture. A click event on both CTAs, so
+the handoff becomes measurable: high click-through means the page earns its
+place, low means it leaks. It also carries no `RMH-ANALYTICS-V1` block, which
+matters here not for signups but because that block is where the click
+instrumentation would live. Boarded to the routing session, which is the session
+about moving people between pages.
+
+**Kept rather than deleted.** The original entry stays under a superseded
+heading. Its reasoning about placement over demand still holds, and the
+six-signups-since-April baseline is the number any future capture-rate claim
+will be measured against.
+
+**NOT verified.** Nothing here is a code change. The GA4 figures are as reported
+by the operator from the Pages and screens report and were not independently
+pulled.
+
 ### 2026-08-22 (third entry) - the generic pillar was sending everyone to Bend
 
 **Files:** `visit-before-you-decide.html`, `tools/validate.py`,
