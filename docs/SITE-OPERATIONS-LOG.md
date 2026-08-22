@@ -202,6 +202,68 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-22 (third entry) - the generic pillar was sending everyone to Bend
+
+**Files:** `visit-before-you-decide.html`, `tools/validate.py`,
+`docs/TASKBOARD.md`, this log. One commit, 4 files. No database change, no
+scoring change, no new pages, and no change to what a visitor sees beyond where
+three links land.
+
+**What was wrong.** `visit-before-you-decide.html` is the generic scouting-trip
+pillar, reached by readers who have not chosen a city or whose city is not Bend.
+Two of its three affiliate links pointed at Bend. The Expedia code was Bend's
+own, which the Aug 22 tool-page session found and boarded as P2. The Vrbo code
+was not in the table and was declared generic on that basis; following it showed
+it landing on Bend too.
+
+**Why the table lookup could not catch the second one.** `check_affiliate` fails
+a non-city page carrying a code that belongs to a city in `AFFILIATE-CODES.csv`.
+`DGMzUEy` is in no row, so it fell to the branch that treats an unknown code as
+a typo or an unrecorded code, and it was silenced by being declared generic. The
+declaration was the error. Absence from the CSV means the code belongs to no
+BUILT city, which is exactly as true of a city code that was never written into
+the spreadsheet. The Aug 22 provenance work established that the operator's
+codes file had been missing 19 live codes; a code missing from the table was
+therefore a known-common condition, not evidence of anything.
+
+**The larger problem, which the attribution framing had buried.** Booking a
+generic click to Bend distorts one city's reporting. Sending a reader who has
+not chosen a city to Bend hotel results is a broken destination. That is the
+worse fault and it had not been named, because the finding arrived as an
+attribution note. No conversion figure from this page before Aug 22 should be
+trusted.
+
+**What shipped.** All three links swapped to codes generated against non-city
+destinations. The Hotels.com code was verified as genuinely generic and did not
+have to move, but was replaced anyway so the three share one provenance and one
+generation date rather than mixing a verified survivor with two newcomers.
+JUDGMENT CALL, and the tradeoff runs the other way too: the retired Hotels.com
+code was verified by clicking and its replacement inherits that status only once
+all three are followed on production.
+
+**The check is stronger than it looked, and that is worth recording.**
+`GENERIC_AFF_CODES` is an allowlist of exceptions, not a genericness test. Bend's
+Expedia code would have failed loudly by name; it did not fail because it was
+deliberately declared. With the old set retired, `jkBLWmX` is no longer exempt
+and the check protects Bend properly from here.
+
+**The standing rule.** An entry in `GENERIC_AFF_CODES` silences a check, so it
+is a claim about where a link GOES, and a destination can only be established by
+following it. Never add an entry because a lookup missed. The set now carries
+that rule as a comment at the point of use.
+
+**Scope checked before building rather than assumed.** Every affiliate link on
+every non-profile page was listed and compared against the table. The tool pages
+build their links from the generated `RMH_AFF` map keyed on city and state, so
+they are correct by construction and were not touched. `index.html` carries no
+affiliate link; its matches on the word are prose about affiliated hospitals and
+the analytics block's own selector. The fault was contained to one file.
+
+**NOT verified.** The three new destinations were followed by the operator
+before the swap, but not on production after it. Follow all three on the live
+page after deploy. The validator compares code strings and cannot see where a
+link lands, which is the whole substance of this entry.
+
 ### 2026-08-22 (second entry) - GA4 verification, and the codes file that made the tool-page session possible
 
 **Files:** `docs/TASKBOARD.md`, this log. No code change, no database change.

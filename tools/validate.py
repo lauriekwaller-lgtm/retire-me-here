@@ -3504,10 +3504,22 @@ AFF_REQUIRED_COLS = ("city", "state", "slug", "expedia_code", "vrbo_code", "sour
 #
 # The CSV has no hotels column because exactly one Hotels.com link exists on the
 # site. If a second appears, give hotels a column instead of growing this set.
+# Codes that are deliberately NOT city-specific, for pages where the reader has
+# not chosen a city. Every entry here silences a check that would otherwise fail,
+# so an entry is a claim, and the claim is about a DESTINATION, not about a string.
+#
+# The only way to establish that a code is generic is to follow the link. Absence
+# from AFFILIATE-CODES.csv proves nothing: it means the code belongs to no BUILT
+# city, which is also true of a city code that was never written into the CSV.
+# That is exactly how the previous vrbo entry earned its place here while pointing
+# at Bend. Do not add an entry on a lookup miss. Click it, then add it.
+#
+# All three below generated Aug 22 2026 against non-city destinations and verified
+# by following each link.
 GENERIC_AFF_CODES = {
-    ("expedia", "jkBLWmX"),   # = Bend, OR. See note above.
-    ("vrbo", "DGMzUEy"),
-    ("hotels", "5dmhdQb"),
+    ("expedia", "lDLnJER"),
+    ("vrbo", "osjcVrF"),
+    ("hotels", "LPNJzOw"),
 }
 
 # Pages carrying a GENERATED copy of the code table, inlined so results can be linked

@@ -92,6 +92,12 @@ fifteen planted defects, fifteen caught.
    code and its Hotels.com code appear in no row of the table. All three are now
    declared by value in `GENERIC_AFF_CODES`, so the gate reads the known state as
    clean and a SECOND city code on a generic page still fails.
+   **CORRECTED Aug 22, later the same day: the Vrbo code was NOT clean.**
+   `DGMzUEy` appears in no row of the table and was declared generic on that
+   basis, but following the link showed it landing on Bend as well. Absence from
+   the table means the code belongs to no BUILT city, which is equally true of a
+   city code nobody ever recorded. Two of the three links on the generic pillar
+   pointed at Bend, not one. Fixed below.
 3. None of the four tool pages carried an affiliate disclosure of any kind.
 
 *Verified.* Fresh clone, `python3 tools/validate.py --local .` at 0 failures 0
@@ -126,9 +132,27 @@ a City, Top Cities For, and Find My Match. The affordability calculator, the tax
 tool, and pick-and-compare are not in it. The tax tool decision above is
 downstream of this.
 
-**P2, OPEN, new: Bend's Expedia code is doing duty as a generic code.** See
-finding 2 above. Either get a non-city code from Partnerize or accept the
-attribution, but decide it rather than leaving it.
+**CLOSED Aug 22 2026: the generic pillar's affiliate links now point at generic
+destinations.** Was P2 OPEN, scoped as one borrowed Expedia code. It was two:
+the Vrbo code was landing on Bend as well, which the table lookup could not see
+and only a click revealed. All three links on `visit-before-you-decide.html`
+were swapped to purpose-generated non-city codes and the old set was retired
+from `GENERIC_AFF_CODES`, so `jkBLWmX` is no longer exempt and now fails by name
+if it ever reappears on a non-city page.
+
+*Why this was worth doing beyond attribution.* The attribution problem was real,
+Bend's affiliate numbers would have been inflated by generic-page traffic in the
+October read. But the reader-facing problem was larger and had not been named:
+someone on the scouting-trip pillar has not chosen a city, and was being sent to
+Bend hotel results regardless. That is a broken destination, not a mislabelled
+click, and it had been live long enough that no conversion number from that page
+is trustworthy before Aug 22.
+
+*The standing rule this earned.* An entry in `GENERIC_AFF_CODES` silences a
+check, so it is a claim about a DESTINATION and can only be established by
+following the link. A lookup miss establishes nothing. The set now carries that
+rule in a comment, because the previous entry was added on a lookup miss and was
+wrong.
 
 **SHIPPED, August 21 2026. Key events, 53 files.**
 
