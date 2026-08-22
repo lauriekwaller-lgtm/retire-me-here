@@ -4,7 +4,53 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 22, 2026, tool-page affiliate inventory
+**Last updated:** August 22, 2026, GA4 verification closed
+
+**VERIFIED IN A BROWSER, August 22 2026. The Aug 21 and Aug 22 entries below
+both close with a NOT VERIFIED caveat. Both are now discharged and the caveats
+should be read as historical.**
+
+Both events were fired from production and observed arriving in GA4 Realtime:
+`affiliate_click` from a profile visit block, and `signup_submit` from a real
+signup on the quiz results screen. `form_start` was observed alongside it.
+
+*What that settles, and it is the load-bearing one.* The Aug 21 entry recorded
+our own listener logic as proven and MailerLite's native submit emission as
+ASSUMED, and named that assumption as the single thing that could not be
+checked outside a browser. It holds. MailerLite's embed emits a submit event
+our delegated listener catches. There is no fallback to build, no
+`MutationObserver` to board, and the enhanced-measurement `form_submit` signal
+is a redundant cross-check rather than a contingency.
+
+*Operator steps completed.* `affiliate_click` and `signup_submit` are both
+marked as key events. `quiz_complete` was already marked and is the denominator
+for the capture rate.
+
+*Still open, and deliberately deferred.* Custom dimensions for `merchant`,
+`surface` and `city_slug` are NOT yet registered. Until they are, both events
+report as totals and every breakdown reads `(not set)`. That is acceptable at
+current volume, where there is nothing to break down, but it must be done
+before the October read or the surface labels that justified building
+`signup_submit` the way it was built will be unreadable.
+
+*GA4 default to clean up.* GA4 stars `purchase` as a key event automatically on
+every property. There is no ecommerce on this site, so it will never fire and
+will sit in reporting as a permanent zero. Unmark it.
+
+*A UI correction worth recording, because it cost a session's worth of
+confusion.* GA4 removed the Conversions report and did not replace it with a
+Key events equivalent. Key event counts are read from Reports > Engagement >
+Events, and the genuinely useful view is Reports > Acquisition > Traffic
+acquisition, which carries key-event columns per source and is what will answer
+whether Pinterest traffic converts better than search. Section 4 of
+`docs/GA4-EVENT-REFERENCE.md` describes an admin path that no longer exists and
+an ordering that does not work: a brand new event CANNOT be marked as a key
+event before it has fired, because the star is the only mechanism and it only
+appears next to events GA4 has received. The order is fire it, then star it.
+That doc is otherwise current; sections 1, 2 and 5 are the October reading
+material.
+
+**Last updated (previous):** August 22, 2026, tool-page affiliate inventory
 (51 profiles live, 24 comparison pages live. The affordability calculator and
 pick-and-compare now carry affiliate links attached to results, and every code
 on the site is tied to docs/AFFILIATE-CODES.csv by the gate.)

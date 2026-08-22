@@ -202,6 +202,102 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-22 (second entry) - GA4 verification, and the codes file that made the tool-page session possible
+
+**Files:** `docs/TASKBOARD.md`, this log. No code change, no database change.
+An OPS session recording operator-side work and one build that preceded the
+tool-page session.
+
+**Why this entry exists.** Two shipped entries close with a NOT VERIFIED
+caveat, and a third records a source of truth being created without recording
+how or from what. None of that is visible from the code. A future session
+reading the log would either repeat the verification or, worse, treat a
+discharged caveat as live and build a fallback that is not needed.
+
+**The Aug 21 assumption held.** That entry drew a careful line: our delegated
+submit listener was proven under jsdom across three form homes including the
+reparent case, and MailerLite's emission of a native submit event on its
+rendered form was ASSUMED, because `universal.js` does not run in jsdom and the
+question could not be settled outside a browser. It was settled on Aug 22 by
+firing both events from production and watching them arrive in GA4 Realtime.
+`affiliate_click` arrived from a profile visit block. `signup_submit` arrived
+from a real signup on the quiz results screen, with `form_start` alongside it.
+The predicted failure shape, one arriving and the other not, did not occur.
+MailerLite's embed renders a real form and emits a real submit event.
+
+**What that retires.** No `MutationObserver` fallback. No dependence on
+enhanced measurement as a contingency; `form_submit` is now a redundant
+cross-check that also confirms the embed is a real form rather than an iframe.
+The Aug 22 tool-page entry's identical caveat about `affiliate_click` from the
+two tool pages is narrower but the same class, and the mechanism it doubted is
+the same delegated listener now observed working on a profile.
+
+**Operator steps done and not done.** Both events are marked as key events.
+Custom dimensions for `merchant`, `surface` and `city_slug` are NOT registered.
+This is the one open thread and it has a deadline: unregistered, the events
+report as bare totals and every breakdown reads `(not set)`, which would make
+the `surface` label unreadable. That label is the entire reason `signup_submit`
+distinguishes the results band from a profile from the city-detail modal, and
+each surface needs a different denominator, so losing it would collapse three
+measurable questions into one number. Do it before October.
+
+**`docs/AFFILIATE-CODES.csv`, provenance, since the tool-page session depends
+on it and did not record where it came from.** Built Aug 22 by extracting codes
+from the 51 live profiles, which are authoritative because they are what
+visitors actually click, and merging the operator's codes spreadsheet for the
+remaining cities. Reconciled at build: zero mismatches against live profiles,
+no duplicate Expedia or Vrbo code, unique slugs, no city holding one merchant
+code but not the other. 99 rows, all populated.
+
+**Three data faults the merge surfaced, all of which had been invisible.** The
+operator's spreadsheet was missing 19 codes that had been live on profiles the
+whole time, including Asheville, Naples, Pensacola and St. Augustine, so any
+work trusting the spreadsheet alone would have treated a third of the built
+cities as uncoded. `Nashua NH` was spelled `Nashau` and `Colorado Springs` was
+filed under state `CA`. Both are corrected. The repo file takes city spelling
+and state from the database rather than from any spreadsheet, so neither fault
+can reach the site again by that route.
+
+**The hazard worth naming, because it was hit live during the build.**
+Wilmington DE and Wilmington NC are both in the database and have genuinely
+different codes. A lookup keyed on city name alone silently collides them and
+one city ends up linking to the other state, with no visible symptom. The first
+build of the file did exactly this. Key on city AND state, always. The
+tool-page session's `RMH_AFF` map is keyed that way and the slugs are
+disambiguated as `wilmington-de` and `wilmington-nc`.
+
+**GA4 UI, recorded because it cost real time.** The Conversions report no
+longer exists; Google removed it in the key-events rename and did not replace
+it. Counts are read from Reports > Engagement > Events. The useful view is
+Reports > Acquisition > Traffic acquisition, which carries key-event columns
+per traffic source. A new event cannot be marked as a key event before it
+fires: the star is the only mechanism and it appears only beside events GA4 has
+already received, so the order is fire it, then star it. The "create event
+without code" flow is NOT the way to register a code-fired event; using it
+would create a second, differently-triggered event sharing the name, firing on
+page views, and the two would be inseparable in reporting.
+`docs/GA4-EVENT-REFERENCE.md` section 4 predates all of this and is wrong on
+both the path and the ordering. Sections 1, 2 and 5 are current.
+
+**Affiliate economics, checked rather than assumed, because it should inform
+how much the visit blocks are worth.** Published third-party figures vary and
+the authoritative rates are in Partnerize, but the shape is consistent: roughly
+4 percent on hotels, 2 percent on vacation rentals, 7 day cookie, commission on
+the pre-tax amount, and payment only after the trip is COMPLETED rather than
+booked, with a lag reported at 60 to 150 days beyond that. A three night
+scouting trip near $540 pre-tax returns about $21 through Expedia and about $11
+through Vrbo, against a $50 payout threshold. Two consequences. Hotels pay
+roughly double vacation rentals, so leading with Expedia and framing Vrbo as
+the longer-stay option is a copy change worth making. And the ceiling here is
+structural, not a partner-selection problem: the site monetises a $500 weekend
+inside a $400,000 decision. Revisit the category question after October with
+`affiliate_click` data in hand, not before.
+
+**NOT verified.** Nothing in this entry is a code change, so there is nothing
+to gate. The GA4 observations were made in Realtime rather than DebugView;
+Realtime shows the event arriving at the property, which is what was in
+question. Custom dimensions remain unregistered and therefore untested.
+
 ### 2026-08-22 - affiliate inventory on the tool pages
 
 **Files:** `where-can-i-afford-to-retire.html`, `pick-and-compare.html`,
