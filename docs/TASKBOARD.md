@@ -4,7 +4,50 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 22, 2026, GA4 verification closed
+**Last updated:** August 23, 2026, sitemap lastmod derived from git
+
+**SHIPPED, August 23 2026. Sitemap freshness, made derived. OPS + BATCH.**
+
+*What prompted it.* Search Console showed indexed pages sliding, ninety to
+eighty-eight to eighty-six over three weeks, with twelve URLs in "Crawled -
+currently not indexed". Ten were readable. One was `/?city=Lexington&state=KY`,
+a homepage query-string duplicate that the August 9 canonical already handles
+and that will migrate to "Alternate page with proper canonical tag" on its own.
+The other nine were real pages.
+
+*The finding, and it is a negative one worth keeping.* Nothing distinguishes
+those nine. Inbound internal links ran four to twenty against an indexed median
+of eleven; word counts 2,321 to 2,711 against an indexed median of 2,558;
+non-boilerplate text share 92-93% against an indexed range of 90-95%; every
+title and meta description on the site already unique. Philadelphia had twenty
+inbound links, 2,711 words, 93% unique text, and was not indexed. Lexington had
+the worst unique-text ratio on the site and was. There is no page-level defect
+to fix, so no profile was rewritten and none should be.
+
+*What WAS wrong.* The sitemap. Ninety-seven of ninety-eight URLs carried a
+`<lastmod>` older than the file's last commit, by up to 101 days, and
+`cities/chattanooga/profile.html` carried no `<lastmod>` element at all. Every
+profile had been rewritten by the August 22 pillar-link batch while the file
+still said May 11 for Scottsdale, May 20 for Salt Lake City, May 21 for
+Philadelphia. Three of the pages Google had not revisited since June were among
+them. The one field built to say "come back" was saying the opposite.
+
+*What shipped.* `tools/build_sitemap.py` derives every date from git; the
+`<loc>` list is still read from the existing sitemap and preserved exactly, so
+page membership stays an editorial decision and only the date is automated.
+`<changefreq>` and `<priority>` dropped on rewrite: Google has ignored both for
+years and they were 196 lines of hand-maintained fiction sitting beside the
+hand-maintained dates that actually broke. `check_sitemap_lastmod` and
+`tools/test_sitemap_lastmod.py` hold it, in a `sitemap` group of their own.
+
+*Honest grading, boarded before the result is known.* This removes the reason
+Google is not RECRAWLING the stale pages. It does not make them INDEXABLE; that
+is site authority and no code change touches it. Expect it to help the pages
+whose dates were lying and do nothing for the rest. Read it in the October
+Search Console pass, not before, and grade on recrawl dates moving first,
+indexed count second.
+
+**Last updated (previous):** August 22, 2026, GA4 verification closed
 
 **VERIFIED IN A BROWSER, August 22 2026. The Aug 21 and Aug 22 entries below
 both close with a NOT VERIFIED caveat. Both are now discharged and the caveats

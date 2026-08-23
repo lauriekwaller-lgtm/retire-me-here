@@ -202,6 +202,97 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-23 - the sitemap was lying about every page on the site
+
+**What was asked.** Why indexed pages were falling, ninety to eighty-eight to
+eighty-six across three weeks.
+
+**The first answer was wrong, and the way it was wrong is the useful part.** The
+August 17 push added a canonical to `index.html` and three forced 301s, both of
+which remove duplicate URLs from the index, and the timeline matched the decline
+exactly. That was a clean story and it survived until the actual URL list
+arrived. Of the ten readable entries in "Crawled - currently not indexed", one
+was `/?city=Lexington&state=KY`, which is that story. The other nine were real
+pages and the story did not cover them. A hypothesis that fits the shape of a
+graph is not evidence; the URLs were.
+
+**The negative finding, which is the load-bearing one.** Every page-level
+explanation was tested against the whole corpus and every one failed. Inbound
+internal links across the nine ran four to twenty against an indexed median of
+eleven. Word counts ran 2,321 to 2,711 against an indexed median of 2,558.
+Non-boilerplate text share, measured by stripping every block appearing on 60%
+or more of the profiles, ran 92-93% against an indexed range of 90-95%. Titles
+and meta descriptions were already unique sitewide. Philadelphia carried twenty
+inbound links, 2,711 words and 93% unique text and was not indexed; Lexington
+carried the worst unique-text ratio on the site and was. The not-indexed set
+sits in the middle of the distribution on every axis that can be measured, which
+means there is no page-level defect and rewriting those profiles would have been
+work aimed at nothing. Recorded so the next session does not go looking again.
+
+**What was actually broken.** `check_sitemap_lastmod`, run for the first time
+against the live file, reported 97 failures out of 98 URLs. Not the seven the
+Search Console list pointed at: effectively the entire sitemap. Dates were up to
+101 days stale, and `cities/chattanooga/profile.html` had no `<lastmod>` at all.
+The August 22 pillar-link batch rewrote every profile and touched none of their
+dates, because the dates were maintained by hand, one apply script at a time,
+and every apply script that forgot one was silently correct. Same defect class
+as the profile counts, the affiliate codes and the D2 budget figures: a number
+kept in two places with nothing comparing them.
+
+**Why the fix is a derivation and not 98 corrections.** Correcting the dates by
+hand would have them rotten again by October. `tools/build_sitemap.py` reads
+them from git instead, with uncommitted work counting as today because the gate
+runs before `git add`. It deliberately does NOT decide which pages belong in the
+sitemap: the `<loc>` list is read from the existing file and preserved, so
+adding a page is still an apply-script edit. A generator that globbed the disk
+would have silently added `privacy.html` and `scouting-trip-workbook.html` on
+its first run. Deciding page membership is editorial; deciding a date is not,
+and only the second is safe to automate.
+
+**One shared definition, on purpose.** An earlier draft duplicated the git-date
+logic into `validate.py` to keep that file self-contained, which is its house
+style. Rejected: a generator and its checker computing the same date two
+different ways is a defect that reports clean. `tools/sitemap_dates.py` is
+imported by both.
+
+**Why it is not in the `routing` group.** `test_canonicals.py` and
+`test_pillar_links.py` both stage a repo copy with `.git` excluded and run
+`--only routing`. A git-reading check in that group would have failed both of
+them on a clean tree, and the obvious repair -- making the check skip when there
+is no git -- is the exact silent-no-op this codebase keeps rediscovering. So:
+its own `sitemap` group, and under `--local` a tree with no `.git` is a FAILURE.
+The freshness half is not attempted in the bare post-deploy run at all, because
+git would be answering about the working copy while the check reads live GitHub.
+It says so on screen rather than skipping quietly.
+
+**The harness caught a defect in the check, which is why it exists.** The first
+version matched the date with a character class that excluded whitespace, so it
+could not match a date containing a space. A malformed `August 2026` was
+therefore reported as "0 <lastmod> elements" -- sending the reader to look for an
+absent tag that is sitting right there. Twelve plants: control, stale, the stale
+message naming both dates and the gap, missing, doubled, non-ISO, ISO-shaped but
+not a real day, future-dated, fresher-than-git inside tolerance passing, an entry
+with no file, no `.git` failing loudly, and an empty sitemap failing loudly.
+
+**Also dropped.** `<changefreq>` and `<priority>` on all 98 entries. Google has
+ignored both for years; they were 196 lines that could drift and could not be
+checked.
+
+**Verified.** Fresh clone, apply, `python3 tools/validate.py --local .` at 0
+failures 0 warnings, all 23 harnesses passing including the two routing ones.
+`build_sitemap.py --check` clean after the rewrite; second apply run a no-op.
+
+**Grading, boarded before the result is known.** This removes the reason Google
+is not RECRAWLING the stale pages. It does not make them INDEXABLE. Indexing on
+a site with 403 clicks in three months is an authority question and no change in
+this repo touches it. Grade on recrawl dates moving in the October pass, and on
+indexed count only after that. If the count keeps falling with recrawl dates
+current, the answer is external and the next move is not in the validator.
+
+**Not done, deliberately.** No profile rewritten, no bulk indexing requests
+submitted. Neither addresses the constraint, and the first would have been a
+week of work aimed at a defect that does not exist.
+
 ### 2026-08-22 (fifth entry) - the orphaned pillar, closed
 
 **What was wrong.** Every one of the 51 city profiles ends with a section

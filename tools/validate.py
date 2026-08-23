@@ -24,6 +24,7 @@ Check groups:
     emdash       em-dash policy (profiles + comparison pages)
     affiliate    affiliate codes: duplicates, missing brands, multiple codes per page
     db           database hygiene
+    sitemap      every <lastmod> well-formed, and not older than git
     harness      the planted-error tests in tools/, run against this checkout
 
 Why this exists: every figure on this site is a string that either matches a DB cell
@@ -48,6 +49,12 @@ from html import unescape as html_unescape
 # the guard does not need editing every January; see the comment there for why the
 # rollover is safe on the current corpus.
 from datetime import date
+
+# check_sitemap_lastmod and tools/build_sitemap.py must agree on what "last
+# changed" means, so the definition lives in one module they both import
+# rather than being written out twice and drifting.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from sitemap_dates import GitUnavailable, effective_dates, is_git_checkout
 
 CURRENT_YEAR = date.today().year
 
@@ -4349,6 +4356,153 @@ def check_canonicals(rep, sitemap, local):
                                f"clean; the check read nothing it understood")
 
 
+
+SITEMAP_STALE_TOLERANCE_DAYS = 1
+
+ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def check_sitemap_lastmod(rep, sitemap, local):
+    """
+    Every sitemap entry carries one well-formed <lastmod>, and it agrees with git.
+
+    The August 23 2026 Search Console read found nine real pages parked in
+    "Crawled - currently not indexed" with no page-level defect between them:
+    inbound internal links 4 to 20 against an indexed median of 11, word counts
+    2,321 to 2,711 against an indexed median of 2,558, non-boilerplate text
+    share 92-93% against an indexed range of 90-95%, and every title and meta
+    description on the site already unique. Philadelphia had 20 inbound links,
+    2,711 words and 93% unique text and was not indexed; Lexington had the worst
+    unique-text ratio on the site and was.
+
+    What was wrong was the sitemap. All 51 profiles had been edited by the
+    August 22 pillar-link batch, and the file still reported May 11 for
+    Scottsdale, May 20 for Salt Lake City, May 21 for Philadelphia, June 11 for
+    Delray Beach, June 12 for Pensacola, June 21 for Kansas City and June 23 for
+    St. Paul. The newest date anywhere in it was August 18, on one URL, and
+    cities/chattanooga/profile.html had no <lastmod> at all. Three of the pages
+    Google had not revisited since June were among the ones whose dates said
+    May. A crawler scheduling revisits off those dates has been told, in the one
+    field built to say otherwise, that nothing has changed.
+
+    Fixing 98 dates by hand today would have them rotten again by October, the
+    same way the profile counts and the affiliate codes and the D2 budget
+    figures each rotted once. So tools/build_sitemap.py derives them from git
+    and this check refuses the commit when the two disagree.
+
+    Asserted on every entry, in both modes:
+      - exactly one <loc> and exactly one <lastmod> per <url> block
+      - the date is ISO yyyy-mm-dd and is not in the future
+      - the <loc> resolves to a file that can actually be read
+
+    And, only under --local, where there is a git history to read:
+      - no entry is more than a day older than that file's last commit, with
+        uncommitted work counting as today because the gate runs before `git add`
+
+    The freshness half is deliberately not attempted in the bare post-deploy
+    run, which reads live GitHub while git would be answering about the working
+    copy: two different trees, and an answer about the wrong one is worse than
+    no answer. It says so on screen rather than skipping quietly, and under
+    --local a tree with no .git is a FAILURE, never a skip. A check that reads
+    nothing and reports clean is the exact defect this file keeps rediscovering.
+    """
+    blocks = re.findall(r"<url>(.*?)</url>", sitemap, re.S)
+    if not blocks:
+        rep.fail("sitemap", "sitemap.xml yielded no <url> blocks, so no date was "
+                            "checked; the sitemap is unreadable or its shape has "
+                            "changed")
+        return
+
+    today = date.today()
+    entries = []          # [(rel, loc, lastmod)] for the ones that parsed
+    for block in blocks:
+        locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", block)
+        if len(locs) != 1:
+            rep.fail("sitemap", f"a <url> block has {len(locs)} <loc> elements; "
+                                f"expected exactly one")
+            continue
+        loc = locs[0]
+
+        if not loc.startswith(SITE):
+            rep.fail("sitemap", f"sitemap entry {loc} is not on {SITE}")
+            continue
+        rest = loc[len(SITE):].lstrip("/")
+        rel = rest if rest else "index.html"
+
+        stamps = re.findall(r"<lastmod>\s*([^<]*?)\s*</lastmod>", block)
+        # [^<]*? not [^<\s]*: a date with a space in it ("August 2026") is
+        # MALFORMED, not absent, and the harness caught this check reporting
+        # it as "0 <lastmod> elements" -- sending you to look for a tag that
+        # is sitting right there.
+        if len(stamps) != 1:
+            rep.fail("sitemap",
+                     f"{rel} has {len(stamps)} <lastmod> elements. Without exactly "
+                     f"one, the crawler has no revisit signal for this page and "
+                     f"tools/build_sitemap.py cannot round-trip the file")
+            continue
+        stamp = stamps[0]
+
+        if not ISO_DATE.match(stamp):
+            rep.fail("sitemap", f"{rel} has <lastmod>{stamp}</lastmod>, which is "
+                                f"not an ISO yyyy-mm-dd date")
+            continue
+        try:
+            when = date.fromisoformat(stamp)
+        except ValueError:
+            rep.fail("sitemap", f"{rel} has <lastmod>{stamp}</lastmod>, which is "
+                                f"not a real calendar date")
+            continue
+
+        if when > today:
+            rep.fail("sitemap", f"{rel} claims <lastmod>{stamp}</lastmod>, which is "
+                                f"in the future; a date nobody can have edited on "
+                                f"is not a freshness signal")
+            continue
+
+        if fetch(rel, local) is None:
+            rep.fail("sitemap", f"{rel} is in the sitemap but could not be read")
+            continue
+
+        entries.append((rel, loc, when))
+
+    if not entries:
+        rep.fail("sitemap", f"{len(blocks)} sitemap entries, none of them checked "
+                            f"clean; the check read nothing it understood")
+        return
+
+    if not local:
+        print(f"  sitemap:  {len(entries)} <lastmod> dates well-formed. Freshness "
+              f"vs git is a --local check only; the gate is --local .")
+        return
+
+    if not is_git_checkout(local):
+        rep.fail("sitemap", f"{local} is not a git checkout, so no <lastmod> could "
+                            f"be checked against anything. Run the gate on a real "
+                            f"clone; an unzipped tarball cannot prove its own dates")
+        return
+
+    try:
+        dates = effective_dates(local, today=today)
+    except GitUnavailable as exc:
+        rep.fail("sitemap", f"git history is unreadable ({exc}), so no <lastmod> "
+                            f"could be checked")
+        return
+
+    for rel, loc, when in entries:
+        actual = dates.get(rel)
+        if actual is None:
+            rep.fail("sitemap", f"{rel} is in the sitemap and on disk but git has "
+                                f"never seen it, so its <lastmod> is unverifiable")
+            continue
+        real = date.fromisoformat(actual)
+        stale = (real - when).days
+        if stale > SITEMAP_STALE_TOLERANCE_DAYS:
+            rep.fail("sitemap",
+                     f"{rel} says <lastmod>{when.isoformat()}</lastmod> but last "
+                     f"changed {actual}, {stale} days later. Run "
+                     f"python3 tools/build_sitemap.py")
+
+
 RETIRED_FONTS = ("Playfair", "Fraunces")
 CANON_FONTS_LINK_FAMILIES = ("Libre+Franklin", "DM+Sans")
 
@@ -4483,7 +4637,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_typography.py",
              "tools/test_js_parse.py",
              "tools/test_affiliate.py",
-             "tools/test_pillar_links.py")
+             "tools/test_pillar_links.py",
+             "tools/test_sitemap_lastmod.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4544,7 +4699,7 @@ def main():
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
                              "superlatives", "emdash", "tags", "affiliate", "db",
-                             "docs", "layout", "harness"],
+                             "docs", "layout", "sitemap", "harness"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -4558,7 +4713,7 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "tags", "affiliate", "db", "docs", "layout", "harness"}
+        "tags", "affiliate", "db", "docs", "layout", "sitemap", "harness"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -4643,6 +4798,8 @@ def main():
     if "layout" in groups:
         check_stray_artifacts(rep, args.local)
         check_typography(rep, args.local)
+    if "sitemap" in groups:
+        check_sitemap_lastmod(rep, sitemap, args.local)
     # Last: it shells out once per harness and is the slowest group by a wide margin,
     # so everything cheap has already had its say by the time it starts.
     if "harness" in groups:
