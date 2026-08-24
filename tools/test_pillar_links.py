@@ -50,6 +50,35 @@ SLUG = "santa-fe"
 PROFILE = f"cities/{SLUG}/profile.html"
 GOOD = '<a href="/visit-before-you-decide.html" data-rmh-pillar="1"'
 
+# A profile that carries the real nav component, so the header-nav stripping
+# added for BATCH B is actually exercised. santa-fe above is still a stub, so
+# every plant that uses it runs down a code path where the strip is a no-op.
+#
+# This is pinned to st-louis on purpose rather than "whichever profile has a
+# nav": a plant that silently picks a stub profile when its target moves would
+# go on passing while testing nothing, which is the failure mode this file
+# keeps existing to prevent. If st-louis ever loses the component, resolve()
+# below fails loudly instead.
+NAV_SLUG = "st-louis"
+NAV_PROFILE = f"cities/{NAV_SLUG}/profile.html"
+NAV_GOOD = GOOD
+
+
+def require_nav_profile(repo):
+    """Refuse to run the BATCH B plants against a profile with no nav."""
+    path = os.path.join(repo, NAV_PROFILE)
+    if not os.path.exists(path):
+        raise SystemExit(f"{NAV_PROFILE} is missing; the BATCH B plants have "
+                         f"nothing to test against")
+    with open(path, encoding="utf-8") as fh:
+        body = fh.read()
+    if "toggleTopCitiesDropdown" not in body or "nav-dropdown" not in body:
+        raise SystemExit(
+            f"{NAV_PROFILE} does not carry the nav component, so the "
+            f"header-nav stripping in check_pillar_links would not be "
+            f"exercised and these plants would pass without testing it. "
+            f"Point NAV_SLUG at a profile that has the component.")
+
 
 def stage(repo):
     """A throwaway copy of the checkout. The real files are never written to."""
@@ -168,6 +197,71 @@ def main():
     added = fails - base
     check("zero readable profiles fails loudly rather than checking nothing",
           code == 1 and any("no profile" in f.lower() or "0 profiles" in f
+                            for f in added),
+          f"{len(added)} new failure(s)")
+
+    # ============================================================ BATCH B, Aug 24
+    require_nav_profile(repo)
+    # The plants above all land on santa-fe, which still carries the three-link
+    # stub. None of them touch a profile that has the nav component, so none of
+    # them exercise the header-nav stripping that BATCH B forced. These four do,
+    # against st-louis, the first profile to get the real nav.
+    #
+    # Stripping the nav before counting is the kind of change that buys a pass by
+    # going blind, so each of these is a way it could have gone blind.
+
+    # ------------------- 8. the nav item alone must NOT satisfy the requirement
+    # If the strip were written as "count only the first match" or the href test
+    # were left against the whole file, deleting the in-content link would leave
+    # the header's Plan a Visit item standing in for it and this profile would
+    # report clean while being exactly as orphaned as before.
+    tmp = stage(repo)
+    edit(tmp, NAV_PROFILE, NAV_GOOD, '<a href="#" ')
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("a nav-bearing profile whose CONTENT link is gone still fails",
+          code == 1 and any(NAV_SLUG in f and "pillar" in f.lower()
+                            for f in added),
+          f"{len(added)} new failure(s)")
+
+    # ------------------------------- 9. a real duplicate in the body still fails
+    tmp = stage(repo)
+    edit(tmp, NAV_PROFILE, NAV_GOOD, NAV_GOOD + ' data-dup="1"><a '
+         'href="/visit-before-you-decide.html" data-rmh-pillar="1"')
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("two pillar links in the body still fail once the nav is discounted",
+          code == 1 and any(NAV_SLUG in f and "expected 1" in f for f in added),
+          f"{len(added)} new failure(s)")
+
+    # ------------------------------ 10. measuring the furniture link must fail
+    # The cheap way to make the original 2-links failure go away was to hang
+    # data-rmh-pillar on the nav item. That would fire pillar_click on every
+    # menu click on all 51 profiles and quietly inflate the conversion.
+    tmp = stage(repo)
+    edit(tmp, NAV_PROFILE, '<a href="/visit-before-you-decide.html">Plan a Visit</a>',
+         '<a href="/visit-before-you-decide.html" data-rmh-pillar="1">Plan a Visit</a>')
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("data-rmh-pillar on the header-nav item fails",
+          code == 1 and any(NAV_SLUG in f and "furniture" in f for f in added),
+          f"{len(added)} new failure(s)")
+
+    # ------------------- 11. the hook check still reads the CONTENT link, not nav
+    # Source order puts the unmeasured nav item first. If the anchor regex were
+    # still run against the whole file it would find that one, see no hook, and
+    # fail every nav-bearing profile -- a false positive that would have grown to
+    # 51 the moment BATCH B finished.
+    tmp = stage(repo)
+    edit(tmp, NAV_PROFILE, NAV_GOOD, '<a href="/visit-before-you-decide.html" ')
+    code, fails = run(tmp)
+    shutil.rmtree(os.path.dirname(tmp))
+    added = fails - base
+    check("the hook check reads the content anchor on a nav-bearing profile",
+          code == 1 and any(NAV_SLUG in f and "data-rmh-pillar" in f
                             for f in added),
           f"{len(added)} new failure(s)")
 

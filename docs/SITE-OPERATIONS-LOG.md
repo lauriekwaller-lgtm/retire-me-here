@@ -202,6 +202,82 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-24 - BATCH B, pilot of one. St. Louis gets the nav component.
+
+**Scope.** One profile, `cities/st-louis/profile.html`, chosen because
+PROFILE-FORMATTING.md already names it the canonical template. The remaining 50
+wait on a rendered review by the business partner. Counts re-derived by grep on
+a full clone before anything was touched: 46 component pages, 52 without (51
+profiles plus `visit-before-you-decide.html`), 2 with no header at all
+(`privacy.html`, `scouting-trip-workbook.html`). The board's 52 was correct.
+
+**The 51 profiles are uniform, which is the good news.** Two stub variants
+differing only by `…` against `&hellip;`; all 51 carry the same mobile rule, the
+same five `header-cta` occurrences, and none define `--white` or `--shadow`. One
+anchor-verified script generalises to all of them.
+
+**BATCH B is five edits, not one, and the fifth is the one that bites.**
+Profiles hide `.header-nav a:not(.header-cta)` at 880px and below. Every item in
+the canonical block is an `<a>` and not one carries `.header-cta`, so that rule
+hides all fourteen links -- including Find My Match, and including every item
+inside the dropdown -- while leaving the trigger visible, because the trigger is
+a `<button>` and a button is not an `<a>`. Stamping the nav in without touching
+the media query would have shipped, on mobile, a lone "Top Cities For..." that
+opens an empty menu above no call to action. Established with soupsieve against
+the canonical block rather than read off the stylesheet, on the principle from
+August 23 that this stylesheet is not reliably readable by eye.
+
+The other four: the CTA class swap, which is five occurrences and not one; the
+dropdown CSS, which no profile has ever carried; the dark-mode lock, which names
+`.header-cta` and would have gone dead silently; and the JS, without which the
+trigger is an inert button.
+
+**Colours held deliberately.** The button keeps the profile's existing
+teal-deep/teal pair, 10.28:1 resting and 7.38:1 hover, written in the hardened
+`!important` form so `check_cta_contrast` resolves it exactly as it resolves the
+45 component pages. The partner is reviewing a nav change; recolouring the button
+in the same pass would have made the review answer two questions at once.
+
+**What the gate caught that I had not predicted: the pillar collision.** The
+canonical nav carries Plan a Visit, so every nav-bearing profile now holds
+`/visit-before-you-decide.html` twice. `check_pillar_links` failed with "2 pillar
+links, expected 1" and would have done so on all 51. The cheap repair was to hang
+`data-rmh-pillar` on the nav item, which would fire `pillar_click` on every menu
+click across 51 profiles and inflate the conversion against a denominator that
+never moved. Instead the check now strips the header nav before counting, treats
+the in-content link as the measured one, and FAILS if the furniture link is ever
+given the hook. The anchor regex had to move to the stripped body as well: source
+order puts the nav item first, so left against the whole file it would have
+reported all 51 nav-bearing profiles as missing their hook.
+
+**And a harness that rotted on a number designed to move.**
+`test_nav_parity.py` asserted on the literal string "up from the 52". The plant
+still detected the defect correctly; it failed on wording the moment
+`NAV_STUB_EXPECTED` ratcheted to 51. It now reads the constant out of
+`validate.py`, which matters because that counter is meant to reach 0.
+
+**Four new plants**, against St. Louis specifically, because all seven existing
+plants land on santa-fe, which is still a stub -- so none of them exercise the
+new stripping at all. They cover the ways stripping could buy a pass by going
+blind: the nav item alone must not satisfy the requirement, a genuine duplicate
+in the body must still fail, measuring the furniture link must fail, and the hook
+check must still read the content anchor. `require_nav_profile()` refuses to run
+them if `NAV_SLUG` is ever pointed at a profile without the component, rather
+than passing while testing nothing.
+
+**Verified end to end**, not merely asserted present: all five inline script
+blocks and the JSON-LD parse; the dropdown opens on click, closes on outside
+click and reopens, exercised in a real DOM under jsdom; all 14 nav hrefs resolve
+to real files from `cities/<slug>/` depth; tag balance holds; em-dash count
+unchanged at 9, all pre-existing, none added.
+
+Gate: 0 failures, 0 warnings. nav 46 -> 47 matching, CTA 46 -> 47 buttons,
+stubs 52 -> 51. All three moved by exactly one, which is the whole claim.
+
+**Two findings that are not this job, boarded in TASKBOARD.md.** The mobile menu
+has never been checked by anything, and `tools/build_sitemap.py` produces wrong
+`lastmod` on a shallow clone. Both are written up there.
+
 ### 2026-08-24 - a board entry that was wrong, and a category of fact I cannot check
 
 **What happened.** Closing out the session I listed the GA4 custom dimensions for

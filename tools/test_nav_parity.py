@@ -49,6 +49,21 @@ import subprocess
 import sys
 import tempfile
 
+
+def _nav_stub_expected():
+    """Read NAV_STUB_EXPECTED out of validate.py, by text.
+
+    Deliberately not `import validate`: that module runs a real gate on import
+    in some paths, and the harness must stay cheap and side-effect free.
+    """
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "validate.py")
+    with open(path, encoding="utf-8") as fh:
+        m = re.search(r"^NAV_STUB_EXPECTED\s*=\s*(\d+)", fh.read(), re.M)
+    if not m:
+        raise SystemExit("NAV_STUB_EXPECTED not found in validate.py; the "
+                         "harness cannot assert against a number it cannot read")
+    return int(m.group(1))
+
 # Two ordinary component pages. Neither is index.html, whose exemption is its
 # own case, and neither is a city profile, which has no component at all.
 PAGE = "wellness-blueprint.html"
@@ -189,8 +204,16 @@ def main():
         edit_nav(t, OTHER, lambda n: '<nav class="header-nav">\n'
                                      '<a href="/">Home</a>\n</nav>')
     code, added = plant(new_stub)
-    check("a 53rd page without the component fails (the ninth variant)",
-          code == 1 and any("up from the 52" in f for f in added),
+    # The expected count is read from validate.py rather than written here as a
+    # literal. It was "up from the 52" until BATCH B shipped its first profile
+    # and the counter ratcheted to 51, at which point this plant still detected
+    # the defect correctly but failed on the wording. A debt counter that is
+    # designed to move cannot be asserted against a frozen number, and it goes
+    # to 0 when BATCH B finishes.
+    expected = _nav_stub_expected()
+    check(f"one more component-less page than the expected {expected} fails "
+          f"(the ninth variant)",
+          code == 1 and any(f"up from the {expected}" in f for f in added),
           f"{len(added)} new failure(s)")
 
     # ------------------------------------- 10 + 11. the canonical reference

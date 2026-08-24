@@ -1303,7 +1303,21 @@ def check_pillar_links(rep, slug_to_city, local):
             continue
         seen += 1
 
-        n = html.count(f'href="{href}"')
+        # BATCH B, Aug 24 2026. The canonical site nav carries Plan a Visit, so
+        # every profile that has the nav component now holds the pillar href
+        # TWICE: once as site furniture in the header, once as the measured
+        # in-content link. Those are different things and only the second one is
+        # what this check is about, so the header nav comes out before counting.
+        #
+        # Counting them together would have forced one of two bad fixes: allow 2
+        # and stop noticing a genuine duplicate in the body, or hang
+        # data-rmh-pillar on the nav item and let a furniture click land in
+        # pillar_click, which would inflate the conversion on every profile
+        # against a denominator that never moved.
+        body = re.sub(r'<nav class="header-nav">.*?</nav>', "", html,
+                      flags=re.S | re.I)
+
+        n = body.count(f'href="{href}"')
         if n == 0:
             rep.fail("pillar",
                      f"cities/{slug}/profile.html has no pillar link: expected "
@@ -1311,14 +1325,28 @@ def check_pillar_links(rep, slug_to_city, local):
             continue
         if n > 1:
             rep.fail("pillar",
-                     f"cities/{slug}/profile.html carries {n} pillar links, "
-                     f"expected 1")
+                     f"cities/{slug}/profile.html carries {n} pillar links "
+                     f"outside the header nav, expected 1")
+
+        # The nav item must stay UNMEASURED, for the reason above.
+        nav_m = re.search(r'<nav class="header-nav">.*?</nav>', html,
+                          re.S | re.I)
+        if nav_m and "data-rmh-pillar" in nav_m.group(0):
+            rep.fail("pillar",
+                     f"cities/{slug}/profile.html has data-rmh-pillar on the "
+                     f"header-nav item. That is site furniture on every page, "
+                     f"not a conversion; it would fire pillar_click on every "
+                     f"menu click and inflate the metric")
 
         # The hook must be on the ANCHOR. Testing the whole file is not enough:
         # the analytics block contains the selector a[data-rmh-pillar], so a
         # file-wide substring test passes even with the attribute stripped off
         # the link. The Aug 22 harness caught exactly that in the first draft.
-        tag = re.search(r'<a\s[^>]*href="' + re.escape(href) + r'"[^>]*>', html)
+        # Against `body`, not `html`. The header nav's Plan a Visit item comes
+        # first in source order, so searching the whole file would find the
+        # unmeasured furniture link and report every nav-bearing profile as
+        # missing its hook.
+        tag = re.search(r'<a\s[^>]*href="' + re.escape(href) + r'"[^>]*>', body)
         if tag and 'data-rmh-pillar' not in tag.group(0):
             rep.fail("pillar",
                      f"cities/{slug}/profile.html links to the pillar but the "
@@ -4522,7 +4550,7 @@ NAV_CANONICAL = "tools/nav_canonical.html"
 # and must not fail the gate. RAISING it means a 53rd page was built without the
 # nav, which is the ninth variant appearing, which is the entire thing this
 # check exists to stop.
-NAV_STUB_EXPECTED = 52
+NAV_STUB_EXPECTED = 51
 
 
 def _nav_lines(nav):

@@ -4,7 +4,67 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 24, 2026, GA4 custom dimensions: CLOSED
+**Last updated:** August 24, 2026 (second entry), BATCH B pilot awaiting partner review
+
+**AWAITING REVIEW, August 24 2026. BATCH B, pilot of one. St. Louis.**
+
+`cities/st-louis/profile.html` now carries the real nav component. Nothing else
+changed on the page. Chosen because PROFILE-FORMATTING.md already names it the
+canonical template, so the diff that ships to the other 50 is the diff reviewed
+here. **The other 50 are blocked on the partner seeing this rendered.**
+
+*What to look at, in this order.* Desktop first: the top bar should read Find a
+City, Top Cities For..., What Can I Afford?, Compare Cities, Plan a Visit, Find
+My Match, and the dropdown should open and close. Then narrow the window past
+880px: it should collapse to the Find My Match button ALONE, which is exactly
+what the page did before. That is deliberate, see the mobile item below.
+
+*BATCH B was five edits, not one.* The stub is not a smaller nav, it is a
+different component. Full reasoning in the ops log; the one worth knowing is
+that profiles hide `.header-nav a:not(.header-cta)` under 880px, and every
+canonical item is an `<a>` without that class, so a naive paste would have
+hidden all fourteen links including Find My Match and every dropdown item, while
+leaving the trigger visible because it is a `<button>`. Mobile would have shown
+one menu button that opens nothing.
+
+*The gate found a collision nobody had predicted.* The canonical nav carries
+Plan a Visit, so every nav-bearing profile holds the pillar href twice.
+`check_pillar_links` now discounts the header nav and fails if the nav item is
+ever given `data-rmh-pillar` -- measuring site furniture on 51 pages would have
+inflated `pillar_click` against a denominator that never moved. Four new plants.
+
+*Counter moved.* `NAV_STUB_EXPECTED` 52 -> 51. It reaches 0 when the other 50
+land. `test_nav_parity.py` now reads that constant instead of hard-coding it.
+
+**When the review comes back:** the remaining 50 are the same five edits. The
+apply script generalises; the two stub variants differ only by `…` vs
+`&hellip;`, so both anchors must be handled.
+
+**OPEN, P1. The mobile menu has never been checked by anything.**
+
+Found while scoping BATCH B, unreported until now. The mobile menu is a separate
+`<div class="mobile-nav-dropdown">`, not inside `<nav>`, so `check_nav_parity`
+has never looked at it. Across the 46 component pages there are FIVE distinct
+mobile menus, and all five are missing What Can I Afford?, Compare Cities, Plan
+a Visit and Find My Match. The eight-navs problem is still running, unfixed, on
+mobile.
+
+Every one of them also uses relative hrefs (`index.html`, not `/index.html`),
+which is why profiles were NOT given a mobile menu in this batch: copied to
+`cities/<slug>/` depth those links 404. Fixing the component pages and deciding
+what profiles should show on mobile are arguably one job. Wants a decision, not
+just a fix.
+
+**OPEN, P2. `tools/build_sitemap.py` writes wrong lastmod on a shallow clone.**
+
+`lastmod` is derived from git log. On a `--depth 1` clone every file reports the
+HEAD commit date, so the script cheerfully stamped 52 pages as modified today
+when one had changed. Caught here only because the diff was read before
+committing. Given the Search Console history, falsely-FRESH dates on 52 pages is
+the worse direction of that bug, and there is no guard: `is_git_checkout` returns
+true on a shallow clone. Wants a shallow check that raises `GitUnavailable`.
+
+**Last updated (previous):** August 24, 2026, GA4 custom dimensions: CLOSED
 
 **CLOSED, August 24 2026. GA4 custom dimensions. Board correction, no code.**
 
@@ -105,7 +165,10 @@ tool are two different products with near-identical names, and two "Compare"
 entries in one menu confuse more than they help. It wants a home on the Compare
 hub instead, which is a separate job.
 
-**QUEUED. BATCH B. The fifty-two pages with no nav component.**
+**IN PROGRESS (1 of 52 shipped, 51 remain). BATCH B. See the pilot entry at the
+top of this board. The description below is the original scoping and still
+stands, except that the count is now 51 and the mobile question it does not
+mention is boarded separately.**
 
 Fifty-one city profiles plus `visit-before-you-decide.html`. Needs the CSS
 block, the `toggleTopCitiesDropdown` function and the canonical markup shipped
