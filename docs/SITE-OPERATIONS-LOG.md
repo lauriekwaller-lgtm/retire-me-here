@@ -202,6 +202,72 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-23 (second entry) - eight navs, one component
+
+**How it surfaced, including the part I got wrong.** Scoping follow-on work from
+the sitemap session, I reported that `compare-retirement-cities.html` and
+`pick-and-compare.html` had no nav entry. Laurie said she believed
+`compare-retirement-cities.html` was on the menu bar. She was right and I was
+wrong. The claim came from an internal-inbound-link count, which measures
+something else entirely, and I stated it as a fact about the nav without ever
+reading a `<nav>` element. `compare-retirement-cities.html` is in the nav on
+thirty pages including the homepage. The stale board item saying otherwise
+should have been re-derived by grep at session start, which is the standing rule
+and was not followed.
+
+**Checking properly found something larger.** Eight distinct navs across one
+hundred pages. `where-can-i-afford-to-retire.html` in the menu on two pages out
+of ninety-eight; `visit-before-you-decide.html` on one; every guide page missing
+Compare Cities. All eight topic links present everywhere, which is precisely why
+no single page ever looked broken and nothing was ever noticed.
+
+**Two families, not eight variants, and that changed the plan.** Forty-six pages
+carry the dropdown component. Fifty-two carry a three-link stub with none of the
+machinery: no `.nav-dropdown` CSS, no `.nav-dropdown-item`, no `.nav-chev`, no
+`.header-quiz-btn`, no `toggleTopCitiesDropdown` on the page at all. So the
+fifty-two are not a markup swap, they are a CSS-and-JS ship, and they visibly
+change the top of every city profile. One job became two: BATCH A here, BATCH B
+boarded.
+
+**The homepage cannot be the template, and cannot take the template.** Its nav
+calls `openCitySearch()`, `startQuiz()` and `showScreen('screen-explore')`,
+functions that exist only on `index.html` because it is the quiz app. Copy that
+nav onto another page and every item is dead; stamp the shared block onto it and
+every item is dead there. Two navs is forced. Their menus disagreeing is not, so
+the check holds index.html to the same destination set while allowing its markup
+to differ, and a plant proves the exemption is narrow rather than a hole.
+
+**Line comparison, not set comparison.** A contains-the-right-links check would
+have passed all eight variants the moment their link lists converged, and would
+pass a reordered menu, a relabelled item, or a page quietly growing an extra
+link. All four are planted and all four fail.
+
+**Checked before writing.** No nav carried an active-page or current-page
+marker, so byte-identical replacement destroys no state. One non-canonical link
+existed in two navs, to `where-should-i-retire-quiz.html`; that page has
+forty-six body links elsewhere, so losing two nav links is immaterial. Both
+verified before the first write rather than after.
+
+**Root-absolute on purpose.** The forty-five rewritten pages sit at root, where
+relative hrefs worked fine. They are now root-absolute anyway, so the identical
+block will work unchanged at `cities/<slug>/` depth when BATCH B lands. Same
+convention as the pillar-link fix.
+
+**The debt is a number, not a note.** `NAV_STUB_EXPECTED = 52`. The check FAILS
+if it rises, which is the ninth variant being born, and prints a reminder to
+lower it if it falls, which is BATCH B doing its job. A comment saying "profiles
+still need this" would have aged the way the last one did.
+
+**Verified.** Fresh clone, apply, `python3 tools/validate.py --local .` at 0
+failures 0 warnings with all harnesses passing. `build_nav.py --check` clean
+after the rewrite; second apply run a no-op.
+
+**Grading.** This is a navigation fix with an indexing rationale, and the
+indexing half is unproven. Internal links are how rank moves and forty-four
+pages just gained a link they did not have, but the pages most starved of them
+are the fifty-one profiles, and those are BATCH B. Do not read this one in
+Search Console on its own.
+
 ### 2026-08-23 - the sitemap was lying about every page on the site
 
 **What was asked.** Why indexed pages were falling, ninety to eighty-eight to

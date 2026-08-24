@@ -4,7 +4,68 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 23, 2026, sitemap lastmod derived from git
+**Last updated:** August 23, 2026 (second entry), nav unified on the 46 component pages
+
+**SHIPPED, August 23 2026. Nav parity, BATCH A. BATCH B boarded below.**
+
+*What was found.* Scoping the orphan-page work turned up EIGHT distinct navs
+across one hundred pages. Not eight designs, eight accidents: the nav was never
+a component, so every page froze whatever the menu looked like on the day it was
+built, and each new tool page was added to whichever nav was in front of whoever
+added it. `where-can-i-afford-to-retire.html` was in the menu on two pages out
+of ninety-eight. `visit-before-you-decide.html` on one. Every guide page was
+missing Compare Cities. All eight topic links, by contrast, were everywhere,
+which is why nothing ever looked obviously broken.
+
+*Two nav families, not eight variants.* Forty-six pages carry the dropdown
+component. Fifty-two carry a three-link stub with none of the machinery behind
+it: no `.nav-dropdown` CSS, no `.nav-dropdown-item`, no `.nav-chev`, no
+`.header-quiz-btn`, and no `toggleTopCitiesDropdown` anywhere on the page. Two
+pages, `privacy.html` and `scouting-trip-workbook.html`, have no header at all
+and are outside the sitemap.
+
+*Why index.html is exempt and always will be.* Its nav calls
+`openCitySearch()`, `startQuiz()` and `showScreen('screen-explore')`, which
+exist only on that page because it is the quiz app. Stamping the shared block
+there kills every item; copying its block anywhere else kills every item there.
+Two navs is forced by the architecture. Their MENUS agreeing is not, so
+`check_nav_parity` holds index.html to the same destinations while letting its
+markup differ.
+
+*What shipped.* `tools/nav_canonical.html` is now the nav.
+`tools/build_nav.py` stamps it onto all forty-five non-homepage component pages,
+root-absolute so the same block will work unchanged at `cities/<slug>/` depth
+when BATCH B lands. `check_nav_parity` compares line for line, not as a set of
+links: set equality would have passed all eight variants the moment their link
+lists converged. Twelve plants in `tools/test_nav_parity.py`.
+
+*Resolved by this batch.* The open board item "nav entry decision for
+`visit-before-you-decide.html`, requires partner input before shipping" is
+closed. Plan a Visit is in the canonical nav on all forty-six component pages,
+approved as part of the item list.
+
+*Item list, as approved.* Find a City, Top Cities For… (dropdown, eight topics
+plus More topics), What Can I Afford?, Compare Cities, Plan a Visit, Find My
+Match. `pick-and-compare.html` deliberately NOT in the top bar: the hub and the
+tool are two different products with near-identical names, and two "Compare"
+entries in one menu confuse more than they help. It wants a home on the Compare
+hub instead, which is a separate job.
+
+**QUEUED. BATCH B. The fifty-two pages with no nav component.**
+
+Fifty-one city profiles plus `visit-before-you-decide.html`. Needs the CSS
+block, the `toggleTopCitiesDropdown` function and the canonical markup shipped
+to each file. Root-absolute hrefs are already in the canonical block, so profile
+depth is handled. This VISIBLY CHANGES the header on every city profile, which
+is partner-reviewable: build one profile, review it rendered, then batch the
+rest. `NAV_STUB_EXPECTED = 52` in validate.py is the debt counter and drops to 0
+when this lands; the check already FAILS if it ever rises.
+
+*Why it matters beyond tidiness.* Profiles are the deepest content on the site
+and currently hand a crawler three links, all to the homepage. Internal links
+are how rank moves, and profiles are exactly where the not-indexed pages are.
+
+**Last updated (previous):** August 23, 2026, sitemap lastmod derived from git
 
 **SHIPPED, August 23 2026. Sitemap freshness, made derived. OPS + BATCH.**
 

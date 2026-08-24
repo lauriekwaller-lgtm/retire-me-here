@@ -25,6 +25,7 @@ Check groups:
     affiliate    affiliate codes: duplicates, missing brands, multiple codes per page
     db           database hygiene
     sitemap      every <lastmod> well-formed, and not older than git
+    nav          one nav, byte-for-byte, on every page but the homepage
     harness      the planted-error tests in tools/, run against this checkout
 
 Why this exists: every figure on this site is a string that either matches a DB cell
@@ -4503,6 +4504,184 @@ def check_sitemap_lastmod(rep, sitemap, local):
                      f"python3 tools/build_sitemap.py")
 
 
+
+NAV_CANONICAL = "tools/nav_canonical.html"
+
+# The 52 pages that do not carry the nav component at all: 51 city profiles plus
+# visit-before-you-decide.html. They are not a nav variant, they are a different
+# thing -- no .nav-dropdown CSS, no .nav-dropdown-item, no .nav-chev, no
+# .header-quiz-btn, and no toggleTopCitiesDropdown JS anywhere on the page. Their
+# entire header is three links that all go to the homepage.
+#
+# Fixing them means shipping a CSS block and a JS function to each file, and it
+# visibly changes the top of every city profile, which is partner-reviewable
+# work. So it is BATCH B, and this number is the debt, written down.
+#
+# The comparison is > not ==, on purpose. Lowering it is BATCH B doing its job
+# and must not fail the gate. RAISING it means a 53rd page was built without the
+# nav, which is the ninth variant appearing, which is the entire thing this
+# check exists to stop.
+NAV_STUB_EXPECTED = 52
+
+
+def _nav_lines(nav):
+    """Indentation-insensitive comparison key: stripped, non-blank lines."""
+    return tuple(ln.strip() for ln in nav.splitlines() if ln.strip())
+
+
+def _nav_targets(nav):
+    """Every page the nav points at, normalised across href styles.
+
+    index.html writes /top-cities-for-foodies.html where the rest write
+    top-cities-for-foodies.html, and the homepage is variously "/", "index.html"
+    and "/#screen-explore". Comparing raw hrefs would call those different navs
+    when they are the same menu.
+    """
+    out = set()
+    for href in re.findall(r'href="([^"]+)"', nav):
+        base = href.lstrip("/").split("#")[0].split("?")[0]
+        if not base or base == "index.html":
+            continue
+        out.add(base)
+    return out
+
+
+def check_nav_parity(rep, sitemap, local):
+    """
+    One nav, byte-for-byte, on every page that is not the homepage.
+
+    Found August 23 2026 while scoping the orphan-page work. The site had EIGHT
+    distinct navs across 100 pages. Not eight designs -- eight accidents: the nav
+    was never a component, so each page froze whatever the menu looked like the
+    day it was built, and each new tool page was added to whichever nav happened
+    to be in front of whoever added it. where-can-i-afford-to-retire.html was in
+    the menu on 2 pages out of 98. visit-before-you-decide.html was in it on 1.
+    Every guide page was missing Compare Cities entirely.
+
+    That is also an indexing problem and not only a navigation one. Internal
+    links are how rank moves between pages, and nine real pages were sitting in
+    "Crawled - currently not indexed" while the menu that should have been
+    pointing at them pointed at eight different things.
+
+    So: tools/nav_canonical.html is the nav, and every page carrying the
+    component must match it exactly. Not "contains the right links" -- matches.
+    A set-equality check would have passed all eight variants the moment their
+    link lists converged, and the ninth would have arrived anyway.
+
+    index.html is the one exemption, and it is a real one rather than a
+    convenience. Its nav calls openCitySearch(), startQuiz() and
+    showScreen('screen-explore'), functions that exist only on that page because
+    it is the quiz app. Copy the canonical block onto it and every item dies;
+    copy its block anywhere else and every item dies there instead. Two navs is
+    forced by the architecture. What is NOT forced is their menus disagreeing,
+    so index.html is held to the same set of destinations even though its markup
+    differs.
+
+    Asserted:
+      - the canonical file exists and parses as a <nav> (no canonical, no check)
+      - every component page's nav matches it line for line
+      - index.html reaches exactly the same set of destinations
+      - the count of pages with no component has not grown past NAV_STUB_EXPECTED
+    """
+    canon_raw = fetch(NAV_CANONICAL, local)
+    if canon_raw is None:
+        rep.fail("nav", f"{NAV_CANONICAL} is missing, so no nav was compared "
+                        f"against anything")
+        return
+    m = re.search(r"<nav\b.*?</nav>", canon_raw, re.S | re.I)
+    if not m:
+        rep.fail("nav", f"{NAV_CANONICAL} contains no <nav> element, so no nav "
+                        f"was compared against anything")
+        return
+    canon = m.group(0)
+    canon_lines = _nav_lines(canon)
+    canon_targets = _nav_targets(canon)
+    if len(canon_targets) < 5:
+        rep.fail("nav", f"{NAV_CANONICAL} points at only {len(canon_targets)} "
+                        f"page(s); that is not a site nav and every page would "
+                        f"pass against it")
+        return
+
+    # Page list from sitemap.xml, the same source check_canonicals uses. It is
+    # also exactly right here: the 98 sitemap URLs are precisely the 98 pages
+    # that carry a <nav>. The only two HTML files outside it, privacy.html and
+    # scouting-trip-workbook.html, have no header at all.
+    pages = []
+    for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", sitemap):
+        rest = loc[len(SITE):].lstrip("/") if loc.startswith(SITE) else ""
+        pages.append(rest if rest else "index.html")
+    pages = sorted(set(pages))
+    if not pages:
+        rep.fail("nav", "sitemap.xml yielded no pages, so no nav was checked")
+        return
+
+    checked = stubs = 0
+    for page in pages:
+        html = fetch(page, local)
+        if html is None:
+            continue
+        found = re.search(r"<nav\b.*?</nav>", html, re.S | re.I)
+        if not found:
+            continue
+        nav = found.group(0)
+
+        if "nav-dropdown" not in nav:
+            stubs += 1
+            continue
+
+        if page == "index.html":
+            # Markup differs by necessity; the menu must not.
+            missing = canon_targets - _nav_targets(nav)
+            extra = _nav_targets(nav) - canon_targets
+            if missing:
+                rep.fail("nav", f"index.html nav is missing {sorted(missing)}, "
+                                f"which the rest of the site links to")
+            if extra:
+                rep.fail("nav", f"index.html nav links to {sorted(extra)}, which "
+                                f"no other page's nav does")
+            checked += 1
+            continue
+
+        checked += 1
+        got = _nav_lines(nav)
+        if got == canon_lines:
+            continue
+
+        want = set(canon_lines)
+        have = set(got)
+        gone = [ln for ln in canon_lines if ln not in have]
+        added = [ln for ln in got if ln not in want]
+        if gone:
+            rep.fail("nav", f"{page} nav is missing {len(gone)} canonical "
+                            f"line(s), first: {gone[0][:88]!r}. Run "
+                            f"tools/build_nav.py")
+        if added:
+            rep.fail("nav", f"{page} nav has {len(added)} line(s) not in "
+                            f"{NAV_CANONICAL}, first: {added[0][:88]!r}. Run "
+                            f"tools/build_nav.py")
+        if not gone and not added:
+            rep.fail("nav", f"{page} nav has the canonical lines in a different "
+                            f"order. Run tools/build_nav.py")
+
+    if checked == 0:
+        rep.fail("nav", f"{len(pages)} pages scanned and not one nav was "
+                        f"compared; the check read nothing")
+        return
+
+    if stubs > NAV_STUB_EXPECTED:
+        rep.fail("nav", f"{stubs} pages carry a nav with no dropdown component, "
+                        f"up from the {NAV_STUB_EXPECTED} on the board. A new "
+                        f"page was built without the site nav; give it the block "
+                        f"in {NAV_CANONICAL}")
+    elif stubs < NAV_STUB_EXPECTED:
+        print(f"  nav:      {checked} navs match {NAV_CANONICAL}. "
+              f"{stubs} component-less pages remain, down from "
+              f"{NAV_STUB_EXPECTED} -- lower NAV_STUB_EXPECTED to {stubs}")
+    else:
+        print(f"  nav:      {checked} navs match {NAV_CANONICAL}. "
+              f"{stubs} component-less pages remain (BATCH B)")
+
+
 RETIRED_FONTS = ("Playfair", "Fraunces")
 CANON_FONTS_LINK_FAMILIES = ("Libre+Franklin", "DM+Sans")
 
@@ -4638,7 +4817,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_js_parse.py",
              "tools/test_affiliate.py",
              "tools/test_pillar_links.py",
-             "tools/test_sitemap_lastmod.py")
+             "tools/test_sitemap_lastmod.py",
+             "tools/test_nav_parity.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4699,7 +4879,7 @@ def main():
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
                              "superlatives", "emdash", "tags", "affiliate", "db",
-                             "docs", "layout", "sitemap", "harness"],
+                             "docs", "layout", "sitemap", "nav", "harness"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -4713,7 +4893,8 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "tags", "affiliate", "db", "docs", "layout", "sitemap", "harness"}
+        "tags", "affiliate", "db", "docs", "layout", "sitemap", "nav",
+        "harness"}
 
     source = args.local or "live GitHub"
     print(f"RetireMeHere validator")
@@ -4800,6 +4981,8 @@ def main():
         check_typography(rep, args.local)
     if "sitemap" in groups:
         check_sitemap_lastmod(rep, sitemap, args.local)
+    if "nav" in groups:
+        check_nav_parity(rep, sitemap, args.local)
     # Last: it shells out once per harness and is the slowest group by a wide margin,
     # so everything cheap has already had its say by the time it starts.
     if "harness" in groups:
