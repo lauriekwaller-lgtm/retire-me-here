@@ -202,6 +202,65 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-23 (third entry) - a button nobody could read, and three wrong answers about it
+
+**Reported by Laurie**, in her own words: the Find My Match button on the Plan a
+Visit page looked terracotta instead of cream, and was not readable. She was
+right, and she had also correctly identified the only affected page, which took
+me three attempts to confirm.
+
+**The mechanism.** The CTA is an `<a>` inside `.header-nav`. CSS resolves ties by
+specificity before source order, and `.header-nav a { color: var(--mid) }` is a
+class plus an element, 0-1-1, while `.header-quiz-btn { color: var(--white) }` is
+a class alone, 0-1-0. The nav-link colour wins: #5C5852 on a #2A5E5A pill, a
+contrast ratio of 1.04:1 where WCAG AA asks for 4.5:1. Effectively invisible.
+
+**Three answers, two of them wrong, both delivered confidently with page lists.**
+Attempt one compared specificity only, ignored `!important` entirely, and
+reported forty-six broken pages. Attempt two added `!important` handling but
+matched selectors against a hard-coded list of four exact strings; the rule that
+actually wins on forty-five pages is a six-selector group preceded by two CSS
+comments, so it was never matched, the win was misattributed to `.header-nav a`
+again, and the answer came back forty-six a second time. The truth is one page.
+Forty-five carry a hand-added hardening rule -- explicit hex, `!important`, every
+link state, a `-webkit-text-fill-color` fallback, and a comment calling itself
+bulletproof. `visit-before-you-decide.html` never got it.
+
+**Why this is written down at length.** Four things interact in this question:
+`!important`, selector groups, specificity, and `var()` indirection. Getting any
+single one wrong inverts the result, and both wrong answers looked exactly as
+authoritative as the right one. That is the argument for the check being
+arithmetic in `tools/css_cascade.py` rather than a reading of the stylesheet.
+
+**What the arithmetic found that nobody had reported.** Six pages got the resting
+half of the hardening rule and not the `:hover` half. On those,
+`.header-nav a:hover { color: var(--teal) }` wins and paints #2A5E5A text on the
+#3d7a75 hover background: 1.49:1. Seven failures across six pages in total, one
+resting and six hover.
+
+**The fix appends rather than rewrites.** The existing CTA rules are written six
+different ways across the site -- minified, expanded, with and without the Safari
+fallback, with and without `border-color`. Matching all six variants in order to
+replace them is precisely the by-hand pattern-matching that produced two wrong
+answers. The appended block carries `!important` and higher specificity, so it
+wins without needing to identify what it is beating.
+
+**The harness caught a defect in the harness.** Five negative plants reported no
+failure, which looked like a check that could detect nothing. Cause:
+`strip_hardening` ran its regexes over the whole file, and
+`[^{}]*header-quiz-btn[^{}]*{[^}]*}` matched from the nav markup in the body
+across to a brace in a later `<script>`, deleting the CTA anchor itself. The page
+then had no CTA, the check skipped it, and the plants proved nothing. Stripping
+is now confined to `<style>` blocks. Worth noting the failure mode: a broken test
+fixture and a broken check look identical from the outside.
+
+**Prerequisite for BATCH B, not merely adjacent to it.** The canonical nav block
+uses `<a class="header-quiz-btn">`. Shipping B before this would have copied the
+defect onto fifty-one city profiles. The check now guards that.
+
+**Verified.** Fresh clone, apply, `python3 tools/validate.py --local .` at 0
+failures 0 warnings, all harnesses passing. Second apply run a no-op.
+
 ### 2026-08-23 (second entry) - eight navs, one component
 
 **How it surfaced, including the part I got wrong.** Scoping follow-on work from

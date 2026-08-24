@@ -559,6 +559,33 @@ a:hover { color: var(--teal-mid); }
   margin-right: auto;
   line-height: 1.55;
 }
+
+/* ============ RMH-CTA-CONTRAST-V1 ============ */
+/* The header CTA is an <a> inside .header-nav, so `.header-nav a { color }`
+   (0-1-1) outranks a bare `.header-quiz-btn { color }` (0-1-0). Both the
+   resting and hover states need to win on their own; the hover one was the
+   half that got missed. Hex, not var(), so an undefined variable cannot
+   silently drop this back to the inherited colour. */
+a.header-quiz-btn,
+a.header-quiz-btn:link,
+a.header-quiz-btn:visited,
+a.header-quiz-btn:active,
+button.header-quiz-btn,
+.header-quiz-btn {
+  background-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  text-decoration: none !important;
+}
+a.header-quiz-btn:hover,
+a.header-quiz-btn:focus,
+button.header-quiz-btn:hover,
+.header-quiz-btn:hover {
+  background-color: #3d7a75 !important;
+  border-color: #3d7a75 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
 </style>
 
 </head>

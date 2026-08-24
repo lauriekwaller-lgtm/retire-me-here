@@ -26,6 +26,7 @@ Check groups:
     db           database hygiene
     sitemap      every <lastmod> well-formed, and not older than git
     nav          one nav, byte-for-byte, on every page but the homepage
+    cta          header button readable, resting and hover
     harness      the planted-error tests in tools/, run against this checkout
 
 Why this exists: every figure on this site is a string that either matches a DB cell
@@ -4682,6 +4683,112 @@ def check_nav_parity(rep, sitemap, local):
               f"{stubs} component-less pages remain (BATCH B)")
 
 
+
+CTA_MIN_RATIO = 4.5
+
+# index.html builds its CTA as <button>, not <a>, so `.header-nav a` never
+# applies to it and cta_contrast() correctly returns None. That is the ONLY page
+# expected to be unresolvable. Anything else coming back None is a page whose
+# colours could not be worked out, which is not the same as a page that passes,
+# and is reported rather than skipped.
+CTA_UNRESOLVED_EXPECTED = 1
+
+
+def check_cta_contrast(rep, sitemap, local):
+    """
+    The Find My Match button must be readable, resting and on hover.
+
+    Laurie reported on August 23 2026 that the CTA on visit-before-you-decide
+    looked terracotta rather than cream and could not be read. It renders
+    #5C5852 on #2A5E5A: a contrast ratio of 1.04:1, where WCAG AA wants 4.5:1.
+    The button is an <a> inside .header-nav, so `.header-nav a { color: var(--mid) }`
+    at specificity 0-1-1 outranks a bare `.header-quiz-btn { color: var(--white) }`
+    at 0-1-0, and the nav-link colour wins.
+
+    Forty-five other pages were fine, because each carries a hand-added rule
+    whose own comment calls it "bulletproof" -- explicit hex, !important, every
+    link state, a -webkit-text-fill-color fallback. One page never got it. Six
+    more got the resting half and not the :hover half, so hovering paints
+    var(--teal) text on a #3d7a75 background at 1.49:1.
+
+    THIS CHECK IS ARITHMETIC BECAUSE I COULD NOT DO IT BY EYE. Asked how many
+    pages were affected, I answered 46 twice, confidently, with a page list
+    attached, and the true answer was one -- the single page Laurie had already
+    named. The first attempt ignored !important. The second handled !important
+    but matched selectors against four hard-coded strings, so it never saw the
+    six-selector group that actually wins, and misattributed the win a second
+    time. Four things interact here -- !important, selector groups, specificity,
+    var() indirection -- and getting any one wrong flips the answer. So the
+    cascade is resolved in code, in tools/css_cascade.py, under test.
+
+    Asserted, per page, on both the resting and hover states:
+      - the winning colour and background resolve to real values
+      - their contrast ratio is at least 4.5:1
+
+    A page whose CTA cannot be resolved is counted, not skipped, and the count
+    is held at CTA_UNRESOLVED_EXPECTED. Silence about a page it could not read
+    is how a check like this reports clean while the site is broken.
+    """
+    try:
+        from css_cascade import cta_contrast
+    except ImportError as exc:
+        rep.fail("cta", f"tools/css_cascade.py could not be imported ({exc}), so "
+                        f"no button contrast was checked")
+        return
+
+    pages = []
+    for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", sitemap):
+        rest = loc[len(SITE):].lstrip("/") if loc.startswith(SITE) else ""
+        pages.append(rest if rest else "index.html")
+    pages = sorted(set(pages))
+    if not pages:
+        rep.fail("cta", "sitemap.xml yielded no pages, so no button was checked")
+        return
+
+    checked = unresolved = 0
+    no_cta = []
+    for page in pages:
+        html = fetch(page, local)
+        if html is None:
+            continue
+        nav = re.search(r"<nav\b.*?</nav>", html, re.S | re.I)
+        if not nav or "header-quiz-btn" not in nav.group(0):
+            no_cta.append(page)
+            continue
+
+        page_ok = True
+        for hover in (False, True):
+            got = cta_contrast(html, hover=hover)
+            state = "hover" if hover else "resting"
+            if got is None:
+                if page_ok:
+                    unresolved += 1
+                    page_ok = False
+                continue
+            ratio, fg, bg, sel = got
+            if ratio < CTA_MIN_RATIO:
+                rep.fail("cta", f"{page} Find My Match button is unreadable "
+                                f"({state}): {fg} on {bg} is {ratio:.2f}:1, "
+                                f"below {CTA_MIN_RATIO}:1. The winning rule is "
+                                f"'{sel}'. Run python3 tools/fix_cta_css.py")
+        if page_ok:
+            checked += 1
+
+    if checked == 0:
+        rep.fail("cta", f"{len(pages)} pages scanned and not one button contrast "
+                        f"was computed; the check read nothing")
+        return
+
+    if unresolved > CTA_UNRESOLVED_EXPECTED:
+        rep.fail("cta", f"{unresolved} pages have a CTA whose colours could not be "
+                        f"resolved, up from the {CTA_UNRESOLVED_EXPECTED} on the "
+                        f"board. An unreadable page is not a passing page; check "
+                        f"tools/css_cascade.py against the new markup")
+    else:
+        print(f"  cta:      {checked} buttons at or above {CTA_MIN_RATIO}:1 "
+              f"resting and hover. {len(no_cta)} pages have no header CTA")
+
+
 RETIRED_FONTS = ("Playfair", "Fraunces")
 CANON_FONTS_LINK_FAMILIES = ("Libre+Franklin", "DM+Sans")
 
@@ -4818,7 +4925,8 @@ HARNESSES = ("tools/test_afford_data.py",
              "tools/test_affiliate.py",
              "tools/test_pillar_links.py",
              "tools/test_sitemap_lastmod.py",
-             "tools/test_nav_parity.py")
+             "tools/test_nav_parity.py",
+             "tools/test_cta_contrast.py")
 
 # Each harness runs THIS script on a staged copy, so the group would recurse without a
 # stop. Two of them: the harnesses invoke --only figures / --only emdash, which already
@@ -4879,7 +4987,7 @@ def main():
     ap.add_argument("--only", action="append",
                     choices=["figures", "profiles", "routing", "cards",
                              "superlatives", "emdash", "tags", "affiliate", "db",
-                             "docs", "layout", "sitemap", "nav", "harness"],
+                             "docs", "layout", "sitemap", "nav", "cta", "harness"],
                     help="run only these check groups (repeatable)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -4893,7 +5001,7 @@ def main():
 
     groups = set(args.only) if args.only else {
         "figures", "profiles", "routing", "cards", "superlatives", "emdash",
-        "tags", "affiliate", "db", "docs", "layout", "sitemap", "nav",
+        "tags", "affiliate", "db", "docs", "layout", "sitemap", "nav", "cta",
         "harness"}
 
     source = args.local or "live GitHub"
@@ -4983,6 +5091,8 @@ def main():
         check_sitemap_lastmod(rep, sitemap, args.local)
     if "nav" in groups:
         check_nav_parity(rep, sitemap, args.local)
+    if "cta" in groups:
+        check_cta_contrast(rep, sitemap, args.local)
     # Last: it shells out once per harness and is the slowest group by a wide margin,
     # so everything cheap has already had its say by the time it starts.
     if "harness" in groups:

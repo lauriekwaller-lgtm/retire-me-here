@@ -4,7 +4,44 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 23, 2026 (second entry), nav unified on the 46 component pages
+**Last updated:** August 23, 2026 (third entry), header CTA contrast
+
+**SHIPPED, August 23 2026. Header CTA contrast. BATCH.**
+
+*Reported by Laurie*, who said the Find My Match button on the Plan a Visit page
+looked terracotta rather than cream and could not be read. Correct. It renders
+#5C5852 on #2A5E5A: 1.04:1, where WCAG AA wants 4.5:1.
+
+*Mechanism.* The button is an `<a>` inside `.header-nav`, so
+`.header-nav a { color: var(--mid) }` at specificity 0-1-1 outranks
+`.header-quiz-btn { color: var(--white) }` at 0-1-0, regardless of order.
+
+*I answered the scope question wrong twice, with a page list each time.* First
+pass ignored `!important` and reported forty-six broken pages. Second pass
+handled `!important` but matched selectors against four hard-coded strings, so
+it never saw the six-selector group that actually wins on forty-five pages, and
+reported forty-six again. The true count was one, the page Laurie had already
+named. Forty-five pages carry a hand-added rule whose own comment calls it
+bulletproof; one never got it.
+
+*What the arithmetic then found that no one had reported.* Six pages received
+the resting half of that rule and not the `:hover` half, so hovering paints
+`var(--teal)` text on a #3d7a75 background at 1.49:1. Seven failures across six
+pages, all now fixed.
+
+*What shipped.* `tools/css_cascade.py` resolves the cascade properly:
+`!important`, selector groups, comments inside selectors, specificity, and
+`var()` indirection. Getting any one of those wrong flips the answer, which is
+the whole reason it is code under test rather than a judgment made by reading
+CSS. `tools/fix_cta_css.py` appends the hardened rule to any page failing
+contrast. `check_cta_contrast` fails below 4.5:1 on either state. Twelve plants
+in `tools/test_cta_contrast.py`, chosen to be the specific mistakes I made.
+
+*Relevant to BATCH B.* The canonical nav block uses `<a class="header-quiz-btn">`,
+so without this the same defect would have propagated to fifty-one profiles.
+This had to go first, and now the check will catch it if it does.
+
+**Last updated (previous):** August 23, 2026 (second entry), nav unified on the 46 component pages
 
 **SHIPPED, August 23 2026. Nav parity, BATCH A. BATCH B boarded below.**
 
