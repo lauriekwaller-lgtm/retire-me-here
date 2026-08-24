@@ -4,7 +4,24 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 23, 2026 (third entry), header CTA contrast
+**Last updated:** August 24, 2026, GA4 custom dimensions: CLOSED
+
+**CLOSED, August 24 2026. GA4 custom dimensions. Board correction, no code.**
+
+Laurie confirmed all three of `merchant`, `surface` and `city_slug` are
+registered in GA4. The board said they were not, and I read the board back to
+her as current fact. The October deadline is retired.
+
+*Standing lesson, third instance in two days.* GA4 admin state cannot be
+verified from this repo, and neither can anything else that lives in a console,
+a DNS record or a third-party dashboard. For repo facts the rule is grep, do not
+inherit. For off-repo facts there is no grep, so the rule is: say it is unknown
+and ask, rather than quoting the board as though the board were the system.
+
+*Remaining GA4 item.* `purchase` is still auto-starred as a key event on the
+property and will never fire. Unmark it. Cosmetic, not blocking.
+
+**Last updated (previous):** August 23, 2026 (third entry), header CTA contrast
 
 **SHIPPED, August 23 2026. Header CTA contrast. BATCH.**
 
@@ -167,12 +184,18 @@ is a redundant cross-check rather than a contingency.
 marked as key events. `quiz_complete` was already marked and is the denominator
 for the capture rate.
 
-*Still open, and deliberately deferred.* Custom dimensions for `merchant`,
-`surface` and `city_slug` are NOT yet registered. Until they are, both events
-report as totals and every breakdown reads `(not set)`. That is acceptable at
-current volume, where there is nothing to break down, but it must be done
-before the October read or the surface labels that justified building
-`signup_submit` the way it was built will be unreadable.
+*CLOSED, confirmed by Laurie August 24 2026.* Custom dimensions for
+`merchant`, `surface` and `city_slug` are all three registered. The October
+deadline this item carried is retired. See the August 24 log entry: this line
+said "NOT yet registered" for some time after it had been done, and nothing in
+the repo could have known otherwise, because GA4 admin state is not in the repo.
+
+*The one caveat that outlives the item.* GA4 custom dimensions populate from
+their registration date forward and do not backfill. Whatever `affiliate_click`
+and `signup_submit` fired before registration carries `(not set)` for these
+three permanently. Confirm the registration date in Admin > Custom definitions
+before the October read, and treat it as the true start of the usable series
+rather than the date the events began firing.
 
 *GA4 default to clean up.* GA4 stars `purchase` as a key event automatically on
 every property. There is no ecommerce on this site, so it will never fire and
@@ -402,9 +425,9 @@ holds, so the hard half of this problem was never ours to solve.
 this is done.**
 1. Admin > Events, mark `affiliate_click` and `signup_submit` as key events.
    Firing an event is not the same as GA4 reporting it as a conversion.
-2. Admin > Custom definitions, register `merchant`, `surface` and `city_slug`
-   as custom dimensions (event-scoped). Without this the events arrive but
-   every breakdown reads "(not set)".
+2. DONE, confirmed August 24 2026. Admin > Custom definitions, `merchant`,
+   `surface` and `city_slug` registered as event-scoped custom dimensions.
+   Note the registration date: these do not backfill.
 3. Admin > Data streams > Enhanced measurement, confirm Form interactions is
    ON, for the independent second signal above.
 4. Then verify in DebugView, on production: click an affiliate link on any

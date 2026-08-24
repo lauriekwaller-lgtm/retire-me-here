@@ -202,6 +202,47 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-24 - a board entry that was wrong, and a category of fact I cannot check
+
+**What happened.** Closing out the session I listed the GA4 custom dimensions for
+`merchant`, `surface` and `city_slug` as unregistered, with an October deadline
+and a note that missing it would make the data unrecoverable rather than late.
+Laurie said she believed it was complete. It is: all three are registered. The
+board had been stale and I quoted it as current.
+
+**Third correction in two days, and the first of a different kind.** The other
+two -- the claim that `compare-retirement-cities.html` had no nav entry, and the
+claim that 46 pages had an unreadable CTA -- were both facts the repo could have
+settled, and in both cases the answer was one grep or one cascade resolution
+away. This one is not. GA4 admin state does not exist in the repo at any path.
+No validator can reach it, no check can be written for it, and re-cloning proves
+nothing.
+
+**So the standing rule needs a second half.** "Grep, do not inherit" covers repo
+facts. For facts that live in a console, a DNS record, a registrar, a payment
+processor or a third-party dashboard, there is nothing to grep, and the board is
+a written claim about the outside world rather than a description of the repo.
+Those claims rot silently and cannot be gated. The correct behaviour is to name
+them as unverifiable and ask, not to restate them with the confidence that repo
+facts earn.
+
+**Not fixable by a check, deliberately.** The obvious move is a validator that
+hits the GA4 Admin API and compares. Rejected: it needs a credential in CI to
+check a value that changes roughly never, and it converts a thing Laurie can
+confirm in fifteen seconds into a piece of infrastructure that can break. Some
+facts are correctly maintained by asking a person. What was wrong here was not
+the absence of automation, it was stating an unverified claim as fact.
+
+**One real consequence, carried forward.** GA4 custom dimensions populate from
+their registration date and do not backfill. Every `affiliate_click` and
+`signup_submit` fired before registration carries `(not set)` for these three
+permanently. The registration date, not the event-launch date, is the start of
+the usable series, and the October read should be framed against it. Boarded.
+
+**Also still open.** `purchase` is auto-starred as a key event on the property
+and will never fire on a site with no ecommerce. Cosmetic; unmark when
+convenient.
+
 ### 2026-08-23 (third entry) - a button nobody could read, and three wrong answers about it
 
 **Reported by Laurie**, in her own words: the Find My Match button on the Plan a
