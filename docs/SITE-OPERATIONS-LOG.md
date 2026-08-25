@@ -202,6 +202,31 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-25 - Pinterest read, Pin Studio v3 (52 profiles live, 24 comparison pages live)
+
+Docs only. No code, no site change.
+
+Pinterest 30-day: 3.9K impressions, 91 engagements, 34 outbound clicks, 8 saves,
+audience down 17%. Save rate 0.21%. The channel is save-limited rather than
+reach-limited, and the working hypothesis is that the pins answer their own
+question completely and so give nobody a reason to save. Matched-pair test runs to
+September 8; grading criteria are on the board and were written before any result.
+
+Pin Studio v3 (not in the repo, hence boarded): eight stale citywide medians
+rebased to `CityDatabase_Jul_27_v19.1.xlsx`, two dataset-scoped superlatives
+removed, two `index.html?city=` redirect URLs repointed at live profiles, and a
+withholding control added to the list layout.
+
+Negative findings, recorded so they are not re-derived. A naive scan of the pin
+library reported 19 stale figures; 11 of those were retiree-target neighborhood
+ranges that are supposed to differ from citywide, and the real count was 8. The
+"we scored cities on..." phrasing in eleven pin descriptions was checked and left:
+it describes method, not rank, and does not scope a superlative to the dataset.
+
+Standing lesson, fourth instance. The GA4 custom dimensions were read back to the
+operator as unregistered. They were closed on this board on August 24. Off-repo
+state cannot be verified here: say it is unknown and ask.
+
 ### 2026-08-25
 
 **Indianapolis IN city profile (52 profiles live, 24 comparison pages live).**

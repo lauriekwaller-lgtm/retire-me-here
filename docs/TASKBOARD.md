@@ -4,7 +4,123 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 25, 2026 (seventh entry), Indianapolis profile: 52 profiles live
+**Last updated:** August 25, 2026 (eighth entry), Pinterest read and Pin Studio v3; 52 profiles live
+
+**OPEN. Pinterest, 30 days to Aug 25 2026. The channel is save-limited, not reach-limited.**
+
+Operator's own Pinterest analytics, 7/26 to 8/25: impressions 3.9K (-7.3%),
+engagements 91 (-7.3%), outbound clicks 34 (-8.3%), **saves 8**, total audience
+1.1K (-17%), engaged audience 23 (0%).
+
+*Read the rates, not the counts.* Engagement 2.3% of impressions, outbound 0.87%,
+**saves 0.21%**. Saves are the only metric that compounds, because saves are what
+drive redistribution. Impressions fell 7.3% while total audience fell 17%, so the
+same impressions are being re-shown to a shrinking pool rather than reaching new
+people. That is distribution decay following a near-zero save rate. Posting more
+at 0.2% feeds a funnel whose top is closing.
+
+*The one healthy signal.* 34 outbound clicks against 91 engagements is a 37%
+click-through among people who engage at all, and engaged audience held flat while
+total audience dropped. There is a small core behaving well. The problem is
+upstream: pins are not earning saves from new viewers.
+
+*Hypothesis, to be tested, not assumed.* The pins answer the question completely.
+"6 states still tax your Social Security" then lists all six. The pin IS the
+content: read in two seconds, nothing to click toward, nothing to come back for.
+That is a click format, not a save format, and it matches 34 clicks against 8
+saves.
+
+*Cross-check that needs doing.* Pinterest reports 34 outbound clicks; GA4 reported
+about 11 users across 50 sessions. Fifty sessions from eleven people is 4.5 visits
+each, which is unusual for cold social and is the shape self-traffic makes. The
+internal filter is IP-based and will not catch the operator checking a pin on
+cellular. The real contribution may be below eleven users.
+
+**OPEN, P1. Pin Studio v3, Aug 25 2026. Corrected and extended. NOT in the repo.**
+
+Pin Studio is a local browser file with `localStorage` state under `rmh_pinstudio`.
+It is not committed, so nothing in this repo can verify it and no validator can see
+it. This entry is the only record.
+
+*Eight citywide-median figures were stale*, built before the 2026-07-27 ZHVI rebase
+and never re-derived: Miami ($430K vs $583K, -26%), Fort Myers ($372K vs $310K,
++20%), Casper ($273K vs $314K, -13%), Bloomington ($296K vs $321K), Naples across
+three pins ($585K vs $549K), Carlsbad ($1.48M vs $1.39M). Most cities came through
+the rebase fine (Bend, Boulder, Bozeman all within 1.5%), so this was a short list,
+not a rebuild. Miami's gap sentence was rewritten as well: at $583K citywide the
+old "the median understates Coral Gables at $592K and up" no longer parses.
+
+*A first pass over-reported this at 19 figures.* Most were retiree-target
+neighborhood ranges for Philadelphia, Memphis, Pittsburgh, St. Louis, St. Paul and
+New Orleans, which are SUPPOSED to differ from citywide. Re-run with a citywide
+anchor it came to 8. This is the same distinction `check_statcard_faq` makes when
+it deliberately excludes hood-card figures, and it is worth remembering the next
+time anything grades a dollar figure.
+
+**THE SUPERLATIVE RULE APPLIES OFF-SITE, AND NOTHING ENFORCES IT THERE.** Two hard
+violations sat in the pin library: Delray Beach carried "best access in our
+database" in the `lead` field, meaning it was PRINTED ON THE IMAGE and unfixable
+without regenerating the PNG, and its description said "the best airport access of
+any city we score". Miami's said "the only city we score with all four major
+leagues". Both are dataset-scoped, both rot the moment city 100 lands, and the
+validator will never see either because pins are not pages. Anchor to a figure:
+"3 airports within 55 min". The eleven "we scored cities on..." lines were left
+alone; they describe method rather than claiming a rank.
+
+*Also fixed.* The Casper pin and the Alexandria template default still pointed at
+`index.html?city=...`, the redirect removed from seven surfaces in the Indianapolis
+commit. Both cities have live profiles.
+
+*New in v3: a withholding control on the list layout.* "Reveal only N" renders N
+items then a terracotta "+ X more" row with no bullet. Default 0 renders every
+existing pin exactly as before. Headline max size 82 -> 108, min 46 -> 58, because
+at ~236px feed width the headline is the only text that survives and it was taking
+a fifth of the canvas.
+
+**WATCH, graded September 8 2026. Criteria set before results, per house rule.**
+
+Metric: **saves per impression, on pins published in the window.** Not impressions,
+not clicks. Baseline 0.21%. Method: matched pairs from the list and tool groups,
+same headline, same destination, same day, one at reveal 0 and one at reveal 2, six
+pairs minimum. If the withheld versions do not beat the full ones, withholding is
+the wrong hypothesis and the answer is upstream of creative. City pins are parked
+for the window: single-destination by construction, weakest save format.
+
+**CORRECTED. The per-build pin obligation is suspended, not quietly ignored.**
+
+This board asserted "a pin per new profile ships in the same sitting". That has not
+been followed for some time because Pin Studio was behind. A rule the board states
+and reality ignores is worse than no rule: it is the same failure mode as the
+"custom dimensions NOT yet registered" line, where the board looked authoritative
+and was wrong, and it erodes trust in every other line here. Pins remain the
+correct TRAVEL activity per the Aug 19 constraint; they are not a per-build laptop
+step. Revisit after the September 8 read.
+
+**OPEN, P2. `DEPLOY-CHEATSHEET.md` section 4 vs its own images subsection.**
+
+Section 4 lists the three photos INSIDE the bundle zip. The "Images, and anything
+else a script cannot diff" subsection says photos are "always dragged, never
+patched", which reads as universal and is not. Both are right about different
+cases: a REPLACEMENT photo is an existing file, so it cannot ride the zip (it would
+silently revert whatever landed since) and cannot be patched (a script cannot diff
+a JPEG), leaving dragging as the only route; a NEW city's photos do not exist yet
+and are new files like any other. The Indianapolis build applied the replacement
+rule to a new-file case and cost a deploy cycle. Add the distinction to the
+subsection.
+
+*Recognise this failure on sight.* One missing photo produces SIX failures across
+THREE check groups, not three. `check_stray_artifacts` reports the three files
+under LAYOUT, then `test_stray_artifacts.py` and `test_typography.py` both fail
+their "control run is clean" assertion, because both stage a copy and run
+`validate.py --only layout`. Nothing is wrong with typography.
+
+**OPEN, P3. `retiremehere-city-profile/SKILL.md` disagrees with the canonical.**
+
+The skill says never display a /10. Deployed `cities/st-louis/profile.html`, which
+`PROFILE-FORMATTING.md` names as canonical, shows 10/10 in the healthcare card.
+Indianapolis matched the canonical and kept the stats bar score-free. The skill
+lives OUTSIDE the repo so no commit fixes it; it has to be edited directly, and
+until then every build relitigates it.
 
 **SHIPPED, August 25 2026. Indianapolis IN. First build off the dead-end-card queue.**
 
@@ -35,7 +151,7 @@ still tells readers that eight cities including Indianapolis "use retiree-target
 neighborhood data rather than citywide figures and are shown as ranges".
 MEDIAN-HOME-METHODOLOGY v1.2 retired that carve-out and BUDGET-METHODOLOGY
 section 4 calls the same sentence "its fossil, struck 2026-07-13". It is a live
-false statement about a number 99 profiles display. Not fixed here: it is a
+false statement about a number every profile displays. Not fixed here: it is a
 tool-page copy edit, not part of a city build.
 
 **SHIPPED, August 24 2026. Tax tool internal links. 51 profiles, one line each.**
