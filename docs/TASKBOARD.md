@@ -4,7 +4,37 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 24, 2026 (fifth entry), BATCH B rollout: all 51 profiles carry the nav component
+**Last updated:** August 24, 2026 (sixth entry), tax tool internal links on all 51 profiles
+
+**SHIPPED, August 24 2026. Tax tool internal links. 51 profiles, one line each.**
+
+`states-that-dont-tax-retirement-income.html` had exactly ONE inbound body link
+on the whole site -- the afford-page cross-link that shipped with the tool.
+Grepped, and the count on my own notes was wrong (they said two). Every profile
+cost strip now ends with a teal link into the tool -- "State taxes: see which
+states don't tax retirement income" -- styled like the afford page's
+cross-link, root-absolute, taking the page from 1 to 52 inbound body links
+inside the recrawl window the BATCH B sitemap refresh opened. The anchor text
+deliberately carries the page's target query: 52 internal anchors are a
+relevance signal for the phrase they contain, and the first draft ("filter
+states by how they tax retirees") described the interface rather than the
+payoff. Laurie caught it in review.
+
+*A false claim was caught before it shipped.* The draft link text said
+"compare all 50 states". The page's validator-checked TAXFACTS array holds 39
+states -- the ones the 99 cities sit in, per D5-TAX-METHODOLOGY -- and no
+existing check compares link prose against the page it points at. The shipped
+wording makes no countable claim. Standing rule restated: verify any number
+against the live data before writing it into anchor text.
+
+*No data-rmh-pillar on these links, deliberately.* That attribute fires
+pillar_click, which is the Plan a Visit conversion, and check_pillar_links
+exists to keep furniture out of it. Tax-link traffic is read instead from GA4
+page views on the tool page sliced by referring page path -- baseline
+approximately zero, since the only referrer until now was the afford page. Check
+alongside the October 5 indexing baseline.
+
+**Last updated (previous):** August 24, 2026 (fifth entry), BATCH B rollout: all 51 profiles carry the nav component
 
 **SHIPPED, August 24 2026. BATCH B rollout. 50 profiles in one pass.**
 

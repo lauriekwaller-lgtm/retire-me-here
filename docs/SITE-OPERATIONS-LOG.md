@@ -202,6 +202,31 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-24 - tax tool internal links, 51 profiles: the tax tool becomes reachable
+
+**Problem, reported by Laurie and confirmed by grep.** The state tax filter
+tool had one inbound body link on the entire site. It is in the sitemap, so
+Google knows it exists; no visitor browsing the site could find it, and one
+internal link is near-zero ranking signal for the page with the clearest
+search intent on the site.
+
+**Change.** One line appended inside the cost reality strip on all 51
+profiles, after the state-averages qualifier: "State taxes: see which states
+don't tax retirement income", linking root-absolute to the tool,
+inline-styled to match the afford page's existing cross-link. Inbound body
+links go 1 to 52. Apply script anchor-verified the strip on all 51 files
+before writing (exactly one strip per file, no nested divs), idempotent on
+the href as a positive marker. Sitemap regeneration chained.
+
+**Two decisions worth recording.** First, the draft anchor text claimed "all
+50 states"; the page's TAXFACTS array carries 39, so the claim was false and
+was cut before shipping -- numbers in link text get verified against the live
+data like any other figure. Second, the links deliberately carry no
+data-rmh-pillar attribute: that selector fires pillar_click, the Plan a Visit
+conversion event, and these clicks would have inflated it on every profile.
+Tool traffic is measured from GA4 page views by referring page instead;
+baseline is approximately zero.
+
 ### 2026-08-24 - BATCH B rollout, 50 profiles: every city profile now carries the site nav
 
 **Scope.** The 50 profiles that still had the three-link stub. Same five edits
