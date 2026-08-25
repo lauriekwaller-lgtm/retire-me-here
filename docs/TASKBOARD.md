@@ -34,6 +34,26 @@ page views on the tool page sliced by referring page path -- baseline
 approximately zero, since the only referrer until now was the afford page. Check
 alongside the October 5 indexing baseline.
 
+**OPEN. Profile build queue, derived from dead-end landing cards. August 24 2026.**
+
+Grepped: 34 cities are carded on the 11 topic landing pages via the
+index.html?city= redirect and have NO profile behind the card, while all 51
+built profiles link direct. Clicks on those 34 cards land on the quiz app
+instead of a city page. The multi-page dead-ends are the build order, exposure
+first: Indianapolis IN (4 pages), Raleigh NC, La Crosse WI, Iowa City IA,
+Silver Spring MD (3 each), Boise ID, Provincetown MA, Eureka Springs AR,
+Traverse City MI, Wilmington DE (2 each); 24 more at one page each.
+
+Per-build notes that must not be lost: Wilmington DE is an NRC city and the
+known affiliate-code city+state collision (DE vs NC); every build reconciles
+the index.html D2 monthly prose against the DB Monthly Est (at least three
+cities carry a suspect stale range); scores come from
+docs/CityDatabase_Jul_27_v19.1.xlsx only, never research; a pin per new
+profile ships in the same sitting. Decision already made and recorded here so
+no future session relitigates it: profiles before new quiz cities -- a quiz
+city adds no page, no pin target, and no search presence until a profile
+exists anyway.
+
 **Last updated (previous):** August 24, 2026 (fifth entry), BATCH B rollout: all 51 profiles carry the nav component
 
 **SHIPPED, August 24 2026. BATCH B rollout. 50 profiles in one pass.**
