@@ -4,7 +4,60 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 24, 2026 (fourth entry), nav breakpoint shipped; pilot reviewed
+**Last updated:** August 24, 2026 (fifth entry), BATCH B rollout: all 51 profiles carry the nav component
+
+**SHIPPED, August 24 2026. BATCH B rollout. 50 profiles in one pass.**
+
+*The diff is the pilot's diff, provably.* Every replacement string in
+`apply-batch-b-nav.py` was extracted byte-for-byte from the St. Louis profile at
+`bc273f6`, the state the partner reviewed, not retyped from a description. The
+script replays its own transform against the pilot's PRE-image (`f3a5299~1`) and
+refuses to write anything unless the output equals the approved POST-image byte
+for byte. All-or-nothing on anchors: every anchor counted in all 50 files before
+one byte was written; both stub variants handled (grepped again at run time: 46
+literal-ellipsis, 4 `&hellip;`). The `fix_nav_breakpoint.py` block went on in
+the SAME pass, chained rather than reimplemented, all 50 taking the CTA-only
+variant. Sitemap regeneration chained after, per the generator rule.
+
+*Verified rendered, not only parsed.* Headless Chromium, 11 widths from 1400
+down to 390, on Tampa, Asheville, Portland ME and the St. Louis reference. At
+900px: header 64px high, one visible item, wordmark gap 538px, zero wrapped
+links, zero horizontal overflow, identical to the approved pilot at every
+width. The measurement was then proven non-vacuous by planting the pre-fix
+state (breakpoint block stripped from a copy): it reproduced the photo defect
+exactly -- header 64 to 77px, all six links wrapped, wordmark gap collapsed
+to 0 at 900 and 881px. Caveat for the P1 gate question below: fonts load from
+a blocked CDN in the sandbox, so geometry was measured in a fallback face, and
+onset in the planted page sat between 950 and 900. Evidence FOR the open
+question, not a closure of it.
+
+*The counter does not reach 0, and the brief said it would.* Grepped: the 51
+stubs were 50 profiles PLUS `visit-before-you-decide.html`. `NAV_STUB_EXPECTED`
+goes 51 -> 1, not 51 -> 0. The 51st page is boarded below as its own job; it is
+not a profile and does not take this diff. The parity harness plant stays valid
+at 1.
+
+*Found in passing.* `bc273f6` modified 47 pages and did not chain
+`build_sitemap.py`, so sitemap lastmod read August 24 for pages whose commit is
+dated August 25 UTC. This commit's regeneration restamps 97 of 98 URLs to
+2026-08-25; every one is a genuine content change (47 from the breakpoint
+commit, 50 from this rollout), not false freshness. Dates derive from git in
+UTC and stay that way.
+
+**OPEN, P2. `visit-before-you-decide.html` is the last nav stub.**
+
+Retires `NAV_STUB_EXPECTED` to 0 when done. It is a root-level pillar page, not
+a profile: already `.header-quiz-btn` throughout (no `.header-cta` to rename),
+no mobile menu, mobile collapse at 760px, RELATIVE hrefs in its nav, and an
+inline active-state style on its own Plan a Visit link. Two decisions before
+converting: (1) the active state cannot live inside the nav markup, because
+`check_nav_parity` compares byte-for-byte against the canonical -- move it to a
+CSS rule outside the nav or drop it; (2) whether the page takes the hamburger
+the component pages use or the CTA-only collapse the profiles use -- it
+currently has neither. Small job, but it is a third page shape, which is why it
+did not ride the batch.
+
+**Last updated (previous):** August 24, 2026 (fourth entry), nav breakpoint shipped; pilot reviewed
 
 **SHIPPED, August 24 2026. Nav breakpoint. 47 pages. A BATCH A defect, found by
 Laurie from a photo of a real window, through a green gate.**
@@ -237,10 +290,10 @@ tool are two different products with near-identical names, and two "Compare"
 entries in one menu confuse more than they help. It wants a home on the Compare
 hub instead, which is a separate job.
 
-**IN PROGRESS (1 of 52 shipped, 51 remain). BATCH B. See the pilot entry at the
-top of this board. The description below is the original scoping and still
-stands, except that the count is now 51 and the mobile question it does not
-mention is boarded separately.**
+**SHIPPED in two passes: pilot `f3a5299`, rollout August 24 (fifth entry, top
+of this board). 51 of the original 52 done; the 52nd is
+`visit-before-you-decide.html`, boarded as its own P2 item. The description
+below is the original scoping, kept as history.**
 
 Fifty-one city profiles plus `visit-before-you-decide.html`. Needs the CSS
 block, the `toggleTopCitiesDropdown` function and the canonical markup shipped

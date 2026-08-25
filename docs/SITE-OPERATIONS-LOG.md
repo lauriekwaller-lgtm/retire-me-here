@@ -202,6 +202,45 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-24 - BATCH B rollout, 50 profiles: every city profile now carries the site nav
+
+**Scope.** The 50 profiles that still had the three-link stub. Same five edits
+as the reviewed pilot: canonical nav markup, dropdown CSS, dropdown JS with the
+outside-click handler, the hardened `.header-quiz-btn` rename at all five
+occurrences, and the two-selector mobile rule whose second line exists because
+the dropdown trigger is a `<button>` that no `a:not(...)` selector can reach.
+Plus the `fix_nav_breakpoint.py` block in the same pass, chained, not copied.
+
+**How the diff was kept honest.** The replacement strings were extracted from
+`cities/st-louis/profile.html` at `bc273f6` rather than written from memory,
+and the apply script self-tests by replaying the transform on the pilot's
+pre-image and demanding the approved post-image back byte for byte. It aborts
+without writing if any anchor count is wrong in any file. It ran 50 for 50 on
+the first pass because the anchors were counted across all files first; both
+ellipsis variants of the stub (46 and 4) were handled.
+
+**Verification beyond the gate.** The gate passed at 0 failures, 0 warnings,
+and separately the rendered header was measured in headless Chromium at 11
+widths on four profiles. At 900px, the band that shipped broken through a green
+gate on August 23: one visible item, header one line high, no wordmark
+collision. The check was proven able to fail by planting the pre-fix state,
+which reproduced the photographed defect exactly. Fallback font caveat noted on
+the board; this is evidence for the open P1 question about a width check in the
+gate, not a substitute for deciding it.
+
+**Corrections to the brief, grepped not inherited.** `NAV_STUB_EXPECTED` lands
+at 1, not the briefed 0: the 51st stub is `visit-before-you-decide.html`, a
+root page the profile diff does not fit, boarded separately with the two
+decisions it needs. And `bc273f6` had not chained `build_sitemap.py`, so this
+commit's sitemap restamps 97 of 98 URLs to 2026-08-25 -- all genuine changes,
+47 from the breakpoint commit and 50 from this one.
+
+**Crawl consequence, which was the point.** Profiles are the deepest pages on
+the site and until today handed a crawler three links, all to the homepage.
+Every profile now exposes the six canonical destinations plus the eight topic
+pages, and carries the pillar href in its header, which `check_pillar_links`
+already discounts by design.
+
 ### 2026-08-24 - nav breakpoint, 47 pages, and a class of defect the gate cannot see
 
 **Reported by Laurie**, from a photograph of an actual browser window, after the

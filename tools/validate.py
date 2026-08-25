@@ -4536,21 +4536,25 @@ def check_sitemap_lastmod(rep, sitemap, local):
 
 NAV_CANONICAL = "tools/nav_canonical.html"
 
-# The 52 pages that do not carry the nav component at all: 51 city profiles plus
-# visit-before-you-decide.html. They are not a nav variant, they are a different
-# thing -- no .nav-dropdown CSS, no .nav-dropdown-item, no .nav-chev, no
-# .header-quiz-btn, and no toggleTopCitiesDropdown JS anywhere on the page. Their
-# entire header is three links that all go to the homepage.
+# Pages that do not carry the nav component at all. Started at 52: 51 city
+# profiles plus visit-before-you-decide.html. All 51 profiles now carry it --
+# St. Louis as the reviewed pilot, the other 50 in the BATCH B rollout on
+# August 24 -- so ONE is left, and it is visit-before-you-decide.html.
 #
-# Fixing them means shipping a CSS block and a JS function to each file, and it
-# visibly changes the top of every city profile, which is partner-reviewable
-# work. So it is BATCH B, and this number is the debt, written down.
+# That last page is NOT a profile and does not take the profile diff. Grepped
+# August 24: it already carries .header-quiz-btn (14 refs), has no .header-cta
+# to rename, has no mobile menu, collapses at 760px rather than 880, its nav
+# uses RELATIVE hrefs, and it styles its own Plan a Visit item as active with
+# an inline style -- which check_nav_parity's byte-for-byte comparison will
+# reject, so the active state has to move out of the nav markup when this page
+# converts. Four of the five profile edits do not apply to it. It is boarded as
+# its own small root-page job rather than folded into a batch it does not fit.
 #
-# The comparison is > not ==, on purpose. Lowering it is BATCH B doing its job
-# and must not fail the gate. RAISING it means a 53rd page was built without the
+# The comparison is > not ==, on purpose. Lowering it is the rollout doing its
+# job and must not fail the gate. RAISING it means a page was built without the
 # nav, which is the ninth variant appearing, which is the entire thing this
-# check exists to stop.
-NAV_STUB_EXPECTED = 51
+# check exists to stop. That ratchet stays useful at 1 exactly as it did at 52.
+NAV_STUB_EXPECTED = 1
 
 
 def _nav_lines(nav):

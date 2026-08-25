@@ -167,26 +167,74 @@ body {
   font-weight: 500; transition: color 0.2s;
 }
 .header-nav a:hover { color: var(--teal); }
-.header-nav a.header-cta {
-  background: var(--teal-deep);
-  color: #ffffff;
+/* ============ QUIZ BUTTON (bulletproof) ============ */
+/* Explicit hex, all link states, defeats `.header-nav a` at 0-1-1 and the UA
+   stylesheet. Resting 10.28:1, hover 7.38:1. See tools/css_cascade.py. */
+a.header-quiz-btn,
+a.header-quiz-btn:link,
+a.header-quiz-btn:visited,
+a.header-quiz-btn:active,
+button.header-quiz-btn,
+.header-quiz-btn {
+  background-color: #1f4744 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #1f4744 !important;
   padding: 10px 20px;
   border-radius: 100px;
   font-size: 13px;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: all 0.2s;
   box-shadow: 0 2px 8px rgba(28,26,24,0.25);
   letter-spacing: 0.04em;
   display: inline-block;
   line-height: 1;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-text-fill-color: #FFFFFF !important; /* Safari */
 }
-.header-nav a.header-cta:hover {
-  background: var(--teal);
-  color: #ffffff;
+a.header-quiz-btn:hover,
+button.header-quiz-btn:hover,
+.header-quiz-btn:hover {
+  background-color: #2A5E5A !important;
+  border-color: #2A5E5A !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(28,26,24,0.3);
 }
+
+/* ---- HEADER DROPDOWN ---- */
+/* .nav-chev, not .nav-chip. The sticky section-nav below the hero already owns
+   .nav-chip on this page; the two must not be confused. */
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-trigger {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; color: var(--mid); font-weight: 500;
+  padding: 0; display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger:hover { color: var(--teal); }
+.nav-dropdown-trigger .nav-chev { font-size: 10px; transition: transform 0.15s; }
+.nav-dropdown.open .nav-dropdown-trigger .nav-chev { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute; top: 100%; right: 0; margin-top: 8px;
+  background: #FFFFFF;
+  border: 1px solid #e8e4de; border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 240px; padding: 6px; z-index: 500;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-item {
+  display: block; padding: 10px 14px;
+  font-size: 13px; font-weight: 500; color: var(--dark);
+  text-decoration: none; border-radius: 8px;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.nav-dropdown-item:hover { background: var(--sand); color: var(--teal); }
+.nav-dropdown-divider { height: 1px; background: #f0ece6; margin: 6px 4px; }
+.nav-dropdown-item.more { color: var(--mid); font-style: italic; font-size: 12px; }
 
 /* ============================================
    HERO -- reduced to 70vh
@@ -1008,7 +1056,12 @@ footer {
 @media (max-width: 880px) {
   .site-header { padding: 12px 20px; }
   .header-nav { gap: 14px; }
-  .header-nav a:not(.header-cta) { display: none; }
+  /* Keep <=880px behaving exactly as it did before the nav component landed:
+     the CTA alone. Written against .header-quiz-btn, and the dropdown is hidden
+     explicitly because its trigger is a <button> and `a:not(...)` never reaches
+     it. The mobile menu for profiles is a separate, boarded decision. */
+  .header-nav a:not(.header-quiz-btn) { display: none; }
+  .header-nav .nav-dropdown { display: none; }
   .wrap { padding: 0 24px; }
   .section { padding: 56px 0; }
 
@@ -1219,7 +1272,7 @@ html { scroll-padding-top: 64px; }
   .hero, .detail-section, .detail-text, .health-card, .lifestyle-banner, footer { background: var(--dark) !important; }
   .cta-section { background: var(--teal) !important; }
   .capture-section { background: var(--teal-deep) !important; }
-  .header-nav a.header-cta { background: var(--teal-deep) !important; }
+  .header-nav a.header-quiz-btn { background-color: #1f4744 !important; }
   .nav-chip.active { background: #2A5E5A !important; }
   .hero, .hero *, .detail-section, .detail-text, .detail-text *, .health-card, .health-card *,
   .lifestyle-banner, .lifestyle-banner *, footer, footer *, .cta-section, .cta-section *,
@@ -1515,6 +1568,19 @@ html { scroll-padding-top: 64px; }
   .services-grid { grid-template-columns: minmax(0, 340px); }
   .related-grid { grid-template-columns: minmax(0, 340px); }
 }
+
+/* RMH-NAV-BREAKPOINT -- see tools/fix_nav_breakpoint.py
+   Six nav items need ~950px. Anything narrower squeezed the flex line and
+   wrapped the text inside each link onto two lines. nowrap makes a near miss
+   degrade to crowding rather than collision. */
+.header-nav a, .header-nav .nav-dropdown-trigger { white-space: nowrap; }
+
+@media (max-width: 1000px) {
+  /* RMH-NAV-BREAKPOINT. Profiles have no hamburger, so this keeps the pre-existing
+     behaviour -- the CTA alone -- and simply starts it higher up. */
+  .header-nav a:not(.header-quiz-btn) { display: none; }
+  .header-nav .nav-dropdown { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1525,10 +1591,29 @@ html { scroll-padding-top: 64px; }
     <span class="retire">RETIREME</span><span class="here">HERE</span>
   </a>
   <nav class="header-nav">
-    <a href="/">Home</a>
-    <a href="/#explore">Top Cities For…</a>
-    <a href="/" class="header-cta">Find My Match</a>
-  </nav>
+<a href="/">🔍 Find a City</a>
+<div class="nav-dropdown" id="topCitiesDropdown">
+<button class="nav-dropdown-trigger" onclick="toggleTopCitiesDropdown(event)">
+Top Cities For… <span class="nav-chev">▾</span>
+</button>
+<div class="nav-dropdown-menu">
+<a class="nav-dropdown-item" href="/top-cities-for-active-retirees.html">For Active Retirees</a>
+<a class="nav-dropdown-item" href="/top-cities-for-arts-lovers.html">For Arts Lovers</a>
+<a class="nav-dropdown-item" href="/best-places-to-retire-on-a-budget.html">For Budget-Conscious Retirees</a>
+<a class="nav-dropdown-item" href="/top-cities-for-foodies.html">For Foodies</a>
+<a class="nav-dropdown-item" href="/top-cities-for-healthcare.html">For Healthcare-First Retirees</a>
+<a class="nav-dropdown-item" href="/top-cities-for-hikers.html">For Hikers</a>
+<a class="nav-dropdown-item" href="/top-cities-for-lgbtq-retirees.html">For LGBTQ+ Retirees</a>
+<a class="nav-dropdown-item" href="/top-cities-for-sports-fans.html">For Sports Fans</a>
+<div class="nav-dropdown-divider"></div>
+<a class="nav-dropdown-item more" href="/#screen-explore">More topics →</a>
+</div>
+</div>
+<a href="/where-can-i-afford-to-retire.html">What Can I Afford?</a>
+<a href="/compare-retirement-cities.html">Compare Cities</a>
+<a href="/visit-before-you-decide.html">Plan a Visit</a>
+<a href="/" class="header-quiz-btn">Find My Match →</a>
+</nav>
 </header>
 
 <!-- HERO -->
@@ -2145,6 +2230,22 @@ html { scroll-padding-top: 64px; }
     });
   }, true);
 })();
+</script>
+
+<script>
+function toggleTopCitiesDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+document.addEventListener('click', function (e) {
+  var tc = document.getElementById('topCitiesDropdown');
+  if (tc && tc.classList.contains('open')) {
+    if (!e.target.closest('#topCitiesDropdown')) {
+      tc.classList.remove('open');
+    }
+  }
+});
 </script>
 
 </body>
