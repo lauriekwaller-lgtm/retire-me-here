@@ -202,6 +202,59 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-24 - nav breakpoint, 47 pages, and a class of defect the gate cannot see
+
+**Reported by Laurie**, from a photograph of an actual browser window, after the
+BATCH B pilot had passed the gate at 0 failures, 0 warnings twice. The header
+nav was wrapping: "Find a / City", "Top Cities / For...", "What Can I /
+Afford?" each broken onto two lines, with the wordmark colliding with the first
+item.
+
+**Diagnosis.** Six nav items need roughly 950px. The pages collapsed to their
+mobile layout at 760 (42 pages), 720 (3), 768 (1) and 880 (the profile). Between
+the collapse point and about 960 there is not enough room, the flex line
+squeezes, and the text wraps inside each individual link rather than the items
+reflowing. Wide looked fine, narrow looked fine, and the damage sat in a band in
+between.
+
+**It was BATCH A.** August 23 replaced a three-item nav with a six-item one on
+46 pages and left every breakpoint where it was. It was live and visibly broken
+for a day before the pilot carried the same block onto a profile and surfaced
+it. When asked, Laurie checked a topic page and confirmed the identical wrap,
+which is what turned this from a one-line profile fix into a 47-page one. Had
+she not checked, I would have fixed the profile and left 46 pages broken.
+
+**The fix, and one thing deliberately not done.** `tools/fix_nav_breakpoint.py`
+appends a nav-only `@media` block at 1000px and does not touch any existing
+block. That restraint is the substance of the fix: the 760px block on a topic
+page also carries hero sizing, section padding and grid rules, so raising its
+number would have silently restyled every one of those pages across a 240px
+band. Below the old threshold the two blocks agree, so there is no conflict.
+Component pages swap to the hamburger; profiles have none and keep showing the
+CTA alone, which is the behaviour they already had.
+
+`white-space: nowrap` went on the items as well, because the breakpoint is a
+number and numbers drift. If a longer label ever pushes the real requirement
+past 1000, that degrades to slight crowding instead of a two-line collision.
+
+**The finding, which outlives the bug.** The validator reads markup, colour
+ratios, links, hrefs, counts and prose. It has never measured a rendered width,
+and every check it does run was green while 46 pages were visibly broken. My own
+pilot verification tested above 880 and below 880 and never in between, and the
+soupsieve check that correctly caught the mobile-hiding rule answered "which
+elements does this selector match" rather than "does the result fit". Three
+layers of checking, none of which could see it, and a photograph that could.
+
+`nowrap` shrinks the blast radius and detects nothing. Boarded as an open
+question rather than a closed item: whether a headless-browser check at three
+widths is worth the dependency, or whether a manual width pass at review time is
+the right answer at this size. It must not be allowed to read as solved.
+
+**Process failure, named rather than buried.** This shipped without a board or
+log entry in the same commit. The rule exists precisely for work done mid-review
+under time pressure, which is when it was broken. These are the catch-up
+entries, written one commit late.
+
 ### 2026-08-24 - BATCH B, pilot of one. St. Louis gets the nav component.
 
 **Scope.** One profile, `cities/st-louis/profile.html`, chosen because

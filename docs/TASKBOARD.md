@@ -4,7 +4,66 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 24, 2026 (second entry), BATCH B pilot awaiting partner review
+**Last updated:** August 24, 2026 (fourth entry), nav breakpoint shipped; pilot reviewed
+
+**SHIPPED, August 24 2026. Nav breakpoint. 47 pages. A BATCH A defect, found by
+Laurie from a photo of a real window, through a green gate.**
+
+*What was broken.* Six nav items need roughly 950px. The pages collapsed to
+mobile at 760 (42 pages), 720 (3), 768 (1) and 880 (the St. Louis profile).
+Between the collapse point and about 960 there was no room for six items, so the
+flex line squeezed and the text wrapped INSIDE each link: "Find a / City", "Top
+Cities / For...", "What Can I / Afford?" on two lines, with the wordmark
+colliding with the first item.
+
+*It was BATCH A, not BATCH B.* BATCH A replaced a three-item nav with a
+six-item one on 46 pages on August 23 and nobody moved the breakpoint. It was
+live and visibly broken for a day. BATCH B then carried the same block to a
+profile, which is how it surfaced. Laurie checked a topic page on request and
+confirmed the same wrap there, which is what turned a one-line profile fix into
+a 47-page one.
+
+*What shipped.* `tools/fix_nav_breakpoint.py`, idempotent on an explicit marker.
+The existing `@media` blocks were deliberately NOT edited: the 760px block on a
+topic page also carries hero sizing, section padding and grid changes, so
+raising its number would have restyled the whole page between 760 and 1000. The
+fix appends a nav-only block at 1000px and leaves every existing block alone.
+Below the old threshold both agree, so there is no conflict. Component pages
+swap to the hamburger; the profile has none and keeps showing the CTA alone.
+
+*Also `white-space: nowrap` on the items.* The breakpoint is a number and
+numbers drift. If a longer label ever pushes the true requirement past 1000,
+nowrap makes it degrade to slight crowding instead of the two-line collision.
+The wrap is the ugly part and it is preventable independently of getting the
+number right.
+
+*Process failure worth naming.* This shipped without a board or log entry in the
+same commit, which is the rule. These are the catch-up entries. It happened
+because the fix was packaged mid-review, which is exactly when the rule matters
+most.
+
+**OPEN, P1. The gate has never measured a rendered width.**
+
+This is the finding, and it is larger than the bug that produced it. The
+validator reads markup, colour ratios, links, hrefs, counts and text. Every one
+of those was green while 46 pages rendered visibly broken. My own verification
+of the pilot tested above 880 and below 880 and never between, and the
+soupsieve check that caught the mobile rule answered "which elements does this
+selector match", not "does the result fit".
+
+`white-space: nowrap` reduces the blast radius. It detects nothing. A real check
+needs a headless browser in the validator, which is a dependency this repo does
+not have and should not take on casually. Boarded as a QUESTION, not a task:
+is it worth a Playwright job that loads a handful of pages at three widths and
+asserts the header is one line high, or is a manual width pass at review time
+the right answer for a site this size? Do not let this sit as though `nowrap`
+closed it.
+
+**Last updated (previous):** August 24, 2026 (second entry), BATCH B pilot awaiting partner review
+
+**REVIEWED AND APPROVED, August 24 2026.** Laurie confirmed the rendered
+profile after the breakpoint fix. The remaining 50 are unblocked; see the
+rollout note at the end of the BATCH B item below.
 
 **AWAITING REVIEW, August 24 2026. BATCH B, pilot of one. St. Louis.**
 
@@ -36,9 +95,22 @@ inflated `pillar_click` against a denominator that never moved. Four new plants.
 *Counter moved.* `NAV_STUB_EXPECTED` 52 -> 51. It reaches 0 when the other 50
 land. `test_nav_parity.py` now reads that constant instead of hard-coding it.
 
-**When the review comes back:** the remaining 50 are the same five edits. The
-apply script generalises; the two stub variants differ only by `…` vs
-`&hellip;`, so both anchors must be handled.
+**Review is back and approved.** The remaining 50 are the same five edits, plus
+the nav-only breakpoint block from `tools/fix_nav_breakpoint.py`, which must go
+on in the SAME pass rather than as a follow-up across 51 files. Three details to
+carry:
+
+- Both stub variants exist and both anchors must be handled. Grepped, not
+  inherited: of the 50 remaining, 46 use `…` and 4 use `&hellip;`. St. Louis is
+  the 51st and already converted.
+- `NAV_STUB_EXPECTED` goes 51 -> 0, which retires the debt counter. The plant in
+  `test_nav_parity.py` that reads it stays valid at 0 -- one component-less page
+  appearing is still a failure, which is the ratchet doing its job forever after
+  BATCH B is finished.
+- The pillar collision applies to all 50: each gains a second
+  `/visit-before-you-decide.html` in the header. `check_pillar_links` already
+  discounts the header nav, so this needs no further change, but the count will
+  move on every profile at once and that is expected, not a regression.
 
 **OPEN, P1. The mobile menu has never been checked by anything.**
 
