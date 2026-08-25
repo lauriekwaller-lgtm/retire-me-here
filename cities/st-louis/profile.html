@@ -1546,6 +1546,19 @@ html { scroll-padding-top: 64px; }
   .cta-section em, .health-name, .capture-section .capture-eyebrow { color: var(--terra-soft) !important; }
 }
 
+
+/* RMH-NAV-BREAKPOINT -- see tools/fix_nav_breakpoint.py
+   Six nav items need ~950px. Anything narrower squeezed the flex line and
+   wrapped the text inside each link onto two lines. nowrap makes a near miss
+   degrade to crowding rather than collision. */
+.header-nav a, .header-nav .nav-dropdown-trigger { white-space: nowrap; }
+
+@media (max-width: 1000px) {
+  /* RMH-NAV-BREAKPOINT. Profiles have no hamburger, so this keeps the pre-existing
+     behaviour -- the CTA alone -- and simply starts it higher up. */
+  .header-nav a:not(.header-quiz-btn) { display: none; }
+  .header-nav .nav-dropdown { display: none; }
+}
 </style>
 </head>
 <body>

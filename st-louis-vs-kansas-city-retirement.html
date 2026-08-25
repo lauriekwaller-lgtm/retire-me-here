@@ -654,6 +654,19 @@ a.quiz-cta-btn:hover,
   height: 160px;
   object-fit: cover;
 }
+
+/* RMH-NAV-BREAKPOINT -- see tools/fix_nav_breakpoint.py
+   Six nav items need ~950px. Anything narrower squeezed the flex line and
+   wrapped the text inside each link onto two lines. nowrap makes a near miss
+   degrade to crowding rather than collision. */
+.header-nav a, .header-nav .nav-dropdown-trigger { white-space: nowrap; }
+
+@media (max-width: 1000px) {
+  /* RMH-NAV-BREAKPOINT. Nav only. The page's own mobile block, at its original width, still
+     owns hero/padding/grid; this deliberately does not touch it. */
+  .header-nav { display: none; }
+  .header-mobile-menu { display: flex; }
+}
 </style>
 </head>
 <body>
