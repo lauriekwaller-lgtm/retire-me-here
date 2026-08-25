@@ -202,6 +202,38 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-25
+
+**Indianapolis IN city profile (52 profiles live, 24 comparison pages live).**
+
+New: `cities/indianapolis/profile.html` plus hero, detail and lifestyle photos.
+Built from the live `cities/st-louis/profile.html` canonical, pulled fresh, so
+it inherits the sticky chip nav, the forced-dark hardening block, the lower Deep
+Dive placement and the 1000px nav breakpoint. Carries a Neighborhood Reality
+Check: citywide $234K against Carmel, Zionsville, Fishers and Broad Ripple at
+roughly $425K to $700K.
+
+Emphasis follows the DB row, not the vivid hook. D2 Budget 9 is the only
+dimension at the pillar floor, so under MIN_PILLARS 3 the cluster is Budget 9 /
+Airport 8 / Healthcare 8 and all three are established in the hero tagline and
+the opening character paragraph. D7 Outdoor 3 is the single hard flag and leads
+the "No if" column: central Indiana is flat, and that is the honest reason to
+skip this city.
+
+Edited: `index.html` (PUBLISHED_PROFILES, four quiz neighborhood figures, two
+stale Indiana tax figures), `sitemap.xml`, five landing pages plus the budget
+page's coming-soon card, `cities/kansas-city/profile.html` reciprocal link, and
+the hardcoded 51 in `check_pillar_links`.
+
+Negative findings, recorded so they are not re-derived: there is no Indianapolis
+comparison page, so the profile carries no "Compare these" CTA band, which
+matches the 19 other profiles in that position. `fix_nav_breakpoint.py` was NOT
+chained, because a profile built from the live canonical already carries the
+block; running it would have been a no-op and chaining a no-op teaches the wrong
+habit. `check_roster` was checked and does not govern the four topic pages, so
+list placement was taken from the `*-cities-scoring-analysis.md` docs instead:
+active retirees Tier 1 (FI 8.0), healthcare Tier 2, sports fans Tier 2.
+
 ### 2026-08-24 - tax tool internal links, 51 profiles: the tax tool becomes reachable
 
 **Problem, reported by Laurie and confirmed by grep.** The state tax filter

@@ -1358,8 +1358,8 @@ def check_pillar_links(rep, slug_to_city, local):
     if seen == 0:
         rep.fail("pillar", "no profile pages were readable: the pillar-link check "
                            "ran against 0 profiles and would have reported clean")
-    elif seen != 51:
-        rep.fail("pillar", f"the pillar-link check read {seen} profiles, expected 51")
+    elif seen != 52:
+        rep.fail("pillar", f"the pillar-link check read {seen} profiles, expected 52")
 
 
 def check_profiles(rep, db, slug_to_city, local):

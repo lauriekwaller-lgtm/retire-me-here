@@ -3825,7 +3825,7 @@ const CITIES = [
     climate: { W:3, H:7, M:4, HUM:7, HEAT:7, janF:28, snow:25, sun:52 },
     highlight: "Indianapolis offers a complete major-city experience: excellent airport, strong healthcare, thriving sports culture, and a growing arts scene. Citywide median home $234K but retirees target Carmel, Zionsville, Fishers, and Broad Ripple ($425K–$700K).",
     pros: ["IU Health and Eskenazi Health are major medical systems with strong specialty depth", "Indianapolis International Airport consistently rated among the best in the Midwest", "Carmel and Zionsville among the safest cities in Indiana: established retiree communities", "Strong sports and civic culture: Pacers, Colts, Indy 500"],
-    cons: ["Cold winters: Indiana weather is a real tradeoff", "Car dependent outside of Mass Ave and Fountain Square", "Indiana income tax (3.05% flat) applies to retirement income", "Flat terrain limits outdoor recreation options"]
+    cons: ["Cold winters: Indiana weather is a real tradeoff", "Car dependent outside of Mass Ave and Fountain Square", "Indiana income tax (2.95% flat) applies to pensions and IRA withdrawals, plus a county income tax", "Flat terrain limits outdoor recreation options"]
   },
   {
     name: "Vail", state: "CO", type: "Mountain Luxury",
@@ -5881,10 +5881,10 @@ const CITY_ENRICHMENT = {
   },
   "Indianapolis": {
     neighborhoods: [
-      { name: "Carmel", vibe: "Safe, upscale, planned", desc: "Northern suburb consistently ranked among the best places to live in America. Monon Trail, Arts & Design District, Palladium concert hall. Very safe. Premium suburban lifestyle. Typical home value ~$234K." },
-      { name: "Zionsville", vibe: "Small town, brick streets, charming", desc: "Beautiful brick-street downtown, top-rated schools. Typical home value ~$234K: the most premium retiree option in Indianapolis metro. Among Indiana's safest cities." },
-      { name: "Fishers", vibe: "Family-oriented, growing, safe", desc: "One of Indiana's fastest-growing and safest cities. Excellent quality of life at a more accessible price than Carmel or Zionsville. Typical home value ~$234K." },
-      { name: "Broad Ripple / Meridian Kessler", vibe: "Eclectic, local, community", desc: "North-side neighborhoods with strong local character. Canal towpath, Monon Trail access, independent restaurants. More walkable than the suburbs and more affordable than downtown adjacent. Typical home value $234K–$500K." }
+      { name: "Carmel", vibe: "Safe, upscale, planned", desc: "Northern suburb consistently ranked among the best places to live in America. Monon Trail, Arts & Design District, Palladium concert hall. Very safe. Premium suburban lifestyle. Typical home value ~$525K." },
+      { name: "Zionsville", vibe: "Small town, brick streets, charming", desc: "Beautiful brick-street downtown, top-rated schools. Typical home value ~$689K: the most premium retiree option in Indianapolis metro. Among Indiana's safest cities." },
+      { name: "Fishers", vibe: "Family-oriented, growing, safe", desc: "One of Indiana's fastest-growing and safest cities. Excellent quality of life at a more accessible price than Carmel or Zionsville. Typical home value ~$425K." },
+      { name: "Broad Ripple / Meridian Kessler", vibe: "Eclectic, local, community", desc: "North-side neighborhoods with strong local character. Canal towpath, Monon Trail access, independent restaurants. More walkable than the suburbs and more affordable than downtown adjacent. Typical home value $400K–$500K." }
     ],
     hospitalRating: "IU Health University Hospital: major academic system; Simon Cancer Center; Eskenazi Health: strong multi-system depth",
     walkScore: 32,
@@ -5892,7 +5892,7 @@ const CITY_ENRICHMENT = {
       D1: "Indianapolis International Airport (IND) consistently rated one of the best in the US for efficiency. Direct flights to major hubs nationwide.",
       D2: "Citywide typical home value $234K. Retiree-target neighborhoods run well above that: Carmel (~$525K), Zionsville (~$689K), Fishers (~$425K), and Broad Ripple/Meridian Kessler ($400–500K). Monthly costs $4,300–$5,400. Indiana cost of living 10–15% below national average. Strong value even at premium-suburb pricing.",
       D3: "IU Health and Eskenazi Health provide strong multi-system coverage. Simon Cancer Center on campus.",
-      D5: "Indiana flat income tax of 3.05%: among the lowest flat rates nationally. Social Security partially exempt.",
+      D5: "Indiana flat income tax of 2.95% (2026): among the lowest flat rates nationally. Social Security FULLY exempt, but pensions/401k/IRA are taxable and Marion County adds a 2.02% local income tax on top. Hamilton County (Carmel, Fishers) charges about half that.",
       D6: "Mass Ave and Fountain Square are walkable neighborhoods. Carmel Arts & Design District genuinely walkable. Most of Indianapolis requires a car.",
       D7: "Limited. Flat Midwest terrain. Eagle Creek Park for recreation. No mountain or coastal access.",
       D9: "Carmel consistently ranked among the best places to live in America with very low crime. Zionsville and Fishers among Indiana's safest cities. Broad Ripple/Meridian Kessler adequate. Citywide Indianapolis statistics are dragged by non-target areas: retiree-target neighborhoods are 70–90th percentile nationally."
@@ -7977,7 +7977,8 @@ function showCityDetail(cityName, cityState) {
     'Roanoke_VA': 'cities/roanoke/profile.html',
     'Tulsa_OK': 'cities/tulsa/profile.html',
     'Casper_WY': 'cities/casper/profile.html',
-    'Portland_ME': 'cities/portland-me/profile.html'
+    'Portland_ME': 'cities/portland-me/profile.html',
+    'Indianapolis_IN': 'cities/indianapolis/profile.html'
   };
   
   const profileKey = cityName + '_' + cityState;

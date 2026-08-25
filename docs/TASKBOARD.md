@@ -4,7 +4,39 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 24, 2026 (sixth entry), tax tool internal links on all 51 profiles
+**Last updated:** August 25, 2026 (seventh entry), Indianapolis profile: 52 profiles live
+
+**SHIPPED, August 25 2026. Indianapolis IN. First build off the dead-end-card queue.**
+
+*The board said four pages; grep said six.* Five landing pages carried a live
+`city-card` pointing at the `index.html?city=` redirect (healthcare, active
+retirees, sports fans, natural disasters, wellness-blueprint) and the budget
+page carried a `coming-soon` card that `check_cards` fails the moment a profile
+goes live. Kansas City's Related Cities block was a seventh surface, pointing at
+the same redirect. All seven now link direct.
+
+*Two DB contradictions found in index.html and fixed in the same pass.* The four
+Indianapolis quiz neighborhood cards all read "~$234K", the citywide figure
+pasted into four suburbs, while `scoreNotes.D2` three lines below gave the real
+values (Carmel ~$525K, Zionsville ~$689K, Fishers ~$425K). Separately the D5
+note and the cons array said Indiana was a flat 3.05% with Social Security
+"partially exempt"; the DB's State Tax Facts sheet and the validator-checked
+TAXFACTS array both say 2.95% and fully Exempt, and Bloomington's own D5 note
+1,430 lines up the same file already used the correct figures. Neither surface
+is read by any check, which is why both sat.
+
+*`NAV_STUB_EXPECTED` and the pillar count are different kinds of constant.*
+`check_pillar_links` hardcodes `seen != 51`; it moved to 52 in this commit. That
+guard is not a nuisance, it is the silent-no-op defence, and it has to be edited
+by hand every build on purpose.
+
+**OPEN, P2. `pick-and-compare.html` describes a retired methodology.** Line 952
+still tells readers that eight cities including Indianapolis "use retiree-target
+neighborhood data rather than citywide figures and are shown as ranges".
+MEDIAN-HOME-METHODOLOGY v1.2 retired that carve-out and BUDGET-METHODOLOGY
+section 4 calls the same sentence "its fossil, struck 2026-07-13". It is a live
+false statement about a number 99 profiles display. Not fixed here: it is a
+tool-page copy edit, not part of a city build.
 
 **SHIPPED, August 24 2026. Tax tool internal links. 51 profiles, one line each.**
 
@@ -40,7 +72,7 @@ Grepped: 34 cities are carded on the 11 topic landing pages via the
 index.html?city= redirect and have NO profile behind the card, while all 51
 built profiles link direct. Clicks on those 34 cards land on the quiz app
 instead of a city page. The multi-page dead-ends are the build order, exposure
-first: Indianapolis IN (4 pages), Raleigh NC, La Crosse WI, Iowa City IA,
+first: Indianapolis IN (SHIPPED Aug 25), Raleigh NC, La Crosse WI, Iowa City IA,
 Silver Spring MD (3 each), Boise ID, Provincetown MA, Eureka Springs AR,
 Traverse City MI, Wilmington DE (2 each); 24 more at one page each.
 
