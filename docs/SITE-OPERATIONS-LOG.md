@@ -241,6 +241,14 @@ Every profile now exposes the six canonical destinations plus the eight topic
 pages, and carries the pillar href in its header, which `check_pillar_links`
 already discounts by design.
 
+**Baseline, written down before the result is known.** Search Console, read by
+Laurie on August 24 after this deploy: 12 pages sit in "Crawled - currently not
+indexed", up from the 9 counted when the problem was scoped on August 23. This
+is an off-repo number from the console, not derivable from the repo. Check at
+the first-Monday analytics review, October 5. Success is profile URLs leaving
+that bucket; the count falling on its own is weaker evidence than the specific
+profile pages moving, so note WHICH URLs change, not only how many.
+
 ### 2026-08-24 - nav breakpoint, 47 pages, and a class of defect the gate cannot see
 
 **Reported by Laurie**, from a photograph of an actual browser window, after the
