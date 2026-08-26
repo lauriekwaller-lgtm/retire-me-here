@@ -1,5 +1,8 @@
 # PROFILE FORMATTING
 
+> Entry point for a profile build is `docs/PROFILE-BUILD-SOP.md`. This doc owns
+> formatting, bolding, NRC callouts and em-dash policy; the SOP delegates them here.
+
 **Version:** 1.7
 **Adopted:** June 21, 2026 (v1.0); em-dash policy added June 24, 2026 (v1.1); NRC list expanded to 10 cities and sweep completed June 29, 2026 (v1.2); forced-dark hardening, Visit-chip default, Deep Dive block placement, and plain-quiz language added July 9, 2026 (v1.3); Visit-block voice standard, Visit-block two-anchor bolding rule, and rollout-complete status added July 10, 2026 (v1.4); guide-page em-dash sweep completed and enforcement extended to guides July 14, 2026 (v1.5); NRC fixed list removed in favour of the live-repo enumeration July 25, 2026 (v1.6); historical price figure rule added July 29, 2026 (v1.7)
 **Supersedes:** `BOLDING-CONVENTION.md` v2.1

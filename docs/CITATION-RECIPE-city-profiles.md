@@ -130,9 +130,8 @@ This section previously said to hand off `bentonville-hero.jpg` and
 builds shipped in the wrong shape because a build chat read a stale restatement as
 authoritative. Delegate, never restate.
 
-- **Photos:** hero 1600×899, detail 1600×2133 (portrait), lifestyle 1280×1280 (square);
-  vet for licensing and editorial fit. This doc and the skill file both carry the
-  specs because no other repo doc does.
+- **Photos and the sourcing standard:** owned by `docs/PROFILE-BUILD-SOP.md`
+  section 6. Not restated here.
 - **Slug** = lowercase, spaces → hyphens (`St. Paul` → `st-paul`, `Ann Arbor` → `ann-arbor`).
 
 ---

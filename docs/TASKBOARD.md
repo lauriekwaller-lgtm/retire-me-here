@@ -4,7 +4,34 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 26, 2026 (tenth entry), NC tax sweep and citation-recipe repair; 53 profiles live
+**Last updated:** August 26, 2026 (eleventh entry), profile SOP consolidated into the repo; 53 profiles live
+
+**SHIPPED, August 26 2026. docs/PROFILE-BUILD-SOP.md, and the skill cut to a stub.**
+
+*The structural fix for a month of rot.* Every profile defect this month traced to a
+restated fact going stale in a copy that lived outside the repo: a superseded
+hand-off shape (three builds shipped wrong), a DB filename two versions behind, a
+flat "never display a /10" that contradicted deployed St. Louis, and a `Highlight`
+column that does not exist. None was a misunderstanding of a rule. All four were
+copies.
+
+The SOP now owns what nothing else owned: brief thresholds, the per-surface
+score-display table, photo specs and sourcing, the live-canonical rule and its known
+regressions, build order, and the file list. Everything else it delegates by name.
+`SKILL.md` went from 258 lines to about 30 and owns nothing at all.
+
+*Why the skill was not simply moved into the repo.* App skills load from Claude's
+skill storage, not from a GitHub path, so the repo cannot be the loader. A stub is
+the next best thing: it still rots, but there is nothing in it to rot. A copy of the
+stub is committed at `.claude/skills/retiremehere-city-profile/SKILL.md`, where a
+Claude Code session started anywhere in the tree would load it from the repo.
+
+*Not built, deliberately.* A validator check failing the gate if the skill restates
+repo facts was scoped and dropped: a 30-line stub has nothing to restate, and the
+planted-error harness would cost more than the defect it prevents. Reopen only if
+the stub starts growing.
+
+**Last updated (previous):** August 26, 2026 (tenth entry), NC tax sweep and citation-recipe repair; 53 profiles live
 
 **SHIPPED, August 26 2026. The three items boarded off the Raleigh build.**
 

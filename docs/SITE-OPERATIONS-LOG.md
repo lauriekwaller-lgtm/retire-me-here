@@ -202,6 +202,37 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-26 -- profile build SOP consolidated into the repo; skill cut to a stub
+
+**Docs only. No code, no site change.**
+
+**New: `docs/PROFILE-BUILD-SOP.md`.** The entry point for a profile build. Owns the
+data rule, brief thresholds and shapes, the per-surface score-display table, the
+live-canonical rule and its known stale-template regressions, build order, photo
+specs and sourcing, the file list a new profile changes, and apply-script discipline.
+Delegates ten subjects by name and flags two docs
+(`city-profile-template-spec.md`, `DEPLOY-CHECKLIST.md`) that look like owners and
+are not.
+
+**New: `.claude/skills/retiremehere-city-profile/SKILL.md`.** The stub, committed so
+the repo holds it. Claude Code loads project skills from `.claude/skills/` in the
+start directory and every parent up to the repo root, so a session started anywhere
+in the tree picks it up. The app copy still has to be pasted into the skill editor by
+hand; that is a property of app skills, not something this commit can fix.
+
+**Three docs got entry-point pointers** so a build landing on them first is routed to
+the SOP rather than treating a subject doc as the whole procedure:
+`PROFILE-FORMATTING.md`, `PROFILE_CONVENTIONS.md`, and the photo bullet in
+`CITATION-RECIPE-city-profiles.md`, which now delegates instead of carrying a third
+copy of the specs.
+
+**Sequencing note for the operator.** The stub points at a doc that must already be
+on `main`. Commit and push this bundle BEFORE pasting the stub into the skill editor,
+or the next build follows a pointer to a 404.
+
+**Negative finding.** No `.claude/` directory existed in the repo before this commit,
+so nothing was overwritten and no existing Claude Code configuration was affected.
+
 ### 2026-08-26 -- NC income tax corrected on seven surfaces; CITATION-RECIPE repaired
 
 **Docs and copy only. No profile, no new page, no layout change.**

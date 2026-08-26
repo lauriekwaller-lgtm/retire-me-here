@@ -1,5 +1,9 @@
 # RetireMeHere — Profile Template Conventions (post-cleanup)
 
+> Entry point for a profile build is `docs/PROFILE-BUILD-SOP.md`. This doc owns
+> heading emphasis, the pull-quote removal and the dropcap treatment, and the SOP
+> delegates those subjects here. If you arrived at this file first, read the SOP.
+
 These are the design conventions settled after the May 2026 "de-tell" pass across
 all 27 city profiles. The goal: keep the editorial, content-forward look while
 removing the design patterns that read as AI-generated and that made profiles
