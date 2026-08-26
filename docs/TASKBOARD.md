@@ -4,7 +4,41 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 25, 2026 (ninth entry), Raleigh NC profile; 53 profiles live
+**Last updated:** August 26, 2026 (tenth entry), NC tax sweep and citation-recipe repair; 53 profiles live
+
+**SHIPPED, August 26 2026. The three items boarded off the Raleigh build.**
+
+*The NC tax defect was wider than the board said.* The Raleigh entry named four
+stale surfaces in `index.html`. There were seven. The two it missed on Pinehurst
+carry the 4.25% shape rather than 4.75%, so a grep for "4.75" could not see them.
+The seventh, `getTaxNote`, is a state-level lookup table feeding the quiz city-detail
+stat card for EVERY NC city, published or not, which made it the widest-reach
+instance and the only one no city entry pointed at. Failure mode, named: the board
+entry was written by grepping ONE string and reading the hits as a complete
+enumeration of a subject. Grepping a string is not enumerating a subject.
+
+*Nothing compares index.html prose to the State Tax Facts sheet.* That is why these
+sat. `check_taxfacts` holds the SHEET to its own promises and `check_taxtool` holds
+the tax tool to the sheet, but the quiz's own copy is unchecked in both directions.
+Boarded below as the fix worth more than the sweep.
+
+**OPEN, P2. A check comparing index.html tax prose to the State Tax Facts sheet.**
+
+Seven stale NC surfaces survived two dedicated passes because no check reads them.
+Scope: `getTaxNote`, the `pros`/`cons` arrays, and `scoreNotes.D5`, against the sheet
+keyed on ST. Per house rule this needs a planted-error harness FIRST, and the harness
+has to discriminate: plant a wrong rate in each of the three shapes separately, since
+a check that only reads `scoreNotes` would have passed all three of this week's
+passes while `getTaxNote` stayed wrong.
+
+**OPEN, P3. `getTaxNote` is stale for states other than NC.**
+
+Only NC was corrected, because this was an NC job. Spot-check suggests at least GA
+(5.49%), KY (4.5%) and IN (3.15%) are behind their 2026 figures. Do not sweep these
+from memory; do it against the State Tax Facts sheet, and ideally as the first
+consumer of the P2 check above.
+
+**Last updated (previous):** August 25, 2026 (ninth entry), Raleigh NC profile; 53 profiles live
 
 **SHIPPED, August 25 2026. Raleigh NC. Second build off the dead-end-card queue.**
 

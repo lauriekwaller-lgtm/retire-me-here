@@ -41,8 +41,10 @@ Median Home **must** be read from the current CityDatabase spreadsheet before wr
 word. Web research is only for *supporting color* (hospital names/rankings, beach names,
 airport routes) — never for scores. If the database isn't provided, stop and ask for it.
 
-**Current database:** `CityDatabase_Jun_9_v14.xlsx` (this filename increments over time —
-always use the latest one provided, and confirm it at the start).
+**Current database:** as of August 26, 2026, `docs/CityDatabase_Jul_27_v19.1.xlsx`.
+This filename increments and it moves faster than this line does, so do not trust it:
+list `docs/` in the live repo and read the filename that is actually there. Sheet
+`City Database`, header row 2 (pandas `header=1`).
 
 How to read it (Python):
 ```python
@@ -52,7 +54,14 @@ df.columns = [str(c).replace('\n',' ').strip() for c in df.columns]   # headers 
 # match on (City, ST) as stripped strings
 ```
 Useful extra columns already in the DB: `PropTax Rate %`, `HO Insur Est $/yr`, `HUM`,
-`HEAT`, `D4 Resil.` (disaster resilience), plus a `Highlight` field with quotable facts.
+`HEAT`, `D4 Resil.` and `D4 Resil. Rationale` (disaster resilience), `Jan Mean F`,
+`Ann Snow in`, `Ann Sun %`, and `Ins Variance Note`.
+
+**There is no `Highlight` column.** Earlier versions of this doc named one, and the
+skill file still tells a build to parse a distinctions checklist out of it. No sheet in
+v19.1 has that column. The per-city `highlight:` strings live in `index.html`, not in
+the database, and they are editorial copy rather than a data source. Derive
+distinctiveness from the scored dimensions instead.
 
 ---
 
@@ -109,12 +118,21 @@ honest about the downsides.
 
 ## Build & file conventions
 
+**Hand-off shape is NOT owned by this doc.** `docs/DEPLOY-CHEATSHEET.md` section 4
+owns it and superseded the old convention on July 14, 2026. Pull that doc and match
+it. In short: files ship at their FINAL paths and final names inside the bundle zip
+(`cities/<slug>/profile.html`, `hero.jpg`, `detail.jpg`, `lifestyle.jpg`), and every
+edit to a file that already exists goes in `apply-<city>.py`. Nothing is renamed by
+hand at deploy.
+
+This section previously said to hand off `bentonville-hero.jpg` and
+`<city>-profile.html` for renaming. That was the July 25-28 hand-off shape, and three
+builds shipped in the wrong shape because a build chat read a stale restatement as
+authoritative. Delegate, never restate.
+
 - **Photos:** hero 1600×899, detail 1600×2133 (portrait), lifestyle 1280×1280 (square);
-  vet for licensing and editorial fit. Hand off with city-prefixed names
-  (e.g., `bentonville-hero.jpg`); they get renamed to `hero/detail/lifestyle.jpg` inside
-  `cities/<slug>/` at deploy.
-- **Hand off the profile as** `<city>-profile.html`; renamed to `profile.html` in
-  `cities/<slug>/` at deploy.
+  vet for licensing and editorial fit. This doc and the skill file both carry the
+  specs because no other repo doc does.
 - **Slug** = lowercase, spaces → hyphens (`St. Paul` → `st-paul`, `Ann Arbor` → `ann-arbor`).
 
 ---

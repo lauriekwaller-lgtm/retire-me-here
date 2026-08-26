@@ -202,6 +202,46 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-26 -- NC income tax corrected on seven surfaces; CITATION-RECIPE repaired
+
+**Docs and copy only. No profile, no new page, no layout change.**
+
+**index.html, seven edits.** NC flat income tax read 4.75% (the 2023 rate) on four
+surfaces and 4.25% (the 2025 rate) on two more, against a DB State Tax Facts row of
+Flat / 3.99 / SS Exempt / retirement income Taxed, vintage 2026. Corrected:
+Wilmington NC `pros`, Asheville `scoreNotes.D5`, Wilmington NC `scoreNotes.D5`,
+Beaufort NC `scoreNotes.D5`, Pinehurst `cons`, Pinehurst `scoreNotes.D5`, and
+`getTaxNote`. Raleigh's two were done in the previous commit.
+
+**The count in the previous board entry was wrong, and the reason is worth keeping.**
+It said four. It was built by grepping "4.75" and treating the hits as the whole
+subject. Pinehurst's two surfaces phrase the same fact as 4.25% with a 2026
+projection, so the grep could not see them, and `getTaxNote` is a state table rather
+than a city entry, so nothing about a city-shaped search would have surfaced it.
+The rule this reinforces: enumerate the SUBJECT (every place a state tax rate is
+asserted), not one STRING that happens to express it.
+
+**docs/CITATION-RECIPE-city-profiles.md, three repairs.** Its "Build & file
+conventions" section still described the pre-July-14 hand-off shape, the same rot
+that put three builds in the wrong shape when the skill file carried it. It now
+delegates to `DEPLOY-CHEATSHEET.md` section 4 and says why. Its "current database"
+line named `CityDatabase_Jun_9_v14.xlsx`, five versions behind, and now tells the
+reader to list `docs/` rather than trust the line. And it named a `Highlight` column
+that does not exist in any sheet of v19.1; the per-city `highlight:` strings are
+editorial copy in index.html, not a data source.
+
+**The skill file is NOT fixed by this commit** and cannot be: it lives outside the
+repo, which is the whole reason it rots. Its missing delegation rows and its
+`/10` rule are handed over separately for the skill editor. See
+`docs/DEPLOY-nc-tax-docs.md`.
+
+**Negative findings.**
+* No comparison page, profile, or landing page asserts an NC income tax rate. The
+  seven surfaces in `index.html` were the whole live footprint; `grep -rn "4\.75\|4\.25"`
+  across all HTML returns nothing else tax-related.
+* `states-that-dont-tax-retirement-income.html` was already correct at 3.99% and is
+  covered by `check_taxfacts`, so it needed no edit.
+
 ### 2026-08-25 -- Raleigh NC profile (53); six dead-end cards; NC tax rate corrected on Raleigh
 
 **Shipped.** `cities/raleigh/profile.html` plus hero, detail and lifestyle photos.
