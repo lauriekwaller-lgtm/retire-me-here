@@ -202,6 +202,48 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 
 ## 7. Change log
 
+### 2026-08-25 -- Raleigh NC profile (53); six dead-end cards; NC tax rate corrected on Raleigh
+
+**Shipped.** `cities/raleigh/profile.html` plus hero, detail and lifestyle photos.
+Built from the LIVE canonical `cities/st-louis/profile.html`, not a local copy.
+Scores read from `docs/CityDatabase_Jul_27_v19.1.xlsx` only: D1 9, D2 7, D3 10,
+D4 7, D5 7, D6 4, D7 6, D8 6, D9 6, D10 7; Monthly Est $5,400-$6,700; Median Home
+$436,000; PropTax 0.66%; HO insurance $3,124/yr.
+
+**Emphasis follows the scores.** Two pillars at 9 or above (D3 10, D1 9), so this
+is the MULTI-STRENGTH shape rather than MULTI-PILLAR: healthcare leads, the
+airport is established in the same hero line, and the 7-cluster (budget,
+resilience, tax, community) carries the character section. D6 at 4 is the only
+hard flag and it leads the "Skip Raleigh if" column.
+
+**Six surfaces converted, not three, and only three are landing pages.** Topic
+landing pages: top-cities-for-healthcare,
+top-cities-for-active-retirees, best-places-to-retire-avoid-natural-disasters.
+Guides: wellness-blueprint, urban-walkabout, globetrotter-guide. Re-derived by
+grep, both directions: guide city-cards already link direct to profiles 182 times
+across the five guides, so this follows the tree. The reverse direction is NOT the
+pattern and was not added: profile lists sections point at guide pages 4 times
+against 152 links to topic pages, and Raleigh's three point at topic pages only.
+
+**Negative findings, recorded so they are not re-checked.**
+* No Raleigh `coming-soon` card exists on any page, so `check_cards` had nothing
+  pending to promote.
+* No `raleigh-vs-*-retirement.html` comparison page exists, so the profile carries
+  no "Compare these" section, matching Indianapolis.
+* Raleigh is deliberately NOT on top-cities-for-sports-fans:
+  `docs/sports-fans-cities-scoring-analysis.md` holds a 2-team minimum for Tier 2
+  and Raleigh has one. No sports list card, and the profile does not lean on it.
+* index.html's D2 monthly prose already agreed with the DB at $5,400-$6,700, so
+  the standing index.html D2 reconciliation found nothing to fix here.
+* Raleigh's affiliate row already existed in `docs/AFFILIATE-CODES.csv`
+  (uBa19iT / kU2Cctg); no table edit needed.
+
+**Photo credits.** Supplied by the operator at build time; see the profile footer
+and the three inline credit lines.
+
+**Gate.** `python3 tools/validate.py --local .` at 0 failures, 0 warnings on a
+fresh full clone with the bundle applied.
+
 ### 2026-08-25 - Pinterest read, Pin Studio v3 (52 profiles live, 24 comparison pages live)
 
 Docs only. No code, no site change.

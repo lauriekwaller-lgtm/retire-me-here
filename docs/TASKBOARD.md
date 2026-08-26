@@ -4,7 +4,46 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 25, 2026 (eighth entry), Pinterest read and Pin Studio v3; 52 profiles live
+**Last updated:** August 25, 2026 (ninth entry), Raleigh NC profile; 53 profiles live
+
+**SHIPPED, August 25 2026. Raleigh NC. Second build off the dead-end-card queue.**
+
+*The board said three pages; grep said six, and three of them are not landing
+pages.* The build-queue entry counted topic landing pages only. Raleigh also
+carried a live `index.html?city=` card on three GUIDE pages: `wellness-blueprint` (healthcare pill), `urban-walkabout` (the 4/10
+walkability pill, which is the honest reason it is there) and
+`globetrotter-guide` (RDU). All six now link direct. No coming-soon card existed,
+so `check_cards` was never going to catch the guide three; nothing checks a guide
+page for dead-end city cards, and that is worth a check one day.
+
+*A DB contradiction found and PARTLY fixed, deliberately.* index.html gave North
+Carolina as a flat 4.75% income tax in six places. The DB State Tax Facts sheet
+and the validator-checked TAXFACTS array both say 3.99% for 2026, Social Security
+exempt, pensions and IRA and 401(k) taxed at the flat rate with no general retiree
+exclusion. 4.75% was the 2023 rate. Only the two Raleigh surfaces were corrected
+in this commit. The other four are below as their own job, because sweeping four
+cities the reviewer is not looking at is how an unrelated regression rides a city
+build. Raleigh's `DW` climate note also read Jan avg 39F against a DB `Jan Mean F`
+of 41; corrected in the same pass.
+
+*Not an NRC city, and that was a decision.* The citywide $436K is a real Raleigh
+figure rather than a city-versus-suburb artifact, so no Neighborhood Reality Check
+callout, and the unused `.reality-check` CSS was stripped from the clone so the
+roster grep does not count Raleigh as one.
+
+*Healthcare card shows 10/10; the stats bar does not.* Matches deployed St. Louis
+per the P3 item below. The skill file is still wrong and still outside the repo.
+
+**OPEN, P3. index.html gives NC income tax as 4.75% on four more cities.**
+
+Asheville, Wilmington NC, Beaufort and Pinehurst. Lines carrying the stale figure
+at the time of writing: 3113 (Wilmington pros), 4256, 4719, 4862 (scoreNotes D5).
+Pinehurst is a different shape: it says 4.25% and names 3.99% for 2026 in the same
+sentence, which is stale rather than wrong. The DB and TAXFACTS say 3.99% flat for
+2026. No check compares index.html prose against the State Tax Facts sheet, which
+is why this sat, and a check that did would be worth more than the sweep.
+
+**Last updated (previous):** August 25, 2026 (eighth entry), Pinterest read and Pin Studio v3; 52 profiles live
 
 **OPEN. Pinterest, 30 days to Aug 25 2026. The channel is save-limited, not reach-limited.**
 

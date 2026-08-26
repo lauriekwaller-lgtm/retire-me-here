@@ -3347,7 +3347,7 @@ const CITIES = [
     scores: { D1:9, D2:7, D3:10, D4:7, D5:7, D6:4, D7:6, D8:6, D9:6, D10:7 },
     climate: { W:5, H:5, M:4, HUM:8, HEAT:7, janF:41, snow:5, sun:60 },
     highlight: "WakeMed and UNC Health excellent. RDU strong airport. Research Triangle energy drives culture and healthcare. Best complete package in the Southeast.",
-    pros: ["WakeMed and UNC Health: both nationally recognized, exceptional for metro area","RDU airport strong with good national connections","Research Triangle drives intellectual culture, dining, and economic stability","NC flat income tax 4.75% with SS exemption: moderate"],
+    pros: ["WakeMed and UNC Health: both nationally recognized, exceptional for metro area","RDU airport strong with good national connections","Research Triangle drives intellectual culture, dining, and economic stability","NC flat income tax 3.99% (2026), Social Security exempt: moderate"],
     cons: ["Car-dependent: Raleigh sprawls significantly beyond walkable areas","Safety mixed: 56th percentile; depends on neighborhood","Getting expensive: $436K median rising with growth","Four seasons with occasional winter weather events"]
   },
   {
@@ -5065,10 +5065,10 @@ const CITY_ENRICHMENT = {
       D1: "RDU (Raleigh-Durham International): American, Delta, United, Southwest hub. Strong national and growing international connections.",
       D2: "Typical home value $436K. Monthly costs $5,400–$6,700. Range 2. Getting more expensive but reasonable for the healthcare and airport access.",
       D3: "WakeMed nationally recognized. UNC Hospitals (Chapel Hill 30 min) top 15 nationally. Duke University Hospital (Durham 30 min) top 10. Extraordinary regional healthcare.",
-      DW: "Jan avg 39°F: mild by Mid-Atlantic standards. Occasional snow and ice events. Four distinct seasons.",
+      DW: "Jan avg 41°F: mild by Mid-Atlantic standards. Occasional snow and ice events. Four distinct seasons.",
       DH: "Summers warm: July avg 89°F. Warm and humid. Less extreme than Gulf Coast but real summer heat.",
       DM: "Moderately humid: Piedmont NC summers warm and humid but less oppressive than coastal cities.",
-      D5: "NC flat income tax 4.75%. Social Security exempt. Moderate.",
+      D5: "NC flat income tax 3.99% for 2026. Social Security exempt, but pensions, IRA and 401(k) withdrawals are taxed at the flat rate with no general retiree exclusion. Moderate.",
       D6: "Downtown Raleigh improving. Fayetteville Street walkable. Capital Area Greenway excellent for cycling. Beyond downtown, car-dependent sprawl.",
       D7: "Falls Lake State Recreation Area. Jordan Lake. Blue Ridge Mountains 2.5 hrs. Research Triangle Park greenways.",
       D8: "Strong fitness culture driven by Research Triangle demographics. Multiple community rec centers. Growing pickleball scene.",
@@ -7978,7 +7978,8 @@ function showCityDetail(cityName, cityState) {
     'Tulsa_OK': 'cities/tulsa/profile.html',
     'Casper_WY': 'cities/casper/profile.html',
     'Portland_ME': 'cities/portland-me/profile.html',
-    'Indianapolis_IN': 'cities/indianapolis/profile.html'
+    'Indianapolis_IN': 'cities/indianapolis/profile.html',
+    'Raleigh_NC': 'cities/raleigh/profile.html'
   };
   
   const profileKey = cityName + '_' + cityState;
