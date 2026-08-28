@@ -4,7 +4,58 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 26, 2026 (eleventh entry), profile SOP consolidated into the repo; 53 profiles live
+**Last updated:** August 28, 2026 (twelfth entry), profile title and meta rewrite; 53 profiles live
+
+**SHIPPED, August 28 2026. Every city profile title and meta description rewritten into search-query shape.**
+
+*The measurement.* Search Console, three months to August 28: the city profiles drew
+1,527 impressions and eleven clicks, a 0.72% click rate at average position 12.7. The
+comparison pages, at a barely different position of 11.6, drew 1.85%. Two and a half
+times the click rate from the same neighbourhood of the results page. The one
+structural difference is that comparison titles are shaped like the query a reader
+types and profile titles were shaped like a table of contents.
+
+*The clearest single instance.* The query "is bentonville arkansas a good place to
+retire" returned forty-nine impressions at position 8.6 and no clicks at all. The
+title on offer read "Bentonville, Arkansas: A Retirement City Profile". Nothing on
+that line answers the question the reader asked.
+
+*What shipped.* Every profile title is now the question plus one concrete pull from
+that city's own database row, and every meta description carries the monthly cost,
+the typical home value, the distinctive proof and the honest counterweight. Cost and
+home figures are injected from the database rather than typed, so no figure in a head
+tag can drift from the row behind it. The same copy went into the JSON-LD headline
+and description. Open Graph tags were deliberately left alone; see the open item.
+
+*Two rules met on a surface neither had been applied to before.* SOP section three
+bans a bare score outside the healthcare card and the FAQ, so every dimension score
+in this batch was translated into a verifiable fact: a named hospital, a drive time,
+a tax treatment, a sun percentage. That translation also removed three head tags that
+were quietly printing scores, among them Salt Lake City's "a perfect 10 for both
+healthcare and the outdoors". Separately, Carlsbad's draft carried "the steepest cost
+of living here", which is a dataset-scoped superlative wearing a different coat, and
+was cut before the gate ever saw it.
+
+**OPEN, P3. Open Graph title and description on all fifty-three profiles still carry the old editorial line.**
+
+Before this batch, `og:title` was exactly the JSON-LD headline on every profile and
+`og:description` was a truncated form of the meta description. The headline moved and
+og did not, so the two now disagree everywhere. This was deliberate: og feeds the
+Pinterest and Facebook preview, which is a different reader than a search result, and
+sweeping it in the same commit as a search change would have put an unreviewed social
+copy change in front of nobody. Decide it on its own terms. The Pin Studio work
+already argues for question-shaped hooks on that channel, so the likely answer is to
+follow, but that is a judgement, not a default.
+
+**CLOSED with the batch. The JSON-LD description had drifted from the meta description on ten profiles.**
+
+Columbus, Fort Myers, Kansas City, Memphis, Nashville, New Orleans, Pensacola,
+Philadelphia, Salt Lake City and St. Augustine each carried a near-duplicate variant
+in the structured data. Reading the two as one field and writing the same string to
+both collapses the drift. Nothing checks that they agree, which is why it went
+unnoticed; a check comparing them is cheap and is worth boarding if it recurs.
+
+**Last updated (previous):** August 26, 2026 (eleventh entry), profile SOP consolidated into the repo; 53 profiles live
 
 **SHIPPED, August 26 2026. docs/PROFILE-BUILD-SOP.md, and the skill cut to a stub.**
 

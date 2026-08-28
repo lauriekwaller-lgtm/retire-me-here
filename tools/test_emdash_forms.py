@@ -135,8 +135,8 @@ def main():
     # The error that shipped: 85 of these, live, while the gate read 0.
     tmp = stage(repo)
     edit(tmp, CLEAN_PROFILE,
-         '"headline": "Tucson, Arizona: A Retirement City Profile"',
-         '"headline": "Tucson, Arizona \\u2014 A Retirement City Profile"')
+         '"headline": "Is Tucson, AZ a Good Place to Retire? Saguaro NP, 85% Sunshine"',
+         '"headline": "Is Tucson, AZ \\u2014 a Good Place to Retire? Saguaro NP, 85% Sunshine"')
     code, fails = run(tmp)
     shutil.rmtree(os.path.dirname(tmp))
     added = new_fails(base, fails)

@@ -201,6 +201,46 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-08-28 -- profile titles and meta descriptions rewritten into query shape (53 profiles)
+
+**What changed.** `<title>`, `<meta name="description">`, and the JSON-LD `headline`
+and `description` on all fifty-three city profiles. No body copy, no scores, no
+photos, no routing. `PUBLISHED_PROFILES` was untouched because no profile was added.
+
+**Why.** Three months of Search Console: profiles at 0.72% click rate and position
+12.7, comparison pages at 1.85% and position 11.6. Position was not the variable.
+Title shape was. "is bentonville arkansas a good place to retire" had drawn forty-nine
+impressions at position 8.6 with zero clicks against a title reading "Bentonville,
+Arkansas: A Retirement City Profile".
+
+**Shape.** Title is "Is <City>, <ST> a Good Place to Retire?" plus one short concrete
+pull, held under about sixty characters before the brand suffix so it survives the
+results page. Description is "<City>, <State> for retirees:" plus the monthly range,
+the typical home value, the distinctive proof and the honest counterweight, between
+142 and 165 characters. The three specifics live in the description rather than the
+title because the question stem alone runs 36 to 47 characters and a title carrying
+three of them would be truncated exactly where the specifics start.
+
+**Provenance.** Monthly Est and Median Home are injected from the
+`CityDatabase_Jul_27_v19.1.xlsx` row at build time, keyed on City and ST together.
+Named proof points (Barnes-Jewish, Mayo Clinic, MUSC, Ochsner, the ACI survey, the
+Razorback Greenway) were lifted from each profile's own deployed stat cards rather
+than researched, so no head tag can contradict the page under it. Tax treatments came
+from the State Tax Facts sheet.
+
+**Rule applied to a new surface.** SOP section 3 allows a bare /10 only on the
+healthcare card and in the FAQ JSON-LD. A head tag is a prose surface, so every score
+became a fact. That removed the "perfect 10" phrasing from Salt Lake City's meta and
+two others.
+
+**One harness anchor moved with it.** `tools/test_emdash_forms.py` plants an escaped
+em dash into Tucson's JSON-LD headline and anchored on the old string, so the harness
+could no longer plant and failed the gate. The anchor was updated to the new headline,
+not loosened, which is what the harness's own error message asks for.
+
+**Left alone, deliberately.** `og:title` and `og:description`. Boarded.
+
+
 
 ### 2026-08-26 -- profile build SOP consolidated into the repo; skill cut to a stub
 
