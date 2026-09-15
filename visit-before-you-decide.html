@@ -231,6 +231,30 @@ a:hover { color: var(--teal-mid); }
   .header-nav { display: none; }
   .site-header { padding: 12px 16px; }
 }
+/* RMH-MOBILE-NAV. Below 760px .header-nav is hidden and this page had no
+   replacement, leaving the header with a wordmark and no navigation at all.
+   Pattern matches index.html. */
+.header-mobile-menu { display: none; align-items: center; gap: 10px; }
+.mobile-nav-btn {
+  background: none; border: 1px solid #e8e4de;
+  padding: 7px 12px; border-radius: 8px;
+  font-size: 13px; font-family: inherit; cursor: pointer; color: var(--mid);
+}
+.mobile-nav-dropdown {
+  display: none; position: absolute; top: 56px; right: 16px;
+  background: var(--white); border: 1px solid #e8e4de; border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 8px; min-width: 220px; z-index: 100;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-item {
+  display: block; padding: 10px 14px; font-size: 14px;
+  color: var(--dark); text-decoration: none; border-radius: 6px;
+}
+.mobile-nav-item:hover { background: var(--sand); color: var(--teal); }
+@media (max-width: 760px) {
+  .header-mobile-menu { display: flex; }
+}
+
 
 /* ============ PAGE WRAPPER ============ */
 .page { max-width: 920px; margin: 0 auto; padding: 56px 24px 80px; }
@@ -601,6 +625,17 @@ button.header-quiz-btn:hover,
     <a href="visit-before-you-decide.html" style="color:var(--teal); font-weight: 700;">Plan a Visit</a>
     <a href="index.html" class="header-quiz-btn">Find My Match →</a>
   </nav>
+  <div class="header-mobile-menu">
+    <button class="mobile-nav-btn" onclick="toggleMobileNav()">&#9776; Menu</button>
+    <a href="index.html" class="header-quiz-btn" style="font-size:12px;padding:7px 14px;">Quiz &#8594;</a>
+  </div>
+  <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+    <a class="mobile-nav-item" href="index.html">&#128269; Find a City</a>
+    <a class="mobile-nav-item" href="where-can-i-afford-to-retire.html">&#128181; What Can I Afford?</a>
+    <a class="mobile-nav-item" href="compare-retirement-cities.html">&#9878; Compare Cities</a>
+    <a class="mobile-nav-item" href="visit-before-you-decide.html" style="color:var(--teal);font-weight:700;">&#9992;&#65039; Plan a Visit</a>
+    <a class="mobile-nav-item" href="index.html#screen-explore" style="color:var(--terra);font-weight:600;">More topics &#8594;</a>
+  </div>
 </header>
 
 <main class="page">
@@ -923,6 +958,22 @@ button.header-quiz-btn:hover,
     });
   }, true);
 })();
+</script>
+
+<script>
+/* RMH-MOBILE-NAV */
+function toggleMobileNav() {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd && dd.classList.contains('open')) {
+    if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
+      dd.classList.remove('open');
+    }
+  }
+});
 </script>
 
 </body>

@@ -742,7 +742,7 @@ function incomeChip(f) {
 function card(f) {
   const cityChips = (TAXCITIES[f.st] || []).map(c =>
     '<a class="tf-city" href="index.html?city=' + encodeURIComponent(c.n) + '&state=' + f.st + '">'
-    + esc(c.n) + ' <span>tax ' + c.d5 + '/10</span></a>').join('');
+    + esc(c.n) + '</a>').join('');  /* RMH-NO-D5-CHIP */
   return '<div class="tf-card"><h3>' + f.name + '</h3><div class="tf-chips">'
     + incomeChip(f)
     + chip('Social Security: ' + f.ss, triCls(f.ss))
@@ -806,6 +806,35 @@ els.ptax.addEventListener('input', render);
 els.sales.addEventListener('input', render);
 applyParams();
 render();
+</script>
+
+<script>
+/* RMH-MOBILE-NAV. The header markup and CSS for the mobile menu shipped with
+   this page; these handlers did not, so both header buttons were dead on
+   phones. Implementations match index.html. */
+function toggleMobileNav() {
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+
+function toggleTopCitiesDropdown(e) {
+  if (e) e.stopPropagation();
+  var dd = document.getElementById('topCitiesDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  var tcd = document.getElementById('topCitiesDropdown');
+  if (tcd && tcd.classList.contains('open') && !e.target.closest('#topCitiesDropdown')) {
+    tcd.classList.remove('open');
+  }
+  var dd = document.getElementById('mobileNavDropdown');
+  if (dd && dd.classList.contains('open')) {
+    if (!e.target.closest('.header-mobile-menu') && !e.target.closest('.mobile-nav-dropdown')) {
+      dd.classList.remove('open');
+    }
+  }
+});
 </script>
 
 </body>
