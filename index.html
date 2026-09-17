@@ -986,6 +986,72 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   50% { transform: translateY(4px); }
 }
 .results-grid { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; display: flex; flex-direction: column; gap: 16px; }
+
+
+
+/* ============ RMH-OFFER-V1 ============ */
+.offer-block {
+  background: #fff;
+  border: 1px solid #ece7dd;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px 24px 22px;
+  margin-top: 28px;
+  border-top: 3px solid var(--terra);
+}
+.offer-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: 10px;
+}
+.offer-title {
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(21px, 3.2vw, 26px);
+  line-height: 1.22; margin: 0 0 12px; color: var(--dark);
+}
+.offer-hook {
+  font-size: 15px; line-height: 1.55; color: var(--mid);
+  margin: 0 0 16px;
+}
+.offer-hook strong { color: var(--dark); font-weight: 700; }
+.offer-list {
+  list-style: none; padding: 0; margin: 0 0 20px;
+}
+.offer-list li {
+  position: relative; padding-left: 20px; margin-bottom: 9px;
+  font-size: 14px; line-height: 1.5; color: var(--mid);
+}
+.offer-list li:last-child { margin-bottom: 0; }
+.offer-list li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--terra);
+}
+.offer-actions { display: flex; flex-direction: column; gap: 10px; }
+.offer-btn {
+  width: 100%; background: var(--teal); color: #fff;
+  border: none; border-radius: 100px; padding: 14px 20px;
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: background-color 0.15s;
+}
+.offer-btn:hover { background: var(--teal-mid, #3d7a75); }
+.offer-btn-alt {
+  width: 100%; background: none; color: var(--teal);
+  border: 1px solid #d9d2c6; border-radius: 100px; padding: 12px 20px;
+  font-family: inherit; font-size: 13.5px; font-weight: 600;
+  cursor: pointer; transition: border-color 0.15s, color 0.15s;
+}
+.offer-btn-alt:hover { border-color: var(--teal); color: var(--dark); }
+.offer-note {
+  margin: 14px 0 0; font-size: 13.5px; color: var(--mid); text-align: center;
+}
+.offer-note a { color: var(--teal); font-weight: 600; }
+@media (max-width: 600px) {
+  .offer-block { padding: 22px 18px 18px; }
+}
+/* ============ /RMH-OFFER-V1 ============ */
+
 /* ===== Result cards — Editorial direction ===== */
 .city-card {
   background: #fff;
@@ -7310,6 +7376,195 @@ function generateBestFor(city) {
   return desc;
 }
 
+
+
+
+
+/* ============ RMH-OFFER-V1 ============
+   Homeowners insurance estimate ($/yr) and property tax rate (%) per city.
+   Generated at patch time by apply-results-offer.py, reading
+   CityDatabase_Jul_27_v19.1.xlsx columns "HO Insur Est $/yr" and
+   "PropTax Rate %". Key is name_ST, matching the CITIES array above. Used
+   only by the offer block, to quote a real cost spread across a visitor's
+   own three matches.
+
+   To refresh after a scoring update, re-run apply-results-offer.py against
+   a clean checkout; it regenerates these rows. */
+const CITY_COST = {
+  "Savannah_GA": [2323, 0.79],
+  "Naples_FL": [7136, 0.78],
+  "Chattanooga_TN": [2958, 0.52],
+  "Charleston_SC": [2974, 0.49],
+  "Sarasota_FL": [7136, 0.78],
+  "Delray Beach_FL": [7136, 0.78],
+  "Greenville_SC": [2974, 0.49],
+  "Asheville_NC": [3124, 0.66],
+  "St. George_UT": [1814, 0.48],
+  "Carlsbad_CA": [1616, 0.70],
+  "Scottsdale_AZ": [2344, 0.48],
+  "Santa Fe_NM": [2869, 0.63],
+  "St. Paul_MN": [2729, 1.00],
+  "Virginia Beach_VA": [2074, 0.78],
+  "Palm Springs_CA": [1616, 0.70],
+  "Hilton Head_SC": [2974, 0.49],
+  "Bloomington_IN": [2887, 0.76],
+  "Knoxville_TN": [2958, 0.52],
+  "Fort Myers_FL": [7136, 0.78],
+  "Corpus Christi_TX": [4085, 1.40],
+  "Tucson_AZ": [2344, 0.48],
+  "Fairhope_AL": [3633, 0.37],
+  "Nashua_NH": [1300, 1.50],
+  "Lexington_KY": [4042, 0.74],
+  "Flagstaff_AZ": [2344, 0.48],
+  "Spokane_WA": [1753, 0.75],
+  "Portland_ME": [1335, 0.98],
+  "Wilmington_NC": [3124, 0.66],
+  "San Antonio_TX": [4085, 1.40],
+  "Eugene_OR": [1572, 0.81],
+  "Colorado Springs_CO": [4963, 0.50],
+  "Nashville_TN": [2958, 0.52],
+  "St. Petersburg_FL": [7136, 0.78],
+  "Tampa_FL": [7136, 0.78],
+  "Saratoga Springs_NY": [1683, 1.30],
+  "Ann Arbor_MI": [2924, 1.19],
+  "Madison_WI": [1812, 1.32],
+  "Boise_ID": [2240, 0.50],
+  "Fort Collins_CO": [4963, 0.50],
+  "Wilmington_DE": [1374, 0.54],
+  "Rehoboth Beach_DE": [1374, 0.54],
+  "Beaufort_NC": [3124, 0.66],
+  "Raleigh_NC": [3124, 0.66],
+  "Fort Worth_TX": [4085, 1.40],
+  "Charlottesville_VA": [2074, 0.78],
+  "Alexandria_VA": [2074, 0.78],
+  "Annapolis_MD": [1918, 0.92],
+  "Silver Spring_MD": [1918, 0.92],
+  "Philadelphia_PA": [1529, 1.26],
+  "Pittsburgh_PA": [1529, 1.26],
+  "Pensacola_FL": [7136, 0.78],
+  "St. Augustine_FL": [7136, 0.78],
+  "Fayetteville_AR": [3733, 0.56],
+  "Johnson City_TN": [2958, 0.52],
+  "Prescott_AZ": [2344, 0.48],
+  "Jackson Hole_WY": [2075, 0.53],
+  "Santa Barbara_CA": [1616, 0.70],
+  "Bend_OR": [1572, 0.81],
+  "Park City_UT": [1814, 0.48],
+  "Bozeman_MT": [3215, 0.61],
+  "Missoula_MT": [3215, 0.61],
+  "Sedona_AZ": [2344, 0.48],
+  "Durango_CO": [4963, 0.50],
+  "Georgetown_TX": [4085, 1.40],
+  "Whitefish_MT": [3215, 0.61],
+  "Steamboat Springs_CO": [4963, 0.50],
+  "Coeur d\u2019Al\u00e8ne_ID": [2240, 0.50],
+  "Grand Junction_CO": [4963, 0.50],
+  "St. Louis_MO": [3979, 0.89],
+  "Des Moines_IA": [2902, 1.33],
+  "Sioux Falls_SD": [3760, 1.00],
+  "Las Vegas_NV": [1774, 0.50],
+  "Casper_WY": [2075, 0.53],
+  "Kansas City_MO": [3979, 0.89],
+  "Columbus_OH": [2118, 1.36],
+  "Indianapolis_IN": [2887, 0.76],
+  "Vail_CO": [4963, 0.50],
+  "Sun Valley_ID": [2240, 0.50],
+  "Memphis_TN": [2958, 0.52],
+  "Napa_CA": [1616, 0.70],
+  "Carmel-by-the-Sea_CA": [1616, 0.70],
+  "Paducah_KY": [4042, 0.74],
+  "Hot Springs_AR": [3733, 0.56],
+  "Rio Rancho_NM": [2869, 0.63],
+  "Frisco_TX": [4085, 1.40],
+  "Roanoke_VA": [2074, 0.78],
+  "Iowa City_IA": [2902, 1.33],
+  "Eureka Springs_AR": [3733, 0.56],
+  "Miami_FL": [7136, 0.78],
+  "La Crosse_WI": [1812, 1.32],
+  "Pinehurst_NC": [3124, 0.66],
+  "Bentonville_AR": [3733, 0.56],
+  "Boulder_CO": [4963, 0.50],
+  "Salt Lake City_UT": [1814, 0.48],
+  "New Orleans_LA": [5986, 0.55],
+  "Tulsa_OK": [5010, 0.79],
+  "Burlington_VT": [1063, 1.51],
+  "Traverse City_MI": [2924, 1.19],
+  "Provincetown_MA": [1483, 1.00]
+};
+
+/* Set these to your checkout links when the report is live. While they are
+   empty, the buttons record offer_click and show a launching-soon note,
+   which is the demand test. */
+const REPORT_CHECKOUT_URL = { solo: '', couple: '' };
+
+function fmtUSD(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+function buildOfferBlockHTML(topCards) {
+  const costs = topCards
+    .map(function(c) { return (CITY_COST[c.name + '_' + c.state] || [])[0]; })
+    .filter(function(n) { return typeof n === 'number'; });
+  if (!costs.length) { return ''; }
+
+  const lo = Math.min.apply(null, costs);
+  const hi = Math.max.apply(null, costs);
+  const spread = hi - lo;
+
+  let hook;
+  if (costs.length >= 2 && spread >= 750) {
+    hook = 'Homeowners insurance across your matches runs from <strong>'
+         + fmtUSD(lo) + '</strong> to <strong>' + fmtUSD(hi)
+         + '</strong> a year. That ' + fmtUSD(spread)
+         + ' gap appears in no monthly estimate.';
+  } else {
+    const avg = costs.reduce(function(a, b) { return a + b; }, 0) / costs.length;
+    hook = 'Homeowners insurance on your matches runs around <strong>'
+         + fmtUSD(avg) + '</strong> a year, a cost most monthly '
+         + 'estimates leave out entirely.';
+  }
+
+  return '<div class="offer-block">'
+    + '<div class="offer-eyebrow">Your Relocation Report</div>'
+    + '<h2 class="offer-title">Your matches, costed out properly.</h2>'
+    + '<p class="offer-hook">' + hook + '</p>'
+    + '<ul class="offer-list">'
+      + '<li>True carrying cost for each city: property tax and homeowners '
+      + 'insurance on a home at your budget, not a national average</li>'
+      + '<li>The honest case <em>against</em> each match, including climate '
+      + 'and insurability risk</li>'
+      + '<li>What to verify on the ground before you commit, specific to '
+      + 'your cities</li>'
+    + '</ul>'
+    + '<div class="offer-actions">'
+      + '<button class="offer-btn" onclick="offerClick(&quot;solo&quot;)">'
+      + 'Get the report: $49</button>'
+      + '<button class="offer-btn-alt" onclick="offerClick(&quot;couple&quot;)">'
+      + 'Planning with someone? Two-person report: $79</button>'
+    + '</div>'
+    + '<p class="offer-note" id="offerNote" hidden></p>'
+  + '</div>';
+}
+
+function offerClick(tier) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'offer_click', {
+      event_category: 'Offer',
+      event_label: tier,
+      value: tier === 'couple' ? 79 : 49
+    });
+  }
+  const url = REPORT_CHECKOUT_URL[tier];
+  if (url) { window.open(url, '_blank', 'noopener'); return; }
+  const note = document.getElementById('offerNote');
+  if (note) {
+    note.innerHTML = 'Launching in October. '
+      + '<a href="#" onclick="openSignupModal(&quot;deepdive&quot;);return false;">'
+      + 'Join the list</a> and you\u2019ll hear first.';
+    note.hidden = false;
+  }
+}
+/* ============ /RMH-OFFER-V1 ============ */
+
+
 function buildCityCardHTML(city, i, rankLabels) {
   const cardId = 'card-' + city.name.replace(/[^a-zA-Z]/g, '-');
 
@@ -7321,24 +7576,15 @@ function buildCityCardHTML(city, i, rankLabels) {
     else if (diff >= 2) { budgetLabel = 'over budget'; }
   }
 
-  // Genuine top strengths for THIS city, ranked by what the user cares about.
-  const strengths = getTopStrengths(city);
+  // RMH-OFFER-V1 removed the strengths row. Every competing site lists what
+  // is good about a place; the tradeoff is what makes this card credible and
+  // it reads harder standing alone. getTopStrengths() stays defined because
+  // the inline city detail view still calls it.
 
   // The lead weakness, named plainly (same dimension the profile then explains).
   const topTradeoffLabel = getTopTradeoffLabel(city);
 
   let insightRows = '';
-  if (strengths.labels.length > 0) {
-    const lead = strengths.peak ? 'Standout for' : 'Strong across';
-    insightRows += `
-      <div class="insight-row">
-        <div class="insight-icon icon-check">✓</div>
-        <div>
-          <span class="insight-label">${lead}</span>
-          <strong>${strengths.labels.join(', ')}</strong>
-        </div>
-      </div>`;
-  }
   if (topTradeoffLabel) {
     insightRows += `
       <div class="insight-row tradeoff-row">
@@ -7351,7 +7597,7 @@ function buildCityCardHTML(city, i, rankLabels) {
   }
 
   const region = getCityRegion(city.state);
-  const btnText = `See why you'll love ${city.name}`;
+  const btnText = `See ${city.name} in depth`;
   return `<div class="city-card" id="${cardId}" style="--region-color: ${region.color};">
     <div class="card-region-bar"></div>
     <div class="card-header">
@@ -7371,7 +7617,7 @@ function buildCityCardHTML(city, i, rankLabels) {
         <span>${btnText}</span>
         <span class="arrow">→</span>
       </button>
-      <p class="card-btn-sub">Neighborhoods, the real pros and cons for you, and what a week here could look like.</p>
+      <p class="card-btn-sub">Neighborhoods, real costs, and the honest tradeoffs.</p>
     </div>
   </div>`;
 } 
@@ -7427,6 +7673,11 @@ function renderResults(results) {
 
   let html = topCards.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
 
+  // RMH-OFFER-V1. Sits after the three detailed cards and before the "more
+  // cities" list: peak attention, and it is not competing with the per-card
+  // button inside a card.
+  html += buildOfferBlockHTML(topCards);
+
   // "More cities that fit" section: cards 4-10
   const moreCities = qualified.slice(3, 10);
   if (moreCities.length > 0) {
@@ -7438,7 +7689,7 @@ function renderResults(results) {
         </div>
         <div class="more-list">
           ${moreCities.map((city, idx) => `
-            <div class="more-row" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';showCityDetail('${city.name}','${city.state}')">
+            <div class="more-row" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement_More',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
               <span class="more-rank">${idx + 4}</span>
               <div class="more-info">
                 <div class="more-city">${city.name}, ${city.state}</div>
