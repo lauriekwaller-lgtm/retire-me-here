@@ -7665,11 +7665,22 @@ function offerClick(tier) {
   }
   const url = REPORT_CHECKOUT_URL[tier];
   if (url) { window.open(url, '_blank', 'noopener'); return; }
+
+  /* RMH-OFFER-FORM. No checkout yet, so the button opens the MailerLite
+     report-interest form. Same mechanism the hikers and visit pages already
+     use. The GA event above has already fired, so the demand test does not
+     depend on what happens here. */
+  if (typeof ml === 'function') {
+    ml('show', 'ETbvqw', true);
+    return;
+  }
+
+  /* Fallback only: the MailerLite script did not load. Do not offer the Deep
+     Dive guides here; this reader asked about a paid report. */
   const note = document.getElementById('offerNote');
   if (note) {
-    note.innerHTML = 'Launching in October. '
-      + '<a href="#" onclick="openSignupModal(&quot;deepdive&quot;);return false;">'
-      + 'Join the list</a> and you\u2019ll hear first.';
+    note.textContent = 'The report launches in October. '
+      + 'Email hello@retiremehere.com and I will send it to you first.';
     note.hidden = false;
   }
 }
