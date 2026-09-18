@@ -4,7 +4,153 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** August 28, 2026 (twelfth entry), profile title and meta rewrite; 53 profiles live
+**Last updated:** September 17, 2026 (thirteenth entry), results screen rebuilt, report offer live, measurement read; 53 profiles live
+
+**THE MEASUREMENT THAT SHOULD SET THE ROADMAP. Twenty-eight days to September 15, read for the first time against clean hostnames.**
+
+*Traffic.* 462 sessions, 322 of them organic. Organic engagement time 3:49 at a 76.4%
+engagement rate, which is a strong number and says the writing is not the problem.
+
+*Where it lands.* `/where-should-i-retire-quiz.html` took 152 sessions from 148 users,
+all but one of them new, and carries 143 of the site's 190 Search Console clicks. Its
+click rate is 15.41% at average position 4.93. Every other page on the site averages
+about 1.8%.
+
+*What the fifty-three profiles drew.* Thirty-three sessions between them. That is
+0.62 sessions per profile for the month, and thirty-one of the fifty-three never
+appeared as a landing page at all. The twenty-four comparison pages drew about
+thirty-six, or 1.5 each; Knoxville vs Chattanooga alone took ten of those. The
+fourteen pillar pages averaged about 3.5.
+
+*The conclusion, stated plainly so it can be argued with later.* Publishing the
+remaining forty-six cities would buy roughly twenty-eight sessions a month at the
+current rate, against a full production run each. **The city-profile pipeline is
+parked until that arithmetic changes.** This reverses the working assumption that
+more profiles was the traffic lever.
+
+*The ceiling nobody had measured.* "where should i retire quiz" returned 173
+impressions in twenty-eight days at position 2.27. The whole quiz cluster is roughly
+550 impressions a month and the site already captures a large share of it. Total site
+demand is 3,525 impressions. Perfect execution everywhere caps out near 400 to 500
+clicks a month. That is the honest size of the thing.
+
+*The one clean headroom item.* "where should i retire", no quiz word, sits at position
+8.54 on 120 impressions and draws four clicks. Boarded below rather than acted on:
+the quiz page ranks 2nd to 3rd on the cluster that carries 75% of the site's traffic
+and its title should not be disturbed casually.
+
+*Mobile matters more than assumed.* Mobile 103 clicks at position 7.66 and 6.21% CTR;
+desktop 77 clicks at position 13.73 and 4.32%. The majority channel also ranks nearly
+twice as well.
+
+**SHIPPED, September 17 2026. Results screen rebuilt and the relocation report offer put in front of it.**
+
+*The funnel that prompted it.* Of 321 users, 190 started the quiz and 183 finished, a
+96% completion rate. Then 62 clicked into a city and four submitted an email. Three
+users clicked an affiliate link, thirty times between them. The quiz is excellent and
+everything downstream of it converts at about two percent, which is where the only
+volume-plus-intent moment on the site is being spent.
+
+*The card.* Single teal block. Gold rank and region line, city, type, match score at
+58px, the tradeoff line, and a two-line terra button. The strengths row is gone: it
+carried adjectives rather than evidence. Dimension scores were tried and cut, on the
+same reasoning that took the per-city tax chips off the state-tax page, which is that
+a bare /10 with no legend on the page is not readable. Cost figures were tried and
+cut because they are the paid product's hook and showing them free spends the surprise.
+
+*The button names its destination, not a reason.* An earlier draft read "See why
+<City> is your match". The profiles contain no reference to the quiz, the match score,
+or anything the visitor answered, so that promise was false on all fifty-three
+published cities and accidentally true on the forty-six that fall through to the
+inline detail view. It now reads "See <City>" over "Costs, neighborhoods, tradeoffs".
+
+*The offer.* Below the three cards, above the more-cities list. Headline names the
+visitor's own three cities. The hook quotes the real homeowners-insurance spread
+across those cities, drawn from a `CITY_COST` table injected from the database
+columns `HO Insur Est $/yr` and `PropTax Rate %`. $39 solo, $59 two-person, both
+firing `offer_click`. No checkout is wired: the buttons record the click and show a
+launching-soon note. That is the demand test, running while the operator travels.
+
+*Measurement hole closed on the way past.* The "More cities that fit" rows navigated
+to city pages firing nothing. They now fire `breakdown_click` under event category
+`Engagement_More`, so list clicks stay separable from in-card clicks. The 62-user
+baseline was undercounting.
+
+*Contrast.* The palette gold `#D4A84B` measures 3.34:1 against the teal, which fails
+for type at eyebrow and body size. The card uses `#E8C87A` at 4.56:1, scoped to the
+card only so nothing else on the site shifts.
+
+**SHIPPED, September 17 2026. Two dead header buttons and a page with no mobile navigation.**
+
+`states-that-dont-tax-retirement-income.html` shipped the mobile-menu markup, the CSS
+and the dropdown, but neither `toggleMobileNav()` nor `toggleTopCitiesDropdown()` was
+ever included in the file. Both header buttons threw `ReferenceError` on every device,
+not just on a phone. A sweep of all 103 HTML files found no others.
+
+`visit-before-you-decide.html` hid `.header-nav` below 760px with no replacement, so
+on a phone the page rendered a wordmark and nothing else: no nav, no quiz CTA, no way
+forward. This is the affiliate-monetised page. Both fixed in `a9eafe0`.
+
+*Same commit.* The per-city `tax N/10` chips came off the state-tax page. D5 is a
+state-level score by `docs/D5-TAX-METHODOLOGY.md` section 1, so a per-city tax number
+on a page organised by state implies a distinction the methodology says does not
+exist; and where it did vary, Miami at 10 against the rest of Florida at 9, that
+spread is one of the twelve inherited one-point spreads section 3 calls unsourced and
+unreviewed. The chips stay, and stay links. Only the score span came out.
+
+**OPEN, P1. `offer_click` is not yet marked as a key event in GA4.**
+
+Until it is, the clicks are collected but do not report as conversions, and the
+five-week demand test produces a number that is awkward to read. Admin, Events, toggle.
+Two minutes. Nothing else on the roadmap matters as much for the size of effort.
+
+**OPEN, P2. The tradeoff line repeats across all three cards when no priority is set.**
+
+`getTopTradeoffLabel()` falls through to each city's globally weakest dimension when
+the visitor marks nothing Must Have or Very Important, and that is very often the same
+dimension for every city. A render of Naples, Tucson and Savannah returned "climate
+resilience & insurance" three times. Three identical warnings read as a bug and kill
+the alertness the line exists to create. The fix is de-duplication across the rendered
+set, which means touching tradeoff selection rather than card markup, so it was left
+out of the ship. With realistic priorities set the three came back different.
+
+*Related.* "climate resilience & insurance is on the lower side here" is a long
+lowercase phrase with an ampersand in it. A shorter display name for D4 would read
+better in that sentence.
+
+**OPEN, P2. MailerLite form and automation for the report.**
+
+The launching-soon note currently points at the existing Deep Dive signup, which
+captures the address but tags the person as wanting five free guides rather than as
+report-interested. The list will not distinguish buyer signal from freebie signal
+until a dedicated form and a custom field exist. Better done once the report prototype
+is written, so the email sounds like whoever wrote the thing they are about to receive.
+
+**OPEN, P3. The report itself does not exist.**
+
+$39 and $59 are on the page with no product behind them, deliberately, as a demand
+test. Prototype to be drafted while travelling: the three cities costed out, the case
+against each, the scouting checklist. The stated promise is five-day delivery, "not a
+template: each report is researched and written for your cities, and reviewed before
+it is sent", and a full refund if it does not tell the reader something new. That
+refund line is the answer to the objection that a buyer cannot judge the value before
+paying.
+
+**OPEN, P3. "where should i retire" sits at position 8.54.**
+
+120 impressions, four clicks. Moving to position three roughly quadruples that. The
+title change that would do it also risks the quiz-cluster rankings that carry 75% of
+site traffic, so this is not a casual edit and should not be attempted without a way
+to watch the cluster afterwards.
+
+**OPEN, P3. Fifty-three city profiles have no mobile navigation.**
+
+Below 768px every nav link except the quiz CTA is hidden by design. Someone arriving
+from search on a phone has one exit. Given mobile is the majority channel and ranks
+better than desktop, this is worth revisiting, but it is a design decision across
+fifty-three files rather than a bug.
+
+**Last updated (previous):** August 28, 2026 (twelfth entry), profile title and meta rewrite; 53 profiles live
 
 **SHIPPED, August 28 2026. Every city profile title and meta description rewritten into search-query shape.**
 

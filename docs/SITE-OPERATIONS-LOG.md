@@ -201,6 +201,100 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-09-17 -- results screen rebuilt, relocation report offer added (index.html)
+
+**What changed.** `buildCityCardHTML()` replaced whole, plus a new `CITY_COST` table,
+`buildOfferBlockHTML()`, `offerClick()`, and the card and offer CSS. One insertion into
+`renderResults()`. No profiles, no routing, no `PUBLISHED_PROFILES` change, no scores
+touched. Commits `3627655`, `ebe5766`, `8c38aca`.
+
+**Why.** Twenty-eight days to September 15: 190 of 321 users started the quiz and 183
+finished, a 96% completion rate, and then 62 clicked into a city and four submitted an
+email. The results screen is the only high-volume, high-intent moment on the site and
+it was converting at about two percent.
+
+**The card.** Single teal block. Gold rank-and-region eyebrow, city, type, match score
+at 58px, tradeoff line, two-line terra button. The green-check strengths row was cut
+for carrying adjectives rather than evidence. Two replacements were tried and rejected:
+dimension scores, because a bare /10 has no legend on that screen, the same reasoning
+that removed the per-city tax chips from the state-tax page in `a9eafe0`; and cost
+figures, because they are the paid report's hook and showing them free spends it.
+
+**Button copy is a correctness fix, not a preference.** The draft read "See why <City>
+is your match". City profiles contain no reference to the quiz, the match score, or any
+quiz answer, so the promise was false on all fifty-three published cities and
+accidentally true on the forty-six that fall through to `showCityDetail()`'s inline
+view. It now reads "See <City>" over "Costs, neighborhoods, tradeoffs", which describes
+the destination.
+
+**Provenance of the offer hook.** `CITY_COST` is generated at patch time from
+`CityDatabase_Jul_27_v19.1.xlsx`, columns `HO Insur Est $/yr` and `PropTax Rate %`,
+keyed `name_ST` against the `CITIES` array. All ninety-nine quiz cities carry both
+values; none are null. The block quotes the insurance spread across the visitor's own
+three matches and no other figure. Regenerate by re-running the patch against a clean
+checkout after any database bump.
+
+**Measurement.** `offer_click` fires with the tier as label and 39 or 59 as value. The
+"More cities that fit" rows, which had been navigating untracked, now fire
+`breakdown_click` under category `Engagement_More` so list clicks stay separable from
+in-card clicks. **`offer_click` still has to be marked as a key event in GA4 or it will
+not report as a conversion.**
+
+**Contrast, measured not eyeballed.** Palette gold `#D4A84B` is 3.34:1 on `--teal`,
+which fails WCAG AA for type at this size. The card uses `#E8C87A` at 4.56:1, declared
+as `--card-gold` inside the card rule so nothing else on the site inherits it.
+
+**One CSS trap worth recording.** The card rule was first written as `.card-v2`, equal
+specificity to the existing `.city-card { background: #fff }` and inserted before it,
+so the later rule won and every card rendered white in production. Now
+`.city-card.card-v2`, two classes, which wins regardless of source order. Any future
+override of a `.city-card` property needs the compound selector.
+
+**No checkout.** `REPORT_CHECKOUT_URL` is empty for both tiers; the buttons record the
+click and reveal a launching-soon note. Set it when the product exists.
+
+### 2026-09-17 -- dead header buttons, missing mobile nav, D5 chips removed
+
+**What changed.** `states-that-dont-tax-retirement-income.html` and
+`visit-before-you-decide.html`. Commit `a9eafe0`.
+
+**The dead buttons.** The state-tax page shipped the mobile-menu markup, its CSS and
+the dropdown, but neither `toggleMobileNav()` nor `toggleTopCitiesDropdown()` was ever
+included in the file. Both header buttons threw `ReferenceError` on every device. A
+sweep of all 103 HTML files for `onclick` handlers with no definition found these two
+and nothing else.
+
+**The missing nav.** `visit-before-you-decide.html` hid `.header-nav` below 760px with
+no mobile replacement, so on a phone the header rendered a wordmark and nothing else.
+This is the affiliate-monetised page.
+
+**D5 chips.** The per-city `tax N/10` span came off the state-tax page city chips.
+`docs/D5-TAX-METHODOLOGY.md` section 1 makes D5 a state-level score, so a per-city tax
+number on a page organised by state implies a distinction the methodology denies; and
+where it varied within a state, Miami at 10 against the rest of Florida at 9, that is
+one of the twelve inherited one-point spreads section 3 calls unsourced and unreviewed.
+The page matched the database exactly, so this was a publishing decision, not a data
+error. Chips stay and stay links; `TAXCITIES` keeps its `d5` values, so restoring the
+score is one line if a legend is ever added.
+
+### 2026-09-17 -- GA4 internal traffic filter activated; preview hostnames checked
+
+**What changed.** GA4 configuration only, no repo change.
+
+**Internal traffic.** IP-based internal traffic defined and the Internal Traffic data
+filter set to Active. Not retroactive: everything before this date still includes
+operator sessions, so the August 19 to September 15 window should be read with that
+caveat. Notably `affiliate_click` at three users in that window is small enough that a
+single operator session would have distorted it.
+
+**Preview hostnames, checked and cleared.** GA's cross-domain suggestion screen
+surfaced five Netlify deploy-preview hostnames, which meant the production tag had been
+firing on preview builds. A hostname exploration over the same window returned 324 of
+325 users on `retiremehere.com` and one on `retiremehere-live.netlify.app`. Contamination
+is 0.3%, so the funnel figures stand and no hostname guard was added to the tag. Worth
+re-checking after any period of heavy preview use, since IP filtering will not catch
+previews opened from hotel or airport networks.
+
 ### 2026-08-28 -- profile titles and meta descriptions rewritten into query shape (53 profiles)
 
 **What changed.** `<title>`, `<meta name="description">`, and the JSON-LD `headline`
