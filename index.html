@@ -7670,10 +7670,7 @@ function offerClick(tier) {
      report-interest form. Same mechanism the hikers and visit pages already
      use. The GA event above has already fired, so the demand test does not
      depend on what happens here. */
-  if (typeof ml === 'function') {
-    ml('show', 'ETbvqw', true);
-    return;
-  }
+  if (openReportInterestModal()) { return; }
 
   /* Fallback only: the MailerLite script did not load. Do not offer the Deep
      Dive guides here; this reader asked about a paid report. */
@@ -8862,6 +8859,35 @@ function submitSignupModal(key, reportTitle) {
     });
 }
 
+/* RMH-REPORT-MODAL. Opens the report-interest form in the existing modal.
+   Deliberately not openSignupModal(): that header reads "Free: One Email, All
+   Five" and offers the Deep Dive guides, which is the wrong thing to put in
+   front of somebody who just pressed a price button. */
+function openReportInterestModal() {
+  returnMlForms();
+  const box = document.getElementById('rrModalBox');
+  if (!box) { return false; }
+  box.innerHTML = `
+    <div class="rr-modal-header">
+      <button class="rr-modal-close" onclick="closeReportModal()">\u2715</button>
+      <div class="rr-modal-series">Launching in October</div>
+      <div class="rr-modal-title">Your Relocation Report</div>
+      <div class="rr-modal-desc">It is being written now. The first five go out free, to people willing to tell me whether it was worth paying for.</div>
+    </div>
+    <div class="rr-modal-body">
+      <div class="ml-form-slot" id="mlFormSlot"></div>
+      <div class="rr-modal-free">No spam. Unsubscribe anytime.</div>
+    </div>
+  `;
+  const wrap = document.getElementById('mlwrap-ETbvqw');
+  const slot = document.getElementById('mlFormSlot');
+  if (!wrap || !slot) { return false; }
+  slot.appendChild(wrap);
+  document.getElementById('rrModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  return true;
+}
+
 function closeReportModal(e) {
   if (!e || e.target === document.getElementById('rrModalOverlay')) {
     returnMlForms();
@@ -8987,6 +9013,9 @@ function closeReportModal(e) {
   </div>
   <div id="mlFormVault" style="display:none" aria-hidden="true">
     <div class="ml-form-wrap" id="mlwrap-g4M1M8"><div class="ml-embedded" data-form="g4M1M8"></div></div>
+    <!-- RMH-REPORT-MODAL. Report-interest form, moved into the modal by
+         openReportInterestModal() the same way the Deep Dive form is. -->
+    <div class="ml-form-wrap" id="mlwrap-ETbvqw"><div class="ml-embedded" data-form="ETbvqw"></div></div>
   </div>
 
 <script>
