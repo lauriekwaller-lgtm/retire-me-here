@@ -1071,6 +1071,79 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 }
 /* ============ /RMH-OFFER-V1 ============ */
 
+
+/* ============ RMH-CARD-V2 ============ */
+.city-card.card-v2 {
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 22px 22px 20px;
+  box-shadow: var(--shadow);
+  cursor: default;
+  --card-gold: #E8C87A;
+}
+.city-card.card-v2:hover { transform: none; box-shadow: var(--shadow); }
+.cv2-top { display: flex; align-items: flex-start; gap: 16px; }
+.cv2-main { flex: 1 1 auto; min-width: 0; }
+.cv2-eyebrow {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--card-gold); margin-bottom: 7px;
+}
+.cv2-city {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 30px; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.08;
+}
+.cv2-type {
+  font-size: 13px; color: rgba(255,255,255,0.72); margin-top: 5px;
+}
+.cv2-score { flex: 0 0 auto; text-align: center; }
+.cv2-score b {
+  display: block; font-family: 'Libre Franklin', sans-serif;
+  font-size: 58px; font-weight: 800; line-height: 0.84;
+  letter-spacing: -0.045em;
+}
+.cv2-score span {
+  display: block; font-size: 11px;
+  color: rgba(255,255,255,0.75); margin-top: 6px;
+}
+.cv2-tradeoff {
+  font-size: 15px; line-height: 1.5; color: var(--card-gold);
+  margin: 16px 0 0; padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.16);
+}
+.cv2-tradeoff b { font-weight: 700; }
+.cv2-warn { margin-right: 4px; }
+.cv2-cta {
+  display: block; width: 100%; margin-top: 20px;
+  border: none; cursor: pointer; text-align: center;
+  background: var(--terra); color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  padding: 13px 18px 14px; border-radius: 100px;
+  transition: background-color 0.15s;
+}
+.cv2-cta:hover { background: var(--terra-deep); }
+.cv2-cta:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+.cv2-cta-main {
+  display: block; font-size: 18px; font-weight: 700; line-height: 1.25;
+}
+.cv2-cta-sub {
+  display: block; font-size: 13.5px; font-weight: 500;
+  color: rgba(255,255,255,0.88); margin-top: 2px;
+}
+@media (max-width: 480px) {
+  .city-card.card-v2 { padding: 18px 18px 17px; }
+  .cv2-city { font-size: 25px; }
+  .cv2-score b { font-size: 48px; }
+  .cv2-tradeoff { font-size: 14px; }
+  .cv2-cta-main { font-size: 17px; }
+  .cv2-cta-sub { font-size: 13px; }
+}
+/* ============ /RMH-CARD-V2 ============ */
+
 /* ===== Result cards — Editorial direction ===== */
 .city-card {
   background: #fff;
@@ -7603,60 +7676,55 @@ function offerClick(tier) {
 /* ============ /RMH-OFFER-V1 ============ */
 
 
+/* ============ RMH-CARD-V2 ============
+   The match card as a single teal block.
+
+   Palette: teal ground, white type, terra action, one gold accent used on
+   the rank-and-region line and the tradeoff line. That gold is #E8C87A, not
+   the palette #D4A84B, which sits at 3.34:1 against the teal and is too thin
+   for type at this size. #E8C87A clears 4.56:1.
+
+   The tradeoff line is kept deliberately. It is the only thing on the card
+   that differs between one city and the next beyond a number, and the
+   warning glyph is doing real work: it is the one element that interrupts a
+   scan. It is also the honesty signal, since nothing else on the results
+   screen says a place has a downside.
+
+   No dimension scores, no cost figures. A number here would have no legend,
+   and the cost figures are what the paid report is for. The button names
+   what is on the other side of the click rather than promising a
+   personalised explanation the city profile does not contain. */
+
 function buildCityCardHTML(city, i, rankLabels) {
   const cardId = 'card-' + city.name.replace(/[^a-zA-Z]/g, '-');
-
-  // Calculate budget indicator (plain-language label; no color-only dot)
-  let budgetLabel = 'in your budget';
-  if (quizState.budget) {
-    const diff = city.budgetRange - quizState.budget;
-    if (diff === 1) { budgetLabel = 'slightly over budget'; }
-    else if (diff >= 2) { budgetLabel = 'over budget'; }
-  }
-
-  // RMH-OFFER-V1 removed the strengths row. Every competing site lists what
-  // is good about a place; the tradeoff is what makes this card credible and
-  // it reads harder standing alone. getTopStrengths() stays defined because
-  // the inline city detail view still calls it.
-
-  // The lead weakness, named plainly (same dimension the profile then explains).
-  const topTradeoffLabel = getTopTradeoffLabel(city);
-
-  let insightRows = '';
-  if (topTradeoffLabel) {
-    insightRows += `
-      <div class="insight-row tradeoff-row">
-        <div class="insight-icon icon-warn">⚠</div>
-        <div>
-          <span class="insight-label">Weigh this:</span>
-          <strong>${topTradeoffLabel}</strong> is on the lower side here
-        </div>
-      </div>`;
-  }
-
   const region = getCityRegion(city.state);
-  const btnText = `See ${city.name} in depth`;
-  return `<div class="city-card" id="${cardId}" style="--region-color: ${region.color};">
-    <div class="card-region-bar"></div>
-    <div class="card-header">
-      <div class="match-badge">
-        <span class="match-badge-pct">${city.matchScore}</span>
-        <span class="match-badge-lbl">Your match</span>
+  const rank = rankLabels[i] || '';
+  const tradeoff = getTopTradeoffLabel(city);
+
+  let tradeoffRow = '';
+  if (tradeoff) {
+    tradeoffRow = `
+    <p class="cv2-tradeoff">
+      <span class="cv2-warn">\u26A0\uFE0F</span> The tradeoff: <b>${tradeoff.toLowerCase()}</b> is on the lower side here.
+    </p>`;
+  }
+
+  return `<div class="city-card card-v2" id="${cardId}">
+    <div class="cv2-top">
+      <div class="cv2-main">
+        <div class="cv2-eyebrow">${rank} \u00B7 ${region.label}</div>
+        <div class="cv2-city">${city.name}, ${city.state}</div>
+        <div class="cv2-type">${city.type}</div>
       </div>
-      <div class="card-rank">${rankLabels[i]} · ${region.label}</div>
-      <div class="card-city-name">${city.name}, ${city.state}</div>
-      <div class="card-type">${city.type}${quizState.budget ? ` <span class="budget-indicator">· ${city.monthlyEst || ''} · ${budgetLabel}</span>` : ''}</div>
-    </div>
-    <div class="card-body">
-      <div class="card-insights">
-        ${insightRows}
+      <div class="cv2-score">
+        <b>${city.matchScore}</b>
+        <span>Your match</span>
       </div>
-      <button class="btn-view-city" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
-        <span>${btnText}</span>
-        <span class="arrow">→</span>
-      </button>
-      <p class="card-btn-sub">Neighborhoods, real costs, and the honest tradeoffs.</p>
-    </div>
+    </div>${tradeoffRow}
+    <button class="cv2-cta" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
+      <span class="cv2-cta-main">See ${city.name}</span>
+      <span class="cv2-cta-sub">Costs, neighborhoods, tradeoffs</span>
+    </button>
   </div>`;
 } 
 
