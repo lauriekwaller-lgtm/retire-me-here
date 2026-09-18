@@ -989,6 +989,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 
 
+
+
 /* ============ RMH-OFFER-V1 ============ */
 .offer-block {
   background: #fff;
@@ -1027,6 +1029,23 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   content: ''; position: absolute; left: 0; top: 8px;
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--terra);
+}
+.offer-lede {
+  font-size: 15px; line-height: 1.5; color: var(--dark);
+  margin: 0 0 14px; font-weight: 500;
+}
+.offer-inside {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--light);
+  margin: 0 0 10px;
+}
+.offer-list li b { color: var(--dark); font-weight: 700; }
+.offer-fine {
+  font-size: 13px; line-height: 1.5; color: var(--mid); margin: 0 0 10px;
+}
+.offer-guarantee {
+  font-size: 13px; line-height: 1.5; color: var(--teal);
+  font-style: italic; margin: 0 0 18px;
 }
 .offer-actions { display: flex; flex-direction: column; gap: 10px; }
 .offer-btn {
@@ -7380,6 +7399,9 @@ function generateBestFor(city) {
 
 
 
+
+
+
 /* ============ RMH-OFFER-V1 ============
    Homeowners insurance estimate ($/yr) and property tax rate (%) per city.
    Generated at patch time by apply-results-offer.py, reading
@@ -7499,11 +7521,19 @@ const REPORT_CHECKOUT_URL = { solo: '', couple: '' };
 
 function fmtUSD(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
+function joinNames(list) {
+  if (list.length === 1) { return list[0]; }
+  if (list.length === 2) { return list[0] + ' and ' + list[1]; }
+  return list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1];
+}
+
 function buildOfferBlockHTML(topCards) {
   const costs = topCards
     .map(function(c) { return (CITY_COST[c.name + '_' + c.state] || [])[0]; })
     .filter(function(n) { return typeof n === 'number'; });
   if (!costs.length) { return ''; }
+
+  const names = joinNames(topCards.map(function(c) { return c.name; }));
 
   const lo = Math.min.apply(null, costs);
   const hi = Math.max.apply(null, costs);
@@ -7514,31 +7544,39 @@ function buildOfferBlockHTML(topCards) {
     hook = 'Homeowners insurance across your matches runs from <strong>'
          + fmtUSD(lo) + '</strong> to <strong>' + fmtUSD(hi)
          + '</strong> a year. That ' + fmtUSD(spread)
-         + ' gap appears in no monthly estimate.';
+         + ' gap appears in no monthly estimate you will find online.';
   } else {
     const avg = costs.reduce(function(a, b) { return a + b; }, 0) / costs.length;
     hook = 'Homeowners insurance on your matches runs around <strong>'
-         + fmtUSD(avg) + '</strong> a year, a cost most monthly '
-         + 'estimates leave out entirely.';
+         + fmtUSD(avg) + '</strong> a year, a cost most monthly estimates '
+         + 'leave out entirely.';
   }
 
   return '<div class="offer-block">'
-    + '<div class="offer-eyebrow">Your Relocation Report</div>'
-    + '<h2 class="offer-title">Your matches, costed out properly.</h2>'
+    + '<div class="offer-eyebrow">Your relocation report</div>'
+    + '<h2 class="offer-title">' + names + ', costed out properly.</h2>'
+    + '<p class="offer-lede">The quiz matched you on fit. This is what those '
+    + 'places actually cost to live in.</p>'
     + '<p class="offer-hook">' + hook + '</p>'
+    + '<div class="offer-inside">Inside:</div>'
     + '<ul class="offer-list">'
-      + '<li>True carrying cost for each city: property tax and homeowners '
-      + 'insurance on a home at your budget, not a national average</li>'
-      + '<li>The honest case <em>against</em> each match, including climate '
-      + 'and insurability risk</li>'
-      + '<li>What to verify on the ground before you commit, specific to '
-      + 'your cities</li>'
+      + '<li><b>What each city really costs you.</b> Property tax and '
+      + 'homeowners insurance on a home at your budget, not a national average.</li>'
+      + '<li><b>The case against each one.</b> Climate risk, insurability, and '
+      + 'the tradeoff that would actually bother you.</li>'
+      + '<li><b>What to check before you commit.</b> A scouting-trip checklist '
+      + 'built for your three cities.</li>'
     + '</ul>'
+    + '<p class="offer-fine">Delivered as a PDF by email within 5 days. Not a '
+    + 'template: each report is researched and written for your cities, and '
+    + 'reviewed before it is sent.</p>'
+    + '<p class="offer-guarantee">Full refund if it does not tell you something '
+    + 'you did not already know.</p>'
     + '<div class="offer-actions">'
       + '<button class="offer-btn" onclick="offerClick(&quot;solo&quot;)">'
-      + 'Get the report: $49</button>'
+      + 'Get the report: $39</button>'
       + '<button class="offer-btn-alt" onclick="offerClick(&quot;couple&quot;)">'
-      + 'Planning with someone? Two-person report: $79</button>'
+      + 'Planning with someone? Two-person report: $59</button>'
     + '</div>'
     + '<p class="offer-note" id="offerNote" hidden></p>'
   + '</div>';
@@ -7549,7 +7587,7 @@ function offerClick(tier) {
     gtag('event', 'offer_click', {
       event_category: 'Offer',
       event_label: tier,
-      value: tier === 'couple' ? 79 : 49
+      value: tier === 'couple' ? 59 : 39
     });
   }
   const url = REPORT_CHECKOUT_URL[tier];
