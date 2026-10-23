@@ -6,7 +6,7 @@ When a job moves, edit the line here (or ask Claude to). If it is not on this bo
 
 **Last updated:** October 23, 2026 (eighteenth entry), Try Living Abroad page live; 53 profiles live
 
-**DONE, October 23, 2026. Try Living Abroad published** as `try-living-abroad.html`. Linked from one line under the quiz results (GA4 `abroad_click`), the footers of `index.html` and the quiz landing page, and the quiz FAQ answer on international destinations. Not in the main menu. Stacked cards for mobile. Article and FAQPage JSON-LD.
+**DONE, October 23, 2026. Try Living Abroad published** as `try-living-abroad.html`. Linked from a small card under the quiz results (GA4 `abroad_click`; was a plain line for its first hour, too easy to miss), the footers of `index.html` and the quiz landing page, and the quiz FAQ answer on international destinations. Not in the main menu. Stacked cards for mobile. Article and FAQPage JSON-LD.
 
 *Facts rechecked at build; five changed from the Oct 20 draft* (listed at the top of `docs/try-living-abroad-guide.md`, which the page now supersedes).
 

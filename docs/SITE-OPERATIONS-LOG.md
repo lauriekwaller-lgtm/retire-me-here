@@ -201,6 +201,10 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-10-23 -- abroad link under results becomes a card
+
+**`index.html`.** The `RMH-ABROAD-LINE` link under the quiz results was a single text line below ten "more cities" rows and easy to miss. It is now a small white card (terra left border, eyebrow, title, one-line description, "Read the guide"), CSS `.abroad-card`. Same href, same `abroad_click` event. Deliberately below the matches and smaller than a result card: it moves existing visitors, it does not bring new ones.
+
 ### 2026-10-23 -- Try Living Abroad page published
 
 **New `try-living-abroad.html`.** Built from `states-that-dont-tax-retirement-income.html` (head furniture, styles, canonical nav, footer shape, nav JS), content from `docs/try-living-abroad-guide.md` with facts rechecked: Mexico, Panama, Australia ETA, ETIAS and Colombia corrected or added (see the note at the top of the guide doc). Page CSS marked `RMH-ABROAD`. Article + FAQPage JSON-LD; FAQ text matches the visible answers.

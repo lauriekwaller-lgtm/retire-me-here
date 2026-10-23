@@ -1064,11 +1064,20 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 }
 .cv2-week:hover { text-decoration-color: var(--white); }
 .cv2-week:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; border-radius: 4px; }
-.abroad-line {
-  text-align: center; font-size: 15px; color: var(--mid);
-  margin: 28px 16px 8px; line-height: 1.5;
+.abroad-card {
+  display: block; max-width: 560px; margin: 28px auto 8px; padding: 20px 22px;
+  background: #fff; border: 1px solid #ece7dd; border-left: 4px solid var(--terra);
+  border-radius: 14px; text-decoration: none; text-align: left;
+  box-shadow: 0 4px 18px rgba(28,26,24,0.06); transition: box-shadow 0.15s;
 }
-.abroad-line a { color: var(--teal); font-weight: 600; text-underline-offset: 3px; }
+.abroad-card:hover { box-shadow: 0 6px 22px rgba(28,26,24,0.12); }
+.abroad-card:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+.abroad-eyebrow { display: block; font-family: 'DM Sans', sans-serif; font-size: 11.5px;
+  font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terra); }
+.abroad-title { display: block; font-family: 'Libre Franklin', sans-serif; font-size: 21px;
+  font-weight: 700; color: var(--dark); margin: 4px 0 6px; }
+.abroad-desc { display: block; font-size: 15px; line-height: 1.5; color: var(--mid); }
+.abroad-go { display: block; margin-top: 10px; font-size: 15px; font-weight: 700; color: var(--teal); }
 @media (max-width: 480px) {
   .city-card.card-v2 { padding: 18px 18px 17px; }
   .cv2-city { font-size: 25px; }
@@ -7591,10 +7600,14 @@ function renderResults(results) {
       </div>`;
 }
 
-  // RMH-ABROAD-LINE. One quiet line for readers weighing a move abroad.
-  html += '<p class="abroad-line">Thinking about retiring abroad? '
-    + '<a href="try-living-abroad.html" onclick="if(typeof gtag!==\'undefined\'){gtag(\'event\',\'abroad_click\',{event_category:\'Engagement\',event_label:\'results\'})}">'
-    + 'Try living there first &#8594;</a></p>';
+  // RMH-ABROAD-LINE. A small card for readers weighing a move abroad. Kept
+  // below the matches so it never competes with the three result cards.
+  html += '<a class="abroad-card" href="try-living-abroad.html" onclick="if(typeof gtag!==\'undefined\'){gtag(\'event\',\'abroad_click\',{event_category:\'Engagement\',event_label:\'results\'})}">'
+    + '<span class="abroad-eyebrow">Thinking about retiring abroad?</span>'
+    + '<span class="abroad-title">Try living there first</span>'
+    + '<span class="abroad-desc">How long you can stay in Mexico, Europe, Costa Rica and more without a residence visa.</span>'
+    + '<span class="abroad-go">Read the guide &#8594;</span>'
+    + '</a>';
 
   grid.innerHTML = html;
 }
