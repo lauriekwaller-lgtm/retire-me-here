@@ -201,6 +201,12 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-10-23 -- Try Living Abroad page published
+
+**New `try-living-abroad.html`.** Built from `states-that-dont-tax-retirement-income.html` (head furniture, styles, canonical nav, footer shape, nav JS), content from `docs/try-living-abroad-guide.md` with facts rechecked: Mexico, Panama, Australia ETA, ETIAS and Colombia corrected or added (see the note at the top of the guide doc). Page CSS marked `RMH-ABROAD`. Article + FAQPage JSON-LD; FAQ text matches the visible answers.
+
+**Links in.** `index.html`: a line under the results (`RMH-ABROAD-LINE`, GA4 `abroad_click`) and a footer link. `where-should-i-retire-quiz.html`: FAQ answer on international destinations, and a footer link. `sitemap.xml`: new entry.
+
 ### 2026-10-23 -- results cards: tradeoff line de-duplicated
 
 **`index.html`.** New `getTradeoffCandidates(city)` returns every qualifying weakness in order, by the rules `getTopTradeoffLabel()` already used. `renderResults()` gives each card its first candidate and labels a match with an earlier card "Same tradeoff as [city]". Weaker points are never replaced by milder ones to avoid repetition. `buildCityCardHTML()` takes the pick as a fourth argument and falls back to `getTopTradeoffLabel()` without it. `TRADEOFF_DISPLAY` shortens D4 to "climate resilience" in the sentence only. Marked `RMH-TRADEOFF-DEDUPE`.

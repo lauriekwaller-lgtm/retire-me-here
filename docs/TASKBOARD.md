@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** October 23, 2026 (seventeenth entry), tradeoff line de-duplicated on results cards; 53 profiles live
+**Last updated:** October 23, 2026 (eighteenth entry), Try Living Abroad page live; 53 profiles live
+
+**DONE, October 23, 2026. Try Living Abroad published** as `try-living-abroad.html`. Linked from one line under the quiz results (GA4 `abroad_click`), the footers of `index.html` and the quiz landing page, and the quiz FAQ answer on international destinations. Not in the main menu. Stacked cards for mobile. Article and FAQPage JSON-LD.
+
+*Facts rechecked at build; five changed from the Oct 20 draft* (listed at the top of `docs/try-living-abroad-guide.md`, which the page now supersedes).
+
+*Upkeep.* Entry rules move. Recheck the five country cards and the ETIAS line every six months, and on any news about Thailand, Mexico or ETIAS. The page states the date it was checked; change it when you recheck.
+
+*Footer scope, a judgment call.* Footers differ page to page, so the link went on the two pages that carry most traffic rather than all 47. Add more only if `abroad_click` shows demand.
+
+**Last updated (previous):** October 23, 2026 (seventeenth entry), tradeoff line de-duplicated on results cards
 
 **DONE, October 23, 2026. Tradeoff line no longer repeats across the three result cards.**
 
@@ -26,7 +36,7 @@ Each of the three result cards now carries "What a week in [city] looks like", l
 
 Out of `index.html`: the offer block under the three result cards, its CSS, the `CITY_COST` table that fed it, `offerClick()`, the "Launching in October" modal (`openReportInterestModal()`), and the report-interest form node (MailerLite `ETbvqw`). Kept: the Deep Dive guides capture (`g4M1M8`), both `breakdown_click` events, and the `signup_submit` listener.
 
-*Outside the repo, still to do.* In MailerLite, unpublish form `ETbvqw` and tag or archive anyone on it so they are not mailed about a report that will not ship. In GA4, `offer_click` can stay a key event; it simply stops firing.
+*Outside the repo, DONE Oct 23: form `ETbvqw` paused in MailerLite.* ~~In MailerLite, unpublish form `ETbvqw` and tag or archive anyone on it so they are not mailed about a report that will not ship. In GA4, `offer_click` can stay a key event; it simply stops firing.
 
 **Last updated (previous):** October 22, 2026 (fourteenth entry), report offer ended, site simplification direction set, three unlogged changes caught up
 
@@ -62,13 +72,13 @@ In `where-should-i-retire-quiz.html` (around line 706), the new question was pas
 
 With the offer gone, the three cards are the whole answer. Three identical warnings read as a bug, so de-duplicating `getTopTradeoffLabel()` across the rendered set matters more than it did.
 
-**OPEN, P2. Publish "Try Living Abroad" as one standalone page.**
+**DONE Oct 23 (see top). ~~OPEN, P2. Publish "Try Living Abroad" as one standalone page.~~**
 
 Source: the Try Living Abroad Guide doc (link in `docs/STRATEGY-HANDOFF-2026-10.md`). Link it from the footer and with one line on quiz results. Not in the main menu. Use stacked sections, not a wide table, since mobile is the majority channel. Day counts belong on this page, where they can be updated; rules change (Thailand cut its visa-free stay from 60 to 30 days on Sept 15).
 
 *Also.* The FAQ answer "International destinations may be added later" can then link to this page.
 
-**OPEN, P3. Pinterest pins for the abroad guide.**
+**OPEN, P3. Pinterest pins for the abroad guide.** *Unblocked: the page is live at `/try-living-abroad.html`.*
 
 Copy is drafted in `docs/PINS-try-living-abroad.md`. Make the pins only after the page is live; they need a destination. Travel-time task.
 

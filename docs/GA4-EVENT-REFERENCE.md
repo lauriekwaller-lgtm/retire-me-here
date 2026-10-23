@@ -101,6 +101,12 @@ on one of the three results cards. Carries the city name. Only cities with a
 published profile show the link. Read it against `quiz_complete` and next to
 `breakdown_click`: together they say how many finishers go on to a city.
 
+### `abroad_click`
+Added October 23, 2026. Fires when someone taps "Try living there first" under the
+quiz results. Label `results`. Measures how many finishers are weighing a move
+abroad; read it against `quiz_complete` before deciding whether international
+content earns more work.
+
 ### `signup_modal_open`
 Fires when the signup popup opens. **Renamed from `report_request`**, which
 implied someone requested a report. They did not; they opened a form.

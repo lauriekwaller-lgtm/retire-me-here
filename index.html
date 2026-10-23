@@ -1064,6 +1064,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 }
 .cv2-week:hover { text-decoration-color: var(--white); }
 .cv2-week:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; border-radius: 4px; }
+.abroad-line {
+  text-align: center; font-size: 15px; color: var(--mid);
+  margin: 28px 16px 8px; line-height: 1.5;
+}
+.abroad-line a { color: var(--teal); font-weight: 600; text-underline-offset: 3px; }
 @media (max-width: 480px) {
   .city-card.card-v2 { padding: 18px 18px 17px; }
   .cv2-city { font-size: 25px; }
@@ -7586,6 +7591,11 @@ function renderResults(results) {
       </div>`;
 }
 
+  // RMH-ABROAD-LINE. One quiet line for readers weighing a move abroad.
+  html += '<p class="abroad-line">Thinking about retiring abroad? '
+    + '<a href="try-living-abroad.html" onclick="if(typeof gtag!==\'undefined\'){gtag(\'event\',\'abroad_click\',{event_category:\'Engagement\',event_label:\'results\'})}">'
+    + 'Try living there first &#8594;</a></p>';
+
   grid.innerHTML = html;
 }
   
@@ -8648,6 +8658,7 @@ function closeReportModal(e) {
         @retiremehere
       </a>
     </p>
+    <p style="margin-top:4px;"><a href="try-living-abroad.html">Try living abroad first</a></p>
     <p style="margin-top:4px;">&copy; 2026 RetireMeHere. All rights reserved. &nbsp;·&nbsp; <a href='/privacy'>Privacy Policy</a></p>
   </div>
 

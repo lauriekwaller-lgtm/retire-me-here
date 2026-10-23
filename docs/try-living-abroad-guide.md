@@ -1,5 +1,7 @@
 # Try Living Abroad Guide
 
+> **Superseded October 23, 2026.** The live page, `try-living-abroad.html`, is now the source. Facts were rechecked when it was built and five changed: Mexico now often matches the stay to your plans; the Panama "30 days out" rule had no current source and was replaced by the documented re-entry discretion; Australia's ETA costs about A$20, not free; ETIAS (EUR 20, late 2026) added; Colombia's 180 days are per calendar year. Edit the page, not this file.
+
 Oct 20, 2026 · @Laurie Waller
 
 Start with how long you want to stay, because that one rule decides which countries are open to you without a residence visa. Budget and place come second.
