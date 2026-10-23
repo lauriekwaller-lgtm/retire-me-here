@@ -7171,6 +7171,33 @@ function generateWhyMatch(city) {
 // Returns the dimension LABEL of the card's lead tradeoff (e.g. "Healthcare Quality"),
 // mirroring generateTradeoffs' selection so the card teaser names what the profile explains.
 // Returns null if the only tradeoff is budget or generic, so the card falls back to neutral copy.
+// RMH-TRADEOFF-DEDUPE. Every real weakness, in the order the card should
+// prefer them. Same two rules getTopTradeoffLabel() has always used: a
+// prioritized dimension scoring <=5, weakest first; then any other dimension
+// scoring <=6, weakest first. renderResults() walks this list so the three
+// cards do not repeat one warning.
+function getTradeoffCandidates(city) {
+  const topPrios = DIMENSIONS.filter(d =>
+    d.key !== 'DC' && (
+      quizState.priorities[d.key] === 'Must Have' ||
+      quizState.priorities[d.key] === 'Very Important'
+    )
+  );
+  const byScore = (a, b) => getCityScore(city, a.key) - getCityScore(city, b.key);
+  const weakPrios = topPrios.filter(d => getCityScore(city, d.key) <= 5).sort(byScore);
+  const weakOthers = DIMENSIONS
+    .filter(d => d.key !== 'DC' && !topPrios.find(p => p.key === d.key))
+    .filter(d => getCityScore(city, d.key) <= 6)
+    .sort(byScore);
+  return weakPrios.concat(weakOthers).map(d => d.label);
+}
+
+// Shorter names for the tradeoff sentence only.
+const TRADEOFF_DISPLAY = { 'Climate Resilience & Insurance': 'climate resilience' };
+function tradeoffDisplay(label) {
+  return TRADEOFF_DISPLAY[label] || label.toLowerCase();
+}
+
 function getTopTradeoffLabel(city) {
   const topPrios = DIMENSIONS.filter(d =>
     d.key !== 'DC' && (
@@ -7426,11 +7453,13 @@ function generateBestFor(city) {
    what is on the other side of the click rather than promising a
    personalised explanation the city profile does not contain. */
 
-function buildCityCardHTML(city, i, rankLabels) {
+function buildCityCardHTML(city, i, rankLabels, pick) {
   const cardId = 'card-' + city.name.replace(/[^a-zA-Z]/g, '-');
   const region = getCityRegion(city.state);
   const rank = rankLabels[i] || '';
-  const tradeoff = getTopTradeoffLabel(city);
+  // pick comes from renderResults(); fall back to the old single-card rule.
+  const tradeoff = pick ? pick.label : getTopTradeoffLabel(city);
+  const repeatOf = pick ? pick.repeatOf : null;
 
   // RMH-WEEK-LINK. Only for cities with a published profile; all of them
   // carry id="week". Cities without one show nothing rather than a dead end.
@@ -7444,7 +7473,9 @@ function buildCityCardHTML(city, i, rankLabels) {
   if (tradeoff) {
     tradeoffRow = `
     <p class="cv2-tradeoff">
-      <span class="cv2-warn">\u26A0\uFE0F</span> The tradeoff: <b>${tradeoff.toLowerCase()}</b> is on the lower side here.
+      <span class="cv2-warn">\u26A0\uFE0F</span> ${repeatOf
+        ? `Same tradeoff as ${repeatOf}: <b>${tradeoffDisplay(tradeoff)}</b> is on the lower side here too.`
+        : `The tradeoff: <b>${tradeoffDisplay(tradeoff)}</b> is on the lower side here.`}
     </p>`;
   }
 
@@ -7516,7 +7547,20 @@ function renderResults(results) {
     ? ['Best Match', '2nd Match']
     : ['Best Match'];
 
-  let html = topCards.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
+  // RMH-TRADEOFF-DEDUPE. Every card shows its own weakest point; a weaker
+  // point is never swapped for a milder one to avoid repetition. When the
+  // point matches an earlier card, the card says so ("Same tradeoff as X"),
+  // which reads as a shared risk rather than a rendering bug.
+  const shownBy = {};
+  const picks = topCards.map(city => {
+    const label = getTradeoffCandidates(city)[0] || null;
+    if (!label) { return { label: null, repeatOf: null }; }
+    const repeatOf = shownBy[label] || null;
+    if (!repeatOf) { shownBy[label] = city.name; }
+    return { label, repeatOf };
+  });
+
+  let html = topCards.map((city, i) => buildCityCardHTML(city, i, rankLabels, picks[i])).join('');
 
   // "More cities that fit" section: cards 4-10
   const moreCities = qualified.slice(3, 10);

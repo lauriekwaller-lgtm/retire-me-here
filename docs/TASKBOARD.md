@@ -4,7 +4,13 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** October 23, 2026 (sixteenth entry), week link on results cards, quiz FAQ markup fixed; 53 profiles live
+**Last updated:** October 23, 2026 (seventeenth entry), tradeoff line de-duplicated on results cards; 53 profiles live
+
+**DONE, October 23, 2026. Tradeoff line no longer repeats across the three result cards.**
+
+Every card still shows its own weakest point. When it matches an earlier card, the card now says "Same tradeoff as [city]", so three Florida matches read as a shared risk instead of a bug. A first version swapped in each city's next weakness instead; rejected, because it showed Miami's 6 on outdoor recreation and hid its 2 on climate resilience. D4 reads "climate resilience" in that sentence. Code marked `RMH-TRADEOFF-DEDUPE`.
+
+**Last updated (previous):** October 23, 2026 (sixteenth entry), week link on results cards, quiz FAQ markup fixed
 
 **DONE, October 23, 2026. Week link on the results cards; FAQ markup fixed.**
 
@@ -52,7 +58,7 @@ The offer block below the three result cards (around `index.html` line 7590–76
 
 In `where-should-i-retire-quiz.html` (around line 706), the new question was pasted inside the existing FAQ item. The page renders and the divs balance, but "Does it include international retirement destinations?" has lost its own wrapper. Fix: delete the second of the two consecutive `<div class="faq-item">` lines, then add `      <div class="faq-item">` on a new line directly above `<div class="faq-q">Does it include international retirement destinations?</div>`.
 
-**OPEN, P2. Tradeoff line repeats across all three cards (carried forward, now higher stakes).**
+**DONE Oct 23 (see top). ~~OPEN, P2. Tradeoff line repeats across all three cards (carried forward, now higher stakes).~~**
 
 With the offer gone, the three cards are the whole answer. Three identical warnings read as a bug, so de-duplicating `getTopTradeoffLabel()` across the rendered set matters more than it did.
 
@@ -171,7 +177,7 @@ Until it is, the clicks are collected but do not report as conversions, and the
 five-week demand test produces a number that is awkward to read. Admin, Events, toggle.
 Two minutes. Nothing else on the roadmap matters as much for the size of effort.
 
-**OPEN, P2. The tradeoff line repeats across all three cards when no priority is set.**
+**DONE Oct 23 (see top). ~~OPEN, P2. The tradeoff line repeats across all three cards when no priority is set.~~**
 
 `getTopTradeoffLabel()` falls through to each city's globally weakest dimension when
 the visitor marks nothing Must Have or Very Important, and that is very often the same

@@ -201,6 +201,10 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-10-23 -- results cards: tradeoff line de-duplicated
+
+**`index.html`.** New `getTradeoffCandidates(city)` returns every qualifying weakness in order, by the rules `getTopTradeoffLabel()` already used. `renderResults()` gives each card its first candidate and labels a match with an earlier card "Same tradeoff as [city]". Weaker points are never replaced by milder ones to avoid repetition. `buildCityCardHTML()` takes the pick as a fourth argument and falls back to `getTopTradeoffLabel()` without it. `TRADEOFF_DISPLAY` shortens D4 to "climate resilience" in the sentence only. Marked `RMH-TRADEOFF-DEDUPE`.
+
 ### 2026-10-23 -- week link on results cards; quiz FAQ markup fixed
 
 **`index.html`.** Each of the top three result cards gets a "What a week in [city] looks like" link to `cities/<slug>/profile.html#week` when the city has a published profile (marked `RMH-WEEK-LINK`; CSS `.cv2-week` in `RMH-CARD-V2`). Fires `week_click`. To make that possible, `const PUBLISHED_PROFILES` moved from inside `showCityDetail()` to top level, entries unchanged. The validator's routing parse reads it the same way.
