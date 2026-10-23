@@ -201,6 +201,16 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-10-23 -- relocation report offer removed (index.html)
+
+Decided October 20: no report sign-ups since the offer went live on September 17, and at about 320 organic sessions a month the demand test could not produce a readable answer. Closing number: **31 `offer_click` events**, all time.
+
+**Removed from `index.html`.** CSS and JS blocks marked `RMH-OFFER-V1` (including the `CITY_COST` insurance and property-tax table, which nothing else read), the `buildOfferBlockHTML(topCards)` call after the three result cards, `openReportInterestModal()` and its "Launching in October" header, and the `ETbvqw` MailerLite form node in `#mlFormVault`. One comment in `RMH-CARD-V2` that pointed at the paid report was reworded.
+
+**Deliberately kept.** The Deep Dive guides capture (`g4M1M8`, `openSignupModal`, `openReportModal`), `closeReportModal` and `returnMlForms` (shared modal plumbing), `breakdown_click` on the cards and on "More cities that fit", and `signup_submit`.
+
+**Not in the repo.** MailerLite form `ETbvqw` should be unpublished and its subscribers tagged so nobody is mailed about the report. `apply-results-offer.py`, named in the removed comment as the generator for `CITY_COST`, is no longer needed.
+
 ### 2026-09-17 -- results screen rebuilt, relocation report offer added (index.html)
 
 **What changed.** `buildCityCardHTML()` replaced whole, plus a new `CITY_COST` table,

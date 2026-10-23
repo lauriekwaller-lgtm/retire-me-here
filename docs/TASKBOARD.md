@@ -4,7 +4,15 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** October 22, 2026 (fourteenth entry), report offer ended, site simplification direction set, three unlogged changes caught up; 53 profiles live
+**Last updated:** October 23, 2026 (fifteenth entry), report offer removed from the results screen; 53 profiles live
+
+**DONE, October 23 2026. Report offer removed.** Final `offer_click` count: **31**, all time, from September 17 to removal. Zero report sign-ups. The test is closed.
+
+Out of `index.html`: the offer block under the three result cards, its CSS, the `CITY_COST` table that fed it, `offerClick()`, the "Launching in October" modal (`openReportInterestModal()`), and the report-interest form node (MailerLite `ETbvqw`). Kept: the Deep Dive guides capture (`g4M1M8`), both `breakdown_click` events, and the `signup_submit` listener.
+
+*Outside the repo, still to do.* In MailerLite, unpublish form `ETbvqw` and tag or archive anyone on it so they are not mailed about a report that will not ship. In GA4, `offer_click` can stay a key event; it simply stops firing.
+
+**Last updated (previous):** October 22, 2026 (fourteenth entry), report offer ended, site simplification direction set, three unlogged changes caught up
 
 **DECIDED, October 20 2026. The relocation report is dropped. The demand test is over.**
 
@@ -26,7 +34,7 @@ Visitors want an answer and leave, and data upkeep across all cities is too heav
 
 *Watch item.* The September entry warned that this page's title "should not be disturbed casually", because it ranks 2nd to 3rd on the cluster carrying 75% of traffic. The change may help with "where should i retire" (position 8.54). Compare the quiz cluster's position and clicks in Search Console for the four weeks after Oct 12 against the September read before touching the title again.
 
-**OPEN, P1. Remove the report offer.**
+**DONE Oct 23 (see top). ~~OPEN, P1. Remove the report offer.~~**
 
 The offer block below the three result cards (around `index.html` line 7590–7670), the `$29` button, and the report modal (`RMH-REPORT-MODAL`, around lines 8862 and 9016). Keep the `breakdown_click` tracking on the "More cities that fit" rows; it is unrelated and useful.
 

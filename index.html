@@ -991,85 +991,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
 
 
 
-/* ============ RMH-OFFER-V1 ============ */
-.offer-block {
-  background: #fff;
-  border: 1px solid #ece7dd;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 26px 24px 22px;
-  margin-top: 28px;
-  border-top: 3px solid var(--terra);
-}
-.offer-eyebrow {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--terra); margin-bottom: 10px;
-}
-.offer-title {
-  font-family: var(--serif, Georgia, serif);
-  font-size: clamp(21px, 3.2vw, 26px);
-  line-height: 1.22; margin: 0 0 12px; color: var(--dark);
-}
-.offer-hook {
-  font-size: 15px; line-height: 1.55; color: var(--mid);
-  margin: 0 0 16px;
-}
-.offer-hook strong { color: var(--dark); font-weight: 700; }
-.offer-list {
-  list-style: none; padding: 0; margin: 0 0 20px;
-}
-.offer-list li {
-  position: relative; padding-left: 20px; margin-bottom: 9px;
-  font-size: 14px; line-height: 1.5; color: var(--mid);
-}
-.offer-list li:last-child { margin-bottom: 0; }
-.offer-list li::before {
-  content: ''; position: absolute; left: 0; top: 8px;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--terra);
-}
-.offer-lede {
-  font-size: 15px; line-height: 1.5; color: var(--dark);
-  margin: 0 0 14px; font-weight: 500;
-}
-.offer-inside {
-  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--light);
-  margin: 0 0 10px;
-}
-.offer-list li b { color: var(--dark); font-weight: 700; }
-.offer-fine {
-  font-size: 13px; line-height: 1.5; color: var(--mid); margin: 0 0 10px;
-}
-.offer-guarantee {
-  font-size: 13px; line-height: 1.5; color: var(--teal);
-  font-style: italic; margin: 0 0 18px;
-}
-.offer-actions { display: flex; flex-direction: column; gap: 10px; }
-.offer-btn {
-  width: 100%; background: var(--teal); color: #fff;
-  border: none; border-radius: 100px; padding: 14px 20px;
-  font-family: inherit; font-size: 15px; font-weight: 700;
-  cursor: pointer; transition: background-color 0.15s;
-}
-.offer-btn:hover { background: var(--teal-mid, #3d7a75); }
-.offer-btn-alt {
-  width: 100%; background: none; color: var(--teal);
-  border: 1px solid #d9d2c6; border-radius: 100px; padding: 12px 20px;
-  font-family: inherit; font-size: 13.5px; font-weight: 600;
-  cursor: pointer; transition: border-color 0.15s, color 0.15s;
-}
-.offer-btn-alt:hover { border-color: var(--teal); color: var(--dark); }
-.offer-note {
-  margin: 14px 0 0; font-size: 13.5px; color: var(--mid); text-align: center;
-}
-.offer-note a { color: var(--teal); font-weight: 600; }
-@media (max-width: 600px) {
-  .offer-block { padding: 22px 18px 18px; }
-}
-/* ============ /RMH-OFFER-V1 ============ */
 
 
 /* ============ RMH-CARD-V2 ============ */
@@ -7475,213 +7396,6 @@ function generateBestFor(city) {
 
 
 
-/* ============ RMH-OFFER-V1 ============
-   Homeowners insurance estimate ($/yr) and property tax rate (%) per city.
-   Generated at patch time by apply-results-offer.py, reading
-   CityDatabase_Jul_27_v19.1.xlsx columns "HO Insur Est $/yr" and
-   "PropTax Rate %". Key is name_ST, matching the CITIES array above. Used
-   only by the offer block, to quote a real cost spread across a visitor's
-   own three matches.
-
-   To refresh after a scoring update, re-run apply-results-offer.py against
-   a clean checkout; it regenerates these rows. */
-const CITY_COST = {
-  "Savannah_GA": [2323, 0.79],
-  "Naples_FL": [7136, 0.78],
-  "Chattanooga_TN": [2958, 0.52],
-  "Charleston_SC": [2974, 0.49],
-  "Sarasota_FL": [7136, 0.78],
-  "Delray Beach_FL": [7136, 0.78],
-  "Greenville_SC": [2974, 0.49],
-  "Asheville_NC": [3124, 0.66],
-  "St. George_UT": [1814, 0.48],
-  "Carlsbad_CA": [1616, 0.70],
-  "Scottsdale_AZ": [2344, 0.48],
-  "Santa Fe_NM": [2869, 0.63],
-  "St. Paul_MN": [2729, 1.00],
-  "Virginia Beach_VA": [2074, 0.78],
-  "Palm Springs_CA": [1616, 0.70],
-  "Hilton Head_SC": [2974, 0.49],
-  "Bloomington_IN": [2887, 0.76],
-  "Knoxville_TN": [2958, 0.52],
-  "Fort Myers_FL": [7136, 0.78],
-  "Corpus Christi_TX": [4085, 1.40],
-  "Tucson_AZ": [2344, 0.48],
-  "Fairhope_AL": [3633, 0.37],
-  "Nashua_NH": [1300, 1.50],
-  "Lexington_KY": [4042, 0.74],
-  "Flagstaff_AZ": [2344, 0.48],
-  "Spokane_WA": [1753, 0.75],
-  "Portland_ME": [1335, 0.98],
-  "Wilmington_NC": [3124, 0.66],
-  "San Antonio_TX": [4085, 1.40],
-  "Eugene_OR": [1572, 0.81],
-  "Colorado Springs_CO": [4963, 0.50],
-  "Nashville_TN": [2958, 0.52],
-  "St. Petersburg_FL": [7136, 0.78],
-  "Tampa_FL": [7136, 0.78],
-  "Saratoga Springs_NY": [1683, 1.30],
-  "Ann Arbor_MI": [2924, 1.19],
-  "Madison_WI": [1812, 1.32],
-  "Boise_ID": [2240, 0.50],
-  "Fort Collins_CO": [4963, 0.50],
-  "Wilmington_DE": [1374, 0.54],
-  "Rehoboth Beach_DE": [1374, 0.54],
-  "Beaufort_NC": [3124, 0.66],
-  "Raleigh_NC": [3124, 0.66],
-  "Fort Worth_TX": [4085, 1.40],
-  "Charlottesville_VA": [2074, 0.78],
-  "Alexandria_VA": [2074, 0.78],
-  "Annapolis_MD": [1918, 0.92],
-  "Silver Spring_MD": [1918, 0.92],
-  "Philadelphia_PA": [1529, 1.26],
-  "Pittsburgh_PA": [1529, 1.26],
-  "Pensacola_FL": [7136, 0.78],
-  "St. Augustine_FL": [7136, 0.78],
-  "Fayetteville_AR": [3733, 0.56],
-  "Johnson City_TN": [2958, 0.52],
-  "Prescott_AZ": [2344, 0.48],
-  "Jackson Hole_WY": [2075, 0.53],
-  "Santa Barbara_CA": [1616, 0.70],
-  "Bend_OR": [1572, 0.81],
-  "Park City_UT": [1814, 0.48],
-  "Bozeman_MT": [3215, 0.61],
-  "Missoula_MT": [3215, 0.61],
-  "Sedona_AZ": [2344, 0.48],
-  "Durango_CO": [4963, 0.50],
-  "Georgetown_TX": [4085, 1.40],
-  "Whitefish_MT": [3215, 0.61],
-  "Steamboat Springs_CO": [4963, 0.50],
-  "Coeur d\u2019Al\u00e8ne_ID": [2240, 0.50],
-  "Grand Junction_CO": [4963, 0.50],
-  "St. Louis_MO": [3979, 0.89],
-  "Des Moines_IA": [2902, 1.33],
-  "Sioux Falls_SD": [3760, 1.00],
-  "Las Vegas_NV": [1774, 0.50],
-  "Casper_WY": [2075, 0.53],
-  "Kansas City_MO": [3979, 0.89],
-  "Columbus_OH": [2118, 1.36],
-  "Indianapolis_IN": [2887, 0.76],
-  "Vail_CO": [4963, 0.50],
-  "Sun Valley_ID": [2240, 0.50],
-  "Memphis_TN": [2958, 0.52],
-  "Napa_CA": [1616, 0.70],
-  "Carmel-by-the-Sea_CA": [1616, 0.70],
-  "Paducah_KY": [4042, 0.74],
-  "Hot Springs_AR": [3733, 0.56],
-  "Rio Rancho_NM": [2869, 0.63],
-  "Frisco_TX": [4085, 1.40],
-  "Roanoke_VA": [2074, 0.78],
-  "Iowa City_IA": [2902, 1.33],
-  "Eureka Springs_AR": [3733, 0.56],
-  "Miami_FL": [7136, 0.78],
-  "La Crosse_WI": [1812, 1.32],
-  "Pinehurst_NC": [3124, 0.66],
-  "Bentonville_AR": [3733, 0.56],
-  "Boulder_CO": [4963, 0.50],
-  "Salt Lake City_UT": [1814, 0.48],
-  "New Orleans_LA": [5986, 0.55],
-  "Tulsa_OK": [5010, 0.79],
-  "Burlington_VT": [1063, 1.51],
-  "Traverse City_MI": [2924, 1.19],
-  "Provincetown_MA": [1483, 1.00]
-};
-
-/* Set these to your checkout links when the report is live. While they are
-   empty, the buttons record offer_click and show a launching-soon note,
-   which is the demand test. */
-const REPORT_CHECKOUT_URL = { solo: '', couple: '' };
-
-function fmtUSD(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
-
-function joinNames(list) {
-  if (list.length === 1) { return list[0]; }
-  if (list.length === 2) { return list[0] + ' and ' + list[1]; }
-  return list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1];
-}
-
-function buildOfferBlockHTML(topCards) {
-  const costs = topCards
-    .map(function(c) { return (CITY_COST[c.name + '_' + c.state] || [])[0]; })
-    .filter(function(n) { return typeof n === 'number'; });
-  if (!costs.length) { return ''; }
-
-  const names = joinNames(topCards.map(function(c) { return c.name; }));
-
-  const lo = Math.min.apply(null, costs);
-  const hi = Math.max.apply(null, costs);
-  const spread = hi - lo;
-
-  let hook;
-  if (costs.length >= 2 && spread >= 750) {
-    hook = 'Homeowners insurance across your matches runs from <strong>'
-         + fmtUSD(lo) + '</strong> to <strong>' + fmtUSD(hi)
-         + '</strong> a year. That ' + fmtUSD(spread)
-         + ' gap appears in no monthly estimate you will find online.';
-  } else {
-    const avg = costs.reduce(function(a, b) { return a + b; }, 0) / costs.length;
-    hook = 'Homeowners insurance on your matches runs around <strong>'
-         + fmtUSD(avg) + '</strong> a year, a cost most monthly estimates '
-         + 'leave out entirely.';
-  }
-
-  return '<div class="offer-block">'
-    + '<div class="offer-eyebrow">Your relocation report</div>'
-    + '<h2 class="offer-title">' + names + ', costed out properly.</h2>'
-    + '<p class="offer-lede">The quiz matched you on fit. This is what those '
-    + 'places actually cost to live in.</p>'
-    + '<p class="offer-hook">' + hook + '</p>'
-    + '<div class="offer-inside">Inside:</div>'
-    + '<ul class="offer-list">'
-      + '<li><b>What each city really costs you.</b> Property tax and '
-      + 'homeowners insurance on a home at your budget, not a national average.</li>'
-      + '<li><b>The case against each one.</b> Climate risk, insurability, and '
-      + 'the tradeoff that would actually bother you.</li>'
-      + '<li><b>What to check before you commit.</b> A scouting-trip checklist '
-      + 'built for your three cities.</li>'
-    + '</ul>'
-    + '<p class="offer-fine">Delivered as a PDF by email within 5 days. Not a '
-    + 'template: each report is researched and written for your cities, and '
-    + 'reviewed before it is sent.</p>'
-    + '<p class="offer-guarantee">Full refund if it does not tell you something '
-    + 'you did not already know.</p>'
-    + '<div class="offer-actions">'
-      + '<button class="offer-btn" onclick="offerClick(&quot;solo&quot;)">'
-      + 'Get the report: $29</button>'
-      + '<button class="offer-btn-alt" onclick="offerClick(&quot;couple&quot;)">'
-      + 'Planning with someone? Two-person report: $49</button>'
-    + '</div>'
-    + '<p class="offer-note" id="offerNote" hidden></p>'
-  + '</div>';
-}
-
-function offerClick(tier) {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'offer_click', {
-      event_category: 'Offer',
-      event_label: tier,
-      value: tier === 'couple' ? 59 : 39
-    });
-  }
-  const url = REPORT_CHECKOUT_URL[tier];
-  if (url) { window.open(url, '_blank', 'noopener'); return; }
-
-  /* RMH-OFFER-FORM. No checkout yet, so the button opens the MailerLite
-     report-interest form. Same mechanism the hikers and visit pages already
-     use. The GA event above has already fired, so the demand test does not
-     depend on what happens here. */
-  if (openReportInterestModal()) { return; }
-
-  /* Fallback only: the MailerLite script did not load. Do not offer the Deep
-     Dive guides here; this reader asked about a paid report. */
-  const note = document.getElementById('offerNote');
-  if (note) {
-    note.textContent = 'The report launches in October. '
-      + 'Email hello@retiremehere.com and I will send it to you first.';
-    note.hidden = false;
-  }
-}
-/* ============ /RMH-OFFER-V1 ============ */
 
 
 /* ============ RMH-CARD-V2 ============
@@ -7699,7 +7413,7 @@ function offerClick(tier) {
    screen says a place has a downside.
 
    No dimension scores, no cost figures. A number here would have no legend,
-   and the cost figures are what the paid report is for. The button names
+   and cost detail belongs on the city profile. The button names
    what is on the other side of the click rather than promising a
    personalised explanation the city profile does not contain. */
 
@@ -7786,11 +7500,6 @@ function renderResults(results) {
     : ['Best Match'];
 
   let html = topCards.map((city, i) => buildCityCardHTML(city, i, rankLabels)).join('');
-
-  // RMH-OFFER-V1. Sits after the three detailed cards and before the "more
-  // cities" list: peak attention, and it is not competing with the per-card
-  // button inside a card.
-  html += buildOfferBlockHTML(topCards);
 
   // "More cities that fit" section: cards 4-10
   const moreCities = qualified.slice(3, 10);
@@ -8859,35 +8568,6 @@ function submitSignupModal(key, reportTitle) {
     });
 }
 
-/* RMH-REPORT-MODAL. Opens the report-interest form in the existing modal.
-   Deliberately not openSignupModal(): that header reads "Free: One Email, All
-   Five" and offers the Deep Dive guides, which is the wrong thing to put in
-   front of somebody who just pressed a price button. */
-function openReportInterestModal() {
-  returnMlForms();
-  const box = document.getElementById('rrModalBox');
-  if (!box) { return false; }
-  box.innerHTML = `
-    <div class="rr-modal-header">
-      <button class="rr-modal-close" onclick="closeReportModal()">\u2715</button>
-      <div class="rr-modal-series">Launching in October</div>
-      <div class="rr-modal-title">Your Relocation Report</div>
-      <div class="rr-modal-desc">It is being written now. The first five go out free, to people willing to tell me whether it was worth paying for.</div>
-    </div>
-    <div class="rr-modal-body">
-      <div class="ml-form-slot" id="mlFormSlot"></div>
-      <div class="rr-modal-free">No spam. Unsubscribe anytime.</div>
-    </div>
-  `;
-  const wrap = document.getElementById('mlwrap-ETbvqw');
-  const slot = document.getElementById('mlFormSlot');
-  if (!wrap || !slot) { return false; }
-  slot.appendChild(wrap);
-  document.getElementById('rrModalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  return true;
-}
-
 function closeReportModal(e) {
   if (!e || e.target === document.getElementById('rrModalOverlay')) {
     returnMlForms();
@@ -9013,9 +8693,6 @@ function closeReportModal(e) {
   </div>
   <div id="mlFormVault" style="display:none" aria-hidden="true">
     <div class="ml-form-wrap" id="mlwrap-g4M1M8"><div class="ml-embedded" data-form="g4M1M8"></div></div>
-    <!-- RMH-REPORT-MODAL. Report-interest form, moved into the modal by
-         openReportInterestModal() the same way the Deep Dive form is. -->
-    <div class="ml-form-wrap" id="mlwrap-ETbvqw"><div class="ml-embedded" data-form="ETbvqw"></div></div>
   </div>
 
 <script>
