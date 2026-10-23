@@ -4,7 +4,56 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** September 17, 2026 (thirteenth entry), results screen rebuilt, report offer live, measurement read; 53 profiles live
+**Last updated:** October 22, 2026 (fourteenth entry), report offer ended, site simplification direction set, three unlogged changes caught up; 53 profiles live
+
+**DECIDED, October 20 2026. The relocation report is dropped. The demand test is over.**
+
+No one has signed up. The likely cause is traffic volume, not the offer, but at about 320 organic sessions a month the test can't produce a readable answer within any reasonable time. Before removing the block, record the final `offer_click` count here so the test has a closing number.
+
+This closes three open items below: `offer_click` as a GA4 key event (P1), the MailerLite report form (P2), and the report itself (P3).
+
+*Time-sensitive.* The report modal in `index.html` still says "Launching in October". That promise expires at the end of the month.
+
+**DIRECTION, October 20 2026. Simplify. The results screen is the answer.**
+
+Visitors want an answer and leave, and data upkeep across all cities is too heavy. The September read already showed where that answer has to live: the quiz page carries 143 of 190 Search Console clicks, while all 53 profiles drew 33 sessions. So simplification work goes into the quiz page and the results cards, not the profiles. The city-profile pipeline stays parked.
+
+**LOGGED LATE. Three changes shipped after September 17 without a board entry.**
+
+- *Sept 18.* Offer buttons open the MailerLite report-interest form inside the existing modal.
+- *Sept 29.* Report price cut from $39 to $29 (two-person price adjusted too). Moot now.
+- *Oct 12.* `where-should-i-retire-quiz.html`: title changed to "Where Should I Retire? Free Retirement Location Quiz | RetireMeHere"; meta description rewritten to "Answer 7 quick questions…"; new FAQ question "What is the best place to retire for me?" added to the page and to the FAQ JSON-LD. The JSON-LD still parses.
+
+*Watch item.* The September entry warned that this page's title "should not be disturbed casually", because it ranks 2nd to 3rd on the cluster carrying 75% of traffic. The change may help with "where should i retire" (position 8.54). Compare the quiz cluster's position and clicks in Search Console for the four weeks after Oct 12 against the September read before touching the title again.
+
+**OPEN, P1. Remove the report offer.**
+
+The offer block below the three result cards (around `index.html` line 7590–7670), the `$29` button, and the report modal (`RMH-REPORT-MODAL`, around lines 8862 and 9016). Keep the `breakdown_click` tracking on the "More cities that fit" rows; it is unrelated and useful.
+
+**OPEN, P1. FAQ markup slip from the October 12 edit.**
+
+In `where-should-i-retire-quiz.html` (around line 706), the new question was pasted inside the existing FAQ item. The page renders and the divs balance, but "Does it include international retirement destinations?" has lost its own wrapper. Fix: delete the second of the two consecutive `<div class="faq-item">` lines, then add `      <div class="faq-item">` on a new line directly above `<div class="faq-q">Does it include international retirement destinations?</div>`.
+
+**OPEN, P2. Tradeoff line repeats across all three cards (carried forward, now higher stakes).**
+
+With the offer gone, the three cards are the whole answer. Three identical warnings read as a bug, so de-duplicating `getTopTradeoffLabel()` across the rendered set matters more than it did.
+
+**OPEN, P2. Publish "Try Living Abroad" as one standalone page.**
+
+Source: the Try Living Abroad Guide doc (link in `docs/STRATEGY-HANDOFF-2026-10.md`). Link it from the footer and with one line on quiz results. Not in the main menu. Use stacked sections, not a wide table, since mobile is the majority channel. Day counts belong on this page, where they can be updated; rules change (Thailand cut its visa-free stay from 60 to 30 days on Sept 15).
+
+*Also.* The FAQ answer "International destinations may be added later" can then link to this page.
+
+**OPEN, P3. Pinterest pins for the abroad guide.**
+
+Copy is drafted in `docs/PINS-try-living-abroad.md`. Make the pins only after the page is live; they need a destination. Travel-time task.
+
+**PARKED, October 22 2026.**
+
+- *Abroad quiz and international city profiles.* Rubric drafted (doc link in the handoff), but visa rules change yearly and this adds the upkeep the simplification is meant to remove. Revisit after the US site is simplified.
+- *"Plan a Visit" index page, profile jump links (#week, #neighborhoods), and new affiliates on profiles.* Proposed Oct 20, then downgraded the same week once the September numbers were reread: profiles draw too few visitors for these to matter yet.
+
+**Last updated (previous):** September 17, 2026 (thirteenth entry), results screen rebuilt, report offer live, measurement read; 53 profiles live
 
 **THE MEASUREMENT THAT SHOULD SET THE ROADMAP. Twenty-eight days to September 15, read for the first time against clean hostnames.**
 
