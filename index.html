@@ -1055,6 +1055,15 @@ body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(-
   display: block; font-size: 13.5px; font-weight: 500;
   color: rgba(255,255,255,0.88); margin-top: 2px;
 }
+.cv2-week {
+  display: block; margin-top: 14px; text-align: center;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--white); text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.5); text-underline-offset: 4px;
+  padding: 6px 0;
+}
+.cv2-week:hover { text-decoration-color: var(--white); }
+.cv2-week:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; border-radius: 4px; }
 @media (max-width: 480px) {
   .city-card.card-v2 { padding: 18px 18px 17px; }
   .cv2-city { font-size: 25px; }
@@ -7423,6 +7432,14 @@ function buildCityCardHTML(city, i, rankLabels) {
   const rank = rankLabels[i] || '';
   const tradeoff = getTopTradeoffLabel(city);
 
+  // RMH-WEEK-LINK. Only for cities with a published profile; all of them
+  // carry id="week". Cities without one show nothing rather than a dead end.
+  const profileUrl = PUBLISHED_PROFILES[city.name + '_' + city.state];
+  const weekLink = profileUrl
+    ? `
+    <a class="cv2-week" href="${profileUrl}#week" onclick="if(typeof gtag!=='undefined'){gtag('event','week_click',{event_category:'Engagement',event_label:'${city.name}'})}">What a week in ${city.name} looks like \u2192</a>`
+    : '';
+
   let tradeoffRow = '';
   if (tradeoff) {
     tradeoffRow = `
@@ -7446,7 +7463,7 @@ function buildCityCardHTML(city, i, rankLabels) {
     <button class="cv2-cta" onclick="lastMatchScore=${city.matchScore};lastDetailSource='screen-results';if(typeof gtag!=='undefined'){gtag('event','breakdown_click',{event_category:'Engagement',event_label:'${city.name}'})}showCityDetail('${city.name}','${city.state}')">
       <span class="cv2-cta-main">See ${city.name}</span>
       <span class="cv2-cta-sub">Costs, neighborhoods, tradeoffs</span>
-    </button>
+    </button>${weekLink}
   </div>`;
 } 
 
@@ -7998,9 +8015,10 @@ function renderEditorialDetail(city, en) {
     </div>`;
 }
 
-function showCityDetail(cityName, cityState) {
-  // Cities with full standalone profile pages: redirect there instead of inline view
-  const PUBLISHED_PROFILES = {
+// Cities with full standalone profile pages. showCityDetail() redirects
+// there instead of rendering the inline view, and the results cards link
+// to each profile's #week section. Register a new profile here only.
+const PUBLISHED_PROFILES = {
     'Saratoga Springs_NY': 'cities/saratoga-springs/profile.html',
     'Fayetteville_AR': 'cities/fayetteville/profile.html',
     'Burlington_VT': 'cities/burlington/profile.html',
@@ -8055,7 +8073,8 @@ function showCityDetail(cityName, cityState) {
     'Indianapolis_IN': 'cities/indianapolis/profile.html',
     'Raleigh_NC': 'cities/raleigh/profile.html'
   };
-  
+
+function showCityDetail(cityName, cityState) {
   const profileKey = cityName + '_' + cityState;
   if (PUBLISHED_PROFILES[profileKey]) {
     window.location.href = PUBLISHED_PROFILES[profileKey];

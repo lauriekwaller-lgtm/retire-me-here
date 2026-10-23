@@ -201,6 +201,12 @@ These are the short playbooks for the most common operations. Detailed walkthrou
 8. Log in Section 7.
 
 ## 7. Change log
+### 2026-10-23 -- week link on results cards; quiz FAQ markup fixed
+
+**`index.html`.** Each of the top three result cards gets a "What a week in [city] looks like" link to `cities/<slug>/profile.html#week` when the city has a published profile (marked `RMH-WEEK-LINK`; CSS `.cv2-week` in `RMH-CARD-V2`). Fires `week_click`. To make that possible, `const PUBLISHED_PROFILES` moved from inside `showCityDetail()` to top level, entries unchanged. The validator's routing parse reads it the same way.
+
+**`where-should-i-retire-quiz.html`.** The October 12 FAQ paste had left a stray `<div class="faq-item">` above the new question and taken the wrapper off "Does it include international retirement destinations?". Both fixed; the divs balance and every question has its own item again.
+
 ### 2026-10-23 -- relocation report offer removed (index.html)
 
 Decided October 20: no report sign-ups since the offer went live on September 17, and at about 320 organic sessions a month the demand test could not produce a readable answer. Closing number: **31 `offer_click` events**, all time.

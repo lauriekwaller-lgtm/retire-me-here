@@ -95,6 +95,12 @@ many people who finished the quiz actually looked at a match.
 Fires when someone opens the score breakdown on a results card. Carries the
 city name. Signals appetite for the scoring detail.
 
+### `week_click`
+Added October 23, 2026. Fires when someone taps "What a week in [city] looks like"
+on one of the three results cards. Carries the city name. Only cities with a
+published profile show the link. Read it against `quiz_complete` and next to
+`breakdown_click`: together they say how many finishers go on to a city.
+
 ### `signup_modal_open`
 Fires when the signup popup opens. **Renamed from `report_request`**, which
 implied someone requested a report. They did not; they opened a form.

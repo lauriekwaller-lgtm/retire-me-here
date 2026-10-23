@@ -4,7 +4,17 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** October 23, 2026 (fifteenth entry), report offer removed from the results screen; 53 profiles live
+**Last updated:** October 23, 2026 (sixteenth entry), week link on results cards, quiz FAQ markup fixed; 53 profiles live
+
+**DONE, October 23, 2026. Week link on the results cards; FAQ markup fixed.**
+
+Each of the three result cards now carries "What a week in [city] looks like", linking to that profile's `#week` section. Cities without a profile show no link. New GA4 event `week_click` (documented in `docs/GA4-EVENT-REFERENCE.md`). `PUBLISHED_PROFILES` moved out of `showCityDetail()` to top level so the cards can read it; it is still the one place to register a profile.
+
+*Why the cards and not the menu.* GA4, all time to Oct 23: 184 people finished the quiz and 43 clicked into a city. Three quarters leave from the results screen, so that is where the link goes.
+
+*Watch.* Four weeks from now, compare (`week_click` + `breakdown_click`) users against `quiz_complete` users. Today's baseline is 43 of 184, 23%.
+
+**Last updated (previous):** October 23, 2026 (fifteenth entry), report offer removed from the results screen
 
 **DONE, October 23 2026. Report offer removed.** Final `offer_click` count: **31**, all time, from September 17 to removal. Zero report sign-ups. The test is closed.
 
@@ -38,7 +48,7 @@ Visitors want an answer and leave, and data upkeep across all cities is too heav
 
 The offer block below the three result cards (around `index.html` line 7590–7670), the `$29` button, and the report modal (`RMH-REPORT-MODAL`, around lines 8862 and 9016). Keep the `breakdown_click` tracking on the "More cities that fit" rows; it is unrelated and useful.
 
-**OPEN, P1. FAQ markup slip from the October 12 edit.**
+**DONE Oct 23 (see top). ~~OPEN, P1. FAQ markup slip from the October 12 edit.~~**
 
 In `where-should-i-retire-quiz.html` (around line 706), the new question was pasted inside the existing FAQ item. The page renders and the divs balance, but "Does it include international retirement destinations?" has lost its own wrapper. Fix: delete the second of the two consecutive `<div class="faq-item">` lines, then add `      <div class="faq-item">` on a new line directly above `<div class="faq-q">Does it include international retirement destinations?</div>`.
 
