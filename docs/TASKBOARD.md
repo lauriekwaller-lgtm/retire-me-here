@@ -4,7 +4,25 @@
 Chats are disposable; this doc is not. Read it at the start of a work session, update it at the end.
 When a job moves, edit the line here (or ask Claude to). If it is not on this board, it is not tracked.
 
-**Last updated:** October 23, 2026 (eighteenth entry), Try Living Abroad page live; 53 profiles live
+**Last updated:** October 29, 2026 (nineteenth entry), guide accuracy pass; 53 profiles live
+
+**DONE, October 29, 2026. Guide accuracy pass: Las Vegas in the Globetrotter Guide, five guides checked against the DB.**
+
+Every guide and list page was checked card by card against `CityDatabase_Jul_27_v19.1.xlsx`. Florida, the budget and disaster pages, and all seven Top Cities pages matched. Fixed:
+
+*Globetrotter.* Las Vegas (D1 10) had no card; added to Elite Access after St. Paul. Caught while building a Pinterest pin of the Elite tier.
+
+*Five deep-dive guides* (Globetrotter, Wellness, Walkabout, Value Navigator, Active Frontier). The "100 Cities Scored" pill and "ranks every city on RetireMeHere" are gone. Operator decision: guides list the cities that qualify, not all of them, so both claims were false, and the hardcoded-count policy is no number. `check_hardcoded_counts` never saw the pill because `<span>100</span>` splits the phrase.
+
+*Value Navigator.* Pensacola Range 1 to 2, Georgetown 3 to 2, San Antonio 2 to 1, Charleston 2 to 3, Philadelphia Tax 6 to 7. The monthly figures beside them were already right; only the labels were stale.
+
+*Active Frontier.* The Henderson card is now Las Vegas; Henderson was merged into Las Vegas in v15.1 and is not in the DB.
+
+*Midwest pillar.* Was still on pre-July figures: St. Paul $425K+ and St. Louis $350K+ (neighborhood basis retired July 13; DB $301K and $192K), budget scores for St. Paul, St. Louis, Bloomington and Columbus, every warm-winter score, and a cheapest-city FAQ that put Columbus and St. Louis at $235,000. Table re-sorted by home value. FAQ JSON-LD updated in step.
+
+**OPEN, P3.** The five guides still carry a "May 2026" date pill. Scores are now verified current, but the card prose (hospital, airport and trail detail) was not rechecked, so the date was left alone. The audit script that found all this is not in the repo; worth adding as a validator check so pages cannot drift from the DB again.
+
+**Last updated (previous):** October 23, 2026 (eighteenth entry), Try Living Abroad page live; 53 profiles live
 
 **DONE, October 23, 2026. Try Living Abroad published** as `try-living-abroad.html`. Linked from a small card under the quiz results (GA4 `abroad_click`; was a plain line for its first hour, too easy to miss), the footers of `index.html` and the quiz landing page, and the quiz FAQ answer on international destinations. Not in the main menu. Stacked cards for mobile. Article and FAQPage JSON-LD.
 
